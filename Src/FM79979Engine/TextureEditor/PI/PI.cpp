@@ -2568,6 +2568,117 @@ namespace PI
 			CenterOffsetPosY_numericUpDown->Value = (int)l_vCenter.y;
 		}
 	}
+	System::Void cPIEditor::DividImageTool_button_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+
+		//DivideToolRow_numericUpDown
+		//DivideToolColumn_numericUpDown
+		if (AllImage_listBox->SelectedItem)
+		{
+			auto l_strPrefixName = DividImagePrefixName_textBox->Text;
+			auto l_pSelectedObject = m_pImageomposerIRM->GetUIImage(DNCT::GcStringToWchar(AllImage_listBox->SelectedItem->ToString()).c_str());
+			this->timer1->Enabled = false;
+			int	l_iOriginalIndex = -1;
+			int	l_iCollideIndex = AllImage_listBox->SelectedIndex;
+			cUIImage* l_pAttachUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_iCollideIndex));
+			cUIImage* l_pUIImage = nullptr;
+			System::Drawing::Bitmap^ l_pBitMap = (System::Drawing::Bitmap^)m_ImageTale[gcnew String(l_pAttachUIImage->GetName())];
+			if (l_pSelectedObject)
+			{
+				//int l_iTargetWidth = (int)l_pSelectedObject->GetWidth();
+				int l_iNumNewRowObject = (int)DivideToolRow_numericUpDown->Value;
+				int l_iNumNewColumnObject = (int)DivideToolColumn_numericUpDown->Value;
+				int l_iTargetWidth = l_pSelectedObject->GetWidth() / l_iNumNewColumnObject;
+				int l_iTargetHeight = l_pSelectedObject->GetHeight() / l_iNumNewRowObject;
+				if (l_iTargetWidth&& l_iTargetHeight)
+				{
+					int l_iIndex = 0;
+					for (int i = 0; i < l_iNumNewRowObject; ++i)
+					{
+						int l_iStartY = l_iTargetHeight * i;
+						for (int j = 0; j < l_iNumNewColumnObject; ++j)
+						{
+							int l_iStartX = l_iTargetWidth * j;
+							l_iIndex = (j * l_iNumNewRowObject) + i;
+							String^ l_strNewImageName = l_strPrefixName + l_iIndex.ToString();
+							{
+								std::vector<Vector2> l_Vector =
+								{
+									Vector2(l_iStartX,l_iStartY),
+									Vector2(l_iStartX+l_iTargetWidth,l_iStartY),
+									Vector2(l_iStartX,l_iStartY+l_iTargetHeight),
+									Vector2(l_iStartX,l_iStartY+l_iTargetHeight),
+									Vector2(l_iStartX+l_iTargetWidth,l_iStartY),
+									Vector2(l_iStartX+l_iTargetWidth,l_iStartY + l_iTargetHeight)
+								};
+								List<System::Drawing::Point>^ l_pPointList = Vector2ToListPoint(&l_Vector);
+								Image^ l_pImage = (Image^)l_pBitMap;
+								Bitmap^ l_pNew = GetSelectedArea(l_pImage, Color::Transparent, l_pPointList, true);
+								l_pUIImage = cPIEditor::GetNewUIImageByBitMap(l_pNew, DNCT::GcStringToWchar(l_strNewImageName).c_str());
+								m_ImageTale[l_strNewImageName] = l_pNew;
+							}
+							l_pUIImage->m_vEditorAttachParentRelativePos = Vector3((float)l_iStartX, (float)l_iStartY, 0);
+							l_pUIImage->m_pEditorAttachParent = l_pAttachUIImage;
+							l_pUIImage->SetPos(Vector2(l_iStartX, l_iStartY) + l_pAttachUIImage->GetPos());
+							////it could be replaced,recheck index again
+							l_iOriginalIndex = AllImage_listBox->Items->IndexOf(l_strNewImageName);
+							if (l_iOriginalIndex != -1)
+							{
+								(*m_pImageomposerIRM->GetList())[l_iOriginalIndex] = l_pUIImage;
+								AllImage_listBox->Items[l_iOriginalIndex] = l_strNewImageName;
+							}
+							else
+							{
+								m_pImageomposerIRM->AddObject(l_pUIImage);
+								AllImage_listBox->Items->Add(l_strNewImageName);
+							}
+						}
+					}
+				}
+
+				//if (l_iNumNewObject)
+				//{
+				//	for (int i = 0; i < l_iNumNewObject; ++i)
+				//	{
+				//		String^ l_strNewImageName = l_strPrefixName + i.ToString();
+				//		int l_iStartY = l_iTargetHeight * i;
+				//		{
+				//			std::vector<Vector2> l_Vector =
+				//			{
+				//				Vector2(0,l_iStartY),
+				//				Vector2(l_iTargetWidth,l_iStartY),
+				//				Vector2(0,l_iStartY + l_iTargetHeight),
+				//				Vector2(0,l_iStartY + l_iTargetHeight),
+				//				Vector2(l_iTargetWidth,l_iStartY),
+				//				Vector2(l_iTargetWidth,l_iStartY + l_iTargetHeight)
+				//			};
+				//			List<System::Drawing::Point>^ l_pPointList = Vector2ToListPoint(&l_Vector);
+				//			Image^ l_pImage = (Image^)l_pBitMap;
+				//			Bitmap^ l_pNew = GetSelectedArea(l_pImage, Color::Transparent, l_pPointList, true);
+				//			l_pUIImage = cPIEditor::GetNewUIImageByBitMap(l_pNew, DNCT::GcStringToWchar(l_strNewImageName).c_str());
+				//			m_ImageTale[l_strNewImageName] = l_pNew;
+				//		}
+				//		l_pUIImage->m_vEditorAttachParentRelativePos = Vector3(0, (float)l_iStartY, 0);
+				//		l_pUIImage->m_pEditorAttachParent = l_pAttachUIImage;
+				//		l_pUIImage->SetPos(Vector2(0, l_iStartY) + l_pAttachUIImage->GetPos());
+				//		////it could be replaced,recheck index again
+				//		l_iOriginalIndex = AllImage_listBox->Items->IndexOf(l_strNewImageName);
+				//		if (l_iOriginalIndex != -1)
+				//		{
+				//			(*m_pImageomposerIRM->GetList())[l_iOriginalIndex] = l_pUIImage;
+				//			AllImage_listBox->Items[l_iOriginalIndex] = l_strNewImageName;
+				//		}
+				//		else
+				//		{
+				//			m_pImageomposerIRM->AddObject(l_pUIImage);
+				//			AllImage_listBox->Items->Add(l_strNewImageName);
+				//		}
+				//	}
+				//}
+			}
+			this->timer1->Enabled = true;
+		}
+	}
 	
 	System::Void cPIEditor::generateSelectedPIUnitXMLToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 	{

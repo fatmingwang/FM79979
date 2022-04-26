@@ -374,6 +374,18 @@ private: System::Windows::Forms::NumericUpDown^ CenterOffsetPosY_numericUpDown;
 private: System::Windows::Forms::Label^ CenterOffsetPosX_label;
 private: System::Windows::Forms::NumericUpDown^ CenterOffsetPosX_numericUpDown;
 private: System::Windows::Forms::ToolStripMenuItem^ generateSelectedPIUnitXMLToolStripMenuItem;
+private: System::Windows::Forms::TabPage^ DividImageTool_tabPage;
+private: System::Windows::Forms::Label^ label17;
+private: System::Windows::Forms::TextBox^ DividImagePrefixName_textBox;
+private: System::Windows::Forms::Button^ DividImageTool_button;
+
+
+
+
+private: System::Windows::Forms::Label^ label18;
+private: System::Windows::Forms::NumericUpDown^ DivideToolColumn_numericUpDown;
+private: System::Windows::Forms::Label^ label19;
+private: System::Windows::Forms::NumericUpDown^ DivideToolRow_numericUpDown;
 public:
 public:
 	private: System::Collections::Hashtable^			m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
@@ -425,6 +437,7 @@ public:
 			this->generatePowOf2ImageToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->generateAllImageWithPowerOfTwoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->generateTriangulatorImagesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->generateSelectedPIUnitXMLToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->dockToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->floatToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->childToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -506,8 +519,15 @@ public:
 			this->MorphingAnimationTime_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->MorphingAnimationTime_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->ImageTriangulator_textBox = (gcnew System::Windows::Forms::TextBox());
+			this->DividImageTool_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->label17 = (gcnew System::Windows::Forms::Label());
+			this->DividImagePrefixName_textBox = (gcnew System::Windows::Forms::TextBox());
+			this->DividImageTool_button = (gcnew System::Windows::Forms::Button());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
-			this->generateSelectedPIUnitXMLToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->label18 = (gcnew System::Windows::Forms::Label());
+			this->DivideToolColumn_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label19 = (gcnew System::Windows::Forms::Label());
+			this->DivideToolRow_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -541,8 +561,11 @@ public:
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->RearrangeMorphingAnimationTime_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimationTime_numericUpDown))->BeginInit();
+			this->DividImageTool_tabPage->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
 			this->splitContainer2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DivideToolColumn_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DivideToolRow_numericUpDown))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// timer1
@@ -842,6 +865,13 @@ public:
 			this->generateTriangulatorImagesToolStripMenuItem->Text = L"Generate Triangulator Images";
 			this->generateTriangulatorImagesToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::generateTriangulatorImagesToolStripMenuItem_Click);
 			// 
+			// generateSelectedPIUnitXMLToolStripMenuItem
+			// 
+			this->generateSelectedPIUnitXMLToolStripMenuItem->Name = L"generateSelectedPIUnitXMLToolStripMenuItem";
+			this->generateSelectedPIUnitXMLToolStripMenuItem->Size = System::Drawing::Size(576, 44);
+			this->generateSelectedPIUnitXMLToolStripMenuItem->Text = L"GenerateSelectedPIUnitXML";
+			this->generateSelectedPIUnitXMLToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::generateSelectedPIUnitXMLToolStripMenuItem_Click);
+			// 
 			// dockToolStripMenuItem
 			// 
 			this->dockToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
@@ -985,6 +1015,7 @@ public:
 			this->tabControl1->Controls->Add(this->ImageAligment_tabPage);
 			this->tabControl1->Controls->Add(this->SequenceAnimation_tabPage);
 			this->tabControl1->Controls->Add(this->ImageTriangulator_tabPage);
+			this->tabControl1->Controls->Add(this->DividImageTool_tabPage);
 			this->tabControl1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tabControl1->Location = System::Drawing::Point(0, 0);
 			this->tabControl1->Margin = System::Windows::Forms::Padding(6);
@@ -1913,6 +1944,53 @@ public:
 			this->ImageTriangulator_textBox->Size = System::Drawing::Size(2690, 56);
 			this->ImageTriangulator_textBox->TabIndex = 95;
 			// 
+			// DividImageTool_tabPage
+			// 
+			this->DividImageTool_tabPage->BackColor = System::Drawing::Color::DarkGray;
+			this->DividImageTool_tabPage->Controls->Add(this->label18);
+			this->DividImageTool_tabPage->Controls->Add(this->DivideToolColumn_numericUpDown);
+			this->DividImageTool_tabPage->Controls->Add(this->label19);
+			this->DividImageTool_tabPage->Controls->Add(this->DivideToolRow_numericUpDown);
+			this->DividImageTool_tabPage->Controls->Add(this->label17);
+			this->DividImageTool_tabPage->Controls->Add(this->DividImagePrefixName_textBox);
+			this->DividImageTool_tabPage->Controls->Add(this->DividImageTool_button);
+			this->DividImageTool_tabPage->Location = System::Drawing::Point(8, 39);
+			this->DividImageTool_tabPage->Name = L"DividImageTool_tabPage";
+			this->DividImageTool_tabPage->Size = System::Drawing::Size(2702, 559);
+			this->DividImageTool_tabPage->TabIndex = 3;
+			this->DividImageTool_tabPage->Text = L"DividImageTool";
+			// 
+			// label17
+			// 
+			this->label17->AutoSize = true;
+			this->label17->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label17->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->label17->Location = System::Drawing::Point(7, 182);
+			this->label17->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
+			this->label17->Name = L"label17";
+			this->label17->Size = System::Drawing::Size(215, 25);
+			this->label17->TabIndex = 78;
+			this->label17->Text = L"ImagePrefix/預設名稱";
+			// 
+			// DividImagePrefixName_textBox
+			// 
+			this->DividImagePrefixName_textBox->Location = System::Drawing::Point(11, 211);
+			this->DividImagePrefixName_textBox->Name = L"DividImagePrefixName_textBox";
+			this->DividImagePrefixName_textBox->Size = System::Drawing::Size(185, 31);
+			this->DividImagePrefixName_textBox->TabIndex = 77;
+			// 
+			// DividImageTool_button
+			// 
+			this->DividImageTool_button->Location = System::Drawing::Point(15, 266);
+			this->DividImageTool_button->Name = L"DividImageTool_button";
+			this->DividImageTool_button->Size = System::Drawing::Size(144, 76);
+			this->DividImageTool_button->TabIndex = 76;
+			this->DividImageTool_button->Text = L"Do divison";
+			this->DividImageTool_button->UseVisualStyleBackColor = true;
+			this->DividImageTool_button->Click += gcnew System::EventHandler(this, &cPIEditor::DividImageTool_button_Click);
+			// 
 			// splitContainer2
 			// 
 			this->splitContainer2->Dock = System::Windows::Forms::DockStyle::Fill;
@@ -1929,12 +2007,55 @@ public:
 			this->splitContainer2->SplitterWidth = 6;
 			this->splitContainer2->TabIndex = 0;
 			// 
-			// generateSelectedPIUnitXMLToolStripMenuItem
+			// label18
 			// 
-			this->generateSelectedPIUnitXMLToolStripMenuItem->Name = L"generateSelectedPIUnitXMLToolStripMenuItem";
-			this->generateSelectedPIUnitXMLToolStripMenuItem->Size = System::Drawing::Size(576, 44);
-			this->generateSelectedPIUnitXMLToolStripMenuItem->Text = L"GenerateSelectedPIUnitXML";
-			this->generateSelectedPIUnitXMLToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::generateSelectedPIUnitXMLToolStripMenuItem_Click);
+			this->label18->AutoSize = true;
+			this->label18->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label18->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->label18->Location = System::Drawing::Point(14, 108);
+			this->label18->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
+			this->label18->Name = L"label18";
+			this->label18->Size = System::Drawing::Size(112, 25);
+			this->label18->TabIndex = 82;
+			this->label18->Text = L"Column/列";
+			// 
+			// DivideToolColumn_numericUpDown
+			// 
+			this->DivideToolColumn_numericUpDown->Location = System::Drawing::Point(16, 139);
+			this->DivideToolColumn_numericUpDown->Margin = System::Windows::Forms::Padding(6);
+			this->DivideToolColumn_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->DivideToolColumn_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
+			this->DivideToolColumn_numericUpDown->Name = L"DivideToolColumn_numericUpDown";
+			this->DivideToolColumn_numericUpDown->Size = System::Drawing::Size(122, 31);
+			this->DivideToolColumn_numericUpDown->TabIndex = 81;
+			this->DivideToolColumn_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			// 
+			// label19
+			// 
+			this->label19->AutoSize = true;
+			this->label19->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label19->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->label19->Location = System::Drawing::Point(10, 26);
+			this->label19->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
+			this->label19->Name = L"label19";
+			this->label19->Size = System::Drawing::Size(81, 25);
+			this->label19->TabIndex = 80;
+			this->label19->Text = L"Row/行";
+			// 
+			// DivideToolRow_numericUpDown
+			// 
+			this->DivideToolRow_numericUpDown->Location = System::Drawing::Point(20, 58);
+			this->DivideToolRow_numericUpDown->Margin = System::Windows::Forms::Padding(6);
+			this->DivideToolRow_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->DivideToolRow_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
+			this->DivideToolRow_numericUpDown->Name = L"DivideToolRow_numericUpDown";
+			this->DivideToolRow_numericUpDown->Size = System::Drawing::Size(122, 31);
+			this->DivideToolRow_numericUpDown->TabIndex = 79;
+			this->DivideToolRow_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
 			// cPIEditor
 			// 
@@ -1985,8 +2106,12 @@ public:
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->RearrangeMorphingAnimationTime_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimationTime_numericUpDown))->EndInit();
+			this->DividImageTool_tabPage->ResumeLayout(false);
+			this->DividImageTool_tabPage->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
 			this->splitContainer2->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DivideToolColumn_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DivideToolRow_numericUpDown))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -2045,6 +2170,7 @@ public:
 	private: System::Void CenterOffsetPosX_numericUpDown_ValueChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void OffsetCenter_button_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void generateSelectedPIUnitXMLToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void DividImageTool_button_Click(System::Object^ sender, System::EventArgs^ e);
 };
 	static GCFORM::Form^CallForm(System::String^e_strFileName);
 //end namespace
