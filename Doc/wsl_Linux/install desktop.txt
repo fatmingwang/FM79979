@@ -1,0 +1,10 @@
+https://codeburst.io/how-to-install-ubuntu-desktop-with-a-graphical-user-interface-in-wsl2-95911ee2997f
+
+open power shell
+
+
+1.switch to root
+	wsl -u root
+2.install unbutu
+	sudo apt --yes install ubuntu-desktop
+

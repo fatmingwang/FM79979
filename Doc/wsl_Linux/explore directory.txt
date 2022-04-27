@@ -1,0 +1,6 @@
+https://linuxhint.com/transfer-files-wsl-windows/#:~:text=To%20copy%20the%20file%20in,%E2%80%9CDocuments%E2%80%9D%20directory%20of%20Windows.
+
+aftern install Ubutu20.04 from Windows Store
+
+input 
+explorer.exe .

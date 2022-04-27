@@ -1,0 +1,8 @@
+https://emscripten.org/docs/compiling/Deploying-Pages.html?highlight=exception
+
+
+Make sure that gzip compression does not confuse the MIME types that the assets are served with.
+ All JavaScript files (precompressed or not) should be best served with the HTTP response header
+ Content-Type: application/javascript, and all asset files (.data, .mem) should be served with the header 
+Content-Type: application/octet-stream. WebAssembly .wasm files should be served with 
+Content-Type: application/wasm.

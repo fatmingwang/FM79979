@@ -1,0 +1,7 @@
+sudo apt-get install autoconf
+sudo apt-get install libtool
+sudo apt-get install make
+
+unzip
+
+sudo apt-get install openssh-server g++ gdb gdbserver
