@@ -144,7 +144,9 @@ namespace FATMING_CORE
 					}
 				}
 				if (e_pFrame->IsVisible())
+				{
 					e_pFrame->EndRender();
+				}
 			}
 			auto l_pFrame = e_pFrame->GetNextSibling();
 			if( l_pFrame  )

@@ -651,7 +651,7 @@ namespace FATMING_CORE
 		bool l_bClone = false;
 		cPuzzleImage*l_pPI = nullptr;
 		std::wstring l_strPIName;
-		ELEMENT_VALUE_ASSERT_CHECK(e_pElement,cPuzzleImageUnit::TypeID);
+		ELEMENT_VALUE_ASSERT_CHECK(e_pElement,cPuzzleImage::TypeID);
 		PARSE_ELEMENT_START(e_pElement)
 			COMPARE_NAME("Name")
 			{
@@ -672,7 +672,7 @@ namespace FATMING_CORE
 				l_bClone = VALUE_TO_BOOLEAN;
 			}
 		PARSE_NAME_VALUE_END
-		if (l_bClone)
+		if (l_bClone || e_bClone)
 		{
 			if (l_strPIName.length())
 			{

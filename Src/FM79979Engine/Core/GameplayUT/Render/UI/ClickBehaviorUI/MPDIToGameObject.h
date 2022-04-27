@@ -32,12 +32,14 @@ namespace FATMING_CORE
 		bool	EnableBGCollide(bool e_bFullScreen);
 		//need parent to call init!?
 		void	DisConnectFromParent();
-		virtual void	Init()override;
-		void	Render();
 		//disable button and visable is false
 		void	SetHide(bool e_bHide);
+		//
+		virtual void	Init()override;
+		virtual void	Render();
 		virtual void	Update(float e_fElpaseTime) override;
 		virtual void	Destroy() override;
+		//
 		cRenderObject*	GetRenderObject() { return m_pRenderObject; }
 		//for visible update(ScrollerBox)
 		bool			GenerateRectBoundForRenderObject(Vector4 e_vDrawRect);

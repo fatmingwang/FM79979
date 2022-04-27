@@ -117,7 +117,8 @@ bool cBound::Collide( const sOrientedBox& Obb ) const
 
 bool	cBound::Collide( const int e_iPosX,const int e_iPosY ) const
 {
-	return UT::RectCollidePoint(this->GetRect(),e_iPosX,e_iPosY);
+    auto l_RECT = this->GetRect();
+	return UT::RectCollidePoint(l_RECT,e_iPosX,e_iPosY);
 }
 
 bool	cBound::Collide( const RECT& e_rect ) const

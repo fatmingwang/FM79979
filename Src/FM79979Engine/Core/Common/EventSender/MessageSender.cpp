@@ -9,16 +9,21 @@ namespace FATMING_CORE
 {
 	cMessageSenderManager*g_pMessageSenderManager = nullptr;
 
-
+	//std::map<cMessageSender*,int>g_IDAndMessageSenderMap;
+	//int g_iNumcMessageSender = 0;
 	cMessageSender::cMessageSender(cMessageSenderManager*e_pParent)
 	{
 		m_pParent = nullptr;
 		this->SetParent(e_pParent);
+		//++g_iNumcMessageSender;
+		//g_IDAndMessageSenderMap[this] = g_iNumcMessageSender;
 	}
 
 	cMessageSender::~cMessageSender()
 	{
 		UnregistorAll();
+		//--++g_iNumcMessageSender;
+		//g_IDAndMessageSenderMap.erase(this);
 	}
 
 	void	cMessageSender::UnregistorAll()
@@ -278,7 +283,14 @@ namespace FATMING_CORE
 	{
 		while(m_AllMessageSenderMap.size())
 		{//UnregistorAll will erase from m_AllMessageSenderMap
-			m_AllMessageSenderMap.begin()->second->UnregistorAll();
+			if (m_AllMessageSenderMap.begin()->second)
+			{
+				m_AllMessageSenderMap.begin()->second->UnregistorAll();
+			}
+			else
+			{
+				m_AllMessageSenderMap.erase(m_AllMessageSenderMap.begin());
+			}
 		}
 		assert(m_NetworkMessageFunctionAndObjectIDMap.size() == 0);
 		assert(m_EventFunctionAndTypeMap.size() == 0);

@@ -582,7 +582,10 @@ EXIT:
 			if (l_bClone || e_bClone)
 			{
 				l_pCloneMPDI = dynamic_cast<cMPDI*>(l_pMPDI->Clone());
-				l_pCloneMPDI->SetName(l_strMPDIName);
+				if (l_strMPDIName.length())
+				{
+					l_pCloneMPDI->SetName(l_strMPDIName);
+				}
 			}
 			else
 			{
