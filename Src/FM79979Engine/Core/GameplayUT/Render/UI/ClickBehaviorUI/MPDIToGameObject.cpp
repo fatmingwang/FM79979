@@ -45,6 +45,10 @@ namespace FATMING_CORE
 					auto l_pData = AddDefaultRenderClickBehaviorButton(l_pSubMPDI, nullptr, nullptr);
 					m_pRenderObject->AddChild(std::get<1>(l_pData));
 				}
+				else
+				{
+					FMLOG("no such button:%ls", e_strButtonName[i].c_str());
+				}
 			}
 			if (e_bKeepMPDIAsBG)
 			{
