@@ -285,9 +285,15 @@ namespace FATMING_CORE
 		    goto EXIT;
 	    for( size_t i=0;i<l_siSize;++i )
 	    {
-		    cCueToStartCurveWithTime* l_pTYPE = this->m_ObjectList[i];
-			if( l_pTYPE->IsAnimationDone()&&!m_bStayAtLastFrame&&!l_pTYPE->IsAnimationLoop() )
-			    continue;
+		    cCueToStartCurveWithTime*l_pTYPE = this->m_ObjectList[i];
+			if (l_pTYPE->IsAnimationDone() && !m_bStayAtLastFrame && !l_pTYPE->IsAnimationLoop())
+			{
+				continue;
+			}
+			if (!l_pTYPE->IsVisible())
+			{
+				continue;
+			}
 			//too many object!
 			//if( l_iIndex*3*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT >= (1280*6) )
 			//{
