@@ -503,7 +503,7 @@ namespace	FATMING_CORE
 	}
 
 
-	cBasicSound*	cGameApp::GetSoundByFileName(const wchar_t*e_strSoundFileName)
+	cBasicSound*	cGameApp::GetSoundByFileName(const wchar_t*e_strSoundFileName, bool e_bStreaming)
 	{
 		std::wstring	l_strSoundName = UT::GetFileNameWithoutFullPath(e_strSoundFileName);
 		cBasicSound*l_pSound = GetSound(l_strSoundName.c_str());
@@ -512,7 +512,7 @@ namespace	FATMING_CORE
 			std::string	l_strFileName = UT::WcharToChar(e_strSoundFileName);
 			if (IsFileExists(l_strFileName.c_str()))
 			{
-				if (m_spSoundParser && cGameApp::m_spSoundParser->AddSound(cGameApp::m_spSoundParser, l_strFileName.c_str()))
+				if (m_spSoundParser && cGameApp::m_spSoundParser->AddSound(cGameApp::m_spSoundParser, l_strFileName.c_str(), e_bStreaming))
 				{
 					l_pSound = m_spSoundParser->GetObject(l_strSoundName.c_str());
 				}

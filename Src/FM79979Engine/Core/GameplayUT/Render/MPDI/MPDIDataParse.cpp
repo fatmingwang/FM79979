@@ -816,7 +816,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 				{
 					std::string	l_strFileName = this->m_strCurrentDirectory;
 					l_strFileName += ValueToString(l_strEventName);
-					if(cGameApp::m_spSoundParser->AddSound(m_pCurrentCueToStartCurvesWithTime,l_strFileName.c_str()))
+					if(cGameApp::m_spSoundParser->AddSound(m_pCurrentCueToStartCurvesWithTime,l_strFileName.c_str(), false))
 					{
 						
 					}

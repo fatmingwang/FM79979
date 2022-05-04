@@ -298,16 +298,16 @@ namespace FATMING_CORE
 		alSpeedOfSound(343.3f*e_fSpeed);  
 	}
 
-	cBasicSound*	cSoundParser::AddSound(const char*e_strFileName)
+	cBasicSound*	cSoundParser::AddSound(const char*e_strFileName, bool e_bStreaming)
 	{
-		return this->AddSound(this,e_strFileName);
+		return this->AddSound(this,e_strFileName, e_bStreaming);
 	}
 	NamedTypedObject* cSoundParser::GetObjectByFileName(const char*e_strFileName)
 	{
-		return AddSound(e_strFileName);
+		return AddSound(e_strFileName,false);
 	}
 
-	cBasicSound*	cSoundParser::AddSound(NamedTypedObject*e_pRef,const char*e_strFileName)
+	cBasicSound*	cSoundParser::AddSound(NamedTypedObject*e_pRef,const char*e_strFileName, bool e_bStreaming)
 	{
 		std::string	l_extensionName = UT::GetFileExtensionName(e_strFileName);
 		auto l_pSound = this->GetObject(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strFileName)).c_str());
@@ -333,7 +333,7 @@ namespace FATMING_CORE
 		else
 		if( !memcmp(l_extensionName.c_str(),"ogg",sizeof(char)*3) )
 		{
-			cOpanalOgg*	l_pOpanalOgg = new cOpanalOgg(e_pRef,e_strFileName,true);
+			cOpanalOgg*	l_pOpanalOgg = new cOpanalOgg(e_pRef,e_strFileName, e_bStreaming);
 			if( wcslen(l_pOpanalOgg->GetName()) != 0 )
 			{
 				if(!this->AddObject(l_pOpanalOgg))//such sound already existed
@@ -358,13 +358,13 @@ namespace FATMING_CORE
 
 	cBasicSound*	cSoundParser::AddStreamingSound(NamedTypedObject*e_pRef,const char*e_strFileName)
 	{
-		return AddSound(e_pRef,e_strFileName);
+		return AddSound(e_pRef,e_strFileName,true);
 	}
 
 
 	cBasicSound*	cSoundParser::AddStaticSound(NamedTypedObject*e_pRef,const char*e_strFileName)
 	{
-		return AddSound(e_pRef,e_strFileName);
+		return AddSound(e_pRef,e_strFileName,false);
 	}
 
 	void	cSoundParser::HandleElementData(TiXmlElement*e_pTiXmlElement)

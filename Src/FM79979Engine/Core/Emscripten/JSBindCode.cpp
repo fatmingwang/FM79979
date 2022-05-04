@@ -70,7 +70,8 @@ EM_JS
 		//return window.innerWidth;
 		if (!document.fullscreenElement) 
 		{
-			  document.documentElement.requestFullscreen();
+			console.log("WASM_Fullscreen called\n");
+			document.documentElement.requestFullscreen();
 		}
 		else
 		{

@@ -112,7 +112,7 @@ namespace	FATMING_CORE
 		static	class cPrtEmitter*									GetPrtEmitter(const wchar_t*e_strFileName, const wchar_t*e_strName);
 		static	class cPrtEmitter*									GetPrtEmitter(const wchar_t*e_strName);
 		static	bool												SoundPlay(const wchar_t*e_strSoundName, bool e_bPlay);
-		static	class cBasicSound*									GetSoundByFileName(const wchar_t*e_strSoundFileName);
+		static	class cBasicSound*									GetSoundByFileName(const wchar_t*e_strSoundFileName,bool e_bStreaming = false);
 		static	class cBasicSound*									GetSound(const wchar_t*e_strSoundName);
 		static	void												RenderFont(long e_iPosX, long e_iPosY, const wchar_t*e_strInfo);
 		static	void												RenderFont(int e_iPosX, int e_iPosY, const wchar_t*e_strInfo);

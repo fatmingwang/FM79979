@@ -226,7 +226,7 @@ namespace FATMING_CORE
 		else
 		{
 			alGenBuffers(1, &m_uiBufferID);
-			alGenSources(1, &m_uiSourceID);		
+			//alGenSources(1, &m_uiSourceID);		
 			vector<char> buffer;
 			LoadOGG(e_strileName,buffer,m_iFormat,m_iFreq,m_fTimeLength);
 			m_iPCMDataSize = static_cast<ALsizei>(buffer.size());

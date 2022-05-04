@@ -173,8 +173,10 @@ namespace FATMING_CORE
 	cOpanalWAV::cOpanalWAV(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming):cBasicSound(e_pNamedTypedObject,e_bStreaming)
 	{
 		this->m_pSoundData = nullptr;
-		if( e_strileName )
-			OpenFile(e_strileName,false);
+		if (e_strileName)
+		{
+			OpenFile(e_strileName, false);
+		}
 	}
 
 	cOpanalWAV::~cOpanalWAV()

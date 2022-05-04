@@ -46,8 +46,8 @@ namespace FATMING_CORE
 		//the referance should be use cResourceStamp to instead but I am lazy to fix right now
 		cBasicSound*	AddStaticSound(NamedTypedObject*e_pRef,const char*e_strFileName);
 		cBasicSound*	AddStreamingSound(NamedTypedObject*e_pRef,const char*e_strFileName);
-		cBasicSound*	AddSound(NamedTypedObject*e_pRef,const char*e_strFileName);
-		cBasicSound*	AddSound(const char*e_strFileName);
+		cBasicSound*	AddSound(NamedTypedObject*e_pRef,const char*e_strFileName,bool e_bStreaming);
+		cBasicSound*	AddSound(const char*e_strFileName,bool e_bStreaming);
 		virtual			NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override;
 		void			Export(const char*e_strFileName);
 		//for 0			to 1
