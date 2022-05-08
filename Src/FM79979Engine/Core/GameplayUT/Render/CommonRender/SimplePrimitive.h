@@ -113,6 +113,7 @@ namespace GLRender
 	//frome UV(left up right buttom) to  triangle strip vertex
 	void	AssignUVDataToTriangleStrip(float*e_pSrc,float*e_pDest,bool e_bMirror);
 	void	Assign4VerticesDataTo2Triangles(float*e_pSrc,float*e_pDest,int e_iStride);
+	//e_pUVSrc is left,up right down.cBaseImage::fUV[4]
 	void	Assign4VerticesDataTo2Triangles(float*e_pVertexSrc,float*e_pVertexDest,float*e_pUVSrc,float*e_pUVDest,int e_iStride);
 
 

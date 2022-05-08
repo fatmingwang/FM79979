@@ -19,6 +19,8 @@ namespace EMSDK
 	void	EMSDK_JSInit();
 	//please call this in main loop or viewport get wrong.
 	void	EMSDK_JSViewportUpdate();
+
+	std::string	EMSDK_GetURLParameters();
 }
 //code example
 //call js directly

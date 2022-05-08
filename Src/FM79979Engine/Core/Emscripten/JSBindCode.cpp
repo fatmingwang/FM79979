@@ -1,6 +1,7 @@
 #ifdef WASM
 #include <emscripten.h>
 #include <string>
+#include "JSBindCode.h"
 //webgl fullscreen.
 //https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
 //for mobile viewport
@@ -136,6 +137,22 @@ EM_JS
 	}
 );
 
+//https://www.sitepoint.com/get-url-parameters-with-javascript/
+EM_JS
+(char*, WASM_GetURLParameters, (),
+	{
+		const queryString = window.location.search;
+		if (queryString)
+		{
+			console.log(queryString+'\n');
+			var stringPtr = allocate(intArrayFromString(queryString || ''), 'i8', ALLOC_NORMAL);
+			return stringPtr;
+		}
+		console.log("WASM_GetURLParameters null\n");
+		return null;
+	}
+);
+
 //https://stackify.dev/675027-proper-way-to-handle-sdl2-resizing-in-emscripten
 //https://www.tutorialrepublic.com/faq/how-to-detect-screen-resolution-with-javascript.php#:~:text=Answer%3A%20Use%20the%20window.,on%20click%20of%20the%20button.
 //https://stackoverflow.com/questions/1038727/how-to-get-browser-width-using-javascript-code
@@ -206,6 +223,17 @@ namespace EMSDK
 
 	void	EMSDK_JSInit() { WASM_JSInit(); }
 	void	EMSDK_JSViewportUpdate() { WASM_JSViewportUpdate(); }
+	//https://stackoverflow.com/questions/21816960/how-to-pass-strings-between-c-and-javascript-via-emscripten
+	std::string EMSDK_GetURLParameters()
+	{
+		auto l_str = WASM_GetURLParameters();
+		if (l_str)
+		{
+			std::string l_strParameter = l_str;
+			return l_strParameter;
+		}
+		return std::string();
+	}
 
 	std::string EMSDK_DodecodeURIComponent(const char* e_str)
 	{

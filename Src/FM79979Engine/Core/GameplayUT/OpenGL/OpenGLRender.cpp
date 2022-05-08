@@ -118,7 +118,7 @@ namespace FATMING_CORE
 		glGetIntegerv(GL_MAJOR_VERSION, &l_iMajor);
 		glGetIntegerv(GL_MINOR_VERSION, &l_iMinor);
 		int		l_iGLVersion = l_iMajor*10 + l_iMinor;
-		int		l_iGLShaderVer = GetFloat((char*)l_strGL_SHADING_LANGUAGE_VERSION)*10;
+		int		l_iGLShaderVer = (int)(GetFloat((char*)l_strGL_SHADING_LANGUAGE_VERSION)*10);
 #ifdef WIN32
 		cOpenGLRender::m_siOpenGLVersion = l_iGLVersion;
 		cOpenGLRender::m_siOpenGL_ShaderVersion = l_iGLShaderVer;

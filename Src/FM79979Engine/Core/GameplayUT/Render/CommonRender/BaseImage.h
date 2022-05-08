@@ -93,48 +93,45 @@ namespace FATMING_CORE
 		CLONE_MYSELF(cBaseImage)
 		static	cBaseImage*	GetMe(TiXmlElement*e_pTiXmlElement);
 		//make sure the UV isze is float*4,do not change value if u r not so understand.
-		void	SetUV(float*e_pfUV){ memcpy(m_fUV,e_pfUV,sizeof(float)*4); }
-		float*	GetUV(){ return m_fUV; }
-		cTexture*GetTexture(){return m_pTexture;}
-		void	SetTexture(cTexture*e_pTexture);
+		void				SetUV(float*e_pfUV){ memcpy(m_fUV,e_pfUV,sizeof(float)*4); }
+		float*				GetUV(){ return m_fUV; }
+		cTexture*			GetTexture(){return m_pTexture;}
+		void				SetTexture(cTexture*e_pTexture);
 		//if the image has been scaled or set position it might get error result!!
-		virtual bool    CollideTexture(int e_iX,int e_iY,bool e_bTestAlphaChannel = true,Vector4*e_pvCollidedColor = 0);
+		virtual bool		CollideTexture(int e_iX,int e_iY,bool e_bTestAlphaChannel = true,Vector4*e_pvCollidedColor = 0);
 		//collide with position and rotation.
-		virtual bool    CollideTextureWithTransform(int e_iX,int e_iY,bool e_bTestAlphaChannel = true);
-		//void			RenderRect();,instead by DebugRender
-		GLuint			GetImageIndex(){ return m_pTexture->GetImageIndex();}
-		GLint			GetPixelFormat(){ return m_pTexture->GetPixelFormat(); }
-		bool			IsMirror(){ return m_bMirror; }
-		void			SetMirror(bool e_bMirror);
-		int*			GetWidthPointer(){return &m_iWidth;}
-		int*			GetHeightPointer(){return &this->m_iHeight;}
-		bool*			GetVisiblePointer(){ return &this->m_bVisible; }
+		virtual bool		CollideTextureWithTransform(int e_iX,int e_iY,bool e_bTestAlphaChannel = true);
+		GLuint				GetImageIndex(){ return m_pTexture->GetImageIndex();}
+		GLint				GetPixelFormat(){ return m_pTexture->GetPixelFormat(); }
+		bool				IsMirror(){ return m_bMirror; }
+		void				SetMirror(bool e_bMirror);
+		int*				GetWidthPointer(){return &m_iWidth;}
+		int*				GetHeightPointer(){return &this->m_iHeight;}
+		bool*				GetVisiblePointer(){ return &this->m_bVisible; }
 		//
-		using			cRenderObject::SetPos;
+		using				cRenderObject::SetPos;
 		//interface for 2D
-		void			SetPos(POINT e_Pos);
-		void			SetPos(Vector2 e_vPos);
-		void			SetPosByImageCenter(Vector3 e_vPos);
-		virtual	Vector4*GetColor(){return &m_vColor;}
-		virtual	void	SetColor(Vector4 e_vColor)override { m_vColor = e_vColor; }
-		void			SetTexBehaviorData(cBaseImage*e_pTexData);
-		bool			ApplyImage();
-		virtual	void	Render(Vector3 e_vPos);					//render by indicate position without offset position.
-		virtual	void	DebugRender()override;
-		//virtual	void	RenderWithoutOffset(int e_iX,int e_iY);	//render with offset position.
-		//virtual	void	RenderWithoutOffset(Vector3 e_vPos);		//render with offset position.
-		//virtual	void	RenderWithOffset();		                //render with offset position.
-		virtual	void	Render()override;								//render by texture behavior.
-		virtual	void	RenderWithShader(const WCHAR*e_strShaderName);
-		virtual	void	Render(cMatrix44 e_Mat);                //render by matrix
-		virtual	void	RenderBySpecificPos(Vector3 e_vStartPos,Vector3 e_vEndPos);//change the width by 2 points distance
-		virtual	void	Init()override {}
-		virtual	void	Update(float e_fElpaseTime)override {}
-		virtual	void	Destroy()override {}
-		void			SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels,bool e_bShowLog = true);
-		virtual POINT	GetSize()override;
-		virtual const	cBound*	GenerateBound()override;
-		virtual bool	GetRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat,Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
+		void				SetPos(POINT e_Pos);
+		void				SetPos(Vector2 e_vPos);
+		void				SetPosByImageCenter(Vector3 e_vPos);
+		virtual	Vector4*	GetColor(){return &m_vColor;}
+		virtual	void		SetColor(Vector4 e_vColor)override { m_vColor = e_vColor; }
+		void				SetTexBehaviorData(cBaseImage*e_pTexData);
+		bool				ApplyImage();
+		virtual	void		Render(Vector3 e_vPos);					//render by indicate position without offset position.
+		virtual	void		DebugRender()override;
+		virtual	void		Render()override;								//render by texture behavior.
+		virtual	void		RenderWithShader(const WCHAR*e_strShaderName);
+		virtual	void		Render(cMatrix44 e_Mat);                //render by matrix
+		virtual	void		RenderBySpecificPos(Vector3 e_vStartPos,Vector3 e_vEndPos);//change the width by 2 points distance
+		virtual	void		Init()override {}
+		virtual	void		Update(float e_fElpaseTime)override {}
+		virtual	void		Destroy()override {}
+		void				SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels,bool e_bShowLog = true);
+		virtual POINT		GetSize()override;
+		virtual const		cBound*	GenerateBound()override;
+		virtual cTexture*	GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex,Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
+		virtual cTexture*	GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor);
 	};
 
 	//===============
