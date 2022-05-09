@@ -115,7 +115,7 @@ namespace GLRender
 	void	Assign4VerticesDataTo2Triangles(float*e_pSrc,float*e_pDest,int e_iStride);
 	//e_pUVSrc is left,up right down.cBaseImage::fUV[4]
 	void	Assign4VerticesDataTo2Triangles(float*e_pVertexSrc,float*e_pVertexDest,float*e_pUVSrc,float*e_pUVDest,int e_iStride);
-
+	void	VerticesApplyTransform(int e_iNumVertex, float* e_pVertices, cMatrix44&e_Mat,int e_iStride);
 
 	struct sBlendfunction
 	{

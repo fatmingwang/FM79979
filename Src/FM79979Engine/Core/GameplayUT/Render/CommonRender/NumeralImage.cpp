@@ -228,31 +228,42 @@ namespace FATMING_CORE
 
 	void	cNumeralImage::Draw(const char*e_strData,int e_iCount,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
 	{
-		if (!m_bVisible)
+		int l_iNumTriangles = 0;
+		cMatrix44 l_mat;
+		if (ProcessTriangulatorRenderData(e_strData, e_iCount, e_iPosX, e_iPosY, e_pmat, e_bCenter, l_mat, l_iNumTriangles))
 		{
-			return;
+			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, l_iNumTriangles * A_QUAD_TWO_TRIANGLES);
+		}
+	}
+	bool	cNumeralImage::ProcessTriangulatorRenderData(const char* e_strData, int e_iNumberStringLength, int e_iPosX, int e_iPosY, float* e_pmat, bool e_bCenter, cMatrix44& e_OutMat, int& e_iNumTriangles)
+	{
+		if (!this->m_bVisible)
+		{
+			return false;
 		}
 		std::string	l_str = e_strData;
-		int	l_iNum = e_iCount;
+		int	l_iStringLength = e_iNumberStringLength;
 		float	l_fHalfWidth = 0.f;
 		float	l_fHalfHeight = 0.f;
 		float	l_fOffsetPosX = 0.f;
 		float	l_fOffsetPosY = 0.f;
 		//from small to big
-		assert(l_iNum < m_iVertexBufferCount&&"cNumeralImage buffersize is not enough...");
-		if (l_iNum > m_iVertexBufferCount)
-			l_iNum = m_iVertexBufferCount;
+		assert(l_iStringLength < m_iVertexBufferCount && "cNumeralImage buffersize is not enough...");
+		if (l_iStringLength > m_iVertexBufferCount)
+		{
+			l_iStringLength = m_iVertexBufferCount;
+		}
 		switch (m_eDirection)
 		{
 		case eD_LEFT:
 			l_fOffsetPosX = (float)m_iSingleImageWidth;
-			l_fHalfWidth = (m_iSingleImageWidth*l_iNum / 2.f);
+			l_fHalfWidth = (m_iSingleImageWidth * l_iStringLength / 2.f);
 			l_fHalfHeight = m_iSingleImageHeight / 2.f;
 			break;
 		case eD_DOWN:
 			l_fOffsetPosY = (float)m_iSingleImageHeight;
 			l_fHalfWidth = m_iSingleImageWidth / 2.f;
-			l_fHalfHeight = m_iSingleImageHeight * l_iNum / 2.f;
+			l_fHalfHeight = m_iSingleImageHeight * l_iStringLength / 2.f;
 			break;
 		default:
 			assert(0 && " lazy to implement cNumeralImage::Draw");
@@ -261,17 +272,17 @@ namespace FATMING_CORE
 		if (m_bValueChanged)
 		{
 			m_bValueChanged = false;
-			if (l_iNum)
-			{				
+			if (l_iStringLength)
+			{
 				float	l_fImageHalfWidth = m_iSingleImageWidth / 2.f;
 				float	l_fImageHalfHeight = m_iSingleImageHeight / 2.f;
 				float	l_fPosX = -l_fHalfWidth;
 				float	l_fPosY = -l_fHalfHeight;
-				for (int i = 0; i < l_iNum; ++i)
+				for (int i = 0; i < l_iStringLength; ++i)
 				{
-					float	*l_pfVertices = (float*)&m_pvVertexBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
-					float	*l_pfUV = (float*)&m_pvTextureUVBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
-					float	*l_pfColor = (float*)&m_pvColorBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+					float* l_pfVertices = (float*)&m_pvVertexBuffer[i * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+					float* l_pfUV = (float*)&m_pvTextureUVBuffer[i * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+					float* l_pfColor = (float*)&m_pvColorBuffer[i * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 					AssignUVDataTo2Triangles(&m_pfTexCoordinate[(l_str[i] - '0') * 4], l_pfUV, false);
 					for (int j = 0; j < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++j)
 					{
@@ -289,34 +300,36 @@ namespace FATMING_CORE
 			}
 			else
 			{
-				return;
+				return false;
 			}
 		}
-		UseShaderProgram(DEFAULT_SHADER);
-		this->ApplyImage();
 		cMatrix44 l_mat;
-		if( e_bCenter )
+		if (e_bCenter)
 		{
-			l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,0);
+			l_mat = cMatrix44::TranslationMatrix((float)e_iPosX, (float)e_iPosY, 0);
 		}
 		else
 		{
-			int	l_iMinusCount = l_iNum-1;
-			l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,0)*cMatrix44::TranslationMatrix(l_fHalfWidth-l_iMinusCount*m_iSingleImageWidth,l_fHalfHeight,0.f);
+			int	l_iMinusCount = l_iStringLength - 1;
+			l_mat = cMatrix44::TranslationMatrix((float)e_iPosX, (float)e_iPosY, 0) * cMatrix44::TranslationMatrix(l_fHalfWidth - l_iMinusCount * m_iSingleImageWidth, l_fHalfHeight, 0.f);
 		}
-		if( e_pmat )
+		if (e_pmat)
 		{
-			l_mat = cMatrix44(e_pmat)*l_mat;
+			l_mat = cMatrix44(e_pmat) * l_mat;
 		}
-		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat,2, l_iNum* A_QUAD_TWO_TRIANGLES);
+		e_iNumTriangles = l_iStringLength;
+		e_OutMat = l_mat;
+		return true;
 	}
 	void	cNumeralImage::Draw(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
 	{
-		if( !m_bVisible )
+		if (!m_bVisible)
+		{
 			return;
+		}
 		std::string	l_str = ValueToString(e_iValue);
-		int	l_iNum = (int)strlen(l_str.c_str());
-		Draw(l_str.c_str(),l_iNum,e_iPosX,e_iPosY,e_pmat,e_bCenter);
+		int	l_iStringLength = (int)strlen(l_str.c_str());
+		Draw(l_str.c_str(), l_iStringLength,e_iPosX,e_iPosY,e_pmat,e_bCenter);
 	}
 	void	cNumeralImage::Draw(int	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
 	{
@@ -324,8 +337,8 @@ namespace FATMING_CORE
 			return;
 		char	l_str[TEMP_SIZE];
 		itoa(e_iValue,l_str,10);
-		int	l_iNum = (int)strlen(l_str);
-		Draw(l_str,l_iNum,e_iPosX,e_iPosY,e_pmat,e_bCenter);
+		int	l_iStringLength = (int)strlen(l_str);
+		Draw(l_str, l_iStringLength,e_iPosX,e_iPosY,e_pmat,e_bCenter);
 	}
 
 	void	cNumeralImage::DrawOnCenter(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat)
@@ -340,10 +353,14 @@ namespace FATMING_CORE
 
 	void	cNumeralImage::Render()
 	{
-		if( this->m_bDrawOnCenter )
-			DrawOnCenter(m_i64Value,0,0,this->GetWorldTransform());
+		if (this->m_bDrawOnCenter)
+		{
+			DrawOnCenter(m_i64Value, 0, 0, this->GetWorldTransform());
+		}
 		else
-			Draw(m_i64Value,0,0,this->GetWorldTransform());
+		{
+			Draw(m_i64Value, 0, 0, this->GetWorldTransform());
+		}
 	}
 
 	void	cNumeralImage::SetValue(int64 e_i64Value)
@@ -353,9 +370,35 @@ namespace FATMING_CORE
 		m_i64Value = e_i64Value;
 	}
 
+	cTexture* cNumeralImage::GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	{
+		if (!m_bVisible)
+		{
+			return nullptr;
+		}
+		std::string	l_str = ValueToString(m_i64Value);
+		int	l_iStringLength = (int)strlen(l_str.c_str());
+		if (this->m_bDrawOnCenter)
+		{
+			DrawOnCenter(m_i64Value, 0, 0, this->GetWorldTransform());
+		}
+		else
+		{
+			Draw(m_i64Value, 0, 0, this->GetWorldTransform());
+		}
+		cMatrix44 l_Mat;
+		int l_iNumTriangles = 0;
+		ProcessTriangulatorRenderData(l_str.c_str(), l_iStringLength,0,0,this->GetWorldTransform(),this->m_bDrawOnCenter, l_Mat, l_iNumTriangles);
+		for (int i = 0; i < l_iNumTriangles; ++i)
+		{
+
+		}
+		return m_pTexture;
+	}
+
 	cTimeNumerialImage::cTimeNumerialImage(cBaseImage*e_pImage0,cBaseImage*e_pImage9,cCueToStartCurveWithTime*e_pHourSubMPDI,cCueToStartCurveWithTime*e_pMinSubMPDI,cCueToStartCurveWithTime*e_pSecondSubMPDI,cRenderObject*e_pDisableObject):cNumeralImage(e_pImage0,e_pImage9)
 	{
-		m_pDisableObject = 0;
+		m_pDisableObject = nullptr;
 		if( e_pDisableObject )
 		{
 			cRenderObject*l_pNamedTypedObject = dynamic_cast<cRenderObject*>(e_pDisableObject->Clone());
@@ -499,8 +542,10 @@ namespace FATMING_CORE
 			float	*l_pfUV			=	&g_fGlobalTempBufferForRenderUV[l_iIndex*2*6];
 			float	*l_pfColor		=	&g_fGlobalTempBufferForRenderColor[l_iIndex*4*6];
 			AssignUVDataTo2Triangles(&e_pfUV[(l_Value[i])*4],l_pfUV,false);
-			for( int i=0;i<6;++i )
-				memcpy(&l_pfColor[i*4],&e_vColor,sizeof(Vector4));
+			for (int i = 0; i < 6; ++i)
+			{
+				memcpy(&l_pfColor[i * 4], &e_vColor, sizeof(Vector4));
+			}
 			Vector3	l_vPos[4];
 			l_vPos[0] = Vector3(l_fPosX						,l_fPosY,0.f);
 			l_vPos[1] = Vector3(l_fPosX+ (float)e_iImageWidth	,l_fPosY,0.f);
@@ -516,12 +561,17 @@ namespace FATMING_CORE
 	void	cTimeNumerialImage::Init()
 	{
 		if( m_pDisableObject )
+		{ 
 			m_pDisableObject->Init();
+		}
 	}
 
 	void	cTimeNumerialImage::Update(float e_fElpaseTime)
 	{
-		m_pDisableObject->Update(e_fElpaseTime);
+		if (m_pDisableObject)
+		{
+			m_pDisableObject->Update(e_fElpaseTime);
+		}
 	}
 
 	void	cTimeNumerialImage::Render()
@@ -533,12 +583,18 @@ namespace FATMING_CORE
 		int	l_iHour = (int)(this->m_i64Value/60/60%24);
 		int	l_iIndex = 0;
 		int	l_iNum = 0;
-		if( m_bEnableSecond )
-			l_iNum += AssignNumerialData(&l_iIndex ,this->m_pfTexCoordinate,m_vColor,this->m_iSingleImageWidth,this->m_iSingleImageHeight,m_vSecondPos,l_iSecond,2);
-		if( m_bEnableMinute )
-			l_iNum += AssignNumerialData(&l_iIndex ,this->m_pfTexCoordinate,m_vColor,this->m_iSingleImageWidth,this->m_iSingleImageHeight,this->m_vMinPos,l_iMin,2);
-		if( m_bEnableHour )
-			l_iNum += AssignNumerialData(&l_iIndex ,this->m_pfTexCoordinate,m_vColor,this->m_iSingleImageWidth,this->m_iSingleImageHeight,this->m_vHourPos,l_iHour,1);
+		if (m_bEnableSecond)
+		{
+			l_iNum += AssignNumerialData(&l_iIndex, this->m_pfTexCoordinate, m_vColor, this->m_iSingleImageWidth, this->m_iSingleImageHeight, m_vSecondPos, l_iSecond, 2);
+		}
+		if (m_bEnableMinute)
+		{
+			l_iNum += AssignNumerialData(&l_iIndex, this->m_pfTexCoordinate, m_vColor, this->m_iSingleImageWidth, this->m_iSingleImageHeight, this->m_vMinPos, l_iMin, 2);
+		}
+		if (m_bEnableHour)
+		{
+			l_iNum += AssignNumerialData(&l_iIndex, this->m_pfTexCoordinate, m_vColor, this->m_iSingleImageWidth, this->m_iSingleImageHeight, this->m_vHourPos, l_iHour, 1);
+		}
 		this->ApplyImage();
 
 		RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iNum * A_QUAD_TWO_TRIANGLES);

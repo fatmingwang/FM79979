@@ -883,6 +883,32 @@ namespace GLRender
 		AssignUVDataTo2Triangles(e_pUVSrc,e_pUVDest,false);
 	}
 
+	void VerticesApplyTransform(int e_iNumVertex, float* e_pVertices, cMatrix44&e_Mat, int e_iStride)
+	{
+		int l_iNumVertex = e_iNumVertex;
+		if (e_iStride == 2)
+		{
+			for (int i = 0; i < l_iNumVertex; ++i)
+			{
+				int l_iIndex = i * 2;
+				Vector2* l_pPos = (Vector2*)&e_pVertices[l_iIndex];
+				Vector3 l_vPos(l_pPos->x, l_pPos->y, 0.f);
+				l_vPos = e_Mat.TransformCoordinate(l_vPos);
+				l_pPos->x = l_vPos.x;
+				l_pPos->y = l_vPos.y;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < l_iNumVertex; ++i)
+			{
+				int l_iIndex = i * 3;
+				Vector3* l_pPos = (Vector3*)&e_pVertices[l_iIndex];
+				*l_pPos = e_Mat.TransformCoordinate(*l_pPos);
+			}
+		}
+	}
+
 	void	RenderVectorProject(Vector3 e_v1,Vector3 e_v2,cMatrix44 e_mat)
 	{
 		Vector3	l_vD3 = e_v1.Projected(e_v2);

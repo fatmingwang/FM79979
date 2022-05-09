@@ -39,9 +39,10 @@ namespace FATMING_CORE
 		GET_SET_DEC(int,m_iSingleImageHeight,GetSingleImageHeight,SetSingleImageHeight);
 		//right to left please set eD_LEFT,up to down please set eD_DOWN,else not support
 		GET_SET_DEC(eDirection,m_eDirection,GetDirection,SetDirection);
-		void	Draw(const char*e_strData,int e_iCount,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
-		int64	m_i64Value;
-		bool	m_bValueChanged;
+		void		Draw(const char*e_strData,int e_iCount,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
+		bool		ProcessTriangulatorRenderData(const char* e_strData, int e_iNumberStringLength, int e_iPosX, int e_iPosY, float* e_pmat, bool e_bCenter,cMatrix44&e_OutMat,int&e_iNumTriangles);
+		int64		m_i64Value;
+		bool		m_bValueChanged;
 		GET_SET_DEC(bool,m_bDrawOnCenter,GetDrawOnCenter,SetDrawOnCenter);
 	public:
 		DEFINE_TYPE_INFO()
@@ -64,6 +65,7 @@ namespace FATMING_CORE
 		virtual	void	Render()override;
 		void	SetValue(int64 e_i64Value);
 		int64	GetValue(){return m_i64Value;}
+		virtual cTexture* GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
 	};
 
 	class	cTimeNumerialImage:public cNumeralImage
