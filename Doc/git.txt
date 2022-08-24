@@ -1,0 +1,5 @@
+change submodule directory
+
+git mv old_directory new_directory
+
+git mv project\assets\scripts\diresoftcocoscreatorslotcommon project\assets\diresoftcocoscreatorslotcommon

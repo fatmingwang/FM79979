@@ -1,0 +1,4 @@
+install this for debug
+https://marketplace.visualstudio.com/items?itemName=KamenokoSoft.emscripten-debugger
+
+it also require nojs is installed
