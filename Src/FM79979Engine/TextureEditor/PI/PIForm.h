@@ -4,6 +4,7 @@
 #include "PuzzleImageUnitTriangulator.h"
 #include "PIUtility.h"
 #include "../../Core/GameplayUT/OpenGL/WindowsOpenGL.h"
+#include "AtlasConvert.h"
 cGlyphFontRender*g_pDebugFont = nullptr;
 #define	LAST_USE_PI_FILE_NAME	"_lastpifile.txt"
 namespace PI 
@@ -218,7 +219,13 @@ namespace PI
 				auto l_pFileContent = UT::GetFileContent(LAST_USE_PI_FILE_NAME, l_iFileLength);
 				if (l_pFileContent)
 				{
-					OpenPIFile(gcnew String(l_pFileContent));
+					//if (UT::IsFileExists(l_pFileContent))
+					{
+						if (!OpenPIFile(gcnew String(l_pFileContent)))
+						{
+							UT::MyRemoveFile(LAST_USE_PI_FILE_NAME);
+						}
+					}
 				}
 			}
 			this->timer1->Enabled = true;
@@ -386,12 +393,19 @@ private: System::Windows::Forms::Label^ label18;
 private: System::Windows::Forms::NumericUpDown^ DivideToolColumn_numericUpDown;
 private: System::Windows::Forms::Label^ label19;
 private: System::Windows::Forms::NumericUpDown^ DivideToolRow_numericUpDown;
+private: System::Windows::Forms::TabPage^ AtlasFileConvert_tabPage;
+private: System::Windows::Forms::Label^ AltasScale_label;
+private: System::Windows::Forms::DomainUpDown^ ASltasScale_domainUpDown;
+private: System::Windows::Forms::CheckBox^ ReplaceOriginalFile_checkBox;
+private: System::Windows::Forms::Button^ ConvertAltas_button;
+private: System::Windows::Forms::ListBox^ AltasFiles_listBox;
+private: System::Windows::Forms::Button^ SelectDirecotry_button;
 public:
 public:
 	private: System::Collections::Hashtable^			m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void								SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*								OpenPuzzleFile(String^e_strFileName);
-	public:  void										OpenPIFile(String^e_strFileName);
+	public:  bool										OpenPIFile(String^e_strFileName);
 	private: bool										ParsePuzzleImage(cPuzzleImage*e_pPuzzleImage,String^e_strFileName);
 	private: System::Void								GeneratePowOf2Image(bool e_bPowerOfTwo);
 	private: System::Void								MouseCollideForPickUpObject( System::Windows::Forms::MouseEventArgs^  e,System::Windows::Forms::Panel^e_pPanel);
@@ -520,14 +534,21 @@ public:
 			this->MorphingAnimationTime_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->ImageTriangulator_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->DividImageTool_tabPage = (gcnew System::Windows::Forms::TabPage());
-			this->label17 = (gcnew System::Windows::Forms::Label());
-			this->DividImagePrefixName_textBox = (gcnew System::Windows::Forms::TextBox());
-			this->DividImageTool_button = (gcnew System::Windows::Forms::Button());
-			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
 			this->label18 = (gcnew System::Windows::Forms::Label());
 			this->DivideToolColumn_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label19 = (gcnew System::Windows::Forms::Label());
 			this->DivideToolRow_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label17 = (gcnew System::Windows::Forms::Label());
+			this->DividImagePrefixName_textBox = (gcnew System::Windows::Forms::TextBox());
+			this->DividImageTool_button = (gcnew System::Windows::Forms::Button());
+			this->AtlasFileConvert_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->AltasScale_label = (gcnew System::Windows::Forms::Label());
+			this->ASltasScale_domainUpDown = (gcnew System::Windows::Forms::DomainUpDown());
+			this->ReplaceOriginalFile_checkBox = (gcnew System::Windows::Forms::CheckBox());
+			this->ConvertAltas_button = (gcnew System::Windows::Forms::Button());
+			this->AltasFiles_listBox = (gcnew System::Windows::Forms::ListBox());
+			this->SelectDirecotry_button = (gcnew System::Windows::Forms::Button());
+			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -562,10 +583,11 @@ public:
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->RearrangeMorphingAnimationTime_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimationTime_numericUpDown))->BeginInit();
 			this->DividImageTool_tabPage->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
-			this->splitContainer2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DivideToolColumn_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DivideToolRow_numericUpDown))->BeginInit();
+			this->AtlasFileConvert_tabPage->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
+			this->splitContainer2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// timer1
@@ -1016,6 +1038,7 @@ public:
 			this->tabControl1->Controls->Add(this->SequenceAnimation_tabPage);
 			this->tabControl1->Controls->Add(this->ImageTriangulator_tabPage);
 			this->tabControl1->Controls->Add(this->DividImageTool_tabPage);
+			this->tabControl1->Controls->Add(this->AtlasFileConvert_tabPage);
 			this->tabControl1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tabControl1->Location = System::Drawing::Point(0, 0);
 			this->tabControl1->Margin = System::Windows::Forms::Padding(6);
@@ -1960,53 +1983,6 @@ public:
 			this->DividImageTool_tabPage->TabIndex = 3;
 			this->DividImageTool_tabPage->Text = L"DividImageTool";
 			// 
-			// label17
-			// 
-			this->label17->AutoSize = true;
-			this->label17->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->label17->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label17->Location = System::Drawing::Point(7, 182);
-			this->label17->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
-			this->label17->Name = L"label17";
-			this->label17->Size = System::Drawing::Size(215, 25);
-			this->label17->TabIndex = 78;
-			this->label17->Text = L"ImagePrefix/預設名稱";
-			// 
-			// DividImagePrefixName_textBox
-			// 
-			this->DividImagePrefixName_textBox->Location = System::Drawing::Point(11, 211);
-			this->DividImagePrefixName_textBox->Name = L"DividImagePrefixName_textBox";
-			this->DividImagePrefixName_textBox->Size = System::Drawing::Size(185, 31);
-			this->DividImagePrefixName_textBox->TabIndex = 77;
-			// 
-			// DividImageTool_button
-			// 
-			this->DividImageTool_button->Location = System::Drawing::Point(15, 266);
-			this->DividImageTool_button->Name = L"DividImageTool_button";
-			this->DividImageTool_button->Size = System::Drawing::Size(144, 76);
-			this->DividImageTool_button->TabIndex = 76;
-			this->DividImageTool_button->Text = L"Do divison";
-			this->DividImageTool_button->UseVisualStyleBackColor = true;
-			this->DividImageTool_button->Click += gcnew System::EventHandler(this, &cPIEditor::DividImageTool_button_Click);
-			// 
-			// splitContainer2
-			// 
-			this->splitContainer2->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->splitContainer2->Location = System::Drawing::Point(0, 0);
-			this->splitContainer2->Margin = System::Windows::Forms::Padding(4);
-			this->splitContainer2->Name = L"splitContainer2";
-			// 
-			// splitContainer2.Panel1
-			// 
-			this->splitContainer2->Panel1->Resize += gcnew System::EventHandler(this, &cPIEditor::splitContainer2_Panel1_Resize);
-			this->splitContainer2->Panel2Collapsed = true;
-			this->splitContainer2->Size = System::Drawing::Size(3370, 390);
-			this->splitContainer2->SplitterDistance = 356;
-			this->splitContainer2->SplitterWidth = 6;
-			this->splitContainer2->TabIndex = 0;
-			// 
 			// label18
 			// 
 			this->label18->AutoSize = true;
@@ -2056,6 +2032,128 @@ public:
 			this->DivideToolRow_numericUpDown->Size = System::Drawing::Size(122, 31);
 			this->DivideToolRow_numericUpDown->TabIndex = 79;
 			this->DivideToolRow_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			// 
+			// label17
+			// 
+			this->label17->AutoSize = true;
+			this->label17->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label17->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->label17->Location = System::Drawing::Point(7, 182);
+			this->label17->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
+			this->label17->Name = L"label17";
+			this->label17->Size = System::Drawing::Size(215, 25);
+			this->label17->TabIndex = 78;
+			this->label17->Text = L"ImagePrefix/預設名稱";
+			// 
+			// DividImagePrefixName_textBox
+			// 
+			this->DividImagePrefixName_textBox->Location = System::Drawing::Point(11, 211);
+			this->DividImagePrefixName_textBox->Name = L"DividImagePrefixName_textBox";
+			this->DividImagePrefixName_textBox->Size = System::Drawing::Size(185, 31);
+			this->DividImagePrefixName_textBox->TabIndex = 77;
+			// 
+			// DividImageTool_button
+			// 
+			this->DividImageTool_button->Location = System::Drawing::Point(15, 266);
+			this->DividImageTool_button->Name = L"DividImageTool_button";
+			this->DividImageTool_button->Size = System::Drawing::Size(144, 76);
+			this->DividImageTool_button->TabIndex = 76;
+			this->DividImageTool_button->Text = L"Do divison";
+			this->DividImageTool_button->UseVisualStyleBackColor = true;
+			this->DividImageTool_button->Click += gcnew System::EventHandler(this, &cPIEditor::DividImageTool_button_Click);
+			// 
+			// AtlasFileConvert_tabPage
+			// 
+			this->AtlasFileConvert_tabPage->Controls->Add(this->AltasScale_label);
+			this->AtlasFileConvert_tabPage->Controls->Add(this->ASltasScale_domainUpDown);
+			this->AtlasFileConvert_tabPage->Controls->Add(this->ReplaceOriginalFile_checkBox);
+			this->AtlasFileConvert_tabPage->Controls->Add(this->ConvertAltas_button);
+			this->AtlasFileConvert_tabPage->Controls->Add(this->AltasFiles_listBox);
+			this->AtlasFileConvert_tabPage->Controls->Add(this->SelectDirecotry_button);
+			this->AtlasFileConvert_tabPage->Location = System::Drawing::Point(8, 39);
+			this->AtlasFileConvert_tabPage->Name = L"AtlasFileConvert_tabPage";
+			this->AtlasFileConvert_tabPage->Size = System::Drawing::Size(2702, 559);
+			this->AtlasFileConvert_tabPage->TabIndex = 4;
+			this->AtlasFileConvert_tabPage->Text = L"AtlasFileConvert";
+			this->AtlasFileConvert_tabPage->UseVisualStyleBackColor = true;
+			// 
+			// AltasScale_label
+			// 
+			this->AltasScale_label->AutoSize = true;
+			this->AltasScale_label->Location = System::Drawing::Point(985, 386);
+			this->AltasScale_label->Name = L"AltasScale_label";
+			this->AltasScale_label->Size = System::Drawing::Size(162, 25);
+			this->AltasScale_label->TabIndex = 5;
+			this->AltasScale_label->Text = L"AltasScale/比例";
+			// 
+			// ASltasScale_domainUpDown
+			// 
+			this->ASltasScale_domainUpDown->Location = System::Drawing::Point(990, 414);
+			this->ASltasScale_domainUpDown->Name = L"ASltasScale_domainUpDown";
+			this->ASltasScale_domainUpDown->Size = System::Drawing::Size(201, 31);
+			this->ASltasScale_domainUpDown->TabIndex = 4;
+			this->ASltasScale_domainUpDown->Text = L"50";
+			// 
+			// ReplaceOriginalFile_checkBox
+			// 
+			this->ReplaceOriginalFile_checkBox->AutoSize = true;
+			this->ReplaceOriginalFile_checkBox->Location = System::Drawing::Point(990, 470);
+			this->ReplaceOriginalFile_checkBox->Name = L"ReplaceOriginalFile_checkBox";
+			this->ReplaceOriginalFile_checkBox->Size = System::Drawing::Size(364, 29);
+			this->ReplaceOriginalFile_checkBox->TabIndex = 3;
+			this->ReplaceOriginalFile_checkBox->Text = L"ReplaceOriginalFile/覆蓋原本檔案";
+			this->ReplaceOriginalFile_checkBox->UseVisualStyleBackColor = true;
+			// 
+			// ConvertAltas_button
+			// 
+			this->ConvertAltas_button->Location = System::Drawing::Point(990, 193);
+			this->ConvertAltas_button->Name = L"ConvertAltas_button";
+			this->ConvertAltas_button->Size = System::Drawing::Size(269, 121);
+			this->ConvertAltas_button->TabIndex = 2;
+			this->ConvertAltas_button->Text = L"Convert/轉換";
+			this->ConvertAltas_button->UseVisualStyleBackColor = true;
+			this->ConvertAltas_button->Click += gcnew System::EventHandler(this, &cPIEditor::ConvertAltas_button_Click);
+			// 
+			// AltasFiles_listBox
+			// 
+			this->AltasFiles_listBox->AllowDrop = true;
+			this->AltasFiles_listBox->FormattingEnabled = true;
+			this->AltasFiles_listBox->HorizontalScrollbar = true;
+			this->AltasFiles_listBox->ItemHeight = 25;
+			this->AltasFiles_listBox->Location = System::Drawing::Point(23, 29);
+			this->AltasFiles_listBox->Name = L"AltasFiles_listBox";
+			this->AltasFiles_listBox->Size = System::Drawing::Size(913, 504);
+			this->AltasFiles_listBox->TabIndex = 1;
+			this->AltasFiles_listBox->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &cPIEditor::AltasFiles_listBox_DragDrop);
+			this->AltasFiles_listBox->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &cPIEditor::AltasFiles_listBox_DragEnter);
+			// 
+			// SelectDirecotry_button
+			// 
+			this->SelectDirecotry_button->Location = System::Drawing::Point(990, 39);
+			this->SelectDirecotry_button->Name = L"SelectDirecotry_button";
+			this->SelectDirecotry_button->Size = System::Drawing::Size(269, 121);
+			this->SelectDirecotry_button->TabIndex = 0;
+			this->SelectDirecotry_button->Text = L"Select Directory/選資料夾";
+			this->SelectDirecotry_button->UseVisualStyleBackColor = true;
+			this->SelectDirecotry_button->Click += gcnew System::EventHandler(this, &cPIEditor::SelectDirecotry_button_Click);
+			// 
+			// splitContainer2
+			// 
+			this->splitContainer2->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->splitContainer2->Location = System::Drawing::Point(0, 0);
+			this->splitContainer2->Margin = System::Windows::Forms::Padding(4);
+			this->splitContainer2->Name = L"splitContainer2";
+			// 
+			// splitContainer2.Panel1
+			// 
+			this->splitContainer2->Panel1->Resize += gcnew System::EventHandler(this, &cPIEditor::splitContainer2_Panel1_Resize);
+			this->splitContainer2->Panel2Collapsed = true;
+			this->splitContainer2->Size = System::Drawing::Size(3370, 390);
+			this->splitContainer2->SplitterDistance = 356;
+			this->splitContainer2->SplitterWidth = 6;
+			this->splitContainer2->TabIndex = 0;
 			// 
 			// cPIEditor
 			// 
@@ -2108,10 +2206,12 @@ public:
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimationTime_numericUpDown))->EndInit();
 			this->DividImageTool_tabPage->ResumeLayout(false);
 			this->DividImageTool_tabPage->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
-			this->splitContainer2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DivideToolColumn_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->DivideToolRow_numericUpDown))->EndInit();
+			this->AtlasFileConvert_tabPage->ResumeLayout(false);
+			this->AtlasFileConvert_tabPage->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
+			this->splitContainer2->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
@@ -2171,6 +2271,101 @@ public:
 	private: System::Void OffsetCenter_button_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void generateSelectedPIUnitXMLToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void DividImageTool_button_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void SelectDirecotry_button_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		auto l_strDirectory = DNCT::SelectDirectory();
+		if (l_strDirectory)
+		{
+			AltasFiles_listBox->Items->Clear();
+			System::Collections::ArrayList^ l_pArrayList = gcnew System::Collections::ArrayList();
+			GetFilesNameByRecursivelyDirectory(l_strDirectory, l_pArrayList);
+			char* l_strAllSupportFormat[] = {
+			   ".PNG",".JPG",".atlas"
+			};
+			for each (String ^ l_strName in l_pArrayList)
+			{
+				String^ l_strExtensionName = System::IO::Path::GetExtension(l_strName);
+				auto l_strFileExtensionName = DNCT::GcStringToChar(l_strExtensionName);
+				for (int i = 0; i < 3; ++i)
+				{
+					if (!_stricmp(l_strAllSupportFormat[i], l_strFileExtensionName.c_str()))
+					{
+						AltasFiles_listBox->Items->Add(l_strName);
+					}
+				}
+			}
+		}
+	}
+	private: System::Void AltasFiles_listBox_DragDrop(System::Object^ sender, System::Windows::Forms::DragEventArgs^ e)
+	{
+		cli::array<String^>^ l_strFileNames = DNCT::DragDropEventWhileFileDrop(e);
+		for each (String ^ l_str in l_strFileNames)
+		{
+			AltasFiles_listBox->Items->Add(l_str);
+		}
+	}
+	private: System::Void AltasFiles_listBox_DragEnter(System::Object^ sender, System::Windows::Forms::DragEventArgs^ e)
+	{
+		if (e->Data->GetDataPresent(DataFormats::FileDrop))
+		{
+			e->Effect = DragDropEffects::Copy;
+		}
+		else
+		{
+			e->Effect = DragDropEffects::None;
+		}
+	}
+
+	private: System::Void ConvertAltas_button_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		bool l_bReplaceFile = this->ReplaceOriginalFile_checkBox->Checked;
+		System::String^l_strDirectory = nullptr;
+		if (!l_bReplaceFile)
+		{
+			l_strDirectory = DNCT::SelectDirectory();
+			if (!l_strDirectory)
+			{
+				return;
+			}
+		}
+		float l_fSacle = System::Int32::Parse(this->ASltasScale_domainUpDown->Text)/100.f;
+		for (int i = 0; i < AltasFiles_listBox->Items->Count; ++i)
+		{
+			auto l_strFileName = AltasFiles_listBox->Items[i]->ToString();
+			String^ l_strExtensionName = System::IO::Path::GetExtension(l_strFileName);
+			auto l_strFileExtensionName = DNCT::GcStringToChar(l_strExtensionName);
+			std::string l_strOutputDirectory;
+			std::string l_strTargetFileName = DNCT::GcStringToChar(l_strFileName);
+			sAtlasData l_AtlasData;
+			if (l_strDirectory)
+			{
+				l_strOutputDirectory = DNCT::GcStringToChar(l_strDirectory);
+			}
+			else
+			{
+				auto l_strTargetDirectory = System::IO::Path::GetDirectoryName(l_strFileName);
+				l_strOutputDirectory = DNCT::GcStringToChar(l_strTargetDirectory);
+			}
+			std::string l_strOutputFileName = l_strOutputDirectory+"/";
+			l_strOutputFileName += GetFileNameWithoutFullPath(DNCT::GcStringToChar(l_strFileName),false);
+			if (!_stricmp(l_strFileExtensionName.c_str(), ".png"))
+			{
+				Image^l_pConvertedImage = DNCT::ResizeImage(l_strFileName, l_fSacle);
+				if (l_pConvertedImage)
+				{
+					l_pConvertedImage->Save(gcnew String(l_strOutputFileName.c_str()));
+				}
+			}
+			else
+			if (!_stricmp(l_strFileExtensionName.c_str(), ".atlas"))
+			{
+				sAtlasData l_AtlasData;
+				auto l_bRsult = l_AtlasData.DoScaleThenExport(l_strTargetFileName.c_str(), l_strOutputFileName.c_str(), l_fSacle);
+				WARNING_MSG("convert "+ l_bRsult?"ok":"failed");
+			}
+		}
+		
+	}
 };
 	static GCFORM::Form^CallForm(System::String^e_strFileName);
 //end namespace

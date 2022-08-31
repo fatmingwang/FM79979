@@ -395,10 +395,10 @@ namespace TextureScale
 					 for each(String^l_strName in l_pArrayList)
 					 {
 						String^l_strExtensionName = System::IO::Path::GetExtension(l_strName);
-						char*l_strFileExtensionName = DNCT::GcStringToChar(l_strExtensionName);
+						auto l_strFileExtensionName = DNCT::GcStringToChar(l_strExtensionName);
 						if( Format_comboBox->SelectedIndex!=9 )
 						{
-							if(!_stricmp(l_strAllSupportFormat[Format_comboBox->SelectedIndex],l_strFileExtensionName))
+							if(!_stricmp(l_strAllSupportFormat[Format_comboBox->SelectedIndex],l_strFileExtensionName.c_str()))
 							//if( l_strExtensionName->Equals(l_strAllSupportFormat[Format_comboBox->SelectedIndex]) )
 							{
 								AllFile_listBox->Items->Add(l_strName);
@@ -408,7 +408,7 @@ namespace TextureScale
 						{
 							for(int i=0;i<9;++i)
 							{
-								if(!_stricmp(l_strAllSupportFormat[i],l_strFileExtensionName))
+								if(!_stricmp(l_strAllSupportFormat[i],l_strFileExtensionName.c_str()))
 								//if( l_strExtensionName->Equals(l_strAllSupportFormat[i]) )
 								{
 									AllFile_listBox->Items->Add(l_strName);
@@ -460,7 +460,7 @@ private: System::Void AllFile_listBox_DragDrop(System::Object^  sender, System::
 		 {
 			AllFile_listBox->Items->Clear();
 			this->Text = "";
-			array<String^>^l_strFileNames = DNCT::DragDropEventWhileFileDrop(e);
+			cli::array<String^>^l_strFileNames = DNCT::DragDropEventWhileFileDrop(e);
 			for each(String^l_str in l_strFileNames)
 			{
 				AllFile_listBox->Items->Add(l_str);

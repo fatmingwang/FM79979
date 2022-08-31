@@ -1436,21 +1436,15 @@ bool	ParseXMALFileToHandl(GCFORM::Control^e_pControl,String^e_strFileName)
 		return stream;
 	}
 
-	Image^ resizeImage(int newWidth, int newHeight, System::String^ stPhotoPath)
+	Image^ ResizeImage(System::String^ stPhotoPath, float e_fScale)
 	{
 		Image^ imgPhoto = Image::FromFile(stPhotoPath);
 
 		int sourceWidth = imgPhoto->Width;
 		int sourceHeight = imgPhoto->Height;
 
-		//Consider vertical pics
-		if (sourceWidth < sourceHeight)
-		{
-			int buff = newWidth;
-
-			newWidth = newHeight;
-			newHeight = buff;
-		}
+		int newWidth = (int)(sourceWidth * e_fScale);
+		int newHeight = (int)(sourceHeight * e_fScale);
 
 		int sourceX = 0, sourceY = 0, destX = 0, destY = 0;
 		float nPercent = 0, nPercentW = 0, nPercentH = 0;
@@ -1472,12 +1466,12 @@ bool	ParseXMALFileToHandl(GCFORM::Control^e_pControl,String^e_strFileName)
 		int destHeight = (int)(sourceHeight * nPercent);
 
 
-		Bitmap^ bmPhoto = gcnew Bitmap(newWidth, newHeight, PixelFormat::Format24bppRgb);
+		Bitmap^ bmPhoto = gcnew Bitmap(newWidth, newHeight, PixelFormat::Format32bppArgb);
 
 		bmPhoto->SetResolution(imgPhoto->HorizontalResolution, imgPhoto->VerticalResolution);
 
 		Graphics^ grPhoto = Graphics::FromImage(bmPhoto);
-		grPhoto->Clear(Color::Black);
+		grPhoto->Clear(Color::Transparent);
 		grPhoto->InterpolationMode =
 			System::Drawing::Drawing2D::InterpolationMode::HighQualityBicubic;
 

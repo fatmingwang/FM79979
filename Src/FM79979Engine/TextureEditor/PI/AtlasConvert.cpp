@@ -26,10 +26,13 @@ void sAtlasData::Parse(const char* e_strText, int e_iIndex, float e_fScale)
 	else
 	if (e_iIndex == eAltasHeader::eAH_SIZE)
 	{
-		POINT l_Point = GetPoint(e_strText);
-		l_Point.x /= 2;
-		l_Point.y /= 2;
-		strSize = ValueToString(l_Point);
+		std::string l_strPoint = e_strText;
+		auto l_Pos = l_strPoint.find(":");
+		l_strPoint = l_strPoint.substr(l_Pos, l_strPoint.length() - l_Pos);
+		POINT l_Point = GetPoint(l_strPoint);
+		l_Point.x = l_Point.x *e_fScale;
+		l_Point.y = l_Point.y *e_fScale;
+		strSize = "size: "+ValueToString(l_Point.x)+", "+ValueToString(l_Point.y);
 	}
 	else
 	if (e_iIndex == eAltasHeader::eAH_FORMAT)
@@ -64,8 +67,9 @@ bool sAtlasData::sImageData::Parse(const char* e_strText, float e_Scale)
 	if (l_DataStartPos != -1)
 	{
 		l_strData = l_strText.substr(l_DataStartPos, l_strText.length() - l_DataStartPos);
-		if (m_iCurrentImageDataParseIndex != eDataType::eDT_NAME ||
-			m_iCurrentImageDataParseIndex != eDataType::eDT_INDEX)
+		if (m_iCurrentImageDataParseIndex != eDataType::eDT_NAME &&
+			m_iCurrentImageDataParseIndex != eDataType::eDT_INDEX&&
+			m_iCurrentImageDataParseIndex != eDataType::eDT_ROTATE)
 		{
 			l_Size = GetPoint(l_strData);
 			l_Size.x = (long)(l_Size.x * e_Scale);
@@ -85,25 +89,25 @@ bool sAtlasData::sImageData::Parse(const char* e_strText, float e_Scale)
 	if (m_iCurrentImageDataParseIndex == eDataType::eDT_POS_XY)
 	{
 		strPosXY = "  xy: ";
-		strPosXY += ValueToString(l_Size);
+		strPosXY += ValueToString(l_Size.x) + ", " + ValueToString(l_Size.y);
 	}
 	else
 	if (m_iCurrentImageDataParseIndex == eDataType::eDT_TRIMMED_SIZE)
 	{
 		strTrimmedSize = "  size: ";
-		strTrimmedSize += ValueToString(l_Size);
+		strTrimmedSize += ValueToString(l_Size.x) + ", " + ValueToString(l_Size.y);
 	}
 	else
 	if (m_iCurrentImageDataParseIndex == eDataType::eDT_ORIG_SIZE)
 	{
 		strOrigSize = "  orig: ";
-		strOrigSize += ValueToString(l_Size);
+		strOrigSize += ValueToString(l_Size.x) + ", " + ValueToString(l_Size.y);
 	}
 	else
 	if (m_iCurrentImageDataParseIndex == eDataType::eDT_OFFSET)
 	{
 		strOffset = "  offset: ";
-		strOffset += ValueToString(l_Size);
+		strOffset += ValueToString(l_Size.x) + ", " + ValueToString(l_Size.y);
 	}
 	else
 	if (m_iCurrentImageDataParseIndex == eDataType::eDT_INDEX)
@@ -120,12 +124,12 @@ std::string sAtlasData::sImageData::ToString()
 {
 	std::string l_strResult;
 	l_strResult = strName;			l_strResult += "\n";
-	l_strResult = strRotate;		l_strResult += "\n";
-	l_strResult = strPosXY;			l_strResult += "\n";
-	l_strResult = strTrimmedSize;	l_strResult += "\n";
-	l_strResult = strName;			l_strResult += "\n";
-	l_strResult = strOffset;		l_strResult += "\n";
-	l_strResult = strIndex;			l_strResult += "\n";
+	l_strResult += strRotate;		l_strResult += "\n";
+	l_strResult += strPosXY;		l_strResult += "\n";
+	l_strResult += strTrimmedSize;	l_strResult += "\n";
+	l_strResult += strOrigSize;		l_strResult += "\n";
+	l_strResult += strOffset;		l_strResult += "\n";
+	l_strResult += strIndex;		l_strResult += "\n";
 	return l_strResult;
 }
 
@@ -142,7 +146,11 @@ bool sAtlasData::DoScaleThenExport(const char* e_strSrcFileName, const char* e_s
 		int l_iIndex = 0;
 		while (std::getline(ss, to, '\n'))
 		{
-			Parse(to.c_str(), l_iIndex);
+			if (to.length())
+			{
+				Parse(to.c_str(), l_iIndex);
+				++l_iIndex;
+			}
 			l_AllTextVector.push_back(to);
 		}
 		return this->Export(e_strDestFileName);

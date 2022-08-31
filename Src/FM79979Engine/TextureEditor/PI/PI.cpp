@@ -355,7 +355,7 @@ namespace PI
 		 return true;
 	}
 
-	void			cPIEditor::OpenPIFile(String^e_strFileName)
+	bool			cPIEditor::OpenPIFile(String^e_strFileName)
 	{
 		 this->timer1->Enabled = false;
 		 AnimationData_listBox->Items->Clear();
@@ -366,6 +366,7 @@ namespace PI
 		 AllImage_listBox->Items->Clear();
 		 m_pPuzzleImageUnitTriangulatorManager->Destroy();
 		 String^l_strFileName = e_strFileName;
+		 bool l_bResult = false;
 		 if( l_strFileName )
 		 {
 				cPuzzleImage*l_pPuzzleImage = OpenPuzzleFile(l_strFileName);
@@ -400,6 +401,7 @@ namespace PI
 						if (m_pPuzzleImageUnitTriangulatorManager->ParseMorphingAnimation(l_strMorphingFileName.c_str()))
 						{
 						}
+						l_bResult = true;
 					}
 				}
 				else
@@ -407,7 +409,8 @@ namespace PI
 					WARNING_MSG("error data");
 				}
 		 }
-		 this->timer1->Enabled = true;	
+		 this->timer1->Enabled = true;
+		 return l_bResult;
 	}
 //=======================
 //

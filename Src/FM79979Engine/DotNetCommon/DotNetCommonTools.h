@@ -339,7 +339,7 @@ namespace DNCT
 
 	System::IO::Stream^ GenerateStreamFromString(String^e_str);
 	//https://stackoverflow.com/questions/1582499/resize-image-gdi-graphics-net/1587486#1587486
-	Image^ resizeImage(int newWidth, int newHeight, System::String^ stPhotoPath);
+	Image^ ResizeImage(System::String^ stPhotoPath,float e_fScale);
 }
 using namespace DNCT;
 //http://www.dotblogs.com.tw/larrynung/archive/2009/10/13/11033.aspx
