@@ -22,6 +22,9 @@
     <Filter Include="delaunay_triangulation">
       <UniqueIdentifier>{e9138440-6792-4c42-921b-9a349d6c995b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AtlasConvert">
+      <UniqueIdentifier>{e17a9ffe-859c-4bd6-812d-6e2b28e24984}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="MorphingAnimation_Editor.cpp">
       <Filter>PIUnitTriangulator</Filter>
+    </ClCompile>
+    <ClCompile Include="AtlasConvert.cpp">
+      <Filter>AtlasConvert</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="MorphingAnimation_Editor.h">
       <Filter>PIUnitTriangulator</Filter>
+    </ClInclude>
+    <ClInclude Include="AtlasConvert.h">
+      <Filter>AtlasConvert</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
