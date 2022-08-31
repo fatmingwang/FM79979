@@ -25,7 +25,7 @@
 //#include "GlobalDeclartion.h"
 #include "../../DotNetCommon/AllDNCTInclude.h"
 #include "../../DotNetCommon/CoreDotNetTools.h"
-
+#include "../nlohmann/json.hpp"
 //#include "../../DotNetCommon/DotNetCommonTools.h"
 //#include ""
 

@@ -5,6 +5,7 @@
 #include "PIUtility.h"
 #include "../../Core/GameplayUT/OpenGL/WindowsOpenGL.h"
 #include "AtlasConvert.h"
+#include "DragonBoneJsonConvert.h"
 cGlyphFontRender*g_pDebugFont = nullptr;
 #define	LAST_USE_PI_FILE_NAME	"_lastpifile.txt"
 namespace PI 
@@ -123,6 +124,7 @@ namespace PI
 		{
 			InitializeComponent();
 			cGameApp::CreateDefaultOpenGLRender();
+			FMLog::Init();
 			//now it only support power of two on windows,because I am lazy to fix cUIImage.
 			g_bSupportNonPowerOfTwoTexture = true;
 			this->menuStrip1->Visible = false;
@@ -2361,10 +2363,15 @@ public:
 			{
 				sAtlasData l_AtlasData;
 				auto l_bRsult = l_AtlasData.DoScaleThenExport(l_strTargetFileName.c_str(), l_strOutputFileName.c_str(), l_fSacle);
-				WARNING_MSG("convert "+ l_bRsult?"ok":"failed");
+				//WARNING_MSG("convert "+ l_bRsult?"ok":"failed");
+			}
+			else
+			if (!_stricmp(l_strFileExtensionName.c_str(), ".json"))
+			{
+				cDragonBoneJsonConvert::ParseThenExport(l_strTargetFileName.c_str(), l_strOutputFileName.c_str(), l_fSacle);
 			}
 		}
-		
+		WARNING_MSG("convert "+ "finish");
 	}
 };
 	static GCFORM::Form^CallForm(System::String^e_strFileName);

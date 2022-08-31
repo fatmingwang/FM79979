@@ -150,6 +150,7 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsManaged>
     </ClCompile>
     <ClCompile Include="AtlasConvert.cpp" />
+    <ClCompile Include="DragonBoneJsonConvert.cpp" />
     <ClCompile Include="MorphingAnimation_Editor.cpp" />
     <ClCompile Include="pack.cpp" />
     <ClCompile Include="PI.cpp">
@@ -164,6 +165,7 @@
     <ClCompile Include="TrianglesToDrawIndicesBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\nlohmann\json.hpp" />
     <ClInclude Include="AtlasConvert.h" />
     <ClInclude Include="BinPack.h" />
     <ClInclude Include="delaunay_triangulation\delaunay.h" />
@@ -172,6 +174,7 @@
     <ClInclude Include="delaunay_triangulation\edge.h" />
     <ClInclude Include="delaunay_triangulation\numeric.h" />
     <ClInclude Include="delaunay_triangulation\triangle.h" />
+    <ClInclude Include="DragonBoneJsonConvert.h" />
     <ClInclude Include="MorphingAnimation_Editor.h" />
     <ClInclude Include="pack.h" />
     <ClInclude Include="PIForm.h">

@@ -25,6 +25,9 @@
     <Filter Include="AtlasConvert">
       <UniqueIdentifier>{e17a9ffe-859c-4bd6-812d-6e2b28e24984}</UniqueIdentifier>
     </Filter>
+    <Filter Include="nlohmann">
+      <UniqueIdentifier>{188b89cb-f74c-452f-b33a-9513e6d238c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -49,6 +52,9 @@
       <Filter>PIUnitTriangulator</Filter>
     </ClCompile>
     <ClCompile Include="AtlasConvert.cpp">
+      <Filter>AtlasConvert</Filter>
+    </ClCompile>
+    <ClCompile Include="DragonBoneJsonConvert.cpp">
       <Filter>AtlasConvert</Filter>
     </ClCompile>
   </ItemGroup>
@@ -100,6 +106,12 @@
     </ClInclude>
     <ClInclude Include="AtlasConvert.h">
       <Filter>AtlasConvert</Filter>
+    </ClInclude>
+    <ClInclude Include="DragonBoneJsonConvert.h">
+      <Filter>AtlasConvert</Filter>
+    </ClInclude>
+    <ClInclude Include="..\nlohmann\json.hpp">
+      <Filter>nlohmann</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
