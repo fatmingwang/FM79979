@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+
+//DNCT::resizeImage
 struct sAtlasData
 {
 	enum eAltasHeader
@@ -59,5 +61,5 @@ struct sAtlasData
 	static void	PITosAtlasData(const char* e_strFileName);
 	bool		Export(const char* e_strFileName);
 	void		Parse(const char*e_strText,int e_iIndex, float e_fScale = 0.5);
-	void		DoScaleThenExport(const char* e_strSrcFileName, const char* e_strDestFileName,float e_fScale = 0.5);
+	bool		DoScaleThenExport(const char* e_strSrcFileName, const char* e_strDestFileName,float e_fScale = 0.5);
 };

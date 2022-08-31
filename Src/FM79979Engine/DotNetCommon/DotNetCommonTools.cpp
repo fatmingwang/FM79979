@@ -1435,5 +1435,60 @@ bool	ParseXMALFileToHandl(GCFORM::Control^e_pControl,String^e_strFileName)
 		stream->Position = 0;
 		return stream;
 	}
+
+	Image^ resizeImage(int newWidth, int newHeight, System::String^ stPhotoPath)
+	{
+		Image^ imgPhoto = Image::FromFile(stPhotoPath);
+
+		int sourceWidth = imgPhoto->Width;
+		int sourceHeight = imgPhoto->Height;
+
+		//Consider vertical pics
+		if (sourceWidth < sourceHeight)
+		{
+			int buff = newWidth;
+
+			newWidth = newHeight;
+			newHeight = buff;
+		}
+
+		int sourceX = 0, sourceY = 0, destX = 0, destY = 0;
+		float nPercent = 0, nPercentW = 0, nPercentH = 0;
+
+		nPercentW = ((float)newWidth / (float)sourceWidth);
+		nPercentH = ((float)newHeight / (float)sourceHeight);
+		if (nPercentH < nPercentW)
+		{
+			nPercent = nPercentH;
+			destX = System::Convert::ToInt16((newWidth - (sourceWidth * nPercent)) / 2);
+		}
+		else
+		{
+			nPercent = nPercentW;
+			destY = System::Convert::ToInt16((newHeight - (sourceHeight * nPercent)) / 2);
+		}
+
+		int destWidth = (int)(sourceWidth * nPercent);
+		int destHeight = (int)(sourceHeight * nPercent);
+
+
+		Bitmap^ bmPhoto = gcnew Bitmap(newWidth, newHeight, PixelFormat::Format24bppRgb);
+
+		bmPhoto->SetResolution(imgPhoto->HorizontalResolution, imgPhoto->VerticalResolution);
+
+		Graphics^ grPhoto = Graphics::FromImage(bmPhoto);
+		grPhoto->Clear(Color::Black);
+		grPhoto->InterpolationMode =
+			System::Drawing::Drawing2D::InterpolationMode::HighQualityBicubic;
+
+		grPhoto->DrawImage(imgPhoto,
+			System::Drawing::Rectangle(destX, destY, destWidth, destHeight),
+			System::Drawing::Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
+			GraphicsUnit::Pixel);
+
+		delete grPhoto;
+		delete imgPhoto;
+		return bmPhoto;
+	}
 //end DNCT
 }

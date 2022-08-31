@@ -129,7 +129,7 @@ std::string sAtlasData::sImageData::ToString()
 	return l_strResult;
 }
 
-void sAtlasData::DoScaleThenExport(const char* e_strSrcFileName, const char* e_strDestFileName,float e_fScale)
+bool sAtlasData::DoScaleThenExport(const char* e_strSrcFileName, const char* e_strDestFileName,float e_fScale)
 {
 	if(UT::IsFileExists(e_strSrcFileName))
 	{
@@ -145,5 +145,7 @@ void sAtlasData::DoScaleThenExport(const char* e_strSrcFileName, const char* e_s
 			Parse(to.c_str(), l_iIndex);
 			l_AllTextVector.push_back(to);
 		}
+		return this->Export(e_strDestFileName);
 	}
+	return false;
 }

@@ -55,6 +55,8 @@ extern bool g_bLanguageChinese;
 namespace DNCT
 {
 	using namespace System::Xml;
+	using namespace System::Drawing;
+	using namespace System::Drawing::Imaging;
 
 	//p System.String  q char*
 	#define GCSTRING_TO_WCHAR(p,q){assert(q && "nullptr Execption");						\
@@ -336,6 +338,8 @@ namespace DNCT
 	void	ParseXMALFileToHandl(HWND e_pHwand,String^e_strFileName);
 
 	System::IO::Stream^ GenerateStreamFromString(String^e_str);
+	//https://stackoverflow.com/questions/1582499/resize-image-gdi-graphics-net/1587486#1587486
+	Image^ resizeImage(int newWidth, int newHeight, System::String^ stPhotoPath);
 }
 using namespace DNCT;
 //http://www.dotblogs.com.tw/larrynung/archive/2009/10/13/11033.aspx
