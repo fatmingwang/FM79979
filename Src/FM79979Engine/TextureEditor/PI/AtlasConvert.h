@@ -25,12 +25,6 @@ struct sAtlasData
 //  orig: 120, 120
 //  offset: 1, 0
 //  index: -1
-	std::string strFileName;
-	std::string strSize;
-	std::string	strFormat = "format: RGBA8888";
-	std::string	strFilter = "filter: Linear,Linear";
-	std::string	strRepeat = "repeat: none";
-
 	struct sImageData
 	{
 		enum eDataType
@@ -55,7 +49,18 @@ struct sAtlasData
 		int			m_iCurrentImageDataParseIndex = 0;
 		std::string ToString();
 	};
-	std::vector<sImageData> m_ImageDataVector;
+	struct sAtlas
+	{
+		std::string strFileName;
+		std::string strSize;
+		std::string	strFormat = "format: RGBA8888";
+		std::string	strFilter = "filter: Linear,Linear";
+		std::string	strRepeat = "repeat: none";
+		std::vector<sImageData> m_ImageDataVector;
+	};
+	std::vector<sAtlas>		m_AtlasVector;
+	sAtlas*					m_pCurrentAtlas = nullptr;
+
 	sImageData				m_CurrentImageData;
 //
 	static void	PITosAtlasData(const char* e_strFileName);

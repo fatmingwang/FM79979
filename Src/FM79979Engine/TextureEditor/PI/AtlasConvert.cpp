@@ -5,14 +5,19 @@
 bool sAtlasData::Export(const char* e_strFileName)
 {
 	std::string l_strResult;
-	l_strResult = strFileName;		l_strResult += "\n";
-	l_strResult += strSize;			l_strResult += "\n";
-	l_strResult += strFormat;		l_strResult += "\n";
-	l_strResult += strFilter;		l_strResult += "\n";
-	l_strResult += strRepeat;		l_strResult += "\n";
-	for (int i = 0; i < (int)m_ImageDataVector.size(); ++i)
+	for (size_t i = 0; i < m_AtlasVector.size(); ++i)
 	{
-		l_strResult += m_ImageDataVector[i].ToString();
+		sAtlas*l_pAtlas  = &m_AtlasVector[i];
+		l_strResult += l_pAtlas->strFileName;	l_strResult += "\n";
+		l_strResult += l_pAtlas->strSize;		l_strResult += "\n";
+		l_strResult += l_pAtlas->strFormat;		l_strResult += "\n";
+		l_strResult += l_pAtlas->strFilter;		l_strResult += "\n";
+		l_strResult += l_pAtlas->strRepeat;		l_strResult += "\n";
+		for (int i = 0; i < (int)l_pAtlas->m_ImageDataVector.size(); ++i)
+		{
+			l_strResult += l_pAtlas->m_ImageDataVector[i].ToString();
+		}
+		l_strResult += "\n";
 	}
 	return UT::SaveTxtToFile(e_strFileName, l_strResult.c_str(), (int)l_strResult.length());
 }
@@ -21,7 +26,9 @@ void sAtlasData::Parse(const char* e_strText, int e_iIndex, float e_fScale)
 {
 	if (e_iIndex == eAltasHeader::eAH_NAME)
 	{
-		strFileName = e_strText;
+		m_AtlasVector.push_back(sAtlas());
+		m_pCurrentAtlas = &m_AtlasVector[m_AtlasVector.size() - 1];
+		m_pCurrentAtlas->strFileName = e_strText;
 	}
 	else
 	if (e_iIndex == eAltasHeader::eAH_SIZE)
@@ -32,28 +39,28 @@ void sAtlasData::Parse(const char* e_strText, int e_iIndex, float e_fScale)
 		POINT l_Point = GetPoint(l_strPoint);
 		l_Point.x = l_Point.x *e_fScale;
 		l_Point.y = l_Point.y *e_fScale;
-		strSize = "size: "+ValueToString(l_Point.x)+", "+ValueToString(l_Point.y);
+		m_pCurrentAtlas->strSize = "size: "+ValueToString(l_Point.x)+", "+ValueToString(l_Point.y);
 	}
 	else
 	if (e_iIndex == eAltasHeader::eAH_FORMAT)
 	{
-		strFormat = e_strText;
+		m_pCurrentAtlas->strFormat = e_strText;
 	}
 	else
 	if (e_iIndex == eAltasHeader::eAH_FILTER)
 	{
-		strFilter = e_strText;
+		m_pCurrentAtlas->strFilter = e_strText;
 	}
 	else
 	if (e_iIndex == eAltasHeader::eAH_REPEAT)
 	{
-		strRepeat = e_strText;
+		m_pCurrentAtlas->strRepeat = e_strText;
 	}
 	else
 	{
 		if (m_CurrentImageData.Parse(e_strText, e_fScale))
 		{
-			m_ImageDataVector.push_back(m_CurrentImageData);
+			m_pCurrentAtlas->m_ImageDataVector.push_back(m_CurrentImageData);
 		}
 	}
 }
@@ -148,6 +155,11 @@ bool sAtlasData::DoScaleThenExport(const char* e_strSrcFileName, const char* e_s
 		{
 			if (to.length())
 			{
+				if (to.find(".png") != std::string::npos ||
+					to.find(".jpg") != std::string::npos)
+				{
+					l_iIndex = 0;
+				}
 				Parse(to.c_str(), l_iIndex);
 				++l_iIndex;
 			}
