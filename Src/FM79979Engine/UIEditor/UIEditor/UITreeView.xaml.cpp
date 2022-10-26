@@ -29,13 +29,13 @@ UITreeView::UITreeView()
 
 void UIEditor::UITreeView::m_UITreeView_DragItemsCompleted(Microsoft::UI::Xaml::Controls::TreeView^ sender, Microsoft::UI::Xaml::Controls::TreeViewDragItemsCompletedEventArgs^ args)
 {
-
+	int a = 0;
 }
 
 
 void UIEditor::UITreeView::m_UITreeView_ItemInvoked(Microsoft::UI::Xaml::Controls::TreeView^ sender, Microsoft::UI::Xaml::Controls::TreeViewItemInvokedEventArgs^ args)
 {
-
+	int a = 0;
 }
 
 
