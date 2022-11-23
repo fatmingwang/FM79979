@@ -56,7 +56,7 @@ namespace	FATMING_CORE
 
 	cCurveManager*	cGameApp::GetCurveManagerByFileName(const wchar_t*e_strFileName)
 	{
-		cCurveManager*l_pCurveManager = m_spPathFileList->GetObject(e_strFileName,true);
+		cCurveManager*l_pCurveManager = m_spPathFileList->GetObject(e_strFileName);
 		if (l_pCurveManager)
 			return l_pCurveManager;
 		l_pCurveManager = new cCurveManager();

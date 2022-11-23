@@ -82,6 +82,7 @@ namespace FATMING_CORE
 	}
 	cTextureManager::cTextureManager()
 	{
+		this->m_bTryWithoutFullFilePathName = true;
 		SetName(L"cTextureManager");
 	}
 

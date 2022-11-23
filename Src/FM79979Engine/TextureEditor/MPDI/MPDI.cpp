@@ -2023,7 +2023,7 @@ namespace MPDI
 		if( l_pPuzzleImageAWP)
 		{
 			m_pMPDIList->SetPuzzleImage(l_pPuzzleImageAWP);
-			m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring(l_pPuzzleImageAWP->GetName()));
+			m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring(l_pPuzzleImageAWP->GetNameWithoutFullPath()));
 		}
 		else
 		{
@@ -2091,7 +2091,7 @@ namespace MPDI
 			AllPlay_checkBox->Enabled = true;
 			m_pMPDIUI->Loop_checkBox->Enabled = true;
 			AllCurveLoop_checkBox->Enabled = true;
-			m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring(l_pPuzzleImageAWP->GetName()));
+			m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring(l_pPuzzleImageAWP->GetNameWithoutFullPath()));
 			if( m_strCurrentSaveFileName )
 				delete m_strCurrentSaveFileName;
 			m_strCurrentSaveFileName = nullptr;
@@ -2137,7 +2137,7 @@ namespace MPDI
 		 int	l_iCount = m_pImagePlayManagerAWP->Count();
 		 if( !m_pImagePlayManagerAWP || m_pImagePlayManagerAWP->Count() == 0 )
 			 return;
-		 std::wstring l_strMPDIListName = cMPDIList::FileToMPDIListName(DNCT::GcStringToWchar(e_strFileName).c_str());
+		 std::wstring l_strMPDIListName = DNCT::GcStringToWchar(e_strFileName);//cMPDIList::FileToMPDIListName(DNCT::GcStringToWchar(e_strFileName).c_str());
 		 if(!m_pImagePlayManagerAWP->GetObject(l_strMPDIListName.c_str()))
 		 {
 			 WholeAnimationList_listBox->Items->Clear();
@@ -2155,8 +2155,10 @@ namespace MPDI
 					cMultiPathDynamicImage*l_pMultiPathDynamicImage = (*m_pMPDIList)[i];
 					WholeAnimationList_listBox->Items->Add(DNCT::WcharToGcstring(l_pMultiPathDynamicImage->GetName()));
 				 }
-				 for(int i=0;i<m_pMPDIList->GetPIList()->Count();++i)
-					m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring((*m_pMPDIList->GetPIList())[i]->GetName()));
+				 for (int i = 0; i < m_pMPDIList->GetPIList()->Count(); ++i)
+				 {
+					 m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring((*m_pMPDIList->GetPIList())[i]->GetNameWithoutFullPath()));
+				 }
 				 m_pImagePlayManagerAWP->RemoveObject(l_pMPDIList->GetName());
 				 int	l_iCount = m_pImagePlayManagerAWP->Count();
 			 }
@@ -2219,8 +2221,10 @@ namespace MPDI
 				cMultiPathDynamicImage*l_pMultiPathDynamicImage = (*m_pMPDIList)[i];
 				WholeAnimationList_listBox->Items->Add(DNCT::WcharToGcstring(l_pMultiPathDynamicImage->GetName()));
 			}
-			for(int i=0;i<m_pMPDIList->GetPIList()->Count();++i)
-				m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring((*m_pMPDIList->GetPIList())[i]->GetName()));			
+			for (int i = 0; i < m_pMPDIList->GetPIList()->Count(); ++i)
+			{
+				m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring((*m_pMPDIList->GetPIList())[i]->GetNameWithoutFullPath()));
+			}
 			if(m_pMPDIUI->AllPI_listBox->Items->Count>0)
 				m_pMPDIUI->AllPI_listBox->SelectedIndex = 0;
 			sPuzzleData*l_pAllPuzzleData = m_pMPDIList->GetAllPuzzleData();

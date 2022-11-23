@@ -180,6 +180,10 @@ namespace FATMING_CORE
 			else
 			IMAGE_COMMON_PARAMETERS(l_pPuzzleImageUnit)
 		PARSE_NAME_VALUE_END
+		if (l_pPuzzleImageUnit && l_strNewName.length())
+		{
+			l_pPuzzleImageUnit->SetName(l_strNewName);
+		}
 		return l_pPuzzleImageUnit;
 	}
 

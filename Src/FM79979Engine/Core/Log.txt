@@ -246,3 +246,8 @@ add below code to pch.h(stdafx.h)
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
 
+
+
+Linker 2022 it's possible different .Net version
+set it at Advanced->.Net Framework Target Version
+set all project same version.

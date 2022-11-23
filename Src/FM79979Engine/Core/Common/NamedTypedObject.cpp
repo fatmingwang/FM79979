@@ -124,10 +124,22 @@ void	NamedTypedObject::SetupInternalData()
 //#endif
 //}
 
+std::wstring	NamedTypedObject::GetNameWithoutFullPath()
+{
+	return UT::GetFileNameWithoutFullPath(m_sObjectName);
+}
+
 std::string	NamedTypedObject::GetCharName()
 {
 	return FATMING_CORE::ValueToString(m_sObjectName);
 }
+
+bool	NamedTypedObject::IsSameNameStripDirectory(const wchar_t* e_strName)
+{
+	auto l_strName = UT::GetFileNameWithoutFullPath(m_sObjectName);
+	return l_strName.compare(e_strName) == 0 ? true : false;
+}
+
 
 void NamedTypedObject::SetName( const char*e_pString )
 {

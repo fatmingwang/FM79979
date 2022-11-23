@@ -14,6 +14,7 @@ namespace FATMING_CORE
 	//bool    g_bSkipImageLoad = false;
 	cImageParser::cImageParser()
 	{
+		this->m_bTryWithoutFullFilePathName = true;
 	}
 	//===============
 	//

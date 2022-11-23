@@ -150,6 +150,7 @@ namespace FATMING_CORE
 	}
 	cSoundParser::cSoundParser()
 	{
+		//this->m_bTryWithoutFullFilePathName = true;
 		m_siNumSoundManager++;
 		m_fVolume = 1.f;
 #if defined(IOS) || defined(ANDROID) || defined(WASM) || defined(LINUX)

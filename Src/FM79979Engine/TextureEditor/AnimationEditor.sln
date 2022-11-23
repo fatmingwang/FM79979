@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextureEditor", "TextureEditor\TextureEditor.vcxproj", "{EB2793AC-0767-4E73-89A0-8C21C502EE8C}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -20,6 +20,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreWPF", "..\CoreWPF\CoreWPF.csproj", "{465DD0FB-BE46-4E00-A957-816464E15056}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MPDI", "MPDI\MPDI.vcxproj", "{3BC80092-9378-4FA4-960F-E745C6228FB8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{465DD0FB-BE46-4E00-A957-816464E15056} = {465DD0FB-BE46-4E00-A957-816464E15056}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PI", "PI\PI.vcxproj", "{1B91D789-1E96-40B4-B3D8-7B001BF0D457}"
 EndProject

@@ -59,7 +59,7 @@ void	cSelectMusicPhase::Init()
 	}
 	if( !m_pSongInfoBoardUI )
 	{
-		cMPDIList*l_pMPDIList = cGameApp::m_spAnimationParser->GetMPDIListByFileName("MusicGame/Image/UI.mpdi",true);
+		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"MusicGame/Image/UI.mpdi",true);
 		if( l_pMPDIList )
 		{
 			m_pSongInfoBoardUI = new cSongInfoBoardUI(l_pMPDIList->GetObject(L"MusicDetail"),&this->m_MusicInfoVector);

@@ -24,7 +24,7 @@ namespace FATMING_CORE
 		//get from cMPDIList!
 		GET_SET_DEC(cNamedTypedObjectVector<cPuzzleImage>*,m_pPIList,GetPIList,SetPIList);
 	public:
-		cMulti_PI_Image(){ m_pPIList = new cNamedTypedObjectVector<cPuzzleImage>();m_pPIList->SetFromResource(true); m_pPuzzleImage = 0; }
+		cMulti_PI_Image(){ m_pPIList = new cNamedTypedObjectVector<cPuzzleImage>(true);m_pPIList->SetFromResource(true); m_pPuzzleImage = 0; }
 		cMulti_PI_Image(cMulti_PI_Image*e_pMulti_PI_Image)
 		{
 			assert(e_pMulti_PI_Image);

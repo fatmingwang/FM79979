@@ -72,9 +72,11 @@ public:
 public:
     //const wchar_t*	            GetName() const { return m_sObjectName; };
 	const wchar_t*				GetName(){ return m_sObjectName.c_str(); };
+	std::wstring				GetNameWithoutFullPath();
 	std::string					GetCharName();
 	bool						IsSameName(const wchar_t*e_strName){ return wcscmp(e_strName,m_sObjectName.c_str())==0?true:false; }
 	bool						IsSameName(NamedTypedObject*e_pNamedTypedObject){ return IsSameName(e_pNamedTypedObject->GetName()); }
+	bool						IsSameNameStripDirectory(const wchar_t* e_strName);
 
 	bool						IsSameType( NamedTypedObject*e_pNamedTypedObject ){ if(e_pNamedTypedObject->Type() == this->Type())return true;return false; }
 	bool						IsSameType( const wchar_t*e_strTypeID ){ if(e_strTypeID == this->Type())return true;return false; }

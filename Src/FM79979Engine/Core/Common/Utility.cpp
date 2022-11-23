@@ -672,7 +672,7 @@ namespace UT
 
 	char*					GetFileContent(const char* e_strFileName, int&e_iFileLength, const char* e_strMode)
 	{
-		char*l_pTemp = nullptr;
+ 		char*l_pTemp = nullptr;
 		NvFile*l_pFile = MyFileOpen(e_strFileName, e_strMode);
 		if (!l_pFile)
 		{
@@ -681,9 +681,11 @@ namespace UT
 		int	l_iFileSize = UT::GetFileSize(l_pFile);
 		if (l_iFileSize != 0)
 		{
-			e_iFileLength = l_iFileSize;
-			l_pTemp = new char[l_iFileSize];
+			int l_ExtraceEndCharacterLength = 1;
+			l_pTemp = new char[l_iFileSize+ l_ExtraceEndCharacterLength];
 			size_t	l_iNumRead = NvFRead(l_pTemp, 1, l_iFileSize, l_pFile);
+			l_pTemp[l_iNumRead] = 0;
+			e_iFileLength = l_iFileSize+ l_ExtraceEndCharacterLength;
 		}
 		NvFClose(l_pFile);
 		return l_pTemp;
@@ -691,23 +693,18 @@ namespace UT
 	std::string				GetTxtFileContent(const char* e_strFileName)
 	{
 		std::string	l_strContent = e_strFileName;
-		NvFile*l_pFile = MyFileOpen(e_strFileName,"r");
-		if(!l_pFile)
+		int l_iFileLength = 0;
+		auto l_strFileContent = GetFileContent(e_strFileName, l_iFileLength, "r");
+		if (l_strFileContent)
+		{
+			l_strContent = l_strFileContent;
+			delete l_strFileContent;
+		}
+		else
 		{
 			l_strContent = e_strFileName;
 			l_strContent += " (file is not exists)";
-			return l_strContent;
 		}
-		long	l_uiFileSize = UT::GetFileSize(l_pFile);
-		if (l_uiFileSize != 0)
-		{
-			char*l_Temp = new char[l_uiFileSize + 1];//1 MB
-			size_t	l_iNumRead = NvFRead(l_Temp, 1, l_uiFileSize, l_pFile);
-			l_Temp[l_iNumRead] = 0;
-			l_strContent = l_Temp;
-			delete[] l_Temp;
-		}
-		NvFClose(l_pFile);
 		return l_strContent;
 	}
 
@@ -721,7 +718,7 @@ namespace UT
 			return false;
 		}
 		long	l_uiFileSize = e_iByteCount;//strlen(e_strFileName);
-		long l_uiFileSize2 = strlen(e_strContent);
+		//auto l_uiFileSize2 = strlen(e_strContent);
 		auto l_iLength = NvFWrite(e_strContent,sizeof(char),l_uiFileSize,l_pFile);
 		NvFClose(l_pFile);
 		return true;

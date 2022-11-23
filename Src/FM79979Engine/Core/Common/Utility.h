@@ -68,7 +68,8 @@ namespace UT
 	NvFile*					MyFileOpen( const char* FileName,const char*e_strMode  );
 	bool					MyFileCopy( const char* e_strSrcFileName,const char* e_strDestFileName);
 	std::string				GetTxtFileContent(const char* e_strFileName);
-	char*					GetFileContent(const char* e_strFileName,int&e_iFileLength,const char*e_strMode = "r");//please delete received data
+	//please delete received data(delete[] data)
+	char*					GetFileContent(const char* e_strFileName,int&e_iFileLength,const char*e_strMode = "r");
 	bool					SaveTxtToFile(const char* e_strFileName,const char*e_strContent,int e_iByteCount);
 	long					GetFileSize(NvFile*e_pFile);
 	bool					IsFileExists( const char* FileName );

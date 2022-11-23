@@ -12,6 +12,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cAnimationParser);
 	cAnimationParser::cAnimationParser():ISAXCallback(true)
 	{
+		this->m_bTryWithoutFullFilePathName = true;
 		m_fMPDIVersion = 0.f;
 		m_pCurrentcMPDIList = 0;
 		m_pCurrentMultiPathDynamicImage = 0;	
@@ -121,7 +122,7 @@ namespace FATMING_CORE
 
 	cMPDIList*cAnimationParser::GetMPDIListByFileName(const char*e_strFileName,bool e_bShowErrorMessage)
 	{
-		return dynamic_cast<cMPDIList*>(GetObject(UT::CharToWchar(e_strFileName).c_str(), true));
+		return dynamic_cast<cMPDIList*>(GetObject(UT::CharToWchar(e_strFileName).c_str()));
 	}
 
 	cMPDIList*cAnimationParser::GetMPDIListByFileName(const wchar_t*e_strFileName,bool e_bShowErrorMessage)

@@ -101,12 +101,14 @@ template <class T> class cNamedTypedObjectVector:virtual public NamedTypedObject
 protected:
 	vector < T* > m_ObjectList;
 	bool	m_bFromResource;
+	bool	m_bTryWithoutFullFilePathName = false;
 public:
-	cNamedTypedObjectVector(){ m_bFromResource = false; }
+	cNamedTypedObjectVector(bool e_bTryWithoutFullFilePathName = false) { m_bFromResource = false; m_bTryWithoutFullFilePathName = e_bTryWithoutFullFilePathName;}
 	cNamedTypedObjectVector(cNamedTypedObjectVector<T>*e_pObjectListByName)
 	{
 		CloneFromList(e_pObjectListByName);
 		SetName(e_pObjectListByName->GetName());
+		m_bTryWithoutFullFilePathName = e_pObjectListByName->m_bTryWithoutFullFilePathName;
 	}
 	virtual	NamedTypedObject*	Clone(){ return new cNamedTypedObjectVector<T>(this); }
 	virtual ~cNamedTypedObjectVector(){ Destroy(); }
@@ -156,27 +158,18 @@ public:
 
 	inline T*	GetObject(int e_i){if( e_i<this->Count() && e_i>-1 )return m_ObjectList[e_i];	return 0;}
 	inline T*	GetObject(std::wstring e_pString){return this->GetObject(e_pString.c_str());	}
-	inline T*	GetObject(const wchar_t*e_pString,bool e_bTryWithoutFullFilePathName= false)
+	inline T*	GetObject(const wchar_t*e_pString)
 	{
 		int l_iIndex = this->GetObjectIndexByName(e_pString);
 		if (l_iIndex != -1)
 		{
 			return this->GetObject(l_iIndex);
 		}
-		else
-		if (e_bTryWithoutFullFilePathName)
-		{
-			l_iIndex = this->GetObjectIndexByName(UT::GetFileNameWithoutFullPath(e_pString).c_str());
-			if (l_iIndex != -1)
-			{
-				this->GetObject(l_iIndex);
-			}
-		}
 		return nullptr;
 	}
 	virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)
 	{
-		return this->GetObject(e_strFileName,true);
+		return this->GetObject(e_strFileName);
 	}
 	NamedTypedObject* GetObjectByFileNameW(const wchar_t*e_strFileName)
 	{
@@ -202,11 +195,11 @@ public:
 		return l_pObject;
 	}
 
-	inline T*	GetObject(const char*e_pString, bool e_bTryWithoutFullFilePathName = false)
+	inline T*	GetObject(const char*e_pString)
 	{
 		if(!e_pString)return nullptr;
 		std::wstring	l_strName = UT::CharToWchar(e_pString);
-		return this->GetObject(l_strName.c_str(),e_bTryWithoutFullFilePathName);
+		return this->GetObject(l_strName.c_str());
 	}
 
 	inline T*	GetLastObject(){	return this->GetObject((int)m_ObjectList.size()-1);}
@@ -343,6 +336,16 @@ public:
 				if( !wcscmp(m_ObjectList[i]->GetName(),e_pString) )
 				{
 					return (int)i;
+				}
+			}
+			if (m_bTryWithoutFullFilePathName)
+			{
+				for (size_t i = 0; i < l_uiSize; ++i)
+				{
+					if (m_ObjectList[i]->IsSameNameStripDirectory(e_pString))
+					{
+						return (int)i;
+					}
 				}
 			}
 		}

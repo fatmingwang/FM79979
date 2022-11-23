@@ -221,13 +221,11 @@ namespace PI
 				auto l_pFileContent = UT::GetFileContent(LAST_USE_PI_FILE_NAME, l_iFileLength);
 				if (l_pFileContent)
 				{
-					//if (UT::IsFileExists(l_pFileContent))
+					if (!OpenPIFile(gcnew String(l_pFileContent)))
 					{
-						if (!OpenPIFile(gcnew String(l_pFileContent)))
-						{
-							UT::MyRemoveFile(LAST_USE_PI_FILE_NAME);
-						}
+						UT::MyRemoveFile(LAST_USE_PI_FILE_NAME);
 					}
+					delete[] l_pFileContent;
 				}
 			}
 			this->timer1->Enabled = true;

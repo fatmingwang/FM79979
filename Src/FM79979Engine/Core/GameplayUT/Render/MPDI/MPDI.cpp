@@ -748,7 +748,7 @@ EXIT:
 						{
 							if(cGameApp::m_spSoundParser)
 							{
-								cBasicSound* l_pNamedTypedObject = cGameApp::m_spSoundParser->GetObject(l_pHintPoint->strEventName,true);
+								cBasicSound* l_pNamedTypedObject = cGameApp::m_spSoundParser->GetObject(l_pHintPoint->strEventName);
 								if( l_pNamedTypedObject )
 								{
 									std::wstring	l_strName = l_pNamedTypedObject->GetName();

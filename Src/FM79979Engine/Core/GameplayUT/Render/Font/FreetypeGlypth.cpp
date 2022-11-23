@@ -504,6 +504,9 @@ namespace FATMING_CORE
 			assert(font_memory_image);
 			l_Err = FT_New_Memory_Face(m_FT_Library, ft2_font_memory_image, font_memory_image_length, 0, &m_Face);
 			assert(!l_Err);
+			delete[] font_memory_image;
+			font_memory_image = nullptr;
+			FMLOG("not test ,if ttf get wrong please check this cDynamicFontTexture::cDynamicFontTexture");
 		}
 #endif
 		//l_Err = FT_Set_Char_Size(m_Face, 0, ptSize26Dot6, cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
