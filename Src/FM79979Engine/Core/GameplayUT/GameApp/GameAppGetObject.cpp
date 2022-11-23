@@ -56,14 +56,13 @@ namespace	FATMING_CORE
 
 	cCurveManager*	cGameApp::GetCurveManagerByFileName(const wchar_t*e_strFileName)
 	{
-		std::wstring	l_strName = UT::GetFileNameWithoutFullPath(e_strFileName);
-		cCurveManager*l_pCurveManager = m_spPathFileList->GetObject(l_strName.c_str());
+		cCurveManager*l_pCurveManager = m_spPathFileList->GetObject(e_strFileName,true);
 		if (l_pCurveManager)
 			return l_pCurveManager;
 		l_pCurveManager = new cCurveManager();
 		if (l_pCurveManager->Parse(UT::WcharToChar(e_strFileName).c_str()))
 		{
-			l_pCurveManager->SetName(l_strName);
+			l_pCurveManager->SetName(e_strFileName);
 			m_spPathFileList->AddObjectNeglectExist(l_pCurveManager);
 			if(cGameApp::m_spOpenGLRender->m_vGameScale.x != 1.f || cGameApp::m_spOpenGLRender->m_vGameScale.y != 1.f)
 				l_pCurveManager->DoScale(cGameApp::m_spOpenGLRender->m_vGameScale);

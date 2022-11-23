@@ -721,7 +721,8 @@ namespace UT
 			return false;
 		}
 		long	l_uiFileSize = e_iByteCount;//strlen(e_strFileName);
-		NvFWrite(e_strContent,sizeof(char),l_uiFileSize,l_pFile);
+		long l_uiFileSize2 = strlen(e_strContent);
+		auto l_iLength = NvFWrite(e_strContent,sizeof(char),l_uiFileSize,l_pFile);
 		NvFClose(l_pFile);
 		return true;
 	}

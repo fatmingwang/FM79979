@@ -139,8 +139,10 @@ namespace FATMING_CORE
 		{
 			assert(0&&"do not support this type");
 		}
-		if( l_pParticleBase )
+		if (l_pParticleBase)
+		{
 			l_pParticleBase->SetName(e_strTypeID);
+		}
 		return l_pParticleBase;
 	}
 

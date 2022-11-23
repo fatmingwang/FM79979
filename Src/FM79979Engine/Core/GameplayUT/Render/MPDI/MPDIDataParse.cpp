@@ -324,9 +324,10 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 					COMPARE_NAME("Name")
 					{
 						m_pCurrentcMPDIList	= l_pCurrentcMPDIList;
-						std::string	l_strMPDIName = UT::GetFileNameWithoutFullPath(this->m_strFileName);
-						l_strMPDIName += "_mpdi";
-						l_pCurrentcMPDIList->SetName(UT::CharToWchar(l_strMPDIName.c_str()));
+						std::string	l_strMPDIName = this->m_strFileName;//UT::GetFileNameWithoutFullPath(this->m_strFileName);
+						l_pCurrentcMPDIList->SetName(l_strMPDIName.c_str());
+						//l_strMPDIName += "_mpdi";
+						//l_pCurrentcMPDIList->SetName(UT::CharToWchar(l_strMPDIName.c_str()));
 						//l_pCurrentcMPDIList->SetName(l_strValue);
 						bool l_b = this->AddObject( l_pCurrentcMPDIList );
 						if( !l_b )

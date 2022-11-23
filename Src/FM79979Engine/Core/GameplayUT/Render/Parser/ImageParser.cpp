@@ -48,8 +48,14 @@ namespace FATMING_CORE
 	cPuzzleImage*	cImageParser::GetPuzzleImageByFileName(const wchar_t*e_strName)
 	{
 		std::string	l_strFileName = UT::WcharToChar(e_strName);
-		std::wstring l_strPIName = UT::GetFileNameWithoutFullPath(e_strName);
-		return GetPuzzleImage(l_strFileName.c_str(),l_strPIName.c_str());
+		std::wstring l_strPIName = e_strName;
+		auto l_PI = GetPuzzleImage(l_strFileName.c_str(), l_strPIName.c_str());;
+		if (l_PI)
+		{
+			return l_PI;
+		}
+		l_strPIName = UT::GetFileNameWithoutFullPath(e_strName);
+		return GetPuzzleImage(l_strFileName.c_str(), l_strPIName.c_str());
 	}
 
 	cPuzzleImage*	cImageParser::GetPuzzleImage(const wchar_t*e_strName)

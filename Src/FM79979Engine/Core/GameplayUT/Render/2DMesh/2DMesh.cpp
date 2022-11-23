@@ -158,8 +158,6 @@ namespace FATMING_CORE
 		}
 		this->AddObjectNeglectExist(l_pCurrent2DMeshObjectVector);
 		m_pCurrent2DMeshObjectVector = l_pCurrent2DMeshObjectVector;
-		//need this one?because texture has set name.
-		//l_pCurrent2DMeshObjectVector->SetName(UT::GetFileNameWithoutFullPath(this->m_strFileName).c_str());
 		e_pRoot = e_pRoot->FirstChildElement();
 		while (e_pRoot)
 		{

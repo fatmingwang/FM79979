@@ -156,11 +156,27 @@ public:
 
 	inline T*	GetObject(int e_i){if( e_i<this->Count() && e_i>-1 )return m_ObjectList[e_i];	return 0;}
 	inline T*	GetObject(std::wstring e_pString){return this->GetObject(e_pString.c_str());	}
-	inline T*	GetObject(const wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));	}
+	inline T*	GetObject(const wchar_t*e_pString,bool e_bTryWithoutFullFilePathName= false)
+	{
+		int l_iIndex = this->GetObjectIndexByName(e_pString);
+		if (l_iIndex != -1)
+		{
+			return this->GetObject(l_iIndex);
+		}
+		else
+		if (e_bTryWithoutFullFilePathName)
+		{
+			l_iIndex = this->GetObjectIndexByName(UT::GetFileNameWithoutFullPath(e_pString).c_str());
+			if (l_iIndex != -1)
+			{
+				this->GetObject(l_iIndex);
+			}
+		}
+		return nullptr;
+	}
 	virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)
 	{
-		auto l_strObjectName = UT::GetFileNameWithoutFullPath(e_strFileName);
-		return this->GetObject(l_strObjectName.c_str());
+		return this->GetObject(e_strFileName,true);
 	}
 	NamedTypedObject* GetObjectByFileNameW(const wchar_t*e_strFileName)
 	{
@@ -186,11 +202,11 @@ public:
 		return l_pObject;
 	}
 
-	inline T*	GetObject(const char*e_pString)
+	inline T*	GetObject(const char*e_pString, bool e_bTryWithoutFullFilePathName = false)
 	{
 		if(!e_pString)return nullptr;
 		std::wstring	l_strName = UT::CharToWchar(e_pString);
-		return this->GetObject(l_strName.c_str());
+		return this->GetObject(l_strName.c_str(),e_bTryWithoutFullFilePathName);
 	}
 
 	inline T*	GetLastObject(){	return this->GetObject((int)m_ObjectList.size()-1);}
@@ -316,8 +332,8 @@ public:
 
 	int	Count(){ return (int)m_ObjectList.size(); }
 
-	inline	int	GetObjectIndexByName(const wchar_t* e_pString){return GetObjectIndexByName((wchar_t*)e_pString);}
-	inline	int	GetObjectIndexByName(wchar_t* e_pString)
+	//inline	int	GetObjectIndexByName(const wchar_t* e_pString){return GetObjectIndexByName((wchar_t*)e_pString);}
+	inline	int	GetObjectIndexByName(const wchar_t* e_pString)
 	{
 		if( e_pString )
 		{

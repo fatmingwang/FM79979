@@ -241,7 +241,8 @@ namespace FATMING_CORE
 			else
 			{
 			}
-			SetName(UT::GetFileNameWithoutFullPath(this->m_strFileName).c_str());
+			//SetName(UT::GetFileNameWithoutFullPath(this->m_strFileName).c_str());
+			SetName(this->m_strFileName);
 		}
 		if(l_strCount)
 		{

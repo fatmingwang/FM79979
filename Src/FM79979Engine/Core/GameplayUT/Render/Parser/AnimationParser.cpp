@@ -121,14 +121,13 @@ namespace FATMING_CORE
 
 	cMPDIList*cAnimationParser::GetMPDIListByFileName(const char*e_strFileName,bool e_bShowErrorMessage)
 	{
-		std::string	l_strFileName = e_strFileName;
-		return GetMPDIList(l_strFileName.c_str(),cMPDIList::FileToMPDIListName(e_strFileName).c_str());
+		return dynamic_cast<cMPDIList*>(GetObject(UT::CharToWchar(e_strFileName).c_str(), true));
 	}
 
 	cMPDIList*cAnimationParser::GetMPDIListByFileName(const wchar_t*e_strFileName,bool e_bShowErrorMessage)
 	{
 		std::string	l_strFileName = UT::WcharToChar(e_strFileName);
-		return GetMPDIList(l_strFileName.c_str(),cMPDIList::FileToMPDIListName(e_strFileName).c_str());
+		return GetMPDIList(l_strFileName.c_str(), e_strFileName);
 	}
 
 	cMPDIList*cAnimationParser::GetMPDIList(const char*e_strFileName,const wchar_t*e_strName,bool e_bShowErrorMessage)

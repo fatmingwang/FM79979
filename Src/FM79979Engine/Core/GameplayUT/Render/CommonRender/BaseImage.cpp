@@ -28,9 +28,7 @@ namespace FATMING_CORE
 	{
 		if (e_strImageName)
 		{
-			auto l_strFileName = UT::GetFileNameWithoutFullPath(e_strImageName);
-			auto l_wstrFileName = UT::CharToWchar(l_strFileName);
-			this->SetName(l_wstrFileName);
+			this->SetName(e_strImageName);
 			m_pTexture = cTextureManager::GetInstance()->GetObject(this, e_strImageName, e_bFetchPixels);
 			if (m_pTexture)
 			{
@@ -102,8 +100,10 @@ namespace FATMING_CORE
 	//===============
 	void	cBaseImage::SetTexture(cTexture*e_pTexture)
 	{
-		if( m_pTexture )
+		if (m_pTexture)
+		{
 			this->m_pTexture->Release(this);
+		}
 		m_pTexture = e_pTexture;
 		m_pTexture->AddRef(this);
 		memcpy(this->m_fUV,m_pTexture->GetUV(),sizeof(float)*4);

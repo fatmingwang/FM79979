@@ -1474,6 +1474,8 @@ bool	ParseXMALFileToHandl(GCFORM::Control^e_pControl,String^e_strFileName)
 		grPhoto->Clear(Color::Transparent);
 		grPhoto->InterpolationMode =
 			System::Drawing::Drawing2D::InterpolationMode::HighQualityBicubic;
+			//System::Drawing::Drawing2D::InterpolationMode::Default;
+			//System::Drawing::Drawing2D::InterpolationMode::NearestNeighbor;
 
 		grPhoto->DrawImage(imgPhoto,
 			System::Drawing::Rectangle(destX, destY, destWidth, destHeight),

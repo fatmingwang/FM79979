@@ -299,7 +299,7 @@ namespace FATMING_CORE
 	bool	cTexture::LoadImage(const char*e_strImageFileName, bool e_bFetchPixelData)
 	{
 		assert(e_strImageFileName);
-		std::string	l_strImageName = UT::GetFileNameWithoutFullPath(e_strImageFileName);
+		std::string	l_strImageName = e_strImageFileName;//UT::GetFileNameWithoutFullPath(e_strImageFileName);
 		std::wstring	l_strImageNameW = CharToWchar(l_strImageName.c_str());
 		//is loading the same image again?
 		if (this->IsSameName(l_strImageNameW.c_str()))
@@ -385,7 +385,7 @@ namespace FATMING_CORE
 	bool	cTexture::LoadImage(const char*e_strImageFileName, bool e_bFetchPixelData)
 	{
 		assert(e_strImageFileName);
-		std::string	l_strImageName = UT::GetFileNameWithoutFullPath(e_strImageFileName);
+		std::string	l_strImageName = e_strImageFileName;// UT::GetFileNameWithoutFullPath(e_strImageFileName);
 		std::wstring	l_strImageNameW = CharToWchar(l_strImageName.c_str());
 		//is loading the same image again?
 		if (this->IsSameName(l_strImageNameW.c_str()))

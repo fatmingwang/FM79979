@@ -152,7 +152,8 @@ namespace FATMING_CORE
 			l_pTexture = cNamedTypedObjectVector<cTexture>::GetObject(e_strImageFileName);
 			if (!l_pTexture)
 			{
-				std::string		l_strImageName = UT::GetFileNameWithoutFullPath(e_strImageFileName);
+				//std::string		l_strImageName = UT::GetFileNameWithoutFullPath(e_strImageFileName);
+				std::string		l_strImageName = e_strImageFileName;// UT::GetFileNameWithoutFullPath(e_strImageFileName);
 				l_pTexture = cNamedTypedObjectVector<cTexture>::GetObject(l_strImageName.c_str());
 			}
 			if (l_pTexture)

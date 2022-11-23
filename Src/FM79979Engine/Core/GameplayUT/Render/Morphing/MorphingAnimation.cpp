@@ -223,7 +223,7 @@ namespace FATMING_CORE
 				this->m_strErrorMsg += L" parse faild!\n";
 				return false;
 			}
-			auto l_strMAManager = UT::GetFileNameWithoutFullPath(l_strMXBIFileName);
+			std::wstring l_strMAManager = l_strMXBIFileName;//UT::GetFileNameWithoutFullPath(l_strMXBIFileName);
 			cFMMorphingAnimationVector*l_pFMMorphingAnimationVector = new cFMMorphingAnimationVector(m_pCurrent2DMeshObjectVector);
 			l_pFMMorphingAnimationVector->SetName(l_strMAManager);
 			this->AddObjectNeglectExist(l_pFMMorphingAnimationVector);

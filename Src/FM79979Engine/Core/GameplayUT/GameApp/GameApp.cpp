@@ -505,8 +505,7 @@ namespace	FATMING_CORE
 
 	cBasicSound*	cGameApp::GetSoundByFileName(const wchar_t*e_strSoundFileName, bool e_bStreaming)
 	{
-		std::wstring	l_strSoundName = UT::GetFileNameWithoutFullPath(e_strSoundFileName);
-		cBasicSound*l_pSound = GetSound(l_strSoundName.c_str());
+		cBasicSound*l_pSound = GetSound(e_strSoundFileName);
 		if (!l_pSound)
 		{
 			std::string	l_strFileName = UT::WcharToChar(e_strSoundFileName);
@@ -514,7 +513,7 @@ namespace	FATMING_CORE
 			{
 				if (m_spSoundParser && cGameApp::m_spSoundParser->AddSound(cGameApp::m_spSoundParser, l_strFileName.c_str(), e_bStreaming))
 				{
-					l_pSound = m_spSoundParser->GetObject(l_strSoundName.c_str());
+					l_pSound = m_spSoundParser->GetObject(e_strSoundFileName,true);
 				}
 			}
 		}
@@ -523,7 +522,9 @@ namespace	FATMING_CORE
 	cBasicSound*	cGameApp::GetSound(const wchar_t*e_strSoundName)
 	{
 		if (m_spSoundParser)
-			return m_spSoundParser->GetObject(e_strSoundName);
+		{
+			return m_spSoundParser->GetObject(e_strSoundName, true);
+		}
 		return 0;
 	}
 
@@ -600,8 +601,7 @@ namespace	FATMING_CORE
 
 	cGlyphFontRender*	cGameApp::GetGlyphFontRenderByFileName(const wchar_t*e_strFileName)
 	{
-		std::wstring		l_strName = UT::GetFileNameWithoutFullPath(e_strFileName);
-		cGlyphFontRender*	l_pGlyphFontRender = m_spGlyphFontRenderVector->GetObject(l_strName.c_str());
+		cGlyphFontRender*	l_pGlyphFontRender = m_spGlyphFontRenderVector->GetObject(e_strFileName,true);
 		if (!l_pGlyphFontRender)
 		{
 			std::string	l_strFileName = UT::WcharToChar(e_strFileName);
@@ -616,7 +616,7 @@ namespace	FATMING_CORE
 
 	cGlyphFontRender*	cGameApp::GetGlyphFontRender(const wchar_t*e_strFileName)
 	{
-		return m_spGlyphFontRenderVector->GetObject(e_strFileName);
+		return m_spGlyphFontRenderVector->GetObject(e_strFileName,true);
 	}
 
 	void	cGameApp::ShowInfo()

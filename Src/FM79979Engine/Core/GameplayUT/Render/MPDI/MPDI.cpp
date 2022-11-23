@@ -748,7 +748,7 @@ EXIT:
 						{
 							if(cGameApp::m_spSoundParser)
 							{
-								cBasicSound*l_pNamedTypedObject = cGameApp::m_spSoundParser->GetObject(UT::GetFileNameWithoutFullPath(l_pHintPoint->strEventName));
+								cBasicSound* l_pNamedTypedObject = cGameApp::m_spSoundParser->GetObject(l_pHintPoint->strEventName,true);
 								if( l_pNamedTypedObject )
 								{
 									std::wstring	l_strName = l_pNamedTypedObject->GetName();
@@ -810,19 +810,6 @@ EXIT:
 //        return l_wstring;
 //	}
 //#else
-	std::wstring cMPDIList::FileToMPDIListName(const char*e_strFileName)
-	{
-		std::wstring l_wstr = UT::CharToWchar(e_strFileName);
-		std::wstring l_strFileName = UT::GetFileNameWithoutFullPath(l_wstr);
-		l_strFileName += L"_mpdi";
-        return l_strFileName;
-	}
-    std::wstring cMPDIList::FileToMPDIListName(const wchar_t*e_strObjectName)
-    {
-		std::wstring l_wstr = UT::GetFileNameWithoutFullPath(e_strObjectName);
-		l_wstr += L"_mpdi";
-        return l_wstr;
-    }
 //#endif
 //end namespace FATMING_CORE
 }

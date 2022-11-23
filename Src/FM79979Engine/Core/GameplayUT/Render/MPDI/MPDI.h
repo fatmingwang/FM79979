@@ -147,7 +147,5 @@ namespace FATMING_CORE
 		cMultiPathDynamicImage*		GetCloneObject(int e_iIndex);
 		//set original name xxxx_mpdi as xxxx.mpdi
 		static  std::string		GetFileName(const wchar_t*e_strObjectName);
-		static  std::wstring	FileToMPDIListName(const wchar_t*e_strObjectName);
-		static  std::wstring	FileToMPDIListName(const char*e_strFileName);
 	};
 }

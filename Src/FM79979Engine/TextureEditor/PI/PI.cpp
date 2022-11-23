@@ -8,6 +8,7 @@
 #pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/Common/BinaryFile/StringCompress.h"
 #include "MorphingAnimation_Editor.h"
+//#pragma comment(lib, "../../../lib/Debug/Bullet.lib")
 //#include "../../../include/vld.h"
 //#pragma comment(lib, "../../../lib/vld.lib")
 
