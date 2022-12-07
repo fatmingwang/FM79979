@@ -18,7 +18,8 @@
 #include "jni.h"
 #include <sys/time.h>
 #endif
-
+//from NamedTypedObject
+extern uint64	GetGlobalUniqueID();
 //#ifdef UWP
 //struct timeval 
 //{
@@ -287,6 +288,59 @@ namespace UT
 		if(e_bWithFormatString)
 			return UT::ComposeMsgByFormat("%dD%dH%dM%dS", l_iDay, l_iHour, l_iMin, l_iSeconds);
 		return UT::ComposeMsgByFormat("%d,%2d,%2d,%2d", l_iDay, l_iHour, l_iMin, l_iSeconds);
+	}
+	cTimeoutCallBackFunctionManager::cTimeoutCallBackFunctionManager()
+	{
+	}
+	cTimeoutCallBackFunctionManager::~cTimeoutCallBackFunctionManager()
+	{
+	}
+	uint64 cTimeoutCallBackFunctionManager::SetTimeout(f_TimeoutCallbackFunction e_f_TimeoutCallbackFunction, float e_fTime)
+	{
+		uint64 l_ui64ID = GetGlobalUniqueID();
+		sTimeAndFunction l_TimeAndFunction = { e_fTime,e_f_TimeoutCallbackFunction };
+		m_IDAndCallbackFunctionMap.insert(std::make_pair(l_ui64ID, l_TimeAndFunction));
+		return l_ui64ID;
+	}
+	bool cTimeoutCallBackFunctionManager::RemoveTimeoutFunction(uint64 e_i64ID)
+	{
+		auto l_IT = m_IDAndCallbackFunctionMap.find(e_i64ID);
+		if (l_IT != m_IDAndCallbackFunctionMap.end())
+		{
+			m_IDAndCallbackFunctionMap.erase(l_IT);
+			return true;
+		}
+		return false;
+	}
+	bool cTimeoutCallBackFunctionManager::Clear()
+	{
+		while (m_IDAndCallbackFunctionMap.size())
+		{
+			m_IDAndCallbackFunctionMap.erase(m_IDAndCallbackFunctionMap.begin());
+		}
+		return true;
+	}
+	void cTimeoutCallBackFunctionManager::Update(float e_fElpaseTime)
+	{
+		std::vector<uint64> l_ReachTimeVector;
+		for (auto l_IT = m_IDAndCallbackFunctionMap.begin(); l_IT != m_IDAndCallbackFunctionMap.end(); ++l_IT)
+		{
+			l_IT->second.fTime -= e_fElpaseTime;
+			if (l_IT->second.fTime <= 0.f)
+			{
+				l_ReachTimeVector.push_back(l_IT->first);
+				if (l_IT->second.TimeoutCallbackFunction)
+				{
+					l_IT->second.TimeoutCallbackFunction();
+				}
+			}
+		}
+		while (l_ReachTimeVector.size())
+		{
+			auto l_ui64ID = l_ReachTimeVector[0];
+			m_IDAndCallbackFunctionMap.erase(l_ui64ID);
+			l_ReachTimeVector.erase(l_ReachTimeVector.begin());
+		}
 	}
 	//end namespace UT
 }

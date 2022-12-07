@@ -1,6 +1,8 @@
 #pragma once
 #include "CommonDefine.h"
 #include <string>
+#include <functional>
+#include <map>
 #ifndef WIN32
 #include <sys/time.h>
 #endif
@@ -81,5 +83,26 @@ namespace UT
 
 	std::string			SecondsToTime(double e_dbSeconds, bool e_bWithFormatString = false);
 	std::wstring		SecondsToTimeW(double e_dbSeconds, bool e_bWithFormatString = false);
+
+	typedef std::function<void()>		f_TimeoutCallbackFunction;
+	class cTimeoutCallBackFunctionManager
+	{
+		struct sTimeAndFunction
+		{
+			float						fTime;
+			f_TimeoutCallbackFunction	TimeoutCallbackFunction;
+		};
+		std::map<uint64, sTimeAndFunction>	m_IDAndCallbackFunctionMap;
+	public:
+		cTimeoutCallBackFunctionManager();
+		~cTimeoutCallBackFunctionManager();
+		uint64	SetTimeout(f_TimeoutCallbackFunction e_f_TimeoutCallbackFunction, float e_fTime);
+		bool	RemoveTimeoutFunction(uint64 e_i64ID);
+		bool	Clear();
+		void	Update(float e_fElpaseTime);
+		
+	};
+
+
 }
 //end namespace UT
