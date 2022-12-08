@@ -3,6 +3,7 @@
 #include <string>
 #include <functional>
 #include <map>
+#include "NamedTypedObject.h"
 #ifndef WIN32
 #include <sys/time.h>
 #endif
@@ -85,7 +86,7 @@ namespace UT
 	std::wstring		SecondsToTimeW(double e_dbSeconds, bool e_bWithFormatString = false);
 
 	typedef std::function<void()>		f_TimeoutCallbackFunction;
-	class cTimeoutCallBackFunctionManager
+	class cTimeoutCallBackFunction:public NamedTypedObject
 	{
 		struct sTimeAndFunction
 		{
@@ -94,13 +95,12 @@ namespace UT
 		};
 		std::map<uint64, sTimeAndFunction>	m_IDAndCallbackFunctionMap;
 	public:
-		cTimeoutCallBackFunctionManager();
-		~cTimeoutCallBackFunctionManager();
+		cTimeoutCallBackFunction();
+		virtual ~cTimeoutCallBackFunction();
 		uint64	SetTimeout(f_TimeoutCallbackFunction e_f_TimeoutCallbackFunction, float e_fTime);
 		bool	RemoveTimeoutFunction(uint64 e_i64ID);
 		bool	Clear();
 		void	Update(float e_fElpaseTime);
-		
 	};
 
 

@@ -73,6 +73,7 @@ namespace	FATMING_CORE
 	float												cCommonApp::m_sfVersion = 1.f;
 	bool												cCommonApp::m_sbLeave = false;
 	bool												cCommonApp::m_sbGamePause = false;
+	cTimeoutCallBackFunction*							cCommonApp::m_spTimeoutCallBackFunction = nullptr;
 //Android
 #if defined(ANDROID)
 	std::string*										cCommonApp::m_spAPKPath = nullptr;
@@ -90,6 +91,7 @@ namespace	FATMING_CORE
 	cCommonApp::cCommonApp()
 	{
 		m_spMessageSenderManager = new cMessageSenderManager();
+		m_spTimeoutCallBackFunction = new cTimeoutCallBackFunction();
 		for (int i = 0; i < MAX_PERFORMANCE_TC_COUNT; ++i)
 		{
 			m_sPerformanceFPSChecker[i].Update();
@@ -116,6 +118,7 @@ namespace	FATMING_CORE
 
 	cCommonApp::~cCommonApp()
 	{
+		SAFE_DELETE(m_spTimeoutCallBackFunction);
 		SAFE_DELETE(m_psstrGameAppName);
 		SAFE_DELETE(m_spMessageSenderManager);
 #ifdef UWP
@@ -135,6 +138,10 @@ namespace	FATMING_CORE
 	{
 		if (m_spMessageSenderManager)
 			m_spMessageSenderManager->Update(e_fElpaseTime);
+		if (m_spTimeoutCallBackFunction)
+		{
+			m_spTimeoutCallBackFunction->Update(e_fElpaseTime);
+		}
 	}
 	bool	cCommonApp::EventMessageShot(unsigned int e_usID, void*e_pData)
 	{
@@ -205,5 +212,21 @@ namespace	FATMING_CORE
 				l_IT->second.Update();
 			}
 		}
+	}
+	uint64 SetTimeoutByCommonApp(f_TimeoutCallbackFunction e_f_TimeoutCallbackFunction, float e_fTime)
+	{
+		if (cCommonApp::m_spTimeoutCallBackFunction)
+		{
+			return cCommonApp::m_spTimeoutCallBackFunction->SetTimeout(e_f_TimeoutCallbackFunction,e_fTime);
+		}
+		return -1;
+	}
+	bool RemoveTimeoutFunctionByCommonApp(uint64 e_i64ID)
+	{
+		if (cCommonApp::m_spTimeoutCallBackFunction)
+		{
+			return cCommonApp::m_spTimeoutCallBackFunction->RemoveTimeoutFunction(e_i64ID);
+		}
+		return false;
 	}
 }

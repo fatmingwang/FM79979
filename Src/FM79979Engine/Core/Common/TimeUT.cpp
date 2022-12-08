@@ -289,20 +289,20 @@ namespace UT
 			return UT::ComposeMsgByFormat("%dD%dH%dM%dS", l_iDay, l_iHour, l_iMin, l_iSeconds);
 		return UT::ComposeMsgByFormat("%d,%2d,%2d,%2d", l_iDay, l_iHour, l_iMin, l_iSeconds);
 	}
-	cTimeoutCallBackFunctionManager::cTimeoutCallBackFunctionManager()
+	cTimeoutCallBackFunction::cTimeoutCallBackFunction()
 	{
 	}
-	cTimeoutCallBackFunctionManager::~cTimeoutCallBackFunctionManager()
+	cTimeoutCallBackFunction::~cTimeoutCallBackFunction()
 	{
 	}
-	uint64 cTimeoutCallBackFunctionManager::SetTimeout(f_TimeoutCallbackFunction e_f_TimeoutCallbackFunction, float e_fTime)
+	uint64 cTimeoutCallBackFunction::SetTimeout(f_TimeoutCallbackFunction e_f_TimeoutCallbackFunction, float e_fTime)
 	{
 		uint64 l_ui64ID = GetGlobalUniqueID();
 		sTimeAndFunction l_TimeAndFunction = { e_fTime,e_f_TimeoutCallbackFunction };
 		m_IDAndCallbackFunctionMap.insert(std::make_pair(l_ui64ID, l_TimeAndFunction));
 		return l_ui64ID;
 	}
-	bool cTimeoutCallBackFunctionManager::RemoveTimeoutFunction(uint64 e_i64ID)
+	bool cTimeoutCallBackFunction::RemoveTimeoutFunction(uint64 e_i64ID)
 	{
 		auto l_IT = m_IDAndCallbackFunctionMap.find(e_i64ID);
 		if (l_IT != m_IDAndCallbackFunctionMap.end())
@@ -312,7 +312,7 @@ namespace UT
 		}
 		return false;
 	}
-	bool cTimeoutCallBackFunctionManager::Clear()
+	bool cTimeoutCallBackFunction::Clear()
 	{
 		while (m_IDAndCallbackFunctionMap.size())
 		{
@@ -320,7 +320,7 @@ namespace UT
 		}
 		return true;
 	}
-	void cTimeoutCallBackFunctionManager::Update(float e_fElpaseTime)
+	void cTimeoutCallBackFunction::Update(float e_fElpaseTime)
 	{
 		std::vector<uint64> l_ReachTimeVector;
 		for (auto l_IT = m_IDAndCallbackFunctionMap.begin(); l_IT != m_IDAndCallbackFunctionMap.end(); ++l_IT)

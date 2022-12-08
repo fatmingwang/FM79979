@@ -36,6 +36,7 @@ namespace	FATMING_CORE
 		static  float												m_sfVersion;
 		//if true game exit
 		static	bool												m_sbLeave;
+		static	cTimeoutCallBackFunction*							m_spTimeoutCallBackFunction;
 		//android
 #if defined(ANDROID)
 		static	std::string*		m_spAPKPath;
@@ -64,4 +65,15 @@ namespace	FATMING_CORE
 		//e_iID == -1 clear all data
 		void														ClearElpaseTimeByID(int e_iID);
 	};
+
+	//SetTimeoutByCommonApp([]() 
+	//	{
+	//		FMLOG("qoo1");
+	//	}, 1);
+	//SetTimeoutByCommonApp([]()
+	//	{
+	//		FMLOG("qoo2");
+	//	}, 2);
+	uint64		SetTimeoutByCommonApp(f_TimeoutCallbackFunction e_f_TimeoutCallbackFunction, float e_fTime);
+	bool		RemoveTimeoutFunctionByCommonApp(uint64 e_i64ID);
 }
