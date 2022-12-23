@@ -1,0 +1,556 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>
+    </PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug_NoPthread|Emscripten">
+      <Configuration>Debug_NoPthread</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_NoPthread|x64">
+      <Configuration>Debug_NoPthread</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Emscripten">
+      <Configuration>Debug</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_NoPthread|Emscripten">
+      <Configuration>Release_NoPthread</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_NoPthread|x64">
+      <Configuration>Release_NoPthread</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Emscripten">
+      <Configuration>Release</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B3E3F85B-CF12-30FA-A219-5DDDF6A351F7}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>spine-cpp</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <PlatformToolset>emcc</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <PlatformToolset>emcc</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>emcc</PlatformToolset>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|Emscripten'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>emcc</PlatformToolset>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">.\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">spine-cpp.dir\Debug\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">spine-cpp.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">spine-cpp</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">spine-cpp</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">.a</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'">.a</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|x64'">.\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">spine-cpp.dir\Release\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|x64'">spine-cpp.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">spine-cpp</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|x64'">spine-cpp</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">$(ProjectName)</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|Emscripten'">$(ProjectName)</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|x64'">.lib</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">.a</TargetExt>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|Emscripten'">.a</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|Emscripten'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\spine-cpp\include;..\spine-cpp\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\spine-cpp\include;..\spine-cpp\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>true</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>DEBUG;SPINE_USE_STD_FUNCTION</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)%(Filename).o</ObjectFileName>
+      <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>-r</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>true</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>DEBUG;SPINE_USE_STD_FUNCTION</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)%(Filename).o</ObjectFileName>
+      <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>-r</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\spine-cpp\include;..\spine-cpp\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>SPINE_USE_STD_FUNCTION</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)%(Filename).o</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <OptimizationLevel>O3</OptimizationLevel>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>-r -pthread</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|Emscripten'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>SPINE_USE_STD_FUNCTION</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)%(Filename).o</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <OptimizationLevel>Os</OptimizationLevel>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>.\\include;.\\spine-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>-r</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\spine-cpp\src\spine\Animation.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\AnimationState.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\AnimationStateData.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Atlas.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\AtlasAttachmentLoader.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Attachment.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\AttachmentLoader.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\AttachmentTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Bone.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\BoneData.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\BoundingBoxAttachment.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\ClippingAttachment.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\ColorTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\ConstraintData.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\CurveTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\DeformTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\DrawOrderTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Event.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\EventData.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\EventTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Extension.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\IkConstraint.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\IkConstraintData.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\IkConstraintTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Json.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\LinkedMesh.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Log.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\MathUtil.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\MeshAttachment.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\PathAttachment.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\PathConstraint.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\PathConstraintData.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\PathConstraintMixTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\PathConstraintPositionTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\PathConstraintSpacingTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\PointAttachment.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\RTTI.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\RegionAttachment.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\RotateTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\ScaleTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\ShearTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Skeleton.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\SkeletonBinary.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\SkeletonBounds.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\SkeletonClipping.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\SkeletonData.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\SkeletonJson.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Skin.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Slot.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\SlotData.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\SpineObject.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\TextureLoader.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Timeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\TransformConstraint.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\TransformConstraintData.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\TransformConstraintTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\TranslateTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Triangulator.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\TwoColorTimeline.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\Updatable.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\VertexAttachment.cpp" />
+    <ClCompile Include="..\spine-cpp\src\spine\VertexEffect.cpp" />
+    <ClInclude Include="..\spine-cpp\include\spine\Animation.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\AnimationState.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\AnimationStateData.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Atlas.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\AtlasAttachmentLoader.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Attachment.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\AttachmentLoader.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\AttachmentTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\AttachmentType.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\BlendMode.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Bone.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\BoneData.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\BoundingBoxAttachment.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\ClippingAttachment.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Color.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\ColorTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\ConstraintData.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\ContainerUtil.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\CurveTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Debug.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\DeformTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\DrawOrderTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Event.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\EventData.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\EventTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Extension.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\HasRendererObject.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\HashMap.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\IkConstraint.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\IkConstraintData.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\IkConstraintTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Json.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\LinkedMesh.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Log.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\MathUtil.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\MeshAttachment.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\MixBlend.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\MixDirection.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\PathAttachment.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\PathConstraint.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\PathConstraintData.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\PathConstraintMixTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\PathConstraintPositionTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\PathConstraintSpacingTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\PointAttachment.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Pool.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\PositionMode.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Property.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\RTTI.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\RegionAttachment.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\RotateMode.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\RotateTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\ScaleTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\ShearTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Skeleton.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\SkeletonBinary.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\SkeletonBounds.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\SkeletonClipping.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\SkeletonData.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\SkeletonJson.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Skin.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Slot.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\SlotData.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\SpacingMode.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\SpineObject.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\SpineString.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\TextureLoader.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Timeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\TransformConstraint.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\TransformConstraintData.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\TransformConstraintTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\TransformMode.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\TranslateTimeline.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Triangulator.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Updatable.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Vector.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\VertexAttachment.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\VertexEffect.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\Vertices.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\dll.h" />
+    <ClInclude Include="..\spine-cpp\include\spine\spine.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,5 +1,4 @@
-#ifndef StdAfx_H
-#define StdAfx_H
+#pragma once
 
 #ifndef _UNICODE
 #define _UNICODE
@@ -45,5 +44,3 @@
 //	typedef std::basic_string<wchar_t> MyStringForMVSCW;
 //	#define wstring MyStringForMVSCW
 //#endif
-
-#endif
