@@ -19,7 +19,7 @@
 // test.cpp : Defines the entry point for the application.
 #include <corecrt_io.h>
 #include <fcntl.h>
-
+#include "../../Core/FMgltf/glTF.h"
 
 //#define VLD_DEBUG
 //
@@ -51,6 +51,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+	//glTF::Asset l_Asset;
+	//l_Asset.Parse(L"C:/Users/Fatming/Desktop/DirectX-Graphics-Samples-master/DirectX-Graphics-Samples-master/Samples/Desktop/D3D12Raytracing/src/D3D12RaytracingMiniEngineSample/Sponza/pbr/sponza2.gltf");
 	for (int i = 0; i < 100; ++i)
 	{
 		int gl_VertexID = i;

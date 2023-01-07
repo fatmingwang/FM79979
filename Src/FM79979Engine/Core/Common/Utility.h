@@ -52,6 +52,7 @@ namespace UT
 	std::string				GetFileExtensionName(const char*e_pString);
 	std::string				ChangeFileExtensionName(const char*e_pFileNameString,const char*e_strNewExtensionName);
 	std::string				GetDirectoryWithoutFileName(const char*e_str);
+	std::wstring			GetDirectoryWithoutFileName(const wchar_t* e_str);
 	std::string				AddExtenStringForFileName(const char*e_str, const char*e_strExtendString);
 	//
 	bool					IsStringContain(const char*e_strSource,const char*e_strCompare);
@@ -104,6 +105,10 @@ namespace UT
 	//void					CharToWchar(char *e_strSrc,wchar_t*e_strDest);
 	std::wstring			CharToWchar(const char *e_strChar);
 	std::wstring			CharToWchar(std::string	e_strChar);
+
+	std::string ToLower(const std::string& str);
+	std::wstring ToLower(const std::wstring& str);
+
 	//a vector contain a bunch data,now input a index it is possible bigger than last index or smaller 0,
 	//so we have to find the proper one if we want it be loop
 	int						GetLoopIndex(int e_iIndex,int e_iTotalCount);

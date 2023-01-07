@@ -301,6 +301,12 @@
     <ProjectReference Include="..\..\..\..\..\ProtoBuffer\VSProject\libprotobuf.vcxproj">
       <Project>{aa2f9274-a914-3c9d-8fe7-9ed3303ec581}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\FMgltf\FMgltf.vcxproj">
+      <Project>{c8cbf889-95a8-44fa-99fb-feb27989dd7a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\zlib\zlib.vcxproj">
+      <Project>{c2552b93-40e6-4118-ba99-2a8d500fc597}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

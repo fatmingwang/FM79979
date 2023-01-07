@@ -6,6 +6,7 @@
 //#include "../GameplayUT/GameApp.h"
 //#include "../GameplayUT/Log/FMLog.h"
 #include <errno.h>
+#include <locale>
 //#include <locale>
 #ifdef WIN32
 #include <direct.h>
@@ -609,6 +610,19 @@ namespace UT
 #endif
 		return l_strResult;
 	}
+
+	std::wstring			GetDirectoryWithoutFileName(const wchar_t* e_str)
+	{
+		std::wstring l_FileName = e_str;
+		size_t lastSlash;
+		if ((lastSlash = l_FileName.rfind(L'/')) != std::wstring::npos)
+			return l_FileName.substr(0, lastSlash + 1);
+		else if ((lastSlash = l_FileName.rfind(L'\\')) != std::wstring::npos)
+			return l_FileName.substr(0, lastSlash + 1);
+		else
+			return L"";
+	}
+
 	std::string AddExtenStringForFileName(const char * e_str, const char * e_strExtendString)
 	{
 		auto l_strExtensionFileName = GetFileExtensionName(e_str);
@@ -1502,6 +1516,24 @@ namespace UT
 	{
 		auto l_str = e_strChar.c_str();
 		return CharToWchar(l_str);
+	}
+
+	std::string ToLower(const std::string& str)
+	{
+		std::string lower_case = str;
+		std::locale loc;
+		for (char& s : lower_case)
+			s = std::tolower(s, loc);
+		return lower_case;
+	}
+
+	std::wstring ToLower(const std::wstring& str)
+	{
+		std::wstring lower_case = str;
+		std::locale loc;
+		for (wchar_t& s : lower_case)
+			s = std::tolower(s, loc);
+		return lower_case;
 	}
 
 	int		GetLoopIndex(int e_iIndex,int e_iTotalCount)
