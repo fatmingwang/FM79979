@@ -81,6 +81,8 @@
 //Texture
 #include "Render/Texture/Texture.h"
 #include "Render/Texture/TextureManager.h"
+//batch render
+#include "Render/RenderQueue/BatchRendering.h"
 //2DMesh
 //Morphing
 //UI

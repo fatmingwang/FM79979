@@ -782,6 +782,9 @@
     <ClCompile Include="Network\Emscripten_Network.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
+    <ClCompile Include="GameplayUT\Render\RenderQueue\BatchRendering.cpp">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1386,6 +1389,9 @@
     </ClInclude>
     <ClInclude Include="Emscripten\JSBindCode.h">
       <Filter>Emscripten</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\RenderQueue\BatchRendering.h">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
