@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\baccarat\Src\FM79979\Src\FM79979Engine\Core\GameplayUT\Render\RenderQueue\BatchRendering.cpp" />
     <ClCompile Include="..\..\Common\BinaryFile\BinaryFile.cpp" />
     <ClCompile Include="..\..\Common\BinaryFile\CustomBinaryData.cpp" />
     <ClCompile Include="..\..\Common\BinaryFile\StringCompress.cpp" />
@@ -179,6 +180,7 @@
     <ClCompile Include="OpenGLES.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\baccarat\Src\FM79979\Src\FM79979Engine\Core\GameplayUT\Render\RenderQueue\BatchRendering.h" />
     <ClInclude Include="..\..\Common\BinaryFile\BinaryFile.h" />
     <ClInclude Include="..\..\Common\BinaryFile\CustomBinaryData.h" />
     <ClInclude Include="..\..\Common\BinaryFile\StringCompress.h" />

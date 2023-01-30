@@ -624,6 +624,9 @@
     <ClCompile Include="..\..\GameplayUT\Render\RenderQueue\RenderCommand.cpp">
       <Filter>GameplayUT\Render\RenderQue</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\..\baccarat\Src\FM79979\Src\FM79979Engine\Core\GameplayUT\Render\RenderQueue\BatchRendering.cpp">
+      <Filter>GameplayUT\Render\RenderQue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\BinaryFile\CustomBinaryData.h">
@@ -1140,6 +1143,9 @@
       <Filter>GameplayUT\Render\RenderQue</Filter>
     </ClInclude>
     <ClInclude Include="..\..\GameplayUT\Render\RenderQueue\RenderQueueManager.h">
+      <Filter>GameplayUT\Render\RenderQue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\baccarat\Src\FM79979\Src\FM79979Engine\Core\GameplayUT\Render\RenderQueue\BatchRendering.h">
       <Filter>GameplayUT\Render\RenderQue</Filter>
     </ClInclude>
   </ItemGroup>
