@@ -23,6 +23,42 @@ namespace	FATMING_CORE
 			return GetPuzzleImageByFileName(e_strFileName.c_str()); 
 		return nullptr;
 	}
+
+	//<cNumeralImage PIFileName="" NumerialImageName=""/>
+	//<cNumeralImage PIFileName="" StartPIUnitName="" EndPIUnitName=""/>
+	cNumeralImage*	cGameApp::GetNumerialImageByXmlElement(TiXmlElement*e_pTiXmlElement)
+	{
+		if( e_pTiXmlElement )
+		{
+			const WCHAR*l_strTempString = 0;
+			cPuzzleImage*l_pPI = 0;
+			PARSE_ELEMENT_START(e_pTiXmlElement)
+				COMPARE_NAME("PIFileName")
+				{
+					l_pPI = cGameApp::GetPuzzleImageByFileName(l_strValue);
+				}
+				else
+				COMPARE_NAME("NumerialImageName")
+				{
+					return l_pPI->GetNumeralImageByName(l_strValue);
+				}
+				else
+				COMPARE_NAME("StartPIUnitName")
+				{
+					l_strTempString = l_strValue;
+				}
+				else
+				COMPARE_NAME("EndPIUnitName")
+				{
+					if( l_pPI )
+						return l_pPI->GetNumeralImageByName(l_strTempString,l_strValue);
+				}
+			PARSE_NAME_VALUE_END
+			//cNumeralImage*l_pNumerialImage;
+		}
+		return 0;
+	}
+
 	cPuzzleImage*	cGameApp::GetPuzzleImageByFileName(const wchar_t*e_strFileName)
 	{
 		if (m_spImageParser)

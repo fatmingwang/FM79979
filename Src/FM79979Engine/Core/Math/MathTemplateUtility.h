@@ -1,5 +1,5 @@
 #pragma once
-
+#include "../Common/TimeUT.h"
 namespace UT
 {
 	extern std::vector<int>	GenerateRandomTable(int e_iCount,int e_iMaxValue);
@@ -161,6 +161,49 @@ namespace UT
 			return nullptr;
 		}
 		void						Clear(){ m_ProbabilityVector.clear(); m_TotalProbabiliy = 0; m_ValueVector.clear(); }
+	};
+
+	template<class T>struct  sMoveToDestTimeCounter
+	{
+		T    				vCurrentMoveDistance;
+		T    				vTotalMoveDistance;
+		T    				vCurrentPos;
+		T    				vEndPos;
+		T    				vStartPos;
+		UT::sTimeCounter    MoveToDestinationTC;
+		void				SetTimeAndPosData(T e_Distination, T e_StartPos, float e_fTime)
+		{
+			MoveToDestinationTC.SetTargetTime(e_fTime);
+			vCurrentPos = vStartPos = e_StartPos;
+			vEndPos = e_Distination;
+			this->vTotalMoveDistance = vStartPos - vStartPos;
+			vCurrentMoveDistance = vTotalMoveDistance;
+		}
+		void    			Start()
+		{
+			MoveToDestinationTC.Start();
+			vCurrentPos = vStartPos;
+			this->vTotalMoveDistance = vStartPos - vStartPos;
+			vCurrentMoveDistance = vTotalMoveDistance;
+		}
+
+		void    			Update(float e_fElpaseTime)
+		{
+			MoveToDestinationTC.Update(e_fElpaseTime);
+			if (!this->MoveToDestinationTC.bTragetTimrReached)
+			{
+				vCurrentMoveDistance = (e_fElpaseTime / MoveToDestinationTC.fTargetTime) * (vEndPos - vStartPos);
+				vTotalMoveDistance += vCurrentMoveDistance;
+				vCurrentPos += vTotalMoveDistance;
+			}
+			else
+			{
+				vCurrentMoveDistance = vEndPos - vStartPos - vTotalMoveDistance;
+				vTotalMoveDistance = vEndPos - vStartPos;
+				vCurrentPos = vEndPos;
+			}
+		}
+		bool	IsDone() { return MoveToDestinationTC.bTragetTimrReached; }
 	};
 //end namespace UT
 }

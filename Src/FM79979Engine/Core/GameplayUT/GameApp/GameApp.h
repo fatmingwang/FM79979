@@ -98,6 +98,7 @@ namespace	FATMING_CORE
 		static	void												ApplyViewPort();
 		static	class cPuzzleImage*									GetPuzzleImage(const wchar_t*e_strName);
 		static	class cBaseImage*									GetBaseImage(const wchar_t*e_strName);
+		static	cNumeralImage*										GetNumerialImageByXmlElement(TiXmlElement* e_pTiXmlElement);
 		static	class cPuzzleImage*									GetPuzzleImageByFileName(const wchar_t*e_strFileName);
 		static	class cPuzzleImage*									GetPuzzleImageByFileName(std::wstring e_strFileName);
 		static	class cMPDIList*									GetMPDIList(const wchar_t*e_strName);
