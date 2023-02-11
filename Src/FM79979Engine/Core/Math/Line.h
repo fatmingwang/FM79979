@@ -1,5 +1,4 @@
-#ifndef _LINE_H_
-#define _LINE_H_
+#pragma once
 #include "Vector3.h"
 namespace FATMING_CORE
 {
@@ -54,5 +53,3 @@ namespace FATMING_CORE
 	};
 //end namespace FATMING_CORE
 }
-
-#endif
