@@ -40,6 +40,9 @@ namespace FATMING_CORE
 {
     //mouse behavior,Mouse Down,Mouse Horver MouseLeave MouseUp
     //basicly it will has a parent cClickMouseBehaviorVector.
+	#if defined(WIN32)
+	#pragma vtordisp(push, 2)
+	#endif
     class   cClickMouseBehavior:virtual public Frame
     {
     protected:
