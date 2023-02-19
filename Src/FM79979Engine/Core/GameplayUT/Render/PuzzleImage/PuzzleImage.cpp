@@ -215,18 +215,21 @@ namespace FATMING_CORE
 	cPuzzleImage::~cPuzzleImage()
 	{
 		cNamedTypedObjectVector<cPuzzleImageUnit>::Destroy();
-		int	l_iRefCount = this->m_pTexture->GetReferenceCount();
-		//left 1 to reference
-		if( l_iRefCount == 1 )
+		if (this->m_pTexture)
 		{
-		    assert( this->m_bFromResource == false &&"both ot them shoudl not cloned object,or image parser delete order is wrong!?particle or new image parser?! " );
-		    SAFE_DELETE(m_pImageIndexOfAnimation);
-			SAFE_DELETE(m_pImageShapePointVectorVector);
-			SAFE_DELETE(m_pImageShapePointLODVector);
-			SAFE_DELETE(m_pImageShapePointCentetOffsetVector);
-		    SAFE_DELETE(m_pfAllChildrenTriangleStripUV);
-		    SAFE_DELETE(m_pfAllChildrenTwoTriangleUV);
-			SAFE_DELETE_ARRAY(m_pAllPuzzleData);
+			int	l_iRefCount = this->m_pTexture->GetReferenceCount();
+			//left 1 to reference
+			if (l_iRefCount == 1)
+			{
+				assert(this->m_bFromResource == false && "both ot them shoudl not cloned object,or image parser delete order is wrong!?particle or new image parser?! ");
+				SAFE_DELETE(m_pImageIndexOfAnimation);
+				SAFE_DELETE(m_pImageShapePointVectorVector);
+				SAFE_DELETE(m_pImageShapePointLODVector);
+				SAFE_DELETE(m_pImageShapePointCentetOffsetVector);
+				SAFE_DELETE(m_pfAllChildrenTriangleStripUV);
+				SAFE_DELETE(m_pfAllChildrenTwoTriangleUV);
+				SAFE_DELETE_ARRAY(m_pAllPuzzleData);
+			}
 		}
 	}
 

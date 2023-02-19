@@ -141,11 +141,14 @@ namespace FATMING_CORE
 				}
 			PARSE_NAME_VALUE_END
 			FMLog::g_siLogShowErrorType = 1;
-			if(wcslen(FMLog::g_spstrLogErrorMsgString->c_str()))
+			if (FMLog::g_spstrLogErrorMsgString)
 			{
-				UT::ErrorMsg(FMLog::g_spstrLogErrorMsgString->c_str(),UT::CharToWchar(e_strFileName));
+				if (wcslen(FMLog::g_spstrLogErrorMsgString->c_str()))
+				{
+					UT::ErrorMsg(FMLog::g_spstrLogErrorMsgString->c_str(), UT::CharToWchar(e_strFileName));
+				}
+				FMLog::g_spstrLogErrorMsgString->clear();
 			}
-			FMLog::g_spstrLogErrorMsgString->clear();
 			return true;
 		}
 		FMLog::g_siLogShowErrorType = 1;

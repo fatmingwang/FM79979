@@ -28,7 +28,7 @@ namespace FATMING_CORE
 		cMulti_PI_Image(cMulti_PI_Image*e_pMulti_PI_Image)
 		{
 			assert(e_pMulti_PI_Image);
-			m_pPIList = new cNamedTypedObjectVector<cPuzzleImage>();
+			m_pPIList = new cNamedTypedObjectVector<cPuzzleImage>(true);
 			this->m_pPuzzleImage = e_pMulti_PI_Image->m_pPuzzleImage;
 			m_pPIList->CopyListPointer(e_pMulti_PI_Image->m_pPIList);
 		}
