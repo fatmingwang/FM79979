@@ -165,11 +165,12 @@ namespace FATMING_CORE
 		if( l_iCount < 2 )
 			return;
 		cCueToStartCurveWithTime*l_pCueToStartCurveWithTime = this->m_ObjectList[0];
-		if( l_pCueToStartCurveWithTime->GetPointDataList()->size()==0||!l_pCueToStartCurveWithTime->GetPointData(0)->pPI )
+		auto l_PointData = l_pCueToStartCurveWithTime->GetPointData(0);
+		if( l_pCueToStartCurveWithTime->GetPointDataList()->size()==0||!l_PointData|| !l_PointData->pPI->GetTexture())
 			return;
 		GLenum	l_SrcBlendingMode = GL_SRC_ALPHA;
 		GLenum	l_DestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
-		GLuint	l_uiTextureID = l_pCueToStartCurveWithTime->GetPointData(0)->pPI->GetTexture()->GetImageIndex();
+		GLuint	l_uiTextureID = l_PointData->pPI->GetTexture()->GetImageIndex();
 		for( int i=0;i<l_iCount;++i )
 		{
 			l_pCueToStartCurveWithTime = this->m_ObjectList[i];
