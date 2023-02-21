@@ -249,6 +249,11 @@ namespace FATMING_CORE
 		}
 		~cParticleBatchRender()
 		{
+			SAFE_DELETE(m_pNumCalledOut);
+			SAFE_DELETE(m_pParticleInSSO);
+			SAFE_DELETE(m_pParticlePosOut);
+			SAFE_DELETE(m_pColorSSO);
+			SAFE_DELETE(m_pSimpleComputeShader);
 		}
 		void	SetParticleData(int e_iCount, sParticleData* e_pParticleData)
 		{

@@ -50,7 +50,7 @@ namespace	FATMING_CORE
 		static	std::string*		m_spUWPAppDataLocalDirectory;//external sd
 #endif
 		cCommonApp();
-		~cCommonApp();
+		virtual ~cCommonApp();
 		virtual	void												Update(float e_fElpaseTime);
 		//
 		//GAME_PAUSE_EVENT_ID	-123456789 is game pause

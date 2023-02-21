@@ -132,6 +132,8 @@ namespace	FATMING_CORE
 		SAFE_DELETE(cCommonApp::m_spExternalSDDirectory);
 		SAFE_DELETE(cCommonApp::m_spobbPath);
 #endif
+		NamedTypedObject::DumpUnReleaseInfo();
+		FMLog::Destroy();
 	}
 
 	void cCommonApp::Update(float e_fElpaseTime)

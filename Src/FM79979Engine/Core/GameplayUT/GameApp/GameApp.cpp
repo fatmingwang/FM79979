@@ -181,8 +181,6 @@ namespace	FATMING_CORE
 		//SAFE_DELETE(m_spThreadPool);
 		SAFE_DELETE(m_spOpenGLRender);
 		SAFE_DELETE(cGameApp::m_psstrGameAppName);
-		NamedTypedObject::DumpUnReleaseInfo();
-		FMLog::Destroy();
 	}
 
 	void	cGameApp::Init()
