@@ -239,6 +239,7 @@ namespace FATMING_CORE
 				l_CurvesPointVector[i*2+1] = m_pvPos[i+1];
 				l_vPreviousPos = m_pvPos[i+1];
 			}
+			l_CurvesPointVector.push_back(m_pvPos[0]);
 			cMatrix44	l_mat = GetMatrix(m_pmatTransform);
 			RenderLine(&l_CurvesPointVector,Vector4::One,(float*)&l_mat);
 		}
