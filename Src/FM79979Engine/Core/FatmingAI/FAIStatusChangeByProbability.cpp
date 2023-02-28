@@ -1,4 +1,4 @@
-#include "Stdafx.h"
+#include "stdafx.h"
 #include "FAICharacterInterface.h"
 #include "FAIStatusChangeByProbability.h"
 #include "FAIMachine.h"

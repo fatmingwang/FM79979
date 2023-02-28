@@ -47,9 +47,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FAIMachine.cpp">
       <Filter>FAI\AIMachine</Filter>
     </ClCompile>
@@ -98,12 +95,12 @@
     <ClCompile Include="FAIParser.cpp">
       <Filter>Parser</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllFatmingAIInclude.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FAIMachine.h">
@@ -156,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="FAIParser.h">
       <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

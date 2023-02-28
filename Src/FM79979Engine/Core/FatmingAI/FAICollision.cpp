@@ -1,2 +1,2 @@
-#include "Stdafx.h"
+#include "stdafx.h"
 #include "FAICollision.h"

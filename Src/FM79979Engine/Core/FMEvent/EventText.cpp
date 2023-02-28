@@ -108,9 +108,9 @@ namespace   FATMING_CORE
 			COMPARE_NAME("FileName")
 			{
 				m_strFileName = UT::WcharToChar(l_strValue);
-				const char*l_strFileName = g_pCurrentEventManager->GetFullpathFileName(l_strValue).c_str();
+				auto l_strFileName = g_pCurrentEventManager->GetFullpathFileName(l_strValue);
 				m_pNodeISAX = new cNodeISAX;
-				bool	l_b = m_pNodeISAX->ParseDataIntoXMLNode(l_strFileName);
+				bool	l_b = m_pNodeISAX->ParseDataIntoXMLNode(l_strFileName.c_str());
 				if( !l_b )
 				{
 					//UT::ErrorMsg(e_strFileName,L"file open failed");
@@ -139,10 +139,10 @@ namespace   FATMING_CORE
 		m_vRenderRect = e_vRenderRect;
 		m_vRootElementAttributePos = e_vRootElementAttributePos;
 		m_iListPerPage = e_iListPerPage;
-		const char*l_strFileName = g_pCurrentEventManager->GetFullpathFileName(e_strFileName).c_str();
+		auto l_strFileName = g_pCurrentEventManager->GetFullpathFileName(e_strFileName);
 		m_strFileName = l_strFileName;
 		m_pNodeISAX = new cNodeISAX;
-		bool	l_b = m_pNodeISAX->ParseDataIntoXMLNode(l_strFileName);
+		bool	l_b = m_pNodeISAX->ParseDataIntoXMLNode(l_strFileName.c_str());
 		if( !l_b )
 		{
 			//UT::ErrorMsg(e_strFileName,L"file open failed");

@@ -1,4 +1,4 @@
-#include "Stdafx.h"
+#include "stdafx.h"
 #include "FAIAnimationCharacter.h"
 //from Frame
 //extern const FLOAT    FRAME_DIRTY_WORLD_CACHE;

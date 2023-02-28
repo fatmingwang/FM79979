@@ -37,7 +37,7 @@ namespace   FATMING_CORE
 			    if( !l_pPI )
 			    {
 					std::string	l_strFileName = g_pCurrentEventManager->GetFullpathFileName(l_strValue);
-					const char*l_strPIName = cPuzzleImage::GetFileName(l_strFileName.c_str()).c_str();
+					auto l_strPIName = cPuzzleImage::GetFileName(l_strFileName.c_str());
 			        //char*l_strFullfileName = FileNameConbineCurrentPageDirectory(l_strPIName);
 			        //bool    l_b = cGameApp::m_spImageParser->Parse(l_strFullfileName);
 			        std::string l_str = *g_pCurrentEventManager->m_pstrWorkingDirectory;
