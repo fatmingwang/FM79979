@@ -4,6 +4,7 @@
 #pragma once
 
 // TODO: 在此參考您的程式所需要的其他標頭
+#include "../../Core/AllCoreInclude.h"
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
@@ -17,7 +18,6 @@
 #include "NodeFile.h"
 #include <time.h>
 #include "../../DotNetCommon/DotNetCommonTools.h"
-#include "../../Core/AllCoreInclude.h"
 #include "../../Core/Common/BinaryFile/StringCompress.h"
 
 long				GetFileSize(FILE*e_pFile);
