@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "NodeFile.h"
 #include "ValueInputForm.h"
 #include "NodeSearchForm.h"
@@ -10,7 +10,9 @@
 #include <sys/stat.h>
 #include "../XML/StringCompress.h"
 #include "EncryptStringConvert.h"
-
+#include <string>
+#include <codecvt> // for std::codecvt_utf8
+#include <locale> 
 	struct	sTextDataFile
 	{
 		DWORD	iNumCategory;
@@ -41,13 +43,13 @@ namespace XMLDataEditor
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Form1 ªººK­n
+	/// Form1 çš„æ‘˜è¦
 	///
-	/// Äµ§i: ¦pªG±zÅÜ§ó³o­ÓÃş§Oªº¦WºÙ¡A´N¥²¶·ÅÜ§ó»P³o­ÓÃş§O©Ò¨Ì¾Ú¤§©Ò¦³ .resx ÀÉ®×ÃöÁpªº
-	///          Managed ¸ê·½½sÄ¶¾¹¤u¨ãªº 'Resource File Name' Äİ©Ê¡C
-	///          §_«h¡A³o¨Ç³]­p¤u¨ã
-	///          ±NµLªk»P³o­Óªí³æÃöÁpªº·í¦a»y¨t¤Æ¸ê·½
-	///          ¥¿½T¤¬°Ê¡C
+	/// è­¦å‘Š: å¦‚æœæ‚¨è®Šæ›´é€™å€‹é¡åˆ¥çš„åç¨±ï¼Œå°±å¿…é ˆè®Šæ›´èˆ‡é€™å€‹é¡åˆ¥æ‰€ä¾æ“šä¹‹æ‰€æœ‰ .resx æª”æ¡ˆé—œè¯çš„
+	///          Managed è³‡æºç·¨è­¯å™¨å·¥å…·çš„ 'Resource File Name' å±¬æ€§ã€‚
+	///          å¦å‰‡ï¼Œé€™äº›è¨­è¨ˆå·¥å…·
+	///          å°‡ç„¡æ³•èˆ‡é€™å€‹è¡¨å–®é—œè¯çš„ç•¶åœ°èªç³»åŒ–è³‡æº
+	///          æ­£ç¢ºäº’å‹•ã€‚
 	/// </summary>
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
@@ -64,7 +66,7 @@ namespace XMLDataEditor
 			this->Text= "XMLEditor";
 			m_iCurrentSelectedListBoxIndex = -1;
 			//
-			//TODO: ¦b¦¹¥[¤J«Øºc¨ç¦¡µ{¦¡½X
+			//TODO: åœ¨æ­¤åŠ å…¥å»ºæ§‹å‡½å¼ç¨‹å¼ç¢¼
 			//
 			m_bDisableUpdateNodeInfo = false;
 			m_pLabelAndNode = gcnew System::Collections::Hashtable();
@@ -122,7 +124,7 @@ namespace XMLDataEditor
 
 	protected:
 		/// <summary>
-		/// ²M°£¥ô¦ó¨Ï¥Î¤¤ªº¸ê·½¡C
+		/// æ¸…é™¤ä»»ä½•ä½¿ç”¨ä¸­çš„è³‡æºã€‚
 		/// </summary>
 		~Form1()
 		{
@@ -182,7 +184,8 @@ namespace XMLDataEditor
 	private: System::Windows::Forms::ToolStripMenuItem^  replaceNodeByTemplateFileToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  textConvertToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStripMenuItem;
-		 //my
+private: System::Windows::Forms::ToolStripMenuItem^ toUTF32ByFolderToolStripMenuItem;
+	   //my
 	private: int			m_iCurrentSelectedListBoxIndex;	
 	private: System::Void	ReNameTreeNode();
 	private: System::Void	ModifyTreeNodeData();
@@ -210,19 +213,19 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			bool	m_bFileChanged;
 	GCFORM::TreeNode^OpenFileGetTreeNode(String^e_strFileName);
 			 /// <summary>
-		/// ³]­p¤u¨ã©Ò»İªºÅÜ¼Æ¡C
+		/// è¨­è¨ˆå·¥å…·æ‰€éœ€çš„è®Šæ•¸ã€‚
 		/// </summary>
 
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// ¦¹¬°³]­p¤u¨ã¤ä´©©Ò»İªº¤èªk - ½Ğ¤Å¨Ï¥Îµ{¦¡½X½s¿è¾¹­×§ï³o­Ó¤èªkªº¤º®e¡C
+		/// æ­¤ç‚ºè¨­è¨ˆå·¥å…·æ”¯æ´æ‰€éœ€çš„æ–¹æ³• - è«‹å‹¿ä½¿ç”¨ç¨‹å¼ç¢¼ç·¨è¼¯å™¨ä¿®æ”¹é€™å€‹æ–¹æ³•çš„å…§å®¹ã€‚
 		///
 		/// </summary>
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			this->NodeListAddChild_button = (gcnew System::Windows::Forms::Button());
 			this->NodeListAddGroup_button = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -272,7 +275,9 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			this->NodeChildrenCount_label = (gcnew System::Windows::Forms::Label());
 			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 			this->Save_toolStripButton = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toUTF32ByFolderToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
@@ -283,9 +288,10 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// NodeListAddChild_button
 			// 
 			this->NodeListAddChild_button->Enabled = false;
-			this->NodeListAddChild_button->Location = System::Drawing::Point(114, 50);
+			this->NodeListAddChild_button->Location = System::Drawing::Point(228, 104);
+			this->NodeListAddChild_button->Margin = System::Windows::Forms::Padding(6, 6, 6, 6);
 			this->NodeListAddChild_button->Name = L"NodeListAddChild_button";
-			this->NodeListAddChild_button->Size = System::Drawing::Size(96, 18);
+			this->NodeListAddChild_button->Size = System::Drawing::Size(192, 38);
 			this->NodeListAddChild_button->TabIndex = 20;
 			this->NodeListAddChild_button->Text = L"AddToChild";
 			this->NodeListAddChild_button->UseVisualStyleBackColor = true;
@@ -294,9 +300,10 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// NodeListAddGroup_button
 			// 
 			this->NodeListAddGroup_button->Enabled = false;
-			this->NodeListAddGroup_button->Location = System::Drawing::Point(14, 50);
+			this->NodeListAddGroup_button->Location = System::Drawing::Point(28, 104);
+			this->NodeListAddGroup_button->Margin = System::Windows::Forms::Padding(6, 6, 6, 6);
 			this->NodeListAddGroup_button->Name = L"NodeListAddGroup_button";
-			this->NodeListAddGroup_button->Size = System::Drawing::Size(94, 18);
+			this->NodeListAddGroup_button->Size = System::Drawing::Size(188, 38);
 			this->NodeListAddGroup_button->TabIndex = 19;
 			this->NodeListAddGroup_button->Text = L"AddToGroup";
 			this->NodeListAddGroup_button->UseVisualStyleBackColor = true;
@@ -305,145 +312,155 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(12, 27);
+			this->label2->Location = System::Drawing::Point(24, 56);
+			this->label2->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(47, 12);
+			this->label2->Size = System::Drawing::Size(97, 25);
 			this->label2->TabIndex = 18;
 			this->label2->Text = L"NodeList";
 			// 
 			// NodeList_comboBox
 			// 
 			this->NodeList_comboBox->FormattingEnabled = true;
-			this->NodeList_comboBox->Location = System::Drawing::Point(228, 50);
+			this->NodeList_comboBox->Location = System::Drawing::Point(456, 104);
+			this->NodeList_comboBox->Margin = System::Windows::Forms::Padding(6, 6, 6, 6);
 			this->NodeList_comboBox->Name = L"NodeList_comboBox";
-			this->NodeList_comboBox->Size = System::Drawing::Size(145, 20);
+			this->NodeList_comboBox->Size = System::Drawing::Size(286, 33);
 			this->NodeList_comboBox->TabIndex = 17;
 			this->NodeList_comboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::NodeList_comboBox_SelectedIndexChanged);
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {this->fileToolStripMenuItem, 
-				this->fontToolStripMenuItem, this->xmlParserToolStripMenuItem, this->toBinaryFileToolStripMenuItem});
+			this->menuStrip1->GripMargin = System::Windows::Forms::Padding(2, 2, 0, 2);
+			this->menuStrip1->ImageScalingSize = System::Drawing::Size(32, 32);
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(4) {
+				this->fileToolStripMenuItem,
+					this->fontToolStripMenuItem, this->xmlParserToolStripMenuItem, this->toBinaryFileToolStripMenuItem
+			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(1052, 24);
+			this->menuStrip1->Size = System::Drawing::Size(2104, 46);
 			this->menuStrip1->TabIndex = 12;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
 			// fileToolStripMenuItem
 			// 
-			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7) {this->NewToolStripMenuItem, 
-				this->openToolStripMenuItem, this->SaveToolStripMenuItem, this->SaveAsToolStripMenuItem, this->ExitToolStripMenuItem, this->toUTF32ToolStripMenuItem, 
-				this->saveToBinaryToolStripMenuItem});
+			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(8) {
+				this->NewToolStripMenuItem,
+					this->openToolStripMenuItem, this->SaveToolStripMenuItem, this->SaveAsToolStripMenuItem, this->ExitToolStripMenuItem, this->toUTF32ToolStripMenuItem,
+					this->saveToBinaryToolStripMenuItem, this->toUTF32ByFolderToolStripMenuItem
+			});
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
-			this->fileToolStripMenuItem->Size = System::Drawing::Size(38, 20);
+			this->fileToolStripMenuItem->Size = System::Drawing::Size(71, 38);
 			this->fileToolStripMenuItem->Text = L"File";
 			// 
 			// NewToolStripMenuItem
 			// 
 			this->NewToolStripMenuItem->Name = L"NewToolStripMenuItem";
-			this->NewToolStripMenuItem->Size = System::Drawing::Size(150, 22);
+			this->NewToolStripMenuItem->Size = System::Drawing::Size(359, 44);
 			this->NewToolStripMenuItem->Text = L"New";
 			this->NewToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::saveToolStripMenuItem_Click);
 			// 
 			// openToolStripMenuItem
 			// 
 			this->openToolStripMenuItem->Name = L"openToolStripMenuItem";
-			this->openToolStripMenuItem->Size = System::Drawing::Size(150, 22);
+			this->openToolStripMenuItem->Size = System::Drawing::Size(359, 44);
 			this->openToolStripMenuItem->Text = L"Open";
 			this->openToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::saveToolStripMenuItem_Click);
 			// 
 			// SaveToolStripMenuItem
 			// 
 			this->SaveToolStripMenuItem->Name = L"SaveToolStripMenuItem";
-			this->SaveToolStripMenuItem->Size = System::Drawing::Size(150, 22);
+			this->SaveToolStripMenuItem->Size = System::Drawing::Size(359, 44);
 			this->SaveToolStripMenuItem->Text = L"Save";
 			this->SaveToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::saveToolStripMenuItem_Click);
 			// 
 			// SaveAsToolStripMenuItem
 			// 
 			this->SaveAsToolStripMenuItem->Name = L"SaveAsToolStripMenuItem";
-			this->SaveAsToolStripMenuItem->Size = System::Drawing::Size(150, 22);
+			this->SaveAsToolStripMenuItem->Size = System::Drawing::Size(359, 44);
 			this->SaveAsToolStripMenuItem->Text = L"Save as";
 			this->SaveAsToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::saveToolStripMenuItem_Click);
 			// 
 			// ExitToolStripMenuItem
 			// 
 			this->ExitToolStripMenuItem->Name = L"ExitToolStripMenuItem";
-			this->ExitToolStripMenuItem->Size = System::Drawing::Size(150, 22);
+			this->ExitToolStripMenuItem->Size = System::Drawing::Size(359, 44);
 			this->ExitToolStripMenuItem->Text = L"Exit";
 			this->ExitToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::saveToolStripMenuItem_Click);
 			// 
 			// toUTF32ToolStripMenuItem
 			// 
 			this->toUTF32ToolStripMenuItem->Name = L"toUTF32ToolStripMenuItem";
-			this->toUTF32ToolStripMenuItem->Size = System::Drawing::Size(150, 22);
+			this->toUTF32ToolStripMenuItem->Size = System::Drawing::Size(359, 44);
 			this->toUTF32ToolStripMenuItem->Text = L"ToUTF32";
 			this->toUTF32ToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::toUTF32ToolStripMenuItem_Click);
 			// 
 			// saveToBinaryToolStripMenuItem
 			// 
 			this->saveToBinaryToolStripMenuItem->Name = L"saveToBinaryToolStripMenuItem";
-			this->saveToBinaryToolStripMenuItem->Size = System::Drawing::Size(150, 22);
+			this->saveToBinaryToolStripMenuItem->Size = System::Drawing::Size(359, 44);
 			this->saveToBinaryToolStripMenuItem->Text = L"SaveToBinary";
 			this->saveToBinaryToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::saveToBinaryToolStripMenuItem_Click);
 			// 
 			// fontToolStripMenuItem
 			// 
 			this->fontToolStripMenuItem->Name = L"fontToolStripMenuItem";
-			this->fontToolStripMenuItem->Size = System::Drawing::Size(44, 20);
+			this->fontToolStripMenuItem->Size = System::Drawing::Size(82, 38);
 			this->fontToolStripMenuItem->Text = L"Font";
 			this->fontToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::fontToolStripMenuItem_Click);
 			// 
 			// xmlParserToolStripMenuItem
 			// 
 			this->xmlParserToolStripMenuItem->Name = L"xmlParserToolStripMenuItem";
-			this->xmlParserToolStripMenuItem->Size = System::Drawing::Size(73, 20);
+			this->xmlParserToolStripMenuItem->Size = System::Drawing::Size(135, 38);
 			this->xmlParserToolStripMenuItem->Text = L"xmlParser";
 			this->xmlParserToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::xmlParserToolStripMenuItem_Click);
 			// 
 			// toBinaryFileToolStripMenuItem
 			// 
-			this->toBinaryFileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {this->Encode_ToolStripMenuItem, 
-				this->Decode_ToolStripMenuItem, this->EncodeFolderToolStripMenuItem, this->DecodeFolderToolStripMenuItem, this->textConvertToolStripMenuItem, 
-				this->forceIfFileIsInlegalToolStripMenuItem});
+			this->toBinaryFileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {
+				this->Encode_ToolStripMenuItem,
+					this->Decode_ToolStripMenuItem, this->EncodeFolderToolStripMenuItem, this->DecodeFolderToolStripMenuItem, this->textConvertToolStripMenuItem,
+					this->forceIfFileIsInlegalToolStripMenuItem
+			});
 			this->toBinaryFileToolStripMenuItem->Name = L"toBinaryFileToolStripMenuItem";
-			this->toBinaryFileToolStripMenuItem->Size = System::Drawing::Size(72, 20);
+			this->toBinaryFileToolStripMenuItem->Size = System::Drawing::Size(137, 38);
 			this->toBinaryFileToolStripMenuItem->Text = L"BinaryFile";
 			this->toBinaryFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::toBinaryFileToolStripMenuItem_Click);
 			// 
 			// Encode_ToolStripMenuItem
 			// 
 			this->Encode_ToolStripMenuItem->Name = L"Encode_ToolStripMenuItem";
-			this->Encode_ToolStripMenuItem->Size = System::Drawing::Size(177, 22);
+			this->Encode_ToolStripMenuItem->Size = System::Drawing::Size(343, 44);
 			this->Encode_ToolStripMenuItem->Text = L"Encode";
 			this->Encode_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::openToolStripMenuItem1_Click);
 			// 
 			// Decode_ToolStripMenuItem
 			// 
 			this->Decode_ToolStripMenuItem->Name = L"Decode_ToolStripMenuItem";
-			this->Decode_ToolStripMenuItem->Size = System::Drawing::Size(177, 22);
+			this->Decode_ToolStripMenuItem->Size = System::Drawing::Size(343, 44);
 			this->Decode_ToolStripMenuItem->Text = L"Decode";
 			this->Decode_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::saveToolStripMenuItem1_Click);
 			// 
 			// EncodeFolderToolStripMenuItem
 			// 
 			this->EncodeFolderToolStripMenuItem->Name = L"EncodeFolderToolStripMenuItem";
-			this->EncodeFolderToolStripMenuItem->Size = System::Drawing::Size(177, 22);
+			this->EncodeFolderToolStripMenuItem->Size = System::Drawing::Size(343, 44);
 			this->EncodeFolderToolStripMenuItem->Text = L"EncodeFolder";
 			this->EncodeFolderToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::openToolStripMenuItem1_Click);
 			// 
 			// DecodeFolderToolStripMenuItem
 			// 
 			this->DecodeFolderToolStripMenuItem->Name = L"DecodeFolderToolStripMenuItem";
-			this->DecodeFolderToolStripMenuItem->Size = System::Drawing::Size(177, 22);
+			this->DecodeFolderToolStripMenuItem->Size = System::Drawing::Size(343, 44);
 			this->DecodeFolderToolStripMenuItem->Text = L"DecodeFolder";
 			this->DecodeFolderToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::saveToolStripMenuItem1_Click);
 			// 
 			// textConvertToolStripMenuItem
 			// 
 			this->textConvertToolStripMenuItem->Name = L"textConvertToolStripMenuItem";
-			this->textConvertToolStripMenuItem->Size = System::Drawing::Size(177, 22);
+			this->textConvertToolStripMenuItem->Size = System::Drawing::Size(343, 44);
 			this->textConvertToolStripMenuItem->Text = L"TextConvert";
 			this->textConvertToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::textConvertToolStripMenuItem_Click);
 			// 
@@ -452,23 +469,25 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			this->forceIfFileIsInlegalToolStripMenuItem->Checked = true;
 			this->forceIfFileIsInlegalToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->forceIfFileIsInlegalToolStripMenuItem->Name = L"forceIfFileIsInlegalToolStripMenuItem";
-			this->forceIfFileIsInlegalToolStripMenuItem->Size = System::Drawing::Size(177, 22);
+			this->forceIfFileIsInlegalToolStripMenuItem->Size = System::Drawing::Size(343, 44);
 			this->forceIfFileIsInlegalToolStripMenuItem->Text = L"ForceIfFileIsInlegal";
 			this->forceIfFileIsInlegalToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::forceIfFileIsInlegalToolStripMenuItem_Click);
 			// 
 			// NodeValue_textBox
 			// 
 			this->NodeValue_textBox->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->NodeValue_textBox->Location = System::Drawing::Point(36, 80);
+			this->NodeValue_textBox->Location = System::Drawing::Point(72, 167);
+			this->NodeValue_textBox->Margin = System::Windows::Forms::Padding(6, 6, 6, 6);
 			this->NodeValue_textBox->Name = L"NodeValue_textBox";
-			this->NodeValue_textBox->Size = System::Drawing::Size(714, 15);
+			this->NodeValue_textBox->Size = System::Drawing::Size(1428, 24);
 			this->NodeValue_textBox->TabIndex = 22;
 			this->NodeValue_textBox->Visible = false;
 			this->NodeValue_textBox->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::NodeValue_textBox_KeyUp);
 			// 
 			// splitContainer1
 			// 
-			this->splitContainer1->Location = System::Drawing::Point(18, 107);
+			this->splitContainer1->Location = System::Drawing::Point(36, 223);
+			this->splitContainer1->Margin = System::Windows::Forms::Padding(6, 6, 6, 6);
 			this->splitContainer1->Name = L"splitContainer1";
 			// 
 			// splitContainer1.Panel1
@@ -480,13 +499,14 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			this->splitContainer1->Panel2->AllowDrop = true;
 			this->splitContainer1->Panel2->BackColor = System::Drawing::Color::White;
 			this->splitContainer1->Panel2->Controls->Add(this->NodeValue_textBox);
-			this->splitContainer1->Panel2->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragDrop);
-			this->splitContainer1->Panel2->Resize += gcnew System::EventHandler(this, &Form1::splitContainer1_Panel2_Resize);
-			this->splitContainer1->Panel2->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragEnter);
 			this->splitContainer1->Panel2->SizeChanged += gcnew System::EventHandler(this, &Form1::splitContainer1_Panel2_SizeChanged);
+			this->splitContainer1->Panel2->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragDrop);
+			this->splitContainer1->Panel2->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragEnter);
+			this->splitContainer1->Panel2->Resize += gcnew System::EventHandler(this, &Form1::splitContainer1_Panel2_Resize);
 			this->splitContainer1->Panel2MinSize = 0;
-			this->splitContainer1->Size = System::Drawing::Size(1009, 443);
-			this->splitContainer1->SplitterDistance = 193;
+			this->splitContainer1->Size = System::Drawing::Size(2018, 923);
+			this->splitContainer1->SplitterDistance = 386;
+			this->splitContainer1->SplitterWidth = 8;
 			this->splitContainer1->TabIndex = 23;
 			// 
 			// MainNode_treeView
@@ -496,104 +516,108 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			this->MainNode_treeView->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->MainNode_treeView->ImeMode = System::Windows::Forms::ImeMode::Off;
 			this->MainNode_treeView->Location = System::Drawing::Point(0, 0);
+			this->MainNode_treeView->Margin = System::Windows::Forms::Padding(6, 6, 6, 6);
 			this->MainNode_treeView->Name = L"MainNode_treeView";
-			this->MainNode_treeView->Size = System::Drawing::Size(193, 443);
+			this->MainNode_treeView->Size = System::Drawing::Size(386, 923);
 			this->MainNode_treeView->TabIndex = 1;
-			this->MainNode_treeView->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MainNode_treeView_MouseWheel);
 			this->MainNode_treeView->AfterCollapse += gcnew System::Windows::Forms::TreeViewEventHandler(this, &Form1::MainNode_treeView_AfterSelect);
-			this->MainNode_treeView->Resize += gcnew System::EventHandler(this, &Form1::MainNode_treeView_Resize);
-			this->MainNode_treeView->DoubleClick += gcnew System::EventHandler(this, &Form1::MainNode_treeView_DoubleClick);
-			this->MainNode_treeView->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragDrop);
-			this->MainNode_treeView->AfterSelect += gcnew System::Windows::Forms::TreeViewEventHandler(this, &Form1::MainNode_treeView_AfterSelect);
-			this->MainNode_treeView->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragEnter);
-			this->MainNode_treeView->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::TextEDitor_treeView_KeyDown);
 			this->MainNode_treeView->AfterExpand += gcnew System::Windows::Forms::TreeViewEventHandler(this, &Form1::MainNode_treeView_AfterSelect);
+			this->MainNode_treeView->AfterSelect += gcnew System::Windows::Forms::TreeViewEventHandler(this, &Form1::MainNode_treeView_AfterSelect);
 			this->MainNode_treeView->Click += gcnew System::EventHandler(this, &Form1::MainNode_treeView_Click);
+			this->MainNode_treeView->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragDrop);
+			this->MainNode_treeView->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragEnter);
+			this->MainNode_treeView->DoubleClick += gcnew System::EventHandler(this, &Form1::MainNode_treeView_DoubleClick);
+			this->MainNode_treeView->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::TextEDitor_treeView_KeyDown);
+			this->MainNode_treeView->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MainNode_treeView_MouseWheel);
+			this->MainNode_treeView->Resize += gcnew System::EventHandler(this, &Form1::MainNode_treeView_Resize);
 			// 
 			// TextTreeMenuStrip
 			// 
-			this->TextTreeMenuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(9) {this->AddGroupToolStripMenuItem, 
-				this->AddChildToolStripMenuItem, this->addCommentToolStripMenuItem, this->addTextToolStripMenuItem, this->DeleteGroupToolStripMenuItem, 
-				this->toNodeListToolStripMenuItem, this->addFilesIntoAttributeToolStripMenuItem, this->addTextIntoAttributeToolStripMenuItem, 
-				this->replaceNodeByTemplateFileToolStripMenuItem});
+			this->TextTreeMenuStrip->ImageScalingSize = System::Drawing::Size(32, 32);
+			this->TextTreeMenuStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(9) {
+				this->AddGroupToolStripMenuItem,
+					this->AddChildToolStripMenuItem, this->addCommentToolStripMenuItem, this->addTextToolStripMenuItem, this->DeleteGroupToolStripMenuItem,
+					this->toNodeListToolStripMenuItem, this->addFilesIntoAttributeToolStripMenuItem, this->addTextIntoAttributeToolStripMenuItem,
+					this->replaceNodeByTemplateFileToolStripMenuItem
+			});
 			this->TextTreeMenuStrip->Name = L"TextTreeMenuStrip";
-			this->TextTreeMenuStrip->Size = System::Drawing::Size(240, 202);
+			this->TextTreeMenuStrip->Size = System::Drawing::Size(391, 346);
 			// 
 			// AddGroupToolStripMenuItem
 			// 
 			this->AddGroupToolStripMenuItem->Name = L"AddGroupToolStripMenuItem";
-			this->AddGroupToolStripMenuItem->Size = System::Drawing::Size(239, 22);
+			this->AddGroupToolStripMenuItem->Size = System::Drawing::Size(390, 38);
 			this->AddGroupToolStripMenuItem->Text = L"Add Element";
 			this->AddGroupToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::addGroupToolStripMenuItem_Click_1);
 			// 
 			// AddChildToolStripMenuItem
 			// 
 			this->AddChildToolStripMenuItem->Name = L"AddChildToolStripMenuItem";
-			this->AddChildToolStripMenuItem->Size = System::Drawing::Size(239, 22);
+			this->AddChildToolStripMenuItem->Size = System::Drawing::Size(390, 38);
 			this->AddChildToolStripMenuItem->Text = L"AddAttribute";
 			this->AddChildToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::addGroupToolStripMenuItem_Click_1);
 			// 
 			// addCommentToolStripMenuItem
 			// 
 			this->addCommentToolStripMenuItem->Name = L"addCommentToolStripMenuItem";
-			this->addCommentToolStripMenuItem->Size = System::Drawing::Size(239, 22);
+			this->addCommentToolStripMenuItem->Size = System::Drawing::Size(390, 38);
 			this->addCommentToolStripMenuItem->Text = L"AddComment";
 			this->addCommentToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::addGroupToolStripMenuItem_Click_1);
 			// 
 			// addTextToolStripMenuItem
 			// 
 			this->addTextToolStripMenuItem->Name = L"addTextToolStripMenuItem";
-			this->addTextToolStripMenuItem->Size = System::Drawing::Size(239, 22);
+			this->addTextToolStripMenuItem->Size = System::Drawing::Size(390, 38);
 			this->addTextToolStripMenuItem->Text = L"AddText";
 			this->addTextToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::addGroupToolStripMenuItem_Click_1);
 			// 
 			// DeleteGroupToolStripMenuItem
 			// 
 			this->DeleteGroupToolStripMenuItem->Name = L"DeleteGroupToolStripMenuItem";
-			this->DeleteGroupToolStripMenuItem->Size = System::Drawing::Size(239, 22);
+			this->DeleteGroupToolStripMenuItem->Size = System::Drawing::Size(390, 38);
 			this->DeleteGroupToolStripMenuItem->Text = L"Delete";
 			this->DeleteGroupToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::addGroupToolStripMenuItem_Click_1);
 			// 
 			// toNodeListToolStripMenuItem
 			// 
 			this->toNodeListToolStripMenuItem->Name = L"toNodeListToolStripMenuItem";
-			this->toNodeListToolStripMenuItem->Size = System::Drawing::Size(239, 22);
+			this->toNodeListToolStripMenuItem->Size = System::Drawing::Size(390, 38);
 			this->toNodeListToolStripMenuItem->Text = L"ToNodeList";
 			this->toNodeListToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::toNodeListToolStripMenuItem_Click);
 			// 
 			// addFilesIntoAttributeToolStripMenuItem
 			// 
 			this->addFilesIntoAttributeToolStripMenuItem->Name = L"addFilesIntoAttributeToolStripMenuItem";
-			this->addFilesIntoAttributeToolStripMenuItem->Size = System::Drawing::Size(239, 22);
+			this->addFilesIntoAttributeToolStripMenuItem->Size = System::Drawing::Size(390, 38);
 			this->addFilesIntoAttributeToolStripMenuItem->Text = L"AddFilesIntoAttribute";
 			this->addFilesIntoAttributeToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::addFilesIntoAttributeToolStripMenuItem_Click);
 			// 
 			// addTextIntoAttributeToolStripMenuItem
 			// 
 			this->addTextIntoAttributeToolStripMenuItem->Name = L"addTextIntoAttributeToolStripMenuItem";
-			this->addTextIntoAttributeToolStripMenuItem->Size = System::Drawing::Size(239, 22);
+			this->addTextIntoAttributeToolStripMenuItem->Size = System::Drawing::Size(390, 38);
 			this->addTextIntoAttributeToolStripMenuItem->Text = L"AddTextIntoAttribute";
 			this->addTextIntoAttributeToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::addFilesIntoAttributeToolStripMenuItem_Click);
 			// 
 			// replaceNodeByTemplateFileToolStripMenuItem
 			// 
 			this->replaceNodeByTemplateFileToolStripMenuItem->Name = L"replaceNodeByTemplateFileToolStripMenuItem";
-			this->replaceNodeByTemplateFileToolStripMenuItem->Size = System::Drawing::Size(239, 22);
+			this->replaceNodeByTemplateFileToolStripMenuItem->Size = System::Drawing::Size(390, 38);
 			this->replaceNodeByTemplateFileToolStripMenuItem->Text = L"ReplaceNodeByTemplateFile";
 			this->replaceNodeByTemplateFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::replaceNodeByTemplateFileToolStripMenuItem_Click);
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(961, 35);
+			this->label1->Location = System::Drawing::Point(1922, 73);
 			this->label1->Margin = System::Windows::Forms::Padding(0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(33, 12);
+			this->label1->Size = System::Drawing::Size(70, 25);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"label1";
 			this->label1->Visible = false;
-			this->label1->DoubleClick += gcnew System::EventHandler(this, &Form1::label1_DoubleClick);
 			this->label1->Click += gcnew System::EventHandler(this, &Form1::label1_Click);
+			this->label1->DoubleClick += gcnew System::EventHandler(this, &Form1::label1_DoubleClick);
 			// 
 			// timer1
 			// 
@@ -604,9 +628,10 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// NodeName_textBox
 			// 
 			this->NodeName_textBox->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->NodeName_textBox->Location = System::Drawing::Point(254, 73);
+			this->NodeName_textBox->Location = System::Drawing::Point(508, 152);
+			this->NodeName_textBox->Margin = System::Windows::Forms::Padding(6, 6, 6, 6);
 			this->NodeName_textBox->Name = L"NodeName_textBox";
-			this->NodeName_textBox->Size = System::Drawing::Size(714, 15);
+			this->NodeName_textBox->Size = System::Drawing::Size(1428, 24);
 			this->NodeName_textBox->TabIndex = 24;
 			this->NodeName_textBox->Visible = false;
 			this->NodeName_textBox->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::NodeValue_textBox_KeyUp);
@@ -614,10 +639,10 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// Topmost_checkBox
 			// 
 			this->Topmost_checkBox->AutoSize = true;
-			this->Topmost_checkBox->Location = System::Drawing::Point(214, 31);
-			this->Topmost_checkBox->Margin = System::Windows::Forms::Padding(2);
+			this->Topmost_checkBox->Location = System::Drawing::Point(428, 65);
+			this->Topmost_checkBox->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Topmost_checkBox->Name = L"Topmost_checkBox";
-			this->Topmost_checkBox->Size = System::Drawing::Size(65, 16);
+			this->Topmost_checkBox->Size = System::Drawing::Size(127, 29);
 			this->Topmost_checkBox->TabIndex = 25;
 			this->Topmost_checkBox->Text = L"Topmost";
 			this->Topmost_checkBox->UseVisualStyleBackColor = true;
@@ -626,10 +651,10 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// Collapse_checkBox
 			// 
 			this->Collapse_checkBox->AutoSize = true;
-			this->Collapse_checkBox->Location = System::Drawing::Point(284, 32);
-			this->Collapse_checkBox->Margin = System::Windows::Forms::Padding(2);
+			this->Collapse_checkBox->Location = System::Drawing::Point(568, 67);
+			this->Collapse_checkBox->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Collapse_checkBox->Name = L"Collapse_checkBox";
-			this->Collapse_checkBox->Size = System::Drawing::Size(78, 16);
+			this->Collapse_checkBox->Size = System::Drawing::Size(152, 29);
 			this->Collapse_checkBox->TabIndex = 26;
 			this->Collapse_checkBox->Text = L"CollapseAll";
 			this->Collapse_checkBox->UseVisualStyleBackColor = true;
@@ -638,20 +663,20 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// ShowValue_checkBox
 			// 
 			this->ShowValue_checkBox->AutoSize = true;
-			this->ShowValue_checkBox->Location = System::Drawing::Point(369, 32);
-			this->ShowValue_checkBox->Margin = System::Windows::Forms::Padding(2);
+			this->ShowValue_checkBox->Location = System::Drawing::Point(738, 67);
+			this->ShowValue_checkBox->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->ShowValue_checkBox->Name = L"ShowValue_checkBox";
-			this->ShowValue_checkBox->Size = System::Drawing::Size(77, 16);
+			this->ShowValue_checkBox->Size = System::Drawing::Size(152, 29);
 			this->ShowValue_checkBox->TabIndex = 27;
 			this->ShowValue_checkBox->Text = L"ShowValue";
 			this->ShowValue_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// AttributeUp_button
 			// 
-			this->AttributeUp_button->Location = System::Drawing::Point(2, 227);
-			this->AttributeUp_button->Margin = System::Windows::Forms::Padding(2);
+			this->AttributeUp_button->Location = System::Drawing::Point(4, 473);
+			this->AttributeUp_button->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->AttributeUp_button->Name = L"AttributeUp_button";
-			this->AttributeUp_button->Size = System::Drawing::Size(14, 37);
+			this->AttributeUp_button->Size = System::Drawing::Size(28, 77);
 			this->AttributeUp_button->TabIndex = 28;
 			this->AttributeUp_button->Text = L"^\r\n^";
 			this->AttributeUp_button->UseVisualStyleBackColor = true;
@@ -659,10 +684,10 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// 
 			// AttributeDown_button
 			// 
-			this->AttributeDown_button->Location = System::Drawing::Point(2, 290);
-			this->AttributeDown_button->Margin = System::Windows::Forms::Padding(2);
+			this->AttributeDown_button->Location = System::Drawing::Point(4, 604);
+			this->AttributeDown_button->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->AttributeDown_button->Name = L"AttributeDown_button";
-			this->AttributeDown_button->Size = System::Drawing::Size(14, 41);
+			this->AttributeDown_button->Size = System::Drawing::Size(28, 85);
 			this->AttributeDown_button->TabIndex = 29;
 			this->AttributeDown_button->Text = L"v\r\nv";
 			this->AttributeDown_button->UseVisualStyleBackColor = true;
@@ -671,10 +696,10 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// CollpaseElement_checkBox
 			// 
 			this->CollpaseElement_checkBox->AutoSize = true;
-			this->CollpaseElement_checkBox->Location = System::Drawing::Point(18, 88);
-			this->CollpaseElement_checkBox->Margin = System::Windows::Forms::Padding(2);
+			this->CollpaseElement_checkBox->Location = System::Drawing::Point(36, 183);
+			this->CollpaseElement_checkBox->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->CollpaseElement_checkBox->Name = L"CollpaseElement_checkBox";
-			this->CollpaseElement_checkBox->Size = System::Drawing::Size(102, 16);
+			this->CollpaseElement_checkBox->Size = System::Drawing::Size(206, 29);
 			this->CollpaseElement_checkBox->TabIndex = 30;
 			this->CollpaseElement_checkBox->Text = L"CollapseElement";
 			this->CollpaseElement_checkBox->UseVisualStyleBackColor = true;
@@ -685,9 +710,10 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			this->Unicode_checkBox->AutoSize = true;
 			this->Unicode_checkBox->Checked = true;
 			this->Unicode_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->Unicode_checkBox->Location = System::Drawing::Point(148, 73);
+			this->Unicode_checkBox->Location = System::Drawing::Point(296, 152);
+			this->Unicode_checkBox->Margin = System::Windows::Forms::Padding(6, 6, 6, 6);
 			this->Unicode_checkBox->Name = L"Unicode_checkBox";
-			this->Unicode_checkBox->Size = System::Drawing::Size(63, 16);
+			this->Unicode_checkBox->Size = System::Drawing::Size(123, 29);
 			this->Unicode_checkBox->TabIndex = 31;
 			this->Unicode_checkBox->Text = L"Unicode";
 			this->Unicode_checkBox->UseVisualStyleBackColor = true;
@@ -695,37 +721,47 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			// NodeChildrenCount_label
 			// 
 			this->NodeChildrenCount_label->AutoSize = true;
-			this->NodeChildrenCount_label->Location = System::Drawing::Point(16, 74);
+			this->NodeChildrenCount_label->Location = System::Drawing::Point(32, 154);
+			this->NodeChildrenCount_label->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
 			this->NodeChildrenCount_label->Name = L"NodeChildrenCount_label";
-			this->NodeChildrenCount_label->Size = System::Drawing::Size(103, 12);
+			this->NodeChildrenCount_label->Size = System::Drawing::Size(206, 25);
 			this->NodeChildrenCount_label->TabIndex = 32;
 			this->NodeChildrenCount_label->Text = L"NodeChildren Count";
 			// 
 			// toolStrip1
 			// 
-			this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->Save_toolStripButton});
-			this->toolStrip1->Location = System::Drawing::Point(0, 24);
+			this->toolStrip1->ImageScalingSize = System::Drawing::Size(32, 32);
+			this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->Save_toolStripButton });
+			this->toolStrip1->Location = System::Drawing::Point(0, 46);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(1052, 25);
+			this->toolStrip1->Padding = System::Windows::Forms::Padding(0, 0, 4, 0);
+			this->toolStrip1->Size = System::Drawing::Size(2104, 42);
 			this->toolStrip1->TabIndex = 33;
 			this->toolStrip1->Text = L"toolStrip1";
 			// 
 			// Save_toolStripButton
 			// 
 			this->Save_toolStripButton->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
-			this->Save_toolStripButton->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"Save_toolStripButton.Image")));
+			this->Save_toolStripButton->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"Save_toolStripButton.Image")));
 			this->Save_toolStripButton->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->Save_toolStripButton->Name = L"Save_toolStripButton";
-			this->Save_toolStripButton->Size = System::Drawing::Size(23, 22);
+			this->Save_toolStripButton->Size = System::Drawing::Size(46, 36);
 			this->Save_toolStripButton->Text = L"toolStripButton1";
 			this->Save_toolStripButton->Click += gcnew System::EventHandler(this, &Form1::Save_toolStripButton_Click);
+			// 
+			// toUTF32ByFolderToolStripMenuItem
+			// 
+			this->toUTF32ByFolderToolStripMenuItem->Name = L"toUTF32ByFolderToolStripMenuItem";
+			this->toUTF32ByFolderToolStripMenuItem->Size = System::Drawing::Size(359, 44);
+			this->toUTF32ByFolderToolStripMenuItem->Text = L"ToUTF32ByFolder";
+			this->toUTF32ByFolderToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::toUTF32ByFolderToolStripMenuItem_Click);
 			// 
 			// Form1
 			// 
 			this->AllowDrop = true;
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
+			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1052, 573);
+			this->ClientSize = System::Drawing::Size(2104, 1194);
 			this->Controls->Add(this->toolStrip1);
 			this->Controls->Add(this->NodeChildrenCount_label);
 			this->Controls->Add(this->Unicode_checkBox);
@@ -744,20 +780,22 @@ private: System::Windows::Forms::ToolStripMenuItem^  forceIfFileIsInlegalToolStr
 			this->Controls->Add(this->menuStrip1);
 			this->Controls->Add(this->NodeList_comboBox);
 			this->KeyPreview = true;
+			this->Margin = System::Windows::Forms::Padding(6, 6, 6, 6);
 			this->Name = L"Form1";
 			this->Text = L"Form1";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Form1::Form1_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragDrop);
 			this->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::MainNode_treeView_DragEnter);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyUp);
-			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Form1::Form1_FormClosing);
 			this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel2->ResumeLayout(false);
 			this->splitContainer1->Panel2->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
 			this->TextTreeMenuStrip->ResumeLayout(false);
 			this->toolStrip1->ResumeLayout(false);
@@ -1499,7 +1537,7 @@ private: System::Void toBinaryFileToolStripMenuItem_Click(System::Object^  sende
 			//	cBinaryFile	l_BinaryFile;
 			//	if(l_BinaryFile.Writefile(DNCT::GcStringToChar(l_strFileName)))
 			//	{
-			//		WCHAR	*l_strMagicIDDat = {L"·F§A®Q¦Ñ¾÷ÙT"};
+			//		WCHAR	*l_strMagicIDDat = {L"å¹¹ä½ å¨˜è€æ©Ÿæ°"};
 			//		l_BinaryFile.WriteToFile(l_strMagicIDDat);
 			//		l_BinaryFile.WriteToFile(l_TextDataFile.iNumCategory);
 			//		for(DWORD i=0;i<l_TextDataFile.iNumCategory;++i)
@@ -1776,5 +1814,45 @@ private: System::Void forceIfFileIsInlegalToolStripMenuItem_Click(System::Object
 			 bool	l_bResult = forceIfFileIsInlegalToolStripMenuItem->Checked;
 			 int a=0;
 		 }
+private: System::Void toUTF32ByFolderToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	String^ l_strErrorMsg = gcnew String("to utf32 failed:");
+	bool	l_bFailed = false;
+	String^ l_strDirectoryName = DNCT::SelectDirectory();
+	if (l_strDirectoryName)
+	{
+		System::Collections::ArrayList^ l_pArrayList = gcnew System::Collections::ArrayList;
+		System::Collections::ArrayList^ l_pArrayList2 = gcnew System::Collections::ArrayList;
+		GetFilesNameByRecursivelyDirectoryAndAssignNewFolderToIt(l_strDirectoryName, l_pArrayList, "UTF32XML", l_pArrayList2);
+		for (int i = 0; i < l_pArrayList->Count; ++i)
+		{
+			String^ l_strOriginalName = (String^)l_pArrayList[i];
+			if (l_strOriginalName->Contains(".xml"))
+			{
+				String^ l_strNewName = (String^)l_pArrayList2[i];
+				DNCT::CreateDirectory(System::IO::Path::GetDirectoryName(l_strNewName));
+				try
+				{
+					System::IO::StreamReader^ l_pReader = gcnew System::IO::StreamReader(l_strOriginalName);
+					auto l_strContent = l_pReader->ReadToEnd();
+					l_pReader->Close();
+					System::IO::StreamWriter^ l_pWriter = gcnew System::IO::StreamWriter(l_strNewName, false, System::Text::Encoding::UTF32);
+					l_pWriter->Write(l_strContent);
+					l_pWriter->Close();
+				}
+				catch (System::Exception^ e)
+				{
+					l_strErrorMsg += e->ToString();
+					l_strErrorMsg += "\n";
+					l_bFailed = true;
+				}
+			}
+		}
+	}
+	if (l_bFailed)
+	{
+		WARNING_MSG(l_strErrorMsg);
+	}
+}
 };
 }
