@@ -45,7 +45,7 @@ namespace FATMING_CORE
 		btCollisionShape*GetConvexShape(){ return m_pbtCollisionShape; }
 		virtual	void	SetTransform(float*e_pfMatrix);
 		virtual	void	SetTransform(btTransform*e_pMatrix);
-		inline	btTransform	*GetTransform();
+		btTransform	*GetTransform();
 		//
 		virtual	bool Collide(cbtShapeCollision*e_pbtShapeCollision);
 		virtual	void DebugRender(){}
