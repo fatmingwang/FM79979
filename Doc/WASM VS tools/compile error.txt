@@ -1,3 +1,6 @@
+if any library project has built with -pthread the start project must also set -pthread too
+and make sure you clean the built intermedia folder!
+
 
 
 Error
