@@ -74,5 +74,5 @@ if compile failed make sure /MP and setting(commandline) is suite for emscripten
 Emscripten game demo
 https://1drv.ms/f/s!AlnnK63qVSovg8BJYiTS-LGA9R9bfA?e=GPGNsh
 ![Editor](../master/Doc/BluffingGirl/gameplay.jpg?raw=true)
-![Editor](../master/Doc/WASM VS tools/FishGame.JPG?raw=true)
+![Editor](../master/Doc/BluffingGirl/FishGame.JPG?raw=true)
 
