@@ -199,7 +199,7 @@ EM_JS
 		//var rect = canvas.getBoundingClientRect();
 		//return rect.top;
 		//https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
-		if (WASM_IsNotPC())
+		if (!WASM_IsPC())
 		{
 			var scrollPos = document.getElementsByTagName("html")[0].scrollTop;
 			return scrollPos;

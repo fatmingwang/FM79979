@@ -294,8 +294,8 @@ namespace FATMING_CORE
 	{
 		if (e_eRenderCommandType != eRCT_VIEWPORT_SETTING && this->m_pSimpleComputeShader)
 		{
-			e_pRenderVertex->PosVector;
-			e_pRenderVertex->iTargetMatrixIndexVector;
+			//e_pRenderVertex->PosVector;
+			//e_pRenderVertex->iTargetMatrixIndexVector;
 			//m_pSimpleComputeShader->SetSizeAndData(e_iCount, );
 		}
 		switch(e_eRenderCommandType)

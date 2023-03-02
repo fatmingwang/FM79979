@@ -261,7 +261,9 @@ namespace	FATMING_CORE
 	void	cGameApp::Render()
 	{
 		if (this->m_spOpenGLRender)
+		{
 			m_spOpenGLRender->Render();
+		}
 	}
 
 	void	cGameApp::Run()

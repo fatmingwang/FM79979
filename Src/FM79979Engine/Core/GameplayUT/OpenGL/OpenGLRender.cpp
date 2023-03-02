@@ -9,6 +9,9 @@
 #if defined(WIN32)
 #include "WindowsOpenGL.h"
 #endif
+#ifdef WASM
+#include "../../Emscripten/JSBindCode.h"
+#endif
 namespace FATMING_CORE
 {
 	bool				cOpenGLRender::m_sbVBOSupported = true;
@@ -29,6 +32,7 @@ namespace FATMING_CORE
 	////#endif
 	cOpenGLRender::cOpenGLRender(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
 	{
+		EMSDK::EMSDK_JSInit();
 		m_vGameScale = Vector2(1, 1);
 		m_vBGColor = Vector4(0.1f, 0.1f, 0.1f, 1.f);
 		this->m_vGameResolution = e_vGameResolution;
@@ -212,6 +216,13 @@ namespace FATMING_CORE
 		glEnable(GL_BLEND);
 		myGLBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		CHECK_GL_ERROR("before viewport");
+#ifdef WASM
+		EMSDK::EMSDK_JSViewportUpdate();
+		auto l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
+		auto l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
+		SetAcceptRationWithGameresolution(l_iViewportWidth, l_iViewportHeight,
+			(int)m_vGameResolution.x, (int)m_vGameResolution.y);
+#else
 		glViewport(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
 		//need this one or screen flash...and I dont know why
 		glScissor(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
@@ -231,6 +242,7 @@ namespace FATMING_CORE
 			glScissor((GLint)m_vViewPortSize.x, (GLint)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
 			CHECK_GL_ERROR("after scissor");
 		}
+#endif
 		SystemErrorCheck();
 		UseShaderProgram(DEFAULT_SHADER);
 		cTexture::m_suiLastUsingImageIndex = -1;
