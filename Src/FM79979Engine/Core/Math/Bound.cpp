@@ -449,9 +449,9 @@ float cBound::GetMaxRadius() const
 
         case cBound::Frustum_Bound:
         {
-            float MaxZ = fabs( GetFrustum().Far - GetFrustum().Near );
-            float MaxX = fabs( GetFrustum().LeftSlope * GetFrustum().Far - GetFrustum().RightSlope * GetFrustum().Far );
-            float MaxY = fabs( GetFrustum().TopSlope * GetFrustum().Far - GetFrustum().BottomSlope * GetFrustum().Far );
+            float MaxZ = (float)fabs( GetFrustum().Far - GetFrustum().Near );
+            float MaxX = (float)fabs( GetFrustum().LeftSlope * GetFrustum().Far - GetFrustum().RightSlope * GetFrustum().Far );
+            float MaxY = (float)fabs( GetFrustum().TopSlope * GetFrustum().Far - GetFrustum().BottomSlope * GetFrustum().Far );
             return max( MaxZ, max( MaxX, MaxY ) );
         }
 

@@ -32,7 +32,9 @@ namespace FATMING_CORE
 	////#endif
 	cOpenGLRender::cOpenGLRender(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
 	{
+#ifdef WASM
 		EMSDK::EMSDK_JSInit();
+#endif
 		m_vGameScale = Vector2(1, 1);
 		m_vBGColor = Vector4(0.1f, 0.1f, 0.1f, 1.f);
 		this->m_vGameResolution = e_vGameResolution;

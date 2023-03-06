@@ -72,7 +72,7 @@ Vector4 Vector4::FromHSVColor(float hue, float saturation, float value)
 	if (!IsEquivalent(saturation, 0.0f)) 
 	{
 		hue *= 6.0f;						// sector 0 to 5
-		float sector = floor(hue);
+		float sector = (float)floor(hue);
 		float f = hue - sector;				// factorial part of h
 		float p = value * (1.0f - saturation);
 		float q = value * (1.0f - saturation * f);
@@ -140,7 +140,7 @@ Vector3	Vector3Reflect
 		Vector3	l_vDirection = Vector3(0.0f,0.0f,-1.0f);
 		e_vDir.NormalizeIt();
 		float	l_vAngle = e_vDir*l_vDirection;
-		float	l_fAngle =  acos(l_vAngle);
+		float	l_fAngle = (float)acos(l_vAngle);
 		//test invisible if invisible *-1
 		if( e_vDir*l_vRight<=EPSIONAL )
 			l_fAngle = -l_fAngle;
@@ -153,7 +153,7 @@ Vector3	Vector3Reflect
 		Vector3	l_vDirection = Vector3(0.0f,0.0f,-1.0f);
 		e_vDir.NormalizeIt();
 		float	l_vAngle = l_vDir*l_vDirection;
-		float	l_fAngle =  acos(l_vAngle);
+		float	l_fAngle = (float)acos(l_vAngle);
 		//test invisible if invisible *-1
 		if( l_vDir*l_vRight<=EPSIONAL )
 			l_fAngle = -l_fAngle;
@@ -168,7 +168,7 @@ Vector3	Vector3Reflect
 		Vector3	l_vDirection = Vector3(0.0f,0.0f,-1.0f);
 		e_vUp.NormalizeIt();
 		float	l_vAngle = e_vUp*l_vUp;
-		float	l_fAngle =  acos(l_vAngle);
+		float	l_fAngle = (float)acos(l_vAngle);
 		//test invisible if invisible *-1
 		if( e_vUp*l_vDirection<=EPSIONAL )
 			l_fAngle = -l_fAngle;
