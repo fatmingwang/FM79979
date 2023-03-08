@@ -53,12 +53,13 @@ void	cLevelEditorApp::Update(float e_fElpaseTime)
 
 void	cLevelEditorApp::Render()
 {
-	wglMakeCurrent(this->m_sHdc, m_sHGLRC);
+	cGameApp::Render();
+	//wglMakeCurrent(this->m_sHdc, m_sHGLRC);
 	//DEFAULT_SHADER = L"ObjectDataFormShader";
 	//NO_TEXTURE_SHADER = L"ObjectDataFormNoTextureShader";
 	cTexture::m_suiLastUsingImageIndex = -1;
 	UseShaderProgram(NO_TEXTURE_SHADER);
-	glViewport(0,0,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
+	//glViewport(0,0,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 	glClearColor( 0,0,0,1 );
 	glClearDepth(1.0f);											// Depth Buffer Setup
@@ -89,7 +90,7 @@ void	cLevelEditorApp::Render()
 		//	L"t a type category\r\nis easy to select what u want!\r\n";
 	}
 	if( m_bShowResolutionBorder )
-		RenderRectangle(Vector2(0.f,0.f),cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,Vector4(0,1,1,0.5f),0);
+		RenderRectangle(Vector2(0.f,0.f),cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y,Vector4(0,1,1,0.5f),0);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_ALPHA_TEST);
 	glEnable(GL_BLEND);
@@ -182,7 +183,7 @@ void	cLevelEditorApp::Render()
 		m_pHintImage->Render();
 	}
 	//GLRender::glDisable2D();
-	SwapBuffers(this->m_sHdc);
+	SwapBuffers(this->m_spOpenGLRender->m_Hdc);
 }
 
 void	cLevelEditorApp::MouseDown(int e_iPosX,int e_iPosY)
