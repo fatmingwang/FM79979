@@ -285,10 +285,10 @@ namespace LevelEditor
 
 	System::Void cObjectDataFormImple::Render()
 	{
-		m_pLevelEditorApp->m_svViewPortSize.x = 0;
-		m_pLevelEditorApp->m_svViewPortSize.y = 0;
-		m_pLevelEditorApp->m_svViewPortSize.z = (float)Main_splitContainer->Panel1->Width;
-		m_pLevelEditorApp->m_svViewPortSize.w = (float)Main_splitContainer->Panel1->Height;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)Main_splitContainer->Panel1->Width;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)Main_splitContainer->Panel1->Height;
 		m_pLevelEditorApp->m_vStartPos = Vector2((float)StartX_numericUpDown->Value,(float)StartY_numericUpDown->Value);
 		m_pLevelEditorApp->m_bShowGrid = showGridToolStripMenuItem->Checked;
 		m_pLevelEditorApp->m_vMapWidth = Vector2((float)MapWidth_numericUpDown->Value,(float)MapHeight_numericUpDown->Value);
@@ -1127,7 +1127,7 @@ namespace LevelEditor
 		 }
 		System::Void cObjectDataFormImple::cameraResetToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-			m_pLevelEditorApp->m_pOrthogonalCamera->SetResolution(Vector2(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y));
+			m_pLevelEditorApp->m_pOrthogonalCamera->SetResolution(Vector2(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y));
 			m_pLevelEditorApp->m_pOrthogonalCamera->Reset();
 		 }
 		System::Void cObjectDataFormImple::AddObjectToStage_button_Click(System::Object^  sender, System::EventArgs^  e)
@@ -1404,12 +1404,15 @@ namespace LevelEditor
 
 		System::Void cObjectDataFormImple::Main_splitContainer_Panel1_SizeChanged(System::Object^  sender, System::EventArgs^  e)
 		{
-			cGameApp::m_svViewPortSize.x = 0;
-			cGameApp::m_svViewPortSize.y = 0;
-			cGameApp::m_svViewPortSize.z = (float)this->Main_splitContainer->Panel1->Width;
-			cGameApp::m_svViewPortSize.w = (float)this->Main_splitContainer->Panel1->Height;
-			if( m_pLevelEditorApp )
-				m_pLevelEditorApp->m_pOrthogonalCamera->ViewportChangeApplyNewResolution((int)cGameApp::m_svViewPortSize.z,(int)cGameApp::m_svViewPortSize.w);
+			if (cGameApp::m_spOpenGLRender)
+			{
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)this->Main_splitContainer->Panel1->Width;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)this->Main_splitContainer->Panel1->Height;
+				if (m_pLevelEditorApp)
+					m_pLevelEditorApp->m_pOrthogonalCamera->ViewportChangeApplyNewResolution((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+			}
 		}
 //end namespace LevelEditor
 }

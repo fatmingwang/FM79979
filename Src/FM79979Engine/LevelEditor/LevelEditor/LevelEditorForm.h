@@ -213,44 +213,44 @@ private: System::Void toolStripMenuItem2_Click(System::Object^  sender, System::
 		 {
 			 if( toolStripMenuItem2 == sender )
 			 {
-				cGameApp::m_svGameResolution.x = 1920.f;
-				cGameApp::m_svGameResolution.y = 1200.f;
+				cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1920.f;
+				cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1200.f;
 			 }
 			 else
 			 if( toolStripMenuItem3 == sender )
 			 {
-				cGameApp::m_svGameResolution.x = 1920.f;
-				cGameApp::m_svGameResolution.y = 1080.f;			 
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1920.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1080.f;
 			 }
 			 else
 			 if( toolStripMenuItem4 == sender )
 			 {
-				cGameApp::m_svGameResolution.x = 1600.f;
-				cGameApp::m_svGameResolution.y = 1440.f;			 
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1600.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1440.f;
 			 }
 			 else
 			 if( toolStripMenuItem5 == sender )
 			 {
-				cGameApp::m_svGameResolution.x = 1280.f;
-				cGameApp::m_svGameResolution.y = 1024.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1280.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1024.f;
 			 }
 			 else
 			 if( toolStripMenuItem6 == sender )
 			 {
-				cGameApp::m_svGameResolution.x = 1280.f;
-				cGameApp::m_svGameResolution.y = 720.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1280.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.y = 720.f;
 			 }
 			 else
 			 if( toolStripMenuItem7 == sender )
 			 {
-				cGameApp::m_svGameResolution.x = 640.f;
-				cGameApp::m_svGameResolution.y = 480.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.x = 640.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.y = 480.f;
 			 }
 			 else
 			 if( toolStripMenuItem8 == sender )
 			 {
-				cGameApp::m_svGameResolution.x = 480.f;
-				cGameApp::m_svGameResolution.y = 320.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.x = 480.f;
+				 cGameApp::m_spOpenGLRender->m_vGameResolution.y = 320.f;
 			 }
 		 }
 private: System::Void LevelEditorForm_Load(System::Object^  sender, System::EventArgs^  e)
