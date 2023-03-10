@@ -232,6 +232,7 @@ namespace FATMING_CORE
 		cMatrix44 l_mat;
 		if (ProcessTriangulatorRenderData(e_strData, e_iCount, e_iPosX, e_iPosY, e_pmat, e_bCenter, l_mat, l_iNumTriangles))
 		{
+			this->ApplyImage();
 			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, l_iNumTriangles * A_QUAD_TWO_TRIANGLES);
 		}
 	}
