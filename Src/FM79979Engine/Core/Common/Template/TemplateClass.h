@@ -1,5 +1,4 @@
-#ifndef _TEMPLATE_CLASS_H_
-#define _TEMPLATE_CLASS_H_
+#pragma once
 #include <vector>
 #include <assert.h>
 #include "../CommonDefine.h"
@@ -864,5 +863,3 @@ bool FindKeyByValueInMap(std::map<K, V>& e_MapOfElemen, V value, K& e_Key)
 	}
 	return false;
 }
-
-#endif

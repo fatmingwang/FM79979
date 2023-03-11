@@ -189,18 +189,21 @@ namespace UT
 
 		void    			Update(float e_fElpaseTime)
 		{
-			MoveToDestinationTC.Update(e_fElpaseTime);
 			if (!this->MoveToDestinationTC.bTragetTimrReached)
 			{
-				vCurrentMoveDistance = (e_fElpaseTime / MoveToDestinationTC.fTargetTime) * (vEndPos - vStartPos);
-				vTotalMoveDistance += vCurrentMoveDistance;
-				vCurrentPos += vTotalMoveDistance;
-			}
-			else
-			{
-				vCurrentMoveDistance = vEndPos - vStartPos - vTotalMoveDistance;
-				vTotalMoveDistance = vEndPos - vStartPos;
-				vCurrentPos = vEndPos;
+				MoveToDestinationTC.Update(e_fElpaseTime);
+				if (this->MoveToDestinationTC.bTragetTimrReached)
+				{
+					vCurrentMoveDistance = vEndPos - vStartPos - vTotalMoveDistance;
+					vTotalMoveDistance = vEndPos - vStartPos;
+					vCurrentPos = vEndPos;
+				}
+				else
+				{
+					vCurrentMoveDistance = (e_fElpaseTime / MoveToDestinationTC.fTargetTime) * (vEndPos - vStartPos);
+					vTotalMoveDistance += vCurrentMoveDistance;
+					vCurrentPos += vCurrentMoveDistance;
+				}
 			}
 		}
 		bool	IsDone() { return MoveToDestinationTC.bTragetTimrReached; }

@@ -1,5 +1,6 @@
 #include "MathUtility.h"
 #include "assert.h"
+#include "MathTemplateUtility.h"
 namespace UT
 {
 	std::vector<int>	GenerateRandomTable(int e_iCount,int e_iMaxValue)
@@ -58,7 +59,7 @@ namespace UT
 	{
 		float l_fX = e_DestX - e_SrcX;
 		float l_fY = e_DestY - e_SrcY;
-		return atan2(l_fX,l_fY);
+		return (float)atan2(l_fX,l_fY);
 		//just using atan2 instead below code
 
 		//if( abs(l_fX)<1E-10 && l_fY<1E-10 )
