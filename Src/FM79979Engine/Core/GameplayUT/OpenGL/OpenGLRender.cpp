@@ -14,6 +14,7 @@
 #endif
 namespace FATMING_CORE
 {
+	TYPDE_DEFINE_MARCO(cOpenGLRender)
 	bool				cOpenGLRender::m_sbVBOSupported = true;
 	extern cBaseShader*	g_pCurrentShader;
 	bool				cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = true;

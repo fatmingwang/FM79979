@@ -10,7 +10,7 @@ namespace FATMING_CORE
 #define	OPENGL_ES_30	30
 #define	OPENGL_ES_31	31
 #define	OPENGL_ES_32	32
-	class cOpenGLRender
+	class cOpenGLRender:public NamedTypedObject
 	{
 		void														CreateDefaultShader();
 	public:
@@ -22,7 +22,8 @@ namespace FATMING_CORE
 		cOpenGLRender();
 #endif
 		cOpenGLRender(Vector2 e_vGameResolution = Vector2(1920.f, 1080.f), Vector2 e_vViewportSize = Vector2(1920.f, 1080.f));
-		~cOpenGLRender();
+		virtual ~cOpenGLRender();
+		DEFINE_TYPE_INFO();
 		//while game resolution is change we want to re scale all data check this one
 		Vector2														m_vGameScale;
 		//viewport resolution or game resolution,both them could be same,but depend on the game type.
