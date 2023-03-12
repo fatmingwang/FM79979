@@ -14,10 +14,10 @@
                             HorizontalAlignment="Center" VerticalAlignment="Top" SelectionMode="Multiple"  DragItemsCompleted="m_UITreeView_DragItemsCompleted" ItemInvoked="m_UITreeView_ItemInvoked" CanDragItems="True" AllowDrop="True">
             <muxc:TreeView.ContextFlyout>
                 <MenuFlyout>
-                    <MenuFlyoutItem Text="Add" />
-                    <MenuFlyoutItem Text="Copy" />
-                    <MenuFlyoutItem Text="Cut" />
-                    <MenuFlyoutItem Text="Paste" />
+                    <MenuFlyoutItem Text="Add" Click="MenuFlyoutItem_Add_Click" />
+                    <MenuFlyoutItem Text="Copy" Click="MenuFlyoutItem_Copy_Click" />
+                    <MenuFlyoutItem Text="Cut" Click="MenuFlyoutItem_Cut_Click"/>
+                    <MenuFlyoutItem Text="Paste" Click="MenuFlyoutItem_Paste_Click"/>
                 </MenuFlyout>
             </muxc:TreeView.ContextFlyout>
         </muxc:TreeView>

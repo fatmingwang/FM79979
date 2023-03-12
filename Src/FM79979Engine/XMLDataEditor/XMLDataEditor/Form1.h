@@ -1605,10 +1605,13 @@ private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 private: System::Void toUTF32ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-	cli::array<String^>^l_str = OpenFileAndGetNames();
-			 for each(String^ l_strFileName in l_str )
+			 cli::array<String^>^l_str = OpenFileAndGetNames();
+			 if (l_str)
 			 {
-				FileToUnicode(l_strFileName,"big5");
+				 for each (String ^ l_strFileName in l_str)
+				 {
+					 FileToUnicode(l_strFileName, "big5");
+				 }
 			 }
 		 }
 
@@ -1756,103 +1759,110 @@ private: System::Void saveToBinaryToolStripMenuItem_Click(System::Object^  sende
 				}
 			}
 		 }
-private: System::Void Save_toolStripButton_Click(System::Object^  sender, System::EventArgs^  e)
-		 {
-			SaveXmlFile(SaveToolStripMenuItem);
-		 }
-private: System::Void replaceNodeByTemplateFileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
-		 {
-			 bool	l_bOkToRewrite = false;
-			 String^l_strTempFileName = "temp.bb";
-			 String^l_strTemplateFileName = DNCT::OpenFileAndGetName("xml files (*.xml)|*.xml|All files (*.*)|*.*");
-			 String^l_strOutputFileName = "temp.bb3";
-			 if( l_strTemplateFileName )
+	private: System::Void Save_toolStripButton_Click(System::Object^  sender, System::EventArgs^  e)
 			 {
-				std::string	l_strTempFileName1 = DNCT::GcStringToChar(l_strTempFileName);
-				std::string	l_strTemplateFileName1 = DNCT::GcStringToChar(l_strTemplateFileName);
-				std::string	l_strOutputFileNmae1 = DNCT::GcStringToChar(l_strOutputFileName);
-				SaveTreeViewToFile(this->MainNode_treeView,l_strTempFileName);
-				if( System::IO::File::Exists(l_strTempFileName) )
-				{
-					if(cNodeISAX::ReplaceNodeDataByTemplateNode(l_strTempFileName1.c_str(),l_strTemplateFileName1.c_str(),l_strOutputFileNmae1.c_str()))
+				SaveXmlFile(SaveToolStripMenuItem);
+			 }
+	private: System::Void replaceNodeByTemplateFileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+			 {
+				 bool	l_bOkToRewrite = false;
+				 String^l_strTempFileName = "temp.bb";
+				 String^l_strTemplateFileName = DNCT::OpenFileAndGetName("xml files (*.xml)|*.xml|All files (*.*)|*.*");
+				 String^l_strOutputFileName = "temp.bb3";
+				 if( l_strTemplateFileName )
+				 {
+					std::string	l_strTempFileName1 = DNCT::GcStringToChar(l_strTempFileName);
+					std::string	l_strTemplateFileName1 = DNCT::GcStringToChar(l_strTemplateFileName);
+					std::string	l_strOutputFileNmae1 = DNCT::GcStringToChar(l_strOutputFileName);
+					SaveTreeViewToFile(this->MainNode_treeView,l_strTempFileName);
+					if( System::IO::File::Exists(l_strTempFileName) )
 					{
-						if( System::IO::File::Exists(l_strOutputFileName) )
+						if(cNodeISAX::ReplaceNodeDataByTemplateNode(l_strTempFileName1.c_str(),l_strTemplateFileName1.c_str(),l_strOutputFileNmae1.c_str()))
 						{
-							 MainNode_treeView->Nodes->Clear();
-							 GCFORM::TreeNode^l_pNode = OpenFileGetTreeNode(l_strOutputFileName);
-							 MainNode_treeView->Nodes->Add(l_pNode);
-							l_bOkToRewrite = true;
-							System::IO::File::Delete(l_strTempFileName);
-							System::IO::File::Delete(l_strOutputFileName);
+							if( System::IO::File::Exists(l_strOutputFileName) )
+							{
+								 MainNode_treeView->Nodes->Clear();
+								 GCFORM::TreeNode^l_pNode = OpenFileGetTreeNode(l_strOutputFileName);
+								 MainNode_treeView->Nodes->Add(l_pNode);
+								l_bOkToRewrite = true;
+								System::IO::File::Delete(l_strTempFileName);
+								System::IO::File::Delete(l_strOutputFileName);
+							}
 						}
 					}
-				}
-			 }
-			 if( !l_bOkToRewrite )
-			 {
-				WARNING_MSG("template file failed");
-			 }
-		 }
-private: System::Void Form1_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) 
-		 {
-			 if(m_bFileChanged)
-			 {
-				 WARING_YES_NO_TO_NO("file not save,still leave!?")
+				 }
+				 if( !l_bOkToRewrite )
 				 {
-					 e->Cancel = true;
+					WARNING_MSG("template file failed");
 				 }
 			 }
-		 }
-private: System::Void textConvertToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
-		 {
-			 EncryptStringConvert^l_pEncryptStringConvert = gcnew EncryptStringConvert();
-			 l_pEncryptStringConvert->Show();
-		 }
-private: System::Void forceIfFileIsInlegalToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
-		 {
-			 forceIfFileIsInlegalToolStripMenuItem->Checked = !forceIfFileIsInlegalToolStripMenuItem->Checked;
-			 bool	l_bResult = forceIfFileIsInlegalToolStripMenuItem->Checked;
-			 int a=0;
-		 }
-private: System::Void toUTF32ByFolderToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	String^ l_strErrorMsg = gcnew String("to utf32 failed:");
-	bool	l_bFailed = false;
-	String^ l_strDirectoryName = DNCT::SelectDirectory();
-	if (l_strDirectoryName)
+	private: System::Void Form1_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) 
+			 {
+				 if(m_bFileChanged)
+				 {
+					 WARING_YES_NO_TO_NO("file not save,still leave!?")
+					 {
+						 e->Cancel = true;
+					 }
+				 }
+			 }
+	private: System::Void textConvertToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+			 {
+				 EncryptStringConvert^l_pEncryptStringConvert = gcnew EncryptStringConvert();
+				 l_pEncryptStringConvert->Show();
+			 }
+	private: System::Void forceIfFileIsInlegalToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+			 {
+				 forceIfFileIsInlegalToolStripMenuItem->Checked = !forceIfFileIsInlegalToolStripMenuItem->Checked;
+				 bool	l_bResult = forceIfFileIsInlegalToolStripMenuItem->Checked;
+				 int a=0;
+			 }
+	private: System::Void toUTF32ByFolderToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		System::Collections::ArrayList^ l_pArrayList = gcnew System::Collections::ArrayList;
-		System::Collections::ArrayList^ l_pArrayList2 = gcnew System::Collections::ArrayList;
-		GetFilesNameByRecursivelyDirectoryAndAssignNewFolderToIt(l_strDirectoryName, l_pArrayList, "UTF32XML", l_pArrayList2);
-		for (int i = 0; i < l_pArrayList->Count; ++i)
+		String^ l_strErrorMsg = gcnew String("to utf32 failed:");
+		bool	l_bFailed = false;
+		String^ l_strDirectoryName = DNCT::SelectDirectory();
+		if (l_strDirectoryName)
 		{
-			String^ l_strOriginalName = (String^)l_pArrayList[i];
-			if (l_strOriginalName->Contains(".xml"))
+			System::Collections::ArrayList^ l_pArrayList = gcnew System::Collections::ArrayList;
+			System::Collections::ArrayList^ l_pArrayList2 = gcnew System::Collections::ArrayList;
+			GetFilesNameByRecursivelyDirectoryAndAssignNewFolderToIt(l_strDirectoryName, l_pArrayList, "UTF32XML", l_pArrayList2);
+			for (int i = 0; i < l_pArrayList->Count; ++i)
 			{
-				String^ l_strNewName = (String^)l_pArrayList2[i];
-				DNCT::CreateDirectory(System::IO::Path::GetDirectoryName(l_strNewName));
-				try
+				String^ l_strOriginalName = (String^)l_pArrayList[i];
+				if (l_strOriginalName->Contains(".xml") || l_strOriginalName->Contains(".fai")
+					|| l_strOriginalName->Contains(".mpdi")
+					|| l_strOriginalName->Contains(".pi")
+					|| l_strOriginalName->Contains(".collision")
+					|| l_strOriginalName->Contains(".prt")
+					|| l_strOriginalName->Contains(".path"))
 				{
-					System::IO::StreamReader^ l_pReader = gcnew System::IO::StreamReader(l_strOriginalName);
-					auto l_strContent = l_pReader->ReadToEnd();
-					l_pReader->Close();
-					System::IO::StreamWriter^ l_pWriter = gcnew System::IO::StreamWriter(l_strNewName, false, System::Text::Encoding::UTF32);
-					l_pWriter->Write(l_strContent);
-					l_pWriter->Close();
-				}
-				catch (System::Exception^ e)
-				{
-					l_strErrorMsg += e->ToString();
-					l_strErrorMsg += "\n";
-					l_bFailed = true;
+					String^ l_strNewName = (String^)l_pArrayList2[i];
+					DNCT::CreateDirectory(System::IO::Path::GetDirectoryName(l_strNewName));
+					try
+					{
+						FileToUnicode(l_strOriginalName, "big5", l_strNewName);
+						//System::IO::StreamReader^ l_pReader = gcnew System::IO::StreamReader(l_strOriginalName);
+						//auto l_strContent = l_pReader->ReadToEnd();
+						//l_pReader->Close();
+						//System::IO::StreamWriter^ l_pWriter = gcnew System::IO::StreamWriter(l_strNewName, false, System::Text::Encoding::UTF32);
+						//l_pWriter->Write(l_strContent);
+						//l_pWriter->Close();
+					}
+					catch (System::Exception^ e)
+					{
+						l_strErrorMsg += e->ToString();
+						l_strErrorMsg += "\n";
+						l_bFailed = true;
+					}
 				}
 			}
+			WARNING_MSG("finish!");
+		}
+		if (l_bFailed)
+		{
+			WARNING_MSG(l_strErrorMsg);
 		}
 	}
-	if (l_bFailed)
-	{
-		WARNING_MSG(l_strErrorMsg);
-	}
-}
 };
 }
