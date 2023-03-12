@@ -87,7 +87,7 @@ namespace FATMING_CORE
 		{
 			if(Collide(e_iPosX,e_iPosY))
 			{
-				FMLog::Log(UT::ComposeMsgByFormat(L"cClickBehavior::MouseDown---%ls---:%ls",GetName(),Type()).c_str(), false);
+				//FMLog::Log(UT::ComposeMsgByFormat(L"cClickBehavior::MouseDown---%ls---:%ls",GetName(),Type()).c_str(), false);
 				m_MouseMoveData.MouseDown(e_iPosX,e_iPosY);
 				m_eObjectMouseBehavior = eOMB_FIRST_TIME_INTO;
 				LAZY_MOUSE_FUNCTION(m_MouseDownFunction,e_iPosX,e_iPosY);
@@ -235,7 +235,7 @@ namespace FATMING_CORE
 				cClickBehavior* l_pResult = l_pClickEvent->MouseDown(e_iPosX, e_iPosY);
 				if (l_pResult && l_pResult->IsSwallowedTouch())
 				{
-					FMLog::Log(UT::ComposeMsgByFormat(L"cClickBehaviorGroup::MouseDown---Child:%d %ls---%ls", i, l_pResult->GetName(), l_pResult->Type()).c_str(), false);
+					//FMLog::Log(UT::ComposeMsgByFormat(L"cClickBehaviorGroup::MouseDown---Child:%d %ls---%ls", i, l_pResult->GetName(), l_pResult->Type()).c_str(), false);
 					return l_pResult;
 				}
 			}
