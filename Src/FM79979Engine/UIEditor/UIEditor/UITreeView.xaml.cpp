@@ -61,7 +61,7 @@ enum eMoveType
 
 
 //bool GetMPDINode(cMPDINode** e_pOut);
-bool UIEditor::UITreeView::GetMPDINode(size_t* e_puiOutAddress)
+bool UIEditor::UITreeView::GetTreeNode(size_t* e_puiOutAddress)
 {
 	if (m_pLastIvokedTreeviewNode)
 	{
@@ -120,6 +120,7 @@ void UIEditor::UITreeView::m_UITreeView_ItemInvoked(Microsoft::UI::Xaml::Control
 {
 	m_pLastIvokedTreeviewNode = args->InvokedItem;
 	auto l_str = args->InvokedItem->ToString();
+	OutputDebugString(l_str->Data());
 	int a = 0;
 }
 
@@ -133,4 +134,40 @@ void UIEditor::UITreeView::m_UITreeView_Loaded(Platform::Object^ sender, Windows
 		m_UITreeView->RootNodes->Append(l_pNode);
 	}
 
+}
+
+
+void UIEditor::UITreeView::MenuFlyoutItem_Add_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	if (!m_pLastIvokedTreeviewNode)
+	{
+		int a = 0;
+	}
+}
+
+
+void UIEditor::UITreeView::MenuFlyoutItem_Copy_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	if (!m_pLastIvokedTreeviewNode)
+	{
+		int a = 0;
+	}
+}
+
+
+void UIEditor::UITreeView::MenuFlyoutItem_Cut_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	if (!m_pLastIvokedTreeviewNode)
+	{
+		int a = 0;
+	}
+}
+
+
+void UIEditor::UITreeView::MenuFlyoutItem_Paste_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	if (!m_pLastIvokedTreeviewNode)
+	{
+		int a = 0;
+	}
 }
