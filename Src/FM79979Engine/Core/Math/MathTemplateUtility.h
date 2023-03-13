@@ -73,6 +73,38 @@ namespace UT
 			return rand((T)Min,(T)Max);
 		}
 	};
+
+	template<class TYPE>struct sRandomAssignValueWithTime
+	{
+		TYPE				m_RamdomValue;
+		sMinMaxData<TYPE>	m_MinMaxData;
+		UT::sTimeCounter	m_TC;
+		void	SetData(float e_fTime, TYPE e_MinData, TYPE e_MaxData)
+		{
+			m_TC.SetTargetTime(e_fTime);
+			m_MinMaxData = sMinMaxData<TYPE>(Vector2(e_MinData, e_MaxData));
+		}
+		void	Update(float e_fElpaseTime)
+		{
+			if (!m_TC.bTragetTimrReached)
+			{
+				m_TC.Update(e_fElpaseTime);
+				if (!m_TC.bTragetTimrReached)
+				{
+					m_RamdomValue = m_MinMaxData.Rand();
+				}
+			}
+		}
+		bool	IsFinish()
+		{
+			return m_TC.bTragetTimrReached;
+		}
+		void	Start()
+		{
+			m_TC.Start();
+		}
+		TYPE	GetData() { return m_RamdomValue; }
+	};
 	//sample
 	//sProbabilityVector<float>	m_ProbabilityValue;
 	//sProbabilityVector<int>	m_ProbabilityValue;
