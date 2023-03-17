@@ -499,6 +499,14 @@ namespace FATMING_CORE
 		return l_strResult;
 	}
 
+	bool	cTexture::ApplyImageWithActiveTextureID(GLuint e_uintActiveTextureID)
+	{
+		glActiveTexture(GL_TEXTURE0 + e_uintActiveTextureID);
+		glBindTexture(GL_TEXTURE_2D, m_uiImageIndex);
+		m_suiLastUsingImageIndex = -1;
+		return true;
+	}
+
 	bool	cTexture::ApplyImage()
 	{
 	    if( m_suiLastUsingImageIndex != m_uiImageIndex )
