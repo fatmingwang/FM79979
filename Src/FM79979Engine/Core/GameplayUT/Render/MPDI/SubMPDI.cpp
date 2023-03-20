@@ -524,6 +524,16 @@ namespace FATMING_CORE
 		return l_Size;
 	}
 
+	cTexture* cCueToStartCurveWithTime::GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	{
+		return nullptr;
+	}
+
+	cTexture* cCueToStartCurveWithTime::GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	{
+		return nullptr;
+	}
+
 	void cCueToStartCurveWithTime::Render(sPuzzleData*e_pPuzzleData)
 	{
 		if (!this->IsAnimationDone())
