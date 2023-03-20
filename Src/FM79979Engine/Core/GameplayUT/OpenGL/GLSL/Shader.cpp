@@ -417,7 +417,7 @@ namespace FATMING_CORE
 		return l_p2DShader;
 	}
 
-	cBaseShader*	GetShader(wchar_t*e_strName)
+	cBaseShader*	GetShader(const wchar_t*e_strName)
 	{
 		if( !g_pAll2DShaderList )
 		{

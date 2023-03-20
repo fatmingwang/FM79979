@@ -147,7 +147,7 @@ namespace FATMING_CORE
 	cBaseShader*	CreateShader(bool *e_pbClientState,wchar_t*e_strName = DEFAULT_SHADER);
 	//e_pbClientState to setup opengl es client state
 	cBaseShader*	CreateShader(bool *e_pbClientState,const char*e_strVS,const char*e_strPS,wchar_t*e_strName = DEFAULT_SHADER);
-	cBaseShader*	GetShader(wchar_t*e_strName);
+	cBaseShader*	GetShader(const wchar_t*e_strName);
 	cBaseShader*	GetCurrentShader();
 	//
 	//
