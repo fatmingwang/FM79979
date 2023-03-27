@@ -339,6 +339,7 @@ namespace FATMING_CORE
     {
 		if( !m_bVisible )
 			return;
+		UseShaderProgram();
 		if(m_pTexture)
 			m_pTexture->ApplyImage();
 		POINT l_vOffsetPos = m_OffsetPos;
@@ -433,12 +434,12 @@ namespace FATMING_CORE
 		Vector3 l_vTrianglesPos[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 		Vector2 l_vTrianglesUV[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 		auto l_Mat = cMatrix44::TranslationMatrix(l_fWidth, l_fHeight, 0.f) * this->GetWorldTransform();
-		//for (int i = 0; i < A_QUAD_4_TRIANGLES; ++i)
+		//for (int i = 0; i < A_QUAD_4_VERTICES; ++i)
 		//{
 		//	Vector3* l_pPos = (Vector3*)&l_Vertices[i * 3];
 		//	*l_pPos = l_Mat.TransformCoordinate(*l_pPos);
 		//}
-		VerticesApplyTransform(A_QUAD_4_TRIANGLES, l_Vertices, l_Mat, 3);
+		VerticesApplyTransform(A_QUAD_4_VERTICES, l_Vertices, l_Mat, 3);
 		Assign4VerticesDataTo2Triangles(l_Vertices,(float*) &l_vTrianglesPos, m_fUV, (float*)&l_vTrianglesUV, 3);
 		memcpy(e_pvOutPos, l_vTrianglesPos, sizeof(Vector3) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 		memcpy(e_pvOutUV, l_vTrianglesUV, sizeof(Vector2) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
@@ -589,6 +590,7 @@ namespace FATMING_CORE
 	{
 		if( !m_bVisible )
 			return;
+		UseShaderProgram();
 		if(m_pTexture->ApplyImage())
 		{
 			Vector3	l_vPos = this->GetWorldPosition();

@@ -232,8 +232,9 @@ namespace FATMING_CORE
 		cMatrix44 l_mat;
 		if (ProcessTriangulatorRenderData(e_strData, e_iCount, e_iPosX, e_iPosY, e_pmat, e_bCenter, l_mat, l_iNumTriangles))
 		{
+			UseShaderProgram();
 			this->ApplyImage();
-			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 3, l_iNumTriangles);
+			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 3, l_iNumTriangles* A_QUAD_TWO_TRIANGLES);
 		}
 	}
 	bool	cNumeralImage::ProcessTriangulatorRenderData(const char* e_strData, int e_iNumberStringLength, int e_iPosX, int e_iPosY, float* e_pmat, bool e_bCenter, cMatrix44& e_OutMat, int& e_iNumTriangles)
@@ -318,7 +319,7 @@ namespace FATMING_CORE
 		{
 			l_mat = cMatrix44(e_pmat) * l_mat;
 		}
-		e_iNumTriangles = l_iStringLength* TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
+		e_iNumTriangles = l_iStringLength;
 		e_OutMat = l_mat;
 		return true;
 	}
@@ -382,6 +383,7 @@ namespace FATMING_CORE
 		bool l_bValueChanged = m_bValueChanged;
 		cMatrix44 l_Mat;
 		ProcessTriangulatorRenderData(l_str.c_str(), l_iStringLength,0,0,this->GetWorldTransform(),this->m_bDrawOnCenter, l_Mat, e_iOutNumVertex);
+		e_iOutNumVertex *= TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
 		if (l_bValueChanged)
 		{
 			VerticesApplyTransform(e_iOutNumVertex, (float*)m_pvVertexBuffer, l_Mat, 3);

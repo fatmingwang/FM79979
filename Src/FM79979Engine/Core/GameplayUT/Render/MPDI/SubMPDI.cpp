@@ -412,11 +412,11 @@ namespace FATMING_CORE
 			}
 		}
 		cMatrix44 l_mat2DTransform = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
-		Vector3 l_Vertices[A_QUAD_4_TRIANGLES];
-		memcpy(l_Vertices, &this->m_2DVertices.vPos, sizeof(Vector3) * A_QUAD_4_TRIANGLES);
+		Vector3 l_Vertices[A_QUAD_4_VERTICES];
+		memcpy(l_Vertices, &this->m_2DVertices.vPos, sizeof(Vector3) * A_QUAD_4_VERTICES);
 		if (e_pfVertices)
 		{
-			for (int i = 0; i < A_QUAD_4_TRIANGLES; ++i)
+			for (int i = 0; i < A_QUAD_4_VERTICES; ++i)
 			{
 				l_Vertices[i] = l_mat2DTransform.TransformCoordinate(l_Vertices[i]);
 			}
@@ -592,8 +592,8 @@ namespace FATMING_CORE
 		}
 		if (!m_pCurrentPointData->pPI)
 			return;
+		UseShaderProgram(DEFAULT_SHADER);
 		m_pCurrentPointData->pPI->ApplyImage();
-
 		if (m_pCurrentPointData->iImageIndex == -1)
 		{
 #ifdef DEBUG

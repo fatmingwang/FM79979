@@ -293,8 +293,8 @@ namespace GLRender
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		ASSIGN_2D_QUAD_UV(e_pfTexCoordinate);
 		ASSIGN_2D_QUAD_VerticesBySize(e_fWidth,e_fHeight,e_fDepth);
-		ASSIGN_2D_QUAD_COLOR(e_vColor);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
+		ASSIGN_2D_QUAD_COLOR(e_vColor); 
+		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, A_QUAD_4_VERTICES);
 	}
 
 
@@ -310,7 +310,7 @@ namespace GLRender
 		ASSIGN_2D_QUAD_MIRROR_UV(e_pfTexCoordinate);
 		ASSIGN_2D_QUAD_VerticesBySize(e_iWidth,e_iHeight,e_fDepth);
 		ASSIGN_2D_QUAD_COLOR(e_vColor);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
+		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, A_QUAD_4_VERTICES);
 	}
 
 	
@@ -335,7 +335,7 @@ namespace GLRender
 		myGlVertexPointer(e_iPosStride, e_pfVertices);
 		myGlUVPointer(2, e_pfTextureUV);
 		myGlColorPointer(4, e_pvColor);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 3 * e_iNumTriangles);
+		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, TRIANGLE_VERTEX_COUNT * e_iNumTriangles);
 	}
 
 	void    RenderQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad,const wchar_t*e_strShaderName )
@@ -346,7 +346,7 @@ namespace GLRender
 		ASSIGN_2D_QUAD_COLOR(e_vColor);
 		myGlVertexPointer(e_iPosStride,e_pfVertices);
 		myGlUVPointer(2,e_pfTextureUV);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4*e_iNumQuad);
+		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, A_QUAD_4_VERTICES *e_iNumQuad);
 	}
 	void	Render3DArrow(Vector3 P,Vector3 D,Vector4 e_vColor,float e_fWidth)
 	{
@@ -354,7 +354,9 @@ namespace GLRender
 		float angle = (float)atan2(D.y, D.x);
 		float	l_fLength = D.Length();
 		Vector3	l_vD10Percent = D*0.1f;
-		float	l_fAllVertices[] = { 0.f,0.f,0.f,
+		const int l_ciNumVertex = 10;
+		//xyz.
+		float	l_fAllVertices[l_ciNumVertex*3] = { 0.f,0.f,0.f,
 									 D.x,D.y,D.z,
 
 									 D.x,D.y,D.z,
@@ -374,7 +376,7 @@ namespace GLRender
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(3,l_fAllVertices);
 		FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
-		MY_GLDRAW_ARRAYS(GL_LINES, 0, 10);
+		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_ciNumVertex);
 	}
 	void RenderArrow(Vector3 P,Vector3 D, float radius,Vector4 e_vColor)
 	{
@@ -394,7 +396,9 @@ namespace GLRender
 		//							 0.9f,0.05f
 		//							 };
 		//Y up is 0 degree
-		float	l_fAllVertices[] = { 0.f,0.f,
+		//2 is xy.
+		const int	l_ciNumVertices = 6;
+		float	l_fAllVertices[l_ciNumVertices*2] = { 0.f,0.f,
 									 0.f,l_fLength,
 									 0.f,l_fLength,
 									 -0.05f*l_fLength,0.9f*l_fLength,
@@ -404,7 +408,7 @@ namespace GLRender
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(2,l_fAllVertices);
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
-		MY_GLDRAW_ARRAYS(GL_LINES, 0, 6);
+		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_ciNumVertices);
 	}
 
 	//enable point size in opengl ES2.0 shader
@@ -730,7 +734,7 @@ namespace GLRender
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		ASSIGN_2D_QUAD_VerticesBySize(e_fWidth,e_fHeight,0.f);
 		FATMING_CORE::SetupShaderColor(e_vColor);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
+		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, A_QUAD_4_VERTICES);
 	}
 
 	void	RenderRectangle(POINT e_Pos,int e_iWidth,int e_iHeight,Vector4 e_vColor,float e_fAngle,float e_fLineWidth)
@@ -888,23 +892,25 @@ namespace GLRender
 		int l_iNumVertex = e_iNumVertex;
 		if (e_iStride == 2)
 		{
+			Vector2*l_pPos = (Vector2*)e_pVertices;
 			for (int i = 0; i < l_iNumVertex; ++i)
 			{
 				int l_iIndex = i * 2;
-				Vector2* l_pPos = (Vector2*)&e_pVertices[l_iIndex];
 				Vector3 l_vPos(l_pPos->x, l_pPos->y, 0.f);
 				l_vPos = e_Mat.TransformCoordinate(l_vPos);
 				l_pPos->x = l_vPos.x;
 				l_pPos->y = l_vPos.y;
+				++l_pPos;
 			}
 		}
 		else
 		{
+			Vector3*l_pPos = (Vector3*)e_pVertices;
 			for (int i = 0; i < l_iNumVertex; ++i)
 			{
 				int l_iIndex = i * 3;
-				Vector3* l_pPos = (Vector3*)&e_pVertices[l_iIndex];
 				*l_pPos = e_Mat.TransformCoordinate(*l_pPos);
+				++l_pPos;
 			}
 		}
 	}
@@ -929,8 +935,10 @@ namespace GLRender
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		FATMING_CORE::SetupShaderWorldMatrix(e_mat);
 		FATMING_CORE::SetupShaderColor(e_vColor);
-		Vector4	l_vColor[36];
-		Vector3	l_vVetrices[] = {
+		const int l_ciVertexCount = 36;
+		Vector4	l_vColor[l_ciVertexCount];
+		//3 for xyz
+		Vector3	l_vVetrices[l_ciVertexCount*3] = {
 			//
 			Vector3(-e_vSize.x, e_vSize.y, e_vSize.z),					// Bottom Left Of The Quad (Top)
 			Vector3( e_vSize.x, e_vSize.y, e_vSize.z),					// Bottom Right Of The Quad (Top)
@@ -980,7 +988,7 @@ namespace GLRender
 			
 		};
 		myGlVertexPointer(3,l_vVetrices);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 36);
+		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, l_ciVertexCount);
 	}
 
 	void	sBlendfunction::GetStatus()
@@ -993,7 +1001,7 @@ namespace GLRender
 	}
 	void	sBlendfunction::Render()
 	{
-		if (eSrcBlendingMode != eLastSrcBlendingMode || eLastSrcBlendingMode != eLastDestBlendingMode)
+		if (eSrcBlendingMode != eLastSrcBlendingMode || eDestBlendingMode != eLastDestBlendingMode)
 		{
 			GetStatus();
 			myGLBlendFunc(eSrcBlendingMode, eDestBlendingMode);

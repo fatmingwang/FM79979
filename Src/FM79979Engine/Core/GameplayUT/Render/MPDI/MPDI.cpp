@@ -310,8 +310,8 @@ namespace FATMING_CORE
 	    }
 		if( l_iIndex > 0 )
 		{
+			UseShaderProgram(DEFAULT_SHADER);
 			this->m_ObjectList[0]->GetPointData(0)->pPI->ApplyImage();
-
 			RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iIndex * A_QUAD_TWO_TRIANGLES);
 		}
 EXIT:
