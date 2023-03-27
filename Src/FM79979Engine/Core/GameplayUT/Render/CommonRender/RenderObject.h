@@ -69,6 +69,7 @@ namespace FATMING_CORE
 		void				SetUpdateFunction(f_UpdateFunction e_f_UpdateFunction) { m_UpdateFunction = e_f_UpdateFunction; }
 		virtual cTexture*	GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex,Vector3*e_pvOutPos, Vector2*e_pvOutUV, Vector4*e_pvOutColor) { return nullptr; }
 		virtual cTexture*	GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor) { return nullptr; }
+		virtual int			GetNumVertexForTwoTriangles() { return TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; }
 		//virtual	bool	IsDone(){ return false; }
 		//virtual	int		GetWidth() = 0;
 		//virtual	int		GetHeight() = 0;

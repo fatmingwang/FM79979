@@ -27,7 +27,7 @@ namespace FATMING_CORE
 	class	cNumeralImage:public cBaseImage
 	{
 		int				m_iVertexBufferCount;
-		Vector2*		m_pvVertexBuffer;
+		Vector3*		m_pvVertexBuffer;
 		Vector2*		m_pvTextureUVBuffer;
 		Vector4*		m_pvColorBuffer;
 		void			GenerateVertexBuffer(int e_iNumBuffer);
@@ -55,17 +55,18 @@ namespace FATMING_CORE
 		virtual ~cNumeralImage();
 		virtual	void	SetColor(Vector4 e_vColor)override;
 		//this one is right to left,if e_pmat is null apply normal one or apply a matrix to it.
-		void	Draw(int	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
-		void	Draw(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
+		void			Draw(int	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
+		void			Draw(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
 		//
-		void	DrawOnCenter(int	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0);
-		void	DrawOnCenter(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0);
-		//max u value for texture space
-		float	GetMaxU(){ return m_pfTexCoordinate[38]; }
+		void			DrawOnCenter(int	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0);
+		void			DrawOnCenter(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0);
+		//max u	value for texture space
+		float			GetMaxU(){ return m_pfTexCoordinate[38]; }
+		void			SetValue(int64 e_i64Value);
+		int64			GetValue(){return m_i64Value;}
 		virtual	void	Render()override;
-		void	SetValue(int64 e_i64Value);
-		int64	GetValue(){return m_i64Value;}
-		virtual cTexture* GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
+		virtual cTexture*	GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
+		virtual int			GetNumVertexForTwoTriangles()override;
 	};
 
 	class	cTimeNumerialImage:public cNumeralImage

@@ -379,7 +379,7 @@ namespace FATMING_CORE
 		glUseProgram( 0 );
 	}
 
-	cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList = 0;
+	cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList = nullptr;
 
 
 	cBaseShader*	CreateShader(bool *e_pbClientState,wchar_t*e_strName)

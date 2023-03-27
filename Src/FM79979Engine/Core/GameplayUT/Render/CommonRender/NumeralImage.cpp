@@ -219,7 +219,7 @@ namespace FATMING_CORE
 	{
 		m_iVertexBufferCount = e_iNumBuffer;
 		//draw by quad...!?
-		m_pvVertexBuffer = new Vector2[m_iVertexBufferCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+		m_pvVertexBuffer = new Vector3[m_iVertexBufferCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 		m_pvTextureUVBuffer = new Vector2[m_iVertexBufferCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 		m_pvColorBuffer = new Vector4[m_iVertexBufferCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 		for (int i = 0; i<m_iVertexBufferCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
@@ -233,7 +233,7 @@ namespace FATMING_CORE
 		if (ProcessTriangulatorRenderData(e_strData, e_iCount, e_iPosX, e_iPosY, e_pmat, e_bCenter, l_mat, l_iNumTriangles))
 		{
 			this->ApplyImage();
-			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, l_iNumTriangles * A_QUAD_TWO_TRIANGLES);
+			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 3, l_iNumTriangles);
 		}
 	}
 	bool	cNumeralImage::ProcessTriangulatorRenderData(const char* e_strData, int e_iNumberStringLength, int e_iPosX, int e_iPosY, float* e_pmat, bool e_bCenter, cMatrix44& e_OutMat, int& e_iNumTriangles)
@@ -289,12 +289,12 @@ namespace FATMING_CORE
 					{
 						memcpy(&l_pfColor[j * 4], &m_vColor, sizeof(Vector4));
 					}
-					Vector2	l_vPos[4];
-					l_vPos[0] = Vector2(l_fPosX, l_fPosY);
-					l_vPos[1] = Vector2(l_fPosX + (float)m_iSingleImageWidth, l_fPosY);
-					l_vPos[2] = Vector2(l_fPosX, l_fPosY + (float)m_iSingleImageHeight);
-					l_vPos[3] = Vector2(l_fPosX + (float)m_iSingleImageWidth, l_fPosY + (float)m_iSingleImageHeight);
-					Assign4VerticesDataTo2Triangles((float*)l_vPos, l_pfVertices, 2);
+					Vector3	l_vPos[4];
+					l_vPos[0] = Vector3(l_fPosX, l_fPosY,0.f);
+					l_vPos[1] = Vector3(l_fPosX + (float)m_iSingleImageWidth, l_fPosY, 0.f);
+					l_vPos[2] = Vector3(l_fPosX, l_fPosY + (float)m_iSingleImageHeight, 0.f);
+					l_vPos[3] = Vector3(l_fPosX + (float)m_iSingleImageWidth, l_fPosY + (float)m_iSingleImageHeight, 0.f);
+					Assign4VerticesDataTo2Triangles((float*)l_vPos, l_pfVertices, 3);
 					l_fPosX += l_fOffsetPosX;
 					l_fPosY += l_fOffsetPosY;
 				}
@@ -318,7 +318,7 @@ namespace FATMING_CORE
 		{
 			l_mat = cMatrix44(e_pmat) * l_mat;
 		}
-		e_iNumTriangles = l_iStringLength;
+		e_iNumTriangles = l_iStringLength* TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
 		e_OutMat = l_mat;
 		return true;
 	}
@@ -379,22 +379,23 @@ namespace FATMING_CORE
 		}
 		std::string	l_str = ValueToString(m_i64Value);
 		int	l_iStringLength = (int)strlen(l_str.c_str());
-		if (this->m_bDrawOnCenter)
-		{
-			DrawOnCenter(m_i64Value, 0, 0, this->GetWorldTransform());
-		}
-		else
-		{
-			Draw(m_i64Value, 0, 0, this->GetWorldTransform());
-		}
+		bool l_bValueChanged = m_bValueChanged;
 		cMatrix44 l_Mat;
-		int l_iNumTriangles = 0;
-		ProcessTriangulatorRenderData(l_str.c_str(), l_iStringLength,0,0,this->GetWorldTransform(),this->m_bDrawOnCenter, l_Mat, l_iNumTriangles);
-		for (int i = 0; i < l_iNumTriangles; ++i)
+		ProcessTriangulatorRenderData(l_str.c_str(), l_iStringLength,0,0,this->GetWorldTransform(),this->m_bDrawOnCenter, l_Mat, e_iOutNumVertex);
+		if (l_bValueChanged)
 		{
-
+			VerticesApplyTransform(e_iOutNumVertex, (float*)m_pvVertexBuffer, l_Mat, 3);
 		}
+		memcpy(e_pvOutPos, m_pvVertexBuffer, sizeof(Vector3) * e_iOutNumVertex);
+		memcpy(e_pvOutUV, m_pvTextureUVBuffer, sizeof(Vector2) * e_iOutNumVertex);
+		memcpy(e_pvOutColor, m_pvColorBuffer, sizeof(Vector4) * e_iOutNumVertex);
 		return m_pTexture;
+	}
+
+	int cNumeralImage::GetNumVertexForTwoTriangles()
+	{
+		auto l_iLength = ValueToString(m_i64Value).length();
+		return (int)(l_iLength* TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 	}
 
 	cTimeNumerialImage::cTimeNumerialImage(cBaseImage*e_pImage0,cBaseImage*e_pImage9,cCueToStartCurveWithTime*e_pHourSubMPDI,cCueToStartCurveWithTime*e_pMinSubMPDI,cCueToStartCurveWithTime*e_pSecondSubMPDI,cRenderObject*e_pDisableObject):cNumeralImage(e_pImage0,e_pImage9)
