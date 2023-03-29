@@ -61,14 +61,17 @@ namespace FATMING_CORE
 	{
 		if (m_pBufferReference)
 		{
-			if (m_pTexture)
-			{
-				m_pTexture->ApplyImage();
-			}
 			auto l_mat = this->GetWorldTransform();
-			RenderVertexByIndexBuffer(l_mat, 3,
+			//if (m_pTexture)
+			//{
+			//	m_pTexture->ApplyImage();
+			//}
+			//RenderVertexByIndexBuffer(l_mat, 3,
+			//	(float*)m_pBufferReference->PosBuffer.pData, (float*)m_pBufferReference->UVBuffer.pData,
+			//	(float*)m_pBufferReference->ColorBuffer.pData, m_pBufferReference->IndexBuffer.pData, m_pBufferReference->IndexBuffer.uiDataCount);
+			RenderVertexByIndexBufferWithTexture(l_mat, 3,
 				(float*)m_pBufferReference->PosBuffer.pData, (float*)m_pBufferReference->UVBuffer.pData,
-				(float*)m_pBufferReference->ColorBuffer.pData, m_pBufferReference->IndexBuffer.pData, m_pBufferReference->IndexBuffer.uiDataCount);
+				(float*)m_pBufferReference->ColorBuffer.pData, m_pBufferReference->IndexBuffer.pData, m_pBufferReference->IndexBuffer.uiDataCount, m_pTexture);
 		}
 	}
 

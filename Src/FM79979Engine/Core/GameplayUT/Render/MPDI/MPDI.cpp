@@ -278,12 +278,16 @@ namespace FATMING_CORE
 				}
 			}
 			else
+			{
 				cFatmingGroupBehaviorList<cCueToStartCurveWithTime>::InternalRender();
+			}
 			goto EXIT;
 		}
 
-	    if( !m_bStayAtLastFrame&&m_fCurrentProgress >= 1.f && !WaitUntilAllAnimationIsDone() )
-		    goto EXIT;
+		if (!m_bStayAtLastFrame && m_fCurrentProgress >= 1.f && !WaitUntilAllAnimationIsDone())
+		{
+			goto EXIT;
+		}
 	    for( size_t i=0;i<l_siSize;++i )
 	    {
 		    cCueToStartCurveWithTime*l_pTYPE = this->m_ObjectList[i];
@@ -310,9 +314,15 @@ namespace FATMING_CORE
 	    }
 		if( l_iIndex > 0 )
 		{
-			UseShaderProgram(DEFAULT_SHADER);
-			this->m_ObjectList[0]->GetPointData(0)->pPI->ApplyImage();
-			RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iIndex * A_QUAD_TWO_TRIANGLES);
+			auto l_pPointData = this->m_ObjectList[0]->GetPointData(0);
+			if (l_pPointData && l_pPointData->pPI)
+			{
+				auto l_pTexture = l_pPointData->pPI->GetTexture();
+				if (l_pTexture)
+				{
+					RenderTrianglesWithTexture(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iIndex * A_QUAD_TWO_TRIANGLES, l_pTexture);
+				}
+			}
 		}
 EXIT:
 		if (this->m_pViewPort)

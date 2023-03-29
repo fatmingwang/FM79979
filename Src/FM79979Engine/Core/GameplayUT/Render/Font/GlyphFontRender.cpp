@@ -240,11 +240,11 @@ namespace FATMING_CORE
 			}
 		}
 		UseShaderProgram(DEFAULT_SHADER);
-		if (m_pFontImage->ApplyImage())
+		if (m_pFontImage->GetImageIndex() != -1)
 		{
 			cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX + m_vHalfSize.x, e_fY + m_vHalfSize.y, 0.f));
 			l_mat *= this->GetWorldTransform() * cMatrix44::ScaleMatrix(Vector3(m_fScale, m_fScale, m_fScale));
-			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount * A_QUAD_TWO_TRIANGLES);
+			RenderTrianglesWithTexture((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount * A_QUAD_TWO_TRIANGLES, m_pFontImage->GetTexture());
 		}
 	}
 

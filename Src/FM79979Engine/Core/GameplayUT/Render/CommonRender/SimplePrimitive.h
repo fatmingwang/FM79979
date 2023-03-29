@@ -55,15 +55,24 @@ namespace GLRender
 	void	glEnable2D(float e_fResolutionWidth,float e_fResolutionHeight,float*e_pfMatrix = 0,bool e_bInvertYAxis = false);
 	void	glDisable2D();
 	//
-	void	RenderQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,GLfloat e_iWidth,GLfloat e_iHeight,Vector4 e_vColor,float *e_pfTexCoordinate,Vector3 e_vRotationAngle = Vector3::Zero,const wchar_t*e_strShaderName = DEFAULT_SHADER);
-	void	RenderMirrorQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,GLint e_iWidth,GLint e_iHeight,Vector4 e_vColor,float *e_pfTexCoordinate,float e_fRotationAngle = 0.f);
+	void	RenderQuadTexture(GLfloat e_iX, GLfloat e_iY, GLfloat e_fDepth, GLfloat e_iWidth, GLfloat e_iHeight, Vector4 e_vColor, float* e_pfTexCoordinate, cTexture* e_pTexture,Vector3 e_vRotationAngle = Vector3::Zero, const wchar_t* e_strShaderName = DEFAULT_SHADER);
+	void	RenderQuadWithTextureAndColorAndCoordinate(GLfloat e_iX, GLfloat e_iY, GLfloat e_fDepth, GLfloat e_iWidth, GLfloat e_iHeight, Vector4 e_vColor, float* e_pfTexCoordinate, Vector3 e_vRotationAngle = Vector3::Zero, const wchar_t* e_strShaderName = DEFAULT_SHADER);
+	void	RenderMirrorQuadTexture(GLfloat e_iX, GLfloat e_iY, GLfloat e_fDepth, GLint e_iWidth, GLint e_iHeight, Vector4 e_vColor, float* e_pfTexCoordinate, cTexture* e_pTexture, float e_fRotationAngle = 0.f);
+	void	RenderMirrorQuadWithTextureAndColorAndCoordinate(GLfloat e_iX, GLfloat e_iY, GLfloat e_fDepth, float e_fWidth, float e_fHeight, Vector4 e_vColor, float *e_pfTexCoordinate,float e_fRotationAngle = 0.f, const wchar_t* e_strShaderName = DEFAULT_SHADER);
     //current it only works for 2D(for MPDI)
+	void    RenderQuadTextureAndBlendingStatus(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad, cTexture* e_pTexture, GLenum e_BlendingSrc, GLenum e_BlendingDest, const wchar_t* e_strShaderName = DEFAULT_SHADER);
+	void    RenderQuadTexture(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad,cTexture*e_pTexture, const wchar_t* e_strShaderName = DEFAULT_SHADER);
 	void    RenderQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad,const wchar_t*e_strShaderName = DEFAULT_SHADER);
+
+	void    RenderTrianglesWithTextureAndBlendingStatus(float* e_pfVertices, float* e_pfTextureUV, float* e_pvColor, float* e_pfMatrix, int e_iPosStride, int e_iNumTriangles, cTexture* e_pTexture,GLenum e_BlendingSrc, GLenum e_BlendingDest, const wchar_t* e_strShaderName = DEFAULT_SHADER);
+	void    RenderTrianglesWithTexture(float* e_pfVertices, float* e_pfTextureUV, float* e_pvColor, float* e_pfMatrix, int e_iPosStride, int e_iNumTriangles, cTexture* e_pTexture, const wchar_t* e_strShaderName = DEFAULT_SHADER);
 	void    RenderTrianglesWithMatrix(float*e_pfVertices, float*e_pfTextureUV, float*e_pvColor, float*e_pfMatrix, int e_iPosStride, int e_iNumTriangles, const wchar_t*e_strShaderName = DEFAULT_SHADER);
+
 	//
+	void	RenderVertexByIndexBufferWithTexture(cMatrix44 e_Mat, int e_iPosStride, float* e_pVertexBuffer, float* e_pUVBuffer, float* e_pColorBuffer, void* e_pIndexBuffer, int e_iIndexBufferCount,cTexture*e_pTexture, const wchar_t* e_strShaderName = DEFAULT_SHADER);
 	void	RenderVertexByIndexBuffer(cMatrix44 e_Mat, int e_iPosStride, float*e_pVertexBuffer, float*e_pUVBuffer, float*e_pColorBuffer, void*e_pIndexBuffer, int e_iIndexBufferCount, const wchar_t*e_strShaderName = DEFAULT_SHADER);
 	//
-	void    GetDrawQuadFVFDataByTriangleStrip(GLint e_iWidth,GLint e_iHeight,float *e_pfTexCoordinate,Vector4 e_vColor,float*e_pfVertices,float*e_pfUV,float*e_pColor,cMatrix44*e_pmat);
+	void    GetDrawQuadFVFDataByTriangleStrip(GLint e_iWidth,GLint e_iHeight,float *e_pfTexCoordinate,Vector4 e_vColor,float*e_pfVertices,float*e_pfUV,float*e_pColor,cMatrix44*e_pmat,cTexture*e_pTexture,const wchar_t*e_strShaderName);
 	void    GetDrawQuadFVFDataByTwoTriangles(GLint e_iWidth,GLint e_iHeight,float *e_pfTexCoordinate,Vector4 e_vColor,float*e_pfVertices,float*e_pfUV,float*e_pColor,cMatrix44*e_pmat);
 	//2point,P for start position,D for destination,
 	//Vector3	l_vPoint;

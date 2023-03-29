@@ -338,23 +338,29 @@ namespace FATMING_CORE
 		{
 			if( !this->IsAnimationDone() || this->m_bStayAtLastFrame )
 			{
-				m_pWorkingpImage->ApplyImage();
-				cMatrix44	l_RenderMatrix = cMatrix44::Identity;
-				if( this->GetParent() )
+				cMatrix44	l_RenderMatrix = GetWorldTransform();// cMatrix44::Identity;
+				if (this->GetParent())
 				{
-					l_RenderMatrix = this->GetParent()->GetWorldTransform();
+					//l_RenderMatrix = this->GetParent()->GetWorldTransform();
 				}
-				//cMatrix44	l_RenderMatrix = this->GetWorldTransform();
-				sBlendfunction l_BlendfunctionRestore;
-				if (this->m_bColorBlending)
+				if (0)//for batch rendering
 				{
-					l_BlendfunctionRestore.GetStatus();
-					myGLBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
+					//RenderTrianglesWithTextureAndBlendingStatus()
+					RenderQuadTextureAndBlendingStatus((float*)m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_vWorkingColor, l_RenderMatrix, 3, 1, m_pWorkingpImage->GetTexture(), m_SrcBlendingMode, m_DestBlendingMode);
 				}
-				RenderQuadWithMatrix((float*)m_2DVertices.vPos,(float*)m_2DVertices.fUV,m_vWorkingColor,l_RenderMatrix,3,1);
-				if(this->m_bColorBlending)
+				else
 				{
-					l_BlendfunctionRestore.Restore();
+					sBlendfunction l_BlendfunctionRestore;
+					if (this->m_bColorBlending)
+					{
+						l_BlendfunctionRestore.GetStatus();
+						myGLBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
+					}
+					RenderQuadTexture((float*)m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_vWorkingColor, l_RenderMatrix, 3, 1,m_pWorkingpImage->GetTexture());
+					if (this->m_bColorBlending)
+					{
+						l_BlendfunctionRestore.Restore();
+					}
 				}
 			}
 		}

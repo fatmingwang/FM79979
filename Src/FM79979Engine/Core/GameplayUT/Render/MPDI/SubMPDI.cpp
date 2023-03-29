@@ -283,18 +283,25 @@ namespace FATMING_CORE
 	{
 		if (m_pCurrentPointData->vColor.a == 0)//totaly transparent
 			return;
-		sBlendfunction l_BlendfunctionRestore;
-		if (this->m_bColorBlending)
-		{
-			l_BlendfunctionRestore.GetStatus();
-			myGLBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
-		}
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData, 3, (float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, e_pPuzzleData);
 		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
-		RenderQuadWithMatrix((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
-		if (this->m_bColorBlending)
+		if (0)
 		{
-			l_BlendfunctionRestore.Restore();
+			RenderQuadTextureAndBlendingStatus((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1, m_pCurrentPointData->pPI->GetTexture(), m_SrcBlendingMode, m_DestBlendingMode);
+		}
+		else
+		{
+			sBlendfunction l_BlendfunctionRestore;
+			if (this->m_bColorBlending)
+			{
+				l_BlendfunctionRestore.GetStatus();
+				myGLBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
+			}
+			RenderQuadTexture((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1, m_pCurrentPointData->pPI->GetTexture());
+			if (this->m_bColorBlending)
+			{
+				l_BlendfunctionRestore.Restore();
+			}
 		}
 	}
 
@@ -539,8 +546,9 @@ namespace FATMING_CORE
 		if (!this->IsAnimationDone())
 		{
 			if (!m_bStart)
+			{
 				return;
-			this->m_pCurrentPointData->pPI->ApplyImage();
+			}
 			RenderPuzzleData(e_pPuzzleData);
 		}
 	}
@@ -591,9 +599,9 @@ namespace FATMING_CORE
 			return;
 		}
 		if (!m_pCurrentPointData->pPI)
+		{
 			return;
-		UseShaderProgram(DEFAULT_SHADER);
-		m_pCurrentPointData->pPI->ApplyImage();
+		}
 		if (m_pCurrentPointData->iImageIndex == -1)
 		{
 #ifdef DEBUG
@@ -603,7 +611,9 @@ namespace FATMING_CORE
 			return;
 		}
 		if (m_pCurrentPointData->vColor.a == 0)//totaly transparent
+		{
 			return;
+		}
 		sBlendfunction l_BlendfunctionRestore;
 		if (this->m_bColorBlending)
 		{
@@ -611,7 +621,7 @@ namespace FATMING_CORE
 			myGLBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
 		}
 		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
-		RenderQuadWithMatrix((float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
+		RenderQuadTexture((float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1, m_pCurrentPointData->pPI->GetTexture());
 		if (this->m_bColorBlending)
 		{
 			l_BlendfunctionRestore.Restore();
@@ -645,7 +655,6 @@ namespace FATMING_CORE
 			return;
 		}
 		sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData(l_iLastFrameImageIndex);
-		m_pCurrentPointData->pPI->ApplyImage();
 		RenderPuzzleData(l_pPuzzleData);
 	}
 
@@ -690,7 +699,6 @@ namespace FATMING_CORE
 		{
 			if (m_pCurrentPointData->pPI)
 			{
-				m_pCurrentPointData->pPI->ApplyImage();
 				sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData(m_pCurrentPointData->iImageIndex);
 				RenderPuzzleData(l_pPuzzleData);
 			}
@@ -876,8 +884,9 @@ namespace FATMING_CORE
 		if (l_iLastImageIndex != -1)
 		{
 			if (e_bBlending)
+			{
 				m_pCurrentPointData->vColor = e_vColor;
-			m_pCurrentPointData->pPI->ApplyImage();
+			}
 			//sPuzzleData*l_pPuzzleData = this->m_ppPuzzleData[this->GetCurrentImageIndex()];
 			sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData(l_iLastImageIndex);
 			RenderPuzzleData(l_pPuzzleData);

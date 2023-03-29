@@ -813,8 +813,13 @@ namespace FATMING_CORE
 
 	void	cPrtEmitter::InternalRender()
 	{
+		if (!m_pBaseImage)
+		{
+			return;
+		}
 		if(this->m_bActived&&m_iCurrentWorkingParticles>0)
 		{
+			bool l_bUseBatchRendering = false;
 			if (m_bUseComputeShader)
 			{
 				if (BatchRender())
@@ -826,11 +831,10 @@ namespace FATMING_CORE
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
 			sBlendfunction l_BlendfunctionRestore;
-			l_BlendfunctionRestore.GetStatus();
-			myGLBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
-			if (m_pBaseImage)
+			if (!l_bUseBatchRendering)
 			{
-				m_pBaseImage->ApplyImage();
+				l_BlendfunctionRestore.GetStatus();
+				myGLBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
 			}
 			cMatrix44	l_mat;
 			cMatrix44	l_matWorldTransform = this->GetWorldTransform();
@@ -865,7 +869,14 @@ namespace FATMING_CORE
 					m_pvAllPosPointer[l_iIndex+1] = l_vPos;
 					m_pvAllPosPointer[l_iIndex+4] = l_vPos;
 				}
-				RenderTrianglesWithMatrix((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,3, m_iCurrentWorkingParticles*A_QUAD_TWO_TRIANGLES);
+				if (l_bUseBatchRendering)
+				{//fuck assign blending
+					RenderTrianglesWithTextureAndBlendingStatus((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer, (float*)m_pvAllColorPointer, cMatrix44::Identity, 3, m_iCurrentWorkingParticles * A_QUAD_TWO_TRIANGLES, m_pBaseImage->GetTexture(), m_SrcBlendingMode, m_DestBlendingMode);
+				}
+				else
+				{
+					RenderTrianglesWithTexture((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer, (float*)m_pvAllColorPointer, cMatrix44::Identity, 3, m_iCurrentWorkingParticles * A_QUAD_TWO_TRIANGLES, m_pBaseImage->GetTexture());
+				}
 			}
 			else
 			if( m_iPrimitiveType == GL_POINTS )
@@ -888,7 +899,10 @@ namespace FATMING_CORE
 				assert(0 && "do not support such privmative");
 			}
 #endif
-			l_BlendfunctionRestore.Restore();
+			if (!l_bUseBatchRendering)
+			{
+				l_BlendfunctionRestore.Restore();
+			}
 		}
 	}
 
@@ -909,9 +923,8 @@ namespace FATMING_CORE
 			//
 			if (m_pBaseImage)
 			{
-				m_pBaseImage->ApplyImage();
+				RenderTrianglesWithTexture((float*)m_pvAllPosPointerForComputeShaderTest, (float*)m_pvAllTexCoordinatePointer, (float*)m_pvAllColorPointer, cMatrix44::Identity, 4, m_iCurrentWorkingParticles * A_QUAD_TWO_TRIANGLES, m_pBaseImage->GetTexture());
 			}
-			RenderTrianglesWithMatrix((float*)m_pvAllPosPointerForComputeShaderTest, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,4, m_iCurrentWorkingParticles*A_QUAD_TWO_TRIANGLES);
 			return true;
 		}
 		return false;

@@ -46,8 +46,7 @@ namespace FATMING_CORE
 			if (l_iVertices > 0)
 			{
 				int l_iNumTriangles = l_iVertices / 3;
-				m_TextureVector[i]->ApplyImage();
-				GLRender::RenderTrianglesWithMatrix((float*)&m_vPosVector[l_iCurrentIndex], (float*)&m_vUVVector[l_iCurrentIndex], (float*)&m_vColorVector[l_iCurrentIndex], e_mat, 3, l_iNumTriangles);
+				GLRender::RenderTrianglesWithTexture((float*)&m_vPosVector[l_iCurrentIndex], (float*)&m_vUVVector[l_iCurrentIndex], (float*)&m_vColorVector[l_iCurrentIndex], e_mat, 3, l_iNumTriangles, m_TextureVector[i]);
 			}
 			l_iCurrentIndex = l_iVertices;
 		}

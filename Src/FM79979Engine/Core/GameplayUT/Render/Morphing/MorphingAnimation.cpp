@@ -60,20 +60,14 @@ namespace FATMING_CORE
 	{
 		if (m_pMeshBuffer)
 		{
-			if (m_pMeshBuffer->pTargetTexture)
-				m_pMeshBuffer->pTargetTexture->ApplyImage();
 			auto l_uiSize = (GLsizei)m_pMeshBuffer->IndexBuffer.uiDataCount;
-
-			//void RenderVertexByIndexBuffer(cMatrix44 e_Mat, int e_iPosStride, float*e_pVertexBuffer, 
-			//	float*e_pUVBuffer, float*e_pColorBuffer, 
-			//	void*e_pIndexBuffer, int e_iIndexBufferCount, const wchar_t*e_strShaderName)
 			int*l_pIndex = (int*)this->m_pMeshBuffer->IndexBuffer.pData;
 			Vector3*l_pPos = (Vector3*)&this->m_RenderVertex[0];
 			Vector2*l_pUV = (Vector2*)this->m_pMeshBuffer->UVBuffer.pData;
 			Vector4*l_pColor = (Vector4*)this->m_pMeshBuffer->ColorBuffer.pData;
-			RenderVertexByIndexBuffer(this->GetWorldTransform(), 3, (float*)&m_RenderVertex[0],
+			RenderVertexByIndexBufferWithTexture(this->GetWorldTransform(), 3, (float*)&m_RenderVertex[0],
 				(float*)this->m_pMeshBuffer->UVBuffer.pData, (float*)this->m_pMeshBuffer->ColorBuffer.pData,
-				(void*)this->m_pMeshBuffer->IndexBuffer.pData, (int)l_uiSize);
+				(void*)this->m_pMeshBuffer->IndexBuffer.pData, (int)l_uiSize, m_pMeshBuffer->pTargetTexture);
 		}
 	}
 

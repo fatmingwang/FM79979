@@ -283,11 +283,13 @@ namespace FATMING_CORE
 
 	void	cBaseImage::Render(Vector3 e_vPos)
 	{
-		if( !m_bVisible || !m_pTexture)
-			return;
-		if(m_pTexture->ApplyImage())
+		if (!m_bVisible || !m_pTexture)
 		{
-			GLRender::RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x+m_OffsetPos.x,e_vPos.y+m_OffsetPos.y,e_vPos.z,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation());
+			return;
+		}
+		if(m_pTexture->GetImageIndex() != -1)
+		{
+			GLRender::RenderQuadTexture(e_vPos.x + m_OffsetPos.x, e_vPos.y + m_OffsetPos.y, e_vPos.z, (float)this->m_iWidth, (float)this->m_iHeight, this->m_vColor, m_fUV,m_pTexture, this->GetRotation());
 		}
 		else
 		{
@@ -303,22 +305,14 @@ namespace FATMING_CORE
 	//====================
 	//
 	//====================	
-  //  void	cBaseImage::RenderWithOffset()
-  //  {
-		//if( !m_bVisible )
-		//	return;
-		//m_pTexture->ApplyImage();
-		//Vector3	l_vPos = this->GetWorldPosition();
-		//RenderQuadWithTextureAndColorAndCoordinate(l_vPos.x+this->m_OffsetPos.x,l_vPos.y+this->m_OffsetPos.y,l_vPos.z,this->m_iWidth,this->m_iHeight,m_vColor,this->m_fUV,Vector3::Zero);
-  //  }
 	void	cBaseImage::RenderWithShader(const WCHAR*e_strShaderName)
 	{
 		if( !m_bVisible )
 			return;
-		if(m_pTexture->ApplyImage())
+		if (m_pTexture->GetImageIndex() != -1)
 		{
 			Vector3 l_vPos = this->GetWorldPosition();
-			GLRender::RenderQuadWithTextureAndColorAndCoordinate(l_vPos.x+(float)m_OffsetPos.x,l_vPos.y+(float)m_OffsetPos.y,0.f,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation(),e_strShaderName);
+			GLRender::RenderQuadTexture(l_vPos.x + (float)m_OffsetPos.x, l_vPos.y + (float)m_OffsetPos.y, 0.f, (float)this->m_iWidth, (float)this->m_iHeight, this->m_vColor, m_fUV, m_pTexture, this->GetRotation(), e_strShaderName);
 		}
 		else
 		{
@@ -591,10 +585,10 @@ namespace FATMING_CORE
 		if( !m_bVisible )
 			return;
 		UseShaderProgram();
-		if(m_pTexture->ApplyImage())
+		if (m_pTexture->GetImageIndex() != -1)
 		{
-			Vector3	l_vPos = this->GetWorldPosition();
-			GLRender::RenderQuadWithTextureAndColorAndCoordinate(l_vPos.x,l_vPos.y,l_vPos.z,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation());
+			Vector3 l_vPos = this->GetWorldPosition();
+			GLRender::RenderQuadTexture(l_vPos.x, l_vPos.y, l_vPos.z, (float)this->m_iWidth, (float)this->m_iHeight, this->m_vColor, m_fUV, m_pTexture, this->GetRotation());
 		}
 		else
 		{

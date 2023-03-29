@@ -56,6 +56,7 @@ namespace FATMING_CORE
 		sGlyphInfo*	GetGlyphInfo(wchar_t e_Wchar);
 		bool		ApplyImage();
 		void		DebugRender(Vector2 e_vPos);
+		cTexture* GetTexture() {return m_pTexture;}
 	};
 	TYPDE_DEFINE_MARCO(cFreetypeGlyphRender);
 	cFreetypeGlyphRender::cFreetypeGlyphRender(const char * e_strFontName, int e_iFontSize, int e_iFontCount, POINT e_DefaultFontTextureSize)
@@ -245,12 +246,16 @@ namespace FATMING_CORE
 				GenerateBound();
 			}
 		}
-		UseShaderProgram(DEFAULT_SHADER);
-		if (m_pDynamicFontTexture->ApplyImage())
+		auto l_pTexture = m_pDynamicFontTexture->GetTexture();
+		if (l_pTexture && l_pTexture->GetImageIndex() != -1)
 		{
-			cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX + m_vHalfSize.x, e_fY + m_vHalfSize.y, 0.f));
-			l_mat *= this->GetWorldTransform()*cMatrix44::ScaleMatrix(Vector3(m_fScale, m_fScale, m_fScale));
-			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount* A_QUAD_TWO_TRIANGLES);
+			UseShaderProgram(DEFAULT_SHADER);
+			if (m_pDynamicFontTexture->ApplyImage())
+			{
+				cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX + m_vHalfSize.x, e_fY + m_vHalfSize.y, 0.f));
+				l_mat *= this->GetWorldTransform() * cMatrix44::ScaleMatrix(Vector3(m_fScale, m_fScale, m_fScale));
+				RenderTrianglesWithTexture((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount* A_QUAD_TWO_TRIANGLES, l_pTexture);
+			}
 		}
 	}
 

@@ -125,8 +125,10 @@ namespace FATMING_CORE
 
 	void	cUVAnimationImage::Render()
 	{
-		if( m_pRenderImage )
-			m_pRenderImage->ApplyImage();
+		if (!m_pRenderImage)
+		{
+			return;
+		}
 		Vector4	l_vColor[12];
 		Vector2	l_vUV[12];
 		Vector3	l_vPos[12];
@@ -157,7 +159,7 @@ namespace FATMING_CORE
 		//myGlColorPointer(4,&l_vColor[6]);
 		//MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 6);
 
-		RenderTrianglesWithMatrix((float*)l_vPos, (float*)l_vUV, (float*)l_vColor, cMatrix44::Identity, 3, l_ciTwoQuadIs4Triangles);
+		RenderTrianglesWithTexture((float*)l_vPos, (float*)l_vUV, (float*)l_vColor, cMatrix44::Identity, 3, l_ciTwoQuadIs4Triangles, m_pRenderImage->GetTexture());
 	}
 
 	void	cUVAnimationImage::DebugRender()

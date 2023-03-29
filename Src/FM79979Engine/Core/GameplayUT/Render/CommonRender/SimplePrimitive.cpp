@@ -282,10 +282,23 @@ namespace GLRender
 		e_pfVertices[16] = l_vPos[1].y;
 		e_pfVertices[17] = l_vPos[1].z;
 	}
+	
+	void	RenderQuadTexture(GLfloat e_iX, GLfloat e_iY, GLfloat e_fDepth, GLfloat  e_fWidth, GLfloat  e_fHeight, Vector4 e_vColor, float* e_pfTexCoordinate, cTexture* e_pTexture, Vector3 e_vRotationAngle, const wchar_t* e_strShaderName)
+	{
+		if (e_pTexture)
+		{
+			UseShaderProgram(e_strShaderName);
+			e_pTexture->ApplyImage();
+			RenderQuadWithTextureAndColorAndCoordinate(e_iX, e_iY, e_fDepth, e_fWidth, e_fHeight, e_vColor, e_pfTexCoordinate, e_vRotationAngle, nullptr);
+		}
+	}
 
 	void	RenderQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,GLfloat  e_fWidth,GLfloat  e_fHeight,Vector4 e_vColor,float *e_pfTexCoordinate,Vector3 e_vRotationAngle,const wchar_t*e_strShaderName)
 	{
-		UseShaderProgram(e_strShaderName);
+		if (e_strShaderName)
+		{
+			UseShaderProgram(e_strShaderName);
+		}
 		e_fWidth/=2;
 		e_fHeight/=2;
 		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_iX+e_fWidth,e_iY+e_fHeight, 0.f));
@@ -297,28 +310,55 @@ namespace GLRender
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, A_QUAD_4_VERTICES);
 	}
 
-
-	void	RenderMirrorQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,float e_iWidth,float e_iHeight,Vector4 e_vColor,float *e_pfTexCoordinate,float e_fRotationAngle)
+	void	RenderMirrorQuadTexture(GLfloat e_iX, GLfloat e_iY, GLfloat e_fDepth, GLint e_iWidth, GLint e_iHeight, Vector4 e_vColor, float* e_pfTexCoordinate, cTexture* e_pTexture, float e_fRotationAngle)
 	{
-		UseShaderProgram(DEFAULT_SHADER);
-		e_iWidth/=2;
-		e_iHeight/=2;
-		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_iX+e_iWidth,e_iY+e_iHeight, 0.f));
-		if(e_fRotationAngle!=0.f)
+		if (e_pTexture)
+		{
+			UseShaderProgram(DEFAULT_SHADER);
+			e_pTexture->ApplyImage();
+			RenderMirrorQuadWithTextureAndColorAndCoordinate(e_iX, e_iY, e_fDepth, (float)e_iWidth, (float)e_iHeight, e_vColor, e_pfTexCoordinate, e_fRotationAngle, nullptr);
+		}
+	}
+
+	void	RenderMirrorQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth, float e_fWidth, float e_fHeight,Vector4 e_vColor,float *e_pfTexCoordinate,float e_fRotationAngle, const wchar_t* e_strShaderName)
+	{
+		if (e_strShaderName)
+		{
+			UseShaderProgram(e_strShaderName);
+		}
+		e_fWidth /=2;
+		e_fHeight /=2;
+		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_iX+ e_fWidth,e_iY+ e_fHeight, 0.f));
+		if (e_fRotationAngle != 0.f)
+		{
 			l_mat *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(e_fRotationAngle));
+		}
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		ASSIGN_2D_QUAD_MIRROR_UV(e_pfTexCoordinate);
-		ASSIGN_2D_QUAD_VerticesBySize(e_iWidth,e_iHeight,e_fDepth);
+		ASSIGN_2D_QUAD_VerticesBySize(e_fWidth, e_fHeight,e_fDepth);
 		ASSIGN_2D_QUAD_COLOR(e_vColor);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, A_QUAD_4_VERTICES);
 	}
 
 	
+	void	RenderVertexByIndexBufferWithTexture(cMatrix44 e_Mat, int e_iPosStride, float* e_pVertexBuffer, float* e_pUVBuffer, float* e_pColorBuffer, void* e_pIndexBuffer, int e_iIndexBufferCount, cTexture* e_pTexture, const wchar_t* e_strShaderName)
+	{
+		if (e_iIndexBufferCount && e_strShaderName)
+		{
+			UseShaderProgram(e_strShaderName);
+			e_pTexture->ApplyImage();
+			RenderVertexByIndexBuffer(e_Mat, e_iPosStride, e_pVertexBuffer, e_pUVBuffer, e_pColorBuffer, e_pIndexBuffer, e_iIndexBufferCount,nullptr);
+		}
+	}
+
 	void RenderVertexByIndexBuffer(cMatrix44 e_Mat,int e_iPosStride,float*e_pVertexBuffer, float*e_pUVBuffer, float*e_pColorBuffer,void*e_pIndexBuffer,int e_iIndexBufferCount, const wchar_t*e_strShaderName)
 	{
 		if (e_iIndexBufferCount)
 		{
-			UseShaderProgram(e_strShaderName);
+			if (e_strShaderName)
+			{
+				UseShaderProgram(e_strShaderName);
+			}
 			FATMING_CORE::SetupShaderWorldMatrix(e_Mat);
 
 			myGlVertexPointer(e_iPosStride, e_pVertexBuffer);
@@ -328,9 +368,28 @@ namespace GLRender
 		}
 	}
 
+	void    RenderTrianglesWithTextureAndBlendingStatus(float* e_pfVertices, float* e_pfTextureUV, float* e_pvColor, float* e_pfMatrix, int e_iPosStride, int e_iNumTriangles, cTexture* e_pTexture, GLenum e_BlendingSrc, GLenum e_BlendingDest, const wchar_t* e_strShaderName)
+	{
+		//fuck do blending assign!
+		RenderTrianglesWithTexture(e_pfVertices, e_pfTextureUV, e_pvColor, e_pfMatrix, e_iPosStride, e_iNumTriangles, e_pTexture, e_strShaderName);
+	}
+
+	void    RenderTrianglesWithTexture(float* e_pfVertices, float* e_pfTextureUV, float* e_pvColor, float* e_pfMatrix, int e_iPosStride, int e_iNumTriangles, cTexture* e_pTexture, const wchar_t* e_strShaderName)
+	{
+		if (e_pTexture && e_strShaderName)
+		{
+			UseShaderProgram(e_strShaderName);
+			e_pTexture->ApplyImage();
+			RenderTrianglesWithMatrix(e_pfVertices, e_pfTextureUV, e_pvColor, e_pfMatrix, e_iPosStride, e_iNumTriangles, nullptr);
+		}
+	}
+
 	void    RenderTrianglesWithMatrix(float*e_pfVertices, float*e_pfTextureUV, float*e_pvColor, float*e_pfMatrix, int e_iPosStride, int e_iNumTriangles, const wchar_t*e_strShaderName)
 	{
-		UseShaderProgram(e_strShaderName);
+		if (e_strShaderName)
+		{
+			UseShaderProgram(e_strShaderName);
+		}
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		myGlVertexPointer(e_iPosStride, e_pfVertices);
 		myGlUVPointer(2, e_pfTextureUV);
@@ -338,9 +397,27 @@ namespace GLRender
 		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, TRIANGLE_VERTEX_COUNT * e_iNumTriangles);
 	}
 
+	void    RenderQuadTextureAndBlendingStatus(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad, cTexture* e_pTexture, GLenum e_BlendingSrc, GLenum e_BlendingDest, const wchar_t* e_strShaderName)
+	{
+		//fuck do blending assign!
+		RenderQuadTexture(e_pfVertices, e_pfTextureUV, e_vColor, e_pfMatrix, e_iPosStride, e_iNumQuad, e_pTexture, e_strShaderName);
+	}
+
+	void    RenderQuadTexture(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad, cTexture* e_pTexture, const wchar_t* e_strShaderName)
+	{
+		if (e_strShaderName && e_pTexture)
+		{
+			UseShaderProgram(e_strShaderName);
+			e_pTexture->ApplyImage();
+			RenderQuadWithMatrix(e_pfVertices,e_pfTextureUV,e_vColor,e_pfMatrix,e_iPosStride,e_iNumQuad,nullptr);
+		}
+	}
 	void    RenderQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad,const wchar_t*e_strShaderName )
 	{
-		UseShaderProgram(e_strShaderName );
+		if (e_strShaderName)
+		{
+			UseShaderProgram(e_strShaderName);
+		}
 	   // draw with client side arrays (in real apps you should use cached VBOs which is much better for performance)
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		ASSIGN_2D_QUAD_COLOR(e_vColor);
