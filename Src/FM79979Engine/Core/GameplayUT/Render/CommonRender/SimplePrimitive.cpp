@@ -302,9 +302,16 @@ namespace GLRender
 	{
 		if (e_pTexture)
 		{
-			UseShaderProgram(e_strShaderName);
-			e_pTexture->ApplyImage();
-			RenderQuadWithTextureAndColorAndCoordinate(e_iX, e_iY, e_fDepth, e_fWidth, e_fHeight, e_vColor, e_pfTexCoordinate, e_vRotationAngle, nullptr);
+			if (cOpenGLRender::IsDoBatchRendering())
+			{
+
+			}
+			else
+			{
+				UseShaderProgram(e_strShaderName);
+				e_pTexture->ApplyImage();
+				RenderQuadWithTextureAndColorAndCoordinate(e_iX, e_iY, e_fDepth, e_fWidth, e_fHeight, e_vColor, e_pfTexCoordinate, e_vRotationAngle, nullptr);
+			}
 		}
 	}
 
@@ -329,9 +336,16 @@ namespace GLRender
 	{
 		if (e_pTexture)
 		{
-			UseShaderProgram(DEFAULT_SHADER);
-			e_pTexture->ApplyImage();
-			RenderMirrorQuadWithTextureAndColorAndCoordinate(e_iX, e_iY, e_fDepth, (float)e_iWidth, (float)e_iHeight, e_vColor, e_pfTexCoordinate, e_fRotationAngle, nullptr);
+			if (cOpenGLRender::IsDoBatchRendering())
+			{
+
+			}
+			else
+			{
+				UseShaderProgram(DEFAULT_SHADER);
+				e_pTexture->ApplyImage();
+				RenderMirrorQuadWithTextureAndColorAndCoordinate(e_iX, e_iY, e_fDepth, (float)e_iWidth, (float)e_iHeight, e_vColor, e_pfTexCoordinate, e_fRotationAngle, nullptr);
+			}
 		}
 	}
 
@@ -358,11 +372,18 @@ namespace GLRender
 	
 	void	RenderVertexByIndexBufferWithTexture(cMatrix44 e_Mat, int e_iPosStride, float* e_pVertexBuffer, float* e_pUVBuffer, float* e_pColorBuffer, void* e_pIndexBuffer, int e_iIndexBufferCount, cTexture* e_pTexture, const wchar_t* e_strShaderName)
 	{
-		if (e_iIndexBufferCount && e_strShaderName)
+		if (e_iIndexBufferCount && e_strShaderName && e_pTexture)
 		{
-			UseShaderProgram(e_strShaderName);
-			e_pTexture->ApplyImage();
-			RenderVertexByIndexBuffer(e_Mat, e_iPosStride, e_pVertexBuffer, e_pUVBuffer, e_pColorBuffer, e_pIndexBuffer, e_iIndexBufferCount,nullptr);
+			if (cOpenGLRender::IsDoBatchRendering())
+			{
+
+			}
+			else
+			{
+				UseShaderProgram(e_strShaderName);
+				e_pTexture->ApplyImage();
+				RenderVertexByIndexBuffer(e_Mat, e_iPosStride, e_pVertexBuffer, e_pUVBuffer, e_pColorBuffer, e_pIndexBuffer, e_iIndexBufferCount, nullptr);
+			}
 		}
 	}
 
@@ -375,7 +396,6 @@ namespace GLRender
 				UseShaderProgram(e_strShaderName);
 			}
 			FATMING_CORE::SetupShaderWorldMatrix(e_Mat);
-
 			myGlVertexPointer(e_iPosStride, e_pVertexBuffer);
 			myGlUVPointer(2, e_pUVBuffer);
 			myGlColorPointer(4, e_pColorBuffer);
@@ -385,17 +405,30 @@ namespace GLRender
 
 	void    RenderTrianglesWithTextureAndBlendingStatus(float* e_pfVertices, float* e_pfTextureUV, float* e_pvColor, float* e_pfMatrix, int e_iPosStride, int e_iNumTriangles, cTexture* e_pTexture, GLenum e_BlendingSrc, GLenum e_BlendingDest, const wchar_t* e_strShaderName)
 	{
-		//fuck do blending assign!
-		RenderTrianglesWithTexture(e_pfVertices, e_pfTextureUV, e_pvColor, e_pfMatrix, e_iPosStride, e_iNumTriangles, e_pTexture, e_strShaderName);
+		if (cOpenGLRender::IsDoBatchRendering())
+		{
+
+		}
+		else
+		{
+			RenderTrianglesWithTexture(e_pfVertices, e_pfTextureUV, e_pvColor, e_pfMatrix, e_iPosStride, e_iNumTriangles, e_pTexture, e_strShaderName);
+		}
 	}
 
 	void    RenderTrianglesWithTexture(float* e_pfVertices, float* e_pfTextureUV, float* e_pvColor, float* e_pfMatrix, int e_iPosStride, int e_iNumTriangles, cTexture* e_pTexture, const wchar_t* e_strShaderName)
 	{
 		if (e_pTexture && e_strShaderName)
 		{
-			UseShaderProgram(e_strShaderName);
-			e_pTexture->ApplyImage();
-			RenderTrianglesWithMatrix(e_pfVertices, e_pfTextureUV, e_pvColor, e_pfMatrix, e_iPosStride, e_iNumTriangles, nullptr);
+			if (cOpenGLRender::IsDoBatchRendering())
+			{
+
+			}
+			else
+			{
+				UseShaderProgram(e_strShaderName);
+				e_pTexture->ApplyImage();
+				RenderTrianglesWithMatrix(e_pfVertices, e_pfTextureUV, e_pvColor, e_pfMatrix, e_iPosStride, e_iNumTriangles, nullptr);
+			}
 		}
 	}
 
@@ -438,9 +471,16 @@ namespace GLRender
 	{
 		if (e_strShaderName && e_pTexture)
 		{
-			UseShaderProgram(e_strShaderName);
-			e_pTexture->ApplyImage();
-			RenderQuadWithMatrix(e_pfVertices,e_pfTextureUV,e_vColor,e_pfMatrix,e_iPosStride,e_iNumQuad,nullptr);
+			if (cOpenGLRender::IsDoBatchRendering())
+			{
+
+			}
+			else
+			{
+				UseShaderProgram(e_strShaderName);
+				e_pTexture->ApplyImage();
+				RenderQuadWithMatrix(e_pfVertices, e_pfTextureUV, e_vColor, e_pfMatrix, e_iPosStride, e_iNumQuad, nullptr);
+			}
 		}
 	}
 	void    RenderQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad,const wchar_t*e_strShaderName )
