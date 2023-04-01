@@ -334,8 +334,10 @@ namespace FATMING_CORE
 		if( !m_bVisible )
 			return;
 		UseShaderProgram();
-		if(m_pTexture)
+		if (m_pTexture)
+		{
 			m_pTexture->ApplyImage();
+		}
 		POINT l_vOffsetPos = m_OffsetPos;
 		if (m_OffsetPos.x != 0 || m_OffsetPos.y != 0)
 		{

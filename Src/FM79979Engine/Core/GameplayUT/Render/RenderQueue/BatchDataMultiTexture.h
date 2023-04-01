@@ -57,9 +57,9 @@ namespace FATMING_CORE
 		virtual ~cBatchDataMultiTexture();
 		//UV must be float3
 		void								AddData(int e_iNumVertex, float* e_pvPos, float* e_pvUV, float* e_pColor, cTexture* e_pTexcture, GLenum e_Src = GL_SRC_ALPHA, GLenum e_Dest = GL_ONE_MINUS_SRC_ALPHA, int e_iVUStride = 2);
+		bool								IsEnable() { return m_bDoBatchRendering; }
 		void								Start();
 		void								End();
-		bool								IsEnable() { return m_bDoBatchRendering; }
 	};
 //end namespace FATMING_CORE
 }

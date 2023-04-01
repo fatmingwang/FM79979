@@ -31,8 +31,7 @@ namespace FATMING_CORE
 		uniform vec4 MyColor;
 		void main()
 		{
-			gl_FragColor = texture2D(texSample[PSTexcoord.z], PSTexcoord.xy);
-			gl_FragColor.xyz = gl_FragColor.xyz+(PSColor.xyz-vec3(0.5,0.5,0.5));
+			gl_FragColor = texture2D(texSample[PSTexcoord.z], PSTexcoord.xy) + (PSColor - vec4(1, 1, 1, 1));
 		}
 	)";
 
@@ -109,7 +108,7 @@ namespace FATMING_CORE
 
 	void	cBatchDataMultiTexture::s4TextureBatchData::Resize(size_t uiSize)
 	{
-		if (m_iNumVertex < uiSize)
+		if (m_vPosVector.size() < uiSize)
 		{
 			m_vPosVector.resize(uiSize * 2);
 			m_vUVVector.resize(uiSize * 2);
@@ -124,7 +123,7 @@ namespace FATMING_CORE
 			FMLOG("cBatchDataMultiTexture::s4TextureBatchData::AddData,e_pTexcture is nullptr");
 			return;
 		}
-		Resize(e_iNumVertex);
+		Resize(e_iNumVertex+ m_iNumVertex);
 		memcpy(&m_vPosVector[m_iNumVertex], e_pvPos, sizeof(Vector3) * e_iNumVertex);
 		if (e_iVUStride == 2)
 		{
@@ -211,10 +210,20 @@ namespace FATMING_CORE
 		{
 			return -1;
 		}
+#ifdef DEBUG
+		if (m_TextureAndIndexOfArrayMap.size() == 0)
+		{
+			int a = 0;
+		}
+#endif
 		return l_iIndexOfArrayIsEmpty;
 	}
 	void	cBatchDataMultiTexture::s4TextureBatchData::Render()
 	{
+		if (m_iNumVertex == 0)
+		{
+			return;
+		}
 		sBlendfunction l_BlendfunctionRestore(m_SrcBlendingMode, m_DestBlendingMode);
 		l_BlendfunctionRestore.GetStatus();
 		l_BlendfunctionRestore.Render();
@@ -278,6 +287,7 @@ namespace FATMING_CORE
 			if (m_pCurrentData->GetTextureIndexFromCurrentData(e_pTexture, e_AssignTexture, e_Src, e_Dest) == -1)
 			{
 				AssignBatchData();
+				m_pCurrentData->GetTextureIndexFromCurrentData(e_pTexture, e_AssignTexture, e_Src, e_Dest);
 			}
 		}
 		else

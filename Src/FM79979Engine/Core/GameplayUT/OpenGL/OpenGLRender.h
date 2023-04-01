@@ -41,6 +41,8 @@ namespace FATMING_CORE
 		//
 		static	bool												IsDoBatchRendering();
 		//
+		static  class cBatchDataMultiTexture*						m_spBatchDataMultiTexture;
+		//
 		static	std::vector<int>*									m_piSupportCompressedFormatVector;
 		static  bool												m_sbSupportNonPowerOfTwoTexture;//old name g_bSupportNonPowerOfTwoTexture
 		static	bool												m_sbVBOSupported;
@@ -50,7 +52,6 @@ namespace FATMING_CORE
 		//
 		static	int													m_siOpenGLESVersion;
 		static	int													m_siOpenGLES_ShaderVersion;
-		static  class cBatchDataMultiTexture*						m_spBatchDataMultiTexture;
 		//init shader
 #if defined(WIN32) && !defined(UWP)
 		void														Init(HWND e_Hwnd, bool e_bMultiSample = false);
@@ -58,5 +59,7 @@ namespace FATMING_CORE
 		void														Init();
 #endif
 		static	bool												IsCompressedFormatSupport(int e_iFormat);
+		static void													DoBatchDataMultiTextureStart();
+		static void													DoBatchDataMultiTextureEnd();
 	};
 }

@@ -350,6 +350,21 @@ namespace FATMING_CORE
 		return false;
 	}
 
+	void	cOpenGLRender::DoBatchDataMultiTextureStart()
+	{
+		if (cOpenGLRender::m_spBatchDataMultiTexture)
+		{
+			cOpenGLRender::m_spBatchDataMultiTexture->Start();
+		}
+	}
+	void	cOpenGLRender::DoBatchDataMultiTextureEnd()
+	{
+		if (cOpenGLRender::m_spBatchDataMultiTexture)
+		{
+			cOpenGLRender::m_spBatchDataMultiTexture->End();
+		}
+	}
+
 	void cOpenGLRender::SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth, int e_iDeviceViewportHeight, int e_iTargetResolutionWidth, int e_iTargetResolutionHeight)
 	{
 		double l_DeviceScreenRation = (double)e_iDeviceViewportWidth / e_iDeviceViewportHeight;

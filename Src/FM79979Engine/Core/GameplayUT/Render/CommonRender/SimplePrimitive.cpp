@@ -1,5 +1,7 @@
 #include "SimplePrimitive.h"
 #include "../../GameApp/GameApp.h"
+#include "../../OpenGL/OpenGLRender.h"
+#include "../RenderQueue/BatchDataMultiTexture.h"
 //#include "BaseImage.h"
 //for opengl es1 compatibility,so we need color vertex buffer
 void ASSIGN_2D_QUAD_COLOR(Vector4 Color)
@@ -304,7 +306,25 @@ namespace GLRender
 		{
 			if (cOpenGLRender::IsDoBatchRendering())
 			{
+				const int l_ciColorXYZW = 4;
+				for (int i = 0; i < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
+				{
+					memcpy(&g_fGlobalTempBufferForRenderColor[i* l_ciColorXYZW],e_vColor,sizeof(Vector4));
+				}
+				cTexture* l_pTexture = e_pTexture;
+				float l_fWidth = (float)e_fWidth / 2.f;
+				float l_fHeight = (float)e_fHeight / 2.f;
+				float	l_Vertices[] = { -l_fWidth,-l_fHeight,
+										  l_fWidth,-l_fHeight,
+										 -l_fWidth, l_fHeight,
+										  l_fWidth, l_fHeight };
 
+				cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_iX + e_fWidth, e_iY + e_fHeight, 0.f));
+				l_mat *= cMatrix44::RotationMatrix(e_vRotationAngle);
+				VerticesApplyTransform(A_QUAD_4_VERTICES, l_Vertices, l_mat, 3);
+				Assign4VerticesDataTo2Triangles(l_Vertices, (float*)&g_fGlobalTempBufferForRenderVertices, e_pfTexCoordinate, (float*)&g_fGlobalTempBufferForRenderUV, 3);
+				cOpenGLRender::m_spBatchDataMultiTexture->AddData(TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT,
+					(float*)g_fGlobalTempBufferForRenderVertices, (float*)g_fGlobalTempBufferForRenderUV, (float*)g_fGlobalTempBufferForRenderColor, l_pTexture);
 			}
 			else
 			{
@@ -338,7 +358,7 @@ namespace GLRender
 		{
 			if (cOpenGLRender::IsDoBatchRendering())
 			{
-
+				RenderQuadTexture(e_iX,e_iY,e_fDepth,(GLfloat)e_iWidth, (GLfloat)e_iHeight,e_vColor,e_pfTexCoordinate,e_pTexture,Vector3(180,0,e_fRotationAngle));
 			}
 			else
 			{
@@ -376,7 +396,7 @@ namespace GLRender
 		{
 			if (cOpenGLRender::IsDoBatchRendering())
 			{
-
+				assert(0&&"not support");
 			}
 			else
 			{
@@ -407,7 +427,9 @@ namespace GLRender
 	{
 		if (cOpenGLRender::IsDoBatchRendering())
 		{
-
+			assert(e_iPosStride == 3 && "I am lazy tp fix this(RenderTrianglesWithTextureAndBlendingStatus)");
+			cOpenGLRender::m_spBatchDataMultiTexture->AddData(TRIANGLE_VERTEX_COUNT* e_iNumTriangles,
+				e_pfVertices, e_pfTextureUV, e_pvColor, e_pTexture, e_BlendingSrc,e_BlendingDest,2);
 		}
 		else
 		{
@@ -421,7 +443,12 @@ namespace GLRender
 		{
 			if (cOpenGLRender::IsDoBatchRendering())
 			{
-
+				assert(e_iPosStride == 3 && "I am lazy tp fix this(RenderTrianglesWithTextureAndBlendingStatus)");
+				int l_iNumVertex = e_iNumTriangles * TRIANGLE_VERTEX_COUNT;
+				memcpy(g_fGlobalTempBufferForRenderVertices, e_pfVertices, sizeof(Vector3)* l_iNumVertex);
+				VerticesApplyTransform(l_iNumVertex, g_fGlobalTempBufferForRenderVertices, cMatrix44(e_pfMatrix), 3);
+				cOpenGLRender::m_spBatchDataMultiTexture->AddData(l_iNumVertex,
+					g_fGlobalTempBufferForRenderVertices, e_pfTextureUV, e_pvColor, e_pTexture);
 			}
 			else
 			{
@@ -449,7 +476,22 @@ namespace GLRender
 	{
 		if(cOpenGLRender::IsDoBatchRendering())
 		{
-
+			assert(e_iPosStride == 3 && "I am lazy tp fix this(RenderTrianglesWithTextureAndBlendingStatus)");
+			const int l_ciColorXYZW = 4;
+			for (int i = 0; i < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
+			{
+				memcpy(&g_fGlobalTempBufferForRenderColor[i * l_ciColorXYZW], e_vColor, sizeof(Vector4));
+			}
+			cTexture* l_pTexture = e_pTexture;
+			Vector3	l_pVertices[A_QUAD_4_VERTICES] = { Vector3(e_pfVertices),Vector3(&e_pfVertices[3]),Vector3(&e_pfVertices[6]) ,Vector3(&e_pfVertices[9])};
+			float	l_pUV[A_QUAD_4_VERTICES] = {e_pfTextureUV[0],e_pfTextureUV[1],e_pfTextureUV[6],e_pfTextureUV[7]};
+			cMatrix44 l_mat(e_pfMatrix);
+			VerticesApplyTransform(A_QUAD_4_VERTICES, (float*)l_pVertices, l_mat, 3);
+			Vector3	l_pVertices2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+			Assign4VerticesDataTo2Triangles((float*)l_pVertices, (float*)l_pVertices2, l_pUV, (float*)g_fGlobalTempBufferForRenderUV, 3);
+			auto l_pData = cOpenGLRender::m_spBatchDataMultiTexture;
+			l_pData->AddData(TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iNumQuad,
+				(float*)l_pVertices2, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, e_pTexture, e_BlendingSrc, e_BlendingDest, 2);
 		}
 		else
 		{
@@ -473,7 +515,7 @@ namespace GLRender
 		{
 			if (cOpenGLRender::IsDoBatchRendering())
 			{
-
+				RenderQuadTextureAndBlendingStatus(e_pfVertices,e_pfTextureUV,e_vColor,e_pfMatrix,e_iPosStride,e_iNumQuad,e_pTexture, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			}
 			else
 			{

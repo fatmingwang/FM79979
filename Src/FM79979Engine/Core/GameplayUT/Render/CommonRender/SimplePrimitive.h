@@ -72,7 +72,7 @@ namespace GLRender
 	//
 	void	RenderVertexByIndexBufferWithTexture(cMatrix44 e_Mat, int e_iPosStride, float* e_pVertexBuffer, float* e_pUVBuffer, float* e_pColorBuffer, void* e_pIndexBuffer, int e_iIndexBufferCount,cTexture*e_pTexture, const wchar_t* e_strShaderName = DEFAULT_SHADER);
 	void	RenderVertexByIndexBuffer(cMatrix44 e_Mat, int e_iPosStride, float*e_pVertexBuffer, float*e_pUVBuffer, float*e_pColorBuffer, void*e_pIndexBuffer, int e_iIndexBufferCount, const wchar_t*e_strShaderName = DEFAULT_SHADER);
-	//
+	//I forgot what this for...
 	void    GetDrawQuadFVFDataByTriangleStrip(GLint e_iWidth,GLint e_iHeight,float *e_pfTexCoordinate,Vector4 e_vColor,float*e_pfVertices,float*e_pfUV,float*e_pColor,cMatrix44*e_pmat,cTexture*e_pTexture,const wchar_t*e_strShaderName);
 	void    GetDrawQuadFVFDataByTwoTriangles(GLint e_iWidth,GLint e_iHeight,float *e_pfTexCoordinate,Vector4 e_vColor,float*e_pfVertices,float*e_pfUV,float*e_pColor,cMatrix44*e_pmat);
 	//2point,P for start position,D for destination,
