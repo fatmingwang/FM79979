@@ -39,6 +39,8 @@ namespace FATMING_CORE
 		Vector2														GetViewPortAndGameResolutionScale();
 		void														SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth, int e_iDeviceViewportHeight, int e_iTargetResolutionWidth, int e_iTargetResolutionHeight);
 		//
+		static	bool												IsDoBatchRendering();
+		//
 		static	std::vector<int>*									m_piSupportCompressedFormatVector;
 		static  bool												m_sbSupportNonPowerOfTwoTexture;//old name g_bSupportNonPowerOfTwoTexture
 		static	bool												m_sbVBOSupported;
@@ -48,6 +50,7 @@ namespace FATMING_CORE
 		//
 		static	int													m_siOpenGLESVersion;
 		static	int													m_siOpenGLES_ShaderVersion;
+		static  class cBatchDataMultiTexture*						m_spBatchDataMultiTexture;
 		//init shader
 #if defined(WIN32) && !defined(UWP)
 		void														Init(HWND e_Hwnd, bool e_bMultiSample = false);

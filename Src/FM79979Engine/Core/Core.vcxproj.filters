@@ -785,6 +785,9 @@
     <ClCompile Include="GameplayUT\Render\RenderQueue\BatchRendering.cpp">
       <Filter>GameplayUT\Render\RenderQueue</Filter>
     </ClCompile>
+    <ClCompile Include="GameplayUT\Render\RenderQueue\BatchDataMultiTexture.cpp">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1391,6 +1394,9 @@
       <Filter>Emscripten</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\Render\RenderQueue\BatchRendering.h">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\RenderQueue\BatchDataMultiTexture.h">
       <Filter>GameplayUT\Render\RenderQueue</Filter>
     </ClInclude>
   </ItemGroup>

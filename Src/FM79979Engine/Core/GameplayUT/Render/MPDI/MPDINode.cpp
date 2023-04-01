@@ -1,5 +1,6 @@
 #include "MPDINode.h"
 #include "assert.h"
+#include "../../OpenGL/OpenGLRender.h"
 namespace FATMING_CORE
 {
 	cMPDINodeImageData::cMPDINodeImageData()
@@ -343,25 +344,7 @@ namespace FATMING_CORE
 				{
 					//l_RenderMatrix = this->GetParent()->GetWorldTransform();
 				}
-				if (0)//for batch rendering
-				{
-					//RenderTrianglesWithTextureAndBlendingStatus()
-					RenderQuadTextureAndBlendingStatus((float*)m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_vWorkingColor, l_RenderMatrix, 3, 1, m_pWorkingpImage->GetTexture(), m_SrcBlendingMode, m_DestBlendingMode);
-				}
-				else
-				{
-					sBlendfunction l_BlendfunctionRestore;
-					if (this->m_bColorBlending)
-					{
-						l_BlendfunctionRestore.GetStatus();
-						myGLBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
-					}
-					RenderQuadTexture((float*)m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_vWorkingColor, l_RenderMatrix, 3, 1,m_pWorkingpImage->GetTexture());
-					if (this->m_bColorBlending)
-					{
-						l_BlendfunctionRestore.Restore();
-					}
-				}
+				RenderQuadTextureAndBlendingStatus((float*)m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_vWorkingColor, l_RenderMatrix, 3, 1, m_pWorkingpImage->GetTexture(), m_SrcBlendingMode, m_DestBlendingMode);
 			}
 		}
 	}

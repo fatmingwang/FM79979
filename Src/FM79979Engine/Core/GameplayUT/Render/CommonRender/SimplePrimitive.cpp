@@ -75,13 +75,28 @@ void	myVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean norm
 #endif
 void	myGLBlendFunc(GLenum e_Src, GLenum e_Dest)
 {
-	glBlendFunc(e_Src, e_Dest);
+	if (sBlendfunction::eLastSrcBlendingMode != e_Src ||
+		sBlendfunction::eLastDestBlendingMode != e_Dest)
+	{
+		glBlendFunc(e_Src, e_Dest);
 #ifdef DEBUG
-	CHECK_GL_ERROR("myGLBlendFunc");
+		CHECK_GL_ERROR("myGLBlendFunc");
 #endif
-	sBlendfunction::eLastSrcBlendingMode = e_Src;
-	sBlendfunction::eLastDestBlendingMode = e_Dest;
+		sBlendfunction::eLastSrcBlendingMode = e_Src;
+		sBlendfunction::eLastDestBlendingMode = e_Dest;
+	}
 }
+
+bool	IsLastBlendingModeSame(GLenum e_Src, GLenum e_Dest)
+{
+	if (sBlendfunction::eLastSrcBlendingMode != e_Src ||
+		sBlendfunction::eLastDestBlendingMode != e_Dest)
+	{
+		return false;
+	}
+	return true;
+}
+
 //glDrawArrays submits the vertices in linear order, as they are stored in the vertex arrays.
 //With glDrawElements you have to supply an index buffer.
 //Indices allow you to submit the vertices in any order, and to reuse vertices that are shared between triangles.
@@ -397,10 +412,26 @@ namespace GLRender
 		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, TRIANGLE_VERTEX_COUNT * e_iNumTriangles);
 	}
 
-	void    RenderQuadTextureAndBlendingStatus(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad, cTexture* e_pTexture, GLenum e_BlendingSrc, GLenum e_BlendingDest, const wchar_t* e_strShaderName)
+	void    RenderQuadTextureAndBlendingStatus(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad, cTexture* e_pTexture, GLenum e_BlendingSrc, GLenum e_BlendingDest, const wchar_t* e_strShaderName, bool e_bDoBlendingSetBack)
 	{
-		//fuck do blending assign!
-		RenderQuadTexture(e_pfVertices, e_pfTextureUV, e_vColor, e_pfMatrix, e_iPosStride, e_iNumQuad, e_pTexture, e_strShaderName);
+		if(cOpenGLRender::IsDoBatchRendering())
+		{
+
+		}
+		else
+		{
+			sBlendfunction l_BlendfunctionRestore;
+			if (e_bDoBlendingSetBack)
+			{
+				l_BlendfunctionRestore.GetStatus();
+				myGLBlendFunc(e_BlendingSrc,e_BlendingDest);
+			}
+			RenderQuadTexture(e_pfVertices, e_pfTextureUV, e_vColor, e_pfMatrix, e_iPosStride, e_iNumQuad, e_pTexture, e_strShaderName);
+			if (e_bDoBlendingSetBack)
+			{
+				l_BlendfunctionRestore.Restore();
+			}
+		}
 	}
 
 	void    RenderQuadTexture(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad, cTexture* e_pTexture, const wchar_t* e_strShaderName)

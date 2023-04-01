@@ -12,17 +12,30 @@
 #ifdef WASM
 #include "../../Emscripten/JSBindCode.h"
 #endif
+
+#include "../Render/RenderQueue/BatchDataMultiTexture.h"
+
+//m_spBatchDataMultiTexture->Start();
+//int l_iOutNumVertex = 0;
+//Vector3 l_vPosArray[20 * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+//Vector2 l_vUVArray[20 * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+//Vector4 l_vColorArray[20 * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+//m_pScoreNumberImage->SetValue(90001);
+//cTexture* l_pTexture = m_pScoreNumberImage->GetTriangulatorRenderDataForBatchRendering(l_iOutNumVertex, l_vPosArray, l_vUVArray, l_vColorArray);
+//m_spBatchDataMultiTexture->AddData(l_iOutNumVertex, (float*)l_vPosArray, (float*)l_vUVArray, (float*)l_vColorArray, l_pTexture);
+//m_spBatchDataMultiTexture->End();
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cOpenGLRender)
-	bool				cOpenGLRender::m_sbVBOSupported = true;
-	extern cBaseShader*	g_pCurrentShader;
-	bool				cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = true;
-	std::vector<int>*	cOpenGLRender::m_piSupportCompressedFormatVector = nullptr;
-	int					cOpenGLRender::m_siOpenGLVersion			= 40;
-	int					cOpenGLRender::m_siOpenGL_ShaderVersion		= 40;
-	int					cOpenGLRender::m_siOpenGLESVersion			= 20;
-	int					cOpenGLRender::m_siOpenGLES_ShaderVersion	= 10;
+	extern cBaseShader*			g_pCurrentShader;
+	bool						cOpenGLRender::m_sbVBOSupported = true;
+	bool						cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = true;
+	std::vector<int>*			cOpenGLRender::m_piSupportCompressedFormatVector = nullptr;
+	cBatchDataMultiTexture*		cOpenGLRender::m_spBatchDataMultiTexture = nullptr;
+	int							cOpenGLRender::m_siOpenGLVersion			= 40;
+	int							cOpenGLRender::m_siOpenGL_ShaderVersion		= 40;
+	int							cOpenGLRender::m_siOpenGLESVersion			= 20;
+	int							cOpenGLRender::m_siOpenGLES_ShaderVersion	= 10;
 	////#if defined(ANDROID) || defined(IOS) 
 	//eDeviceDirection									cGameApp::m_eDeviceDirection = eDD_PORTRAIT;
 	////eDeviceDirection									cGameApp::m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
@@ -50,11 +63,13 @@ namespace FATMING_CORE
 		m_HGLRC = nullptr;
 		m_Handle = nullptr;
 #endif
+		
 	}
 	cOpenGLRender::~cOpenGLRender()
 	{
 		SAFE_DELETE(m_piSupportCompressedFormatVector);
 		DeleteAllShader();
+		SAFE_DELETE(m_spBatchDataMultiTexture);
 	}
 #if defined(WIN32) && !defined(UWP)
 	void cOpenGLRender::Init(HWND e_Hwnd, bool e_bMultiSample)
@@ -82,6 +97,16 @@ namespace FATMING_CORE
 		CreateDefaultShader();
 	}
 #endif
+
+	bool	cOpenGLRender::IsDoBatchRendering()
+	{
+		if (m_spBatchDataMultiTexture)
+		{
+			return m_spBatchDataMultiTexture->IsEnable();
+		}
+		return false;
+	}
+
 	void cOpenGLRender::CreateDefaultShader()
 	{
 		glUseProgram(0);
@@ -101,6 +126,8 @@ namespace FATMING_CORE
 		//fin matBones[32] and change its size...
 		//CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
 		FMLog::LogWithFlag("init shader end", CORE_LOG_FLAG, true);
+		//
+		m_spBatchDataMultiTexture = new cBatchDataMultiTexture();
 	}
 
 	void	DumpGraphicsInfo()

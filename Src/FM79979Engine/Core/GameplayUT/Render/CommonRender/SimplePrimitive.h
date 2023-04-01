@@ -28,6 +28,7 @@ void	ASSIGN_2D_QUAD_VerticesBySize(float Width,float Height,float Depth);
 void	ASSIGN_2D_QUAD_UV(float*UV);
 void	ASSIGN_2D_QUAD_MIRROR_UV(float* UV);
 void	myGLBlendFunc(GLenum e_Src, GLenum e_Dest);
+bool	IsLastBlendingModeSame(GLenum e_Src, GLenum e_Dest);
 #ifdef DEBUG
 void	myGlVertexPointer(int Stride, const GLvoid*pData);
 void	myGlUVPointer(int Stride, const GLvoid*pData);
@@ -60,7 +61,7 @@ namespace GLRender
 	void	RenderMirrorQuadTexture(GLfloat e_iX, GLfloat e_iY, GLfloat e_fDepth, GLint e_iWidth, GLint e_iHeight, Vector4 e_vColor, float* e_pfTexCoordinate, cTexture* e_pTexture, float e_fRotationAngle = 0.f);
 	void	RenderMirrorQuadWithTextureAndColorAndCoordinate(GLfloat e_iX, GLfloat e_iY, GLfloat e_fDepth, float e_fWidth, float e_fHeight, Vector4 e_vColor, float *e_pfTexCoordinate,float e_fRotationAngle = 0.f, const wchar_t* e_strShaderName = DEFAULT_SHADER);
     //current it only works for 2D(for MPDI)
-	void    RenderQuadTextureAndBlendingStatus(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad, cTexture* e_pTexture, GLenum e_BlendingSrc, GLenum e_BlendingDest, const wchar_t* e_strShaderName = DEFAULT_SHADER);
+	void    RenderQuadTextureAndBlendingStatus(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad, cTexture* e_pTexture, GLenum e_BlendingSrc, GLenum e_BlendingDest, const wchar_t* e_strShaderName = DEFAULT_SHADER,bool e_bDoBlendingSetBack = false);
 	void    RenderQuadTexture(float* e_pfVertices, float* e_pfTextureUV, Vector4 e_vColor, float* e_pfMatrix, int e_iPosStride, int e_iNumQuad,cTexture*e_pTexture, const wchar_t* e_strShaderName = DEFAULT_SHADER);
 	void    RenderQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad,const wchar_t*e_strShaderName = DEFAULT_SHADER);
 

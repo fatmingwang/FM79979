@@ -285,24 +285,7 @@ namespace FATMING_CORE
 			return;
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData, 3, (float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, e_pPuzzleData);
 		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
-		if (0)
-		{
-			RenderQuadTextureAndBlendingStatus((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1, m_pCurrentPointData->pPI->GetTexture(), m_SrcBlendingMode, m_DestBlendingMode);
-		}
-		else
-		{
-			sBlendfunction l_BlendfunctionRestore;
-			if (this->m_bColorBlending)
-			{
-				l_BlendfunctionRestore.GetStatus();
-				myGLBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
-			}
-			RenderQuadTexture((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1, m_pCurrentPointData->pPI->GetTexture());
-			if (this->m_bColorBlending)
-			{
-				l_BlendfunctionRestore.Restore();
-			}
-		}
+		RenderQuadTextureAndBlendingStatus((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1, m_pCurrentPointData->pPI->GetTexture(), m_SrcBlendingMode, m_DestBlendingMode, DEFAULT_SHADER,this->m_bColorBlending);
 	}
 
 
