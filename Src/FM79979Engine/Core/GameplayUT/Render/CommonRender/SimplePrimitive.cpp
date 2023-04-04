@@ -446,7 +446,8 @@ namespace GLRender
 				assert(e_iPosStride == 3 && "I am lazy tp fix this(RenderTrianglesWithTextureAndBlendingStatus)");
 				int l_iNumVertex = e_iNumTriangles * TRIANGLE_VERTEX_COUNT;
 				memcpy(g_fGlobalTempBufferForRenderVertices, e_pfVertices, sizeof(Vector3)* l_iNumVertex);
-				VerticesApplyTransform(l_iNumVertex, g_fGlobalTempBufferForRenderVertices, cMatrix44(e_pfMatrix), 3);
+				cMatrix44	l_Mat(e_pfMatrix);
+				VerticesApplyTransform(l_iNumVertex, g_fGlobalTempBufferForRenderVertices, l_Mat, 3);
 				cOpenGLRender::m_spBatchDataMultiTexture->AddData(l_iNumVertex,
 					g_fGlobalTempBufferForRenderVertices, e_pfTextureUV, e_pvColor, e_pTexture);
 			}
