@@ -5,23 +5,23 @@
 namespace FATMING_CORE
 {
 	//opengl es use low so it have to be different shader declartion.
-#if defined(WIN32) && !defined(UWP)
 	const char* g_strCommonVSWithTextureArray =
 		R"(
-		attribute vec3 VSPosition;
-		attribute vec4 VSColor;
-		attribute vec3 VSTexcoord;
-		uniform mat4 matVP;
-		uniform mat4 matW;
-		varying vec3 PSTexcoord;
-		varying vec4 PSColor;
-		void main()
-		{
-			gl_Position = matVP*matW*vec4(VSPosition,1);
-			PSTexcoord = VSTexcoord;
-			PSColor = VSColor;
-		}
-	)";
+			attribute vec3 VSPosition;
+			attribute vec4 VSColor;
+			attribute vec3 VSTexcoord;
+			uniform mat4 matVP;
+			uniform mat4 matW;
+			varying vec3 PSTexcoord;
+			varying vec4 PSColor;
+			void main()
+			{
+				gl_Position = matVP*matW*vec4(VSPosition,1);
+				PSTexcoord = VSTexcoord;
+				PSColor = VSColor;
+			}
+		)";
+#if defined(WIN32) && !defined(UWP)
 	const char* g_strColorFulFSWithTextureArray =
 		R"(
 			#define numTextures 4
@@ -34,22 +34,6 @@ namespace FATMING_CORE
 			}
 		)";
 #else
-	const char* g_strCommonVSWithTextureArray =
-		R"(
-			vec3 VSPosition;
-			vec4 VSColor;
-			vec3 VSTexcoord;
-			uniform mat4 matVP;
-			uniform mat4 matW;
-			varying vec3 PSTexcoord;
-			varying vec4 PSColor;
-			void main()
-			{
-				gl_Position = matVP*matW*vec4(VSPosition,1);
-				PSTexcoord = VSTexcoord;
-				PSColor = VSColor;
-			}
-		)";
 	const char* g_strColorFulFSWithTextureArray =
 		R"(
 			uniform sampler2D texSample[4];
@@ -87,47 +71,30 @@ namespace FATMING_CORE
 	//// Tell the shader to use texture units 0 to 3
 	//gl.uniform1iv(textureLoc, [0, 1, 2, 3]);
 	extern cNamedTypedObjectVector<cBaseShader>* g_pAll2DShaderList;
-
+	TYPDE_DEFINE_MARCO(cMultiTextureBaseShader);
 	cMultiTextureBaseShader* cMultiTextureBaseShader::CreateShader()
 	{
 		cMultiTextureBaseShader* l_pMultiTextureBaseShader = new cMultiTextureBaseShader(g_strCommonVSWithTextureArray, g_strColorFulFSWithTextureArray);
 		g_pAll2DShaderList->AddObjectNeglectExist(l_pMultiTextureBaseShader);
 		return l_pMultiTextureBaseShader;
 	}
-	cMultiTextureBaseShader::cMultiTextureBaseShader(const char* e_strVS, const char* e_strPS) :cBaseShader(e_strVS, e_strPS, cMultiTextureBaseShader::TypeID, false)
+	cMultiTextureBaseShader::cMultiTextureBaseShader(const char* e_strVS, const char* e_strPS) :cBaseShader(e_strVS, e_strPS, cMultiTextureBaseShader::TypeID)
 	{
-		//var textureLoc = gl.getUniformLocation(program, "u_textures");
-		//// Tell the shader to use texture units 0 to 3
-		//gl.uniform1iv(textureLoc, [0, 1, 2, 3]);
-
-		glUseProgram(m_uiProgram);
-		m_uiTexLoacation = GetUniFormLocationByName("texSample");
-		if (m_uiTexLoacation != (unsigned int)-1)
-		{
-			std::wstring l_str = this->GetName();;
-			l_str += L" tex location:";
-			l_str += ValueToStringW((uint64)m_uiTexLoacation);;
-			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
-			const GLint l_Value[] = { 0,1,2,3 };
-			glUniform1iv(m_uiTexLoacation, 4, l_Value);
-			CHECK_GL_ERROR("cBaseShader::CreateProgram glUniform1i(m_uiTexLoacation)");
-		}
-		glUseProgram(0);
-		//if (m_uiTexLoacation != (unsigned int)-1)
+		//if (m_uiProgram != -1)
 		//{
-		//	//order is uniform,active,bind.
-		//	glUniform4i(m_uiTexLoacation, 0, 1, 2, 3);
-		//	//ensure call cTexture::ApplyImageWithActiveTextureID to setup glActiveTexture(GL_TEXTURE0 + N);
-		//	CHECK_GL_ERROR("cMultiTextureBaseShader::Use glActiveTexture");
+		//	glUseProgram(m_uiProgram);
+		//	for (int i = 0; i < TOTAL_FVF; ++i)
+		//	{
+		//		m_uiAttribArray[i] = glGetAttribLocation(m_uiProgram, g_strShaderAttribution[i]);
+		//		std::string l_strFVF = UT::ComposeMsgByFormat("%s,i:%d,Value:%d", g_strShaderAttribution[i], i, this->m_uiAttribArray[i]);
+		//		FMLOG(l_strFVF.c_str());
+		//	}
 		//}
 	}
 	cMultiTextureBaseShader::~cMultiTextureBaseShader() {}
 
 	void				cMultiTextureBaseShader::Use(bool e_bUseLastWVPMatrix)
 	{
-		//FMLOG("cMultiTextureBaseShader::Use");
-		auto l_m_uiTexLoacation = m_uiTexLoacation;
-		m_uiTexLoacation = -1;
 		cBaseShader::Use(e_bUseLastWVPMatrix);
 		if (m_uiTexLoacation != (unsigned int)-1)
 		{
@@ -140,9 +107,6 @@ namespace FATMING_CORE
 			CHECK_GL_ERROR("cMultiTextureBaseShader::Use glActiveTexture");
 		}
 	}
-
-
-	TYPDE_DEFINE_MARCO(cMultiTextureBaseShader);
 
 
 	void	cBatchDataMultiTexture::s4TextureBatchData::Resize(size_t uiSize)
@@ -281,16 +245,13 @@ namespace FATMING_CORE
 		//FMLOG(l_str.c_str());
 		auto l_Mat = cMatrix44::Identity;
 		FATMING_CORE::SetupShaderWorldMatrix(l_Mat);
-		//FMLOG("1");
-		glVertexAttribPointer(g_uiAttribArray[FVF_POS], 3, GL_FLOAT, 0, 0, m_vPosVector.data());
-		//myGlVertexPointer(3, m_vPosVector.data());
-		//FMLOG("2");
-		myGlUVPointer(3, m_vUVVector.data());
-		//FMLOG("3");
-		myGlColorPointer(4, m_vColorVector.data());
-		//FMLOG("4");
-		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, m_iNumVertex);
-		//FMLOG("5");
+		if (m_vPosVector.data())
+		{
+			myGlVertexPointer(3, m_vPosVector.data());
+			myGlUVPointer(3, m_vUVVector.data());
+			myGlColorPointer(4, m_vColorVector.data());
+			MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, m_iNumVertex);
+		}
 		l_BlendfunctionRestore.Restore();
 	}
 

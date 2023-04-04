@@ -267,13 +267,17 @@ namespace FATMING_CORE
 						m_uiAttribArray[i] = glGetAttribLocation(m_uiProgram, g_strShaderAttribution[i]);
 					}
 					CHECK_GL_ERROR("cBaseShader::456");
-					glLinkProgram( m_uiProgram );
-					glUseProgram( m_uiProgram );
 					this->Unuse();
+					std::wstring l_strShaderOk = this->GetName();
+					l_strShaderOk += L" shader create ok";
+					FMLOG(ValueToString(l_strShaderOk).c_str());
 					return true;
 				}
 			}
 		}
+		std::wstring l_strShaderOk = this->GetName();
+		l_strShaderOk += L" shader create failed!!";
+		FMLOG(ValueToString(l_strShaderOk).c_str());
 		return false;
 	}
 

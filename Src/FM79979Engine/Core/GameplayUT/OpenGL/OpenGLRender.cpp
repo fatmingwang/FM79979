@@ -122,12 +122,12 @@ namespace FATMING_CORE
 		CreateShader(g_bCommonVSNoTextureClientState, g_strDrawPointsVS, g_strCommonFSNoTexture, DRAW_POINTS_SHADER);
 		//
 		CreateShader(g_bMyMeshVSClientState, g_strMyMeshVS, g_strMyMeshFS, STATIC_MESH_SHADER);
+		//
+		m_spBatchDataMultiTexture = new cBatchDataMultiTexture();
 		//if crush go to char*g_strMySkinningMeshVS = "
 		//fin matBones[32] and change its size...
 		//CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
 		FMLog::LogWithFlag("init shader end", CORE_LOG_FLAG, true);
-		//
-		m_spBatchDataMultiTexture = new cBatchDataMultiTexture();
 	}
 
 	void	DumpGraphicsInfo()
