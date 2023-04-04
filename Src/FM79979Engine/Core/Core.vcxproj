@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugNoPThreadWithBullet|Emscripten">
+      <Configuration>DebugNoPThreadWithBullet</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugNoPThreadWithBullet|x64">
+      <Configuration>DebugNoPThreadWithBullet</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug_NoPthread|Emscripten">
       <Configuration>Debug_NoPthread</Configuration>
       <Platform>Emscripten</Platform>
@@ -82,12 +90,23 @@
     <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>false</CLRSupport>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoPThreadWithBullet|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'" Label="Configuration">
+    <PlatformToolset>emcc</PlatformToolset>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoPThreadWithBullet|Emscripten'" Label="Configuration">
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
@@ -126,6 +145,9 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoPThreadWithBullet|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
@@ -136,6 +158,11 @@
     <IntDir>..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+    <OutDir>..\..\lib\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoPThreadWithBullet|x64'">
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
     <OutDir>..\..\lib\$(Configuration)\</OutDir>
     <IntDir>..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
@@ -162,6 +189,9 @@
     <IntDir>..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'">
+    <IntDir>..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoPThreadWithBullet|Emscripten'">
     <IntDir>..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
@@ -197,6 +227,20 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP /FS %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\include;.\GameplayUT\Physic\Bullet;..\..\include\opencv;..\..\include\opencv\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4436</DisableSpecificWarnings>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoPThreadWithBullet|x64'">
     <ClCompile>
       <AdditionalOptions>/MP /FS %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
@@ -290,6 +334,38 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'">
     <ClCompile>
       <PreprocessorDefinitions>WASM;DEBUG;NO_BULLET_;</PreprocessorDefinitions>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <ExceptionHandling>true</ExceptionHandling>
+      <CLanguageStandard>
+      </CLanguageStandard>
+      <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
+      <AdditionalIncludeDirectories>./GameplayUT/Physic/Bullet;../Freetype/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <EnableMicrosoftExtensions>
+      </EnableMicrosoftExtensions>
+      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Lib />
+    <Lib />
+    <Lib />
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>-r</Command>
+    </CustomBuildStep>
+    <Lib>
+      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoPThreadWithBullet|Emscripten'">
+    <ClCompile>
+      <PreprocessorDefinitions>WASM;DEBUG;USE_JS_WEBSOCKET</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <ExceptionHandling>true</ExceptionHandling>
       <CLanguageStandard>

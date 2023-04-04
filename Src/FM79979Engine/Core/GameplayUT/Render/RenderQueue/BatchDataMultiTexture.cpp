@@ -5,6 +5,7 @@
 namespace FATMING_CORE
 {
 	//opengl es use low so it have to be different shader declartion.
+#if defined(WIN32) && !defined(UWP)
 	const char* g_strCommonVSWithTextureArray =
 		R"(
 		attribute vec3 VSPosition;
@@ -21,20 +22,59 @@ namespace FATMING_CORE
 			PSColor = VSColor;
 		}
 	)";
-
 	const char* g_strColorFulFSWithTextureArray =
 		R"(
-		#define numTextures 4
-		uniform sampler2D texSample[numTextures];
-		varying vec3 PSTexcoord;
-		varying vec4 PSColor;
-		uniform vec4 MyColor;
-		void main()
-		{
-			gl_FragColor = texture2D(texSample[PSTexcoord.z], PSTexcoord.xy) + (PSColor - vec4(1, 1, 1, 1));
-		}
-	)";
+			#define numTextures 4
+			uniform sampler2D texSample[numTextures];
+			varying vec3 PSTexcoord;
+			varying vec4 PSColor;
+			void main()
+			{
+				gl_FragColor = texture2D(texSample[PSTexcoord.z], PSTexcoord.xy) + (PSColor - vec4(1, 1, 1, 1));
+			}
+		)";
+#else
+	const char* g_strCommonVSWithTextureArray =
+		R"(
+			vec3 VSPosition;
+			vec4 VSColor;
+			vec3 VSTexcoord;
+			uniform mat4 matVP;
+			uniform mat4 matW;
+			varying vec3 PSTexcoord;
+			varying vec4 PSColor;
+			void main()
+			{
+				gl_Position = matVP*matW*vec4(VSPosition,1);
+				PSTexcoord = VSTexcoord;
+				PSColor = VSColor;
+			}
+		)";
+	const char* g_strColorFulFSWithTextureArray =
+		R"(
+			uniform sampler2D texSample[4];
+			varying lowp vec3 PSTexcoord;
+			varying lowp vec4 PSColor;
+			void main()
+			{
+				int l_iTextureIndex = int(PSTexcoord.z);
+				if(l_iTextureIndex == 0)
+					gl_FragColor = texture2D(texSample[0], PSTexcoord.xy) + (PSColor - vec4(1, 1, 1, 1));
+				else
+				if(l_iTextureIndex == 1)
+					gl_FragColor = texture2D(texSample[1], PSTexcoord.xy) + (PSColor - vec4(1, 1, 1, 1));
+				else
+				if(l_iTextureIndex == 2)
+					gl_FragColor = texture2D(texSample[2], PSTexcoord.xy) + (PSColor - vec4(1, 1, 1, 1));
+				else
+				{
+					gl_FragColor = texture2D(texSample[3], PSTexcoord.xy) + (PSColor - vec4(1, 1, 1, 1));
+				}
 
+			}
+		)";
+
+#endif
 	//https://blog.csdn.net/shixunzheng/article/details/74134355
 	//fuck this nit working this eqquire create a 3dTexture
 	//glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
@@ -85,11 +125,10 @@ namespace FATMING_CORE
 
 	void				cMultiTextureBaseShader::Use(bool e_bUseLastWVPMatrix)
 	{
-		//sBatchData
+		//FMLOG("cMultiTextureBaseShader::Use");
 		auto l_m_uiTexLoacation = m_uiTexLoacation;
 		m_uiTexLoacation = -1;
 		cBaseShader::Use(e_bUseLastWVPMatrix);
-		m_uiTexLoacation = l_m_uiTexLoacation;
 		if (m_uiTexLoacation != (unsigned int)-1)
 		{
 			//order is uniform,active,bind.
@@ -238,11 +277,20 @@ namespace FATMING_CORE
 				break;
 			}
 		}
-		FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
-		myGlVertexPointer(3, &m_vPosVector[0]);
-		myGlUVPointer(3, &m_vUVVector[0]);
-		myGlColorPointer(4, &m_vColorVector[0]);
+		//std::string l_str = "vertex count"+ValueToString(m_iNumVertex)+",PosCount:"+ValueToString(m_vPosVector.size())+ ",UVCount:" + ValueToString(m_vUVVector.size())+",ColorCount:" + ValueToString(m_vColorVector.size());
+		//FMLOG(l_str.c_str());
+		auto l_Mat = cMatrix44::Identity;
+		FATMING_CORE::SetupShaderWorldMatrix(l_Mat);
+		//FMLOG("1");
+		glVertexAttribPointer(g_uiAttribArray[FVF_POS], 3, GL_FLOAT, 0, 0, m_vPosVector.data());
+		//myGlVertexPointer(3, m_vPosVector.data());
+		//FMLOG("2");
+		myGlUVPointer(3, m_vUVVector.data());
+		//FMLOG("3");
+		myGlColorPointer(4, m_vColorVector.data());
+		//FMLOG("4");
 		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, m_iNumVertex);
+		//FMLOG("5");
 		l_BlendfunctionRestore.Restore();
 	}
 
