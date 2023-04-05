@@ -1,5 +1,4 @@
-#ifndef _FAI_PARSER_H_
-#define _FAI_PARSER_H_
+#pragma once
 
 #include "FAICharacterInterface.h"
 #include "FAIMachine.h"
@@ -76,11 +75,9 @@ namespace FATMING_AI
 		cNamedTypedObjectVector<cFAICharacterStatus>		m_FAICharacterStatusList;
 		cNamedTypedObjectVector<cFAICharacterInterface>	m_FAICharacterInterfaceList;
 		cNamedTypedObjectVector<cFAIMachine>				m_FAIMachineList;
-		cFAIMachine*								GetFAIMachineByFileName(const WCHAR*e_strFileName);
+		cFAIMachine*								GetFAIMachineByFileName(const wchar_t*e_strFileName);
 		static cFAIBaseBehave*						ProcessAIBehavior(TiXmlElement*e_pTiXmlElement);
     };
 	//while MyParse is called assign this to it to provide AI data
 	extern cFAIBehaviorParser*g_pFAIBehaviorParser;
 }
-
-#endif

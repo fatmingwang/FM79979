@@ -1,5 +1,4 @@
-#ifndef _FAI_PATH_BEHAVIOR_H_
-#define _FAI_PATH_BEHAVIOR_H_
+#pragma once
 
 namespace FATMING_AI
 {
@@ -20,5 +19,3 @@ namespace FATMING_AI
 		void				SetPath(cCurveWithTime*e_CurveWithTime) { m_CurveWithTime = *e_CurveWithTime; }
     };
 }
-
-#endif

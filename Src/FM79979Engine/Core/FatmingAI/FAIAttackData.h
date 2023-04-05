@@ -1,5 +1,4 @@
-#ifndef _FAI_COMBO_ATTACK_BEHAVIOR_H_
-#define _FAI_COMBO_ATTACK_BEHAVIOR_H_
+#pragma once
 
 struct	sComboAttackData
 {
@@ -9,9 +8,9 @@ struct	sComboAttackData
 	UT::sMinMaxData		ProbabilityToNextCombo;//0-
 	UT::sMinMaxData		PowerRange;//
 	//the name of this attack
-	WCHAR*				strComboName;
+	wchar_t*			strComboName;
 	//animation name
-	WCHAR*				strAttackAnimationName;
+	wchar_t*			strAttackAnimationName;
 };
 
 class	cFAIAttackModeAIBehavior

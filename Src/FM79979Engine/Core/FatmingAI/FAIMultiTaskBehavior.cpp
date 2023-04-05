@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAIMultiTaskBehavior.h"
 #include "FAIMachine.h"
 #include "FAIParser.h"
@@ -11,7 +11,7 @@ namespace FATMING_AI
 		m_iTargetAIBehavior = -1;
 		if(!e_pTiXmlElement)
 			return;
-        const   WCHAR*l_strTargetBehaviorName = 0;
+        const   wchar_t*l_strTargetBehaviorName = 0;
         AI_PARSE_NAME_VALUE_START
             COMPARE_NAME("TargetAIBehavior")
             {

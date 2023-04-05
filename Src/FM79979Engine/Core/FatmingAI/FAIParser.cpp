@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAICharacterInterface.h"
 #include "FAIMultiTaskBehavior.h"
 #include "FAITranslationBehavior.h"
@@ -107,7 +107,7 @@ namespace FATMING_AI
         }
 	}
 
-	cFAIMachine*	cFAIBehaviorParser::GetFAIMachineByFileName(const WCHAR*e_strFileName)
+	cFAIMachine*	cFAIBehaviorParser::GetFAIMachineByFileName(const wchar_t*e_strFileName)
 	{
 		std::string		l_strFileName = UT::WcharToChar(e_strFileName);
 		std::wstring	l_strObjectName = UT::GetFileNameWithoutFullPath(e_strFileName);
@@ -133,7 +133,7 @@ namespace FATMING_AI
 
     cFAIBaseBehave*  cFAIBehaviorParser::ProcessAIBehavior(TiXmlElement*e_pTiXmlElement)
     {
-        const WCHAR*l_strName = e_pTiXmlElement->Value();
+        const wchar_t*l_strName = e_pTiXmlElement->Value();
 		cFAIBaseBehave*l_pBaseAIBehave = 0;
         COMPARE_NAME_WITH_DEFINE(cFAIMPDIAnimationChangeAIBehavior::TypeID)
         {
@@ -192,7 +192,7 @@ namespace FATMING_AI
 		e_pRoot = e_pRoot->FirstChildElement();
 		while( e_pRoot )
 		{
-			const WCHAR*l_strName = e_pRoot->Value();
+			const wchar_t*l_strName = e_pRoot->Value();
 			if( !wcscmp(l_strName,cFAIMachine::TypeID) )
 			{
 				ProcessFAIMachine(e_pRoot);

@@ -28,6 +28,8 @@ namespace FATMING_CORE
 		Vector2														m_vGameScale;
 		//viewport resolution or game resolution,both them could be same,but depend on the game type.
 		Vector2														m_vGameResolution;
+		//if you are using camera please set this too.
+		Vector4														m_vGameViewRect;
 		Vector4														m_vViewPortSize;
 		Vector4														m_vDeviceViewPortSize;
 		Vector4														m_vBGColor;

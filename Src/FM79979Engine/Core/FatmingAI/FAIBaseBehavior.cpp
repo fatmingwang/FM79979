@@ -1,9 +1,9 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAIBaseBehavior.h"
 namespace FATMING_AI
 {
     const wchar_t*cFAIBaseBehave::TypeID( L"cFAIBaseBehave" );
-
+	f_MyGameViewRect	cFAIBaseBehave::m_sfGetGameViewRect = nullptr;
 	cFAIBaseBehave::cFAIBaseBehave()
 	{
 		m_pData = 0;
@@ -33,7 +33,7 @@ namespace FATMING_AI
 	{
 		m_pSrcCharacter = e_pAICharacterInterface;
 	}
-    void    cFAIBaseBehave::SetNextAIBehaviorName(const WCHAR*e_strName)
+    void    cFAIBaseBehave::SetNextAIBehaviorName(const wchar_t*e_strName)
     {
 		m_strNextAIBehaviorName.clear();
 		if( e_strName )

@@ -1,11 +1,10 @@
-#ifndef _AI_MACHINE_H_
-#define _AI_MACHINE_H_
+#pragma once
 
 namespace FATMING_AI
 {
 	#define AI_PARSE_NAME_VALUE_START	TiXmlAttribute*	l_pAttribute = e_pTiXmlElement->FirstAttribute();\
-                                        const WCHAR*	l_strValue = 0;\
-                                        const WCHAR*	l_strName = 0;\
+                                        const wchar_t*	l_strValue = 0;\
+                                        const wchar_t*	l_strName = 0;\
                                         while(l_pAttribute)\
                                         {\
 	                                        l_strValue = l_pAttribute->Value();\
@@ -83,4 +82,3 @@ namespace FATMING_AI
     };
 //end namesapce
 }
-#endif

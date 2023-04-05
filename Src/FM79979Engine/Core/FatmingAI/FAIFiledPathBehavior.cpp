@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAIFiledPathBehavior.h"
 #include "FAIMachine.h"
 
@@ -103,6 +103,10 @@ namespace FATMING_AI
 		//m_CurveWithTime.AddPoint(Vector3(1280,320,0),30);
 		//m_CurveWithTime.Init();
 		//return;
+		if (cFAIBaseBehave::m_sfGetGameViewRect)
+		{
+			this->m_vWall = cFAIBaseBehave::m_sfGetGameViewRect();
+		}
 		int	l_iPathLOD = m_CurveWithTime.GetLOD();
 		m_CurveWithTime.Destroy();
 		m_CurveWithTime.SetLOD(1);
@@ -216,7 +220,23 @@ namespace FATMING_AI
 		}
 		if( !l_bKeepMoving )
 		{
-			this->m_bSatisfiedCondition = true;
+			bool l_bOkaytoLeave = true;
+			if (cFAIBaseBehave::m_sfGetGameViewRect)
+			{
+				auto l_NewWall = cFAIBaseBehave::m_sfGetGameViewRect();
+				if (m_vWall != l_NewWall)
+				{
+					l_bOkaytoLeave = false;
+				}
+			}
+			if(l_bOkaytoLeave)
+			{
+				this->m_bSatisfiedCondition = true;
+			}
+			else
+			{
+				this->Init();
+			}
 		}
 	}
 

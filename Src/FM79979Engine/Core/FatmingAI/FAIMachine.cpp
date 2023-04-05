@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAIMachine.h"
 #include "FAIParser.h"
 namespace FATMING_AI
@@ -77,7 +77,7 @@ namespace FATMING_AI
 				}
 			}
 			else
-				UT::ErrorMsg(L"AI cant' find!",(WCHAR*)l_pChildTiXmlElement->Value());
+				UT::ErrorMsg(L"AI cant' find!",(wchar_t*)l_pChildTiXmlElement->Value());
 			l_pChildTiXmlElement = l_pChildTiXmlElement->NextSiblingElement();
 		}
 		if( l_pFAICharacterInterface )
@@ -90,17 +90,17 @@ namespace FATMING_AI
 		l_iCount = Count();
 		for( int i=0;i<l_iCount;++i  )
 		{
-			const WCHAR*l_strNextAIBehaviorName = GetObject(i)->GetNextAIBehaviorName();
+			const wchar_t*l_strNextAIBehaviorName = GetObject(i)->GetNextAIBehaviorName();
 			if( l_strNextAIBehaviorName && wcslen(l_strNextAIBehaviorName) )
 			{
 				if( !GetObject(l_strNextAIBehaviorName) )
-					UT::ErrorMsg(L"AIBehavior can't find",(WCHAR*)l_strNextAIBehaviorName);                
+					UT::ErrorMsg(L"AIBehavior can't find",(wchar_t*)l_strNextAIBehaviorName);
 			}
 		}
 #endif
 		//SetCurrentWorkingObject(m_strStartBehaviorName.c_str());
 		//if(!GetCurrentWorkingObject())
-		//	UT::ErrorMsg(L"start AI cant' find!",(WCHAR*)l_pChildTiXmlElement->Value());
+		//	UT::ErrorMsg(L"start AI cant' find!",(wchar_t*)l_pChildTiXmlElement->Value());
 	}
 
 	cFAIMachine::cFAIMachine(cFAIMachine*e_pAIMachine)

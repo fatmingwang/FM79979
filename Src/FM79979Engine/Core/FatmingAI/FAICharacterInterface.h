@@ -1,5 +1,4 @@
-#ifndef _FAI_CHARACTER_INTERFACE_H_
-#define _FAI_CHARACTER_INTERFACE_H_
+#pragma once
 
 #include "FAIStatus.h"
 namespace FATMING_AI
@@ -27,7 +26,7 @@ namespace FATMING_AI
 		virtual	void				DebugRender();
 		//
 	    virtual void*				GetAnimationData(){ return 0; }
-		virtual const WCHAR*		GetAnimationDataType(){ return 0; }
+		virtual const wchar_t*		GetAnimationDataType(){ return 0; }
 		//
 	    virtual void*				GetWeaponData(){ return 0; }
 		virtual	bool				IsCharacterBehaviorStatusLock();
@@ -36,5 +35,3 @@ namespace FATMING_AI
 
 //end namespace
 }
-
-#endif

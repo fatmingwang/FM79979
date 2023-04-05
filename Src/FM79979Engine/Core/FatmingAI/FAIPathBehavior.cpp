@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAIPathBehavior.h"
 #include "FAIMachine.h"
 #include "FAIParser.h"

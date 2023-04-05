@@ -1,5 +1,4 @@
-#ifndef _FAI_TRANSLATION_BEHAVIOR_H_
-#define _FAI_TRANSLATION_BEHAVIOR_H_
+#pragma once
 
 namespace FATMING_AI
 {
@@ -58,5 +57,3 @@ namespace FATMING_AI
   //      virtual ~cFAIWalkToDestinationAIBehavior();
   //  };
 }
-
-#endif

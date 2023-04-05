@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAIAnimationBehavior.h"
 #include "FAIMachine.h"
 #include "FAIAnimationCharacter.h"

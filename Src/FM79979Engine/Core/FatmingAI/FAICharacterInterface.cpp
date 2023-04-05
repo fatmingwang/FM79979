@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAICharacterInterface.h"
 namespace FATMING_AI
 {
@@ -48,10 +48,10 @@ namespace FATMING_AI
 
 		if( e_pElement )
 		{
-			const WCHAR*l_strSpeed = e_pElement->Attribute(L"Speed");
+			const wchar_t*l_strSpeed = e_pElement->Attribute(L"Speed");
 			if( l_strSpeed )
 				m_fSpeed = (float)_wtof(l_strSpeed);
-			const WCHAR*l_strRunAwaySpeed = e_pElement->Attribute(L"RunSpeed");
+			const wchar_t*l_strRunAwaySpeed = e_pElement->Attribute(L"RunSpeed");
 			if( l_strRunAwaySpeed )
 				m_fRunSpeed = (float)_wtof(l_strRunAwaySpeed);
 			else

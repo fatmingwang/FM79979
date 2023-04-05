@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAILeaveFiledBehavior.h"
 #include "FAIMachine.h"
 
@@ -47,6 +47,10 @@ namespace FATMING_AI
 
 	void    cFAILeaveFiledBehavior::InternalInit()
 	{
+		if (cFAIBaseBehave::m_sfGetGameViewRect)
+		{
+			m_vWall = cFAIBaseBehave::m_sfGetGameViewRect();
+		}
 		m_CurveWithTime.Destroy();
 		m_CurveWithTime.SetLOD(1);
 		const cBound*l_pBound = this->m_pSrcCharacter->GetWorldBound();
@@ -114,8 +118,8 @@ namespace FATMING_AI
 		}
 		if(m_CurveWithTime.IsAnimationDone())
 		{
+			//here should check leave or not or monster get disappear immediately?
 			this->m_bSatisfiedCondition = true;
 		}
 	}
-
 }

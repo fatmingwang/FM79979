@@ -1,5 +1,4 @@
-#ifndef _FAI_STATUS_H_
-#define _FAI_STATUS_H_
+#pragma once
 namespace FATMING_AI
 {
 	enum	eCharacterAttribute
@@ -62,7 +61,7 @@ namespace FATMING_AI
 		L"Unknow!!",
 	};
 	//
-	eFAICharacterBehaviorStatus	GetCharacterBehaviodStatus(const WCHAR*e_strName);
+	eFAICharacterBehaviorStatus	GetCharacterBehaviodStatus(const wchar_t*e_strName);
 	//it could only has 2 data just for UI show or just for data without ui info depend on the situchation
 	struct	sCharacterAttributeAndUIInfo
 	{
@@ -94,7 +93,7 @@ namespace FATMING_AI
 		float			GetTargetValue();
 		void			SetTargetValue(float e_fTargetValue);
 		float			CurrentPercent();
-		const WCHAR*	GetDescription();
+		const wchar_t*	GetDescription();
 	};
 	//
 	class	cBattlePowerList:public cNamedTypedObjectVector<cBattlePowerTargetValue>
@@ -140,4 +139,3 @@ namespace FATMING_AI
     };
 //end namespace FATMING_AI
 }
-#endif

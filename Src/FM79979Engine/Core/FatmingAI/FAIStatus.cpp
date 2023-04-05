@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAIStatus.h"
 
 namespace FATMING_AI
@@ -8,7 +8,7 @@ namespace FATMING_AI
 	const wchar_t*         cBattlePowerList::TypeID( L"cBattlePowerList" );
 	const wchar_t*         cFAICharacterStatus::TypeID( L"cFAICharacterStatus" );
 
-	eCharacterAttribute	GetCharacterAttribute(const WCHAR*e_str)
+	eCharacterAttribute	GetCharacterAttribute(const wchar_t*e_str)
 	{
 		for( int i=0;i<eCA_UNKNOW;++i )
 		{
@@ -20,7 +20,7 @@ namespace FATMING_AI
 		return eCA_UNKNOW;
 	}
 
-	eFAICharacterBehaviorStatus	GetCharacterBehaviodStatus(const WCHAR*e_strName)
+	eFAICharacterBehaviorStatus	GetCharacterBehaviodStatus(const wchar_t*e_strName)
 	{
 		for( int i=0;i<eFAI_CBS_MAX;++i )
 		{
@@ -46,9 +46,9 @@ namespace FATMING_AI
 			l_pElement = l_pElement->FirstChildElement();
 			while( l_pElement )
 			{
-				const WCHAR*l_strAttribute = l_pElement->Attribute(L"Attribute");
-				const WCHAR*l_strValue = l_pElement->Attribute(L"Value");
-				const WCHAR*l_strPosiion = l_pElement->Attribute(L"Posiion");
+				const wchar_t*l_strAttribute = l_pElement->Attribute(L"Attribute");
+				const wchar_t*l_strValue = l_pElement->Attribute(L"Value");
+				const wchar_t*l_strPosiion = l_pElement->Attribute(L"Posiion");
 				sCharacterAttributeAndUIInfo l_sStatueAndUIInfo;
 				if( l_strAttribute )
 					l_sStatueAndUIInfo.CharacterAttribute = GetCharacterAttribute(l_strAttribute);
@@ -129,7 +129,7 @@ namespace FATMING_AI
 		SAFE_DELETE(m_pstrDescription);
 	}
 
-	const WCHAR*	cBattlePowerTargetValue::GetDescription()
+	const wchar_t*	cBattlePowerTargetValue::GetDescription()
 	{
 		if( m_pstrDescription )
 		{
@@ -220,8 +220,8 @@ namespace FATMING_AI
 		m_iDexterous = m_iHP = m_iDefence = m_iStrgeth = m_iLucky = m_iAgile = 100;
 		ASSERT_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pElement,cFAICharacterStatus::TypeID);
 		TiXmlAttribute*l_pTiXmlAttribute = e_pElement->FirstAttribute();
-        const WCHAR*l_strName = 0;
-        const WCHAR*l_strValue = 0;
+        const wchar_t*l_strName = 0;
+        const wchar_t*l_strValue = 0;
         while( l_pTiXmlAttribute )
         {
             l_strValue = l_pTiXmlAttribute->Value();

@@ -1,8 +1,9 @@
-#ifndef _FAI_BASE_BEHAVIOR_H_
-#define _FAI_BASE_BEHAVIOR_H_
+#pragma once
 #include "FAICharacterInterface.h"
+#include <functional>
 namespace FATMING_AI
 {
+	typedef std::function<Vector4()>	f_MyGameViewRect;
     //base AI behavior,ex walk,Idle,Jump,followe....else
 	class	cFAIBaseBehave :virtual public NamedTypedObject
 	{
@@ -53,8 +54,10 @@ namespace FATMING_AI
         virtual void			Render(){}
 		virtual void			Destroy(){}
 		//target AI name,if return 0,random to set next ai behavior
-		virtual const WCHAR*	GetNextAIBehaviorName(){  if( wcslen(m_strNextAIBehaviorName.c_str()) )return m_strNextAIBehaviorName.c_str();return 0; }
-		virtual void			SetNextAIBehaviorName(const WCHAR*e_strName);
+		virtual const wchar_t*	GetNextAIBehaviorName(){  if( wcslen(m_strNextAIBehaviorName.c_str()) )return m_strNextAIBehaviorName.c_str();return 0; }
+		virtual void			SetNextAIBehaviorName(const wchar_t*e_strName);
+
+
+		static f_MyGameViewRect	m_sfGetGameViewRect;
 	};
 }
-#endif
