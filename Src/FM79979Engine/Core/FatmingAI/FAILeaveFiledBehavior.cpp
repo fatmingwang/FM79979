@@ -118,8 +118,26 @@ namespace FATMING_AI
 		}
 		if(m_CurveWithTime.IsAnimationDone())
 		{
+			bool l_bOkayToLeaved = true;
+			if (cFAIBaseBehave::m_sfGetGameViewRect)
+			{
+				auto l_NewWall = cFAIBaseBehave::m_sfGetGameViewRect();
+				if (m_vWall != l_NewWall)
+				{
+					m_vWall = l_NewWall;
+					l_bOkayToLeaved = false;
+				}
+			}
 			//here should check leave or not or monster get disappear immediately?
-			this->m_bSatisfiedCondition = true;
+			if (l_bOkayToLeaved)
+			{
+				this->m_bSatisfiedCondition = true;
+			}
+			else
+			{
+				this->Init();
+			}
+			
 		}
 	}
 }

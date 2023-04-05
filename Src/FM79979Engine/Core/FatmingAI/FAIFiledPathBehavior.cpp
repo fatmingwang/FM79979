@@ -95,6 +95,20 @@ namespace FATMING_AI
 		return Vector3(0.5f-(e_vPos.x/e_vWall.Width()),0.5f-(e_vPos.y/e_vWall.Height()),0).Normalize();
 	}
 
+	bool cFAIFiledPathBehavior::UpdateWall()
+	{
+		if (cFAIBaseBehave::m_sfGetGameViewRect)
+		{
+			auto l_NewWall = cFAIBaseBehave::m_sfGetGameViewRect();
+			if (m_vWall != l_NewWall)
+			{
+				m_vWall = l_NewWall;
+				return true;
+			}
+		}
+		return false;
+	}
+
 	void    cFAIFiledPathBehavior::InternalInit()
 	{
 		//test code.
@@ -209,7 +223,9 @@ namespace FATMING_AI
 			}
 		}
 		else
+		{
 			m_CurveWithTime.Update(e_fElpaseTime);
+		}
 		m_pSrcCharacter->SetLocalPosition(l_vPos);
 		Vector3	l_v2DAngle(0,0,m_CurveWithTime.GetCurrentPosToNextPointAngle());
 		m_pSrcCharacter->SetAngle(l_v2DAngle);
@@ -221,13 +237,9 @@ namespace FATMING_AI
 		if( !l_bKeepMoving )
 		{
 			bool l_bOkaytoLeave = true;
-			if (cFAIBaseBehave::m_sfGetGameViewRect)
+			if (UpdateWall())
 			{
-				auto l_NewWall = cFAIBaseBehave::m_sfGetGameViewRect();
-				if (m_vWall != l_NewWall)
-				{
-					l_bOkaytoLeave = false;
-				}
+				l_bOkaytoLeave = false;
 			}
 			if(l_bOkaytoLeave)
 			{

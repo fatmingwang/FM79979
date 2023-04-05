@@ -6,6 +6,7 @@ namespace FATMING_AI
 	//time,distance,point,collision Wall.
     class   cFAIFiledPathBehavior:public cFAIBaseBehave
     {
+		bool				UpdateWall();
 		sMinMaxData<float>	m_fDirectionOffsetX;
 		sMinMaxData<float>	m_fDirectionOffsetY;
 		Vector4				m_vWall;
