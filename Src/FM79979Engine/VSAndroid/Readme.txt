@@ -1,3 +1,10 @@
+if clang.exe not found please ensure NDK and ANDROID_SDK and something related system environment variables setup well
+VS default installed directory
+C:\Microsoft\AndroidNDK
+
+https://learn.microsoft.com/en-us/xamarin/android/troubleshooting/questions/android-sdk-location?tabs=windows
+
+
 if you suffered some unreference symbol
 change lib input order?
 
