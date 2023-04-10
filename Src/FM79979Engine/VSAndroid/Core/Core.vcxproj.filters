@@ -596,6 +596,9 @@
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\ShaderStorageBuffer.h">
       <Filter>Core\GamePlayUT\OpenGL\GLSL\CS</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\RenderQueue\BatchDataMultiTexture.h">
+      <Filter>Core\GamePlayUT\Render\RenderQueue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -1400,6 +1403,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\SimpleComputeShader.cpp">
       <Filter>Core\GamePlayUT\OpenGL\GLSL\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\RenderQueue\BatchDataMultiTexture.cpp">
+      <Filter>Core\GamePlayUT\Render\RenderQueue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -296,6 +296,7 @@
     <ClInclude Include="..\..\Core\GameplayUT\Render\PuzzleImage\BaseUVImageData.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\PuzzleImage\PuzzleImage.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\Render\RenderQueue\BatchDataMultiTexture.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\RenderQueue\RenderCommand.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\RenderQueue\RenderQueue.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\RenderQueue\RenderQueueManager.h" />
@@ -482,6 +483,7 @@
     <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\PrtVelocity.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\PuzzleImage\PuzzleImage.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\Render\RenderQueue\BatchDataMultiTexture.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\RenderQueue\RenderCommand.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\Terrain\ShockBoobsPainter.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\Terrain\ShockBoobsShader.cpp" />
