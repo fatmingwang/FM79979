@@ -326,7 +326,9 @@ void testLoading()
 
 				//CarServer_1__log_17_12_2021_10_57_56.txt
 				auto l_strFileName = UT::GetFileExtensionName(l_strPath);
-				if (l_strFileName.compare(L"json") == 0 || l_strFileName.compare(L"skel") == 0)
+				//win32 use L?
+				//if (l_strFileName.compare(L"json") == 0 || l_strFileName.compare(L"skel") == 0)
+				if (l_strFileName.compare("json") == 0 || l_strFileName.compare("skel") == 0)
 				{
 					g_pAllSpineFileNameVector->push_back(ValueToString(l_strPath));
 				}

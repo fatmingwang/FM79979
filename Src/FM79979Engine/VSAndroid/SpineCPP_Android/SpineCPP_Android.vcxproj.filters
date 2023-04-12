@@ -1,0 +1,450 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{6af7db7c-b40d-421b-af31-eb71504c0f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{3eabe33b-d2ea-4239-a52c-12a4e62b1b94}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Animation.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\AnimationState.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\AnimationStateData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Atlas.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\AtlasAttachmentLoader.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Attachment.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\AttachmentLoader.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\AttachmentTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\AttachmentType.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\BlendMode.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Bone.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\BoneData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\BoundingBoxAttachment.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\ClippingAttachment.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Color.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\ColorTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\ConstraintData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\ContainerUtil.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\CurveTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Debug.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\DeformTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\dll.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\DrawOrderTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Event.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\EventData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\EventTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Extension.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\HashMap.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\HasRendererObject.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\IkConstraint.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\IkConstraintData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\IkConstraintTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Json.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\LinkedMesh.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Log.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\MathUtil.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\MeshAttachment.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\MixBlend.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\MixDirection.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\PathAttachment.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\PathConstraint.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\PathConstraintData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\PathConstraintMixTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\PathConstraintPositionTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\PathConstraintSpacingTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\PointAttachment.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Pool.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\PositionMode.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Property.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\RegionAttachment.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\RotateMode.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\RotateTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\RTTI.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\ScaleTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\ShearTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Skeleton.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\SkeletonBinary.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\SkeletonBounds.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\SkeletonClipping.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\SkeletonData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\SkeletonJson.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Skin.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Slot.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\SlotData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\SpacingMode.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\spine.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\SpineObject.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\SpineString.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\TextureLoader.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Timeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\TimelineType.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\TransformConstraint.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\TransformConstraintData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\TransformConstraintTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\TransformMode.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\TranslateTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Triangulator.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\TwoColorTimeline.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Updatable.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Vector.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\VertexAttachment.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\VertexEffect.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\include\spine\Vertices.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Animation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\AnimationState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\AnimationStateData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Atlas.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\AtlasAttachmentLoader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Attachment.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\AttachmentLoader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\AttachmentTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Bone.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\BoneData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\BoundingBoxAttachment.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\ClippingAttachment.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\ColorTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\ConstraintData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\CurveTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\DeformTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\DrawOrderTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Event.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\EventData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\EventTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Extension.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\IkConstraint.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\IkConstraintData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\IkConstraintTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Json.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\LinkedMesh.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Log.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\MathUtil.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\MeshAttachment.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\PathAttachment.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\PathConstraint.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\PathConstraintData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\PathConstraintMixTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\PathConstraintPositionTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\PathConstraintSpacingTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\PointAttachment.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\RegionAttachment.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\RotateTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\RTTI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\ScaleTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\ShearTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Skeleton.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\SkeletonBinary.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\SkeletonBounds.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\SkeletonClipping.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\SkeletonData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\SkeletonJson.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Skin.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Slot.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\SlotData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\SpineObject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\TextureLoader.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Timeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\TransformConstraint.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\TransformConstraintData.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\TransformConstraintTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\TranslateTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Triangulator.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\TwoColorTimeline.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\Updatable.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\VertexAttachment.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SpineRender\spine-cpp\spine-cpp\src\spine\VertexEffect.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
