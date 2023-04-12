@@ -256,46 +256,46 @@ namespace FATMING_CORE
 #ifndef DEBUG
 //#define	USE_HW_DECODE_BITMAP
 #endif
-//#define	USE_HW_DECODE_BITMAP
+#define	USE_HW_DECODE_BITMAP
 #if defined(ANDROID) && defined(USE_HW_DECODE_BITMAP)
-	std::string	GetFileFullPathInAndroid(const char* e_strFileName)
-	{
-		//http://blog.sephiroth.it/2010/10/24/reading-resource-files-from-native-code/
-		//http://androgeek.info/?p=275
-		//try external sd card first
-		NvFile*fp = nullptr;
-		if (cGameApp::m_spExternalSDDirectory)
-		{
-			std::string l_strFileName = *cGameApp::m_spExternalSDDirectory;
-			l_strFileName += *cGameApp::m_psstrGameAppName;
-			l_strFileName += "/";
-			l_strFileName += e_strFileName;
-			fp = NvFOpen(l_strFileName.c_str(), "r");
-			if (fp)
-			{
-				NvFClose(fp);
-				return l_strFileName;
-			}
-		}
-		//try write file into
-		std::string l_strFileName = "/sdcard/";
-		l_strFileName += *cGameApp::m_psstrGameAppName;
-		l_strFileName += "/";
-		l_strFileName += e_strFileName;
-		fp = NvFOpen(l_strFileName.c_str(), "r");
-		if (!fp)
-		{//write into internal memory
-			l_strFileName = cGameApp::m_spInternalDirectory->c_str();
-			l_strFileName += "/";
-			l_strFileName += *cGameApp::m_psstrGameAppName;
-			l_strFileName += "/";
-			l_strFileName += e_strFileName;
-			fp = NvFOpen(l_strFileName.c_str(), "r");
-		}
-		if (fp)
-			NvFClose(fp);
-		return l_strFileName;
-	}
+	//std::string	GetFileFullPathInAndroid(const char* e_strFileName)
+	//{
+	//	//http://blog.sephiroth.it/2010/10/24/reading-resource-files-from-native-code/
+	//	//http://androgeek.info/?p=275
+	//	//try external sd card first
+	//	NvFile*fp = nullptr;
+	//	if (cGameApp::m_spExternalSDDirectory)
+	//	{
+	//		std::string l_strFileName = *cGameApp::m_spExternalSDDirectory;
+	//		l_strFileName += *cGameApp::m_psstrGameAppName;
+	//		l_strFileName += "/";
+	//		l_strFileName += e_strFileName;
+	//		fp = NvFOpen(l_strFileName.c_str(), "r");
+	//		if (fp)
+	//		{
+	//			NvFClose(fp);
+	//			return l_strFileName;
+	//		}
+	//	}
+	//	//try write file into
+	//	std::string l_strFileName = "/sdcard/";
+	//	l_strFileName += *cGameApp::m_psstrGameAppName;
+	//	l_strFileName += "/";
+	//	l_strFileName += e_strFileName;
+	//	fp = NvFOpen(l_strFileName.c_str(), "r");
+	//	if (!fp)
+	//	{//write into internal memory
+	//		l_strFileName = cGameApp::m_spInternalDirectory->c_str();
+	//		l_strFileName += "/";
+	//		l_strFileName += *cGameApp::m_psstrGameAppName;
+	//		l_strFileName += "/";
+	//		l_strFileName += e_strFileName;
+	//		fp = NvFOpen(l_strFileName.c_str(), "r");
+	//	}
+	//	if (fp)
+	//		NvFClose(fp);
+	//	return l_strFileName;
+	//}
 	bool	cTexture::LoadImage(const char*e_strImageFileName, bool e_bFetchPixelData)
 	{
 		assert(e_strImageFileName);
