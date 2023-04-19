@@ -109,6 +109,7 @@ namespace	FATMING_CORE
 		static	class cParticleEmitterGroup*						GetPRTG(const char*e_strFileName, const wchar_t*e_strName);
 		static	class cParticleEmitterGroup*						GetPRTG(const wchar_t*e_strFileName, const wchar_t*e_strName);
 		static	class cParticleEmitterGroup*						GetPRTG(const wchar_t*e_strName);
+		//do not delete return pointer,because is keeps at m_spBehaviorPaticleManager.
 		static	class cPrtEmitter*									GetPrtEmitter(const char*e_strFileName, const wchar_t*e_strName);
 		static	class cPrtEmitter*									GetPrtEmitter(const wchar_t*e_strFileName, const wchar_t*e_strName);
 		static	class cPrtEmitter*									GetPrtEmitter(const wchar_t*e_strName);

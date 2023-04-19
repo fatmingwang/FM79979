@@ -727,6 +727,7 @@ namespace FATMING_CORE
 	void	cPrtEmitter::InternalInit()
 	{
 		m_bStart  =true;
+		m_vPos = this->GetWorldPosition();
 		Emit(m_vPos,EPSIONAL,false);
 	}
 
@@ -917,14 +918,14 @@ namespace FATMING_CORE
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
-			sBlendfunction l_BlendfunctionRestore;
-			l_BlendfunctionRestore.GetStatus();
-			myGLBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
+			sBlendfunction l_BlendfunctionRestore(m_SrcBlendingMode, m_DestBlendingMode);
+			l_BlendfunctionRestore.Render();
 			//
 			if (m_pBaseImage)
 			{
 				RenderTrianglesWithTexture((float*)m_pvAllPosPointerForComputeShaderTest, (float*)m_pvAllTexCoordinatePointer, (float*)m_pvAllColorPointer, cMatrix44::Identity, 4, m_iCurrentWorkingParticles * A_QUAD_TWO_TRIANGLES, m_pBaseImage->GetTexture());
 			}
+			l_BlendfunctionRestore.Restore();
 			return true;
 		}
 		return false;
