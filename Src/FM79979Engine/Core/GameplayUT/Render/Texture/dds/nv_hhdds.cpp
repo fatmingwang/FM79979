@@ -333,7 +333,7 @@ NVHHDDSImage *NVHHDDSLoad(const char* filename, NvS32 flipVertical)
     NvBool isAllreadyFlipped = NV_FALSE;
 
     NVLogDebug(__FUNCTION__, "NVHHDDSLoad file: %s", filename);
-    fp = NvFOpen(filename,"rb");
+    fp = MyFileOpen(filename,"rb");
     if (fp == NV_NULL) 
     {
         NVLogWarn(__FUNCTION__, "Could not open file: %s", filename);
@@ -790,7 +790,7 @@ int NVHHDDSSave(const NVHHDDSImage *image, const char* filename, NvS32 flagAsFli
             return -2;
     }
 
-    fp = NvFOpen(filename, "wb");
+    fp = MyFileOpen(filename, "wb");
     if (fp == NV_NULL)
     {
 //        NVLog(NVLOGLEVEL_ERROR, "NVHHDDS", "Could not open dds file for writing", filename);
