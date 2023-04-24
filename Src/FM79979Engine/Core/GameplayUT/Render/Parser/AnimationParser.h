@@ -49,7 +49,7 @@ namespace FATMING_CORE
 	//#define	AP_MPDI_LIST	"MPDIList"
 	//#define	AP_VERSION		"Version"
 	//MPDIList
-	class	cAnimationParser:public cNamedTypedObjectVector<NamedTypedObject>,public ISAXCallback
+	class	cAnimationParser:public cNamedTypedObjectVector<NamedTypedObject>,public cNodeISAX
 	{
 		virtual	void						RemoveResourceObject(NamedTypedObject*e_pObject)override;
 		//the data has changed so mark this for version check,set it as 0.f while parse is called!
@@ -60,17 +60,24 @@ namespace FATMING_CORE
 		cMultiPathDynamicImage*				m_pCurrentMultiPathDynamicImage;
 		cCueToStartCurveWithTime*			m_pCurrentCueToStartCurvesWithTime;
 
-		//for loading image file
-		virtual	void						HandleElementData(TiXmlElement*e_pTiXmlElement)override;
 		//for MPDI
-		void	ProcessMPDI();
-		eImagePlayerTypeList				m_eImagePlayerTypeList;
+		//old
+		void								ProcessMPDI();
+		//
+		void								ProcessMPDIList(TiXmlElement* e_pTiXmlElement);
+		void								ProcessMultiPathDynamicImage(TiXmlElement*e_pTiXmlElement);
+		void								ProcessCueToStartCurvesWithTime(TiXmlElement* e_pTiXmlElement);
+		void								ProcessPointDataList(TiXmlElement* e_pTiXmlElement);
+		void								ProcessHintPoint(TiXmlElement* e_pTiXmlElement);
+		//eImagePlayerTypeList				m_eImagePlayerTypeList;
 		//whole imageplayer's base image are store in this vector,if u like to release memory pressure,u could call DeleteBaseImage before remove player
 		cImageParser						m_AllBaseImageList;
 		//bloew function can't be call directly instead call by RemoveObject!,or it will crash or ensure what u are doing.
 		void								DeleteBaseImage(NamedTypedObject*e_pNamedTypedObject);
 		//
 		void								DeleteSoundObject(NamedTypedObject*e_pNamedTypedObject);
+		//
+		virtual	bool						MyParse(TiXmlElement* e_pRoot);
 	public:
 		DEFINE_TYPE_INFO()
 		DEFINE_FILE_EXTENSION_NAME_INFO()
