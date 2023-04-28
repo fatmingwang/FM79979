@@ -1,0 +1,9 @@
+find gzip part add it into
+
+/etc/nginx/nginx.conf
+
+
+
+not sure about this but add below code into /etc/nginx/mime.types
+
+    application/octet-stream			     data;
