@@ -1,0 +1,6 @@
+<!-- Author:scrr,Time:2014/9/11 ¤W¤È 11:16:31 -->
+<PuzzleImage OriginalNameSort="Lock_Heart,Mm_Photoshake_Bg,Go_Shake_Words" ImageName="Mm_Photoshake_001.png" Count="3" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Go_Shake_Words" UV="0.5410156,0.9306641,0.9130859,0.9697266" OffsetPos="2,3" Size="381,40" OriginalSize="383,44" ShowPosInPI="554,953" />
+    <PuzzleUnit Name="Lock_Heart" UV="0.0009765625,0.005859375,0.1699219,0.1367188" OffsetPos="61,61" Size="173,134" OriginalSize="256,256" ShowPosInPI="1,6" />
+    <PuzzleUnit Name="Mm_Photoshake_Bg" UV="0.4892578,0.4296875,0.734375,0.8642578" OffsetPos="0,0" Size="251,445" OriginalSize="251,445" ShowPosInPI="501,440" />
+</PuzzleImage>

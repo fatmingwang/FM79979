@@ -1,0 +1,70 @@
+<ChoiceGirlStagePhase>
+	<GirlScroller>
+		<cTabPage ScrollRect="100,200,720,1080" ItemGap="20" Direction="Vertical">
+			<ChancelButton>
+				<cImageButton Name="ChancelButton" cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Return_Button"/>
+			</ChancelButton>
+			<Items>
+				<cImageButton Name="Stage1" cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select"cSubMPDI="Stage_Select_001" >
+					<FinishImage LinkParent="0" >
+						<cSubMPDI cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select" cSubMPDI="Stage_Select_001" Color="0.7,0.7,0.7,1" Pos="0,0,0"/>
+					</FinishImage>
+				</cImageButton>
+				<cImageButton Name="Stage2" cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select"cSubMPDI="Stage_Select_002" >
+					<FinishImage LinkParent="0" >
+						<cSubMPDI cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select" cSubMPDI="Stage_Select_002" Color="0.7,0.7,0.7,1" Pos="0,0,0"/>
+					</FinishImage>
+				</cImageButton>	
+				<cImageButton Name="Stage3" cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select"cSubMPDI="Stage_Select_003" >
+					<FinishImage LinkParent="0" >
+						<cSubMPDI cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select" cSubMPDI="Stage_Select_003" Color="0.7,0.7,0.7,1" Pos="0,0,0"/>
+					</FinishImage>
+				</cImageButton>	
+				<cImageButton Name="Stage4" cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select"cSubMPDI="Stage_Select_004" >
+					<FinishImage LinkParent="0" >
+						<cSubMPDI cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select" cSubMPDI="Stage_Select_004" Color="0.7,0.7,0.7,1" Pos="0,0,0"/>
+					</FinishImage>
+				</cImageButton>	
+				<cImageButton Name="Stage5" cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select"cSubMPDI="Stage_Select_005" >
+					<FinishImage LinkParent="0" >
+						<cSubMPDI cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select" cSubMPDI="Stage_Select_005" Color="0.7,0.7,0.7,1"  Pos="0,0,0"/>
+					</FinishImage>
+				</cImageButton>	
+			</Items>
+		</cTabPage>
+	</GirlScroller>
+	<UnlockGirlHintImage>
+		<cPuzzleImageUnit PI="BluffingGirl/Image/Common.pi" PIUnit="StageCanNotPlay"/>
+	</UnlockGirlHintImage>
+	<SelectedGirlImageSubMPDI>
+		<GirlImageCover>
+			 <cSubMPDI cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select" cSubMPDI="Stage_Select_Film" />
+		</GirlImageCover>
+		<cSubMPDI cMPDIList="BluffingGirl/Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select" cSubMPDI="Mm001_Stage_Film001"/>
+		<cPuzzleImageUnit PI="BluffingGirl/Image/Mm001_StageFilm.pi" PIUnit="Mm001_Stage_Film001"/>
+		<cPuzzleImageUnit PI="BluffingGirl/Image/Mm001_StageFilm.pi" PIUnit="Mm001_Stage_Film002"/>
+		<cPuzzleImageUnit PI="BluffingGirl/Image/Mm001_StageFilm.pi" PIUnit="Mm001_Stage_Film003"/>
+		<cPuzzleImageUnit PI="BluffingGirl/Image/Mm001_StageFilm.pi" PIUnit="Mm001_Stage_Film004"/>
+		<cPuzzleImageUnit PI="BluffingGirl/Image/Mm001_StageFilm.pi" PIUnit="Mm001_Stage_Film005"/>
+	</SelectedGirlImageSubMPDI>
+	<StageData Name="Stage1" TotalRound="2" WinCount="1" GameSetupFileName="BluffingGirl/PhaseData/GirlStage/GameSetup/EasyMode.xml" BGImage="BluffingGirl/Image/Girl/Girl1/1.png" GirlIntroducingVideoFileName="Video/Girl1Stage1Introduce.fmv" WinVideo="Video/Girl1Stage1Win.fmv" LoseVideo="Video/Girl1Stage1Lose.fmv" Video="Video/Girl1Stage1Strip.fmv" >
+		<ShakeVideo Video="Video/Girl1Stage1Shake1.fmv"/>
+		<ShakeVideo Video="Video/Girl1Stage1Shake2.fmv"/>
+	</StageData>
+	<StageData Name="Stage2" TotalRound="2" WinCount="1" GameSetupFileName="BluffingGirl/PhaseData/GirlStage/GameSetup/EasyMode.xml" BGImage="BluffingGirl/Image/Girl/Girl1/2.png" GirlIntroducingVideoFileName="Video/Girl1Stage2Introduce.fmv" WinVideo="Video/Girl1Stage2Win.fmv" LoseVideo="Video/Girl1Stage2Lose.fmv" Video="Video/Girl1Stage2Strip.fmv" >
+		<ShakeVideo Video="Video/Girl1Stage2Shake1.fmv"/>
+		<ShakeVideo Video="Video/Girl1Stage2Shake2.fmv"/>
+	</StageData>
+	<StageData Name="Stage3" TotalRound="3" WinCount="2" GameSetupFileName="BluffingGirl/PhaseData/GirlStage/GameSetup/EasyMode.xml" BGImage="BluffingGirl/Image/Girl/Girl1/3.png" GirlIntroducingVideoFileName="Video/Girl1Stage3Introduce.fmv" WinVideo="Video/Girl1Stage3Win.fmv" LoseVideo="Video/Girl1Stage3Lose.fmv" Video="Video/Girl1Stage3Strip.fmv" >
+		<ShakeVideo Video="Video/Girl1Stage3Shake1.fmv"/>
+		<ShakeVideo Video="Video/Girl1Stage3Shake2.fmv"/>
+	</StageData>
+	<StageData Name="Stage4" TotalRound="3" WinCount="2" GameSetupFileName="BluffingGirl/PhaseData/GirlStage/GameSetup/NormalMode.xml" BGImage="BluffingGirl/Image/Girl/Girl1/4.png" GirlIntroducingVideoFileName="Video/Girl1Stage4Introduce.fmv" WinVideo="Video/Girl1Stage4Win.fmv" LoseVideo="Video/Girl1Stage4Lose.fmv" Video="Video/Girl1Stage4Strip.fmv" >
+		<ShakeVideo Video="Video/Girl1Stage4Shake1.fmv"/>
+		<ShakeVideo Video="Video/Girl1Stage4Shake2.fmv"/>
+	</StageData>
+	<StageData Name="Stage5" TotalRound="5" WinCount="3" GameSetupFileName="BluffingGirl/PhaseData/GirlStage/GameSetup/NormalMode.xml" BGImage="BluffingGirl/Image/Girl/Girl1/5.png" GirlIntroducingVideoFileName="Video/Girl1Stage5Introduce.fmv" WinVideo="Video/Girl1Stage5Win.fmv" LoseVideo="Video/Girl1Stage5Lose.fmv" Video="Video/Girl1Stage5Strip.fmv" >
+		<ShakeVideo Video="Video/Girl1Stage5Shake1.fmv"/>
+		<ShakeVideo Video="Video/Girl1Stage5Shake2.fmv"/>
+	</StageData>
+</ChoiceGirlStagePhase>

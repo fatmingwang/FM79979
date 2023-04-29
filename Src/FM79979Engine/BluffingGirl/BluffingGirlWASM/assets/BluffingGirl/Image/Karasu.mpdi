@@ -1,0 +1,43 @@
+<MPDIList Name="Karasu_mpdi" Count="1" MPDIVersion="1.3" PICount="1" ImageName="Karasu.pi">
+    <MultiPathDynamicImage Name="Bird" PathCount="1" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="4.000000">
+        <CueToStartCurvesWithTime Name="Karasu_001" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="37" LOD="1">
+            <PointDataList Index="0" Position="721.00,315.00,0.00" Time="0.000000" Size="250.00,175.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_001" />
+            <PointDataList Index="1" Position="693.72,331.00,0.00" Time="0.111111" Size="247.00,179.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_002" />
+            <PointDataList Index="2" Position="666.44,345.00,0.00" Time="0.222222" Size="244.00,182.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_003" />
+            <PointDataList Index="3" Position="639.17,357.00,0.00" Time="0.333333" Size="242.00,184.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_004" />
+            <PointDataList Index="4" Position="611.89,368.00,0.00" Time="0.444444" Size="242.00,184.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_005" />
+            <PointDataList Index="5" Position="584.61,380.00,0.00" Time="0.555556" Size="249.00,191.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_006" />
+            <PointDataList Index="6" Position="557.33,361.00,0.00" Time="0.666667" Size="248.00,166.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_007" />
+            <PointDataList Index="7" Position="530.06,338.00,0.00" Time="0.777778" Size="244.00,158.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_008" />
+            <PointDataList Index="8" Position="502.78,303.00,0.00" Time="0.888889" Size="244.00,158.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_009" />
+            <PointDataList Index="9" Position="475.50,315.00,0.00" Time="1.000000" Size="250.00,175.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_001" />
+            <PointDataList Index="10" Position="448.22,331.00,0.00" Time="1.111111" Size="247.00,179.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_002" />
+            <PointDataList Index="11" Position="420.94,345.00,0.00" Time="1.222222" Size="244.00,182.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_003" />
+            <PointDataList Index="12" Position="393.67,358.00,0.00" Time="1.333333" Size="242.00,184.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_004" />
+            <PointDataList Index="13" Position="366.39,368.00,0.00" Time="1.444444" Size="242.00,184.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_005" />
+            <PointDataList Index="14" Position="339.11,380.00,0.00" Time="1.555556" Size="249.00,191.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_006" />
+            <PointDataList Index="15" Position="311.83,361.00,0.00" Time="1.666667" Size="248.00,166.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_007" />
+            <PointDataList Index="16" Position="284.56,338.00,0.00" Time="1.777778" Size="244.00,158.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_008" />
+            <PointDataList Index="17" Position="257.28,303.00,0.00" Time="1.888889" Size="244.00,158.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_009" />
+            <PointDataList Index="18" Position="230.00,315.00,0.00" Time="2.000000" Size="250.00,175.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_001" />
+            <PointDataList Index="19" Position="202.72,331.00,0.00" Time="2.111111" Size="247.00,179.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_002" />
+            <PointDataList Index="20" Position="175.44,345.00,0.00" Time="2.222222" Size="244.00,182.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_003" />
+            <PointDataList Index="21" Position="148.17,357.00,0.00" Time="2.333333" Size="242.00,184.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_004" />
+            <PointDataList Index="22" Position="120.89,368.00,0.00" Time="2.444444" Size="242.00,184.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_005" />
+            <PointDataList Index="23" Position="93.61,380.00,0.00" Time="2.555556" Size="249.00,191.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_006" />
+            <PointDataList Index="24" Position="66.33,361.00,0.00" Time="2.666667" Size="248.00,166.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_007" />
+            <PointDataList Index="25" Position="39.06,338.00,0.00" Time="2.777778" Size="244.00,158.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_008" />
+            <PointDataList Index="26" Position="11.78,303.00,0.00" Time="2.888889" Size="244.00,158.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_009" />
+            <PointDataList Index="27" Position="-15.50,315.00,0.00" Time="3.000000" Size="250.00,175.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_001" />
+            <PointDataList Index="28" Position="-42.78,331.00,0.00" Time="3.111111" Size="247.00,179.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_002" />
+            <PointDataList Index="29" Position="-70.06,345.00,0.00" Time="3.222222" Size="244.00,182.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_003" />
+            <PointDataList Index="30" Position="-97.33,357.00,0.00" Time="3.333333" Size="242.00,184.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_004" />
+            <PointDataList Index="31" Position="-124.61,368.00,0.00" Time="3.444444" Size="242.00,184.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_005" />
+            <PointDataList Index="32" Position="-151.89,381.00,0.00" Time="3.555556" Size="249.00,191.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_006" />
+            <PointDataList Index="33" Position="-179.17,361.00,0.00" Time="3.666667" Size="248.00,166.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_007" />
+            <PointDataList Index="34" Position="-206.44,334.00,0.00" Time="3.777778" Size="244.00,158.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_008" />
+            <PointDataList Index="35" Position="-233.72,303.00,0.00" Time="3.888889" Size="244.00,158.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_009" />
+            <PointDataList Index="36" Position="-261.00,314.00,0.00" Time="4.000000" Size="250.00,175.00" Scale="1.00,1.00" PIName="Karasu" ImageName="Karasu_001" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

@@ -1,0 +1,486 @@
+<MPDIList Name="Shake_Heart_mpdi" Count="11" MPDIVersion="1.3" PICount="5" ImageName="mmshake.pi,Heart_Nami.pi,Shake_Rules.pi,Alert_Banner.pi,Finish_Shake.pi">
+    <MultiPathDynamicImage Name="ReadyToShake" PathCount="6" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="MmShake_Red_Board" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="105.00,349.00,0.00" Time="0.000000" Size="435.00,435.00" Scale="1.00,1.00" PIName="mmshake" ImageName="MmShake_Red_Board" />
+            <PointDataList Index="1" Position="105.00,349.00,0.00" Time="0.400000" Size="435.00,435.00" Scale="1.00,1.00" PIName="mmshake" ImageName="MmShake_Red_Board" />
+            <PointDataList Index="2" Position="105.00,349.00,0.00" Time="0.600000" Size="0.00,0.00" Scale="0.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="MmShake_Red_Board" />
+            <PointDataList Index="3" Position="105.00,349.00,0.00" Time="2.000000" Size="0.00,0.00" Scale="0.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="MmShake_Red_Board" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="How_To_Shake" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="109.00,360.00,0.00" Time="0.000000" Size="316.00,249.00" Scale="1.00,1.00" PIName="mmshake" ImageName="How_To_Shake" />
+            <PointDataList Index="1" Position="109.00,360.00,0.00" Time="0.400000" Size="316.00,249.00" Scale="1.00,1.00" PIName="mmshake" ImageName="How_To_Shake" />
+            <PointDataList Index="2" Position="109.00,360.00,0.00" Time="0.600000" Size="0.00,0.00" Scale="0.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="How_To_Shake" />
+            <PointDataList Index="3" Position="109.00,360.00,0.00" Time="2.000000" Size="0.00,0.00" Scale="0.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="How_To_Shake" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Begin_To_Shake_Words" BehaviorUpdate="1" StartTime="0.900000" AnchorType="CenterCenter" Count="7" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="197.00,1123.00,0.00" Time="0.000000" Size="326.00,62.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="Begin_To_Shake_Words" />
+            <PointDataList Index="1" Position="197.00,1123.00,0.00" Time="0.183333" Size="326.00,62.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Begin_To_Shake_Words" />
+            <PointDataList Index="2" Position="197.00,1123.00,0.00" Time="0.366667" Size="326.00,62.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="Begin_To_Shake_Words" />
+            <PointDataList Index="3" Position="197.00,1123.00,0.00" Time="0.550000" Size="326.00,62.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Begin_To_Shake_Words" />
+            <PointDataList Index="4" Position="197.00,1123.00,0.00" Time="0.733333" Size="326.00,62.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="Begin_To_Shake_Words" />
+            <PointDataList Index="5" Position="197.00,1123.00,0.00" Time="0.916667" Size="326.00,62.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Begin_To_Shake_Words" />
+            <PointDataList Index="6" Position="197.00,1123.00,0.00" Time="1.100000" Size="326.00,62.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="Begin_To_Shake_Words" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Heart_Empty" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="680.00,200.00,0.00" Time="0.000000" Size="214.00,198.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Heart_Empty" />
+            <PointDataList Index="1" Position="680.00,200.00,0.00" Time="0.600000" Size="214.00,198.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Heart_Empty" />
+            <PointDataList Index="2" Position="460.00,200.00,0.00" Time="0.900000" Size="214.00,198.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Heart_Empty" />
+            <PointDataList Index="3" Position="460.00,200.00,0.00" Time="2.000000" Size="214.00,198.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Heart_Empty" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CountDown_006" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="50.00,1123.00,0.00" Time="0.000000" Size="58.50,103.50" Scale="1.50,1.50" PIName="mmshake" ImageName="CountDown_006" />
+            <PointDataList Index="1" Position="50.00,1123.00,0.00" Time="3.000000" Size="58.50,103.50" Scale="1.50,1.50" PIName="mmshake" ImageName="CountDown_006" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CountDown_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="121.00,1123.00,0.00" Time="0.000000" Size="58.50,103.50" Scale="1.50,1.50" PIName="mmshake" ImageName="CountDown_000" />
+            <PointDataList Index="1" Position="121.00,1123.00,0.00" Time="3.000000" Size="58.50,103.50" Scale="1.50,1.50" PIName="mmshake" ImageName="CountDown_000" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Shake_Rules" PathCount="4" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="BG" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="61.00,402.00,0.00" Time="0.000000" Size="596.00,473.00" Scale="1.00,1.00" PIName="Shake_Rules" ImageName="Shake_Rule" />
+            <PointDataList Index="1" Position="61.00,402.00,0.00" Time="3.000000" Size="596.00,473.00" Scale="1.00,1.00" PIName="Shake_Rules" ImageName="Shake_Rule" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Shake_Challenge" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="98.00,750.00,0.00" Time="0.000000" Size="251.00,84.00" Scale="1.00,1.00" PIName="Shake_Rules" ImageName="Shake_Challenge" />
+            <PointDataList Index="1" Position="98.00,750.00,0.00" Time="3.000000" Size="251.00,84.00" Scale="1.00,1.00" PIName="Shake_Rules" ImageName="Shake_Challenge" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Shake_Training" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="366.00,750.00,0.00" Time="0.000000" Size="252.00,84.00" Scale="1.00,1.00" PIName="Shake_Rules" ImageName="Shake_Training" />
+            <PointDataList Index="1" Position="366.00,750.00,0.00" Time="3.000000" Size="252.00,84.00" Scale="1.00,1.00" PIName="Shake_Rules" ImageName="Shake_Training" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Close" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="547.00,406.00,0.00" Time="0.000000" Size="97.85,98.80" Scale="0.95,0.95" PIName="Shake_Rules" ImageName="Alert_Board_No_B" />
+            <PointDataList Index="1" Position="547.00,406.00,0.00" Time="3.000000" Size="97.85,98.80" Scale="0.95,0.95" PIName="Shake_Rules" ImageName="Alert_Board_No_B" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Touch_Challenge" PathCount="4" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="Gain_Heart" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="74.00,511.00,0.00" Time="0.000000" Size="579.00,253.00" Scale="1.00,1.00" PIName="Alert_Banner" ImageName="Gain_Heart" />
+            <PointDataList Index="1" Position="74.00,511.00,0.00" Time="3.000000" Size="579.00,253.00" Scale="1.00,1.00" PIName="Alert_Banner" ImageName="Gain_Heart" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CanDoShake_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="564.00,543.00,0.00" Time="0.000000" Size="36.00,40.80" Scale="1.20,1.20" PIName="Alert_Banner" ImageName="CanDoShake_006" />
+            <PointDataList Index="1" Position="564.00,543.00,0.00" Time="3.000000" Size="36.00,40.80" Scale="1.20,1.20" PIName="Alert_Banner" ImageName="CanDoShake_006" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MaruMaru" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="207.00,641.00,0.00" Time="0.000000" Size="83.70,83.70" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="MaruMaru" />
+            <PointDataList Index="1" Position="207.00,641.00,0.00" Time="3.000000" Size="83.70,83.70" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="MaruMaru" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="BatsuBatsu" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="390.00,643.00,0.00" Time="0.000000" Size="77.40,78.30" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="BatsuBatsu" />
+            <PointDataList Index="1" Position="390.00,643.00,0.00" Time="3.000000" Size="77.40,78.30" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="BatsuBatsu" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Chance_Left" PathCount="1" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="CanDoShake_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="564.00,543.00,0.00" Time="0.000000" Size="36.00,40.80" Scale="1.20,1.20" PIName="Alert_Banner" ImageName="CanDoShake_006" />
+            <PointDataList Index="1" Position="564.00,543.00,0.00" Time="3.000000" Size="36.00,40.80" Scale="1.20,1.20" PIName="Alert_Banner" ImageName="CanDoShake_006" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Touch_Challenge_Yes" PathCount="4" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="Gain_Heart" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="74.00,511.00,0.00" Time="0.000000" Size="579.00,253.00" Scale="1.00,1.00" PIName="Alert_Banner" ImageName="Gain_Heart" />
+            <PointDataList Index="1" Position="74.00,511.00,0.00" Time="3.000000" Size="579.00,253.00" Scale="1.00,1.00" PIName="Alert_Banner" ImageName="Gain_Heart" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CanDoShake_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="564.00,543.00,0.00" Time="0.000000" Size="36.00,40.80" Scale="1.20,1.20" PIName="Alert_Banner" ImageName="CanDoShake_006" />
+            <PointDataList Index="1" Position="564.00,543.00,0.00" Time="3.000000" Size="36.00,40.80" Scale="1.20,1.20" PIName="Alert_Banner" ImageName="CanDoShake_006" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MaruMaru" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="207.00,641.00,0.00" Time="0.000000" Size="83.70,83.70" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="MaruMaru" />
+            <PointDataList Index="1" Position="207.00,641.00,0.00" Time="0.500000" Size="83.70,83.70" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="MaruMaru" />
+            <PointDataList Index="2" Position="210.00,644.00,0.00" Time="0.700000" Size="74.40,74.40" Scale="0.80,0.80" PIName="Alert_Banner" ImageName="MaruMaru" />
+            <PointDataList Index="3" Position="207.00,641.00,0.00" Time="0.900000" Size="83.70,83.70" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="MaruMaru" />
+            <PointDataList Index="4" Position="207.00,641.00,0.00" Time="3.000000" Size="83.70,83.70" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="MaruMaru" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="BatsuBatsu" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="390.00,643.00,0.00" Time="0.000000" Size="77.40,78.30" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="BatsuBatsu" />
+            <PointDataList Index="1" Position="390.00,643.00,0.00" Time="3.000000" Size="77.40,78.30" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="BatsuBatsu" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Touch_Challenge_No" PathCount="4" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="Gain_Heart" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="74.00,511.00,0.00" Time="0.000000" Size="579.00,253.00" Scale="1.00,1.00" PIName="Alert_Banner" ImageName="Gain_Heart" />
+            <PointDataList Index="1" Position="74.00,511.00,0.00" Time="3.000000" Size="579.00,253.00" Scale="1.00,1.00" PIName="Alert_Banner" ImageName="Gain_Heart" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CanDoShake_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="564.00,543.00,0.00" Time="0.000000" Size="36.00,40.80" Scale="1.20,1.20" PIName="Alert_Banner" ImageName="CanDoShake_006" />
+            <PointDataList Index="1" Position="564.00,543.00,0.00" Time="3.000000" Size="36.00,40.80" Scale="1.20,1.20" PIName="Alert_Banner" ImageName="CanDoShake_006" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MaruMaru" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="207.00,641.00,0.00" Time="0.000000" Size="83.70,83.70" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="MaruMaru" />
+            <PointDataList Index="1" Position="207.00,641.00,0.00" Time="3.000000" Size="83.70,83.70" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="MaruMaru" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="BatsuBatsu" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="390.00,643.00,0.00" Time="0.000000" Size="77.40,78.30" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="BatsuBatsu" />
+            <PointDataList Index="1" Position="390.00,643.00,0.00" Time="0.500000" Size="77.40,78.30" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="BatsuBatsu" />
+            <PointDataList Index="2" Position="393.00,646.00,0.00" Time="0.700000" Size="68.80,69.60" Scale="0.80,0.80" PIName="Alert_Banner" ImageName="BatsuBatsu" />
+            <PointDataList Index="3" Position="390.00,643.00,0.00" Time="0.900000" Size="77.40,78.30" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="BatsuBatsu" />
+            <PointDataList Index="4" Position="390.00,643.00,0.00" Time="3.000000" Size="77.40,78.30" Scale="0.90,0.90" PIName="Alert_Banner" ImageName="BatsuBatsu" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="AfterSelectGirl" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="2.000000">
+        <CueToStartCurvesWithTime Name="MmShake_Red_Board" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="105.00,349.00,0.00" Time="0.000000" Size="435.00,435.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="MmShake_Red_Board" />
+            <PointDataList Index="1" Position="105.00,349.00,0.00" Time="0.200000" Size="435.00,435.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="MmShake_Red_Board" />
+            <PointDataList Index="2" Position="105.00,349.00,0.00" Time="0.500000" Size="435.00,435.00" Scale="1.00,1.00" PIName="mmshake" ImageName="MmShake_Red_Board" />
+            <PointDataList Index="3" Position="105.00,349.00,0.00" Time="2.000000" Size="435.00,435.00" Scale="1.00,1.00" PIName="mmshake" ImageName="MmShake_Red_Board" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="How_To_Shake" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="109.00,360.00,0.00" Time="0.000000" Size="316.00,249.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="How_To_Shake" />
+            <PointDataList Index="1" Position="109.00,360.00,0.00" Time="0.200000" Size="316.00,249.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="How_To_Shake" />
+            <PointDataList Index="2" Position="109.00,360.00,0.00" Time="0.500000" Size="316.00,249.00" Scale="1.00,1.00" PIName="mmshake" ImageName="How_To_Shake" />
+            <PointDataList Index="3" Position="109.00,360.00,0.00" Time="2.000000" Size="316.00,249.00" Scale="1.00,1.00" PIName="mmshake" ImageName="How_To_Shake" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="GainAheart" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="2.000000">
+        <CueToStartCurvesWithTime Name="GainAheart" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="232.00,513.00,0.00" Time="0.000000" Size="481.50,217.50" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="GainAheart" />
+            <PointDataList Index="1" Position="232.00,513.00,0.00" Time="2.000000" Size="481.50,217.50" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="GainAheart" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Alert_Board_No_S" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="567.00,504.00,0.00" Time="0.000000" Size="72.00,72.00" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="Alert_Board_No_S" />
+            <PointDataList Index="1" Position="567.00,504.00,0.00" Time="2.000000" Size="72.00,72.00" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="Alert_Board_No_S" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="After_Training" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="2.000000">
+        <CueToStartCurvesWithTime Name="Alert_Board_No_S" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="567.00,504.00,0.00" Time="0.000000" Size="72.00,72.00" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="Alert_Board_No_S" />
+            <PointDataList Index="1" Position="567.00,504.00,0.00" Time="2.000000" Size="72.00,72.00" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="Alert_Board_No_S" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Shakeheart_Training" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="232.00,513.00,0.00" Time="0.000000" Size="481.50,217.50" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="Shakeheart_Training" />
+            <PointDataList Index="1" Position="232.00,513.00,0.00" Time="2.000000" Size="481.50,217.50" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="Shakeheart_Training" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Challenge_Fail" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="2.000000">
+        <CueToStartCurvesWithTime Name="Alert_Board_No_S" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="599.00,504.00,0.00" Time="0.000000" Size="72.00,72.00" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="Alert_Board_No_S" />
+            <PointDataList Index="1" Position="599.00,505.00,0.00" Time="2.000000" Size="72.00,72.00" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="Alert_Board_No_S" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Challenge_Again" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="211.00,520.00,0.00" Time="0.000000" Size="551.76,279.68" Scale="1.52,1.52" PIName="Finish_Shake" ImageName="Challenge_Again" />
+            <PointDataList Index="1" Position="211.00,520.00,0.00" Time="2.000000" Size="544.50,276.00" Scale="1.50,1.50" PIName="Finish_Shake" ImageName="Challenge_Again" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Fill_Heart" PathCount="4" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="30.000000">
+        <CueToStartCurvesWithTime Name="Land" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterDown" Count="2" LOD="1">
+            <PointDataList Index="0" Position="502.00,198.00,0.00" Time="0.000000" Size="179.20,10.92" Scale="0.70,0.14" PIName="Heart_Nami" ImageName="Land" />
+            <PointDataList Index="1" Position="502.00,198.00,0.00" Time="30.000000" Size="179.20,-128.00" Scale="0.70,-1.64" PIName="Heart_Nami" ImageName="Land" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Nami_001" StartTime="0.000000" AnchorType="CenterDown" Count="301" LOD="1">
+            <PointDataList Index="0" Position="513.00,289.00,0.00" Time="0.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="1" Position="512.99,288.61,0.00" Time="0.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="2" Position="512.97,288.22,0.00" Time="0.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="3" Position="512.96,287.83,0.00" Time="0.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="4" Position="512.95,287.44,0.00" Time="0.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="5" Position="512.93,287.05,0.00" Time="0.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="6" Position="512.92,286.66,0.00" Time="0.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="7" Position="512.91,286.27,0.00" Time="0.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="8" Position="512.89,285.88,0.00" Time="0.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="9" Position="512.88,285.49,0.00" Time="0.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="10" Position="512.87,285.10,0.00" Time="1.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="11" Position="512.85,284.71,0.00" Time="1.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="12" Position="512.84,284.32,0.00" Time="1.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="13" Position="512.83,283.93,0.00" Time="1.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="14" Position="512.81,283.54,0.00" Time="1.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="15" Position="512.80,283.15,0.00" Time="1.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="16" Position="512.79,282.76,0.00" Time="1.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="17" Position="512.77,282.37,0.00" Time="1.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="18" Position="512.76,281.98,0.00" Time="1.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="19" Position="512.75,281.59,0.00" Time="1.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="20" Position="512.73,281.20,0.00" Time="2.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="21" Position="512.72,280.81,0.00" Time="2.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="22" Position="512.71,280.42,0.00" Time="2.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="23" Position="512.69,280.03,0.00" Time="2.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="24" Position="512.68,279.64,0.00" Time="2.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="25" Position="512.67,279.25,0.00" Time="2.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="26" Position="512.65,278.86,0.00" Time="2.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="27" Position="512.64,278.47,0.00" Time="2.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="28" Position="512.63,278.08,0.00" Time="2.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="29" Position="512.61,277.69,0.00" Time="2.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="30" Position="512.60,277.30,0.00" Time="3.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="31" Position="512.59,276.91,0.00" Time="3.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="32" Position="512.57,276.52,0.00" Time="3.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="33" Position="512.56,276.13,0.00" Time="3.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="34" Position="512.55,275.74,0.00" Time="3.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="35" Position="512.53,275.35,0.00" Time="3.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="36" Position="512.52,274.96,0.00" Time="3.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="37" Position="512.51,274.57,0.00" Time="3.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="38" Position="512.49,274.18,0.00" Time="3.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="39" Position="512.48,273.79,0.00" Time="3.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="40" Position="512.47,273.40,0.00" Time="4.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="41" Position="512.45,273.01,0.00" Time="4.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="42" Position="512.44,272.62,0.00" Time="4.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="43" Position="512.43,272.23,0.00" Time="4.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="44" Position="512.41,271.84,0.00" Time="4.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="45" Position="512.40,271.45,0.00" Time="4.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="46" Position="512.39,271.06,0.00" Time="4.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="47" Position="512.37,270.67,0.00" Time="4.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="48" Position="512.36,270.28,0.00" Time="4.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="49" Position="512.35,269.89,0.00" Time="4.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="50" Position="512.33,269.50,0.00" Time="5.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="51" Position="512.32,269.11,0.00" Time="5.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="52" Position="512.31,268.72,0.00" Time="5.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="53" Position="512.29,268.33,0.00" Time="5.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="54" Position="512.28,267.94,0.00" Time="5.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="55" Position="512.27,267.55,0.00" Time="5.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="56" Position="512.25,267.16,0.00" Time="5.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="57" Position="512.24,266.77,0.00" Time="5.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="58" Position="512.23,266.38,0.00" Time="5.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="59" Position="512.21,265.99,0.00" Time="5.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="60" Position="512.20,265.60,0.00" Time="6.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="61" Position="512.19,265.21,0.00" Time="6.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="62" Position="512.18,264.82,0.00" Time="6.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="63" Position="512.16,264.43,0.00" Time="6.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="64" Position="512.15,264.04,0.00" Time="6.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="65" Position="512.14,263.65,0.00" Time="6.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="66" Position="512.12,263.26,0.00" Time="6.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="67" Position="512.11,262.87,0.00" Time="6.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="68" Position="512.10,262.48,0.00" Time="6.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="69" Position="512.08,262.09,0.00" Time="6.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="70" Position="512.07,261.70,0.00" Time="7.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="71" Position="512.06,261.31,0.00" Time="7.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="72" Position="512.04,260.92,0.00" Time="7.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="73" Position="512.03,260.53,0.00" Time="7.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="74" Position="512.02,260.14,0.00" Time="7.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="75" Position="512.00,259.75,0.00" Time="7.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="76" Position="511.99,259.36,0.00" Time="7.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="77" Position="511.98,258.97,0.00" Time="7.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="78" Position="511.96,258.58,0.00" Time="7.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="79" Position="511.95,258.19,0.00" Time="7.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="80" Position="511.94,257.80,0.00" Time="8.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="81" Position="511.92,257.41,0.00" Time="8.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="82" Position="511.91,257.02,0.00" Time="8.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="83" Position="511.90,256.63,0.00" Time="8.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="84" Position="511.88,256.24,0.00" Time="8.400001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="85" Position="511.87,255.85,0.00" Time="8.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="86" Position="511.86,255.46,0.00" Time="8.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="87" Position="511.84,255.07,0.00" Time="8.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="88" Position="511.83,254.68,0.00" Time="8.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="89" Position="511.82,254.29,0.00" Time="8.900001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="90" Position="511.80,253.90,0.00" Time="9.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="91" Position="511.79,253.51,0.00" Time="9.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="92" Position="511.78,253.12,0.00" Time="9.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="93" Position="511.76,252.73,0.00" Time="9.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="94" Position="511.75,252.34,0.00" Time="9.400001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="95" Position="511.74,251.95,0.00" Time="9.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="96" Position="511.72,251.56,0.00" Time="9.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="97" Position="511.71,251.17,0.00" Time="9.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="98" Position="511.70,250.78,0.00" Time="9.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="99" Position="511.68,250.39,0.00" Time="9.900001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="100" Position="511.67,250.00,0.00" Time="10.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="101" Position="511.66,249.61,0.00" Time="10.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="102" Position="511.64,249.22,0.00" Time="10.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="103" Position="511.63,248.83,0.00" Time="10.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="104" Position="511.62,248.44,0.00" Time="10.400001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="105" Position="511.60,248.05,0.00" Time="10.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="106" Position="511.59,247.66,0.00" Time="10.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="107" Position="511.58,247.27,0.00" Time="10.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="108" Position="511.56,246.88,0.00" Time="10.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="109" Position="511.55,246.49,0.00" Time="10.900001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="110" Position="511.54,246.10,0.00" Time="11.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="111" Position="511.52,245.71,0.00" Time="11.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="112" Position="511.51,245.32,0.00" Time="11.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="113" Position="511.50,244.93,0.00" Time="11.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="114" Position="511.48,244.54,0.00" Time="11.400001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="115" Position="511.47,244.15,0.00" Time="11.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="116" Position="511.46,243.76,0.00" Time="11.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="117" Position="511.44,243.37,0.00" Time="11.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="118" Position="511.43,242.98,0.00" Time="11.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="119" Position="511.42,242.59,0.00" Time="11.900001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="120" Position="511.40,242.20,0.00" Time="12.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="121" Position="511.39,241.81,0.00" Time="12.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="122" Position="511.38,241.42,0.00" Time="12.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="123" Position="511.36,241.03,0.00" Time="12.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="124" Position="511.35,240.64,0.00" Time="12.400001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="125" Position="511.34,240.25,0.00" Time="12.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="126" Position="511.32,239.86,0.00" Time="12.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="127" Position="511.31,239.47,0.00" Time="12.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="128" Position="511.30,239.08,0.00" Time="12.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="129" Position="511.28,238.69,0.00" Time="12.900001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="130" Position="511.27,238.30,0.00" Time="13.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="131" Position="511.26,237.91,0.00" Time="13.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="132" Position="511.24,237.52,0.00" Time="13.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="133" Position="511.23,237.13,0.00" Time="13.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="134" Position="511.22,236.74,0.00" Time="13.400001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="135" Position="511.20,236.35,0.00" Time="13.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="136" Position="511.19,235.96,0.00" Time="13.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="137" Position="511.18,235.57,0.00" Time="13.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="138" Position="511.16,235.18,0.00" Time="13.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="139" Position="511.15,234.79,0.00" Time="13.900001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="140" Position="511.14,234.40,0.00" Time="14.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="141" Position="511.12,234.01,0.00" Time="14.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="142" Position="511.11,233.62,0.00" Time="14.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="143" Position="511.10,233.23,0.00" Time="14.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="144" Position="511.08,232.84,0.00" Time="14.400001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="145" Position="511.07,232.45,0.00" Time="14.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="146" Position="511.06,232.06,0.00" Time="14.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="147" Position="511.04,231.67,0.00" Time="14.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="148" Position="511.03,231.28,0.00" Time="14.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="149" Position="511.02,230.89,0.00" Time="14.900001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="150" Position="511.00,230.50,0.00" Time="15.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="151" Position="510.99,230.11,0.00" Time="15.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="152" Position="510.98,229.72,0.00" Time="15.200000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="153" Position="510.96,229.33,0.00" Time="15.300000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="154" Position="510.95,228.94,0.00" Time="15.400001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="155" Position="510.94,228.55,0.00" Time="15.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="156" Position="510.92,228.16,0.00" Time="15.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="157" Position="510.91,227.77,0.00" Time="15.700000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="158" Position="510.90,227.38,0.00" Time="15.800000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="159" Position="510.88,226.99,0.00" Time="15.900001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="160" Position="510.87,226.60,0.00" Time="16.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="161" Position="510.86,226.21,0.00" Time="16.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="162" Position="510.84,225.82,0.00" Time="16.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="163" Position="510.83,225.43,0.00" Time="16.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="164" Position="510.82,225.04,0.00" Time="16.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="165" Position="510.80,224.65,0.00" Time="16.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="166" Position="510.79,224.26,0.00" Time="16.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="167" Position="510.78,223.87,0.00" Time="16.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="168" Position="510.76,223.48,0.00" Time="16.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="169" Position="510.75,223.09,0.00" Time="16.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="170" Position="510.74,222.70,0.00" Time="17.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="171" Position="510.72,222.31,0.00" Time="17.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="172" Position="510.71,221.92,0.00" Time="17.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="173" Position="510.70,221.53,0.00" Time="17.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="174" Position="510.68,221.14,0.00" Time="17.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="175" Position="510.67,220.75,0.00" Time="17.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="176" Position="510.66,220.36,0.00" Time="17.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="177" Position="510.64,219.97,0.00" Time="17.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="178" Position="510.63,219.58,0.00" Time="17.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="179" Position="510.62,219.19,0.00" Time="17.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="180" Position="510.60,218.80,0.00" Time="18.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="181" Position="510.59,218.41,0.00" Time="18.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="182" Position="510.58,218.02,0.00" Time="18.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="183" Position="510.57,217.63,0.00" Time="18.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="184" Position="510.55,217.24,0.00" Time="18.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="185" Position="510.54,216.85,0.00" Time="18.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="186" Position="510.53,216.46,0.00" Time="18.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="187" Position="510.51,216.07,0.00" Time="18.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="188" Position="510.50,215.68,0.00" Time="18.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="189" Position="510.49,215.29,0.00" Time="18.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="190" Position="510.47,214.90,0.00" Time="19.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="191" Position="510.46,214.51,0.00" Time="19.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="192" Position="510.45,214.12,0.00" Time="19.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="193" Position="510.43,213.73,0.00" Time="19.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="194" Position="510.42,213.34,0.00" Time="19.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="195" Position="510.41,212.95,0.00" Time="19.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="196" Position="510.39,212.56,0.00" Time="19.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="197" Position="510.38,212.17,0.00" Time="19.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="198" Position="510.37,211.78,0.00" Time="19.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="199" Position="510.35,211.39,0.00" Time="19.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="200" Position="510.34,211.00,0.00" Time="20.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="201" Position="510.33,210.61,0.00" Time="20.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="202" Position="510.31,210.22,0.00" Time="20.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="203" Position="510.30,209.83,0.00" Time="20.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="204" Position="510.29,209.44,0.00" Time="20.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="205" Position="510.27,209.05,0.00" Time="20.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="206" Position="510.26,208.66,0.00" Time="20.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="207" Position="510.25,208.27,0.00" Time="20.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="208" Position="510.23,207.88,0.00" Time="20.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="209" Position="510.22,207.49,0.00" Time="20.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="210" Position="510.21,207.10,0.00" Time="21.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="211" Position="510.19,206.71,0.00" Time="21.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="212" Position="510.18,206.32,0.00" Time="21.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="213" Position="510.17,205.93,0.00" Time="21.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="214" Position="510.15,205.54,0.00" Time="21.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="215" Position="510.14,205.15,0.00" Time="21.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="216" Position="510.13,204.76,0.00" Time="21.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="217" Position="510.11,204.37,0.00" Time="21.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="218" Position="510.10,203.98,0.00" Time="21.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="219" Position="510.09,203.59,0.00" Time="21.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="220" Position="510.07,203.20,0.00" Time="22.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="221" Position="510.06,202.81,0.00" Time="22.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="222" Position="510.05,202.42,0.00" Time="22.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="223" Position="510.03,202.03,0.00" Time="22.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="224" Position="510.02,201.64,0.00" Time="22.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="225" Position="510.01,201.25,0.00" Time="22.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="226" Position="509.99,200.86,0.00" Time="22.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="227" Position="509.98,200.47,0.00" Time="22.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="228" Position="509.97,200.08,0.00" Time="22.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="229" Position="509.95,199.69,0.00" Time="22.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="230" Position="509.94,199.30,0.00" Time="23.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="231" Position="509.93,198.91,0.00" Time="23.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="232" Position="509.91,198.52,0.00" Time="23.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="233" Position="509.90,198.13,0.00" Time="23.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="234" Position="509.89,197.74,0.00" Time="23.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="235" Position="509.87,197.35,0.00" Time="23.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="236" Position="509.86,196.96,0.00" Time="23.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="237" Position="509.85,196.57,0.00" Time="23.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="238" Position="509.83,196.18,0.00" Time="23.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="239" Position="509.82,195.79,0.00" Time="23.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="240" Position="509.81,195.40,0.00" Time="24.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="241" Position="509.79,195.01,0.00" Time="24.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="242" Position="509.78,194.62,0.00" Time="24.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="243" Position="509.77,194.23,0.00" Time="24.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="244" Position="509.75,193.84,0.00" Time="24.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="245" Position="509.74,193.45,0.00" Time="24.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="246" Position="509.73,193.06,0.00" Time="24.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="247" Position="509.71,192.67,0.00" Time="24.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="248" Position="509.70,192.28,0.00" Time="24.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="249" Position="509.69,191.89,0.00" Time="24.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="250" Position="509.67,191.50,0.00" Time="25.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="251" Position="509.66,191.11,0.00" Time="25.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="252" Position="509.65,190.72,0.00" Time="25.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="253" Position="509.63,190.33,0.00" Time="25.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="254" Position="509.62,189.94,0.00" Time="25.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="255" Position="509.61,189.55,0.00" Time="25.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="256" Position="509.59,189.16,0.00" Time="25.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="257" Position="509.58,188.77,0.00" Time="25.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="258" Position="509.57,188.38,0.00" Time="25.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="259" Position="509.55,187.99,0.00" Time="25.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="260" Position="509.54,187.60,0.00" Time="26.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="261" Position="509.53,187.21,0.00" Time="26.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="262" Position="509.51,186.82,0.00" Time="26.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="263" Position="509.50,186.43,0.00" Time="26.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="264" Position="509.49,186.04,0.00" Time="26.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="265" Position="509.47,185.65,0.00" Time="26.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="266" Position="509.46,185.26,0.00" Time="26.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="267" Position="509.45,184.87,0.00" Time="26.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="268" Position="509.43,184.48,0.00" Time="26.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="269" Position="509.42,184.09,0.00" Time="26.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="270" Position="509.41,183.70,0.00" Time="27.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="271" Position="509.39,183.31,0.00" Time="27.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="272" Position="509.38,182.92,0.00" Time="27.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="273" Position="509.37,182.53,0.00" Time="27.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="274" Position="509.35,182.14,0.00" Time="27.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="275" Position="509.34,181.75,0.00" Time="27.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="276" Position="509.33,181.36,0.00" Time="27.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="277" Position="509.31,180.97,0.00" Time="27.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="278" Position="509.30,180.58,0.00" Time="27.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="279" Position="509.29,180.19,0.00" Time="27.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="280" Position="509.27,179.80,0.00" Time="28.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="281" Position="509.26,179.41,0.00" Time="28.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="282" Position="509.25,179.02,0.00" Time="28.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="283" Position="509.23,178.63,0.00" Time="28.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="284" Position="509.22,178.24,0.00" Time="28.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="285" Position="509.21,177.85,0.00" Time="28.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="286" Position="509.19,177.46,0.00" Time="28.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="287" Position="509.18,177.07,0.00" Time="28.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="288" Position="509.17,176.68,0.00" Time="28.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="289" Position="509.15,176.29,0.00" Time="28.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="290" Position="509.14,175.90,0.00" Time="29.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="291" Position="509.13,175.51,0.00" Time="29.100000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="292" Position="509.11,175.12,0.00" Time="29.200001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="293" Position="509.10,174.73,0.00" Time="29.300001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+            <PointDataList Index="294" Position="509.09,174.34,0.00" Time="29.400000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_001" />
+            <PointDataList Index="295" Position="509.07,173.95,0.00" Time="29.500000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_002" />
+            <PointDataList Index="296" Position="509.06,173.56,0.00" Time="29.600000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_003" />
+            <PointDataList Index="297" Position="509.05,173.17,0.00" Time="29.700001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_004" />
+            <PointDataList Index="298" Position="509.03,172.78,0.00" Time="29.800001" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_005" />
+            <PointDataList Index="299" Position="509.02,172.39,0.00" Time="29.900000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_006" />
+            <PointDataList Index="300" Position="509.00,172.00,0.00" Time="30.000000" Size="168.96,18.70" Scale="0.66,0.17" PIName="Heart_Nami" ImageName="Nami_007" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Heart_Empty" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="460.00,200.00,0.00" Time="0.000000" Size="214.00,198.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Heart_Empty" />
+            <PointDataList Index="1" Position="460.00,200.00,0.00" Time="30.000000" Size="214.00,198.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Heart_Empty" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Heart_Full" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="459.00,193.00,0.00" Time="0.000000" Size="200.00,168.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="Heart_Full" />
+            <PointDataList Index="1" Position="459.00,193.00,0.00" Time="28.700001" Size="200.00,168.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="mmshake" ImageName="Heart_Full" />
+            <PointDataList Index="2" Position="459.00,193.00,0.00" Time="29.000000" Size="200.00,168.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Heart_Full" />
+            <PointDataList Index="3" Position="459.00,193.00,0.00" Time="30.000000" Size="200.00,168.00" Scale="1.00,1.00" PIName="mmshake" ImageName="Heart_Full" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

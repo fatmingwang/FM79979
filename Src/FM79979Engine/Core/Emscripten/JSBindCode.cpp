@@ -40,6 +40,22 @@
 //}
 
 
+EM_JS
+(
+	bool, WASM_Is_IOS, (),
+	{
+	return[
+		'iPad Simulator',
+			'iPhone Simulator',
+			'iPod Simulator',
+			'iPad',
+			'iPhone',
+			'iPod'
+	].includes(navigator.platform)
+			// iPad on iOS 13 detection
+			|| (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+	}
+);
 
 
 EM_JS
@@ -68,17 +84,20 @@ EM_JS
 (
 	void, WASM_Fullscreen, (),
 	{
-		//return window.innerWidth;
-		if (!document.fullscreenElement) 
+		if (!WASM_Is_IOS())
 		{
-			console.log("WASM_Fullscreen called\n");
-			document.documentElement.requestFullscreen();
-		}
-		else
-		{
-			if (document.exitFullscreen)
+			//return window.innerWidth;
+			if (!document.fullscreenElement)
 			{
-				document.exitFullscreen();
+				console.log("WASM_Fullscreen called\n");
+				document.documentElement.requestFullscreen();
+			}
+			else
+			{
+				if (document.exitFullscreen)
+				{
+					document.exitFullscreen();
+				}
 			}
 		}
 	}

@@ -25,9 +25,6 @@
 #include "BluffingDiceMultiPlayerGame.h"
 #include "TitlePhase.h"
 #include "FBFunction.h"
-#ifdef WASM
-#include "../BluffingGirlWASM/JSBindCode.h"
-#endif
 namespace FATMING_CORE
 {
 	extern LoadingProgress	g_pLoadingProgressCallBack;
@@ -250,20 +247,20 @@ cMPDI*	GetMPDI(const char*e_strFileName,int e_iIndex)
 #endif
 void	cBluffingGirlApp::Render()
 {
-#ifdef WASM
-	JSViewportUpdate();
-	auto l_iViewportWidth = GetViewportWidth();
-	auto l_iViewportHeight = GetViewportHeight();
-	//auto l_iWidth = GetBrowserWidth();
-	//auto l_iHeight = GetBrowserHeight();
-	cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(l_iViewportWidth, l_iViewportHeight,
-		(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-#else
-	//glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
-	glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
-	//glViewport(0,0,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
-	//glScissor(0,0,(int)m_svViewPortSize.x,(int)m_svViewPortSize.y);
-#endif
+//#ifdef WASM
+//	EMSDK::EMSDK_JSViewportUpdate();
+//	auto l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
+//	auto l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
+//	//auto l_iWidth = GetBrowserWidth();
+//	//auto l_iHeight = GetBrowserHeight();
+//	cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(l_iViewportWidth, l_iViewportHeight,
+//		(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+//#else
+//	//glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+//	glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+//	//glViewport(0,0,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
+//	//glScissor(0,0,(int)m_svViewPortSize.x,(int)m_svViewPortSize.y);
+//#endif
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 	glClearColor( 0,0.0,0.0,1 );
 	glClearDepth(1.0f);	
@@ -341,7 +338,7 @@ void	cBluffingGirlApp::MouseDown(int e_iPosX,int e_iPosY)
 	g_RealMousePos.y = e_iPosY;
     cGameApp::MouseDown(e_iPosX,e_iPosY);
 #ifdef WASM
-	m_sMousePosition.y += get_CanvasPosY();
+	m_sMousePosition.y += EMSDK::EMSDK_GetCanvasPosY();
 #endif
 	if (m_pPhaseManager)
 	{
@@ -355,7 +352,7 @@ void	cBluffingGirlApp::MouseMove(int e_iPosX,int e_iPosY)
 	g_RealMousePos.y = e_iPosY;
     cGameApp::MouseMove(e_iPosX,e_iPosY);
 #ifdef WASM
-	m_sMousePosition.y += get_CanvasPosY();
+	m_sMousePosition.y += EMSDK::EMSDK_GetCanvasPosY();
 #endif
 	if (m_pPhaseManager)
 	{
@@ -369,10 +366,15 @@ void	cBluffingGirlApp::MouseUp(int e_iPosX,int e_iPosY)
 	g_RealMousePos.y = e_iPosY;
     cGameApp::MouseUp(e_iPosX,e_iPosY);
 #ifdef WASM
-	m_sMousePosition.y += get_CanvasPosY();
-	if (e_iPosX < 100 && e_iPosY < 100)
+	m_sMousePosition.y += EMSDK::EMSDK_GetCanvasPosY();
+	//if (e_iPosX < 100 && e_iPosY < 100)
 	{
-		JSDoFullscreen();
+		static bool l_bDoOnce = true;
+		if (l_bDoOnce)
+		{
+			l_bDoOnce = false;
+			EMSDK::EMSDK_JSDoFullscreen();
+		}
 	}
 #endif
 	if (m_pPhaseManager)
@@ -397,7 +399,7 @@ void	cBluffingGirlApp::KeyUp(char e_char)
 //	FMLOG("key up%d",e_char);
 	if (e_char == 13)
 	{
-		JSDoFullscreen();
+		EMSDK::EMSDK_JSDoFullscreen();
 	}
 #endif
 	//if( g_pFBFunction )

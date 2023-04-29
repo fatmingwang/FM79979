@@ -240,7 +240,14 @@ namespace FATMING_CORE
 		m_iChannel = 3;
 		m_iPixelFormat = GL_RGB;
 //		unsigned char l_bAlpha = false;
-		this->m_uiImageIndex = NvCreateTextureFromDDSEx(e_strFileName,false,false,&this->m_iWidth,&this->m_iHeight,&l_bAlpha,NULL);
+		std::string l_strFileName = e_strFileName;
+		if (l_strFileName[l_strFileName.length() - 1] != 's')
+		{
+			l_strFileName[l_strFileName.length() - 1] = 's';
+			l_strFileName[l_strFileName.length() - 2] = 'd';
+			l_strFileName[l_strFileName.length() - 3] = 'd';
+		}
+		this->m_uiImageIndex = NvCreateTextureFromDDSEx(l_strFileName.c_str(), false, false, &this->m_iWidth, &this->m_iHeight, &l_bAlpha, NULL);
 		if( l_bAlpha > 0 )
 		{
 			this->m_iChannel = 4;
@@ -417,6 +424,11 @@ namespace FATMING_CORE
 		else
 		if( l_strExtensionName.compare("png") == 0  )
 		{
+#ifdef WASM
+			//for lazy test.
+			if (LoadDDS(m_pstrFullFileName->c_str()))
+				return true;
+#endif
 			unsigned l_uiWidth = 0;
 			unsigned l_uiHeight = 0;
 			unsigned error = lodepng::decode(image, l_uiWidth, l_uiHeight, m_pstrFullFileName->c_str());

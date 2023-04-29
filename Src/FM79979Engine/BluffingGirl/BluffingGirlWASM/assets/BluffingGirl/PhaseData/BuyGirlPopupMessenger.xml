@@ -1,0 +1,9 @@
+<Root>
+	<cPhasePopUpMessager Name="BuyGirl" RenderLastPhase="1" UpdateLastPhase="1">
+		<cButtonDialog Description="Test">
+			<cMPDI cMPDIList="BluffingGirl/Image/Mm_Select.mpdi" cMPDI="Go_Shop_Mm"/>
+		</cButtonDialog>
+		<Messenger ButtonName="Yes" ExternalFunction="BuyGirl" />
+		<Messenger ButtonName="No" />
+	</cPhasePopUpMessager>
+</Root>

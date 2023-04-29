@@ -72,8 +72,14 @@ Doc\WASM VS tools
 if compile failed make sure /MP and setting(commandline) is suite for emscripten
 
 Emscripten game demo
-https://1drv.ms/f/s!AlnnK63qVSovg8BJYiTS-LGA9R9bfA?e=GPGNsh
+[DownloadLink](https://1drv.ms/f/s!AlnnK63qVSovg8BJYiTS-LGA9R9bfA?e=GPGNsh)
+
+[BluffingGirl](http://152.67.205.106/BluffingGirl/Index.html)
+
 ![Editor](../master/Doc/BluffingGirl/gameplay.jpg?raw=true)
+
+[FishGame](http://152.67.205.106/FishGame/Index.html)
+
 ![Editor](../master/Doc/BluffingGirl/FishGame.JPG?raw=true)
 
 

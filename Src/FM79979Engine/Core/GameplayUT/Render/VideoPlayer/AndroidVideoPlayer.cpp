@@ -17,12 +17,12 @@ char*g_strCommonVideoFS = "													\
 						  gl_FragColor = l_vColor.zyxw;\
 }";
 
-
+#ifdef USE_OPEN_CV
 #include "opencv2/core/core.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
 using namespace cv;
-
+#endif
 //opencv_calib3d
 //opencv_contrib
 //opencv_core
@@ -173,7 +173,9 @@ cVideoPlayer::cVideoPlayer()
 	m_fTotalPlayTime = 56.f;
 	m_fCurrentPlayTime = 0.f;
 #if !defined(ANDROID) && !defined(WASM)
+#ifdef USE_OPEN_CV
 	m_pCvCapture = new cv::VideoCapture();
+#endif
 #endif
 	m_fRestTimeToNextFrame = 0.f;
 	m_fFPS = 1/24.f;
@@ -190,7 +192,9 @@ cVideoPlayer::cVideoPlayer()
 cVideoPlayer::~cVideoPlayer()
 {
 #ifdef WIN32
+#ifdef USE_OPEN_CV
 	SAFE_DELETE(m_pCvCapture);
+#endif
 #endif
 	SAFE_DELETE(m_pVideoImage);
 }
@@ -208,6 +212,7 @@ int		cVideoPlayer::GetCurrentFrame(float e_fTime)
 bool	cVideoPlayer::OpenFile(const char*e_strFileName)
 {
 #ifdef WIN32
+#ifdef USE_OPEN_CV
 	//http://www.ymer.org/amir/2007/06/04/getting-the-number-of-frames-of-an-avi-video-file-for-opencv/
 	//m_pCvCapture->get(CV_CAP_PROP_FRAME_COUNT);
 	try
@@ -228,12 +233,14 @@ bool	cVideoPlayer::OpenFile(const char*e_strFileName)
 		return true;
 	}
 #endif
+#endif
 	return false;
 }
 
 void    cVideoPlayer::Update(float e_fElpaseTime)
 {
 #ifdef WIN32
+#ifdef USE_OPEN_CV
 	m_fRestTimeToNextFrame -= e_fElpaseTime;
 	if( m_fRestTimeToNextFrame < 0 )
 	{
@@ -250,6 +257,7 @@ void    cVideoPlayer::Update(float e_fElpaseTime)
 				l_Frame.data, false);
 		}
 	}
+#endif
 #endif
 	return;
 }
@@ -287,6 +295,7 @@ bool	cVideoConvert::SaveFrameToFile(int e_iFrame,void*e_pIplImage,NvFile*e_pFile
 #ifdef WIN32
 	if( !e_pIplImage || !e_pFile )
 		return false;
+#ifdef USE_OPEN_CV
 	cv::Mat*l_pImageFrame = nullptr;
 	cv::Mat*l_pIplImage = (cv::Mat*)e_pIplImage;
 	cv::Mat l_ScaleImage;
@@ -321,6 +330,7 @@ bool	cVideoConvert::SaveFrameToFile(int e_iFrame,void*e_pIplImage,NvFile*e_pFile
 		return true;
 	}
 #endif
+#endif
 	return false;
 }
 
@@ -337,6 +347,7 @@ bool	cVideoConvert::FirstConvertToFile(NvFile*e_pFile)
 	SAFE_DELETE(m_puiFrameSizeVector);
 	//
 #ifdef WIN32
+#ifdef USE_OPEN_CV
 	cv::Mat l_Frame;
 	if (m_pCvCapture->read(l_Frame))
 	{
@@ -376,6 +387,7 @@ bool	cVideoConvert::FirstConvertToFile(NvFile*e_pFile)
 		return SaveFrameToFile(0,&l_Frame,e_pFile);
 	}
 #endif
+#endif
 	return false;
 }
 
@@ -383,6 +395,7 @@ bool	cVideoConvert::FirstConvertToFile(NvFile*e_pFile)
 bool	cVideoConvert::ConvertToFile(int e_iFrame,NvFile*e_pFile)
 {
 #ifdef WIN32
+#ifdef USE_OPEN_CV
 	cv::Mat l_Frame;
 	if (!m_pCvCapture->read(l_Frame))
 		return false;
@@ -391,6 +404,7 @@ bool	cVideoConvert::ConvertToFile(int e_iFrame,NvFile*e_pFile)
 	{
 		return true;
 	}
+#endif
 #endif
 	return false;
 	//std::vector<char>	l_Data;
