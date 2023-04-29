@@ -97,7 +97,7 @@
     <Link>
       <PreloadFile>./assets</PreloadFile>
       <AdditionalOptions>-lidbfs.js -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1 -s ASSERTIONS=2 --profiling -s DEMANGLE_SUPPORT=1 -g4</AdditionalOptions>
-      <AdditionalDependencies>-lpthread;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <JsLibrary>%(JsLibrary)</JsLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -110,8 +110,8 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>-lidbfs.js --bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0  -s FETCH=1 -s FULL_ES2=1 </AdditionalOptions>
-      <AdditionalDependencies>-lpthread;-lopenal;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>-lidbfs.js --bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0  -s FETCH=1 -s FULL_ES3=1 </AdditionalOptions>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>
@@ -193,8 +193,6 @@
     <ClInclude Include="..\EngineTest\UnpackExpansionPack.h" />
     <ClInclude Include="..\EngineTest\Unzip.h" />
     <ClInclude Include="..\EngineTest\WinPrizePhase.h" />
-    <ClInclude Include="JSBindCode.h" />
-    <ClCompile Include="JSBindCode.cpp" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

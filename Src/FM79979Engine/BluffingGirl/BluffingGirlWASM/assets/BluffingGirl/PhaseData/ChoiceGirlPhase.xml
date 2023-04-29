@@ -1,0 +1,48 @@
+<ChoiceGirlPhase>
+	<GirlScroller>
+		<cScroller ScrollRect="0,300,720,1080" ItemGap="0" Direction="Horizontal">
+			<Items>
+				<cPuzzleImageUnit PI="BluffingGirl/Image/Mm_Photo_001.pi" PIUnit="Mm_Photo_001" Name="Girl1" OriginalSize="380,690" OffsetPos="0,0" Width="380" Height="690" />
+				<cPuzzleImageUnit PI="BluffingGirl/Image/Mm_Photo_001.pi" PIUnit="Mm_Photo_002" Name="Girl2" OriginalSize="380,690" OffsetPos="0,0" Width="380" Height="690"/>
+				<cPuzzleImageUnit PI="BluffingGirl/Image/Mm_Photo_001.pi" PIUnit="Mm_Photo_003" Name="Girl3" OriginalSize="380,690" OffsetPos="0,0" Width="380" Height="690"/>
+				<cPuzzleImageUnit PI="BluffingGirl/Image/Mm_Photo_001.pi" PIUnit="Mm_Photo_004" Name="Girl4" OriginalSize="380,690" OffsetPos="0,0" Width="380" Height="690"/>
+				<cPuzzleImageUnit PI="BluffingGirl/Image/Mm_Photo_001.pi" PIUnit="Mm_Photo_005" Name="Girl5" OriginalSize="380,690" OffsetPos="0,0" Width="380" Height="690"/>
+			</Items>
+		</cScroller>
+	</GirlScroller>
+	<UnlockGirlHintImage>
+		<cPuzzleImageUnit PI="BluffingGirl/Image/Mm_Photo_001.pi" PIUnit="Lock_Heart" Name="LockHeart" OffsetPos="161,261"/>
+	</UnlockGirlHintImage>
+	<Button>
+		<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Fb_Button" Name="FB" />
+	</Button>
+	<Button>
+		<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Shop_Button" Name="Store" />
+	</Button>
+	<Button>
+		<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="System_Button" Name="Setup" />
+	</Button>
+	<Button>
+		<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Mmshake_Button" Name="HeartRecoverSelectGirl" />
+	</Button>
+	<Button>
+		<cImageButton Name="Title" cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="Return_Button"/>
+	</Button>
+	<BGAnimation>
+		<cMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Bg_Animation_Gameplay" />
+	</BGAnimation>
+	<FileCheck>
+		<Girl1 CheckFileName="Video/Girl1Stage5Strip.fmv" DownloadURL="http://path.whgame.com.tw/Girl1.zip" Title="Girl1" Description="VideoFile" SaveName="Girl1.zip" Password="" DeleteDownloadFile="1" ExtractDirectory="Video/"/>
+		<Girl2 CheckFileName="Video/Girl2Stage5Strip.fmv" DownloadURL="http://path.whgame.com.tw/Girl2.zip" Title="Girl2" Description="VideoFile" SaveName="Girl2.zip" Password="" DeleteDownloadFile="1" ExtractDirectory="Video/"/>
+		<Girl3 CheckFileName="Video/Girl3Stage5Strip.fmv" DownloadURL="http://path.whgame.com.tw/Girl3.zip" Title="Girl3" Description="VideoFile" SaveName="Girl3.zip" Password="" DeleteDownloadFile="1" ExtractDirectory="Video/"/>
+		<Girl4 CheckFileName="Video/Girl4Stage5Strip.fmv" DownloadURL="http://path.whgame.com.tw/Girl4.zip" Title="Girl4" Description="VideoFile" SaveName="Girl4.zip" Password="" DeleteDownloadFile="1" ExtractDirectory="Video/"/>
+		<Girl5 CheckFileName="Video/Girl5Stage5Strip.fmv" DownloadURL="http://path.whgame.com.tw/Girl5.zip" Title="Girl5" Description="VideoFile" SaveName="Girl5.zip" Password="" DeleteDownloadFile="1" ExtractDirectory="Video/"/>
+	</FileCheck>
+	<cPhasePopUpMessager Name="DownloadData" RenderLastPhase="1" UpdateLastPhase="1">
+		<cButtonDialog YesButton="Main_Message_Board_Close" NoButton="Download" StripButtonForBG="1">
+			<cMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Movie_Download"/>
+		</cButtonDialog>
+		<Messenger ButtonName="Main_Message_Board_Close" />
+		<Messenger ButtonName="Download" />
+	</cPhasePopUpMessager>
+</ChoiceGirlPhase>

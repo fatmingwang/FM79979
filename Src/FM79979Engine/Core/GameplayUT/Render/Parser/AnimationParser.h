@@ -77,7 +77,7 @@ namespace FATMING_CORE
 		//
 		void								DeleteSoundObject(NamedTypedObject*e_pNamedTypedObject);
 		//
-		virtual	bool						MyParse(TiXmlElement* e_pRoot);
+		virtual	bool						MyParse(TiXmlElement* e_pRoot)override;
 	public:
 		DEFINE_TYPE_INFO()
 		DEFINE_FILE_EXTENSION_NAME_INFO()

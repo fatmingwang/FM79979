@@ -1,0 +1,21 @@
+<Root>
+	<ConnectTypeData>
+		<cButtonDialog YesButton="Open_Game" NoButton="Join_Game" StripButtonForBG="1">
+			<cMPDI cMPDIList="BluffingGirl/Image/Title.mpdi" cMPDI="Open_Game"/>
+		</cButtonDialog>
+	</ConnectTypeData>
+	<ServerData>
+		<cButtonDialog StripButtonForBG="1">
+			<cMPDI cMPDIList="BluffingGirl/Image/Title.mpdi" cMPDI="Join_Players"/>
+			<cImageButton Name="2" cMPDIList="BluffingGirl/Image/Title.mpdi" cMPDI="Join_Players" cSubMPDI="Players_2" />
+			<cImageButton Name="3" cMPDIList="BluffingGirl/Image/Title.mpdi" cMPDI="Join_Players" cSubMPDI="Players_3" />
+			<cImageButton Name="4" cMPDIList="BluffingGirl/Image/Title.mpdi" cMPDI="Join_Players" cSubMPDI="Players_4" />
+		</cButtonDialog>
+	</ServerData>
+	<Button>
+		<cImageButton Name="NetWorkConnectPhase" cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="Return_Button"/>
+	</Button>
+	<UI>
+		<cMPDI cMPDIList="BluffingGirl/Image/Title.mpdi" cMPDI="Wait_Connect"/>
+	</UI>
+</Root>

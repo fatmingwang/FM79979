@@ -1,0 +1,28 @@
+<cChoiceGirlStagePhase>
+	<ButtonList>
+		<cImageButton Name="Game" cMPDIList="BluffingGirl/Image/Stage_Select.mpdi" cMPDI="Show_Stage" cSubMPDI="Play_Button" />
+		<cImageButton Name="Video" cMPDIList="BluffingGirl/Image/Stage_Select.mpdi" cMPDI="Show_Stage" cSubMPDI="Camera_Button"/>
+	</ButtonList>
+	<Button>
+		<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Fb_Button" Name="FB" />
+	</Button>
+	<Button>
+		<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Shop_Button" Name="Store" />
+	</Button>
+	<Button>
+		<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="System_Button" Name="Setup" />
+	</Button>
+	<Button>
+		<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Mmshake_Button" Name="HeartRecoverSelectGirl" />
+	</Button>
+	<BG>
+		<cMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Bg_Animation" />
+	</BG>
+	<cPhasePopUpMessager Name="IntoGame" RenderLastPhase="1" UpdateLastPhase="1">
+		<cButtonDialog YesButton="MaruMaru" NoButton="BatsuBatsu" StripButtonForBG="1">
+			<cMPDI cMPDIList="BluffingGirl/Image/Stage_Select.mpdi" cMPDI="Make_Sure_Toplay"/>
+		</cButtonDialog>
+		<Messenger ButtonName="MaruMaru" />
+		<Messenger ButtonName="BatsuBatsu" />
+	</cPhasePopUpMessager>
+</cChoiceGirlStagePhase>

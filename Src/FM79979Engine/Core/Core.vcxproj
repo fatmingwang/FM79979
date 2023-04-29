@@ -333,7 +333,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'">
     <ClCompile>
-      <PreprocessorDefinitions>WASM;DEBUG;NO_BULLET_;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_JS_WEBSOCKET;WASM;DEBUG;NO_BULLET_;</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <ExceptionHandling>true</ExceptionHandling>
       <CLanguageStandard>

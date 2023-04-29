@@ -1,0 +1,23 @@
+<!-- Author:scrr,Time:2014/9/11 ¤U¤È 02:03:07 -->
+<PuzzleImage OriginalNameSort="Alert_Board,Alert_Board_Buy,Alert_Board_No,Buy_A_Girl,Buy_A_Glass,Talk_Already,Gain_Heart,BatsuBatsu,MaruMaru,CanDoShake_000,CanDoShake_001,CanDoShake_002,CanDoShake_003,CanDoShake_004,CanDoShake_005,CanDoShake_006,CanDoShake_007,CanDoShake_008,CanDoShake_009,Pass_Necessary" ImageName="Alert_Banner.png" Count="20" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Alert_Board" UV="0.0009765625,0.009765625,0.25,0.4921875" OffsetPos="1,5" Size="255,247" OriginalSize="256,256" ShowPosInPI="1,5" />
+    <PuzzleUnit Name="Alert_Board_Buy" UV="0.8828125,0.890625,0.9541016,0.9628906" OffsetPos="4,2" Size="73,37" OriginalSize="79,41" ShowPosInPI="904,456" />
+    <PuzzleUnit Name="Alert_Board_No" UV="0.8847656,0.8085938,0.9228516,0.8808594" OffsetPos="1,1" Size="39,37" OriginalSize="40,38" ShowPosInPI="906,414" />
+    <PuzzleUnit Name="BatsuBatsu" UV="0.1083984,0.7421875,0.1923828,0.9121094" OffsetPos="19,20" Size="86,87" OriginalSize="128,128" ShowPosInPI="111,380" />
+    <PuzzleUnit Name="Buy_A_Girl" UV="0.2529297,0.005859375,0.5019531,0.4882813" OffsetPos="1,5" Size="255,247" OriginalSize="256,256" ShowPosInPI="259,3" />
+    <PuzzleUnit Name="Buy_A_Glass" UV="0.5048828,0.0078125,0.7539063,0.4902344" OffsetPos="1,5" Size="255,247" OriginalSize="256,256" ShowPosInPI="517,4" />
+    <PuzzleUnit Name="CanDoShake_000" UV="0.9482422,0.07617188,0.9755859,0.1425781" OffsetPos="6,11" Size="28,34" OriginalSize="38,50" ShowPosInPI="971,39" />
+    <PuzzleUnit Name="CanDoShake_001" UV="0.9238281,0.078125,0.9375,0.1445313" OffsetPos="11,11" Size="14,34" OriginalSize="38,50" ShowPosInPI="946,40" />
+    <PuzzleUnit Name="CanDoShake_002" UV="0.8896484,0.07617188,0.9189453,0.140625" OffsetPos="5,11" Size="30,33" OriginalSize="38,50" ShowPosInPI="911,39" />
+    <PuzzleUnit Name="CanDoShake_003" UV="0.859375,0.07617188,0.8886719,0.1425781" OffsetPos="5,11" Size="30,34" OriginalSize="38,50" ShowPosInPI="880,39" />
+    <PuzzleUnit Name="CanDoShake_004" UV="0.8271484,0.07421875,0.8583984,0.140625" OffsetPos="4,11" Size="32,34" OriginalSize="38,50" ShowPosInPI="847,38" />
+    <PuzzleUnit Name="CanDoShake_005" UV="0.9453125,0.005859375,0.9746094,0.0703125" OffsetPos="5,12" Size="30,33" OriginalSize="38,50" ShowPosInPI="968,3" />
+    <PuzzleUnit Name="CanDoShake_006" UV="0.9150391,0.005859375,0.9443359,0.07226563" OffsetPos="5,11" Size="30,34" OriginalSize="38,50" ShowPosInPI="937,3" />
+    <PuzzleUnit Name="CanDoShake_007" UV="0.8857422,0.0078125,0.9150391,0.07226563" OffsetPos="5,12" Size="30,33" OriginalSize="38,50" ShowPosInPI="907,4" />
+    <PuzzleUnit Name="CanDoShake_008" UV="0.8564453,0.005859375,0.8857422,0.07226563" OffsetPos="5,11" Size="30,34" OriginalSize="38,50" ShowPosInPI="877,3" />
+    <PuzzleUnit Name="CanDoShake_009" UV="0.8271484,0.005859375,0.8564453,0.07226563" OffsetPos="5,11" Size="30,34" OriginalSize="38,50" ShowPosInPI="847,3" />
+    <PuzzleUnit Name="Gain_Heart" UV="0.2978516,0.4980469,0.8632813,0.9921875" OffsetPos="0,0" Size="579,253" OriginalSize="579,253" ShowPosInPI="305,255" />
+    <PuzzleUnit Name="MaruMaru" UV="0.01367188,0.7363281,0.1044922,0.9179688" OffsetPos="18,18" Size="93,93" OriginalSize="128,128" ShowPosInPI="14,377" />
+    <PuzzleUnit Name="Pass_Necessary" UV="0.7685547,0.171875,0.9892578,0.3613281" OffsetPos="0,0" Size="226,97" OriginalSize="226,97" ShowPosInPI="787,88" />
+    <PuzzleUnit Name="Talk_Already" UV="0.001953125,0.4960938,0.2929688,0.6699219" OffsetPos="0,0" Size="298,89" OriginalSize="298,89" ShowPosInPI="2,254" />
+</PuzzleImage>

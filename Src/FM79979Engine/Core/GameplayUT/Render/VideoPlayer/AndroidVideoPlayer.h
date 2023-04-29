@@ -7,10 +7,12 @@
 	//#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
 	//#pragma comment(lib, "../../..//lib/opencv_core249.lib")
 	//#pragma comment(lib, "../../..//lib/opencv_imgproc249.lib")
+#ifdef USE_OPEN_CV
 	namespace cv
 	{
 		class VideoCapture;
 	}
+#endif
 	//struct IplImage;
 	namespace FATMING_CORE
 	{
@@ -25,7 +27,9 @@
 		//
 		FATMING_CORE::cBaseImage*	m_pVideoImage;
 		//https://stackoverflow.com/questions/8414947/why-cant-i-open-avi-video-in-opencv
+#ifdef USE_OPEN_CV
 		cv::VideoCapture*	m_pCvCapture;
+#endif
 		float		m_fFPS;
 		int			m_iTotalFrame;
 		float		m_fRestTimeToNextFrame;

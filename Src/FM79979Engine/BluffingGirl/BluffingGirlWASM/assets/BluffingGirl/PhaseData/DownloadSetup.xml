@@ -1,0 +1,18 @@
+<Root>
+	<DownloadData Name="Girl1" ConditionfileName="" SrcFile="" SaveFile="">
+</Root>
+
+
+開始執行背景下載
+下載完成後請再次點擊進行遊戲
+
+
+重新下載
+
+
+Key File the file which check all the file is unzipped
+and will delete zip file
+
+1.檢查KeyFile是否存在
+2.檢查zip檔是否存在
+3.背景下載開始

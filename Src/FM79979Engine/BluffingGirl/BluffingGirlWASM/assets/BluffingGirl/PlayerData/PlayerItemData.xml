@@ -1,0 +1,56 @@
+<PlayerData>
+	<UIBar>
+		< cMPDI cMPDIList="Image/Main_Massage.mpdi" cMPDI="Main_Nobutton_Shake" />
+	</UIBar>
+
+	<Item Name="clairvoyant" Maximum="99999" Cosumble="1" RecoverReachedTimeAddItemCount="0" RecoverTime="-1" LessThanToRecovery="0" >
+		<cNumeralImage PI="BluffingGirl/Image/main.pi" Image0="Number_0" Image9="Number_9" Pos="547,121" >
+			<NumeralPos>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Number_1_01" />
+			</NumeralPos>
+		</cNumeralImage>
+	</Item>
+	<Item Name="Heart" Maximum="9999" Cosumble="0" RecoverReachedTimeAddItemCount="1" RecoverTime="10800" LessThanToRecovery="5" >
+		<cNumeralImage PI="BluffingGirl/Image/main.pi" Image0="Number_0" Image9="Number_9" Pos="261,123">
+			<NumeralPos>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="Number_0" />
+			</NumeralPos>
+		</cNumeralImage>
+		<cTimeNumerialImage PI="BluffingGirl/Image/mmshake.pi" Image0="SCountDown_000" Image9="SCountDown_009">
+			<HourPos>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="SCountDown_004" />
+			</HourPos>
+			<MinPos>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="SCountDown_006" />
+			</MinPos>
+			<SecPos>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="SCountDown_010" />
+			</SecPos>
+			<DisableObject>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="Block01" />
+			</DisableObject>
+		</cTimeNumerialImage>
+	</Item>
+
+	<Item Name="ShockTime" Maximum="3" Cosumble="0" RecoverReachedTimeAddItemCount="1" RecoverTime="10800" LessThanToRecovery="3" >
+		<cNumeralImage PI="BluffingGirl/Image/main.pi" Image0="Number_0" Image9="Number_9" Pos="261,123">
+			<NumeralPos>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="CanDoShake_006" />
+			</NumeralPos>
+		</cNumeralImage>
+		<cTimeNumerialImage PI="BluffingGirl/Image/mmshake.pi" Image0="SCountDown_000" Image9="SCountDown_009">
+			<HourPos>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="SCountDown_001" />
+			</HourPos>
+			<MinPos>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="SCountDown_003" />
+			</MinPos>
+			<SecPos>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="SCountDown_008" />
+			</SecPos>
+			<DisableObject>
+				<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="Block02" />
+			</DisableObject>
+		</cTimeNumerialImage>
+	</Item>
+</PlayerData>

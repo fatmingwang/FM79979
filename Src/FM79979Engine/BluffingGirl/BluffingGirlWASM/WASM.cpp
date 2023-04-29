@@ -3,15 +3,12 @@
 #include <SDL/SDL.h>
 #include "../../Core/AllCoreInclude.h"
 #include "BluffingGirlApp.h"
-#include "JSBindCode.h"
+
 //#include "../../Core/Network/SDL_net.h"
 cGameApp*g_pGameApp = 0;
 cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
-//#define TEST_RUN
-cMPDI*g_pMPDITest = nullptr;
-cBasicSound*g_pSound = nullptr;
 
-
+//================================12345
 void handle_key_up(SDL_keysym* keysym)
 {
 	FMLOG("key up%d", (char)keysym->sym);
@@ -93,14 +90,6 @@ void Loop()
 	{
 		g_pGameApp->Run();
 	}
-	if (g_pMPDITest)
-	{
-		g_pMPDITest->Update(0.016f);
-		g_pMPDITest->Render();
-	}
-	if (g_pSound)
-		g_pSound->Update(0.016f);
-#ifndef TEST_RUN
 	if (g_pPreLoadFromInternet)
 	{
 		g_pPreLoadFromInternet->Run();
@@ -115,37 +104,10 @@ void Loop()
 		}
 	}
 	else
-#endif
 	{
 		process_events();
 	}
 	SDL_GL_SwapBuffers();
-}
-
-void FileTest()
-{
-	printf("try to write file\n");
-	const char* l_strFileName = "/offline/666.txt";
-	int l_iNumLength = 0;
-	auto l_strFileContent = UT::GetFileContent(l_strFileName, l_iNumLength);
-	if (l_strFileContent)
-	{
-		printf("has file\n");
-		printf(l_strFileContent);
-		printf("\n");
-	}
-	else
-	{
-		printf("no file\n");
-		if (UT::SaveTxtToFile(l_strFileName, "3939889", 7))
-		{
-			printf("file saved\n");
-		}
-		else
-		{
-			printf("file not saved\n");
-		}
-	}
 }
 
 int main()
@@ -238,13 +200,12 @@ int main()
 	//	< / system.webServer>
 	//	< / configuration>
 	//http://kb.dynamsoft.com/questions/924/Error+"XMLHttpRequest+cannot+load+%2A%2A%2A.+No+%27Access-Control-Allow-Origin%27+header+is+present+on+the+requested+resource."
-	JSInit();
 	FMLog::Init();
 	printf("start\n");
 //#define	CANVANS_WIDTH	1280//*0.7
 //#define	CANVANS_HEIGHT	720//*0.7
-	int CANVANS_WIDTH = GetBrowserWidth();
-	int CANVANS_HEIGHT = GetBrowserHeight();
+	int CANVANS_WIDTH = EMSDK::EMSDK_GetBrowserWidth();
+	int CANVANS_HEIGHT = EMSDK::EMSDK_GetBrowserHeight();
 	FMLOG("BrowserW:%d,BrowserH:%d", CANVANS_WIDTH, CANVANS_HEIGHT);
 	//char cwd[PATH_MAX];
 	//if (getcwd(cwd, sizeof(cwd)) != NULL)
@@ -263,37 +224,29 @@ int main()
 	//https://www.libsdl.org/release/SDL-1.2.15/docs/html/guidevideoopengl.html
 	//http://lazyfoo.net/SDL_tutorials/lesson04/index.php
 	SDL_Surface*l_pSurf_Display = nullptr;
-	FMLog::Log("SDL_SetVideoMode \n", false);
+	FMLOG("SDL_SetVideoMode \n", false);
 	//if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL| SDL_RESIZABLE)) == NULL)
 	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL )) == NULL)
 	{
 		return -1;
 	}
-	FMLog::Log("new cPreLoadFromInternet\n", false);
+	FMLOG("new cPreLoadFromInternet\n", false);
 	g_pGameApp = new cBluffingGirlApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 	//please copy Media/BluffingGirl folder into your server repository
-	g_pPreLoadFromInternet = new cPreLoadFromInternet();
-	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("PreloadFile.xml");
+	//g_pPreLoadFromInternet = new cPreLoadFromInternet();
+	//bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("PreloadFile.xml");
 	if (l_pSurf_Display)
 	{
+		if (!g_pPreLoadFromInternet)
+		{
+			g_pGameApp->Init();
+		}
 		FMLog::Log("SDL surface exists start create our game\n", false);
 		//cGameApp::m_sbDebugFunctionWorking = true;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 720;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1280;
 		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(CANVANS_HEIGHT, CANVANS_WIDTH, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		FMLog::Log("start to emscripten_set_main_loop Mar 16 2022\n", false);
-#ifdef TEST_RUN
-		cMPDIList*l_pMPDILIst = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Main_Massage.mpdi");
-		if(l_pMPDILIst)
-		{ 
-			g_pMPDITest = l_pMPDILIst->GetObject(L"Main_Bg_Animation");
-		}
-		g_pSound = new cOpanalOgg(nullptr, "BluffingGirl/Sound/MainBG.ogg", true);
-		if (g_pSound)
-		{
-			g_pSound->Play(true);
-		}
-#endif
 		emscripten_set_main_loop(&Loop, 0, 1);
 
 	}
