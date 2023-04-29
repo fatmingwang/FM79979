@@ -1,5 +1,5 @@
 <cGirlIntroducingPhase>
 	<LeaveButton HideTime="2">
-		<cImageButton Name="ChancelButton" cMPDIList="BluffingGirl/Image/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="Return_Button"/>
+		<cImageButton Name="ChancelButton" cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Button_Only" cSubMPDI="Return_Button"/>
 	</LeaveButton>
 </cGirlIntroducingPhase>
