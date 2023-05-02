@@ -135,11 +135,15 @@ namespace GLRender
 			eSrcBlendingMode = e_eSrcBlendingMode;
 			eDestBlendingMode = e_eDestBlendingMode;
 		}
-		GLint iColorParameter[4];
+		//GLint iColorParameter[4];
+		GLenum	ePreviousSrcBlendingMode = GL_SRC_ALPHA;
+		GLenum	ePreviousDestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
+
 		GLenum	eSrcBlendingMode = GL_SRC_ALPHA;
 		GLenum	eDestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
-		static	GLenum	eLastSrcBlendingMode;
-		static	GLenum	eLastDestBlendingMode;
+
+		static	GLenum	seLastSrcBlendingMode;
+		static	GLenum	seLastDestBlendingMode;
 		bool	bDoRestore;
 		void	GetStatus();
 		void	Render();

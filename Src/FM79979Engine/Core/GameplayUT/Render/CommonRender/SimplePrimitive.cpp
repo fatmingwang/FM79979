@@ -77,22 +77,22 @@ void	myVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean norm
 #endif
 void	myGLBlendFunc(GLenum e_Src, GLenum e_Dest)
 {
-	if (sBlendfunction::eLastSrcBlendingMode != e_Src ||
-		sBlendfunction::eLastDestBlendingMode != e_Dest)
+	if (sBlendfunction::seLastSrcBlendingMode != e_Src ||
+		sBlendfunction::seLastDestBlendingMode != e_Dest)
 	{
 		glBlendFunc(e_Src, e_Dest);
 #ifdef DEBUG
 		CHECK_GL_ERROR("myGLBlendFunc");
 #endif
-		sBlendfunction::eLastSrcBlendingMode = e_Src;
-		sBlendfunction::eLastDestBlendingMode = e_Dest;
+		sBlendfunction::seLastSrcBlendingMode = e_Src;
+		sBlendfunction::seLastDestBlendingMode = e_Dest;
 	}
 }
 
 bool	IsLastBlendingModeSame(GLenum e_Src, GLenum e_Dest)
 {
-	if (sBlendfunction::eLastSrcBlendingMode != e_Src ||
-		sBlendfunction::eLastDestBlendingMode != e_Dest)
+	if (sBlendfunction::seLastSrcBlendingMode != e_Src ||
+		sBlendfunction::seLastDestBlendingMode != e_Dest)
 	{
 		return false;
 	}
@@ -133,8 +133,8 @@ void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *i
 #endif
 namespace GLRender
 {
-	GLenum	sBlendfunction::eLastSrcBlendingMode = -1;
-	GLenum	sBlendfunction::eLastDestBlendingMode = -1;
+	GLenum	sBlendfunction::seLastSrcBlendingMode = -1;
+	GLenum	sBlendfunction::seLastDestBlendingMode = -1;
 	//========comment start======================
 	//set glOrtho as glOrtho(vPort[0], vPort[0]+vPort[2], vPort[1]+vPort[3],vPort[1], -1, 1);for normal windows coordinate
 	//(0,top) _____
@@ -496,17 +496,20 @@ namespace GLRender
 		}
 		else
 		{
-			sBlendfunction l_BlendfunctionRestore;
-			if (e_bDoBlendingSetBack)
-			{
-				l_BlendfunctionRestore.GetStatus();
-				myGLBlendFunc(e_BlendingSrc,e_BlendingDest);
-			}
+			sBlendfunction l_BlendfunctionRestore(e_BlendingSrc, e_BlendingDest);
+			l_BlendfunctionRestore.Render();
+			//if (e_bDoBlendingSetBack)
+			//{
+			//	l_BlendfunctionRestore.Render()
+			//	l_BlendfunctionRestore.GetStatus();
+			//	myGLBlendFunc(e_BlendingSrc,e_BlendingDest);
+			//}
 			RenderQuadTexture(e_pfVertices, e_pfTextureUV, e_vColor, e_pfMatrix, e_iPosStride, e_iNumQuad, e_pTexture, e_strShaderName);
-			if (e_bDoBlendingSetBack)
-			{
-				l_BlendfunctionRestore.Restore();
-			}
+			l_BlendfunctionRestore.Restore();
+			//if (e_bDoBlendingSetBack)
+			//{
+			//	l_BlendfunctionRestore.Restore();
+			//}
 		}
 	}
 
@@ -1185,15 +1188,17 @@ namespace GLRender
 	void	sBlendfunction::GetStatus()
 	{
 		bDoRestore = true;
-		glGetIntegerv(GL_BLEND_SRC_RGB, &iColorParameter[0]);
-		glGetIntegerv(GL_BLEND_DST_RGB, &iColorParameter[1]);
-		glGetIntegerv(GL_BLEND_SRC_ALPHA, &iColorParameter[2]);
-		glGetIntegerv(GL_BLEND_DST_ALPHA, &iColorParameter[3]);
+		//glGetIntegerv(GL_BLEND_SRC_RGB, &iColorParameter[0]);
+		//glGetIntegerv(GL_BLEND_DST_RGB, &iColorParameter[1]);
+		//glGetIntegerv(GL_BLEND_SRC_ALPHA, &iColorParameter[2]);
+		//glGetIntegerv(GL_BLEND_DST_ALPHA, &iColorParameter[3]);
 	}
 	void	sBlendfunction::Render()
 	{
-		if (eSrcBlendingMode != eLastSrcBlendingMode || eDestBlendingMode != eLastDestBlendingMode)
+		if (eSrcBlendingMode != seLastSrcBlendingMode || eDestBlendingMode != seLastDestBlendingMode)
 		{
+			ePreviousSrcBlendingMode = seLastSrcBlendingMode;
+			ePreviousDestBlendingMode = seLastDestBlendingMode;
 			GetStatus();
 			myGLBlendFunc(eSrcBlendingMode, eDestBlendingMode);
 		}
@@ -1206,7 +1211,8 @@ namespace GLRender
 	{
 		if (bDoRestore)
 		{
-			glBlendFuncSeparate(iColorParameter[0], iColorParameter[1], iColorParameter[2], iColorParameter[3]);
+			myGLBlendFunc(ePreviousSrcBlendingMode, ePreviousDestBlendingMode);
+			//glBlendFuncSeparate(iColorParameter[0], iColorParameter[1], iColorParameter[2], iColorParameter[3]);
 		}
 	}
 //end namespace GLRender
