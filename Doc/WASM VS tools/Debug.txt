@@ -2,3 +2,19 @@ install this for debug
 https://marketplace.visualstudio.com/items?itemName=KamenokoSoft.emscripten-debugger
 
 it also require nojs is installed
+
+
+
+
+
+https://stackoverflow.com/questions/59765945/wasm-link-error-function-signature-mismatch
+
+
+You can build it using debugging-related options:
+
+emcc -o ./test.html  test_file.cpp -s WASM=1 -std=c++1z \
+    -g4 -s ASSERTIONS=2 -s SAFE_HEAP=1 -s STACK_OVERFLOW_CHECK=1 \
+    --source-map-base http://your_server_ip:port/
+Then opening test.html you will see the correct error now:
+
+exception thrown: RuntimeError: abort(segmentation fault) at Error
