@@ -1,0 +1,14 @@
+https://emscripten.org/docs/compiling/Deploying-Pages.html
+
+Providing a Quick Second Time Load
+
+-use-preload-cache
+
+
+All browsers have an implementation defined limit (20MB or 50MB) for assets,
+and files larger than that will bypass the browser’s built-in web caches altogether.
+Therefore it is recommended that large .data files are manually cached to IndexedDB by the main page.
+The Emscripten linker option --use-preload-cache can be used to have Emscripten implement this,
+although it can be desirable to manually manage this on the html page in a custom manner,
+since that allows taking control of which database the assets are cached to,
+and what kind of scheme will be used to evict data from it.
