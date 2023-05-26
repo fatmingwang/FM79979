@@ -5,11 +5,11 @@ FM79979 cross platform game engine(Android,Windows,iOS,Linux)
 Emscripten game demo
 [DownloadLink](https://1drv.ms/f/s!AlnnK63qVSovg8BJYiTS-LGA9R9bfA?e=GPGNsh)
 
-[BluffingGirl](http://152.67.205.106/BluffingGirl/Index.html)
+[BluffingGirl](http://144.24.65.220/BluffingGirl)
 
 ![Editor](../master/Doc/BluffingGirl/gameplay.jpg?raw=true)
 
-[FishGame](http://152.67.205.106/FishGame/Index.html)
+[FishGame](http://144.24.65.220/FishGame)
 
 ![Editor](../master/Doc/BluffingGirl/FishGame.JPG?raw=true)
 
