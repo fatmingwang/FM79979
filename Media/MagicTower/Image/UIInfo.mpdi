@@ -1,8 +1,0 @@
-<MPDIList Name="UIInfo_mpdi" Count="1" MPDIVersion="1.2" PICount="1" ImageName="UIInfo.pi">
-    <MultiPathDynamicImage Name="UIInfo" PathCount="1" PlayCount="1" TotalPlayTime="1.000000" StopAtLastFrame="1">
-        <CueToStartCurvesWithTime Name="LeftUI" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
-            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="167.00,640.00" Scale="1.00,1.00" PIName="UIInfo" ImageName="LeftUI" />
-            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="167.00,640.00" Scale="1.00,1.00" PIName="UIInfo" ImageName="LeftUI" />
-        </CueToStartCurvesWithTime>
-    </MultiPathDynamicImage>
-</MPDIList>

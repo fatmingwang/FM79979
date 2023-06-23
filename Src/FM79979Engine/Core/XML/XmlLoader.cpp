@@ -206,7 +206,7 @@ namespace FATMING_CORE
 	bool    ISAXCallback::Parse(const char*e_strFileName,bool e_bShowLoadingState)
 	{
 		m_strErrorMsg.clear();
-		TiXmlElement*l_pRootElement = ISAXCallback::LoadingXML((char*)e_strFileName);
+		TiXmlElement*l_pRootElement = ISAXCallback::LoadingXML(e_strFileName);
 		if (!l_pRootElement)
 		{
 			return false;

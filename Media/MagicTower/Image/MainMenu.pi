@@ -1,8 +1,0 @@
-<!-- Author:Fatming,Time:2013/9/15 ¤U¤È 02:35:17 -->
-<PuzzleImage OriginalNameSort="Challenge,Continue,Credits,MainMenu,NewGame" ImageName="MainMenu.png" Count="5" GeneratePuzzleimageUnit="0">
-    <PuzzleUnit Name="Challenge" UV="0,0,0.09765625,0.02441406" OffsetPos="0,0" Size="200,50" OriginalSize="200,50" ShowPosInPI="0,0" />
-    <PuzzleUnit Name="Continue" UV="0.09814453,0,0.1958008,0.02441406" OffsetPos="0,0" Size="200,50" OriginalSize="200,50" ShowPosInPI="201,0" />
-    <PuzzleUnit Name="Credits" UV="0.1962891,0,0.2939453,0.02441406" OffsetPos="0,0" Size="200,50" OriginalSize="200,50" ShowPosInPI="402,0" />
-    <PuzzleUnit Name="MainMenu" UV="0.2944336,0,0.8491211,0.3125" OffsetPos="0,0" Size="1136,640" OriginalSize="1136,640" ShowPosInPI="603,0" />
-    <PuzzleUnit Name="NewGame" UV="0.8496094,0,0.9472656,0.02441406" OffsetPos="0,0" Size="200,50" OriginalSize="200,50" ShowPosInPI="1740,0" />
-</PuzzleImage>
