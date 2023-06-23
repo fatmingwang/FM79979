@@ -54,7 +54,7 @@ namespace FATMING_CORE
 		void	ProcessNoImage(TiXmlElement*e_pTiXmlElement);
 		//
 		//
-		virtual	bool	MyParse(TiXmlElement*e_pRoot);
+		virtual	bool	MyParse(TiXmlElement*e_pRoot)override;
 		void	ProcesssLevelData(TiXmlElement*e_pTiXmlElement);
 		void	ProcesssLevelLayerData(TiXmlElement*e_pTiXmlElement,cLevelLayerList*e_pLevelLayerData);
 		void	ProcesssLevelLayerGridData(TiXmlElement*e_pTiXmlElement,cLayer*e_pLayer);

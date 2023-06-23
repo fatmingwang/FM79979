@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "LevelLayerGridData.h"
 #include "EventDataNode.h"
 namespace FATMING_CORE
