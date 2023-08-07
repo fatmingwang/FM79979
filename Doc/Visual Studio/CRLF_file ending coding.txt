@@ -1,0 +1,14 @@
+git – How to Change Line-ending Settings
+
+CRLF
+
+https://linuxhint.com/change-line-ending-settings-in-git/
+
+
+below command for check type(false is unix,true is windows)
+git config --global core.autocrlf
+
+
+
+FM79979 using unix CRLF
+git config --global core.autocrlf true
