@@ -1,0 +1,7 @@
+https://stackoverflow.com/questions/38096225/automatically-accept-all-sdk-licences
+
+C:\Program Files (x86)\Android\android-sdk\cmdline-tools\7.0\bin
+
+sdkmanager.bat --license
+
+sdkmanager --licenses

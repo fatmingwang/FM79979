@@ -1,0 +1,4 @@
+please try orther API LEVEL ex:33
+
+
+https://stackoverflow.com/questions/68387270/android-studio-error-installed-build-tools-revision-31-0-0-is-corrupted
