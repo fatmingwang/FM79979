@@ -105,6 +105,7 @@ namespace UT
 	//void					CharToWchar(char *e_strSrc,wchar_t*e_strDest);
 	std::wstring			CharToWchar(const char *e_strChar);
 	std::wstring			CharToWchar(std::string	e_strChar);
+	std::wstring			UTF8ToWchar(const char* e_str);
 
 	std::string ToLower(const std::string& str);
 	std::wstring ToLower(const std::wstring& str);

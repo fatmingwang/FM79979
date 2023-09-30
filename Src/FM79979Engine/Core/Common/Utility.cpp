@@ -1517,6 +1517,45 @@ namespace UT
 		auto l_str = e_strChar.c_str();
 		return CharToWchar(l_str);
 	}
+	//for nlohmann json string to wchar.
+	std::wstring			UTF8ToWchar(const char* e_str)
+	{
+		std::wstring out;
+		if (!e_str)
+		{
+			return out;
+		}
+		unsigned int codepoint;
+		while (*e_str != 0)
+		{
+			unsigned char ch = static_cast<unsigned char>(*e_str);
+			if (ch <= 0x7f)
+				codepoint = ch;
+			else if (ch <= 0xbf)
+				codepoint = (codepoint << 6) | (ch & 0x3f);
+			else if (ch <= 0xdf)
+				codepoint = ch & 0x1f;
+			else if (ch <= 0xef)
+				codepoint = ch & 0x0f;
+			else
+				codepoint = ch & 0x07;
+			++e_str;
+			if (((*e_str & 0xc0) != 0x80) && (codepoint <= 0x10ffff))
+			{
+				if (sizeof(wchar_t) > 2)
+					out.append(1, static_cast<wchar_t>(codepoint));
+				else if (codepoint > 0xffff)
+				{
+					codepoint -= 0x10000;
+					out.append(1, static_cast<wchar_t>(0xd800 + (codepoint >> 10)));
+					out.append(1, static_cast<wchar_t>(0xdc00 + (codepoint & 0x03ff)));
+				}
+				else if (codepoint < 0xd800 || codepoint >= 0xe000)
+					out.append(1, static_cast<wchar_t>(codepoint));
+			}
+		}
+		return out;
+	}
 
 	std::string ToLower(const std::string& str)
 	{
