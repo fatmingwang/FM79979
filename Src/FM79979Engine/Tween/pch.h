@@ -10,5 +10,4 @@
 // add headers that you want to pre-compile here
 //#include "framework.h"
 #include "Tweeny/tweeny.h"
-#include "../Core/AllCommonInclude.h"
 #endif //PCH_H

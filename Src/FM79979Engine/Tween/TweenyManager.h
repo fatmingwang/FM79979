@@ -1,41 +1,41 @@
 #pragma once
 
 #include <memory>
-
 #include "Tweeny/tweeny.h"
+#include "../Core/AllCommonInclude.h"
+class cTweenyObject
+{
+	std::vector<int>	m_TweenyIDVector;
+	void				TweenFinish(unsigned int);
+public:
+	~cTweenyObject();
+	void	AddTweeny(tweeny::easing::enumerated e_easing,Vector2 e_vStart, Vector2 e_vEnd,float e_fDuration, std::function<void(Vector2)> e_Function);
+	void	AddTweeny(tweeny::easing::enumerated e_easing,Vector3 e_vStart, Vector3 e_vEnd,float e_fDuration, std::function<void(Vector3)> e_Function);
+	void	AddTweeny(tweeny::easing::enumerated e_easing,float e_fStart, float e_fEnd,float e_fDuration, std::function<void(float)> e_Function);
+	void	AddTweeny(tweeny::easing::enumerated e_easing,int e_iStart, int e_iEnd,float e_fDuration, std::function<void(int)> e_Function);
+};
+
+
+class  cTweenyManager:public NamedTypedObject
+{
+protected:
+	cTweenyManager();
+	virtual ~cTweenyManager();
+	static cTweenyManager* m_spInstance;
+public:
+	cTweenyManager(cTweenyManager const&) = delete;
+	cTweenyManager(cTweenyManager*) = delete;
+	static void DestroyInstance();
+	static cTweenyManager* GetInstance();
+	void	Update(float e_fElpaseTime);
+	DEFINE_TYPE_INFO();
+};
+
 
 //auto tween = tweeny::from(0, 0.0f).to(2, 2.0f).during(100).onStep([](int i, float f) { printf("i=%d f=%f\n", i, f); return false; });
 //while (tween.progress() < 1.0f) tween.step(1);
 //return 0;
 
-class cTweenyObject
-{
-	std::vector<int>	m_TweenyIDVector;
-public:
-	~cTweenyObject();
-	void	AddTweeny(tweeny::easing e_easing,Vector2 e_vStart, Vector2 e_vEnd,int e_iSteps,float e_fDuration, std::function<void(Vector2)> e_Function);
-	void	AddTweeny(Vector3 e_vStart, Vector3 e_vEnd, int e_iSteps, float e_fDuration, std::function<void(Vector3)> e_Function);
-	void	AddTweeny(float e_fStart, float e_fEnd, int e_iSteps, float e_fDuration, std::function<void(float)> e_Function);
-	void	AddTweeny(int e_iStart, int e_iEnd, int e_iSteps, float e_fDuration, std::function<void(float)> e_Function);
-};
-//
-
-class  cTweenyManager:public cSingltonTemplate<cTweenyManager>,public NamedTypedObject
-{
-	friend class cTweenyObject;
-	std::map<unsigned int, tweeny::tween<float>>				m_IDAneTweenFloatMap;
-	std::map<unsigned int, tweeny::tween<int>>					m_IDAneTweenIntMap;
-	std::map<unsigned int, tweeny::tween<float, float>>			m_IDAneTween2FloatMap;
-	std::map<unsigned int, tweeny::tween<float, float, float>>	m_IDAneTween3FloatMap;
-	static	unsigned int	RequireUniqueID();
-	cTweenyManager();
-public:
-	virtual ~cTweenyManager();
-	void	Update(float e_fElpaseTime);
-	SINGLETON_BASIC_FUNCTION(cTweenyManager);
-	DEFINE_TYPE_INFO();
-	//Tweeny
-};
 //
 //
 ///* Prints a line, showing the tween value and a dot corresponding to that value */
