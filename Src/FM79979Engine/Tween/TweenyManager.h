@@ -5,14 +5,16 @@
 #include "../Core/AllCommonInclude.h"
 class cTweenyObject
 {
-	std::vector<int>	m_TweenyIDVector;
-	void				TweenFinish(unsigned int);
+	std::map<unsigned int,std::function<void()>>	m_IDAndFinishFunction;
+	std::vector<int>		m_TweenyIDVector;
+	void					TweenFinish(unsigned int);
 public:
 	~cTweenyObject();
-	void	AddTweeny(tweeny::easing::enumerated e_easing,Vector2 e_vStart, Vector2 e_vEnd,float e_fDuration, std::function<void(Vector2)> e_Function);
-	void	AddTweeny(tweeny::easing::enumerated e_easing,Vector3 e_vStart, Vector3 e_vEnd,float e_fDuration, std::function<void(Vector3)> e_Function);
-	void	AddTweeny(tweeny::easing::enumerated e_easing,float e_fStart, float e_fEnd,float e_fDuration, std::function<void(float)> e_Function);
-	void	AddTweeny(tweeny::easing::enumerated e_easing,int e_iStart, int e_iEnd,float e_fDuration, std::function<void(int)> e_Function);
+	//https://easings.net/zh-tw
+	void	AddTweeny(tweeny::easing::enumerated e_easing,Vector2 e_vStart, Vector2 e_vEnd,float e_fDuration, std::function<void(Vector2)> e_Function,std::function<void()> e_FinishFunction = nullptr);
+	void	AddTweeny(tweeny::easing::enumerated e_easing,Vector3 e_vStart, Vector3 e_vEnd,float e_fDuration, std::function<void(Vector3)> e_Function, std::function<void()> e_FinishFunction = nullptr);
+	void	AddTweeny(tweeny::easing::enumerated e_easing,float e_fStart, float e_fEnd,float e_fDuration, std::function<void(float)> e_Function, std::function<void()> e_FinishFunction = nullptr);
+	void	AddTweeny(tweeny::easing::enumerated e_easing,int e_iStart, int e_iEnd,float e_fDuration, std::function<void(int)> e_Function, std::function<void()> e_FinishFunction = nullptr);
 };
 
 
@@ -31,6 +33,14 @@ public:
 	DEFINE_TYPE_INFO();
 };
 
+class cTweenyTestObject
+{
+	cTweenyObject m_TweenyObject;
+public:
+	std::vector<Vector2> m_vTestVector;
+	cTweenyTestObject();
+	void	KeyUp();
+};
 
 //auto tween = tweeny::from(0, 0.0f).to(2, 2.0f).during(100).onStep([](int i, float f) { printf("i=%d f=%f\n", i, f); return false; });
 //while (tween.progress() < 1.0f) tween.step(1);

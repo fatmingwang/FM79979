@@ -75,7 +75,7 @@ struct sTweenBinder:public NamedTypedObject
 	sTweenBinder(float e_fDuration, int e_iSteps, TWEEN_TYPE e_Tween, tweeny::easing::enumerated e_easing,unsigned int e_uiID);
 	virtual ~sTweenBinder()
 	{
-		FMLOG("test");
+		//FMLOG("test");
 	}
 	//
 	bool		Update(float e_fElpaseTime)
@@ -135,6 +135,13 @@ public	:
 	std::map<unsigned int, sTweenBinder<tweeny::tween<int>>*>					m_IDAneTweenIntMap;
 	std::map<unsigned int, sTweenBinder<tweeny::tween<float, float>>*>			m_IDAneTween2FloatMap;
 	std::map<unsigned int, sTweenBinder<tweeny::tween<float, float, float>>*>	m_IDAneTween3FloatMap;
+	virtual ~cInnerTweenyManager()
+	{
+		DELETE_MAP(m_IDAneTweenFloatMap);
+		DELETE_MAP(m_IDAneTweenIntMap);
+		DELETE_MAP(m_IDAneTween2FloatMap);
+		DELETE_MAP(m_IDAneTween3FloatMap);
+	}
 	static cInnerTweenyManager* GetInstance()
 	{
 		return (cInnerTweenyManager*)cTweenyManager::GetInstance();
@@ -172,6 +179,15 @@ cTweenyManager* cTweenyManager::GetInstance()
 
 void cTweenyObject::TweenFinish(unsigned int e_uiID)
 {
+	auto l_IT = m_IDAndFinishFunction.find(e_uiID);
+	if (l_IT != m_IDAndFinishFunction.end())
+	{
+		if (l_IT->second)
+		{
+			l_IT->second();
+		}
+		m_IDAndFinishFunction.erase(l_IT);
+	}
 	m_TweenyIDVector.erase(std::remove(m_TweenyIDVector.begin(), m_TweenyIDVector.end(), e_uiID), m_TweenyIDVector.end());
 }
 
@@ -185,7 +201,7 @@ cTweenyObject::~cTweenyObject()
 	}
 }
 
-void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing,Vector2 e_vStart, Vector2 e_vEnd, float e_fDuration, std::function<void(Vector2)> e_Function)
+void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing,Vector2 e_vStart, Vector2 e_vEnd, float e_fDuration, std::function<void(Vector2)> e_Function, std::function<void()> e_FinishFunction)
 {
 	int l_iSteps = GetStepsByDuration(e_fDuration);
 	auto l_Tween = tweeny::from(e_vStart.x, e_vStart.y).to(e_vEnd.x, e_vEnd.y).during(l_iSteps);
@@ -203,9 +219,13 @@ void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing,Vector2 e_vSta
 	);
 	l_pTweenBinder->m_FinishFunction = std::bind(&cTweenyObject::TweenFinish, this, std::placeholders::_1);	
 	m_TweenyIDVector.emplace_back(l_uiID);
+	if (e_FinishFunction)
+	{
+		m_IDAndFinishFunction[l_uiID] = e_FinishFunction;
+	}
 }
 
-void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, Vector3 e_vStart, Vector3 e_vEnd, float e_fDuration, std::function<void(Vector3)> e_Function)
+void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, Vector3 e_vStart, Vector3 e_vEnd, float e_fDuration, std::function<void(Vector3)> e_Function, std::function<void()> e_FinishFunction)
 {
 	int l_iSteps = GetStepsByDuration(e_fDuration);
 	auto l_Tween = tweeny::from(e_vStart.x, e_vStart.y, e_vStart.z).to(e_vEnd.x, e_vEnd.y, e_vEnd.z).during(l_iSteps);
@@ -224,9 +244,13 @@ void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, Vector3 e_vSt
 	);
 	l_pTweenBinder->m_FinishFunction = std::bind(&cTweenyObject::TweenFinish, this, std::placeholders::_1);
 	m_TweenyIDVector.emplace_back(l_uiID);
+	if (e_FinishFunction)
+	{
+		m_IDAndFinishFunction[l_uiID] = e_FinishFunction;
+	}
 }
 
-void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, float e_fStart,float e_fEnd, float e_fDuration, std::function<void(float)> e_Function)
+void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, float e_fStart,float e_fEnd, float e_fDuration, std::function<void(float)> e_Function, std::function<void()> e_FinishFunction)
 {
 	int l_iSteps = GetStepsByDuration(e_fDuration);
 	auto l_Tween = tweeny::from(e_fStart).to(e_fEnd).during(l_iSteps);
@@ -244,9 +268,13 @@ void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, float e_fStar
 	);
 	l_pTweenBinder->m_FinishFunction = std::bind(&cTweenyObject::TweenFinish, this, std::placeholders::_1);
 	m_TweenyIDVector.emplace_back(l_uiID);
+	if(e_FinishFunction)
+	{
+		m_IDAndFinishFunction[l_uiID] = e_FinishFunction;
+	}
 }
 
-void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, int e_iStart, int e_iEnd, float e_fDuration, std::function<void(int)> e_Function)
+void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, int e_iStart, int e_iEnd, float e_fDuration, std::function<void(int)> e_Function, std::function<void()> e_FinishFunction)
 {
 	int l_iSteps = GetStepsByDuration(e_fDuration);
 	auto l_Tween = tweeny::from(e_iStart).to(e_iEnd).during(l_iSteps);
@@ -264,6 +292,10 @@ void cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, int e_iStart,
 	);
 	l_pTweenBinder->m_FinishFunction = std::bind(&cTweenyObject::TweenFinish, this, std::placeholders::_1);
 	m_TweenyIDVector.emplace_back(l_uiID);
+	if (e_FinishFunction)
+	{
+		m_IDAndFinishFunction[l_uiID] = e_FinishFunction;
+	}
 }
 
 
@@ -292,4 +324,53 @@ sTweenBinder<TWEEN_TYPE>::sTweenBinder(float e_fDuration, int e_iSteps, TWEEN_TY
 	m_TC.SetTargetTime(e_fDuration);
 	m_iCurrentSteps = 0;
 	m_uiID = e_uiID;
+}
+
+cTweenyTestObject::cTweenyTestObject()
+{
+}
+
+//void cTweenyTestObject::Render()
+//{
+//	for (auto l_vPos : m_vTestVector)
+//	{
+//		//GLRender::RenderSphere(l_vPos, 30);
+//	}
+//}
+
+void cTweenyTestObject::KeyUp()
+{
+	static bool l_sbTest = false;
+	if (!l_sbTest)
+	{
+		static int l_iNumFinish = 0;
+		for (int i = 1; i < (int)tweeny::easing::enumerated::backInOut; ++i)
+		{
+			Vector2 l_vTest = Vector2::Zero;
+			l_vTest.y = 100 + i * 60.f;
+			l_vTest.x = 300;
+			m_vTestVector.push_back(l_vTest);
+			l_sbTest = true;
+			int l_iType = i;
+			m_TweenyObject.AddTweeny((tweeny::easing::enumerated)l_iType, 300.f, 2000.f, 5,
+				[this,i](float e_fValue)
+				{
+					m_vTestVector[i - 1].x = e_fValue;
+				},
+				[this, i]()
+				{
+					m_vTestVector[i - 1].x = 2000.f;
+					++l_iNumFinish;
+					if (l_iNumFinish == m_vTestVector.size())
+					{
+						SetTimeoutByCommonApp([this]()
+							{
+								m_vTestVector.clear();
+								l_sbTest = false;
+								l_iNumFinish = 0;
+							}, 3.f);
+					}
+				});
+		}
+	}
 }
