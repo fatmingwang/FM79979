@@ -14,12 +14,15 @@ unsigned int	RequireTweenUniqueID()
 
 int GetStepsByDuration(float e_fDuration)
 {
-	int l_iFPS = 60;
+	//why 35 is smooth?
+	int l_iFPS = 35;
 	int l_iSteps = (int)(e_fDuration * l_iFPS);
 	return l_iSteps;
 }
 
 #define	LAZY_EASING(e_Tween,e_Type)case tweeny::easing::enumerated::##e_Type: e_Tween.via(0,tweeny::easing::##e_Type);break;
+
+#define	LAZY_EASING_STRING(e_Type)case tweeny::easing::enumerated::##e_Type: return WSTRING(e_Type);
 template<class TWEEN>
 void	SetEasing(TWEEN& e_Tween, tweeny::easing::enumerated e_easing)
 {
@@ -84,6 +87,7 @@ struct sTweenBinder:public NamedTypedObject
 		float l_fLERP = m_TC.GetLERP();
 		int l_iCurrentSteps = (int)(l_fLERP* m_iTargetSteps);
 		int l_iSteps = l_iCurrentSteps-m_iCurrentSteps;
+		l_iSteps = 1;
 		m_Tween.step(l_iSteps);
 		m_iCurrentSteps = l_iCurrentSteps;
 		if (l_fLERP >= 1.f)
@@ -338,7 +342,77 @@ cTweenyTestObject::cTweenyTestObject()
 //	}
 //}
 
-void cTweenyTestObject::KeyUp()
+const wchar_t* ValueToString(tweeny::easing::enumerated e_easing)
+{
+	switch (e_easing)
+	{
+		LAZY_EASING_STRING(linear);
+		LAZY_EASING_STRING(stepped);
+		LAZY_EASING_STRING(quadraticIn);
+		LAZY_EASING_STRING(quadraticOut);
+		LAZY_EASING_STRING(quadraticInOut);
+		LAZY_EASING_STRING(cubicIn);
+		LAZY_EASING_STRING(cubicOut);
+		LAZY_EASING_STRING(cubicInOut);
+		LAZY_EASING_STRING(quarticIn);
+		LAZY_EASING_STRING(quarticOut);
+		LAZY_EASING_STRING(quarticInOut);
+		LAZY_EASING_STRING(quinticIn);
+		LAZY_EASING_STRING(quinticOut);
+		LAZY_EASING_STRING(quinticInOut);
+		LAZY_EASING_STRING(sinusoidalIn);
+		LAZY_EASING_STRING(sinusoidalOut);
+		LAZY_EASING_STRING(sinusoidalInOut);
+		LAZY_EASING_STRING(exponentialIn);
+		LAZY_EASING_STRING(exponentialOut);
+		LAZY_EASING_STRING(exponentialInOut);
+		LAZY_EASING_STRING(circularIn);
+		LAZY_EASING_STRING(circularOut);
+		LAZY_EASING_STRING(circularInOut);
+		LAZY_EASING_STRING(bounceIn);
+		LAZY_EASING_STRING(bounceOut);
+		LAZY_EASING_STRING(bounceInOut);
+		LAZY_EASING_STRING(elasticIn);
+		LAZY_EASING_STRING(elasticOut);
+		LAZY_EASING_STRING(elasticInOut);
+		LAZY_EASING_STRING(backIn);
+		LAZY_EASING_STRING(backOut);
+		LAZY_EASING_STRING(backInOut);
+		//default tweeny::easing::enumerated::def :
+	default:
+		return L"unknow easing type";
+	}
+	return nullptr;
+}
+
+void	cTweenyTestObject::Test(tweeny::easing::enumerated e_enumerated)
+{
+	static bool l_sbTest = false;
+	if (!l_sbTest)
+	{
+		Vector2 l_vTest = Vector2::Zero;
+		l_vTest.y = 500;
+		l_vTest.x = 300;
+		m_vTestVector.push_back(l_vTest);
+		l_sbTest = true;
+		m_TweenyObject.AddTweeny(e_enumerated, 300.f, 2000.f, 5,
+		[this](float e_fValue)
+		{
+			m_vTestVector[0].x = e_fValue;
+		},
+		[this]()
+		{
+			m_vTestVector[0].x = 2000.f;
+			SetTimeoutByCommonApp([this]()
+				{
+					m_vTestVector.clear();
+					l_sbTest = false;
+				}, 3.f);
+		});
+	}
+}
+
+void	cTweenyTestObject::TestAll()
 {
 	static bool l_sbTest = false;
 	if (!l_sbTest)
@@ -353,7 +427,7 @@ void cTweenyTestObject::KeyUp()
 			l_sbTest = true;
 			int l_iType = i;
 			m_TweenyObject.AddTweeny((tweeny::easing::enumerated)l_iType, 300.f, 2000.f, 5,
-				[this,i](float e_fValue)
+				[this, i](float e_fValue)
 				{
 					m_vTestVector[i - 1].x = e_fValue;
 				},
@@ -373,4 +447,10 @@ void cTweenyTestObject::KeyUp()
 				});
 		}
 	}
+}
+
+void cTweenyTestObject::KeyUp()
+{
+	//this->Test(tweeny::easing::enumerated::quadraticInOut);
+	TestAll();
 }

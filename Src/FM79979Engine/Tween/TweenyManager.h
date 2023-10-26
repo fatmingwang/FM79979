@@ -33,9 +33,12 @@ public:
 	DEFINE_TYPE_INFO();
 };
 
+const wchar_t* ValueToString(tweeny::easing::enumerated e_easing);
 class cTweenyTestObject
 {
 	cTweenyObject m_TweenyObject;
+	void			TestAll();
+	void			Test(tweeny::easing::enumerated e_enumerated);
 public:
 	std::vector<Vector2> m_vTestVector;
 	cTweenyTestObject();
