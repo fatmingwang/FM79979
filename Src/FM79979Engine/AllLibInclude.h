@@ -38,7 +38,7 @@
 	#pragma comment(lib, "../../../lib/Debug/Core.lib")
 #endif
 	#pragma comment(lib, "../../../lib/Debug/Freetype.lib")
-	#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
+	//#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Debug/ogg.lib")
 
 #else

@@ -42,6 +42,7 @@ namespace FATMING_CORE
 		virtual ~cOrthogonalCamera();
 		Vector4					GetViewRect(){return m_vViewRect;}
 		void					SetViewRect(Vector4 e_vViewRect);
+		void					SetViewRectByCameraPos(Vector2 e_vPos);
 		//the mouse position should be converted by cGameApp::m_svViewport.
 		Vector2					ConvertMousePositionToWorldPosition(Vector2 e_MousePosition,Vector2 e_ViewportSize);
 		static Vector2			ConvertMousePositionToWorldPosition(Vector2 e_MousePosition,Vector2 e_ViewportSize,Vector4 e_vCameraViewRect);

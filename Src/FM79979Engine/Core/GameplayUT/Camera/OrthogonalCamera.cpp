@@ -42,6 +42,17 @@ namespace FATMING_CORE
 		this->m_vViewRect = e_vViewRect;
 	}
 
+	void cOrthogonalCamera::SetViewRectByCameraPos(Vector2 e_vPos)
+	{
+		this->m_CameraPos = e_vPos;
+		float l_fHalfWidth = this->m_vViewRect.Width()/2;
+		float l_fHalfHeight = this->m_vViewRect.Height()/2;
+		this->m_vViewRect.x = m_CameraPos.x - l_fHalfWidth;
+		this->m_vViewRect.z = m_CameraPos.x + l_fHalfWidth;
+		this->m_vViewRect.y = m_CameraPos.y - l_fHalfHeight;
+		this->m_vViewRect.w = m_CameraPos.y + l_fHalfHeight;
+	}
+
 	Vector2	cOrthogonalCamera::ConvertMousePositionToWorldPosition(Vector2 e_MousePosition,Vector2 e_ViewportSize)
 	{
 		return ConvertMousePositionToWorldPosition(e_MousePosition,e_ViewportSize,m_vViewRect);
@@ -71,7 +82,9 @@ namespace FATMING_CORE
 	{
 		MyGLDisable(GL_DEPTH_TEST);
 		MyGLDisable(GL_CULL_FACE);
-		glhOrthof2(m_ProjectionMatrix,m_vViewRect.x+e_vCameraPos.x,m_vViewRect.z+e_vCameraPos.x,m_vViewRect.w+e_vCameraPos.y,m_vViewRect.y+e_vCameraPos.y, -10000, 10000);
+		//glhOrthof2(m_ProjectionMatrix, m_vViewRect.x, m_vViewRect.z, m_vViewRect.w, m_vViewRect.y, -10000, 10000);
+		glhOrthof2(m_ProjectionMatrix, m_vViewRect.x + e_vCameraPos.x, m_vViewRect.z + e_vCameraPos.x, 
+			m_vViewRect.w + e_vCameraPos.y, m_vViewRect.y + e_vCameraPos.y, -10000, 10000);
 		m_ProjectionMatrix *= cMatrix44::RotationMatrix(m_vCameraAngle);
 		FATMING_CORE::SetupShaderViewProjectionMatrix( m_ProjectionMatrix,true );
 	}
