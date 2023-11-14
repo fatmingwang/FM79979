@@ -294,7 +294,7 @@ unsigned int cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing, int e
 	return l_uiID;
 }
 
-void cTweenyObject::ChancelTween(unsigned int e_uiID, bool e_bCallFinishFunction)
+void cTweenyObject::ChancelTween(unsigned int e_uiID, bool e_bCallFinishFunction, bool e_bDeleteTween)
 {
 	auto l_IT = m_IDAndFinishFunction.find(e_uiID);
 	if (l_IT != m_IDAndFinishFunction.end())
@@ -305,12 +305,20 @@ void cTweenyObject::ChancelTween(unsigned int e_uiID, bool e_bCallFinishFunction
 		}
 		m_IDAndFinishFunction.erase(l_IT);
 	}
-	m_TweenyIDVector.erase(std::remove(m_TweenyIDVector.begin(), m_TweenyIDVector.end(), e_uiID), m_TweenyIDVector.end());
+	if (m_TweenyIDVector.size() > 0)
+	{
+		m_TweenyIDVector.erase(std::remove(m_TweenyIDVector.begin(), m_TweenyIDVector.end(), e_uiID), m_TweenyIDVector.end());
+	}
+	if (e_bDeleteTween)
+	{
+		cInnerTweenyManager* l_pInnerTweenyManager = (cInnerTweenyManager*)cTweenyManager::GetInstance();
+		l_pInnerTweenyManager->Erase(e_uiID);
+	}
 }
 
 void cTweenyObject::TweenFinish(unsigned int e_uiID)
 {
-	this->ChancelTween(e_uiID, true);
+	this->ChancelTween(e_uiID, true,false);
 }
 
 

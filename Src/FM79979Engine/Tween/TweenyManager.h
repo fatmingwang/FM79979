@@ -15,7 +15,7 @@ public:
 	unsigned int	AddTweeny(tweeny::easing::enumerated e_easing,Vector3 e_vStart, Vector3 e_vEnd,float e_fDuration, std::function<void(Vector3)> e_Function, std::function<void()> e_FinishFunction = nullptr);
 	unsigned int	AddTweeny(tweeny::easing::enumerated e_easing,float e_fStart, float e_fEnd,float e_fDuration, std::function<void(float)> e_Function, std::function<void()> e_FinishFunction = nullptr);
 	unsigned int	AddTweeny(tweeny::easing::enumerated e_easing,int e_iStart, int e_iEnd,float e_fDuration, std::function<void(int)> e_Function, std::function<void()> e_FinishFunction = nullptr);
-	void			ChancelTween(unsigned int e_uiID,bool e_bCallFinishFunction);
+	void			ChancelTween(unsigned int e_uiID,bool e_bCallFinishFunction,bool e_bDeleteTween = true);
 };
 
 
