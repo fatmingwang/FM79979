@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "BluffingGirlApp.h"
 #include "AllPhaseDefine.h"
 #include "MainMenuPhase.h"
@@ -218,7 +218,7 @@ void	cBluffingGirlApp::Init()
 	this->m_sTimeAndFPS.Update();
 	FMLog::LogWithFlag("cBluffingGirlApp::Init end \n", CORE_LOG_FLAG);
 
-	//g_pFreetypeGlyphRender = new cFreetypeGlyphRender("fireflysung.ttf",64);
+	g_pFreetypeGlyphRender = new cFreetypeGlyphRender("georgia.ttf",64);
 }
 bool	g_bTest = false;
 void	cBluffingGirlApp::Update(float e_fElpaseTime)

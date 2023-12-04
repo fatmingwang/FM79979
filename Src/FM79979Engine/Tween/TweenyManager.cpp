@@ -166,6 +166,14 @@ public	:
 		MapErase<std::map<unsigned int, sTweenBinder<tweeny::tween<float, float>>*>>(m_IDAneTween2FloatMap, e_uiID);
 		MapErase<std::map<unsigned int, sTweenBinder<tweeny::tween<float, float, float>>*>>(m_IDAneTween3FloatMap, e_uiID);
 	}
+
+	void	DeleteIfNoData()
+	{
+		if (m_IDAneTweenFloatMap.size() == 0 && m_IDAneTweenIntMap.size() == 0 && m_IDAneTween2FloatMap.size() == 0 && m_IDAneTween3FloatMap.size() == 0 )
+		{
+			cTweenyManager::DestroyInstance();
+		}
+	}
 };
 
 void cTweenyManager::DestroyInstance()
@@ -191,6 +199,7 @@ cTweenyObject::~cTweenyObject()
 		cInnerTweenyManager::GetInstance()->Erase(l_uiID);
 		m_TweenyIDVector.erase(m_TweenyIDVector.begin());
 	}
+	cInnerTweenyManager::GetInstance()->DeleteIfNoData();
 }
 
 unsigned int cTweenyObject::AddTweeny(tweeny::easing::enumerated e_easing,Vector2 e_vStart, Vector2 e_vEnd, float e_fDuration, std::function<void(Vector2)> e_Function, std::function<void()> e_FinishFunction)
