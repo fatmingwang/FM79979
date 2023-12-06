@@ -3,6 +3,10 @@
 #include <memory>
 #include "Tweeny/tweeny.h"
 #include "../Core/AllCommonInclude.h"
+
+int GetStepsByDuration(float e_fDuration);
+unsigned int	RequireTweenUniqueID();
+
 class cTweenyObject
 {
 	std::map<unsigned int,std::function<void()>>	m_IDAndFinishFunction;
@@ -35,7 +39,7 @@ public:
 };
 
 const wchar_t* ValueToString(tweeny::easing::enumerated e_easing);
-class cTweenyTestObject
+class cTweenyTestObject:public NamedTypedObject
 {
 	cTweenyObject m_TweenyObject;
 	void			TestAll();

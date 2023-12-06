@@ -60,12 +60,21 @@
     <ClInclude Include="TweenyManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TweenCurve.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InnerTweenBinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TweenyManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TweenCurve.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
