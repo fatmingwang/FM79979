@@ -21,9 +21,10 @@ void cTweenyCurveWithTime::SetTween(tweeny::easing::enumerated e_easing, float e
 	m_pTweenBinder = new sTweenBinder<tweeny::tween<float>>(e_fDuration, l_iSteps, l_Tween, e_easing, l_uiID);
 	m_pTweenBinder->m_Tween.onStep
 	(
-		[this](float e_fValue)
+		[this, e_fDuration](float e_fValue)
 		{
-			this->m_CurveWithTime.SetCurrentLERPTime(e_fValue);
+			float l_fEndTime = m_CurveWithTime.GetEndTime();
+			this->m_CurveWithTime.UpdateByGlobalTime(e_fValue* l_fEndTime);
 			return false;
 		}
 	);
@@ -45,6 +46,15 @@ void cTweenyCurveWithTime::SetData(tweeny::easing::enumerated e_easing, float e_
 	this->SetCurve(e_pCurveWithTime);
 }
 
+void cTweenyCurveWithTime::Reset()
+{
+	m_CurveWithTime.Init();
+	if (m_pTweenBinder)
+	{
+		m_pTweenBinder->Reset();
+	}
+}
+
 void cTweenyCurveWithTime::Update(float e_fElpaseTime)
 {
 	if (m_pTweenBinder)
@@ -56,4 +66,7 @@ void cTweenyCurveWithTime::Update(float e_fElpaseTime)
 void cTweenyCurveWithTime::Render()
 {
 	this->m_CurveWithTime.Render();
+	auto l_vPos = this->m_CurveWithTime.GetCurrentPosition();
+	GLRender::RenderSphere(Vector2(l_vPos.x, l_vPos.y), 50);
+	
 }

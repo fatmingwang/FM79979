@@ -1256,7 +1256,7 @@ namespace FATMING_CORE
 
 	void	cCurveWithTime::UpdateByGlobalTime(float e_fGlobalTime)
 	{
-		GetPositionByTime(e_fGlobalTime);
+		this->m_vCurrentPosition = GetPositionByTime(e_fGlobalTime);
 	}
 
 	void	cCurveWithTime::RenderByGlobalTime(float e_fTime)

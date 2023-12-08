@@ -96,6 +96,12 @@ struct sTweenBinder :public NamedTypedObject
 		}
 		return false;
 	}
+	void	Reset()
+	{
+		m_Tween.seek(0);
+		m_TC.Start();
+		m_iCurrentSteps = 0;
+	}
 };
 
 template<class MAP>void	MapDoFor(MAP& e_Map, float e_fElpaseTime)

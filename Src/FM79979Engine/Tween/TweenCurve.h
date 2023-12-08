@@ -11,10 +11,13 @@ class cTweenyCurveWithTime :public NamedTypedObject
 public:
 	cTweenyCurveWithTime();
 	virtual ~cTweenyCurveWithTime();
+	void	Update(float e_fElpaseTime);
+	void	Render();
+	//
 	cCurveWithTime* GetCurve() { return &m_CurveWithTime; }
 	void	SetTween(tweeny::easing::enumerated e_easing, float e_fDuration, std::function<void(unsigned int)>e_FinishFunction);
 	void	SetCurve(cCurveWithTime* e_pCurveWithTime);
 	void	SetData(tweeny::easing::enumerated e_easing, float e_fDuration, cCurveWithTime* e_pCurveWithTime, std::function<void(unsigned int)>e_FinishFunction);
-	void	Update(float e_fElpaseTime);
-	void	Render();
+	//
+	void	Reset();
 };
