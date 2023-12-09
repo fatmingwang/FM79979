@@ -24,6 +24,15 @@ using namespace UT;
 #endif
 namespace	FATMING_CORE
 {
+
+	struct sShowInfoOnScreen
+	{
+		float m_fRestTimeToShow;
+		std::wstring	strInfo;
+	};
+
+	std::vector<sShowInfoOnScreen>* g_pShowInfoOnScreen = nullptr;;
+
 	extern void	DumpGraphicsInfo();
 
 #if defined(ANDROID)
@@ -168,6 +177,7 @@ namespace	FATMING_CORE
 	{
 		SystemErrorCheck();
 		Destroy();
+		SAFE_DELETE(g_pShowInfoOnScreen);
 #ifdef WIN32
 		//PrintMemoryInfo();
 #elif defined(ANDROID)
@@ -252,10 +262,41 @@ namespace	FATMING_CORE
 
 	void	cGameApp::Update(float e_fElpaseTime)
 	{
+		if (g_pShowInfoOnScreen)
+		{
+			for (size_t i = 0; i < g_pShowInfoOnScreen->size(); ++i)
+			{
+				float*l_pfRestTime = &(*g_pShowInfoOnScreen)[i].m_fRestTimeToShow;
+				*l_pfRestTime -= e_fElpaseTime;
+				if (*l_pfRestTime < 0.f)
+				{
+					g_pShowInfoOnScreen->erase(g_pShowInfoOnScreen->begin() + i);
+					--i;
+				}
+			}
+			if (g_pShowInfoOnScreen->size() == 0)
+			{
+				SAFE_DELETE(g_pShowInfoOnScreen);
+			}
+		}
 		cCommonApp::Update(e_fElpaseTime);
 		if (this->m_spOpenGLRender)
 			m_spOpenGLRender->Update(e_fElpaseTime);
 		SystemErrorCheck();
+	}
+
+	void	RenderShowInfoOnScreen()
+	{
+		if (g_pShowInfoOnScreen)
+		{
+			GLRender::glEnable2D(1920.f,1080.f);
+			Vector2 l_vShowPos(50, 50);
+			for (size_t i = 0; i < g_pShowInfoOnScreen->size(); ++i)
+			{
+				cGameApp::RenderFont(l_vShowPos, (*g_pShowInfoOnScreen)[i].strInfo.c_str());
+				l_vShowPos.y += 50;
+			}
+		}
 	}
 
 	void	cGameApp::Render()
@@ -665,6 +706,16 @@ namespace	FATMING_CORE
 		}
 		
 		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+	}
+
+	void cGameApp::ShowInfoOnScreen(const wchar_t* e_strInfo)
+	{
+		if (!g_pShowInfoOnScreen)
+		{
+			g_pShowInfoOnScreen = new std::vector<sShowInfoOnScreen>();
+		}
+		sShowInfoOnScreen l_ShowInfoOnScreen = {5.f,e_strInfo };
+		g_pShowInfoOnScreen->push_back(l_ShowInfoOnScreen);
 	}
 
 	std::wstring	cGameApp::GetDIDOrInstallationRandomID()
