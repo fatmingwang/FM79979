@@ -215,6 +215,29 @@ namespace FATMING_CORE
 	}
 
 
+	void cNumeralImage::InternalAssignVertexData()
+	{
+		if (m_CachedWorldTransform._11 == FRAME_DIRTY_WORLD_CACHE || m_bValueChanged)
+		{
+			std::string	l_str = ValueToString(m_i64Value);
+			int	l_iStringLength = (int)strlen(l_str.c_str());
+			bool l_bValueChanged = m_bValueChanged;
+			cMatrix44 l_Mat;
+			int l_iNumVertex = 0;
+			ProcessTriangulatorRenderData(l_str.c_str(), l_iStringLength, 0, 0, this->GetWorldTransform(), this->m_bDrawOnCenter, l_Mat, l_iNumVertex);
+			l_iNumVertex *= TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
+			this->m_FVFBase.AssigeVertexCount(l_iNumVertex);
+			if (l_bValueChanged)
+			{
+				VerticesApplyTransform(l_iNumVertex, (float*)m_pvVertexBuffer, l_Mat, 3);
+			}
+			memcpy(&this->m_FVFBase.vPosVector[0], m_pvVertexBuffer, sizeof(Vector3) * l_iNumVertex);
+			memcpy(&this->m_FVFBase.vUVVector[0], m_pvTextureUVBuffer, sizeof(Vector2) * l_iNumVertex);
+			memcpy(&this->m_FVFBase.vColorVector[0], m_pvColorBuffer, sizeof(Vector4) * l_iNumVertex);
+			this->m_FVFBase.m_pTexture = m_pTexture;
+		}
+	}
+
 	void	cNumeralImage::GenerateVertexBuffer(int e_iNumBuffer)
 	{
 		m_iVertexBufferCount = e_iNumBuffer;
@@ -372,24 +395,8 @@ namespace FATMING_CORE
 
 	cTexture* cNumeralImage::GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
 	{
-		if (!m_bVisible)
-		{
-			return nullptr;
-		}
-		std::string	l_str = ValueToString(m_i64Value);
-		int	l_iStringLength = (int)strlen(l_str.c_str());
-		bool l_bValueChanged = m_bValueChanged;
-		cMatrix44 l_Mat;
-		ProcessTriangulatorRenderData(l_str.c_str(), l_iStringLength,0,0,this->GetWorldTransform(),this->m_bDrawOnCenter, l_Mat, e_iOutNumVertex);
-		e_iOutNumVertex *= TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
-		if (l_bValueChanged)
-		{
-			VerticesApplyTransform(e_iOutNumVertex, (float*)m_pvVertexBuffer, l_Mat, 3);
-		}
-		memcpy(e_pvOutPos, m_pvVertexBuffer, sizeof(Vector3) * e_iOutNumVertex);
-		memcpy(e_pvOutUV, m_pvTextureUVBuffer, sizeof(Vector2) * e_iOutNumVertex);
-		memcpy(e_pvOutColor, m_pvColorBuffer, sizeof(Vector4) * e_iOutNumVertex);
-		return m_pTexture;
+		this->InternalAssignVertexData();
+		return cRenderObject::GetTriangulatorRenderDataForBatchRendering(e_iOutNumVertex,e_pvOutPos,e_pvOutUV,e_pvOutColor);
 	}
 
 	int cNumeralImage::GetNumVertexForTwoTriangles()

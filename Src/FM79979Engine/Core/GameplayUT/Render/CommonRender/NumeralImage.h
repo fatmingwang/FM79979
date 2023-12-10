@@ -26,6 +26,8 @@ namespace FATMING_CORE
 	//
 	class	cNumeralImage:public cBaseImage
 	{
+		virtual	void	InternalAssignVertexData()override;
+
 		int				m_iVertexBufferCount;
 		Vector3*		m_pvVertexBuffer;
 		Vector2*		m_pvTextureUVBuffer;

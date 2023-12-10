@@ -24,6 +24,68 @@ namespace FATMING_CORE
 		SetTexBehaviorData(e_pBaseImage);
 	}
 
+	cBaseImage::cBaseImage(cTexture* e_pTexture)
+	{
+		this->m_pTexture = nullptr;
+		SetTexture(e_pTexture);
+	}
+
+	cBaseImage::cBaseImage(const wchar_t* e_strName)
+	{
+		this->SetName(e_strName);
+		m_pTexture = nullptr;
+		m_bMirror = false;
+		m_bVisible = true;
+		m_iWidth = 0;
+		m_iHeight = 0;
+		m_vColor = Vector4::One;
+		m_OffsetPos.x = m_OffsetPos.y = 0;
+		m_OriginalSize.x = m_iWidth;
+		m_OriginalSize.y = m_iHeight;
+	}
+	cBaseImage::~cBaseImage()
+	{
+		SAFE_RELEASE(m_pTexture, this);
+	}
+
+	void cBaseImage::InternalAssignVertexData()
+	{
+		if (m_CachedWorldTransform._11 == FRAME_DIRTY_WORLD_CACHE)
+		{
+			POINT l_vOffsetPos = m_OffsetPos;
+			if (m_OffsetPos.x != 0 || m_OffsetPos.y != 0)
+			{
+				float l_fScaleX = (float)m_iWidth / ((float)m_pTexture->GetWidth() * (m_fUV[2] - m_fUV[0]));
+				float l_fScaleY = (float)m_iHeight / ((float)m_pTexture->GetHeight() * (m_fUV[3] - m_fUV[1]));
+				l_vOffsetPos.x = (long)(l_fScaleX * m_OffsetPos.x);
+				l_vOffsetPos.y = (long)(l_fScaleY * m_OffsetPos.y);
+			}
+			float l_fWidth = (float)m_iWidth / 2.f;
+			float l_fHeight = (float)m_iHeight / 2.f;
+			float	l_Vertices[] = { -l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
+									  l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
+									 -l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f,
+									  l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f, };
+			Vector4	l_vColor[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT] = { m_vColor,m_vColor ,m_vColor ,m_vColor,m_vColor,m_vColor };
+			Vector3 l_vTrianglesPos[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+			Vector2 l_vTrianglesUV[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+			auto l_Mat = cMatrix44::TranslationMatrix(l_fWidth, l_fHeight, 0.f) * this->GetWorldTransform();
+			//for (int i = 0; i < A_QUAD_4_VERTICES; ++i)
+			//{
+			//	Vector3* l_pPos = (Vector3*)&l_Vertices[i * 3];
+			//	*l_pPos = l_Mat.TransformCoordinate(*l_pPos);
+			//}
+			VerticesApplyTransform(A_QUAD_4_VERTICES, l_Vertices, l_Mat, 3);
+			Assign4VerticesDataTo2Triangles(l_Vertices, (float*)&l_vTrianglesPos, m_fUV, (float*)&l_vTrianglesUV, 3);
+			this->m_FVFBase.AssigeColor(m_vColor);
+			this->m_FVFBase.AssigeVertexCount(TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+			memcpy(&this->m_FVFBase.vPosVector[0], l_vTrianglesPos, sizeof(Vector3) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+			memcpy(&this->m_FVFBase.vUVVector[0], l_vTrianglesUV, sizeof(Vector2) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+			memcpy(&this->m_FVFBase.vColorVector[0], l_vColor, sizeof(Vector4) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+			this->m_FVFBase.m_pTexture = this->m_pTexture;
+		}
+	}
+
 	bool	cBaseImage::ParseTexture(const char*e_strImageName, bool e_bFetchPixels)
 	{
 		if (e_strImageName)
@@ -71,30 +133,6 @@ namespace FATMING_CORE
 		PARSE_NAME_VALUE_END
 		return l_pBaseImage;
 	}
-
-	cBaseImage::cBaseImage(cTexture*e_pTexture)
-	{
-		this->m_pTexture = nullptr;
-		SetTexture(e_pTexture);
-	}
-
-	cBaseImage::cBaseImage(const wchar_t*e_strName)
-	{
-		this->SetName(e_strName);
-		m_pTexture = nullptr;
-		m_bMirror = false;
-		m_bVisible = true;
-		m_iWidth = 0;
-		m_iHeight = 0;
-		m_vColor = Vector4::One;
-		m_OffsetPos.x = m_OffsetPos.y = 0;
-		m_OriginalSize.x = m_iWidth;
-		m_OriginalSize.y = m_iHeight;
-	}
-	cBaseImage::~cBaseImage()
-	{
-		SAFE_RELEASE(m_pTexture, this);
-	}
 	//===============
 	//
 	//===============
@@ -136,6 +174,18 @@ namespace FATMING_CORE
 		m_pvPos->y = e_vPos.y- (float)m_OriginalSize.y /2.f;
 		this->SetCachedWorldTransformDirty();
 		//Frame::SetLocalPosition(*m_pvPos);
+	}
+
+	Vector4* cBaseImage::GetColor()
+	{
+		return &m_vColor;
+	}
+
+	void cBaseImage::SetColor(Vector4 e_vColor)
+	{
+		cRenderObject::SetColor(e_vColor);
+		m_vColor = e_vColor;
+		this->m_FVFBase.AssigeColor(m_vColor);
 	}
 
     bool    cBaseImage::CollideTexture(int e_iX,int e_iY,bool e_bTestAlphaChannel,Vector4*e_pvCollidedColor)
@@ -408,74 +458,42 @@ namespace FATMING_CORE
 	}
 	cTexture* cBaseImage::GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex,Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
 	{
-		if (!m_bVisible)
-		{
-			return nullptr;
-		}
-		POINT l_vOffsetPos = m_OffsetPos;
-		if (m_OffsetPos.x != 0 || m_OffsetPos.y != 0)
-		{
-			float l_fScaleX = (float)m_iWidth / ((float)m_pTexture->GetWidth() * (m_fUV[2] - m_fUV[0]));
-			float l_fScaleY = (float)m_iHeight / ((float)m_pTexture->GetHeight() * (m_fUV[3] - m_fUV[1]));
-			l_vOffsetPos.x = (long)(l_fScaleX * m_OffsetPos.x);
-			l_vOffsetPos.y = (long)(l_fScaleY * m_OffsetPos.y);
-		}
-		float l_fWidth = (float)m_iWidth / 2.f;
-		float l_fHeight = (float)m_iHeight / 2.f;
-		float	l_Vertices[] = { -l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
-								  l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
-								 -l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f,
-								  l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f, };
-		Vector4	l_vColor[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT] = {m_vColor,m_vColor ,m_vColor ,m_vColor,m_vColor,m_vColor };
-		Vector3 l_vTrianglesPos[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
-		Vector2 l_vTrianglesUV[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
-		auto l_Mat = cMatrix44::TranslationMatrix(l_fWidth, l_fHeight, 0.f) * this->GetWorldTransform();
-		//for (int i = 0; i < A_QUAD_4_VERTICES; ++i)
-		//{
-		//	Vector3* l_pPos = (Vector3*)&l_Vertices[i * 3];
-		//	*l_pPos = l_Mat.TransformCoordinate(*l_pPos);
-		//}
-		VerticesApplyTransform(A_QUAD_4_VERTICES, l_Vertices, l_Mat, 3);
-		Assign4VerticesDataTo2Triangles(l_Vertices,(float*) &l_vTrianglesPos, m_fUV, (float*)&l_vTrianglesUV, 3);
-		memcpy(e_pvOutPos, l_vTrianglesPos, sizeof(Vector3) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
-		memcpy(e_pvOutUV, l_vTrianglesUV, sizeof(Vector2) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
-		memcpy(e_pvOutColor, l_vColor, sizeof(Vector4) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
-		e_iOutNumVertex = TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
-		return this->m_pTexture;
+		this->InternalAssignVertexData();
+		return cRenderObject::GetTriangulatorRenderDataForBatchRendering(e_iOutNumVertex,e_pvOutPos,e_pvOutUV,e_pvOutColor);
 	}
 
-	cTexture* cBaseImage::GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
-	{
-		if (!m_bVisible)
-		{
-			return nullptr;
-		}
-		POINT l_vOffsetPos = m_OffsetPos;
-		if (m_OffsetPos.x != 0 || m_OffsetPos.y != 0)
-		{
-			float l_fScaleX = (float)m_iWidth / ((float)m_pTexture->GetWidth() * (m_fUV[2] - m_fUV[0]));
-			float l_fScaleY = (float)m_iHeight / ((float)m_pTexture->GetHeight() * (m_fUV[3] - m_fUV[1]));
-			l_vOffsetPos.x = (long)(l_fScaleX * m_OffsetPos.x);
-			l_vOffsetPos.y = (long)(l_fScaleY * m_OffsetPos.y);
-		}
-		float l_fWidth = (float)m_iWidth / 2.f;
-		float l_fHeight = (float)m_iHeight / 2.f;
-		float	l_Vertices[] = { -l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
-								  l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
-								 -l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f,
-								  l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f, };
-		float	l_fTexPointer[] = { m_fUV[0],m_fUV[1],
-								   m_fUV[2],m_fUV[1],
-								   m_fUV[0],m_fUV[3],
-								   m_fUV[2],m_fUV[3] };
-		Vector4	l_vColor[4] = { m_vColor,m_vColor ,m_vColor ,m_vColor };
-		e_OutMat = cMatrix44::TranslationMatrix(l_fWidth, l_fHeight, 0.f) * this->GetWorldTransform();
-		memcpy(e_pvOutPos, l_Vertices, sizeof(Vector3) * 4);
-		memcpy(e_pvOutUV, l_Vertices, sizeof(Vector2) * 4);
-		memcpy(e_pvOutColor, l_vColor, sizeof(Vector4) * 4);
-		e_iOutNumVertex = 4;
-		return this->m_pTexture;
-	}
+	//cTexture* cBaseImage::GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	//{
+	//	if (!m_bVisible)
+	//	{
+	//		return nullptr;
+	//	}
+	//	POINT l_vOffsetPos = m_OffsetPos;
+	//	if (m_OffsetPos.x != 0 || m_OffsetPos.y != 0)
+	//	{
+	//		float l_fScaleX = (float)m_iWidth / ((float)m_pTexture->GetWidth() * (m_fUV[2] - m_fUV[0]));
+	//		float l_fScaleY = (float)m_iHeight / ((float)m_pTexture->GetHeight() * (m_fUV[3] - m_fUV[1]));
+	//		l_vOffsetPos.x = (long)(l_fScaleX * m_OffsetPos.x);
+	//		l_vOffsetPos.y = (long)(l_fScaleY * m_OffsetPos.y);
+	//	}
+	//	float l_fWidth = (float)m_iWidth / 2.f;
+	//	float l_fHeight = (float)m_iHeight / 2.f;
+	//	float	l_Vertices[] = { -l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
+	//							  l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
+	//							 -l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f,
+	//							  l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f, };
+	//	float	l_fTexPointer[] = { m_fUV[0],m_fUV[1],
+	//							   m_fUV[2],m_fUV[1],
+	//							   m_fUV[0],m_fUV[3],
+	//							   m_fUV[2],m_fUV[3] };
+	//	Vector4	l_vColor[4] = { m_vColor,m_vColor ,m_vColor ,m_vColor };
+	//	e_OutMat = cMatrix44::TranslationMatrix(l_fWidth, l_fHeight, 0.f) * this->GetWorldTransform();
+	//	memcpy(e_pvOutPos, l_Vertices, sizeof(Vector3) * 4);
+	//	memcpy(e_pvOutUV, l_Vertices, sizeof(Vector2) * 4);
+	//	memcpy(e_pvOutColor, l_vColor, sizeof(Vector4) * 4);
+	//	e_iOutNumVertex = A_QUAD_4_VERTICES;
+	//	return this->m_pTexture;
+	//}
 	//void	cBaseImage::RenderWithoutOffset(Vector3 e_vPos)
 	//{
 	//	if( !m_bVisible )

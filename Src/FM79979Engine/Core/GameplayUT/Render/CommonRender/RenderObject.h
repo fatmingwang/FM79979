@@ -12,11 +12,26 @@ namespace FATMING_CORE
 	typedef	std::function<void()>								f_RenderFunction;
 	typedef	std::function<void(float)>							f_UpdateFunction;
 
+	struct sFVFBase
+	{
+		int						iNumVertex = 0;
+		std::vector<Vector3>	vPosVector;
+		std::vector<Vector2>	vUVVector;
+		std::vector<Vector4>	vColorVector;
+		cTexture*				m_pTexture = nullptr;
+		void					AssigeVertexCount(int e_iNumVertex);
+		void					AssigeColor(Vector4 e_vColor);
+	};
+
 	class	cRenderObject:public virtual Frame//,virtual public cSmartObject
 	{
+		virtual	void	InternalAssignVertexData() { XMASSERT(0 && "please override me"); }
+		cTexture*	InnerTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor);
+		//virtual cTexture*	InnerQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor);
 	protected:
+		sFVFBase			m_FVFBase;
 		//just a rotiton reference
-		Vector3			m_vRotation;
+		Vector3				m_vRotation;
 		//while set transform is called we might need some data update.ex:rotation
 		//if warning is appear override as below
 		//virtual	void	SetTransformInternalData(){ cRenderObject::SetTransformInternalData(); }
@@ -62,13 +77,13 @@ namespace FATMING_CORE
 		virtual	void		DebugRenderNodes();
 		//
 		virtual	void		Destroy(){}
-		virtual	void		SetColor(Vector4 e_vColor){}
+		virtual	void		SetColor(Vector4 e_vColor){ m_CachedWorldTransform._11 = FRAME_DIRTY_WORLD_CACHE; }
 		virtual const		cBound*	GenerateBound(){ return nullptr; }
 		virtual bool		Collide(int e_iPosX, int e_iPosY);
 		void				SetRenderFunction(f_RenderFunction e_f_RenderFunction) { m_RenderFunction = e_f_RenderFunction; }
 		void				SetUpdateFunction(f_UpdateFunction e_f_UpdateFunction) { m_UpdateFunction = e_f_UpdateFunction; }
-		virtual cTexture*	GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex,Vector3*e_pvOutPos, Vector2*e_pvOutUV, Vector4*e_pvOutColor) { return nullptr; }
-		virtual cTexture*	GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor) { return nullptr; }
+		virtual cTexture*	GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor);
+		virtual cTexture*	GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor);
 		virtual int			GetNumVertexForTwoTriangles() { return TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; }
 		//virtual	bool	IsDone(){ return false; }
 		//virtual	int		GetWidth() = 0;

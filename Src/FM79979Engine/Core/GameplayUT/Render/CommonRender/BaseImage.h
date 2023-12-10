@@ -69,6 +69,7 @@ namespace FATMING_CORE
 	//<Common Name="BackGround/BKImage.png" UV="0,0,1,1" />
 	class cBaseImage:public cRenderObject
 	{
+		virtual	void	InternalAssignVertexData()override;
 	protected:
 		cTexture*		m_pTexture;
 		Vector4			m_vColor;
@@ -114,8 +115,8 @@ namespace FATMING_CORE
 		void				SetPos(POINT e_Pos);
 		void				SetPos(Vector2 e_vPos);
 		void				SetPosByImageCenter(Vector3 e_vPos);
-		virtual	Vector4*	GetColor(){return &m_vColor;}
-		virtual	void		SetColor(Vector4 e_vColor)override { m_vColor = e_vColor; }
+		virtual	Vector4*	GetColor();
+		virtual	void		SetColor(Vector4 e_vColor)override;
 		void				SetTexBehaviorData(cBaseImage*e_pTexData);
 		bool				ApplyImage();
 		virtual	void		Render(Vector3 e_vPos);					//render by indicate position without offset position.
@@ -131,7 +132,7 @@ namespace FATMING_CORE
 		virtual POINT		GetSize()override;
 		virtual const		cBound*	GenerateBound()override;
 		virtual cTexture*	GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex,Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
-		virtual cTexture*	GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
+		//virtual cTexture*	GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
 	};
 
 	//===============

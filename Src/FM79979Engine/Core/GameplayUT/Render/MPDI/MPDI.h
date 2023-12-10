@@ -36,7 +36,6 @@ namespace FATMING_CORE
 	//I am lazy to test...
 	class	cMultiPathDynamicImage:public cFatmingGroupBehaviorList<cCueToStartCurveWithTime>,public cMulti_PI_Image
 	{
-	public:
 	protected:
 		//
 		//call CheckRenderOptmize to change render mode,while AddObject is called,make sure CheckRenderOptmize is caled

@@ -128,6 +128,30 @@ namespace FATMING_CORE
 		}	
 	}
 
+	cTexture* cRenderObject::InnerTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	{
+		XMASSERT(m_FVFBase.iNumVertex != 0 && "Vertex not been assigned");
+		memcpy(e_pvOutPos, &m_FVFBase.vPosVector[0], sizeof(Vector3) * e_iOutNumVertex);
+		memcpy(e_pvOutUV, &m_FVFBase.vUVVector[0], sizeof(Vector2) * e_iOutNumVertex);
+		memcpy(e_pvOutColor, &m_FVFBase.vColorVector[0], sizeof(Vector4) * e_iOutNumVertex);
+		e_iOutNumVertex = m_FVFBase.iNumVertex;
+		return m_FVFBase.m_pTexture;
+	}
+
+	//cTexture* cRenderObject::InnerQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	//{
+	//	XMASSERT(m_FVFBase.iNumVertex != A_QUAD_4_VERTICES);
+	//	if (m_FVFBase.iNumVertex == A_QUAD_4_VERTICES)
+	//	{
+	//		memcpy(e_pvOutPos, &m_FVFBase.vPosVector[0], sizeof(Vector3) * A_QUAD_4_VERTICES);
+	//		memcpy(e_pvOutUV, &m_FVFBase.vUVVector[0], sizeof(Vector2) * A_QUAD_4_VERTICES);
+	//		memcpy(e_pvOutColor, &m_FVFBase.vColorVector[0], sizeof(Vector4) * A_QUAD_4_VERTICES);
+	//		e_iOutNumVertex = A_QUAD_4_VERTICES;
+	//		return m_FVFBase.m_pTexture;
+	//	}
+	//	return nullptr;
+	//}
+
 	void	cRenderObject::RenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function,Frame*e_pFrame)
 	{
 		if( e_pFrame )
@@ -220,7 +244,7 @@ namespace FATMING_CORE
 			,this,nullptr);
 	}
 
-	bool	cRenderObject::	Collide(int e_iPosX, int e_iPosY)
+	bool	cRenderObject::Collide(int e_iPosX, int e_iPosY)
 	{
 		auto l_pBound = GenerateBound();
 		if (l_pBound)
@@ -230,4 +254,34 @@ namespace FATMING_CORE
 		return false;
 	}
 
+	cTexture* cRenderObject::GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	{
+		return InnerTriangulatorRenderDataForBatchRendering(e_iOutNumVertex,e_pvOutPos,e_pvOutUV,e_pvOutColor);
+	}
+	cTexture* cRenderObject::GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	{
+		XMASSERT(0 &&"should't support");
+		//InternalAssignVertexData();
+		//return InnerQuadRenderDataForBatchRendering(e_iOutNumVertex, e_pvOutPos, e_pvOutUV, e_pvOutColor);
+		return nullptr;
+	}
+
+	void sFVFBase::AssigeVertexCount(int e_iNumVertex)
+	{
+		iNumVertex = e_iNumVertex;
+		if (iNumVertex < e_iNumVertex)
+		{
+			vPosVector.resize(iNumVertex);
+			vUVVector.resize(iNumVertex);
+			vColorVector.resize(iNumVertex);
+		}
+	}
+
+	void sFVFBase::AssigeColor(Vector4 e_vColor)
+	{
+		for (int i = 0; i < iNumVertex; ++i)
+		{
+			this->vColorVector[i] = e_vColor;
+		}
+	}
 }
