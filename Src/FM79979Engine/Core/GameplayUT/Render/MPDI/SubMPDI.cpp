@@ -516,13 +516,31 @@ namespace FATMING_CORE
 
 	cTexture* cCueToStartCurveWithTime::GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
 	{
+		XMASSERT(0 && "GetTriangulatorRenderDataForBatchRenderingnot support yet");
+		if (!m_pCurrentPointData->pPI || m_pCurrentPointData->vColor.a == 0)
+		{
+			return nullptr;
+		}
+		if (this->IsAnimationDone())
+		{
+			if (m_bStayAtLastFrame)
+			{
+				this->RenderLastFrame();
+			}
+			else
+			{
+				return nullptr;
+			}
+		}
+		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
+		RenderQuadTexture((float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1, m_pCurrentPointData->pPI->GetTexture());		
 		return nullptr;
 	}
 
-	cTexture* cCueToStartCurveWithTime::GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
-	{
-		return nullptr;
-	}
+	//cTexture* cCueToStartCurveWithTime::GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	//{
+	//	return nullptr;
+	//}
 
 	void cCueToStartCurveWithTime::Render(sPuzzleData*e_pPuzzleData)
 	{

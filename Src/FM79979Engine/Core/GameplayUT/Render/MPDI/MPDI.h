@@ -115,6 +115,7 @@ namespace FATMING_CORE
 		void			SetRotationAnglePosOffsetWithDrawSize(bool e_bOn);
 		float			GetDrawRadiusWithoutImageOffset() {return m_fDrawRadiusWithoutImageOffset;}
 		virtual POINT	GetSize()override;
+		virtual cTexture* GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
 	};
 
 	typedef cMultiPathDynamicImage	cMPDI;

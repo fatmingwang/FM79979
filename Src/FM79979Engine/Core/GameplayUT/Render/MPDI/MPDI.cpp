@@ -547,6 +547,50 @@ EXIT:
 		return l_Size;
 	}
 
+	cTexture* cMultiPathDynamicImage::GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	{
+		XMASSERT(0 && "cMultiPathDynamicImage::GetTriangulatorRenderDataForBatchRendering not support");
+		size_t	l_siSize = m_ObjectList.size();
+		cMatrix44	l_OriginalCameraView;
+		int	l_iIndex = 0;
+		if (!this->m_bRenderOptmize)
+		{
+			return nullptr;
+		}
+
+		if (!m_bStayAtLastFrame && m_fCurrentProgress >= 1.f && !WaitUntilAllAnimationIsDone())
+		{
+			return nullptr;
+		}
+		for (size_t i = 0; i < l_siSize; ++i)
+		{
+			cCueToStartCurveWithTime* l_pTYPE = this->m_ObjectList[i];
+			if (l_pTYPE->IsAnimationDone() && !m_bStayAtLastFrame && !l_pTYPE->IsAnimationLoop())
+			{
+				continue;
+			}
+			if (!l_pTYPE->IsVisible())
+			{
+				continue;
+			}
+			assert(l_iIndex * 3 * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT < (1280 * 6) && "cMultiPathDynamicImage::InternalRender() over 768");
+			if (l_pTYPE->GetTransformedTrianglesVertices(&g_fGlobalTempBufferForRenderVertices[l_iIndex * 3 * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT],
+				&g_fGlobalTempBufferForRenderUV[l_iIndex * 2 * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT],
+				&g_fGlobalTempBufferForRenderColor[l_iIndex * 4 * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT], this->m_bStayAtLastFrame))
+			{
+				++l_iIndex;
+			}
+		}
+		if (l_iIndex > 0)
+		{
+			e_iOutNumVertex = TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * l_iIndex;
+			memcpy(e_pvOutPos, g_fGlobalTempBufferForRenderVertices, sizeof(Vector3) * e_iOutNumVertex);
+			memcpy(e_pvOutUV, g_fGlobalTempBufferForRenderUV, sizeof(Vector2) * e_iOutNumVertex);
+			memcpy(e_pvOutColor, g_fGlobalTempBufferForRenderColor, sizeof(Vector4) * e_iOutNumVertex);
+		}
+		return nullptr;
+	}
+
 	void	cMultiPathDynamicImage::SetRotationAnglePosOffset(Vector3 e_vRotationAnglePosOffset)
 	{
 		int l_iCount = this->Count();

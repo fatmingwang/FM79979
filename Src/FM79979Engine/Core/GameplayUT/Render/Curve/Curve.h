@@ -220,7 +220,7 @@ namespace FATMING_CORE
 		//make sure the data has sort from small to big.
 		//OriginalTimeList not FinalTimeList
 		//-1 is out of range
-		int				GetTimeRelativeIndex(float e_fTargetTime);
+		int				GetTimeRelativeIndex(float e_fTargetTime,float e_fOffsetTime = 0.f);
 		//if update is called we have a m_iCurrentPointIndex,but it's working for final list but we want original index instead
 		int				GetCurrentWorkingOriginalIndex();
 		//

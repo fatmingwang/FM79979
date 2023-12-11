@@ -1298,18 +1298,32 @@ namespace FATMING_CORE
 		return m_OriginalPointList[l_iIndex];
 	}
 
-	int	cCurveWithTime::GetTimeRelativeIndex(float e_fTargetTime)
+	int	cCurveWithTime::GetTimeRelativeIndex(float e_fTargetTime, float e_fOffsetTime)
 	{
 		int	l_iCount = (int)this->m_OriginalTimeList.size();
 		//at least must have 2 points
-		if( l_iCount<2 )
-			return -1;
-		assert(m_OriginalTimeList[0] == 0.f&&"first point time must be 0");
-		int i=1;
-		for( ;i<l_iCount;++i )
+		if (l_iCount < 2)
 		{
-			if(e_fTargetTime<m_OriginalTimeList[i])
+			return -1;
+		}
+		assert(m_OriginalTimeList[0] == 0.f&&"first point time must be 0");
+		if (e_fOffsetTime != 0.f)
+		{
+			for (int i = 0; i < l_iCount; ++i)
+			{
+				auto  l_dbTimeBefore = fabs(e_fTargetTime - m_OriginalTimeList[i]);
+				if (l_dbTimeBefore <= e_fOffsetTime)
+				{
+					return i;
+				}
+			}
+		}
+		for( int i=0;i<l_iCount;++i )
+		{
+			if (e_fTargetTime <= m_OriginalTimeList[i])
+			{
 				return i;
+			}
 		}
 		return -1;
 	}
