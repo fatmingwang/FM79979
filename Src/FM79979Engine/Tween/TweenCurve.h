@@ -6,6 +6,9 @@ template<class TYPE>struct sTweenBinder;
 
 class cTweenyCurveWithTime :public NamedTypedObject
 {
+protected:
+	std::vector<Vector3>	m_CurveWithTimeKeyPosition;
+	//
 	sTweenBinder<tweeny::tween<float>>*m_pTweenBinder = nullptr;
 	cCurveWithTime	m_CurveWithTime;
 public:

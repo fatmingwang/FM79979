@@ -142,7 +142,7 @@ namespace FATMING_CORE
 		virtual POINT			GetSize()override;
 		//
 		virtual cTexture*		GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
-		virtual cTexture*		GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;// 
+		//virtual cTexture*		GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;// 
 		//cMatrix44				GetRenderMatrix(){return m_matRenderMatrix;}
 		static					cCueToStartCurveWithTime*		GetMe(TiXmlElement*e_pElement,bool e_bClone = true);
 	};

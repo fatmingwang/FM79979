@@ -37,6 +37,7 @@ void cTweenyCurveWithTime::SetCurve(cCurveWithTime* e_pCurveWithTime)
 	{
 		this->m_CurveWithTime = *e_pCurveWithTime;
 		this->m_CurveWithTime.Init();
+		m_CurveWithTimeKeyPosition = m_CurveWithTime.GetKeyPositionByTime();
 	}
 }
 
@@ -68,5 +69,15 @@ void cTweenyCurveWithTime::Render()
 	this->m_CurveWithTime.Render();
 	auto l_vPos = this->m_CurveWithTime.GetCurrentPosition();
 	GLRender::RenderSphere(Vector2(l_vPos.x, l_vPos.y), 50);
+	//auto l_Vector = this->m_CurveWithTime.GetOriginalPointList();
+	auto l_Vector = m_CurveWithTimeKeyPosition;
+	for (size_t i = 0; i < l_Vector.size(); ++i)
+	{
+		//if (i % l_ModulateInt == 0)
+		{
+			l_vPos = (l_Vector)[i];
+			GLRender::RenderSphere(Vector2(l_vPos.x, l_vPos.y), 15, Vector4(1, 1, 0, 1));
+		}
+	}
 	
 }

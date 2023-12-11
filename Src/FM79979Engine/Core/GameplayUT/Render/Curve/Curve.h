@@ -108,6 +108,7 @@ namespace FATMING_CORE
 		float				GetTotalDistance();
 		Vector3				GetLastPoint();
 		Vector3				GetInterplotValue(float e_fInterpolationValue);
+		//get the key index 
 		//could reuse cCurve to get interpolation value
 		static	cCurve		GetInterplotValue(Vector3 e_vStart,Vector3 e_vEnd,int e_iLOD,float e_fInterpolationValue,Vector3*e_vResult);
 	};
@@ -221,6 +222,9 @@ namespace FATMING_CORE
 		//OriginalTimeList not FinalTimeList
 		//-1 is out of range
 		int				GetTimeRelativeIndex(float e_fTargetTime,float e_fOffsetTime = 0.f);
+		int				GetTimeRelativeIndexWithFinalPointList(float e_fTargetTime, float e_fOffsetTime);
+		//if LOD is not 1 performance is bad
+		std::vector<Vector3>	GetKeyPositionByTime();
 		//if update is called we have a m_iCurrentPointIndex,but it's working for final list but we want original index instead
 		int				GetCurrentWorkingOriginalIndex();
 		//

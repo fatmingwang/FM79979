@@ -1,6 +1,7 @@
 #include "Curve.h"
 #include "../../GameApp/GameApp.h"
 #include "../Font/GlyphFontRender.h"
+#include <numeric>
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cCurve);
@@ -658,6 +659,20 @@ namespace FATMING_CORE
 		return m_FinallyPointList[l_iTargetIndex];
 	}
 
+	//std::vector<int> cCurve::GetOriginalIndexRelateToFinal()
+	//{
+	//	float l_fSize1 = (float)this->m_FinallyPointList.size();
+	//	float l_fSize2 = (float)this->m_OriginalPointList.size();
+	//	if (l_fSize1 != l_fSize2)
+	//	{
+	//		float l_fScale = l_fSize1 / l_fSize2;
+	//	}
+	//	//https://stackoverflow.com/questions/17694579/use-stdfill-to-populate-vector-with-increasing-numbers
+	//	std::vector<int> l_Vector(this->m_FinallyPointList.size());
+	//	std::iota(std::begin(l_Vector), std::end(l_Vector), 0);
+	//	return std::vector<int>();
+	//}
+
 	cCurve		cCurve::GetInterplotValue(Vector3 e_vStart,Vector3 e_vEnd,int e_iLOD,float e_fInterpolationValue,Vector3*e_vResult)
 	{
 		//A(start)
@@ -848,11 +863,17 @@ namespace FATMING_CORE
 	{
 		cCurve::DoLOD();
 		m_FinalTimeList = m_OriginalTimeList;
-		if( m_FinalTimeList.size() == 0 )
+		if (m_FinalTimeList.size() == 0)
+		{
 			return;
-		if( m_iLOD>=2 )
-		for( int i=0;i<this->m_iLOD-1;++i )
-			IncreaseTimeLod();
+		}
+		if (m_iLOD >= 2)
+		{
+			for (int i = 0; i < this->m_iLOD - 1; ++i)
+			{
+				IncreaseTimeLod();
+			}
+		}
 		assert(m_FinalTimeList.size() == m_FinallyPointList.size()&& "final point position size is not equal time list size" );
 	}
 
@@ -1326,6 +1347,40 @@ namespace FATMING_CORE
 			}
 		}
 		return -1;
+	}
+
+	int cCurveWithTime::GetTimeRelativeIndexWithFinalPointList(float e_fTargetTime, float e_fOffsetTime)
+	{
+		int	l_iCount = (int)this->m_FinalTimeList.size();
+		//at least must have 2 points
+		if (l_iCount < 2)
+		{
+			return -1;
+		}
+		assert(m_FinalTimeList[0] == 0.f && "first point time must be 0");
+		for (int i = 0; i < l_iCount; ++i)
+		{
+			auto  l_dbTimeBefore = fabs(e_fTargetTime - m_FinalTimeList[i]);
+			if (l_dbTimeBefore <= e_fOffsetTime)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	std::vector<Vector3> cCurveWithTime::GetKeyPositionByTime()
+	{
+		if (this->m_iLOD == 1)
+		{
+			return this->m_OriginalPointList;
+		}
+		std::vector<Vector3>	l_Vector;
+		for (float l_fTime : this->m_OriginalTimeList)
+		{
+			l_Vector.push_back(this->GetPositionByTime(l_fTime));
+		}
+		return l_Vector;
 	}
 
 	float	cCurveWithTime::GetVelocity(float e_fTargetTime)
