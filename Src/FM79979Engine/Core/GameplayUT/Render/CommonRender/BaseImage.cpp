@@ -3,6 +3,7 @@
 #include "../../../XML/XMLLoader.h"
 #include "BaseImage.h"
 #include "SimplePrimitive.h"
+#include "../Curve/Curve.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cBaseImage);
@@ -460,6 +461,45 @@ namespace FATMING_CORE
 	{
 		this->InternalAssignVertexData();
 		return cRenderObject::GetTriangulatorRenderDataForBatchRendering(e_iOutNumVertex,e_pvOutPos,e_pvOutUV,e_pvOutColor);
+	}
+
+	cTexture* cBaseImage::GenerateCurveTriangulatorRenderDataForBatchRendering(cCurve*e_pCurve, int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor, bool e_bDoDebugRender)
+	{
+		//auto l_PointList = e_pCurve->GetPointList();
+		auto l_PointList = e_pCurve->GetOriginalPointList();
+		auto l_FinalIndex = l_PointList.size() - 1;
+		if (l_FinalIndex < 2)
+		{
+			return nullptr;
+		}
+		int l_iOutNumVertex = 0;
+		Vector3* l_pvOutPos = e_pvOutPos;
+		Vector2* l_pvOutUV = e_pvOutUV;
+		Vector4* l_pvOutColor = e_pvOutColor;
+		for (size_t i = 0; i < l_FinalIndex; ++i)
+		{
+			auto l_vDirection = (l_PointList[i + 1] - l_PointList[i]);
+			//get the center and rotate
+			auto l_vCenter = l_vDirection /2+ l_PointList[i];
+			if (e_bDoDebugRender)
+			{
+				GLRender::RenderSphere(Vector2(l_vCenter.x, l_vCenter.y), 10);
+			}
+			m_iHeight = (int)l_vDirection.Length();
+			//l_vCenter.x += m_iHeight / 2.f;
+			l_vCenter.y -= m_iHeight / 2.f;
+			this->SetPos(l_vCenter);
+			float l_fAngle = UT::GetAngleBy2Point(l_PointList[i], l_PointList[i + 1]);
+			this->SetAngleWith180MinusValue(l_fAngle);
+			GetTriangulatorRenderDataForBatchRendering(l_iOutNumVertex,&l_pvOutPos[e_iOutNumVertex], &l_pvOutUV[e_iOutNumVertex], &l_pvOutColor[e_iOutNumVertex]);
+			e_iOutNumVertex += l_iOutNumVertex;
+		}
+
+		if (e_bDoDebugRender)
+		{
+			RenderTrianglesWithTexture((float*)e_pvOutPos, (float*)e_pvOutUV, (float*)e_pvOutColor, cMatrix44::Identity, 3, e_iOutNumVertex / TRIANGLE_VERTEX_COUNT, m_pTexture);
+		}
+		return this->m_pTexture;
 	}
 
 	//cTexture* cBaseImage::GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)

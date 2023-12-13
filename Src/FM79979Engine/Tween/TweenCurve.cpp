@@ -12,6 +12,11 @@ cTweenyCurveWithTime::~cTweenyCurveWithTime()
 	SAFE_DELETE(m_pTweenBinder);
 }
 
+cCurveWithTime* cTweenyCurveWithTime::GetCurve()
+{
+	return &m_CurveWithTime;
+}
+
 void cTweenyCurveWithTime::SetTween(tweeny::easing::enumerated e_easing, float e_fDuration, std::function<void(unsigned int)>e_FinishFunction)
 {
 	SAFE_DELETE(m_pTweenBinder);

@@ -131,10 +131,10 @@ namespace FATMING_CORE
 	cTexture* cRenderObject::InnerTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
 	{
 		XMASSERT(m_FVFBase.iNumVertex != 0 && "Vertex not been assigned");
+		e_iOutNumVertex = m_FVFBase.iNumVertex;
 		memcpy(e_pvOutPos, &m_FVFBase.vPosVector[0], sizeof(Vector3) * e_iOutNumVertex);
 		memcpy(e_pvOutUV, &m_FVFBase.vUVVector[0], sizeof(Vector2) * e_iOutNumVertex);
 		memcpy(e_pvOutColor, &m_FVFBase.vColorVector[0], sizeof(Vector4) * e_iOutNumVertex);
-		e_iOutNumVertex = m_FVFBase.iNumVertex;
 		return m_FVFBase.m_pTexture;
 	}
 
@@ -268,13 +268,13 @@ namespace FATMING_CORE
 
 	void sFVFBase::AssigeVertexCount(int e_iNumVertex)
 	{
-		iNumVertex = e_iNumVertex;
 		if (iNumVertex < e_iNumVertex)
 		{
-			vPosVector.resize(iNumVertex);
-			vUVVector.resize(iNumVertex);
-			vColorVector.resize(iNumVertex);
+			vPosVector.resize(e_iNumVertex);
+			vUVVector.resize(e_iNumVertex);
+			vColorVector.resize(e_iNumVertex);
 		}
+		iNumVertex = e_iNumVertex;
 	}
 
 	void sFVFBase::AssigeColor(Vector4 e_vColor)

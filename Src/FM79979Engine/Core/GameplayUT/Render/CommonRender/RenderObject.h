@@ -64,6 +64,8 @@ namespace FATMING_CORE
 		Vector3				GetRotation(){ return m_vRotation; }
 		virtual POINT		GetSize(){POINT l_Size = { 0,0 };return l_Size;}
 		void				SetAngle(float e_fAngle);
+		//because 0 degree is different ont is Y up one us X Right
+		void				SetAngleWith180MinusValue(float e_fAngle){ SetAngle(180 - e_fAngle); }
 		void				SetAngle(Vector3 e_vAngle);
 		virtual	void		Init(){}
 		virtual	void		Update(float e_fElpaseTime){ if (m_UpdateFunction)m_UpdateFunction(e_fElpaseTime); }
