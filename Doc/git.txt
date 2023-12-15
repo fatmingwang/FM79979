@@ -3,3 +3,21 @@ change submodule directory
 git mv old_directory new_directory
 
 git mv project\assets\scripts\diresoftcocoscreatorslotcommon project\assets\diresoftcocoscreatorslotcommon
+
+
+list all branch
+git branch -a
+
+in power shell or linux list all branch and creator name
+git for-each-ref --format='%(color:cyan)%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=authordate refs/remotes
+
+
+
+
+https://www.freecodecamp.org/news/git-delete-remote-branch/#:~:text=To%20completely%20remove%20a%20remote,origin%20%2Dd%20branch%2Dname%20.
+
+delete local branch
+git branch -d branch-name.
+
+delete remote branch
+git push origin -d branch-name.
