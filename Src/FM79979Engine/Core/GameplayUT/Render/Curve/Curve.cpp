@@ -1280,6 +1280,7 @@ namespace FATMING_CORE
 		m_vPreviousPosition = m_vCurrentPosition;
 		this->m_vCurrentPosition = GetPositionByTime(e_fGlobalTime);
 		m_vMovedCoordinate = m_vCurrentPosition - m_vPreviousPosition;
+		this->m_fCurrentTime = e_fGlobalTime;
 	}
 
 	void	cCurveWithTime::RenderByGlobalTime(float e_fTime)

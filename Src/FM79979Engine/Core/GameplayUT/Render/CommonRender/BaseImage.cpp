@@ -465,8 +465,8 @@ namespace FATMING_CORE
 
 	cTexture* cBaseImage::GenerateCurveTriangulatorRenderDataForBatchRendering(cCurve*e_pCurve, int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor, bool e_bDoDebugRender)
 	{
-		//auto l_PointList = e_pCurve->GetPointList();
-		auto l_PointList = e_pCurve->GetOriginalPointList();
+		auto l_PointList = e_pCurve->GetPointList();
+		//auto l_PointList = e_pCurve->GetOriginalPointList();
 		auto l_FinalIndex = l_PointList.size() - 1;
 		if (l_FinalIndex < 2)
 		{

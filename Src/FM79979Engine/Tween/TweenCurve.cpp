@@ -69,11 +69,12 @@ void cTweenyCurveWithTime::Update(float e_fElpaseTime)
 	}
 }
 
-void cTweenyCurveWithTime::Render()
+void cTweenyCurveWithTime::Render(float e_fSphereRadius, Vector4 e_vSphereColor)
 {
 	this->m_CurveWithTime.Render();
 	auto l_vPos = this->m_CurveWithTime.GetCurrentPosition();
-	GLRender::RenderSphere(Vector2(l_vPos.x, l_vPos.y), 50);
+	GLRender::RenderSphere(Vector2(l_vPos.x, l_vPos.y), e_fSphereRadius, e_vSphereColor);
+	cGameApp::RenderFont(l_vPos.x, l_vPos.y, ValueToStringW(l_vPos).c_str());
 	//auto l_Vector = this->m_CurveWithTime.GetOriginalPointList();
 	auto l_Vector = m_CurveWithTimeKeyPosition;
 	for (size_t i = 0; i < l_Vector.size(); ++i)

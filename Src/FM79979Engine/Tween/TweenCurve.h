@@ -15,7 +15,7 @@ public:
 	cTweenyCurveWithTime();
 	virtual ~cTweenyCurveWithTime();
 	void	Update(float e_fElpaseTime);
-	void	Render();
+	void	Render(float e_fSphereRadius = 50.f,Vector4 e_vSphereColor = Vector4::Green);
 	//
 	cCurveWithTime* GetCurve();
 	void	SetTween(tweeny::easing::enumerated e_easing, float e_fDuration, std::function<void(unsigned int)>e_FinishFunction);
