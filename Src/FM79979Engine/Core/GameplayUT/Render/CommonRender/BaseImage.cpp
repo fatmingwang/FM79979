@@ -465,6 +465,10 @@ namespace FATMING_CORE
 
 	cTexture* cBaseImage::GenerateCurveTriangulatorRenderDataForBatchRendering(cCurve*e_pCurve, int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor, bool e_bDoDebugRender)
 	{
+		if (!e_pCurve)
+		{
+			return nullptr;
+		}
 		auto l_PointList = e_pCurve->GetPointList();
 		//auto l_PointList = e_pCurve->GetOriginalPointList();
 		auto l_FinalIndex = l_PointList.size() - 1;
@@ -483,7 +487,7 @@ namespace FATMING_CORE
 			auto l_vCenter = l_vDirection /2+ l_PointList[i];
 			if (e_bDoDebugRender)
 			{
-				GLRender::RenderSphere(Vector2(l_vCenter.x, l_vCenter.y), 10);
+				//GLRender::RenderSphere(Vector2(l_vCenter.x, l_vCenter.y), 10);
 			}
 			m_iHeight = (int)l_vDirection.Length();
 			//l_vCenter.x += m_iHeight / 2.f;

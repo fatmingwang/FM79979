@@ -7,12 +7,17 @@ template<class TYPE>struct sTweenBinder;
 class cTweenyCurveWithTime :public NamedTypedObject
 {
 protected:
-	std::vector<Vector3>	m_CurveWithTimeKeyPosition;
+	std::map<int, float>					m_CollisionPointIndexOfCurveAndTimeLerpHintMap;
+	std::map<int, float>					m_RenderHintPointIndexOfCurveAndTimeLerpHintMap;
+	std::vector<Vector3>					m_CurveWithTimeKeyPosition;
 	//
-	sTweenBinder<tweeny::tween<float>>*m_pTweenBinder = nullptr;
-	cCurveWithTime	m_CurveWithTime;
+	sTweenBinder<tweeny::tween<float>>*	m_pTweenBinder = nullptr;
+	cCurveWithTime*							m_pCurveWithTime = nullptr;
+	float									m_fTimeForCheckCollision;
+	float									m_fTimeForRenderHint;
+	void									UpdateHintInfo(float efCurveCurrentTime);
 public:
-	cTweenyCurveWithTime();
+	cTweenyCurveWithTime(float e_fTimeForCheckCollision = 1.f, float e_fTimeForRenderHint = 1.f);
 	virtual ~cTweenyCurveWithTime();
 	void	Update(float e_fElpaseTime);
 	void	Render(float e_fSphereRadius = 50.f,Vector4 e_vSphereColor = Vector4::Green);

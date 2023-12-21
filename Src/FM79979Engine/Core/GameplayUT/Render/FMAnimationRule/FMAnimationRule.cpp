@@ -14,7 +14,7 @@ namespace FATMING_CORE
 		m_bStayAtLastFrame = false;
 		m_bInitCalled = false;
     }
-	cFMTimeLineAnimationRule::cFMTimeLineAnimationRule(cFMTimeLineAnimationRule*e_pFatmingAnimationRule):cRenderObject(e_pFatmingAnimationRule),Frame(e_pFatmingAnimationRule)
+	cFMTimeLineAnimationRule::cFMTimeLineAnimationRule(cFMTimeLineAnimationRule*e_pFatmingAnimationRule):cRenderObject(e_pFatmingAnimationRule)
     {
 		m_pUserData = 0;
 		m_fCurrentProgress = 0.f;

@@ -116,6 +116,15 @@ namespace FATMING_CORE
 	//each point has one time line,and the point is next to pervious one the time of next point is always bigger than pervious one
 	//ex::POINT1( XY(0,0) ,Time(0)  ),POINT2( XY(10,10) ,Time(0.3)  ),POINT3( XY(30,30) ,Time(0.9)  ).......
 	//the next point always has bigger time value than pervious,or it will occur some sort error while using GetCurrentPosition
+	//!!------------------!!
+	//! I have no idea why over heap happened if do something like AssIgnTest()
+	//! cCurveWithTime  g_Data;
+	//! void AssignFunction(cCurveWithTime*e_pData){g_Data = *e_pData;}
+	//! void	AssIgnTest()
+	//! {
+	//!     cCurveWithTime	l_Data;
+	//!		AssignFunction(&l_Data);
+	//! }
 	//=====================
 	class	cCurveWithTime:public cCurve,public cFMTimeLineAnimationRule
 	{
