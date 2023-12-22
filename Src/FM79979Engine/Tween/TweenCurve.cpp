@@ -2,16 +2,21 @@
 #include "./TweenyManager.h"
 #include "InnerTweenBinder.h"
 #include "TweenCurve.h"
+#include "../Core/GameplayUT/Render/Texture/png/pngLoader.h"
 
-
-cTweenyCurveWithTime::cTweenyCurveWithTime(float e_fTimeForCheckCollision,float e_fTimeForRenderHint)
+cTweenyCurveWithTime::cTweenyCurveWithTime(float e_fTimeForCheckCollision,float e_fTimeForRenderHint, const char* e_strDebugLineFileName)
 {
 	m_fTimeForCheckCollision = e_fTimeForCheckCollision;
 	m_fTimeForRenderHint = e_fTimeForRenderHint;
+	if (e_strDebugLineFileName)
+	{
+		m_pDeugLineImage = new cBaseImage(e_strDebugLineFileName);
+	}
 }
 
 cTweenyCurveWithTime::~cTweenyCurveWithTime()
 {
+	SAFE_DELETE(m_pDeugLineImage);
 	SAFE_DELETE(m_pCurveWithTime);
 	SAFE_DELETE(m_pTweenBinder);
 }
@@ -52,20 +57,23 @@ void cTweenyCurveWithTime::UpdateHintInfo(float e_fCurveCurrentTime)
 	float l_fMaximumTimeForCollision = e_fCurveCurrentTime + m_fTimeForCheckCollision;
 	m_RenderHintPointIndexOfCurveAndTimeLerpHintMap.clear();
 	m_CollisionPointIndexOfCurveAndTimeLerpHintMap.clear();
-	auto l_TimeVector = this->m_pCurveWithTime->GetOriginalTimeList();
-	int l_iIndex = 0;
-	for (auto l_fTime : l_TimeVector)
+	if (m_pCurveWithTime)
 	{
-		float l_fTimeDiff = l_fTime-e_fCurveCurrentTime;
-		if (l_fTime >= l_fMinimumTimeForRender && l_fTime < l_fMaximumTimeForRender && l_fTimeDiff > 0.f)
+		auto l_TimeVector = this->m_pCurveWithTime->GetOriginalTimeList();
+		int l_iIndex = 0;
+		for (auto l_fTime : l_TimeVector)
 		{
-			m_RenderHintPointIndexOfCurveAndTimeLerpHintMap.insert({l_iIndex ,1.f-(l_fTimeDiff/ this->m_fTimeForRenderHint) });
+			float l_fTimeDiff = l_fTime - e_fCurveCurrentTime;
+			if (l_fTime >= l_fMinimumTimeForRender && l_fTime < l_fMaximumTimeForRender && l_fTimeDiff > 0.f)
+			{
+				m_RenderHintPointIndexOfCurveAndTimeLerpHintMap.insert({ l_iIndex ,1.f - (l_fTimeDiff / this->m_fTimeForRenderHint) });
+			}
+			if (l_fTime >= l_fMinimumTimeForCollision && l_fTime <= l_fMaximumTimeForCollision)
+			{
+				m_CollisionPointIndexOfCurveAndTimeLerpHintMap.insert({ l_iIndex ,1.f - (fabs(l_fTimeDiff) / this->m_fTimeForCheckCollision) });
+			}
+			++l_iIndex;
 		}
-		if (l_fTime >= l_fMinimumTimeForCollision && l_fTime <= l_fMaximumTimeForCollision)
-		{
-			m_CollisionPointIndexOfCurveAndTimeLerpHintMap.insert({ l_iIndex ,1.f - (fabs(l_fTimeDiff) / this->m_fTimeForCheckCollision) });
-		}
-		++l_iIndex;
 	}
 }
 
@@ -142,5 +150,14 @@ void cTweenyCurveWithTime::Render(float e_fSphereRadius, Vector4 e_vSphereColor)
 	{
 		auto l_vPos = m_CurveWithTimeKeyPosition[l_Iterator->first];
 		float l_fSize = l_Iterator->second * l_fRadius;
+	}
+	if (m_pDeugLineImage && m_pCurveWithTime)
+	{
+		int l_iNumVertices = 0;
+		const int l_ciTest = 9999;
+		Vector3 l_OutPos[l_ciTest];
+		Vector2 l_vOutUV[l_ciTest];
+		Vector4 l_vOutColor[l_ciTest];
+		m_pDeugLineImage->GenerateCurveTriangulatorRenderDataForBatchRendering(m_pCurveWithTime, l_iNumVertices, l_OutPos, l_vOutUV, l_vOutColor, true);
 	}
 }
