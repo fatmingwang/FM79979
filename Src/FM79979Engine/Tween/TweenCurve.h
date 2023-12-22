@@ -30,4 +30,6 @@ public:
 	void	SetData(tweeny::easing::enumerated e_easing, float e_fDuration, cCurveWithTime* e_pCurveWithTime, std::function<void(unsigned int)>e_FinishFunction);
 	//
 	void	Reset();
+	//
+	std::map<int, float>& GetCollisionPointIndexOfCurveAndTimeLerpHintMap() { return	m_CollisionPointIndexOfCurveAndTimeLerpHintMap; }
 };
