@@ -63,14 +63,17 @@ void cTweenyCurveWithTime::UpdateHintInfo(float e_fCurveCurrentTime)
 		int l_iIndex = 0;
 		for (auto l_fTime : l_TimeVector)
 		{
-			float l_fTimeDiff = l_fTime - e_fCurveCurrentTime;
-			if (l_fTime >= l_fMinimumTimeForRender && l_fTime < l_fMaximumTimeForRender && l_fTimeDiff > 0.f)
+			if (m_iIgnoreAfterIndexForCollisionAndRender < l_iIndex)
 			{
-				m_RenderHintPointIndexOfCurveAndTimeLerpHintMap.insert({ l_iIndex ,1.f - (l_fTimeDiff / this->m_fTimeForRenderHint) });
-			}
-			if (l_fTime >= l_fMinimumTimeForCollision && l_fTime <= l_fMaximumTimeForCollision)
-			{
-				m_CollisionPointIndexOfCurveAndTimeLerpHintMap.insert({ l_iIndex ,1.f - (fabs(l_fTimeDiff) / this->m_fTimeForCheckCollision) });
+				float l_fTimeDiff = l_fTime - e_fCurveCurrentTime;
+				if (l_fTime >= l_fMinimumTimeForRender && l_fTime < l_fMaximumTimeForRender && l_fTimeDiff > 0.f)
+				{
+					m_RenderHintPointIndexOfCurveAndTimeLerpHintMap.insert({ l_iIndex ,1.f - (l_fTimeDiff / this->m_fTimeForRenderHint) });
+				}
+				if (l_fTime >= l_fMinimumTimeForCollision && l_fTime <= l_fMaximumTimeForCollision)
+				{
+					m_CollisionPointIndexOfCurveAndTimeLerpHintMap.insert({ l_iIndex ,1.f - (fabs(l_fTimeDiff) / this->m_fTimeForCheckCollision) });
+				}
 			}
 			++l_iIndex;
 		}
@@ -97,6 +100,7 @@ void cTweenyCurveWithTime::SetData(tweeny::easing::enumerated e_easing, float e_
 
 void cTweenyCurveWithTime::Reset()
 {
+	m_iIgnoreAfterIndexForCollisionAndRender = -1;
 	if (m_pCurveWithTime)
 	{
 		m_pCurveWithTime->Init();
@@ -120,7 +124,12 @@ void cTweenyCurveWithTime::Update(float e_fElpaseTime)
 	}
 }
 
-void cTweenyCurveWithTime::Render(float e_fSphereRadius, Vector4 e_vSphereColor)
+void cTweenyCurveWithTime::Render()
+{
+	this->Render2();
+}
+
+void cTweenyCurveWithTime::Render2(float e_fSphereRadius, Vector4 e_vSphereColor)
 {
 	if (m_pCurveWithTime)
 	{

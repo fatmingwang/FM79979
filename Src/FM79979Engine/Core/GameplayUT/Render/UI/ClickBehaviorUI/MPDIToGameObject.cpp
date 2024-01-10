@@ -1,8 +1,10 @@
 #include "MPDIToGameObject.h"
 namespace FATMING_CORE
 {
-	TYPDE_DEFINE_MARCO(cMPDIToGameObject)
-		cMPDIToGameObject::cMPDIToGameObject()
+	
+	TYPDE_DEFINE_MARCO(cRenderAndClickObject);
+	TYPDE_DEFINE_MARCO(cMPDIToGameObject);
+	cMPDIToGameObject::cMPDIToGameObject()
 	{
 		m_pBGMPDI = nullptr;
 		m_pClonedMPDI = nullptr;
@@ -19,7 +21,7 @@ namespace FATMING_CORE
 
 	cMPDIToGameObject::~cMPDIToGameObject()
 	{
-		this->Destroy();
+		//this->Destroy();
 	}
 
 	bool cMPDIToGameObject::SetupMPDIAndButtonNameVector(cMPDI * e_pMPDI, std::vector<std::wstring> e_strButtonName, bool e_bKeepMPDIAsBG)
@@ -27,7 +29,9 @@ namespace FATMING_CORE
 		if (e_pMPDI)
 		{
 			if (m_pClonedMPDI || m_pRenderObject)
+			{
 				return false;
+			}
 			m_pClonedMPDI = new cMPDI(e_pMPDI);
 			m_pRenderObject = new cRenderObject();
 			//m_pRenderObject->SetIgnoreChildrenUpdate(true);
@@ -62,13 +66,13 @@ namespace FATMING_CORE
 		return false;
 	}
 
-	void cMPDIToGameObject::AddClickObject(cClickBehaviorGroup* e_pClickBehaviorGroup)
+	void cRenderAndClickObject::AddClickObject(cClickBehaviorGroup* e_pClickBehaviorGroup)
 	{
 		cClickBehaviorGroup::AddObjectNeglectExist(e_pClickBehaviorGroup);
 		e_pClickBehaviorGroup->Init();
 	}
 
-	void cMPDIToGameObject::AddRenderObject(cRenderObject*e_pRenderObject)
+	void cRenderAndClickObject::AddRenderObject(cRenderObject*e_pRenderObject)
 	{
 		if (e_pRenderObject)
 		{
@@ -81,24 +85,30 @@ namespace FATMING_CORE
 		}
 	}
 
-	void cMPDIToGameObject::AddObject(cMPDIToGameObject * e_pcMPDIToGameObject)
+	cRenderAndClickObject::~cRenderAndClickObject()
 	{
-		if (e_pcMPDIToGameObject)
+		this->Destroy();
+	}
+
+	void cRenderAndClickObject::AddObject(cRenderAndClickObject* e_pRenderAndClickObject)
+	{
+		if (e_pRenderAndClickObject)
 		{
-			AddClickObject(e_pcMPDIToGameObject);
-			if (e_pcMPDIToGameObject->m_pRenderObject)
+			AddClickObject(e_pRenderAndClickObject);
+			if (e_pRenderAndClickObject->m_pRenderObject)
 			{
-				AddRenderObject(e_pcMPDIToGameObject->m_pRenderObject);
+				AddRenderObject(e_pRenderAndClickObject->m_pRenderObject);
 			}
 		}
 	}
 
-	bool cMPDIToGameObject::CreateRenderObject()
+	cRenderObject* cRenderAndClickObject::CreateRenderObject()
 	{
-		if (m_pRenderObject)
-			return false;
-		m_pRenderObject = new cRenderObject();
-		return true;
+		if (!m_pRenderObject)
+		{
+			m_pRenderObject = new cRenderObject();
+		}
+		return m_pRenderObject;
 	}
 
 	cClickBehavior* cMPDIToGameObject::AddRenderObjectandGenerateClickBehavior(cRenderObject * e_pRenderObject, bool e_bEnableClickScale)
@@ -130,12 +140,12 @@ namespace FATMING_CORE
 		return true;
 	}
 
-	void cMPDIToGameObject::DisConnectFromParent()
+	void cRenderAndClickObject::DisConnectFromParent()
 	{
 		auto l_pOwner = GetOwner();
 		if (l_pOwner)
 		{
-			cMPDIToGameObject*l_pClickBehaviorDispatcher = dynamic_cast<cMPDIToGameObject*>(l_pOwner);
+			cRenderAndClickObject*l_pClickBehaviorDispatcher = dynamic_cast<cRenderAndClickObject*>(l_pOwner);
 			if (l_pClickBehaviorDispatcher)
 				l_pClickBehaviorDispatcher->RemoveObjectWithoutDelete(this);
 		}
@@ -145,7 +155,7 @@ namespace FATMING_CORE
 		}
 	}
 
-	void cMPDIToGameObject::Init()
+	void cRenderAndClickObject::Init()
 	{
 		cClickBehaviorGroup::Init();
 		if (m_pRenderObject)
@@ -154,7 +164,16 @@ namespace FATMING_CORE
 		}
 	}
 
-	void cMPDIToGameObject::SetHide(bool e_bHide)
+	void cRenderAndClickObject::Update(float e_fElpaseTime)
+	{
+		cClickBehaviorGroup::Update(e_fElpaseTime);
+		if (this->m_pRenderObject)
+		{
+			this->m_pRenderObject->UpdateNodes(e_fElpaseTime);
+		}
+	}
+
+	void cRenderAndClickObject::SetHide(bool e_bHide)
 	{
 		if (m_pRenderObject)
 		{
@@ -166,13 +185,23 @@ namespace FATMING_CORE
 	void cMPDIToGameObject::Update(float e_fElpaseTime)
 	{
 		cClickBehaviorGroup::Update(e_fElpaseTime);
+		//render object all buttons s odo not require to update
 		if (this->m_pBGMPDI)
 		{
 			m_pBGMPDI->Update(e_fElpaseTime);
 		}
 	}
 
-	void cMPDIToGameObject::Render()
+	void cMPDIToGameObject::Destroy()
+	{
+		if (!m_pBGMPDI)
+		{
+			SAFE_DELETE(m_pClonedMPDI);
+		}
+		cRenderAndClickObject::Destroy();
+	}
+
+	void cRenderAndClickObject::Render()
 	{
 		if (m_pRenderObject)
 		{
@@ -180,7 +209,7 @@ namespace FATMING_CORE
 		}
 	}
 
-	void cMPDIToGameObject::Destroy()
+	void cRenderAndClickObject::Destroy()
 	{
 		cMPDIToGameObject*l_oOwner = dynamic_cast<cMPDIToGameObject*>(this->GetOwner());
 		if (l_oOwner)
@@ -188,10 +217,6 @@ namespace FATMING_CORE
 			l_oOwner->RemoveObjectWithoutDelete(this);
 		}
 		cClickBehaviorGroup::Destroy();
-		if (!m_pBGMPDI)
-		{
-			SAFE_DELETE(m_pClonedMPDI);
-		}
 		if (m_pRenderObject)
 		{
 			m_pRenderObject->SetParent(nullptr);

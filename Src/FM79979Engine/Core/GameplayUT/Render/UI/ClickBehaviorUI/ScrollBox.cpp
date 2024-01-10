@@ -484,7 +484,7 @@ namespace FATMING_CORE
 		m_pObjectsMovingRoot = nullptr;
 	}
 
-	bool cScrollBox::CreateRenderObject()
+	cRenderObject* cScrollBox::CreateRenderObject()
 	{
 		if (!m_pRenderObject)
 		{
@@ -496,9 +496,8 @@ namespace FATMING_CORE
 			m_pObjectsMovingRoot->SetName(L"ScrollBoxMovingRoot");
 			m_pRenderObject->AddChild(m_pScissorRenderObject);
 			m_pScissorRenderObject->AddChild(m_pObjectsMovingRoot);
-			return true;
 		}
-		return false;
+		return m_pRenderObject;
 	}
 
 	bool cScrollBox::AddBG(cMPDI * e_pBGMPDI)
