@@ -92,10 +92,11 @@ void cTweenyCurveWithTime::SetCurve(cCurveWithTime* e_pCurveWithTime)
 	}
 }
 
-void cTweenyCurveWithTime::SetData(tweeny::easing::enumerated e_easing, float e_fDuration, cCurveWithTime* e_pCurveWithTime, std::function<void(unsigned int)>e_FinishFunction)
+void cTweenyCurveWithTime::SetData(tweeny::easing::enumerated e_easing, float e_fDuration, cCurveWithTime* e_pCurveWithTime, std::function<void(unsigned int)>e_FinishFunction, float e_fDelayToStsartTime)
 {
 	this->SetTween(e_easing, e_fDuration, e_FinishFunction);
 	this->SetCurve(e_pCurveWithTime);
+	m_DelayTC.SetTargetTime(e_fDelayToStsartTime);
 }
 
 void cTweenyCurveWithTime::Reset()
@@ -113,9 +114,20 @@ void cTweenyCurveWithTime::Reset()
 
 void cTweenyCurveWithTime::Update(float e_fElpaseTime)
 {
-	if (m_pTweenBinder)
+	if (!m_DelayTC.bTragetTimrReached)
 	{
-		m_pTweenBinder->Update(0.016f);
+		m_DelayTC.Update(e_fElpaseTime);
+	}
+	if (m_pTweenBinder&& m_DelayTC.bTragetTimrReached)
+	{
+		//if wan to test override as 1
+#ifdef DEBUG
+		if (1)
+		{
+			e_fElpaseTime = 0.016f;
+		}
+#endif
+		m_pTweenBinder->Update(e_fElpaseTime);
 	}
 	if (m_pCurveWithTime)
 	{

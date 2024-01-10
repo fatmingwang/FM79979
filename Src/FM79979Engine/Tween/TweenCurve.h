@@ -17,6 +17,7 @@ protected:
 	cCurveWithTime*							m_pCurveWithTime = nullptr;
 	float									m_fTimeForCheckCollision = 1.f;
 	float									m_fTimeForRenderHint = 1.f;
+	UT::sTimeCounter						m_DelayTC;
 public:
 	cBaseImage*								m_pDeugLineImage = nullptr;
 	void									UpdateHintInfo(float efCurveCurrentTime);
@@ -30,7 +31,7 @@ public:
 	cCurveWithTime* GetCurve();
 	void	SetTween(tweeny::easing::enumerated e_easing, float e_fDuration, std::function<void(unsigned int)>e_FinishFunction);
 	void	SetCurve(cCurveWithTime* e_pCurveWithTime);
-	void	SetData(tweeny::easing::enumerated e_easing, float e_fDuration, cCurveWithTime* e_pCurveWithTime, std::function<void(unsigned int)>e_FinishFunction);
+	void	SetData(tweeny::easing::enumerated e_easing, float e_fDuration, cCurveWithTime* e_pCurveWithTime, std::function<void(unsigned int)>e_FinishFunction,float e_fDelayToStsartTime);
 	//
 	void	Reset();
 	//
