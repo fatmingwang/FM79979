@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\baccarat\Src\FM79979\Src\FM79979Engine\Core\GameplayUT\Render\RenderQueue\BatchRendering.cpp" />
     <ClCompile Include="..\..\Common\BinaryFile\BinaryFile.cpp" />
     <ClCompile Include="..\..\Common\BinaryFile\CustomBinaryData.cpp" />
     <ClCompile Include="..\..\Common\BinaryFile\StringCompress.cpp" />
@@ -113,6 +112,8 @@
     <ClCompile Include="..\..\GameplayUT\Render\Particle\PrtVelocity.cpp" />
     <ClCompile Include="..\..\GameplayUT\Render\PuzzleImage\PuzzleImage.cpp" />
     <ClCompile Include="..\..\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.cpp" />
+    <ClCompile Include="..\..\GameplayUT\Render\RenderQueue\BatchDataMultiTexture.cpp" />
+    <ClCompile Include="..\..\GameplayUT\Render\RenderQueue\BatchRendering.cpp" />
     <ClCompile Include="..\..\GameplayUT\Render\RenderQueue\RenderCommand.cpp" />
     <ClCompile Include="..\..\GameplayUT\Render\Terrain\ShockBoobsPainter.cpp" />
     <ClCompile Include="..\..\GameplayUT\Render\Terrain\ShockBoobsShader.cpp" />
@@ -180,7 +181,6 @@
     <ClCompile Include="OpenGLES.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\baccarat\Src\FM79979\Src\FM79979Engine\Core\GameplayUT\Render\RenderQueue\BatchRendering.h" />
     <ClInclude Include="..\..\Common\BinaryFile\BinaryFile.h" />
     <ClInclude Include="..\..\Common\BinaryFile\CustomBinaryData.h" />
     <ClInclude Include="..\..\Common\BinaryFile\StringCompress.h" />
@@ -282,6 +282,8 @@
     <ClInclude Include="..\..\GameplayUT\Render\PuzzleImage\BaseUVImageData.h" />
     <ClInclude Include="..\..\GameplayUT\Render\PuzzleImage\PuzzleImage.h" />
     <ClInclude Include="..\..\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.h" />
+    <ClInclude Include="..\..\GameplayUT\Render\RenderQueue\BatchDataMultiTexture.h" />
+    <ClInclude Include="..\..\GameplayUT\Render\RenderQueue\BatchRendering.h" />
     <ClInclude Include="..\..\GameplayUT\Render\RenderQueue\RenderCommand.h" />
     <ClInclude Include="..\..\GameplayUT\Render\RenderQueue\RenderQueue.h" />
     <ClInclude Include="..\..\GameplayUT\Render\RenderQueue\RenderQueueManager.h" />
