@@ -101,6 +101,7 @@ void cTweenyCurveWithTime::SetData(tweeny::easing::enumerated e_easing, float e_
 
 void cTweenyCurveWithTime::Reset()
 {
+	m_DelayTC.Start();
 	m_iIgnoreAfterIndexForCollisionAndRender = -1;
 	if (m_pCurveWithTime)
 	{
@@ -120,25 +121,51 @@ void cTweenyCurveWithTime::Update(float e_fElpaseTime)
 	}
 	if (m_pTweenBinder&& m_DelayTC.bTragetTimrReached)
 	{
+		//this->SetVisible(true);
 		//if wan to test override as 1
 #ifdef DEBUG
-		if (1)
+		if (0)
 		{
 			e_fElpaseTime = 0.016f;
 		}
 #endif
 		m_pTweenBinder->Update(e_fElpaseTime);
+		if (m_pCurveWithTime)
+		{
+			float l_fTargetTime = m_pCurveWithTime->GetCurrentTime();
+			UpdateHintInfo(l_fTargetTime);
+		}
 	}
-	if (m_pCurveWithTime)
+	else
 	{
-		float l_fTargetTime = m_pCurveWithTime->GetCurrentTime();
-		UpdateHintInfo(l_fTargetTime);
+		//this->SetVisible(false);
 	}
 }
 
 void cTweenyCurveWithTime::Render()
 {
-	this->Render2();
+	if (!m_DelayTC.bTragetTimrReached)
+	{//do extend curve hint
+		if (m_pDeugLineImage && m_pCurveWithTime)
+		{
+			if (m_DelayTC.fRestTime < 4.f)
+			{
+				float l_fTargetTime = (4 - m_DelayTC.fRestTime)+ m_DelayTC.fTargetTime;
+				int l_iNumVertices = 0;
+				const int l_ciTest = 9999;
+				Vector3 l_OutPos[l_ciTest];
+				Vector2 l_vOutUV[l_ciTest];
+				Vector4 l_vOutColor[l_ciTest];
+				m_pDeugLineImage->GenerateCurveTriangulatorRenderDataForBatchRendering(m_pCurveWithTime, l_fTargetTime, l_iNumVertices, l_OutPos, l_vOutUV, l_vOutColor, true);
+			}
+
+		}
+	}
+	else
+	{
+		this->Render2();
+	}
+
 }
 
 void cTweenyCurveWithTime::Render2(float e_fSphereRadius, Vector4 e_vSphereColor)

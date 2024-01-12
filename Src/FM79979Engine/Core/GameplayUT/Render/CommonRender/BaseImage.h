@@ -133,6 +133,7 @@ namespace FATMING_CORE
 		virtual const		cBound*	GenerateBound()override;
 		virtual cTexture*	GetTriangulatorRenderDataForBatchRendering(int& e_iOutNumVertex,Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
 		cTexture*	GenerateCurveTriangulatorRenderDataForBatchRendering(class cCurve*e_Curve,int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor,bool e_bDoDebugRender = false);
+		cTexture*	GenerateCurveTriangulatorRenderDataForBatchRendering(class cCurveWithTime* e_pCurve,float e_fTargetTime, int& e_iOutNumVertex, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor, bool e_bDoDebugRender = false);
 		//virtual cTexture*	GetQuadRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
 	};
 

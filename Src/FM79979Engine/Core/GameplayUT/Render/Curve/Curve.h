@@ -234,6 +234,7 @@ namespace FATMING_CORE
 		int				GetTimeRelativeIndexWithFinalPointList(float e_fTargetTime, float e_fOffsetTime);
 		//if LOD is not 1 performance is bad
 		std::vector<Vector3>	GetKeyPositionByTime();
+		std::vector<Vector3>	GetKeyPositionByTargetTime(float e_fTime);
 		//if update is called we have a m_iCurrentPointIndex,but it's working for final list but we want original index instead
 		int				GetCurrentWorkingOriginalIndex();
 		//

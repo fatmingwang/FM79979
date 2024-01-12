@@ -1384,6 +1384,25 @@ namespace FATMING_CORE
 		return l_Vector;
 	}
 
+	std::vector<Vector3> cCurveWithTime::GetKeyPositionByTargetTime(float e_fTime)
+	{
+		std::vector<Vector3>	l_Vector;
+		Vector3 l_vFinalPos = this->m_vCurrentPosition;
+		if (e_fTime > 0)
+		{
+			l_vFinalPos = GetPositionByTime(e_fTime);
+		}
+		for (int i = 0; i < this->m_iCurrentPointIndex+1; ++i)
+		{
+			l_Vector.push_back(this->m_FinallyPointList[i]);
+		}
+		if (e_fTime != this->m_FinalTimeList[this->m_iCurrentPointIndex] && m_iCurrentPointIndex != -1)
+		{
+			l_Vector.push_back(l_vFinalPos);
+		}
+		return l_Vector;
+	}
+
 	float	cCurveWithTime::GetVelocity(float e_fTargetTime)
 	{
 		int	l_iIndex = GetTimeRelativeIndex(e_fTargetTime);
