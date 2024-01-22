@@ -92,8 +92,10 @@ void cTweenyCurveWithTime::SetCurve(cCurveWithTime* e_pCurveWithTime)
 	}
 }
 
-void cTweenyCurveWithTime::SetData(tweeny::easing::enumerated e_easing, float e_fDuration, cCurveWithTime* e_pCurveWithTime, std::function<void(unsigned int)>e_FinishFunction, float e_fDelayToStsartTime)
+void cTweenyCurveWithTime::SetData(tweeny::easing::enumerated e_easing, float e_fDuration, cCurveWithTime* e_pCurveWithTime, std::function<void(unsigned int)>e_FinishFunction, float e_fDelayToStsartTime, float e_fGenerateRenderCurveTime)
 {
+	m_fGenerateRenderCurveTime = e_fGenerateRenderCurveTime;
+	m_fTotalTime = e_pCurveWithTime->GetEndTime();
 	this->SetTween(e_easing, e_fDuration, e_FinishFunction);
 	this->SetCurve(e_pCurveWithTime);
 	m_DelayTC.SetTargetTime(e_fDelayToStsartTime);
@@ -117,6 +119,7 @@ void cTweenyCurveWithTime::Update(float e_fElpaseTime)
 {
 	if (!m_DelayTC.bTragetTimrReached)
 	{
+		//e_fElpaseTime = 0.016f;
 		m_DelayTC.Update(e_fElpaseTime);
 	}
 	if (m_pTweenBinder&& m_DelayTC.bTragetTimrReached)
@@ -148,17 +151,18 @@ void cTweenyCurveWithTime::Render()
 	{//do extend curve hint
 		if (m_pDeugLineImage && m_pCurveWithTime)
 		{
-			if (m_DelayTC.fRestTime < 4.f)
+			float l_fTargetTime = m_DelayTC.fTargetTime - m_fGenerateRenderCurveTime;
+			if (m_DelayTC.fRestTime < l_fTargetTime)
 			{
-				float l_fTargetTime = (4 - m_DelayTC.fRestTime)+ m_DelayTC.fTargetTime;
+				float l_fLERP = 1-(m_DelayTC.fRestTime / l_fTargetTime);
+				float l_fCurveTargetTime = l_fLERP * m_fTotalTime;
 				int l_iNumVertices = 0;
 				const int l_ciTest = 9999;
 				Vector3 l_OutPos[l_ciTest];
 				Vector2 l_vOutUV[l_ciTest];
 				Vector4 l_vOutColor[l_ciTest];
-				m_pDeugLineImage->GenerateCurveTriangulatorRenderDataForBatchRendering(m_pCurveWithTime, l_fTargetTime, l_iNumVertices, l_OutPos, l_vOutUV, l_vOutColor, true);
+				m_pDeugLineImage->GenerateCurveTriangulatorRenderDataForBatchRendering(m_pCurveWithTime, l_fCurveTargetTime, l_iNumVertices, l_OutPos, l_vOutUV, l_vOutColor, true);
 			}
-
 		}
 	}
 	else
