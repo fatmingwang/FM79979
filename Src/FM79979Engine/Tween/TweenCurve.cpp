@@ -55,7 +55,7 @@ void cTweenyCurveWithTime::UpdateHintInfo(float e_fCurveCurrentTime)
 	float l_fMaximumTimeForRender = e_fCurveCurrentTime + m_fTimeForRenderHint;
 	float l_fMinimumTimeForCollision = e_fCurveCurrentTime - m_fTimeForCheckCollision;
 	float l_fMaximumTimeForCollision = e_fCurveCurrentTime + m_fTimeForCheckCollision;
-	m_RenderHintPointIndexOfCurveAndTimeLerpHintMap.clear();
+	m_RenderSphereOfHintPointIndexOfCurveAndTimeLerpHintMap.clear();
 	m_CollisionPointIndexOfCurveAndTimeLerpHintMap.clear();
 	if (m_pCurveWithTime)
 	{
@@ -68,7 +68,7 @@ void cTweenyCurveWithTime::UpdateHintInfo(float e_fCurveCurrentTime)
 				float l_fTimeDiff = l_fTime - e_fCurveCurrentTime;
 				if (l_fTime >= l_fMinimumTimeForRender && l_fTime < l_fMaximumTimeForRender && l_fTimeDiff > 0.f)
 				{
-					m_RenderHintPointIndexOfCurveAndTimeLerpHintMap.insert({ l_iIndex ,1.f - (l_fTimeDiff / this->m_fTimeForRenderHint) });
+					m_RenderSphereOfHintPointIndexOfCurveAndTimeLerpHintMap.insert({ l_iIndex ,1.f - (l_fTimeDiff / this->m_fTimeForRenderHint) });
 				}
 				if (l_fTime >= l_fMinimumTimeForCollision && l_fTime <= l_fMaximumTimeForCollision)
 				{
@@ -103,6 +103,7 @@ void cTweenyCurveWithTime::SetData(tweeny::easing::enumerated e_easing, float e_
 
 void cTweenyCurveWithTime::Reset()
 {
+	m_fElpaseTime = 0;
 	m_DelayTC.Start();
 	m_iIgnoreAfterIndexForCollisionAndRender = -1;
 	if (m_pCurveWithTime)
@@ -115,8 +116,28 @@ void cTweenyCurveWithTime::Reset()
 	}
 }
 
+bool cTweenyCurveWithTime::IsStart()
+{
+	return m_DelayTC.bTragetTimrReached;
+}
+
+bool cTweenyCurveWithTime::IsTimeLegal(float e_fOffsetTime)
+{
+	if (!m_DelayTC.bTragetTimrReached)
+	{
+		return false;
+	}
+	float l_fAllowTime = m_pCurveWithTime->GetEndTime() + e_fOffsetTime;
+	if (m_fElpaseTime > l_fAllowTime)
+	{
+		return false;
+	}
+	return true;
+}
+
 void cTweenyCurveWithTime::Update(float e_fElpaseTime)
 {
+	m_fElpaseTime += e_fElpaseTime;
 	if (!m_DelayTC.bTragetTimrReached)
 	{
 		//e_fElpaseTime = 0.016f;
@@ -192,7 +213,7 @@ void cTweenyCurveWithTime::Render2(float e_fSphereRadius, Vector4 e_vSphereColor
 		}
 	}
 	float l_fRadius = 20.f;
-	for (auto l_Iterator = m_RenderHintPointIndexOfCurveAndTimeLerpHintMap.begin(); l_Iterator != m_RenderHintPointIndexOfCurveAndTimeLerpHintMap.end(); ++l_Iterator)
+	for (auto l_Iterator = m_RenderSphereOfHintPointIndexOfCurveAndTimeLerpHintMap.begin(); l_Iterator != m_RenderSphereOfHintPointIndexOfCurveAndTimeLerpHintMap.end(); ++l_Iterator)
 	{
 		float l_fSize = l_Iterator->second * l_fRadius;
 		auto l_vPos = m_CurveWithTimeKeyPosition[l_Iterator->first];
