@@ -1,0 +1,14 @@
+go to 
+
+FM79979\Src\FM79979Engine\VSAndroid\AndroidGrageleProject
+
+use cmd with 
+
+gradlew :app:bundleRelease
+
+it might jusmp the files under lib folder required a .so extensio name
+so remove or add .so to that file(gdbserver->gdbserver.so)
+
+now you got aab files
+
+FM79979\Src\FM79979Engine\VSAndroid\AndroidGrageleProject\app\app\build\outputs\bundle
