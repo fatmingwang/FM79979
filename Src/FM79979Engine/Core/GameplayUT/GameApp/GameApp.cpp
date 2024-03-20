@@ -289,6 +289,7 @@ namespace	FATMING_CORE
 	{
 		if (g_pShowInfoOnScreen)
 		{
+			UseShaderProgram(DEFAULT_SHADER);
 			GLRender::glEnable2D(1920.f,1080.f);
 			Vector2 l_vShowPos(50, 50);
 			for (size_t i = 0; i < g_pShowInfoOnScreen->size(); ++i)
