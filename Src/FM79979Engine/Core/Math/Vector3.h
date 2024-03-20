@@ -77,6 +77,28 @@ public:
 	/**	Retrieves the length of the vector.
 		@return The length of this vector. */
 	inline float Length() const { return sqrtf(x * x + y * y + z * z); }
+	//2 points distance
+	inline bool	IsCollided(Vector3 e_vPoint,float e_fRadius) const
+	{
+		Vector3 l_vVector = Vector3(e_vPoint.x - x, e_vPoint.y - y, e_vPoint.z - z);
+		float l_fDis = l_vVector.Length();
+		if (l_fDis <= e_fRadius)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	inline bool	IsCollided(Vector2 e_vPoint, float e_fRadius) const
+	{
+		return IsCollided(Vector3(e_vPoint.x, e_vPoint.y,0.f),e_fRadius);
+	}
+
+	inline bool	IsCollided(float e_fPosX, float e_fPosY, float e_fRadius) const
+	{
+
+		return IsCollided(Vector3(e_fPosX, e_fPosY, 0.f), e_fRadius);
+	}
 
 	/** Normalizes this vector. */
 	inline void NormalizeIt() { float l = Length(); if (l > 0.0f) { x /= l; y /= l; z /= l; } else { x = y = 0; z = 1; }}
