@@ -78,7 +78,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\include;..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;..\EngineTest;..\..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\..\..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\EngineTest;..\..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;DEBUG;_HAS_AUTO_PTR_ETC=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -175,8 +175,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\ProtoBuffer\VSProtoBuf\libprotobuf.vcxproj">
-      <Project>{4f256d5e-9cd3-3eab-849b-9982de894f79}</Project>
+    <ProjectReference Include="..\..\..\..\..\ProtoBuffer\VSProject\libprotobuf.vcxproj">
+      <Project>{aa2f9274-a914-3c9d-8fe7-9ed3303ec581}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\zlib\zlib.vcxproj">
       <Project>{c2552b93-40e6-4118-ba99-2a8d500fc597}</Project>

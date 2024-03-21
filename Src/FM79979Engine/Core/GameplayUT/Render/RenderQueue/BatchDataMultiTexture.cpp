@@ -21,6 +21,7 @@ namespace FATMING_CORE
 				PSColor = VSColor;
 			}
 		)";
+//http://www.c-jump.com/bcc/common/Talk3/OpenGL/Wk03_shader_intro/W03_0090_glsl_version_number.htm
 #if defined(WIN32) && !defined(UWP)
 	const char* g_strColorFulFSWithTextureArray =
 		R"(
@@ -30,7 +31,7 @@ namespace FATMING_CORE
 			varying vec4 PSColor;
 			void main()
 			{
-				gl_FragColor = texture2D(texSample[PSTexcoord.z], PSTexcoord.xy) + (PSColor - vec4(1, 1, 1, 1));
+				gl_FragColor = texture2D(texSample[uint(PSTexcoord.z)], PSTexcoord.xy) + (PSColor - vec4(1, 1, 1, 1));
 			}
 		)";
 #else

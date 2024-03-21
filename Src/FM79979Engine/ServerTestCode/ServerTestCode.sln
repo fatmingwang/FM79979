@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Freetype", "..\Freetype\Fre
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestServer", "Win32Test\Win32Test.vcxproj", "{77E00846-770C-45AA-99A1-EF295FB97B74}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotobuf", "..\..\..\..\ProtoBuffer\VSProtoBuf\libprotobuf.vcxproj", "{4F256D5E-9CD3-3EAB-849B-9982DE894F79}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotobuf", "..\..\..\..\ProtoBuffer\VSProject\libprotobuf.vcxproj", "{4F256D5E-9CD3-3EAB-849B-9982DE894F79}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\Core\zlib\zlib.vcxproj", "{C2552B93-40E6-4118-BA99-2A8D500FC597}"
 EndProject
