@@ -2,7 +2,7 @@
 
 
 
-bool	WebSocketInit();
+bool	WebSocketInit(int e_iPort = 9992);
 int		WebSocketUpdate(float e_fElpaseTime);
 bool	WebSocketDestroy();
 

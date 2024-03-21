@@ -243,22 +243,30 @@ public:
             const std::string& sInput = msg->get_payload();
             const char* pDataArray = reinterpret_cast<const char*>(sInput.data());
             auto uLength = sInput.length() / sizeof(char);
-            int l_iSize = *(int*)pDataArray;
-            if (l_iSize != uLength - 4)
+            bool l_bDoEchoTest = true;
+            if (l_bDoEchoTest)
             {
-                FMLog::Log("websocket on_Message size not match", true);
+                this->Boardcast(uLength, pDataArray);
             }
             else
             {
-                pDataArray += sizeof(int);
-
-                websocketpp::connection_hdl l_connection_hdl;
-                auto l_IT = m_ConnectionAndUserIDMap.find(hdl);
-                if (l_IT != m_ConnectionAndUserIDMap.end())
+                int l_iSize = *(int*)pDataArray;
+                if (l_iSize != uLength - 4)
                 {
-                    std::shared_ptr<sNetworkReceivedPacket>l_pNetworkSendPacket = std::make_shared<sNetworkReceivedPacket>();
-                    l_pNetworkSendPacket->WebSocketReceiveDataWithoutHeaderSize(l_IT->second, l_iSize, pDataArray);
-                    m_WaitProcessDataVector.push_back(l_pNetworkSendPacket);
+                    FMLog::Log("websocket on_Message size not match", true);
+                }
+                else
+                {
+                    pDataArray += sizeof(int);
+
+                    websocketpp::connection_hdl l_connection_hdl;
+                    auto l_IT = m_ConnectionAndUserIDMap.find(hdl);
+                    if (l_IT != m_ConnectionAndUserIDMap.end())
+                    {
+                        std::shared_ptr<sNetworkReceivedPacket>l_pNetworkSendPacket = std::make_shared<sNetworkReceivedPacket>();
+                        l_pNetworkSendPacket->WebSocketReceiveDataWithoutHeaderSize(l_IT->second, l_iSize, pDataArray);
+                        m_WaitProcessDataVector.push_back(l_pNetworkSendPacket);
+                    }
                 }
             }
         }
@@ -292,7 +300,7 @@ public:
         return false;
     }
 
-    bool    Boardcast(int e_iDataLength, char* e_pData)
+    bool    Boardcast(int e_iDataLength, const char* e_pData)
     {
         for (auto l_IT : m_ConnectionAndUserIDMap)
         {
@@ -377,7 +385,7 @@ bool    SendMessageToSocket(std::shared_ptr<websocketpp::connection<websocketpp:
 }
 
 
-bool    WebSocketInit()
+bool    WebSocketInit(int e_iPoit)
 {
     if (g_pSimpleWebSocketServer)
     {
@@ -393,7 +401,7 @@ bool    WebSocketInit()
                 try
                 {
                     g_bWebSocketThreadRunning = true;
-                    g_pSimpleWebSocketServer->run(9992);
+                    g_pSimpleWebSocketServer->run(e_iPoit);
                     break;
                 }
                 catch (websocketpp::exception const& e)

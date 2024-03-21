@@ -191,8 +191,10 @@ void WebSocketServer::send( int socketID, char* e_pData, size_t e_uiDataLen)
 
 void WebSocketServer::broadcast(char* e_pData, size_t e_uiDataLen)
 {
-    //for( map<int,Connection*>::const_iterator it = this->connections.begin( ); it != this->connections.end( ); ++it )
-      //  this->send( it->first, data );
+    for (map<int, Connection*>::const_iterator it = this->connections.begin(); it != this->connections.end(); ++it)
+    {
+        this->send(it->first, e_pData, e_uiDataLen);
+    }
 }
 
 //void WebSocketServer::setValue( int socketID, const string& name, const string& value )

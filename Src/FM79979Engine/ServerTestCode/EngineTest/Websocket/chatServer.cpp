@@ -70,9 +70,14 @@ void cEasyWebSocketServer::onMessage(int socketID, char* e_pData, size_t e_uiDat
     // Send the received message to all connected clients in the form of 'User XX: message...'
     //Util::log( "Received: " + data );
     //const string& message = this->getValue( socketID, "handle" ) + ": " + data;
-    int l_iSize = e_uiDataLen;
+    int l_iSize = e_uiDataLen+1;
+    char* l_pData = new char[l_iSize];
+    memcpy(l_pData, e_pData, l_iSize);
+    l_pData[e_uiDataLen] = 0;
+    std::string l_str = l_pData;
+    FMLOG(l_pData, l_iSize);
     FMLOG("OnMessage:%d",l_iSize);
-    if (1)
+    if (0)
     {
         //https://krpc.github.io/krpc/communication-protocols/tcpip.html
         tutorial::AddressBook l_AddressBook;// = (tutorial::AddressBook::ParseFrom(()*)l_pData->pData;
@@ -96,7 +101,7 @@ void cEasyWebSocketServer::onMessage(int socketID, char* e_pData, size_t e_uiDat
         //{
         //}
     }
-    //this->broadcast( message );
+    this->broadcast(e_pData,e_uiDataLen);
 }
 
 void cEasyWebSocketServer::onDisconnect( int socketID )

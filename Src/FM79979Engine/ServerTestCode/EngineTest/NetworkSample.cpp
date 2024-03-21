@@ -109,12 +109,12 @@ bool cNetworkSample::LoginNetworkEventProcess(FATMING_CORE::sNetworkReceivedPack
 extern void cEasyWebSocketServerInit(const char* _strCetPath, const char* e_pKeyPath);
 void cNetworkSample::Init()
 {
-	cEasyWebSocketServerInit("localhost.pem","openssh_key.pem");
+	//cEasyWebSocketServerInit("localhost.pem","openssh_key.pem");
 	this->m_bUseExtraHeader = false;
-	//WebSocketInit();
+	WebSocketInit();
 	cGameNetwork::Init();
 	//ws://echo.websocket.org
-	this->CreateAsServer(9991,true);
+	//this->CreateAsServer(9991,true);
 	FMLog::Log("CreateAsServer finish", false);
 
 }
@@ -122,7 +122,7 @@ void cNetworkSample::Init()
 
 void cNetworkSample::Update(float e_fElpaseTime)
 {
-	//WebSocketUpdate(e_fElpaseTime);
+	WebSocketUpdate(e_fElpaseTime);
 	cGameNetwork::Update(e_fElpaseTime);
 	std::vector<sNetworkReceivedPacket*>l_DataVector = GetReceivedDataPleaseDeleteAfterUseIt();
 	size_t l_uiSize = l_DataVector.size();
@@ -197,7 +197,7 @@ bool cNetworkSample::SendDataToClient(SDLNetSocket e_SDLNetSocket, char* e_pData
 	else
 	if (e_SDLNetSocket->NetworkType == sSDLNetTCPSocket::eNT_WEBSOCKET)
 	{
-		//return WebSocketSendData(e_SDLNetSocket, e_iDataLength, e_pData);
+		return WebSocketSendData(e_SDLNetSocket, e_iDataLength, e_pData);
 	}
 	return false;
 }
@@ -205,6 +205,6 @@ bool cNetworkSample::SendDataToClient(SDLNetSocket e_SDLNetSocket, char* e_pData
 bool cNetworkSample::SendDataToAllClient(char* e_pData, int e_iDataLength)
 {
 	cGameNetwork::SendDataToAllClient(e_pData, e_iDataLength);
-	//WebSocketSendDataToAll(e_iDataLength, e_pData);
+	WebSocketSendDataToAll(e_iDataLength, e_pData);
 	return true;
 }
