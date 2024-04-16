@@ -4,3 +4,5 @@ aftern install Ubutu20.04 from Windows Store
 
 input 
 explorer.exe .
+
+Left side there is a penguin there
