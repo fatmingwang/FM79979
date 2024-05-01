@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Characters to Bitmap</title>
+</head>
+<body>
+    <div id="textElement">11</div>
+    <canvas id="myCanvas" width="200" height="100" style="display: none;"></canvas>
+
+    <script>
+        // Get the text element
+        const textElement = document.getElementById('textElement');
+        // Get the canvas element
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Draw the text element on the canvas
+        const htmlText = textElement.innerHTML;
+        ctx.font = '20px Arial';
+        ctx.fillText(htmlText, 0, 15);
+
+
+	let metrics = ctx.measureText(htmlText);
+	let fontHeight = metrics.fontBoundingBoxAscent + metrics.fontBoundingBoxDescent;
+	let actualHeight = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+	console.log("font height:"+fontHeight+" acctualHeight:"+actualHeight);
+        var width = ctx.measureText(htmlText).width;
+	console.log("font width:"+width);
+        // Convert canvas content to a PNG image
+        const dataUrl = canvas.toDataURL('image/png');
+
+        // Create an anchor element to download the image
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataUrl;
+        downloadLink.download = 'text_image.png';
+        downloadLink.innerHTML = 'Download Image';
+
+        // Append the download link to the body
+        document.body.appendChild(downloadLink);
+    </script>
+</body>
+</html>

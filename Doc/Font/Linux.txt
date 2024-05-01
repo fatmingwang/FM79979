@@ -1,0 +1,21 @@
+https://stackoverflow.com/questions/42882460/on-linux-how-to-draw-a-text-to-a-bitmap
+
+
+#include <OpenImageIO/imageio.h> 
+#include <OpenImageIO/imagebuf.h>
+#include <OpenImageIO/imagebufalgo.h>
+OIIO_NAMESPACE_USING
+
+const int WIDTH = 256, HEIGHT = 32, CHANNELS = 3;
+unsigned char buffer[WIDTH * HEIGHT * CHANNELS];
+
+int main() {
+    ImageBuf ib(ImageSpec(WIDTH, HEIGHT, CHANNELS), buffer);
+    ImageBufAlgo::render_text(ib, 0 /* x */, 10 /* y */,
+        "Hello, world!" /* text to draw */);
+    for (int j = 0; j < HEIGHT; j++)
+        for (int i = 0; i < WIDTH; i++)
+            cout << buffer[(i+j*WIDTH)*CHANNELS+0] << ","    //R
+                 << buffer[(i+j*WIDTH)*CHANNELS+1] << ","    //G
+                 << buffer[(i+j*WIDTH)*CHANNELS+2] << endl;  //B
+}
