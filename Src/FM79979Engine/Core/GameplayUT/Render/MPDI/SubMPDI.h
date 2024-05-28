@@ -15,12 +15,6 @@ namespace FATMING_CORE
 	//================
 	class	cCueToStartCurveWithTime:public cCurveWithTime,public cMulti_PI_Image
 	{
-		struct	s2DVertex
-		{
-			Vector3		vPos[4];
-			Vector2		fUV[4];
-			//Vector4		vColor[4];
-		};
 		s2DVertex			m_2DVertices;
 		//
 		//cMatrix44			m_matRenderMatrix;

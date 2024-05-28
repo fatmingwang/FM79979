@@ -10,6 +10,12 @@ namespace FATMING_CORE
 	extern wchar_t*	DEFAULT_SHADER;
 }
 
+struct	s2DVertex
+{
+	Vector3		vPos[4];
+	Vector2		fUV[4];
+};
+
 //static float		g_f2DTextureOriginalCoordinateBuffer[8] = { 0,0,1,0,0,1,1,1 };//texture coordinate
 //static float		g_f2DTextureOriginalCoordinateMirrorBuffer[8] = {1,0,0,0,1,1,0,1};
 //static float		g_f2DColorOne[16] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};

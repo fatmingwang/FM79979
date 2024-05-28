@@ -34,11 +34,6 @@ namespace FATMING_CORE
 		GET_SET_DEC(bool,m_bColorEffectToChildren,IsColorEffectToChildren,SetColorEffectToChildren);
 		void							GoThoughAllFrameFromaFirstToEnd(std::function<void(void*,Vector4*e_pParentColor)> e_Function, void*e_pFrame,Vector4*e_pParentColor);
 	protected:
-		struct	s2DVertex
-		{
-			Vector3		vPos[4];
-			Vector2		fUV[4];
-		};
 		s2DVertex						m_2DVertices;
 		//related to m_pLinerDataContainer
 		float							m_fMaxLinerDataPlayTime;
