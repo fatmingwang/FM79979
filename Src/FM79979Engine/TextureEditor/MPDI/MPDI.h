@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "../../Core/GameplayUT/Render/VideoPlayer/avi_utils.h"
 #include "../../Core/GameplayUT/Render/MPDI/MPDIForEditor.h"
 #include "MPDIThread.h"
@@ -250,11 +250,11 @@ private:
     void			CurrentProgressValueChange(int e_iSelection);
 	public:System::Void MyKeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e);
 		/// <summary>
-		/// ³]­p¤u¨ã©Ò»İªºÅÜ¼Æ¡C
+		/// Â³]Â­pÂ¤uÂ¨Ã£Â©Ã’Â»ÃÂªÂºÃ…ÃœÂ¼Ã†Â¡C
 		/// </summary>
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// ¦¹¬°³]­p¤u¨ã¤ä´©©Ò»İªº¤èªk - ½Ğ¤Å¨Ï¥Îµ{¦¡½X½s¿è¾¹­×§ï³o­Ó¤èªkªº¤º®e¡C
+		/// Â¦Â¹Â¬Â°Â³]Â­pÂ¤uÂ¨Ã£Â¤Ã¤Â´Â©Â©Ã’Â»ÃÂªÂºÂ¤Ã¨Âªk - Â½ÃÂ¤Ã…Â¨ÃÂ¥ÃÂµ{Â¦Â¡Â½XÂ½sÂ¿Ã¨Â¾Â¹Â­Ã—Â§Ã¯Â³oÂ­Ã“Â¤Ã¨ÂªkÂªÂºÂ¤ÂºÂ®eÂ¡C
 		///
 		/// </summary>
 		void InitializeComponent(void)
@@ -511,21 +511,21 @@ private:
 			// 
 			this->openImageFileToolStripMenuItemToolStripMenuItem->Name = L"openImageFileToolStripMenuItemToolStripMenuItem";
 			this->openImageFileToolStripMenuItemToolStripMenuItem->Size = System::Drawing::Size(236, 22);
-			this->openImageFileToolStripMenuItemToolStripMenuItem->Text = L"Open PI/¥´¶}PIÀÉ";
+			this->openImageFileToolStripMenuItemToolStripMenuItem->Text = L"Open PI";
 			this->openImageFileToolStripMenuItemToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::OpenImageFile_button_Click);
 			// 
 			// AddPI_toolStripMenuItem
 			// 
 			this->AddPI_toolStripMenuItem->Name = L"AddPI_toolStripMenuItem";
 			this->AddPI_toolStripMenuItem->Size = System::Drawing::Size(236, 22);
-			this->AddPI_toolStripMenuItem->Text = L"AddPI/¼W¥[PIÀÉ";
+			this->AddPI_toolStripMenuItem->Text = L"AddPI";
 			this->AddPI_toolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::OpenImageFile_button_Click);
 			// 
 			// toolStripMenuItem2
 			// 
 			this->toolStripMenuItem2->Name = L"toolStripMenuItem2";
 			this->toolStripMenuItem2->Size = System::Drawing::Size(236, 22);
-			this->toolStripMenuItem2->Text = L"BackgroundImage/­I´º¹Ï¤ù";
+			this->toolStripMenuItem2->Text = L"BackgroundImage/èƒŒæ™¯åœ–ç‰‡";
 			this->toolStripMenuItem2->Click += gcnew System::EventHandler(this, &MPDIEditor::BKImage_button_Click);
 			// 
 			// openPathFileToolStripMenuItem
@@ -546,7 +546,7 @@ private:
 			// 
 			this->saveGamePathToolStripMenuItem->Name = L"saveGamePathToolStripMenuItem";
 			this->saveGamePathToolStripMenuItem->Size = System::Drawing::Size(236, 22);
-			this->saveGamePathToolStripMenuItem->Text = L"SaveGamePath/Àx¦s¹CÀ¸¸ô®|";
+			this->saveGamePathToolStripMenuItem->Text = L"SaveGamePath/å„²å­˜éŠæˆ²è·¯å¾‘";
 			this->saveGamePathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::openPathFileToolStripMenuItem_Click);
 			// 
 			// saveAviFileToolStripMenuItem
@@ -586,7 +586,7 @@ private:
 			});
 			this->editModeToolStripMenuItem->Name = L"editModeToolStripMenuItem";
 			this->editModeToolStripMenuItem->Size = System::Drawing::Size(127, 20);
-			this->editModeToolStripMenuItem->Text = L"EditMode/½s¿è¼Ò¦¡";
+			this->editModeToolStripMenuItem->Text = L"EditMode/ç·¨è¼¯æ¨¡å¼";
 			// 
 			// addPointModeToolStripMenuItem
 			// 
@@ -594,42 +594,42 @@ private:
 			this->addPointModeToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->addPointModeToolStripMenuItem->Name = L"addPointModeToolStripMenuItem";
 			this->addPointModeToolStripMenuItem->Size = System::Drawing::Size(245, 22);
-			this->addPointModeToolStripMenuItem->Text = L"AddPointMode/¼W¥[";
+			this->addPointModeToolStripMenuItem->Text = L"AddPointMode/å¢åŠ ";
 			this->addPointModeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// fixPointModeToolStripMenuItem
 			// 
 			this->fixPointModeToolStripMenuItem->Name = L"fixPointModeToolStripMenuItem";
 			this->fixPointModeToolStripMenuItem->Size = System::Drawing::Size(245, 22);
-			this->fixPointModeToolStripMenuItem->Text = L"FixPointMode/­×§ï";
+			this->fixPointModeToolStripMenuItem->Text = L"FixPointMode/Â­ä½å­ä¿®æ”¹";
 			this->fixPointModeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// moveWholePathToolStripMenuItem
 			// 
 			this->moveWholePathToolStripMenuItem->Name = L"moveWholePathToolStripMenuItem";
 			this->moveWholePathToolStripMenuItem->Size = System::Drawing::Size(245, 22);
-			this->moveWholePathToolStripMenuItem->Text = L"MoveWholePath/²¾°Ê¾ã±ø¸ô®|";
+			this->moveWholePathToolStripMenuItem->Text = L"MoveWholePath/ç§»å‹•ä¸€æ¢è·¯å¾‘";
 			this->moveWholePathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// moveAllPathToolStripMenuItem
 			// 
 			this->moveAllPathToolStripMenuItem->Name = L"moveAllPathToolStripMenuItem";
 			this->moveAllPathToolStripMenuItem->Size = System::Drawing::Size(245, 22);
-			this->moveAllPathToolStripMenuItem->Text = L"MoveAllPath/²¾°Ê©Ò¦³¸ô®|";
+			this->moveAllPathToolStripMenuItem->Text = L"MoveAllPath/ç§»å‹•æ‰€æœ‰è·¯å¾‘";
 			this->moveAllPathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// rotatePathToolStripMenuItem
 			// 
 			this->rotatePathToolStripMenuItem->Name = L"rotatePathToolStripMenuItem";
 			this->rotatePathToolStripMenuItem->Size = System::Drawing::Size(245, 22);
-			this->rotatePathToolStripMenuItem->Text = L"RotatePath/±ÛÂà¸ô®|";
+			this->rotatePathToolStripMenuItem->Text = L"RotatePath/æ—‹è½‰ä¸€æ¢è·¯å¾‘";
 			this->rotatePathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// rotateAllPathToolStripMenuItem
 			// 
 			this->rotateAllPathToolStripMenuItem->Name = L"rotateAllPathToolStripMenuItem";
 			this->rotateAllPathToolStripMenuItem->Size = System::Drawing::Size(245, 22);
-			this->rotateAllPathToolStripMenuItem->Text = L"RotateAllPath/±ÛÂà©Ò¦³¸ô®|";
+			this->rotateAllPathToolStripMenuItem->Text = L"RotateAllPath/ç§»å‹•æ‰€æœ‰è·¯å¾‘";
 			this->rotateAllPathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// assistantModeToolStripMenuItem
@@ -644,20 +644,20 @@ private:
 			});
 			this->assistantModeToolStripMenuItem->Name = L"assistantModeToolStripMenuItem";
 			this->assistantModeToolStripMenuItem->Size = System::Drawing::Size(154, 20);
-			this->assistantModeToolStripMenuItem->Text = L"AssistantMode/»²§U¼Ò¦¡";
+			this->assistantModeToolStripMenuItem->Text = L"AssistantMode/è¼”åŠ©æ¨¡å¼";
 			// 
 			// showImageBoderToolStripMenuItem
 			// 
 			this->showImageBoderToolStripMenuItem->Name = L"showImageBoderToolStripMenuItem";
 			this->showImageBoderToolStripMenuItem->Size = System::Drawing::Size(419, 22);
-			this->showImageBoderToolStripMenuItem->Text = L"ShowImageBorder/Åã¥Ü¹Ï¤ùÃä®Ø";
+			this->showImageBoderToolStripMenuItem->Text = L"ShowImageBorder/é¡¯ç¤ºåœ–ç‰‡é‚Šæ¡†";
 			this->showImageBoderToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
 			// showSelectedImageToolStripMenuItem
 			// 
 			this->showSelectedImageToolStripMenuItem->Name = L"showSelectedImageToolStripMenuItem";
 			this->showSelectedImageToolStripMenuItem->Size = System::Drawing::Size(419, 22);
-			this->showSelectedImageToolStripMenuItem->Text = L"ShowSelectedImage/Åã¥Ü¿ï¾Ü¹Ï¤ù";
+			this->showSelectedImageToolStripMenuItem->Text = L"ShowSelectedImage/é¡¯ç¤ºæ‰€é¸åœ–ç‰‡";
 			this->showSelectedImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
 			// showPath_ToolStripMenuItem
@@ -666,7 +666,7 @@ private:
 			this->showPath_ToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showPath_ToolStripMenuItem->Name = L"showPath_ToolStripMenuItem";
 			this->showPath_ToolStripMenuItem->Size = System::Drawing::Size(419, 22);
-			this->showPath_ToolStripMenuItem->Text = L"ShowPath/Åã¥Ü½u¬q";
+			this->showPath_ToolStripMenuItem->Text = L"ShowPath/é¡¯ç¤ºè·¯å¾‘";
 			this->showPath_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
 			// showErrorMsh_ToolStripMenuItem
@@ -675,13 +675,13 @@ private:
 			this->showErrorMsh_ToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showErrorMsh_ToolStripMenuItem->Name = L"showErrorMsh_ToolStripMenuItem";
 			this->showErrorMsh_ToolStripMenuItem->Size = System::Drawing::Size(419, 22);
-			this->showErrorMsh_ToolStripMenuItem->Text = L"ShowErrorMsh/Åã¥Ü¿ù»~°T®§";
+			this->showErrorMsh_ToolStripMenuItem->Text = L"ShowErrorMessage/é¡¯ç¤ºéŒ¯èª¤è¨Šæ¯";
 			// 
 			// showPanelToolStripMenuItem
 			// 
 			this->showPanelToolStripMenuItem->Name = L"showPanelToolStripMenuItem";
 			this->showPanelToolStripMenuItem->Size = System::Drawing::Size(419, 22);
-			this->showPanelToolStripMenuItem->Text = L"ShowPanel/Åã¥Ü­±ªO";
+			this->showPanelToolStripMenuItem->Text = L"ShowPanel/é¡¯ç¤ºé¢æ¿";
 			this->showPanelToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
 			// showPIImageToolStripMenuItem
@@ -690,14 +690,14 @@ private:
 			this->showPIImageToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showPIImageToolStripMenuItem->Name = L"showPIImageToolStripMenuItem";
 			this->showPIImageToolStripMenuItem->Size = System::Drawing::Size(419, 22);
-			this->showPIImageToolStripMenuItem->Text = L"Show PI Image/Åã¥Üpi¹Ï¤ù";
+			this->showPIImageToolStripMenuItem->Text = L"Show PI Image/é¡¯ç¤ºPIåœ–ç‰‡";
 			this->showPIImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
 			// ScaleWithPIAlphaStripPixel_toolStripMenuItem
 			// 
 			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Name = L"ScaleWithPIAlphaStripPixel_toolStripMenuItem";
 			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Size = System::Drawing::Size(419, 22);
-			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Text = L"ScaleWithPIAlphaStripPixelProble/ÁY©ñpiÀÉ®×¤¤¥h°£ªºpizel°İÃD";
+			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Text = L"ScaleWithPIAlphaStripPixelProble/ÃYÂ©Ã±piÃ€Ã‰Â®Ã—Â¤Â¤Â¥hÂ°Â£ÂªÂºpizelÂ°ÃÃƒD";
 			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::ScaleWithPIAlphaStripPixel_toolStripMenuItem_Click);
 			// 
 			// renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem
@@ -729,7 +729,7 @@ private:
 			this->showBGToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showBGToolStripMenuItem->Name = L"showBGToolStripMenuItem";
 			this->showBGToolStripMenuItem->Size = System::Drawing::Size(419, 22);
-			this->showBGToolStripMenuItem->Text = L"ShowBG/Åã¥Ü­I´º¹Ï¤ù";
+			this->showBGToolStripMenuItem->Text = L"ShowBG/é¡¯ç¤ºèƒŒæ™¯åœ–ç‰‡";
 			this->showBGToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
 			// showGridToolStripMenuItem
@@ -968,7 +968,7 @@ private:
 			this->AllPlay_checkBox->Name = L"AllPlay_checkBox";
 			this->AllPlay_checkBox->Size = System::Drawing::Size(103, 15);
 			this->AllPlay_checkBox->TabIndex = 183;
-			this->AllPlay_checkBox->Text = L"AllPlay/¥ş³¡¼·©ñ";
+			this->AllPlay_checkBox->Text = L"AllPlay/Â¥Ã¾Â³Â¡Â¼Â·Â©Ã±";
 			this->AllPlay_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// AllCurveLoop_checkBox
@@ -983,7 +983,7 @@ private:
 			this->AllCurveLoop_checkBox->Name = L"AllCurveLoop_checkBox";
 			this->AllCurveLoop_checkBox->Size = System::Drawing::Size(148, 15);
 			this->AllCurveLoop_checkBox->TabIndex = 184;
-			this->AllCurveLoop_checkBox->Text = L"AllCurveLoop/¥ş³¡¸ô®|loop";
+			this->AllCurveLoop_checkBox->Text = L"AllCurveLoop/Â¥Ã¾Â³Â¡Â¸Ã´Â®|loop";
 			this->AllCurveLoop_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// StayAtLastFrame_checkBox
@@ -996,7 +996,7 @@ private:
 			this->StayAtLastFrame_checkBox->Name = L"StayAtLastFrame_checkBox";
 			this->StayAtLastFrame_checkBox->Size = System::Drawing::Size(167, 15);
 			this->StayAtLastFrame_checkBox->TabIndex = 194;
-			this->StayAtLastFrame_checkBox->Text = L"StayAtLastFrame/°±¦b³Ì«á¤@®æ";
+			this->StayAtLastFrame_checkBox->Text = L"StayAtLastFrame/Â°Â±Â¦bÂ³ÃŒÂ«Ã¡Â¤@Â®Ã¦";
 			this->StayAtLastFrame_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// label9
@@ -1007,7 +1007,7 @@ private:
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(91, 12);
 			this->label9->TabIndex = 174;
-			this->label9->Text = L"Progess/¥Ø«e¶i«×";
+			this->label9->Text = L"Progess/Â¥Ã˜Â«eÂ¶iÂ«Ã—";
 			// 
 			// CurrentProgress_trackBar
 			// 
@@ -1090,7 +1090,7 @@ private:
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
 			this->tabPage1->Size = System::Drawing::Size(276, 911);
 			this->tabPage1->TabIndex = 0;
-			this->tabPage1->Text = L"EditAnimationData/½s¿è°Êµe¸ê®Æ";
+			this->tabPage1->Text = L"EditAnimationData/ç·¨è¼¯å‹•ç•«è³‡æ–™";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			// 
 			// flowLayoutPanel1
@@ -1167,7 +1167,7 @@ private:
 			this->MergeMPDIData_button->Name = L"MergeMPDIData_button";
 			this->MergeMPDIData_button->Size = System::Drawing::Size(67, 25);
 			this->MergeMPDIData_button->TabIndex = 118;
-			this->MergeMPDIData_button->Text = L"Merge/²V¦X";
+			this->MergeMPDIData_button->Text = L"Merge/Â²VÂ¦X";
 			this->MergeMPDIData_button->UseVisualStyleBackColor = false;
 			this->MergeMPDIData_button->Click += gcnew System::EventHandler(this, &MPDIEditor::MergeMPDIData_button_Click);
 			// 
@@ -1208,7 +1208,7 @@ private:
 			this->DeleteListObject_button->Name = L"DeleteListObject_button";
 			this->DeleteListObject_button->Size = System::Drawing::Size(109, 24);
 			this->DeleteListObject_button->TabIndex = 113;
-			this->DeleteListObject_button->Text = L"DeleteListObject/§R°£ª«¥ó";
+			this->DeleteListObject_button->Text = L"DeleteListObject/Â§RÂ°Â£ÂªÂ«Â¥Ã³";
 			this->DeleteListObject_button->UseVisualStyleBackColor = false;
 			this->DeleteListObject_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddAnimationToList_button_Click);
 			// 
@@ -1223,7 +1223,7 @@ private:
 			this->AnimationInvert_button->Name = L"AnimationInvert_button";
 			this->AnimationInvert_button->Size = System::Drawing::Size(69, 25);
 			this->AnimationInvert_button->TabIndex = 117;
-			this->AnimationInvert_button->Text = L"ReEdit/­«·s½s¿è";
+			this->AnimationInvert_button->Text = L"ReEdit/Â­Â«Â·sÂ½sÂ¿Ã¨";
 			this->AnimationInvert_button->UseVisualStyleBackColor = false;
 			this->AnimationInvert_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddAnimationToList_button_Click);
 			// 
@@ -1238,7 +1238,7 @@ private:
 			this->AddAnimationToList_button->Name = L"AddAnimationToList_button";
 			this->AddAnimationToList_button->Size = System::Drawing::Size(75, 24);
 			this->AddAnimationToList_button->TabIndex = 112;
-			this->AddAnimationToList_button->Text = L"AddToList/¼W¥[¨ì¿é¥XÀÉ®×¦Cªí";
+			this->AddAnimationToList_button->Text = L"AddToList/Â¼WÂ¥[Â¨Ã¬Â¿Ã©Â¥XÃ€Ã‰Â®Ã—Â¦CÂªÃ­";
 			this->AddAnimationToList_button->UseVisualStyleBackColor = false;
 			this->AddAnimationToList_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddAnimationToList_button_Click);
 			// 
@@ -1254,7 +1254,7 @@ private:
 			this->label15->Name = L"label15";
 			this->label15->Size = System::Drawing::Size(120, 12);
 			this->label15->TabIndex = 116;
-			this->label15->Text = L"AnimationName/°Êµe¦W";
+			this->label15->Text = L"AnimationName/Â°ÃŠÂµeÂ¦W";
 			// 
 			// GroupData_collpaseForm
 			// 
@@ -1352,7 +1352,7 @@ private:
 			this->label26->Name = L"label26";
 			this->label26->Size = System::Drawing::Size(140, 12);
 			this->label26->TabIndex = 21;
-			this->label26->Text = L"Perentage Scale/¦Ê¤À¤ñ¤j¤p";
+			this->label26->Text = L"Perentage Scale/Â¦ÃŠÂ¤Ã€Â¤Ã±Â¤jÂ¤p";
 			// 
 			// GroupScale_numericUpDown
 			// 
@@ -1512,7 +1512,7 @@ private:
 			this->label24->Name = L"label24";
 			this->label24->Size = System::Drawing::Size(69, 12);
 			this->label24->TabIndex = 11;
-			this->label24->Text = L"Position/¦ì¸m";
+			this->label24->Text = L"Position/Â¦Ã¬Â¸m";
 			// 
 			// label27
 			// 
@@ -1533,7 +1533,7 @@ private:
 			this->ApplyGroupDataChange_button->Name = L"ApplyGroupDataChange_button";
 			this->ApplyGroupDataChange_button->Size = System::Drawing::Size(240, 23);
 			this->ApplyGroupDataChange_button->TabIndex = 13;
-			this->ApplyGroupDataChange_button->Text = L"ApplyGroupDataChange/¸s²Õ¸ê®ÆÅÜ§óÀ³¥Î";
+			this->ApplyGroupDataChange_button->Text = L"ApplyGroupDataChange/Â¸sÂ²Ã•Â¸ÃªÂ®Ã†Ã…ÃœÂ§Ã³Ã€Â³Â¥Ã";
 			this->ApplyGroupDataChange_button->UseVisualStyleBackColor = false;
 			this->ApplyGroupDataChange_button->Click += gcnew System::EventHandler(this, &MPDIEditor::ApplyGroupDataChange_button_Click);
 			// 
@@ -1572,7 +1572,7 @@ private:
 			this->label23->Name = L"label23";
 			this->label23->Size = System::Drawing::Size(72, 12);
 			this->label23->TabIndex = 9;
-			this->label23->Text = L"Rotation/±ÛÂà";
+			this->label23->Text = L"Rotation/Â±Ã›Ã‚Ã ";
 			// 
 			// GroupRotationY_numericUpDown
 			// 
@@ -1611,7 +1611,7 @@ private:
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
 			this->tabPage2->Size = System::Drawing::Size(276, 911);
 			this->tabPage2->TabIndex = 1;
-			this->tabPage2->Text = L"Utility/Âø¶µ¥\¯à";
+			this->tabPage2->Text = L"Utility";
 			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
 			// flowLayoutPanel2
@@ -1653,7 +1653,7 @@ private:
 			this->AddPathIntoAllPath_button->Name = L"AddPathIntoAllPath_button";
 			this->AddPathIntoAllPath_button->Size = System::Drawing::Size(57, 21);
 			this->AddPathIntoAllPath_button->TabIndex = 1;
-			this->AddPathIntoAllPath_button->Text = L"Add/¼W¥[";
+			this->AddPathIntoAllPath_button->Text = L"Add/Â¼WÂ¥[";
 			this->AddPathIntoAllPath_button->UseVisualStyleBackColor = false;
 			this->AddPathIntoAllPath_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddPathIntoAllPath_button_Click);
 			// 
@@ -1682,7 +1682,7 @@ private:
 			this->DelPathIntoAllPath_button->Name = L"DelPathIntoAllPath_button";
 			this->DelPathIntoAllPath_button->Size = System::Drawing::Size(57, 20);
 			this->DelPathIntoAllPath_button->TabIndex = 2;
-			this->DelPathIntoAllPath_button->Text = L"Del/§R°£";
+			this->DelPathIntoAllPath_button->Text = L"Del/Â§RÂ°Â£";
 			this->DelPathIntoAllPath_button->UseVisualStyleBackColor = false;
 			this->DelPathIntoAllPath_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddPathIntoAllPath_button_Click);
 			// 
@@ -1697,7 +1697,7 @@ private:
 			this->UsingIntoCurrentPath_button->Name = L"UsingIntoCurrentPath_button";
 			this->UsingIntoCurrentPath_button->Size = System::Drawing::Size(53, 21);
 			this->UsingIntoCurrentPath_button->TabIndex = 3;
-			this->UsingIntoCurrentPath_button->Text = L"Using/¨Ï¥Î";
+			this->UsingIntoCurrentPath_button->Text = L"Using/Â¨ÃÂ¥Ã";
 			this->UsingIntoCurrentPath_button->UseVisualStyleBackColor = false;
 			this->UsingIntoCurrentPath_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddPathIntoAllPath_button_Click);
 			// 
@@ -1743,7 +1743,7 @@ private:
 			this->DelShowImageOnScreenObject_button->Name = L"DelShowImageOnScreenObject_button";
 			this->DelShowImageOnScreenObject_button->Size = System::Drawing::Size(38, 17);
 			this->DelShowImageOnScreenObject_button->TabIndex = 132;
-			this->DelShowImageOnScreenObject_button->Text = L"Del/§R°£";
+			this->DelShowImageOnScreenObject_button->Text = L"Del/Â§RÂ°Â£";
 			this->DelShowImageOnScreenObject_button->UseVisualStyleBackColor = false;
 			this->DelShowImageOnScreenObject_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddShowImageOnScreenObject_button_Click);
 			// 
@@ -1758,7 +1758,7 @@ private:
 			this->label16->Name = L"label16";
 			this->label16->Size = System::Drawing::Size(59, 11);
 			this->label16->TabIndex = 135;
-			this->label16->Text = L"Hint/´£¥ÜÂI";
+			this->label16->Text = L"Hint/Â´Â£Â¥ÃœÃ‚I";
 			// 
 			// AddShowImageOnScreenObject_button
 			// 
@@ -1771,7 +1771,7 @@ private:
 			this->AddShowImageOnScreenObject_button->Name = L"AddShowImageOnScreenObject_button";
 			this->AddShowImageOnScreenObject_button->Size = System::Drawing::Size(38, 18);
 			this->AddShowImageOnScreenObject_button->TabIndex = 133;
-			this->AddShowImageOnScreenObject_button->Text = L"Add/¼W¥[";
+			this->AddShowImageOnScreenObject_button->Text = L"Add/Â¼WÂ¥[";
 			this->AddShowImageOnScreenObject_button->UseVisualStyleBackColor = false;
 			this->AddShowImageOnScreenObject_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddShowImageOnScreenObject_button_Click);
 			// 
@@ -1838,7 +1838,7 @@ private:
 			this->AddEventPOint_button->Name = L"AddEventPOint_button";
 			this->AddEventPOint_button->Size = System::Drawing::Size(56, 19);
 			this->AddEventPOint_button->TabIndex = 4;
-			this->AddEventPOint_button->Text = L"Add/¼W¥[";
+			this->AddEventPOint_button->Text = L"Add/Â¼WÂ¥[";
 			this->AddEventPOint_button->UseVisualStyleBackColor = false;
 			this->AddEventPOint_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddEventPOint_button_Click);
 			// 
@@ -1854,7 +1854,7 @@ private:
 			this->label17->Name = L"label17";
 			this->label17->Size = System::Drawing::Size(56, 12);
 			this->label17->TabIndex = 2;
-			this->label17->Text = L"Type/Ãş§O";
+			this->label17->Text = L"Type/ÃƒÃ¾Â§O";
 			// 
 			// EventPointName_textBox
 			// 
@@ -1879,7 +1879,7 @@ private:
 			this->DelEventPoint_button->Name = L"DelEventPoint_button";
 			this->DelEventPoint_button->Size = System::Drawing::Size(56, 19);
 			this->DelEventPoint_button->TabIndex = 5;
-			this->DelEventPoint_button->Text = L"Del/§R°£";
+			this->DelEventPoint_button->Text = L"Del/Â§RÂ°Â£";
 			this->DelEventPoint_button->UseVisualStyleBackColor = false;
 			this->DelEventPoint_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddEventPOint_button_Click);
 			// 

@@ -7,12 +7,19 @@
 #include <functional>
 
 
-#define	TRIANGLE_VERTEX_COUNT						3
-#define	A_QUAD_TWO_TRIANGLES						2
-#define	A_QUAD_4_VERTICES							4
+#define	TRIANGLE_VERTEX_COUNT						3//3 floats
+#define	A_QUAD_TWO_TRIANGLES						2//2 tiangles
+#define	A_QUAD_4_VERTICES							4//1 quad equal 4 vertices
 #define	TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT			6           //two triangle could be a quad,one triangle is 3 two triangle is 6
 #define	TWO_TRIANGLE_VERTICES_UV_TO_QUAD_UV_COUNT	12    //2 trianle is 6 vertices,each vertex has U and V 6*2=12
 #define	TWO_TRIANGLE_STRIP_UV_TO_QUAD_UV_COUNT		8     //2 triangles strip are 4 vertices equal one quad.
+//
+#define FOUR_VERTICES_ORDER_0_LEFT_UP				0
+#define FOUR_VERTICES_ORDER_0_RIGHT_UP				1
+#define FOUR_VERTICES_ORDER_0_LEFT_DOWN				2
+#define FOUR_VERTICES_ORDER_0_RIGHT_DOWN			3
+//int l_iArrayQuadIndexTo2Triangles[] = {2,3,0,0,3,1};
+
 //
 //Flexible Vertex Format Constants, or FVF codes,
 //are used to describe the contents of vertices interleaved in a single data

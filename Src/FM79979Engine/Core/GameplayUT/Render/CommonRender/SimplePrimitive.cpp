@@ -255,11 +255,13 @@ namespace GLRender
 	void    GetDrawQuadFVFDataByTwoTriangles  (GLint e_iWidth,GLint e_iHeight,float *e_pfTexCoordinate,Vector4 e_vColor,float*e_pfVertices,float*e_pfUV,float*e_pColor,cMatrix44*e_pmat)
 	{
 		AssignUVDataTo2Triangles(e_pfTexCoordinate,e_pfUV,false);
-		for( int i=0;i<6;++i )
-			memcpy(&e_pColor[i*4],&e_vColor,sizeof(Vector4));
+		for (int i = 0; i < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
+		{
+			memcpy(&e_pColor[i * 4], &e_vColor, sizeof(Vector4));
+		}
 		float	l_fHalfWidth = e_iWidth/2.f;
 		float	l_fHalfHeight = e_iHeight/2.f;
-		Vector3	l_vPos[4];
+		Vector3	l_vPos[A_QUAD_4_VERTICES];
 		l_vPos[0] = Vector3(-l_fHalfWidth,-l_fHalfHeight,0.f);
 		l_vPos[1] = Vector3(l_fHalfWidth,-l_fHalfHeight,0.f);
 		l_vPos[2] = Vector3(-l_fHalfWidth,l_fHalfHeight,0.f);
