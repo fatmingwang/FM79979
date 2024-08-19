@@ -2036,7 +2036,7 @@ public:
 			this->ReplaceOriginalFile_checkBox->Name = L"ReplaceOriginalFile_checkBox";
 			this->ReplaceOriginalFile_checkBox->Size = System::Drawing::Size(191, 16);
 			this->ReplaceOriginalFile_checkBox->TabIndex = 3;
-			this->ReplaceOriginalFile_checkBox->Text = L"ReplaceOriginalFile/ÂÐ»\­ì¥»ÀÉ®×";
+			this->ReplaceOriginalFile_checkBox->Text = L"ReplaceOriginalFile/覆蓋原本檔案";
 			this->ReplaceOriginalFile_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// ConvertAltas_button
@@ -2046,7 +2046,7 @@ public:
 			this->ConvertAltas_button->Name = L"ConvertAltas_button";
 			this->ConvertAltas_button->Size = System::Drawing::Size(134, 58);
 			this->ConvertAltas_button->TabIndex = 2;
-			this->ConvertAltas_button->Text = L"Convert/Âà´«";
+			this->ConvertAltas_button->Text = L"Convert/轉換";
 			this->ConvertAltas_button->UseVisualStyleBackColor = true;
 			this->ConvertAltas_button->Click += gcnew System::EventHandler(this, &cPIEditor::ConvertAltas_button_Click);
 			// 
@@ -2071,7 +2071,7 @@ public:
 			this->SelectDirecotry_button->Name = L"SelectDirecotry_button";
 			this->SelectDirecotry_button->Size = System::Drawing::Size(134, 58);
 			this->SelectDirecotry_button->TabIndex = 0;
-			this->SelectDirecotry_button->Text = L"Select Directory/¿ï¸ê®Æ§¨";
+			this->SelectDirecotry_button->Text = L"Select Directory/選擇工作目錄";
 			this->SelectDirecotry_button->UseVisualStyleBackColor = true;
 			this->SelectDirecotry_button->Click += gcnew System::EventHandler(this, &cPIEditor::SelectDirecotry_button_Click);
 			// 
@@ -2098,7 +2098,7 @@ public:
 			this->ClearConvertFiles_button->Name = L"ClearConvertFiles_button";
 			this->ClearConvertFiles_button->Size = System::Drawing::Size(113, 58);
 			this->ClearConvertFiles_button->TabIndex = 6;
-			this->ClearConvertFiles_button->Text = L"ClearConvertFiles/²M°£©Ò¿ï";
+			this->ClearConvertFiles_button->Text = L"ClearConvertFiles/清除轉換檔案";
 			this->ClearConvertFiles_button->UseVisualStyleBackColor = true;
 			this->ClearConvertFiles_button->Click += gcnew System::EventHandler(this, &cPIEditor::ClearConvertFiles_button_Click);
 			// 
