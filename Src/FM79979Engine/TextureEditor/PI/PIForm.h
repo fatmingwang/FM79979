@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "pack.h"
 #include "BinPack.h"
 #include "PuzzleImageUnitTriangulator.h"
@@ -175,7 +175,7 @@ namespace PI
 			if( e_ptabControl )
 			{
 				m_pTabPage = gcnew GCFORM::TabPage();
-				m_pTabPage->Text = "PuzzleImage/¹ÏÀÉ¦X¨Ö";
+				m_pTabPage->Text = "PuzzleImage/Â¹ÃÃ€Ã‰Â¦XÂ¨Ã–";
 				m_pTabPage->AutoScroll = true;
 				m_pTabPage->Controls->Add(this);
 				e_ptabControl->TabPages->Add(m_pTabPage);
@@ -623,7 +623,7 @@ public:
 			this->AllShowBoundry_checkBox->Name = L"AllShowBoundry_checkBox";
 			this->AllShowBoundry_checkBox->Size = System::Drawing::Size(198, 16);
 			this->AllShowBoundry_checkBox->TabIndex = 45;
-			this->AllShowBoundry_checkBox->Text = L"AllShowBoundary/Åã¥Ü©Ò¦³¹Ï¤ù®Ø";
+			this->AllShowBoundry_checkBox->Text = L"AllShowBoundary/é¡¯ç¤ºæ‰€æœ‰åœ–ç‰‡æ¡†";
 			this->AllShowBoundry_checkBox->UseVisualStyleBackColor = false;
 			// 
 			// ImageObjectDown_button
@@ -665,7 +665,7 @@ public:
 			this->ShowBoundary_checkBox->Name = L"ShowBoundary_checkBox";
 			this->ShowBoundary_checkBox->Size = System::Drawing::Size(184, 16);
 			this->ShowBoundary_checkBox->TabIndex = 40;
-			this->ShowBoundary_checkBox->Text = L"ShowBoundary/Åã¥Ü¥Ø«e¹Ï¤ù®Ø";
+			this->ShowBoundary_checkBox->Text = L"ShowBoundary/é¡¯ç¤ºç›®å‰åœ–ç‰‡æ¡†";
 			this->ShowBoundary_checkBox->UseVisualStyleBackColor = false;
 			// 
 			// ImageDetail_textBox
@@ -695,7 +695,7 @@ public:
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(99, 12);
 			this->label4->TabIndex = 38;
-			this->label4->Text = L"Height/²£¥Í¹Ï¤ù°ª";
+			this->label4->Text = L"Height/é«˜";
 			// 
 			// label5
 			// 
@@ -708,7 +708,7 @@ public:
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(97, 12);
 			this->label5->TabIndex = 37;
-			this->label5->Text = L"Width/²£¥Í¹Ï¤ù¼e";
+			this->label5->Text = L"Width/å¯¬";
 			// 
 			// ImageHeight_numericUpDown
 			// 
@@ -748,7 +748,7 @@ public:
 			this->AutoOrderPosition_button->Name = L"AutoOrderPosition_button";
 			this->AutoOrderPosition_button->Size = System::Drawing::Size(139, 36);
 			this->AutoOrderPosition_button->TabIndex = 34;
-			this->AutoOrderPosition_button->Text = L"ImagePositionAutoAssign/¹Ï¤ù¦Û°Ê®Õ¥¿¦ì¸m";
+			this->AutoOrderPosition_button->Text = L"ImagePositionAutoAssign/ä½ç½®è‡ªå‹•æŒ‡å®š";
 			this->AutoOrderPosition_button->UseVisualStyleBackColor = false;
 			this->AutoOrderPosition_button->Click += gcnew System::EventHandler(this, &cPIEditor::AutoOrderPosition_button_Click);
 			// 
@@ -762,7 +762,7 @@ public:
 			this->DeleteImage_button->Name = L"DeleteImage_button";
 			this->DeleteImage_button->Size = System::Drawing::Size(100, 25);
 			this->DeleteImage_button->TabIndex = 29;
-			this->DeleteImage_button->Text = L"DeleteImage/§R°£¹Ï¤ù";
+			this->DeleteImage_button->Text = L"DeleteImage/ç§»é™¤åœ–ç‰‡";
 			this->DeleteImage_button->UseVisualStyleBackColor = false;
 			this->DeleteImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::DeleteImage_button_Click);
 			// 
@@ -776,7 +776,7 @@ public:
 			this->AddImage_button->Name = L"AddImage_button";
 			this->AddImage_button->Size = System::Drawing::Size(99, 28);
 			this->AddImage_button->TabIndex = 28;
-			this->AddImage_button->Text = L"AddImage/¼W¥[¹Ï¤ù";
+			this->AddImage_button->Text = L"AddImage/å¢žåŠ åœ–ç‰‡";
 			this->AddImage_button->UseVisualStyleBackColor = false;
 			this->AddImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::DeleteImage_button_Click);
 			// 
@@ -844,21 +844,21 @@ public:
 			// 
 			this->saveToolStripMenuItem->Name = L"saveToolStripMenuItem";
 			this->saveToolStripMenuItem->Size = System::Drawing::Size(292, 22);
-			this->saveToolStripMenuItem->Text = L"GeneratePuzzleImage/²£¥Í³æ±i¹Ï¤ù";
+			this->saveToolStripMenuItem->Text = L"GeneratePuzzleImage/ç”¢ç”ŸPI";
 			this->saveToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::Test_button_Click);
 			// 
 			// invertPuzzleImageToolStripMenuItem
 			// 
 			this->invertPuzzleImageToolStripMenuItem->Name = L"invertPuzzleImageToolStripMenuItem";
 			this->invertPuzzleImageToolStripMenuItem->Size = System::Drawing::Size(292, 22);
-			this->invertPuzzleImageToolStripMenuItem->Text = L"InvertPuzzleImage/±N¸ê®Æ¤ÏÂà¦¨±i¹Ï¤ù";
+			this->invertPuzzleImageToolStripMenuItem->Text = L"InvertPuzzleImage/åå‘PI";
 			this->invertPuzzleImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::InvertPuzzleImage_button_Click);
 			// 
 			// generatePowOf2ImageToolStripMenuItem
 			// 
 			this->generatePowOf2ImageToolStripMenuItem->Name = L"generatePowOf2ImageToolStripMenuItem";
 			this->generatePowOf2ImageToolStripMenuItem->Size = System::Drawing::Size(292, 22);
-			this->generatePowOf2ImageToolStripMenuItem->Text = L"Generate All Image/²£¥Í©Ò¦³¹Ï¤ù";
+			this->generatePowOf2ImageToolStripMenuItem->Text = L"Generate All Image/ç”¢ç”Ÿæ‰€æœ‰åœ–ç‰‡";
 			this->generatePowOf2ImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::button1_Click);
 			// 
 			// generateAllImageWithPowerOfTwoToolStripMenuItem
@@ -983,7 +983,7 @@ public:
 			this->ToOriginalImage_button->Name = L"ToOriginalImage_button";
 			this->ToOriginalImage_button->Size = System::Drawing::Size(100, 25);
 			this->ToOriginalImage_button->TabIndex = 66;
-			this->ToOriginalImage_button->Text = L"ToOriginalImag/¦^´_­ìª¬";
+			this->ToOriginalImage_button->Text = L"ToOriginalImag/è®Šå›žåŽŸåœ–";
 			this->ToOriginalImage_button->UseVisualStyleBackColor = false;
 			this->ToOriginalImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::StripAlpha_button_Click);
 			// 
@@ -997,7 +997,7 @@ public:
 			this->ProperStripPixel_button->Name = L"ProperStripPixel_button";
 			this->ProperStripPixel_button->Size = System::Drawing::Size(100, 25);
 			this->ProperStripPixel_button->TabIndex = 64;
-			this->ProperStripPixel_button->Text = L"ProperStripPixel/§ä¥X³Ì¤j¥i¥Î¹Ï¤ù";
+			this->ProperStripPixel_button->Text = L"ProperStripPixel/é©ç•¶ç§»é™¤pixel";
 			this->ProperStripPixel_button->UseVisualStyleBackColor = false;
 			this->ProperStripPixel_button->Click += gcnew System::EventHandler(this, &cPIEditor::ProperStripPixel_button_Click);
 			// 
@@ -1011,7 +1011,7 @@ public:
 			this->StripAlpha_button->Name = L"StripAlpha_button";
 			this->StripAlpha_button->Size = System::Drawing::Size(100, 25);
 			this->StripAlpha_button->TabIndex = 65;
-			this->StripAlpha_button->Text = L"StripAlpha/¬å±¼alpha";
+			this->StripAlpha_button->Text = L"StripAlpha/åŽ»é™¤å¤šçš„é€æ˜Ž";
 			this->StripAlpha_button->UseVisualStyleBackColor = false;
 			this->StripAlpha_button->Click += gcnew System::EventHandler(this, &cPIEditor::StripAlpha_button_Click);
 			// 
@@ -1085,7 +1085,7 @@ public:
 			this->MouseControlMode_label->Name = L"MouseControlMode_label";
 			this->MouseControlMode_label->Size = System::Drawing::Size(150, 12);
 			this->MouseControlMode_label->TabIndex = 88;
-			this->MouseControlMode_label->Text = L"MouseControlMode/¾Þ§@¼Ò¦¡";
+			this->MouseControlMode_label->Text = L"MouseControlMode/æ»‘é¼ æŽ§åˆ¶æ¨¡å¼";
 			// 
 			// MouseControlMode_comboBox
 			// 
@@ -1117,7 +1117,7 @@ public:
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(204, 12);
 			this->label8->TabIndex = 72;
-			this->label8->Text = L"NewPIUnitStartX/·s«÷¹Ï³æ¤¸¶}©l¦ì¸mX";
+			this->label8->Text = L"NewPIUnitStartX/æ–°åœ–ç‰‡å·¦ä¸Šè§’";
 			// 
 			// AutoAligment_checkBox
 			// 
@@ -1128,7 +1128,7 @@ public:
 			this->AutoAligment_checkBox->Name = L"AutoAligment_checkBox";
 			this->AutoAligment_checkBox->Size = System::Drawing::Size(141, 16);
 			this->AutoAligment_checkBox->TabIndex = 85;
-			this->AutoAligment_checkBox->Text = L"AutoAligment/¦Û°Ê±Æ¦C";
+			this->AutoAligment_checkBox->Text = L"AutoAligment/è‡ªå‹•æŒ‡å®š";
 			this->AutoAligment_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// BinaryExport_checkBox
@@ -1162,7 +1162,7 @@ public:
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(170, 12);
 			this->label12->TabIndex = 82;
-			this->label12->Text = L"NewPIUnitName/·s¹Ï¤ù³æ¤¸¦WºÙ";
+			this->label12->Text = L"NewPIUnitName/æ–°åœ–ç‰‡åå­—";
 			// 
 			// NewPIUnitName_textBox
 			// 
@@ -1181,7 +1181,7 @@ public:
 			this->AddNewPIUnitImage_button->Name = L"AddNewPIUnitImage_button";
 			this->AddNewPIUnitImage_button->Size = System::Drawing::Size(99, 35);
 			this->AddNewPIUnitImage_button->TabIndex = 80;
-			this->AddNewPIUnitImage_button->Text = L"AddNewPIUnitImage/¼W¥[·s«÷¹Ï³æ¤¸";
+			this->AddNewPIUnitImage_button->Text = L"AddNewPIUnitImage/å¢žåŠ æ–°åœ–ç‰‡";
 			this->AddNewPIUnitImage_button->UseVisualStyleBackColor = false;
 			this->AddNewPIUnitImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::AddNewPIUnitImage_button_Click);
 			// 
@@ -1250,7 +1250,7 @@ public:
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(202, 12);
 			this->label11->TabIndex = 75;
-			this->label11->Text = L"NewPIUnitEndY/·s«÷¹Ï³æ¤¸µ²§ô¦ì¸mY";
+			this->label11->Text = L"NewPIUnitEndY/æ–°åœ–ç‰‡ä¸‹æ–¹Y";
 			// 
 			// label10
 			// 
@@ -1263,7 +1263,7 @@ public:
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(202, 12);
 			this->label10->TabIndex = 74;
-			this->label10->Text = L"NewPIUnitEndX/·s«÷¹Ï³æ¤¸µ²§ô¦ì¸mX";
+			this->label10->Text = L"NewPIUnitEndX/æ–°åœ–ç‰‡å³æ–¹X";
 			// 
 			// label9
 			// 
@@ -1276,7 +1276,7 @@ public:
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(204, 12);
 			this->label9->TabIndex = 73;
-			this->label9->Text = L"NewPIUnitStartY/·s«÷¹Ï³æ¤¸¶}©l¦ì¸mY";
+			this->label9->Text = L"NewPIUnitStartY/æ–°åœ–ç‰‡å·¦æ–¹X";
 			// 
 			// label7
 			// 
@@ -1289,7 +1289,7 @@ public:
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(140, 12);
 			this->label7->TabIndex = 71;
-			this->label7->Text = L"ImageDistanceY/¹Ï¤ù¶¡¶ZY";
+			this->label7->Text = L"ImageDistanceY/åœ–ç‰‡é–“è·Y";
 			// 
 			// ImageDistanceY_numericUpDown
 			// 
@@ -1312,7 +1312,7 @@ public:
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(140, 12);
 			this->label6->TabIndex = 69;
-			this->label6->Text = L"ImageDistanceX/¹Ï¤ù¶¡¶ZX";
+			this->label6->Text = L"ImageDistanceX/åœ–ç‰‡é–“è·X";
 			// 
 			// ImageDistanceX_numericUpDown
 			// 
@@ -1925,7 +1925,7 @@ public:
 			this->label18->Name = L"label18";
 			this->label18->Size = System::Drawing::Size(58, 12);
 			this->label18->TabIndex = 82;
-			this->label18->Text = L"Column/¦C";
+			this->label18->Text = L"Column/Â¦C";
 			// 
 			// DivideToolColumn_numericUpDown
 			// 
@@ -1948,7 +1948,7 @@ public:
 			this->label19->Name = L"label19";
 			this->label19->Size = System::Drawing::Size(42, 12);
 			this->label19->TabIndex = 80;
-			this->label19->Text = L"Row/¦æ";
+			this->label19->Text = L"Row/Â¦Ã¦";
 			// 
 			// DivideToolRow_numericUpDown
 			// 
@@ -1971,7 +1971,7 @@ public:
 			this->label17->Name = L"label17";
 			this->label17->Size = System::Drawing::Size(113, 12);
 			this->label17->TabIndex = 78;
-			this->label17->Text = L"ImagePrefix/¹w³]¦WºÙ";
+			this->label17->Text = L"ImagePrefix/Â¹wÂ³]Â¦WÂºÃ™";
 			// 
 			// DividImagePrefixName_textBox
 			// 
@@ -2017,7 +2017,7 @@ public:
 			this->AltasScale_label->Name = L"AltasScale_label";
 			this->AltasScale_label->Size = System::Drawing::Size(79, 12);
 			this->AltasScale_label->TabIndex = 5;
-			this->AltasScale_label->Text = L"AltasScale/¤ñ¨Ò";
+			this->AltasScale_label->Text = L"AltasScale/Â¤Ã±Â¨Ã’";
 			// 
 			// ASltasScale_domainUpDown
 			// 
@@ -2036,7 +2036,7 @@ public:
 			this->ReplaceOriginalFile_checkBox->Name = L"ReplaceOriginalFile_checkBox";
 			this->ReplaceOriginalFile_checkBox->Size = System::Drawing::Size(191, 16);
 			this->ReplaceOriginalFile_checkBox->TabIndex = 3;
-			this->ReplaceOriginalFile_checkBox->Text = L"ReplaceOriginalFile/ÂÐ»\­ì¥»ÀÉ®×";
+			this->ReplaceOriginalFile_checkBox->Text = L"ReplaceOriginalFile/Ã‚ÃÂ»\Â­Ã¬Â¥Â»Ã€Ã‰Â®Ã—";
 			this->ReplaceOriginalFile_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// ConvertAltas_button
@@ -2046,7 +2046,7 @@ public:
 			this->ConvertAltas_button->Name = L"ConvertAltas_button";
 			this->ConvertAltas_button->Size = System::Drawing::Size(134, 58);
 			this->ConvertAltas_button->TabIndex = 2;
-			this->ConvertAltas_button->Text = L"Convert/Âà´«";
+			this->ConvertAltas_button->Text = L"Convert/Ã‚Ã Â´Â«";
 			this->ConvertAltas_button->UseVisualStyleBackColor = true;
 			this->ConvertAltas_button->Click += gcnew System::EventHandler(this, &cPIEditor::ConvertAltas_button_Click);
 			// 
@@ -2071,7 +2071,7 @@ public:
 			this->SelectDirecotry_button->Name = L"SelectDirecotry_button";
 			this->SelectDirecotry_button->Size = System::Drawing::Size(134, 58);
 			this->SelectDirecotry_button->TabIndex = 0;
-			this->SelectDirecotry_button->Text = L"Select Directory/¿ï¸ê®Æ§¨";
+			this->SelectDirecotry_button->Text = L"Select Directory/Â¿Ã¯Â¸ÃªÂ®Ã†Â§Â¨";
 			this->SelectDirecotry_button->UseVisualStyleBackColor = true;
 			this->SelectDirecotry_button->Click += gcnew System::EventHandler(this, &cPIEditor::SelectDirecotry_button_Click);
 			// 
@@ -2098,7 +2098,7 @@ public:
 			this->ClearConvertFiles_button->Name = L"ClearConvertFiles_button";
 			this->ClearConvertFiles_button->Size = System::Drawing::Size(113, 58);
 			this->ClearConvertFiles_button->TabIndex = 6;
-			this->ClearConvertFiles_button->Text = L"ClearConvertFiles/²M°£©Ò¿ï";
+			this->ClearConvertFiles_button->Text = L"ClearConvertFiles/Â²MÂ°Â£Â©Ã’Â¿Ã¯";
 			this->ClearConvertFiles_button->UseVisualStyleBackColor = true;
 			this->ClearConvertFiles_button->Click += gcnew System::EventHandler(this, &cPIEditor::ClearConvertFiles_button_Click);
 			// 

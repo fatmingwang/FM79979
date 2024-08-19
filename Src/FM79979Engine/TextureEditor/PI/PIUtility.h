@@ -90,10 +90,12 @@ List<System::Drawing::Point>^	Vector3ToListPoint(std::vector<Vector3>*e_pVector)
 
 List<System::Drawing::Point>^	Vector2ToListPoint(std::vector<Vector2>*e_pVector)
 {
+	FMLog::Log(L"PointList", false);
 	List<System::Drawing::Point>^l_pList = gcnew List<System::Drawing::Point>();
 	for (size_t i = 0; i<e_pVector->size(); ++i)
 	{
 		auto l_pData = (*e_pVector)[i];
+		FMLog::Log(ValueToStringW(l_pData).c_str(), false);
 		l_pList->Add(System::Drawing::Point((int)l_pData.x, (int)l_pData.y));
 	}
 	return l_pList;

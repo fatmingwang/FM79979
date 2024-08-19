@@ -1518,10 +1518,20 @@ namespace PI
 			{
 				ImageDetail_textBox->Text += DNCT::GetChanglineString() + "AttachedPIUnit!!!";
 				m_bAvoidDataAssignForPIUintChild = true;
+				FMLog::Log(ValueToString(l_pUIImage->GetPos()).c_str(), false);
+
 				NewPIUnitStartX_numericUpDown->Value = (System::Decimal)l_pUIImage->GetPos().x;
 				NewPIUnitStartY_numericUpDown->Value = (System::Decimal)l_pUIImage->GetPos().y;
-				NewPIUnitEndX_numericUpDown->Value = (System::Decimal)(l_pUIImage->GetPos().x + l_pUIImage->GetRightDownStripOffPos().x);
-				NewPIUnitEndY_numericUpDown->Value = (System::Decimal)(l_pUIImage->GetPos().y + l_pUIImage->GetRightDownStripOffPos().y);
+				int l_Width = (int)(l_pUIImage->GetPos().x + l_pUIImage->GetRightDownStripOffPos().x);
+				int l_Height = (int)(l_pUIImage->GetPos().y + l_pUIImage->GetRightDownStripOffPos().y);
+				FMLOG(L"attched pi unit size");
+				FMLOG(ValueToStringW(l_pUIImage->GetRightDownStripOffPos().x).c_str());
+				FMLOG(ValueToStringW(l_pUIImage->GetRightDownStripOffPos().y).c_str());
+				
+				FMLOG(ValueToStringW(l_Width).c_str());
+				FMLOG(ValueToStringW(l_Height).c_str());
+				NewPIUnitEndX_numericUpDown->Value = (System::Decimal)(l_Width);
+				NewPIUnitEndY_numericUpDown->Value = (System::Decimal)(l_Height);
 				m_bAvoidDataAssignForPIUintChild = false;
 			}
 			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
@@ -2254,7 +2264,9 @@ namespace PI
 						}
 						//ensure it is not a piunit child
 						if (!l_pUIImage2->m_pEditorAttachParent)
+						{
 							l_iCollideIndex = i;
+						}
 					}
 				}
 				if (l_iCollideIndex == -1)
@@ -2278,6 +2290,8 @@ namespace PI
 				//if (l_pBitMap)
 				{
 					auto l_vParentPos = l_pAttachUIImage->GetPos();
+					FMLog::Log(L"ParentPos",false);
+					FMLog::Log(ValueToString(l_vParentPos).c_str(), false);
 					std::vector<Vector2> l_Vector =
 					{
 						Vector2((int)NewPIUnitStartX_numericUpDown->Value - l_vParentPos.x,(int)NewPIUnitStartY_numericUpDown->Value - l_vParentPos.y),
@@ -2290,11 +2304,18 @@ namespace PI
 					List<System::Drawing::Point>^l_pPointList = Vector2ToListPoint(&l_Vector);
 					Image^l_pImage = (Image^)l_pBitMap;
 					Bitmap^l_pNew = GetSelectedArea(l_pImage, Color::Transparent, l_pPointList, true);
+					FMLog::Log(L"dot net image size", false);
+					FMLog::Log(ValueToStringW(l_pNew->Width).c_str(),false);
+					FMLog::Log(ValueToStringW(l_pNew->Height).c_str(), false);
 					l_pUIImage = cPIEditor::GetNewUIImageByBitMap(l_pNew, DNCT::GcStringToWchar(NewPIUnitName_textBox->Text).c_str());
 					m_ImageTale[NewPIUnitName_textBox->Text] = l_pNew;
 				}
 				l_pUIImage->m_vEditorAttachParentRelativePos = l_vPos - l_pAttachUIImage->GetPos();
 				l_pUIImage->m_pEditorAttachParent = l_pAttachUIImage;
+				FMLog::Log(L"EditorAttachParentRelativePos", false);
+				FMLog::Log(ValueToString(l_pUIImage->m_vEditorAttachParentRelativePos).c_str(), false);
+				FMLog::Log(L"l_vPos", false);
+				FMLog::Log(ValueToString(l_vPos).c_str(), false);
 				l_pUIImage->SetPos(l_vPos);
 				////it could be replaced,recheck index again
 				l_iOriginalIndex = AllImage_listBox->Items->IndexOf(NewPIUnitName_textBox->Text);
