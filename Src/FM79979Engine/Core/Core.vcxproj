@@ -104,7 +104,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'" Label="Configuration">
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNoPThreadWithBullet|Emscripten'" Label="Configuration">
     <PlatformToolset>emcc</PlatformToolset>
@@ -114,13 +114,13 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|Emscripten'" Label="Configuration">
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NO_PTHREAD_WITH_BULLET|Emscripten'" Label="Configuration">
     <PlatformToolset>emcc</PlatformToolset>

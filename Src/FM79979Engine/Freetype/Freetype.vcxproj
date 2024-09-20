@@ -116,7 +116,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>emcc</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -178,7 +178,7 @@
     <PlatformToolset>emcc</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|Emscripten'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -186,7 +186,7 @@
     <PlatformToolset>emcc</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NO_PTHREAD_WITH_BULLET|Emscripten'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
