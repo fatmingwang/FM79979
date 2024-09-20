@@ -299,13 +299,16 @@ void ComposeInfo()
 	}
 	else
 	{
-		*g_pstrCurrentSpineInfo = L"open spine/SpineTestDirectory.txt\n add diectory to this file.";
+		if (g_pstrCurrentSpineInfo)
+		{
+			*g_pstrCurrentSpineInfo = L"open spine/SpineTestDirectory.txt\n add diectory to this file.";
+		}
 	}
 }
 void testLoading()
 {
 	//auto l_AllFiles = directory_iterator("spine");
-	auto l_strTargetFile = "Spine/SpinePreviewer.txt";
+	auto l_strTargetFile = "1Spine/SpinePreviewer.txt";
 	if (UT::IsFileExists(l_strTargetFile))
 	{
 		if (!g_pAllSpineFileNameVector)
@@ -327,8 +330,11 @@ void testLoading()
 				//CarServer_1__log_17_12_2021_10_57_56.txt
 				auto l_strFileName = UT::GetFileExtensionName(l_strPath);
 				//win32 use L?
-				//if (l_strFileName.compare(L"json") == 0 || l_strFileName.compare(L"skel") == 0)
+#ifdef WIN32
+				if (l_strFileName.compare(L"json") == 0 || l_strFileName.compare(L"skel") == 0)
+#else
 				if (l_strFileName.compare("json") == 0 || l_strFileName.compare("skel") == 0)
+#endif
 				{
 					g_pAllSpineFileNameVector->push_back(ValueToString(l_strPath));
 				}
@@ -341,7 +347,7 @@ void testLoading()
 			
 		}
 	}
-	if (g_pAllSpineFileNameVector->size())
+	if (g_pAllSpineFileNameVector && g_pAllSpineFileNameVector->size())
 	{
 		g_iCurrentSpineFileIndex = 1;
 		DoSpineKeyUp('Q');
@@ -527,7 +533,10 @@ void	DoSpineRender()
 	if (cGameApp::m_spGlyphFontRender)
 	{
 		cGameApp::m_spGlyphFontRender->SetScale(1.5);
-		cGameApp::RenderFont(320, 0, ValueToStringW(*g_pstrCurrentSpineInfo));
+		if (g_pstrCurrentSpineInfo)
+		{
+			cGameApp::RenderFont(320, 0, ValueToStringW(*g_pstrCurrentSpineInfo));
+		}
 		cGameApp::m_spGlyphFontRender->SetScale(1);
 	}
 }
