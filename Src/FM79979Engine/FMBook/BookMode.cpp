@@ -18,7 +18,7 @@ cBookMode::~cBookMode()
 }
 void	cBookMode::Init()
 {
-	cGameApp::m_svGameResolution = Vector2(720,1280);
+	cGameApp::m_spOpenGLRender->m_vGameResolution = Vector2(720,1280);
 	m_bInitOk = false;
 	SAFE_DELETE(m_pEventManager);
 	m_pEventManager = new cEventManager();
@@ -26,7 +26,7 @@ void	cBookMode::Init()
 	m_bPickupBooks = true;
 	m_BookDataVector.clear();
 	SAFE_DELETE(m_pScroller);
-	m_pScroller = new cScroller((cPuzzleImage*)0,Vector4(50,50,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y),0,false);		
+	m_pScroller = new cScroller((cPuzzleImage*)0,Vector4(50,50,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y),0,false);		
 	m_pScroller->SetName(L"BookModeScroller");
 	cNodeISAX	l_cNodeISAX;
 	if(l_cNodeISAX.ParseDataIntoXMLNode("BookList.xml"))
@@ -76,7 +76,7 @@ void	cBookMode::Init()
 		m_pScroller->Init();
 	}
 	if( !m_pBackToPickupBooksButton )
-		m_pBackToPickupBooksButton = new cTextButton(Vector2(0,cGameApp::m_svGameResolution.y-100),cGameApp::m_spGlyphFontRender,Vector4(0,1,1,1),L"<---");
+		m_pBackToPickupBooksButton = new cTextButton(Vector2(0,cGameApp::m_spOpenGLRender->m_vGameResolution.y-100),cGameApp::m_spGlyphFontRender,Vector4(0,1,1,1),L"<---");
 	m_pBackToPickupBooksButton->Init();
 	m_bInitOk = true;
 }
@@ -100,8 +100,8 @@ void	cBookMode::Update(float e_fElpaseTime)
 				return;
 			}
 			const char*l_strFileName = m_BookDataVector[l_iSelectedIndex].strPageFileName.c_str();
-			cGameApp::m_svGameResolution = m_BookDataVector[l_iSelectedIndex].vResolution;
-			m_pBackToPickupBooksButton->SetPos(Vector3(0,cGameApp::m_svGameResolution.y-30,0));
+			cGameApp::m_spOpenGLRender->m_vGameResolution = m_BookDataVector[l_iSelectedIndex].vResolution;
+			m_pBackToPickupBooksButton->SetPos(Vector3(0,cGameApp::m_spOpenGLRender->m_vGameResolution.y-30,0));
 			m_pScroller->Init();
 			SAFE_DELETE(m_pEventManager);
 			m_pEventManager = new cEventManager();
@@ -122,7 +122,7 @@ void	cBookMode::Update(float e_fElpaseTime)
 		{
 			m_pBackToPickupBooksButton->Init();
 			m_bPickupBooks = true;
-			cGameApp::m_svGameResolution = Vector2(720,1280);
+			cGameApp::m_spOpenGLRender->m_vGameResolution = Vector2(720,1280);
 			SAFE_DELETE(m_pEventManager);
 			cGameApp::m_spAnimationParser->Destroy();
 			cGameApp::m_spImageParser->Destroy();
@@ -143,7 +143,7 @@ void	cBookMode::Render()
 	glClearColor( 0,0,0,1 );
 	glClearDepth(1.0f);	
 	//glAlphaFunc(GL_GREATER,0.001f);
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	if( m_bPickupBooks )
 	{
 		m_pScroller->Render();
@@ -154,7 +154,7 @@ void	cBookMode::Render()
 		m_pBackToPickupBooksButton->Render();
 		cEventVariable*l_pEventVariable = this->m_pEventManager->m_pEventVariableManager->GetObject(L"CurrentPackageName");
 		const WCHAR*l_strCurrentPackageName = l_pEventVariable->GetWString()->c_str();
-		cGameApp::m_spGlyphFontRender->RenderFont(cGameApp::m_svGameResolution.x/2.f,0.f,l_strCurrentPackageName);
+		cGameApp::m_spGlyphFontRender->RenderFont(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2.f,0.f,l_strCurrentPackageName);
 	}
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_TEXTURE_2D);
@@ -170,7 +170,7 @@ void	cBookMode::Render()
 	}
 	glDisable2D();
 #ifdef WIN32
-	SwapBuffers(cGameApp::m_sHdc);
+	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 #endif
 }
 void	cBookMode::MouseDown(int e_iPosX,int e_iPosY)

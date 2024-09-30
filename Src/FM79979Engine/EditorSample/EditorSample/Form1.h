@@ -36,7 +36,7 @@ namespace EditorSample
 			m_pGameApp = new cGameApp((HWND)m_pTargetControl->Handle.ToPointer());
 			m_pGameApp->Init();
 			m_HdcMV = GetDC((HWND)m_pTargetControl->Handle.ToPointer());
-			m_HGLRCMV = m_pGameApp->m_sHGLRC;
+			m_HGLRCMV = m_pGameApp->m_spOpenGLRender->m_HGLRC;
 			m_pOrthogonalCamera = new cOrthogonalCamera();
 			//for mouse event
 			m_pTargetControl->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseMove);
@@ -108,12 +108,12 @@ namespace EditorSample
 			RECT rcClient;
 			GetClientRect((HWND)m_pTargetControl->Handle.ToPointer(), &rcClient);
 			UseShaderProgram();
-			cGameApp::m_svViewPortSize.x = 0.f;
-			cGameApp::m_svViewPortSize.y = 0.f;
-			cGameApp::m_svViewPortSize.z = (float)m_pTargetControl->Width;
-			cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)m_pTargetControl->Width;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)rcClient.bottom;
 			this->m_pGameApp->Run();
-			Vector2	l_vViewPort(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
+			Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 			if(m_pOrthogonalCamera)
 			{
 				m_pOrthogonalCamera->Render();

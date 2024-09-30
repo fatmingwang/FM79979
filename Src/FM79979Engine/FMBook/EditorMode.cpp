@@ -51,7 +51,7 @@ void	cEditorMode::Render()
 	glClearColor( 0,0,0,1 );
 	glClearDepth(1.0f);	
 	//glAlphaFunc(GL_GREATER,0.001f);
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	if( g_pEditorEventObject )
 	{
 		g_pEditorEventObject->Render();
@@ -77,7 +77,7 @@ void	cEditorMode::Render()
 	}	
 	glDisable2D();
 #ifdef WIN32
-	SwapBuffers(cGameApp::m_sHdc);
+	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 #endif
 }
 void	cEditorMode::MouseDown(int e_iPosX,int e_iPosY)

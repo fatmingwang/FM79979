@@ -137,7 +137,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;..\EngineTest;..\..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;..\EngineTest;..\..\..\include\bt;..\..\ProtoBuffer\protobuf-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;DEBUG;_HAS_AUTO_PTR_ETC=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -298,14 +298,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\ProtoBuffer\VSProject\libprotobuf.vcxproj">
-      <Project>{aa2f9274-a914-3c9d-8fe7-9ed3303ec581}</Project>
+    <ProjectReference Include="..\..\Core\FatmingCollada\FatmingCollada.vcxproj">
+      <Project>{27c4a269-2e08-4644-b3c9-f5090703fa1d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\FMgltf\FMgltf.vcxproj">
       <Project>{c8cbf889-95a8-44fa-99fb-feb27989dd7a}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\zlib\zlib.vcxproj">
       <Project>{c2552b93-40e6-4118-ba99-2a8d500fc597}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProtoBuffer\VSProject\libprotobuf.vcxproj">
+      <Project>{aa2f9274-a914-3c9d-8fe7-9ed3303ec581}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
