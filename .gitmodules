@@ -1,0 +1,3 @@
+[submodule "Src/FM79979Engine/ProtoBuffer"]
+	path = Src/FM79979Engine/ProtoBuffer
+	url = https://github.com/fatmingwang/ProtoBuffer.git
