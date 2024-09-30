@@ -46,11 +46,24 @@ bool	g_bLeave = false;
 
 POINT g_WindowSize;
 cGameApp*g_pGameApp = nullptr;
+
+#define offsetof(s,m) ((::size_t)&reinterpret_cast<char const volatile&>((((s*)0)->m)))
+
+struct ImDrawVert
+{
+	Vector2  pos;
+	Vector2  uv;
+	int64    col;
+};
+
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+	auto l_Value1 = offsetof(ImDrawVert, pos);
+	auto l_Value2 = offsetof(ImDrawVert, uv);
+	auto l_Value3 = offsetof(ImDrawVert, col);
 	//glTF::Asset l_Asset;
 	//l_Asset.Parse(L"C:/Users/Fatming/Desktop/DirectX-Graphics-Samples-master/DirectX-Graphics-Samples-master/Samples/Desktop/D3D12Raytracing/src/D3D12RaytracingMiniEngineSample/Sponza/pbr/sponza2.gltf");
 	for (int i = 0; i < 100; ++i)

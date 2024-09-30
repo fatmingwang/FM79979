@@ -192,9 +192,11 @@ int BlendingIndexToIndex(GLenum e_eBlendingIndex)
 #ifdef DEBUG
 void	MyGlErrorTest(const char*e_strMessage, const char* e_strFileName, int32_t e_iCodeLine)
 {
+	int l_iTestCont = 5;
 	int	l_iError = glGetError();
-	if (l_iError != 0)
+	while(l_iError != 0 && l_iTestCont>0)
 	{
+		--l_iTestCont;
 		std::string l_str = GET_FILENAME_AND_LINE(e_strFileName,e_iCodeLine);
 		l_str += "   ";
 		l_str += e_strMessage;
@@ -210,7 +212,7 @@ void	MyGlErrorTest(const char*e_strMessage, const char* e_strFileName, int32_t e
 			default: l_str += FATMING_CORE::ValueToString(l_iError); break;
 		}
 		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
-		int a = 0;
+		l_iError = glGetError();
 	}
 }
 
