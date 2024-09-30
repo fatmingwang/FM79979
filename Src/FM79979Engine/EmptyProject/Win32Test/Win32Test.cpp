@@ -49,12 +49,7 @@ cGameApp*g_pGameApp = nullptr;
 
 #define offsetof(s,m) ((::size_t)&reinterpret_cast<char const volatile&>((((s*)0)->m)))
 
-struct ImDrawVert
-{
-	Vector2  pos;
-	Vector2  uv;
-	int64    col;
-};
+
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,

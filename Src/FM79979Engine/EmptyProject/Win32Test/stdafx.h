@@ -33,3 +33,5 @@
 
 #include "../../Core/AllCoreInclude.h"
 #include "../../Core/FatmingCollada/AllColladaInclude.h"
+#include "../../imgui/ImGuiRender.h"
+#include "../../imgui/imgui.h"

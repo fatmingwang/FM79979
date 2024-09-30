@@ -1,29 +1,6 @@
 #include "../Core//AllCoreInclude.h"
 #include "imgui.h"
-#include "imguiRender.h"
-
-bool ImGuiInit()
-{
-    return false;
-}
-
-bool ImGuiShutdown()
-{
-    return false;
-}
-
-bool ImGuiUpdate()
-{
-    return false;
-}
-
-bool ImGuiRender()
-{
-    return false;
-}
-
-
-
+#include "imGuiRender.h"
 
 
 //==========================================================================
@@ -83,6 +60,51 @@ ImGui_ImplOpenGL3_Data* ImGui_ImplOpenGL3_GetBackendData()
     return ImGui::GetCurrentContext() ? (ImGui_ImplOpenGL3_Data*)ImGui::GetIO().BackendRendererUserData : nullptr;
 }
 
+bool ImGui_ImplOpenGL3_CreateFontsTexture()
+{
+    ImGuiIO& io = ImGui::GetIO();
+    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+
+    // Build texture atlas
+    unsigned char* pixels;
+    int width, height;
+    io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bit (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
+
+    // Upload texture to graphics system
+    // (Bilinear sampling is required by default. Set 'io.Fonts->Flags |= ImFontAtlasFlags_NoBakedLines' or 'style.AntiAliasedLinesUseTex = false' to allow point/nearest sampling)
+    GLint last_texture;
+    GL_CALL(glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture));
+    GL_CALL(glGenTextures(1, &bd->FontTexture));
+    GL_CALL(glBindTexture(GL_TEXTURE_2D, bd->FontTexture));
+    GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+#ifdef GL_UNPACK_ROW_LENGTH // Not on WebGL/ES
+    GL_CALL(glPixelStorei(GL_UNPACK_ROW_LENGTH, 0));
+#endif
+    GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels));
+
+    // Store our identifier
+    io.Fonts->SetTexID((ImTextureID)(intptr_t)bd->FontTexture);
+
+    // Restore state
+    GL_CALL(glBindTexture(GL_TEXTURE_2D, last_texture));
+
+    return true;
+}
+
+
+void ImGui_ImplOpenGL3_DestroyFontsTexture()
+{
+    ImGuiIO& io = ImGui::GetIO();
+    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+    if (bd->FontTexture)
+    {
+        glDeleteTextures(1, &bd->FontTexture);
+        io.Fonts->SetTexID(0);
+        bd->FontTexture = 0;
+    }
+}
+
 // Functions
 bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 {
@@ -96,6 +118,11 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
     if (!l_BS->FontTexture)
         ImGui_ImplOpenGL3_CreateFontsTexture();
     return true;
+}
+
+void ImGui_ImplOpenGL3_Shutdown()
+{
+    ImGui_ImplOpenGL3_DestroyFontsTexture();
 }
 
 
@@ -212,48 +239,4 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
     glViewport(last_viewport[0], last_viewport[1], (GLsizei)last_viewport[2], (GLsizei)last_viewport[3]);
     glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]);
     (void)bd; // Not all compilation paths use this
-}
-
-bool ImGui_ImplOpenGL3_CreateFontsTexture()
-{
-    ImGuiIO& io = ImGui::GetIO();
-    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
-
-    // Build texture atlas
-    unsigned char* pixels;
-    int width, height;
-    io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);   // Load as RGBA 32-bit (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
-
-    // Upload texture to graphics system
-    // (Bilinear sampling is required by default. Set 'io.Fonts->Flags |= ImFontAtlasFlags_NoBakedLines' or 'style.AntiAliasedLinesUseTex = false' to allow point/nearest sampling)
-    GLint last_texture;
-    GL_CALL(glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture));
-    GL_CALL(glGenTextures(1, &bd->FontTexture));
-    GL_CALL(glBindTexture(GL_TEXTURE_2D, bd->FontTexture));
-    GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-    GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-#ifdef GL_UNPACK_ROW_LENGTH // Not on WebGL/ES
-    GL_CALL(glPixelStorei(GL_UNPACK_ROW_LENGTH, 0));
-#endif
-    GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels));
-
-    // Store our identifier
-    io.Fonts->SetTexID((ImTextureID)(intptr_t)bd->FontTexture);
-
-    // Restore state
-    GL_CALL(glBindTexture(GL_TEXTURE_2D, last_texture));
-
-    return true;
-}
-
-void ImGui_ImplOpenGL3_DestroyFontsTexture()
-{
-    ImGuiIO& io = ImGui::GetIO();
-    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
-    if (bd->FontTexture)
-    {
-        glDeleteTextures(1, &bd->FontTexture);
-        io.Fonts->SetTexID(0);
-        bd->FontTexture = 0;
-    }
 }
