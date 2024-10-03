@@ -115,8 +115,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if (::IsIconic(g_hWnd))
+			{
+				::Sleep(10);
+				continue;
+			}
 		}
 	}
+
+	ImGui_ImplWin32_Shutdown();
 
 	//UnhookWindowsHookEx(MouseHook);
 	SAFE_DELETE(g_pGameApp);

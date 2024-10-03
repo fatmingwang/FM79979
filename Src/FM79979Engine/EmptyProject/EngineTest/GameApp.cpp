@@ -5,6 +5,7 @@
 #include "Proto/addressbook.pb.h"
 #include "Proto/MessageTest.pb.h"
 #include "../../imgui/ImGuiRender.h"
+#include "../../imgui/imgui.h"
 cNetworkSample* g_pNetworkSample = nullptr;
 
 extern void	LoadSample();
@@ -41,6 +42,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 cEngineTestApp::~cEngineTestApp()
 {
 	ImGui_ImplOpenGL3_Shutdown();
+	ImGui::DestroyContext();
 	SAFE_DELETE(m_pPhaseManager);
 	SAFE_DELETE(g_pNetworkSample);
 	DestorySampleObject();
@@ -50,6 +52,14 @@ cEngineTestApp::~cEngineTestApp()
 void	cEngineTestApp::Init()
 {
 	cGameApp::Init();
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
+	ImGui_ImplWin32_InitForOpenGL(cGameApp::m_spOpenGLRender->m_Handle);
 	ImGui_ImplOpenGL3_Init();
 	if (g_pNetworkSample)
 	{
@@ -90,6 +100,16 @@ void	cEngineTestApp::Render()
 	//this->m_pPhaseManager->Render();
 	cGameApp::ShowInfo();
 	//this->m_pPhaseManager->DebugRender();
+		// Start the Dear ImGui frame
+
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	bool show_demo_window = true;
+	ImGui::ShowDemoWindow(&show_demo_window);
+	// Rendering
+	ImGui::Render();
+	glViewport(0, 0, cGameApp::m_spOpenGLRender->m_vViewPortSize.x, cGameApp::m_spOpenGLRender->m_vViewPortSize.y);
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
