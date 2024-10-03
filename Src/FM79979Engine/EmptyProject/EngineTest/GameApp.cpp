@@ -4,6 +4,7 @@
 #include "NetworkSample.h"
 #include "Proto/addressbook.pb.h"
 #include "Proto/MessageTest.pb.h"
+#include "../../imgui/ImGuiRender.h"
 cNetworkSample* g_pNetworkSample = nullptr;
 
 extern void	LoadSample();
@@ -39,6 +40,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 
 cEngineTestApp::~cEngineTestApp()
 {
+	ImGui_ImplOpenGL3_Shutdown();
 	SAFE_DELETE(m_pPhaseManager);
 	SAFE_DELETE(g_pNetworkSample);
 	DestorySampleObject();
@@ -48,6 +50,7 @@ cEngineTestApp::~cEngineTestApp()
 void	cEngineTestApp::Init()
 {
 	cGameApp::Init();
+	ImGui_ImplOpenGL3_Init();
 	if (g_pNetworkSample)
 	{
 		g_pNetworkSample->Init();
@@ -82,6 +85,7 @@ void	cEngineTestApp::Render()
 	MyGLEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
+	//ImGui_ImplOpenGL3_RenderDrawData(struct ImDrawData* draw_data);
 	//SampleRender();
 	//this->m_pPhaseManager->Render();
 	cGameApp::ShowInfo();

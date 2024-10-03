@@ -20,7 +20,6 @@
 #include <corecrt_io.h>
 #include <fcntl.h>
 #include "../../Core/FMgltf/glTF.h"
-
 //#define VLD_DEBUG
 //
 //#ifdef VLD_DEBUG
