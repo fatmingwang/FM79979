@@ -252,7 +252,7 @@ void ImGui_ImplOpenGL3_Shutdown()
 
 void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_width, int fb_height, GLuint vertex_array_object)
 {
-    //ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
 
     // Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, polygon fill
     glEnable(GL_BLEND);
@@ -280,7 +280,9 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_width, int
         { (R + L) / (L - R),  (T + B) / (B - T),  0.0f,   1.0f },
     };
     UseShaderProgram(g_strImGuiShaderName);
-    SetupShaderViewProjectionMatrix((float*)ortho_projection, true);
+    glEnable2D(1920, 1080);
+    //SetupShaderViewProjectionMatrix((float*)ortho_projection, true);
+    FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
     //glUseProgram(bd->ShaderHandle);
     //glUniform1i(bd->AttribLocationTex, 0);
     //glUniformMatrix4fv(bd->AttribLocationProjMtx, 1, GL_FALSE, &ortho_projection[0][0]);
@@ -288,14 +290,13 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_width, int
 
 
     (void)vertex_array_object;
-
-    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+    glBindVertexArray(vertex_array_object);
     // Bind vertex/index buffers and setup attributes for ImDrawVert
     GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, bd->VboHandle));
     GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bd->ElementsHandle));
-    //GL_CALL(glEnableVertexAttribArray(bd->AttribLocationVtxPos));
-    //GL_CALL(glEnableVertexAttribArray(bd->AttribLocationVtxUV));
-    //GL_CALL(glEnableVertexAttribArray(bd->AttribLocationVtxColor));
+    GL_CALL(glEnableVertexAttribArray(g_pImGuiShader->m_uiAttribArray[FVF_POS]));
+    GL_CALL(glEnableVertexAttribArray(g_pImGuiShader->m_uiAttribArray[FVF_TEX0]));
+    GL_CALL(glEnableVertexAttribArray(g_pImGuiShader->m_uiAttribArray[FVF_DIFFUSE]));
     GL_CALL(glVertexAttribPointer(g_pImGuiShader->m_uiAttribArray[FVF_POS], 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, pos)));
     GL_CALL(glVertexAttribPointer(g_pImGuiShader->m_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, uv)));
     GL_CALL(glVertexAttribPointer(g_pImGuiShader->m_uiAttribArray[FVF_DIFFUSE], 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, col)));
@@ -344,13 +345,14 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
     GLuint vertex_array_object = 0;
 
     GL_CALL(glGenVertexArrays(1, &vertex_array_object));
+
     //fuck imhui using compact vertex struct not separate data
     ImGui_ImplOpenGL3_SetupRenderState(draw_data, fb_width, fb_height, vertex_array_object);
+
 
     // Will project scissor/clipping rectangles into framebuffer space
     ImVec2 clip_off = draw_data->DisplayPos;         // (0,0) unless using multi-viewports
     ImVec2 clip_scale = draw_data->FramebufferScale; // (1,1) unless using retina display which are often (2,2)
-    UseShaderProgram(DEFAULT_SHADER);
     // Render command lists
     for (int n = 0; n < draw_data->CmdListsCount; n++)
     {
@@ -381,7 +383,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
                 // Bind texture, Draw
                 GL_CALL(glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->GetTexID()));
                 MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx)));
-                GL_CALL(glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx))));
+                //GL_CALL(glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx))));
             }
         }
     }
