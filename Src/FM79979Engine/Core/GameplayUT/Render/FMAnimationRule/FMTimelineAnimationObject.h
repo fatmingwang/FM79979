@@ -3,7 +3,7 @@
 #include "../CommonRender/RenderObject.h"
 namespace FATMING_CORE
 {
-	extern void		SetupShaderViewProjectionMatrix(float*e_pfVPMatrix,bool e_bDoOrientation);
+	extern void		SetupShaderViewProjectionMatrix(const float* e_pfVPMatrix, bool e_bDoOrientation, eDeviceDirection e_eDeviceDirection);
 	extern float*	GetCurrentViewProjectionMatrix();
     //=====================
     //a base class for animtion control(LERP)

@@ -153,9 +153,9 @@ namespace FATMING_CORE
 	};
 
 	//e_pbClientState to setup opengl es client state
-	cBaseShader*	CreateShader(bool *e_pbClientState,wchar_t*e_strName = DEFAULT_SHADER);
+	cBaseShader*	CreateShader(bool *e_pbClientState,const wchar_t*e_strName = DEFAULT_SHADER);
 	//e_pbClientState to setup opengl es client state
-	cBaseShader*	CreateShader(bool *e_pbClientState,const char*e_strVS,const char*e_strPS,wchar_t*e_strName = DEFAULT_SHADER);
+	cBaseShader*	CreateShader(bool *e_pbClientState,const char*e_strVS,const char*e_strPS,const wchar_t*e_strName = DEFAULT_SHADER);
 	cBaseShader*	GetShader(const wchar_t*e_strName);
 	cBaseShader*	GetCurrentShader();
 	//
@@ -172,7 +172,7 @@ namespace FATMING_CORE
 	void	DisableShaderProgram(wchar_t*e_strName = DEFAULT_SHADER);
 	//void	SetupWorldViewProjectionMatrix(float*e_pfWVPMatrix);
 	//while shader is applied,not set value by camera,ignore rotation,because it has beenn rotated
-	void	SetupShaderViewProjectionMatrix(float*e_pfVPMatrix,bool e_bOrientation, eDeviceDirection e_eDeviceDirection = eDD_MAX);
+	void	SetupShaderViewProjectionMatrix(const float*e_pfVPMatrix,bool e_bOrientation, eDeviceDirection e_eDeviceDirection = eDD_MAX);
 	float*	GetCurrentViewProjectionMatrix();
 	//use DRAW_POINTS_SHADER
 	void	SetShaderPointSize(float e_fSize);

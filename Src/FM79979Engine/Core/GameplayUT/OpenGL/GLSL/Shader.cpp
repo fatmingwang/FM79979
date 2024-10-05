@@ -386,7 +386,7 @@ namespace FATMING_CORE
 	cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList = nullptr;
 
 
-	cBaseShader*	CreateShader(bool *e_pbClientState,wchar_t*e_strName)
+	cBaseShader*	CreateShader(bool *e_pbClientState,const wchar_t*e_strName)
 	{
 		cBaseShader*l_p2DShader = 0;
 		if( !g_pAll2DShaderList )
@@ -403,7 +403,7 @@ namespace FATMING_CORE
 		g_pAll2DShaderList->AddObject(l_p2DShader);
 		return l_p2DShader;
 	}
-	cBaseShader*	CreateShader(bool *e_pbClientState,const char*e_strVS,const char*e_strPS,wchar_t*e_strName)
+	cBaseShader*	CreateShader(bool *e_pbClientState,const char*e_strVS,const char*e_strPS,const wchar_t*e_strName)
 	{
 		cBaseShader*l_p2DShader = 0;
 		if( !g_pAll2DShaderList )
@@ -539,7 +539,7 @@ namespace FATMING_CORE
 		CHECK_GL_ERROR("after SetShaderPointSize");
 	}
 
-	void	SetupShaderViewProjectionMatrix(float*e_pfVPMatrix,bool e_bDoOrientation, eDeviceDirection e_eDeviceDirection)
+	void	SetupShaderViewProjectionMatrix(const float*e_pfVPMatrix,bool e_bDoOrientation, eDeviceDirection e_eDeviceDirection)
 	{
 		if( e_bDoOrientation )
 		{

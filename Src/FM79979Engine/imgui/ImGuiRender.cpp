@@ -35,19 +35,15 @@
 #endif
 
 
-// [Debugging]
-//#define IMGUI_IMPL_OPENGL_DEBUG
-#ifdef IMGUI_IMPL_OPENGL_DEBUG
-#include <stdio.h>
-#define GL_CALL(_CALL)      do { _CALL; GLenum gl_err = glGetError(); if (gl_err != 0) fprintf(stderr, "GL error 0x%x returned from '%s'.\n", gl_err, #_CALL); } while (0)  // Call with error check
-#else
-#define GL_CALL(_CALL)      _CALL   // Call without error check
-#endif
+
+#define GL_CALL(_CALL)      LAZY_DO_GL_COMMAND_AND_GET_ERROR(_CALL)
 
 
 
 
 
+const wchar_t* g_strImGuiShaderName = L"ImGuiShader";
+cBaseShader* g_pImGuiShader = nullptr;
 
 // OpenGL Data
 struct ImGui_ImplOpenGL3_Data
@@ -55,6 +51,7 @@ struct ImGui_ImplOpenGL3_Data
     GLuint          FontTexture;
     GLsizeiptr      VertexBufferSize;
     GLsizeiptr      IndexBufferSize;
+    unsigned int    VboHandle, ElementsHandle;
     //bool            UseBufferSubData;
 
     ImGui_ImplOpenGL3_Data() { memset((void*)this, 0, sizeof(*this)); }
@@ -98,7 +95,128 @@ bool ImGui_ImplOpenGL3_CreateFontsTexture()
 
     return true;
 }
+bool    ImguiCreateShader()
+{
+    const char* vertex_shader_glsl_120 =
+        "uniform mat4 matVP;\n"
+        "uniform mat4 matW;\n"
+        "attribute vec2 VSPosition;\n"
+        "attribute vec2 VSTexcoord;\n"
+        "attribute vec4 VSColor;\n"
+        "varying vec2 Frag_UV;\n"
+        "varying vec4 Frag_Color;\n"
+        "void main()\n"
+        "{\n"
+        "    Frag_UV = VSTexcoord;\n"
+        "    Frag_Color = VSColor;\n"
+        "    gl_Position = matVP*matW* vec4(VSPosition.xy,0,1);\n"
+        "}\n";
 
+    const char* vertex_shader_glsl_130 =
+        "uniform mat4 matVP;\n"
+        "uniform mat4 matW;\n"
+        "in vec2 VSPosition;\n"
+        "in vec2 VSTexcoord;\n"
+        "in vec4 VSColor;\n"
+        "out vec2 Frag_UV;\n"
+        "out vec4 Frag_Color;\n"
+        "void main()\n"
+        "{\n"
+        "    Frag_UV = VSTexcoord;\n"
+        "    Frag_Color = VSColor;\n"
+        "    gl_Position = matVP*matW* vec4(VSPosition.xy,0,1);\n"
+        "}\n";
+
+    const char* vertex_shader_glsl_300_es =
+        "precision highp float;\n"
+        "layout (location = 0) in vec2 VSPosition;\n"
+        "layout (location = 1) in vec2 VSTexcoord;\n"
+        "layout (location = 2) in vec4 VSColor;\n"
+        "uniform mat4 matVP;\n"
+        "uniform mat4 matW;\n"
+        "out vec2 Frag_UV;\n"
+        "out vec4 Frag_Color;\n"
+        "void main()\n"
+        "{\n"
+        "    Frag_UV = VSTexcoord;\n"
+        "    Frag_Color = VSColor;\n"
+        "    gl_Position = matVP*matW* vec4(VSPosition.xy,0,1);\n"
+        "}\n";
+
+    const char* vertex_shader_glsl_410_core =
+        "layout (location = 0) in vec2 VSPosition;\n"
+        "layout (location = 1) in vec2 VSTexcoord;\n"
+        "layout (location = 2) in vec4 VSColor;\n"
+        "uniform mat4 matVP;\n"
+        "uniform mat4 matW;\n"
+        "out vec2 Frag_UV;\n"
+        "out vec4 Frag_Color;\n"
+        "void main()\n"
+        "{\n"
+        "    Frag_UV = VSTexcoord;\n"
+        "    Frag_Color = VSColor;\n"
+        "    gl_Position = matVP*matW* vec4(VSPosition.xy,0,1);\n"
+        "}\n";
+
+    const char* fragment_shader_glsl_120 =
+        "#ifdef GL_ES\n"
+        "    precision mediump float;\n"
+        "#endif\n"
+        "uniform sampler2D texSample;\n"
+        "varying vec2 Frag_UV;\n"
+        "varying vec4 Frag_Color;\n"
+        "void main()\n"
+        "{\n"
+        "    gl_FragColor = Frag_Color * texture2D(texSample, Frag_UV.st);\n"
+        "}\n";
+
+    const char* fragment_shader_glsl_130 =
+        "uniform sampler2D texSample;\n"
+        "in vec2 Frag_UV;\n"
+        "in vec4 Frag_Color;\n"
+        "out vec4 Out_Color;\n"
+        "void main()\n"
+        "{\n"
+        "    Out_Color = Frag_Color * texture(texSample, Frag_UV.st);\n"
+        "}\n";
+
+    const char* fragment_shader_glsl_300_es =
+        "precision mediump float;\n"
+        "uniform sampler2D texSample;\n"
+        "in vec2 Frag_UV;\n"
+        "in vec4 Frag_Color;\n"
+        "layout (location = 0) out vec4 Out_Color;\n"
+        "void main()\n"
+        "{\n"
+        "    Out_Color = Frag_Color * texture(texSample, Frag_UV.st);\n"
+        "}\n";
+
+    const char* fragment_shader_glsl_410_core =
+        "in vec2 Frag_UV;\n"
+        "in vec4 Frag_Color;\n"
+        "uniform sampler2D texSample;\n"
+        "layout (location = 0) out vec4 Out_Color;\n"
+        "void main()\n"
+        "{\n"
+        "    Out_Color = Frag_Color * texture(texSample, Frag_UV.st);\n"
+        "}\n";
+
+    // Select shaders matching our GLSL versions
+    const char* vertex_shader = nullptr;
+    const char* fragment_shader = nullptr;
+#ifdef WIN32
+        vertex_shader = vertex_shader_glsl_120;
+        fragment_shader = fragment_shader_glsl_120;
+#else
+    vertex_shader = vertex_shader_glsl_300_es;
+    fragment_shader = fragment_shader_glsl_300_es;
+#endif
+    g_pImGuiShader = CreateShader(g_bCommonVSClientState, vertex_shader, fragment_shader, g_strImGuiShaderName);
+    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+    glGenBuffers(1, &bd->VboHandle);
+    glGenBuffers(1, &bd->ElementsHandle);
+    return true;
+}
 // Functions
 bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 {
@@ -110,7 +228,10 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
     io.BackendRendererUserData = (void*)l_BS;
     io.BackendRendererName = "imgui_impl_fm79979";
     if (!l_BS->FontTexture)
+    {
         ImGui_ImplOpenGL3_CreateFontsTexture();
+    }
+    ImguiCreateShader();
     return true;
 }
 
@@ -118,6 +239,8 @@ void ImGui_ImplOpenGL3_Shutdown()
 {
     ImGuiIO& io = ImGui::GetIO();
     ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+    if (bd->VboHandle) { glDeleteBuffers(1, &bd->VboHandle); bd->VboHandle = 0; }
+    if (bd->ElementsHandle) { glDeleteBuffers(1, &bd->ElementsHandle); bd->ElementsHandle = 0; }
     if (bd->FontTexture)
     {
         glDeleteTextures(1, &bd->FontTexture);
@@ -129,7 +252,7 @@ void ImGui_ImplOpenGL3_Shutdown()
 
 void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_width, int fb_height, GLuint vertex_array_object)
 {
-    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+    //ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
 
     // Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, polygon fill
     glEnable(GL_BLEND);
@@ -156,6 +279,8 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_width, int
         { 0.0f,         0.0f,        -1.0f,   0.0f },
         { (R + L) / (L - R),  (T + B) / (B - T),  0.0f,   1.0f },
     };
+    UseShaderProgram(g_strImGuiShaderName);
+    SetupShaderViewProjectionMatrix((float*)ortho_projection, true);
     //glUseProgram(bd->ShaderHandle);
     //glUniform1i(bd->AttribLocationTex, 0);
     //glUniformMatrix4fv(bd->AttribLocationProjMtx, 1, GL_FALSE, &ortho_projection[0][0]);
@@ -164,16 +289,16 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_width, int
 
     (void)vertex_array_object;
 
-
+    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
     // Bind vertex/index buffers and setup attributes for ImDrawVert
-    //GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, bd->VboHandle));
-    //GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bd->ElementsHandle));
+    GL_CALL(glBindBuffer(GL_ARRAY_BUFFER, bd->VboHandle));
+    GL_CALL(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bd->ElementsHandle));
     //GL_CALL(glEnableVertexAttribArray(bd->AttribLocationVtxPos));
     //GL_CALL(glEnableVertexAttribArray(bd->AttribLocationVtxUV));
     //GL_CALL(glEnableVertexAttribArray(bd->AttribLocationVtxColor));
-    //GL_CALL(glVertexAttribPointer(bd->AttribLocationVtxPos, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, pos)));
-    //GL_CALL(glVertexAttribPointer(bd->AttribLocationVtxUV, 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, uv)));
-    //GL_CALL(glVertexAttribPointer(bd->AttribLocationVtxColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, col)));
+    GL_CALL(glVertexAttribPointer(g_pImGuiShader->m_uiAttribArray[FVF_POS], 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, pos)));
+    GL_CALL(glVertexAttribPointer(g_pImGuiShader->m_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, uv)));
+    GL_CALL(glVertexAttribPointer(g_pImGuiShader->m_uiAttribArray[FVF_DIFFUSE], 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, col)));
 }
 
 // OpenGL3 Render function.
@@ -270,6 +395,10 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
     // This "glIsProgram()" check is required because if the program is "pending deletion" at the time of binding backup, it will have been deleted by now and will cause an OpenGL error. See #6220.
     if (last_program == 0 || glIsProgram(last_program)) glUseProgram(last_program);
     glBindTexture(GL_TEXTURE_2D, last_texture);
+
+
+    glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer);
+
     glBlendEquationSeparate(last_blend_equation_rgb, last_blend_equation_alpha);
     glBlendFuncSeparate(last_blend_src_rgb, last_blend_dst_rgb, last_blend_src_alpha, last_blend_dst_alpha);
     if (last_enable_blend) glEnable(GL_BLEND); else glDisable(GL_BLEND);
@@ -346,7 +475,7 @@ static bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc)
     io.BackendPlatformUserData = (void*)bd;
     io.BackendPlatformName = "imgui_impl_win32";
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
-    io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
+    //io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
 
     bd->hWnd = (HWND)hwnd;
     bd->TicksPerSecond = perf_frequency;
@@ -493,12 +622,12 @@ static void ImGui_ImplWin32_UpdateMouseData()
     if (is_app_focused)
     {
         // (Optional) Set OS mouse position from Dear ImGui if requested (rarely used, only when ImGuiConfigFlags_NavEnableSetMousePos is enabled by user)
-        if (io.WantSetMousePos)
-        {
-            POINT pos = { (int)io.MousePos.x, (int)io.MousePos.y };
-            if (::ClientToScreen(bd->hWnd, &pos))
-                ::SetCursorPos(pos.x, pos.y);
-        }
+        //if (io.WantSetMousePos)
+        //{
+        //    POINT pos = { (int)io.MousePos.x, (int)io.MousePos.y };
+        //    if (::ClientToScreen(bd->hWnd, &pos))
+        //        ::SetCursorPos(pos.x, pos.y);
+        //}
 
         // (Optional) Fallback to provide mouse position when focused (WM_MOUSEMOVE already provides this when hovered or captured)
         // This also fills a short gap when clicking non-client area: WM_NCMOUSELEAVE -> modal OS move -> gap -> WM_NCMOUSEMOVE
