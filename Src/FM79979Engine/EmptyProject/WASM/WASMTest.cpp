@@ -24,59 +24,62 @@
 
 #include "Proto/addressbook.pb.h"
 #include "Proto/MessageTest.pb.h"
-EM_BOOL onopen(int eventType, const EmscriptenWebSocketOpenEvent *websocketEvent, void *userData) 
-{
-	puts("onopen");
-	//EMSCRIPTEN_RESULT result;
-	//result = emscripten_websocket_send_utf8_text(websocketEvent->socket, "hoge");
-	//if (result) 
-	//{
-	//	printf("Failed to emscripten_websocket_send_utf8_text(): %d\n", result);
-	//}
-	{
-		tutorial::AddressBook l_AddressBook;
-		int size = l_AddressBook.ByteSizeLong();
-		for (int i = 0; i < 3; ++i)
-		{
-			auto l_pPeople1 = l_AddressBook.add_people();
-			l_pPeople1->set_id(i);
-			l_pPeople1->set_name("2266");
-		}
-		auto l_peopleSize = l_AddressBook.people_size();
-		size = l_AddressBook.ByteSizeLong();
-		//network buffer 
-		char* buffer = (char*)alloca(size);
-		l_AddressBook.SerializeToArray(buffer, size);
-		EMSCRIPTEN_RESULT l_Result = emscripten_websocket_send_binary(websocketEvent->socket, buffer, size);
-		FMLOG("send size:%d", size);
-	}
-	return EM_TRUE;
-}
-EM_BOOL onerror(int eventType, const EmscriptenWebSocketErrorEvent *websocketEvent, void *userData) {
-
-	printf("onerror:%d", eventType);
-
-	return EM_TRUE;
-}
-EM_BOOL onclose(int eventType, const EmscriptenWebSocketCloseEvent *websocketEvent, void *userData) {
-	printf("onclose:%d", eventType);
-
-	return EM_TRUE;
-}
-EM_BOOL onmessage(int eventType, const EmscriptenWebSocketMessageEvent *websocketEvent, void *userData) {
-	puts("onmessage");
-	if (websocketEvent->isText) {
-		// For only ascii chars.
-		printf("message: %s\n", websocketEvent->data);
-	}
-
-	EMSCRIPTEN_RESULT result;
-	result = emscripten_websocket_close(websocketEvent->socket, 1000, "no reason");
-	if (result) {
-		printf("Failed to emscripten_websocket_close(): %d\n", result);
-	}
-	return EM_TRUE;
-}
+//
+//EMSCRIPTEN_WEBSOCKET_T g_WebSocket;
+//
+//EM_BOOL onopen(int eventType, const EmscriptenWebSocketOpenEvent *websocketEvent, void *userData) 
+//{
+//	puts("onopen");
+//	//EMSCRIPTEN_RESULT result;
+//	//result = emscripten_websocket_send_utf8_text(websocketEvent->socket, "hoge");
+//	//if (result) 
+//	//{
+//	//	printf("Failed to emscripten_websocket_send_utf8_text(): %d\n", result);
+//	//}
+//	{
+//		tutorial::AddressBook l_AddressBook;
+//		int size = l_AddressBook.ByteSizeLong();
+//		for (int i = 0; i < 3; ++i)
+//		{
+//			auto l_pPeople1 = l_AddressBook.add_people();
+//			l_pPeople1->set_id(i);
+//			l_pPeople1->set_name("2266");
+//		}
+//		auto l_peopleSize = l_AddressBook.people_size();
+//		size = l_AddressBook.ByteSizeLong();
+//		//network buffer 
+//		char* buffer = (char*)alloca(size);
+//		l_AddressBook.SerializeToArray(buffer, size);
+//		EMSCRIPTEN_RESULT l_Result = emscripten_websocket_send_binary(websocketEvent->socket, buffer, size);
+//		FMLOG("send size:%d", size);
+//	}
+//	return EM_TRUE;
+//}
+//EM_BOOL onerror(int eventType, const EmscriptenWebSocketErrorEvent *websocketEvent, void *userData) {
+//
+//	printf("onerror:%d", eventType);
+//
+//	return EM_TRUE;
+//}
+//EM_BOOL onclose(int eventType, const EmscriptenWebSocketCloseEvent *websocketEvent, void *userData) {
+//	printf("onclose:%d", eventType);
+//
+//	return EM_TRUE;
+//}
+//EM_BOOL onmessage(int eventType, const EmscriptenWebSocketMessageEvent *websocketEvent, void *userData) {
+//	puts("onmessage");
+//	if (websocketEvent->isText) {
+//		// For only ascii chars.
+//		printf("message: %s\n", websocketEvent->data);
+//	}
+//
+//	EMSCRIPTEN_RESULT result;
+//	result = emscripten_websocket_close(websocketEvent->socket, 1000, "no reason");
+//	if (result) {
+//		printf("Failed to emscripten_websocket_close(): %d\n", result);
+//	}
+//	return EM_TRUE;
+//}
 
 
 cGameApp*g_pGameApp = 0;
@@ -363,6 +366,10 @@ int main()
 	{
 		return -1;
 	}
+	if (!emscripten_websocket_is_supported()) 
+	{
+		std::cout << "WebSockets are not supported in this browser." << std::endl;
+	}
 	//https://www.libsdl.org/release/SDL-1.2.15/docs/html/guidevideoopengl.html
 	//http://lazyfoo.net/SDL_tutorials/lesson04/index.php
 	SDL_Surface*l_pSurf_Display = nullptr;
@@ -376,7 +383,7 @@ int main()
 	//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	//g_pPreLoadFromInternet = new cPreLoadFromInternet();
 	//bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadResource.xml");
-	EMSCRIPTEN_WEBSOCKET_T ws;
+
 	if (l_pSurf_Display)
 	{
 		//if (emscripten_websocket_is_supported()) 

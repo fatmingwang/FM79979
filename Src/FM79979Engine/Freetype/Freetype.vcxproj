@@ -109,7 +109,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>emcc</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -194,7 +194,7 @@
     <PlatformToolset>emcc</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">

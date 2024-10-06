@@ -639,8 +639,8 @@ Global
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|ARM.Build.0 = Debug|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|ARM64.ActiveCfg = Debug|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|ARM64.Build.0 = Debug|x64
-		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|Emscripten.ActiveCfg = Debug|x64
-		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|Emscripten.Build.0 = Debug|x64
+		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|Emscripten.ActiveCfg = Debug|Emscripten
+		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|Emscripten.Build.0 = Debug|Emscripten
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|x64.ActiveCfg = Debug|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|x64.Build.0 = Debug|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug_NoPthread|x86.ActiveCfg = Debug|Win32
@@ -649,8 +649,8 @@ Global
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|ARM.Build.0 = Debug|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|ARM64.ActiveCfg = Debug|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|ARM64.Build.0 = Debug|x64
-		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|Emscripten.ActiveCfg = Debug|x64
-		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|Emscripten.Build.0 = Debug|x64
+		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
+		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|Emscripten.Build.0 = Debug|Emscripten
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|x64.ActiveCfg = Debug|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|x64.Build.0 = Debug|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Debug|x86.ActiveCfg = Debug|Win32
@@ -669,8 +669,8 @@ Global
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|ARM.Build.0 = Release|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|ARM64.ActiveCfg = Release|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|ARM64.Build.0 = Release|x64
-		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|Emscripten.ActiveCfg = Release|x64
-		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|Emscripten.Build.0 = Release|x64
+		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|Emscripten.ActiveCfg = Release|Emscripten
+		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|Emscripten.Build.0 = Release|Emscripten
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|x64.ActiveCfg = Release|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|x64.Build.0 = Release|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release_NoPthread|x86.ActiveCfg = Release|Win32
@@ -679,8 +679,8 @@ Global
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|ARM.Build.0 = Release|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|ARM64.ActiveCfg = Release|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|ARM64.Build.0 = Release|x64
-		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|Emscripten.ActiveCfg = Release|x64
-		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|Emscripten.Build.0 = Release|x64
+		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|Emscripten.ActiveCfg = Release|Emscripten
+		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|Emscripten.Build.0 = Release|Emscripten
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|x64.ActiveCfg = Release|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|x64.Build.0 = Release|x64
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}.Release|x86.ActiveCfg = Release|Win32

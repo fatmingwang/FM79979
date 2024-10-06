@@ -140,7 +140,7 @@ void   ThreadLoadTest()
 {
 #ifdef WASM
 	//cOpanalOgg*l_pSound = nullptr;//new cOpanalOgg(g_pPathChaser,"Media/MainBG.ogg",false);
-	cBasicSound* l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
+	cBasicSound* l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg",true);
 	g_pBG = l_pSound;
 	bool l_bMultiThreadTest = false;
 	if (l_bMultiThreadTest)

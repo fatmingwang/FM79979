@@ -4,6 +4,14 @@
 #include "GameNetWork.h"
 #include "../Common/Log/FMLog.h"
 
+//extern "C"
+//{
+//	EM_BOOL emscripten_websocket_is_supported(void);
+//	EMSCRIPTEN_WEBSOCKET_T emscripten_websocket_new(EmscriptenWebSocketCreateAttributes *createAttributes __attribute__((nonnull)));
+//	EMSCRIPTEN_RESULT emscripten_websocket_close(EMSCRIPTEN_WEBSOCKET_T socket, unsigned short code, const char* reason);
+//	EMSCRIPTEN_RESULT emscripten_websocket_send_binary(EMSCRIPTEN_WEBSOCKET_T socket, void* binaryData __attribute__((nonnull)), uint32_t dataLength);
+//}
+
 FATMING_CORE::cGameNetwork*g_pForWebSocket = nullptr;
 EMSCRIPTEN_WEBSOCKET_T	g_iWebSocketFD = -1;
 
@@ -80,6 +88,13 @@ bool	EMSDK_SendData(char* e_pData, int e_iSize)
 
 void	EMSDK_DoWebSocketConnect(FATMING_CORE::cGameNetwork* e_pForWebSocket, const char* e_strURL)
 {
+	if (!emscripten_websocket_is_supported())
+	{
+		FMLOG("WebSockets are not supported in this browser.");
+		return ;
+	}
+	FMLOG("WebSockets are supported.");
+
 	g_pForWebSocket = e_pForWebSocket;
 	EmscriptenWebSocketCreateAttributes l_Att = { e_strURL,nullptr,EM_TRUE };
 	FMLOG("websocket try to connect with %s", e_strURL);

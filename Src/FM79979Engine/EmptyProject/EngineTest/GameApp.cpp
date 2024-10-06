@@ -59,7 +59,9 @@ void	cEngineTestApp::Init()
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
 	// Setup Dear ImGui style
 	//ImGui::StyleColorsDark();
+#ifdef WIN32
 	ImGui_ImplWin32_InitForOpenGL(cGameApp::m_spOpenGLRender->m_Handle);
+#endif
 	ImGui_ImplOpenGL3_Init();
 	if (g_pNetworkSample)
 	{
@@ -106,8 +108,9 @@ void	cEngineTestApp::Render()
 	bool show_another_window = false;
 
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
+#ifdef WIN32
 	ImGui_ImplWin32_NewFrame();
+#endif
 	ImGui::NewFrame();
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 	if (show_demo_window)
@@ -170,7 +173,7 @@ void	cEngineTestApp::MouseMove(int e_iPosX,int e_iPosY)
 
 void	cEngineTestApp::MouseUp(int e_iPosX,int e_iPosY)
 {
-	FMLOG("send data");
+	//FMLOG("send data");
     cGameApp::MouseUp(e_iPosX,e_iPosY);
 	this->m_pPhaseManager->MouseUp(cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
 	SampleMouseUp(m_sMousePosition.x, m_sMousePosition.y);

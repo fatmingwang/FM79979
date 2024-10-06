@@ -1,6 +1,6 @@
 #include "../Core//AllCoreInclude.h"
 #include "imgui.h"
-#include "imGuiRender.h"
+#include "ImGuiRender.h"
 #ifdef WIN32
 #include "windowsx.h"
 #endif
@@ -82,7 +82,7 @@ bool ImGui_ImplOpenGL3_CreateFontsTexture()
     GL_CALL(glBindTexture(GL_TEXTURE_2D, bd->FontTexture));
     GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
     GL_CALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-#ifdef GL_UNPACK_ROW_LENGTH // Not on WebGL/ES
+#if defined(GL_UNPACK_ROW_LENGTH) && !defined(WASM)// Not on WebGL/ES
     GL_CALL(glPixelStorei(GL_UNPACK_ROW_LENGTH, 0));
 #endif
     GL_CALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels));
@@ -112,52 +112,6 @@ bool    ImguiCreateShader()
         "    gl_Position = matVP*matW* vec4(VSPosition.xy,0,1);\n"
         "}\n";
 
-    const char* vertex_shader_glsl_130 =
-        "uniform mat4 matVP;\n"
-        "uniform mat4 matW;\n"
-        "in vec2 VSPosition;\n"
-        "in vec2 VSTexcoord;\n"
-        "in vec4 VSColor;\n"
-        "out vec2 Frag_UV;\n"
-        "out vec4 Frag_Color;\n"
-        "void main()\n"
-        "{\n"
-        "    Frag_UV = VSTexcoord;\n"
-        "    Frag_Color = VSColor;\n"
-        "    gl_Position = matVP*matW* vec4(VSPosition.xy,0,1);\n"
-        "}\n";
-
-    const char* vertex_shader_glsl_300_es =
-        "precision highp float;\n"
-        "layout (location = 0) in vec2 VSPosition;\n"
-        "layout (location = 1) in vec2 VSTexcoord;\n"
-        "layout (location = 2) in vec4 VSColor;\n"
-        "uniform mat4 matVP;\n"
-        "uniform mat4 matW;\n"
-        "out vec2 Frag_UV;\n"
-        "out vec4 Frag_Color;\n"
-        "void main()\n"
-        "{\n"
-        "    Frag_UV = VSTexcoord;\n"
-        "    Frag_Color = VSColor;\n"
-        "    gl_Position = matVP*matW* vec4(VSPosition.xy,0,1);\n"
-        "}\n";
-
-    const char* vertex_shader_glsl_410_core =
-        "layout (location = 0) in vec2 VSPosition;\n"
-        "layout (location = 1) in vec2 VSTexcoord;\n"
-        "layout (location = 2) in vec4 VSColor;\n"
-        "uniform mat4 matVP;\n"
-        "uniform mat4 matW;\n"
-        "out vec2 Frag_UV;\n"
-        "out vec4 Frag_Color;\n"
-        "void main()\n"
-        "{\n"
-        "    Frag_UV = VSTexcoord;\n"
-        "    Frag_Color = VSColor;\n"
-        "    gl_Position = matVP*matW* vec4(VSPosition.xy,0,1);\n"
-        "}\n";
-
     const char* fragment_shader_glsl_120 =
         "#ifdef GL_ES\n"
         "    precision mediump float;\n"
@@ -170,36 +124,31 @@ bool    ImguiCreateShader()
         "    gl_FragColor = Frag_Color * texture2D(texSample, Frag_UV.st);\n"
         "}\n";
 
-    const char* fragment_shader_glsl_130 =
-        "uniform sampler2D texSample;\n"
-        "in vec2 Frag_UV;\n"
-        "in vec4 Frag_Color;\n"
-        "out vec4 Out_Color;\n"
+    const char* vertex_shader_glsl_300_es =
+        "precision highp float;\n"
+        "attribute vec2 VSPosition;\n"
+        "attribute vec2 VSTexcoord;\n"
+        "attribute vec4 VSColor;\n"
+        "uniform mat4 matVP;\n"
+        "uniform mat4 matW;\n"
+        "varying vec2 Frag_UV;\n"
+        "varying vec4 Frag_Color;\n"
         "void main()\n"
         "{\n"
-        "    Out_Color = Frag_Color * texture(texSample, Frag_UV.st);\n"
+        "    Frag_UV = VSTexcoord;\n"
+        "    Frag_Color = VSColor;\n"
+        "    gl_Position = matVP*matW* vec4(VSPosition.xy,0,1);\n"
         "}\n";
 
     const char* fragment_shader_glsl_300_es =
-        "precision mediump float;\n"
         "uniform sampler2D texSample;\n"
-        "in vec2 Frag_UV;\n"
-        "in vec4 Frag_Color;\n"
-        "layout (location = 0) out vec4 Out_Color;\n"
+        "varying lowp vec2 Frag_UV;\n"
+        "varying lowp vec4 Frag_Color;\n"
         "void main()\n"
         "{\n"
-        "    Out_Color = Frag_Color * texture(texSample, Frag_UV.st);\n"
+        "    gl_FragColor = Frag_Color * texture2D(texSample, Frag_UV.st);\n"
         "}\n";
 
-    const char* fragment_shader_glsl_410_core =
-        "in vec2 Frag_UV;\n"
-        "in vec4 Frag_Color;\n"
-        "uniform sampler2D texSample;\n"
-        "layout (location = 0) out vec4 Out_Color;\n"
-        "void main()\n"
-        "{\n"
-        "    Out_Color = Frag_Color * texture(texSample, Frag_UV.st);\n"
-        "}\n";
 
     // Select shaders matching our GLSL versions
     const char* vertex_shader = nullptr;
@@ -266,29 +215,15 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_width, int
 
     // Setup viewport, orthographic projection matrix
     // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right). DisplayPos is (0,0) for single viewport apps.
-    GL_CALL(glViewport(0, 0, (GLsizei)fb_width, (GLsizei)fb_height));
+    //GL_CALL(glViewport(0, 0, (GLsizei)fb_width, (GLsizei)fb_height));
     float L = draw_data->DisplayPos.x;
     float R = draw_data->DisplayPos.x + draw_data->DisplaySize.x;
     float T = draw_data->DisplayPos.y;
     float B = draw_data->DisplayPos.y + draw_data->DisplaySize.y;
-
-    const float ortho_projection[4][4] =
-    {
-        { 2.0f / (R - L),   0.0f,         0.0f,   0.0f },
-        { 0.0f,         2.0f / (T - B),   0.0f,   0.0f },
-        { 0.0f,         0.0f,        -1.0f,   0.0f },
-        { (R + L) / (L - R),  (T + B) / (B - T),  0.0f,   1.0f },
-    };
     UseShaderProgram(g_strImGuiShaderName);
-    glEnable2D(1920, 1080);
+    glEnable2D(fb_width, fb_height);
     //SetupShaderViewProjectionMatrix((float*)ortho_projection, true);
     FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
-    //glUseProgram(bd->ShaderHandle);
-    //glUniform1i(bd->AttribLocationTex, 0);
-    //glUniformMatrix4fv(bd->AttribLocationProjMtx, 1, GL_FALSE, &ortho_projection[0][0]);
-
-
-
     (void)vertex_array_object;
     glBindVertexArray(vertex_array_object);
     // Bind vertex/index buffers and setup attributes for ImDrawVert

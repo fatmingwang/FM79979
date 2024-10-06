@@ -68,22 +68,22 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <ConfigurationType>HTMLPage</ConfigurationType>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'" Label="Configuration">
     <ConfigurationType>HTMLPage</ConfigurationType>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <ConfigurationType>HTMLPage</ConfigurationType>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
     <PlatformToolset>emcc</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|Emscripten'" Label="Configuration">
     <ConfigurationType>HTMLPage</ConfigurationType>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
     <PlatformToolset>emcc</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -231,7 +231,7 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM;DEBUG;EMCC_DEBUG;</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../EngineTest;..\..\ProtoBuffer\protobuf-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-pthread  -s --profiling  --bind  -s USE_PTHREADS=1 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard />
     </ClCompile>
@@ -245,7 +245,7 @@
     </PostBuildEvent>
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>-lwebsocket.js</AdditionalDependencies>
       <AdditionalOptions>-s WEBSOCKET_SUBPROTOCOL=null -pthread  -s --profiling -s ALLOW_MEMORY_GROWTH=1   -s ERROR_ON_UNDEFINED_SYMBOLS=1  --bind -s PTHREAD_POOL_SIZE=3 -s FETCH=1 -s FULL_ES2=1 -s USE_PTHREADS=1 -s SOCKET_DEBUG=1 -s PROXY_POSIX_SOCKETS=1 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreLinkEvent>
@@ -261,10 +261,10 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM;DEBUG;EMCC_DEBUG;</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-s --profiling  --bind %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>../EngineTest;..\..\ProtoBuffer\protobuf-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>
       </LanguageStandard>
+      <AdditionalOptions>-s USE_WEBGL2=1 -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <Command>
@@ -276,8 +276,10 @@
     </PostBuildEvent>
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>-s WEBSOCKET_SUBPROTOCOL=null -pthread  -s --profiling -s ALLOW_MEMORY_GROWTH=1   -s ERROR_ON_UNDEFINED_SYMBOLS=1  --bind -s FETCH=1 -s FULL_ES2=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>websocket.js </AdditionalDependencies>
+      <AdditionalOptions>-lidbfs.js -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1 -s ASSERTIONS=2 --profiling -s DEMANGLE_SUPPORT=1 --gsource-map  --bind -s WEBSOCKET_DEBUG=1 -s ENVIRONMENT='web' -s WASM=1 -s USE_WEBGL2=1 -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLinkDirectories>
+      </AdditionalLinkDirectories>
     </Link>
     <PreLinkEvent>
       <Command>
@@ -292,8 +294,8 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--profiling -pthread %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>../EngineTest;..\..\ProtoBuffer\protobuf-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--profiling -pthread --bind %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>true</ExceptionHandling>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>
@@ -311,8 +313,8 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--profiling %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>../EngineTest;..\..\ProtoBuffer\protobuf-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--profiling --bind %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>true</ExceptionHandling>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>
@@ -321,7 +323,7 @@
       <PreloadFile>
       </PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
-      <AdditionalDependencies>-lwebsocket.js</AdditionalDependencies>
+      <AdditionalDependencies>-websocket.js</AdditionalDependencies>
       <ThreadProfiling>true</ThreadProfiling>
       <EnableMemoryGrowth>true</EnableMemoryGrowth>
       <TypedArrays>Default</TypedArrays>
@@ -361,6 +363,12 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Freetype\Freetype.vcxproj">
       <Project>{29840bd0-19c2-4ddd-bc75-2ec94b6c9eec}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\imgui\imgui.vcxproj">
+      <Project>{84dac78d-00ae-4fe3-aa06-be43606abbfc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProtoBuffer\VSProject\libprotobuf.vcxproj">
+      <Project>{aa2f9274-a914-3c9d-8fe7-9ed3303ec581}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
