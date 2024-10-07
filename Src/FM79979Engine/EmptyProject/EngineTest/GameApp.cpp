@@ -28,7 +28,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 {
 #ifdef WASM
 	//FMLOG("new cNetworkSample");
-	g_pNetworkSample = new cNetworkSample();
+	//g_pNetworkSample = new cNetworkSample();
 #endif
 	this->m_sbDebugFunctionWorking = true;
 	this->m_sbSpeedControl = true;
@@ -110,6 +110,8 @@ void	cEngineTestApp::Render()
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 #ifdef WIN32
 	ImGui_ImplWin32_NewFrame();
+#elif defined(WASM)
+	ImGui_ImplSDL2_NewFrame();
 #endif
 	ImGui::NewFrame();
 	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).

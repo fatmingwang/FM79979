@@ -1,4 +1,4 @@
-#infdef WASM
+#ifndef WASM
 
 /*
     SDL - Simple DirectMedia Layer

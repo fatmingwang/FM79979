@@ -79,13 +79,19 @@ template <class T> void cShaderStorageBuffer<T>::Unbind()
 template <class T> T* cShaderStorageBuffer<T>::Map(GLbitfield access)
 {
 	Bind();
+#ifdef WASM
+	return nullptr;
+#else
 	return (T*)glMapBufferRange(m_seBufferObjectTarget, 0, m_uiSize * sizeof(T), access);
+#endif
 }
 
 template <class T> void cShaderStorageBuffer<T>::Unmap()
 {
 	Bind();
+#ifndef WASM
 	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUnmapBuffer(m_seBufferObjectTarget));
+#endif
 }
 
 template<class T>

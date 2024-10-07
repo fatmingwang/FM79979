@@ -45,7 +45,7 @@ bool	g_bLeave = false;
 
 POINT g_WindowSize;
 cGameApp*g_pGameApp = nullptr;
-
+extern LRESULT  ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 //#define offsetof(s,m) ((::size_t)&reinterpret_cast<char const volatile&>((((s*)0)->m)))
 
 
