@@ -215,13 +215,13 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_width, int
 
     // Setup viewport, orthographic projection matrix
     // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right). DisplayPos is (0,0) for single viewport apps.
-    //GL_CALL(glViewport(0, 0, (GLsizei)fb_width, (GLsizei)fb_height));
+    GL_CALL(glViewport(0, 0, (GLsizei)fb_width, (GLsizei)fb_height));
     float L = draw_data->DisplayPos.x;
     float R = draw_data->DisplayPos.x + draw_data->DisplaySize.x;
     float T = draw_data->DisplayPos.y;
     float B = draw_data->DisplayPos.y + draw_data->DisplaySize.y;
     UseShaderProgram(g_strImGuiShaderName);
-    glEnable2D(fb_width, fb_height);
+    glEnable2D((float)fb_width, (float)fb_height);
     //SetupShaderViewProjectionMatrix((float*)ortho_projection, true);
     FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
     (void)vertex_array_object;
@@ -550,6 +550,7 @@ static void ImGui_ImplWin32_UpdateKeyModifiers()
 
 static void ImGui_ImplWin32_UpdateMouseData()
 {
+    return;
     ImGui_ImplWin32_Data* bd = ImGui_ImplWin32_GetBackendData();
     ImGuiIO& io = ImGui::GetIO();
     IM_ASSERT(bd->hWnd != 0);
@@ -559,12 +560,12 @@ static void ImGui_ImplWin32_UpdateMouseData()
     if (is_app_focused)
     {
         // (Optional) Set OS mouse position from Dear ImGui if requested (rarely used, only when ImGuiConfigFlags_NavEnableSetMousePos is enabled by user)
-        //if (io.WantSetMousePos)
-        //{
-        //    POINT pos = { (int)io.MousePos.x, (int)io.MousePos.y };
-        //    if (::ClientToScreen(bd->hWnd, &pos))
-        //        ::SetCursorPos(pos.x, pos.y);
-        //}
+        if (io.WantSetMousePos)
+        {
+            POINT pos = { (int)io.MousePos.x, (int)io.MousePos.y };
+            if (::ClientToScreen(bd->hWnd, &pos))
+                ::SetCursorPos(pos.x, pos.y);
+        }
 
         // (Optional) Fallback to provide mouse position when focused (WM_MOUSEMOVE already provides this when hovered or captured)
         // This also fills a short gap when clicking non-client area: WM_NCMOUSELEAVE -> modal OS move -> gap -> WM_NCMOUSEMOVE
@@ -863,6 +864,7 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
         POINT mouse_pos = { (LONG)GET_X_LPARAM(lParam), (LONG)GET_Y_LPARAM(lParam) };
         if (msg == WM_NCMOUSEMOVE && ::ScreenToClient(hwnd, &mouse_pos) == FALSE) // WM_NCMOUSEMOVE are provided in absolute coordinates.
             return 0;
+        //mouse_pos = cGameApp::m_sMousePosition;
         io.AddMouseSourceEvent(mouse_source);
         io.AddMousePosEvent((float)mouse_pos.x, (float)mouse_pos.y);
         return 0;
