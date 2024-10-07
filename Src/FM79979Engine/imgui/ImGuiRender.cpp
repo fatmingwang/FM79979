@@ -1,9 +1,16 @@
-#include "../Core//AllCoreInclude.h"
 #include "imgui.h"
 #include "ImGuiRender.h"
 #ifdef WIN32
 #include "windowsx.h"
+#elif defined(WASM)
+#include <emscripten.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
+#include <SDL2/SDL_mouse.h>
+#include <emscripten/em_js.h>
+EM_JS(void, ImGui_ImplSDL2_EmscriptenOpenURL, (char const* url), { url = url ? UTF8ToString(url) : null; if (url) window.open(url, '_blank'); });
 #endif
+#include "../Core/GameplayUT/AllGamePlayUTInclude.h"
 
 //==========================================================================
 //==========================================================================
@@ -53,7 +60,22 @@ struct ImGui_ImplOpenGL3_Data
     GLsizeiptr      IndexBufferSize;
     unsigned int    VboHandle, ElementsHandle;
     //bool            UseBufferSubData;
+#ifdef WASM
+    SDL_Window* Window;
+    Uint32                  WindowID;
+    SDL_Renderer* Renderer;
+    Uint64                  Time;
+    char* ClipboardTextData;
 
+    // Mouse handling
+    Uint32                  MouseWindowID;
+    int                     MouseButtonsDown;
+    SDL_Cursor* MouseCursors[ImGuiMouseCursor_COUNT];
+    SDL_Cursor* MouseLastCursor;
+    int                     MouseLastLeaveFrame;
+    bool                    MouseCanUseGlobalState;
+    bool                    WantUpdateGamepadsList;
+#endif
     ImGui_ImplOpenGL3_Data() { memset((void*)this, 0, sizeof(*this)); }
 };
 
@@ -175,7 +197,11 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
     // Setup backend capabilities flags
     ImGui_ImplOpenGL3_Data* l_BS = IM_NEW(ImGui_ImplOpenGL3_Data)();
     io.BackendRendererUserData = (void*)l_BS;
-    io.BackendRendererName = "imgui_impl_fm79979";
+#ifdef WASM
+    io.BackendRendererName = "imgui_impl_fm79979_WASM";
+#else
+    io.BackendRendererName = "imgui_impl_fm79979_OPENGL";
+#endif
     if (!l_BS->FontTexture)
     {
         ImGui_ImplOpenGL3_CreateFontsTexture();
@@ -1141,5 +1167,154 @@ float ImGui_ImplWin32_GetDpiScaleForHwnd(void* hwnd)
 #pragma comment(lib, "dwmapi")  // Link with dwmapi.lib. MinGW will require linking with '-ldwmapi'
 #endif
 
+#elif defined(WASM)
+
+const char* ImGui_ImplSDL2_GetClipboardText(ImGuiContext*)
+{
+    ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+    if (bd->ClipboardTextData)
+        SDL_free(bd->ClipboardTextData);
+    bd->ClipboardTextData = SDL_GetClipboardText();
+    return bd->ClipboardTextData;
+}
+
+void ImGui_ImplSDL2_SetClipboardText(ImGuiContext*, const char* text)
+{
+    SDL_SetClipboardText(text);
+}
+
+void ImGui_ImplSDL2_PlatformSetImeData(ImGuiContext*, ImGuiViewport*, ImGuiPlatformImeData* data)
+{
+    if (data->WantVisible)
+    {
+        SDL_Rect r;
+        r.x = (int)data->InputPos.x;
+        r.y = (int)data->InputPos.y;
+        r.w = 1;
+        r.h = (int)data->InputLineHeight;
+        SDL_SetTextInputRect(&r);
+    }
+}
+
+bool ImGui_ImplSDL2_Init(SDL_Window* window, SDL_Renderer* renderer, void* sdl_gl_context)
+{
+    ImGuiIO& io = ImGui::GetIO();
+    IMGUI_CHECKVERSION();
+    IM_ASSERT(io.BackendPlatformUserData == nullptr && "Already initialized a platform backend!");
+
+    // Check and store if we are on a SDL backend that supports global mouse position
+    // ("wayland" and "rpi" don't support it, but we chose to use a white-list instead of a black-list)
+    bool mouse_can_use_global_state = false;
+#if SDL_HAS_CAPTURE_AND_GLOBAL_MOUSE
+    const char* sdl_backend = SDL_GetCurrentVideoDriver();
+    const char* global_mouse_whitelist[] = { "windows", "cocoa", "x11", "DIVE", "VMAN" };
+    for (int n = 0; n < IM_ARRAYSIZE(global_mouse_whitelist); n++)
+        if (strncmp(sdl_backend, global_mouse_whitelist[n], strlen(global_mouse_whitelist[n])) == 0)
+            mouse_can_use_global_state = true;
+#endif
+
+    // Setup backend capabilities flags
+    ImGui_ImplOpenGL3_Data* bd = IM_NEW(ImGui_ImplOpenGL3_Data)();
+    io.BackendPlatformUserData = (void*)bd;
+    io.BackendPlatformName = "imgui_impl_sdl2";
+    io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;       // We can honor GetMouseCursor() values (optional)
+    io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;        // We can honor io.WantSetMousePos requests (optional, rarely used)
+
+    bd->Window = window;
+    bd->WindowID = SDL_GetWindowID(window);
+    bd->Renderer = renderer;
+    bd->MouseCanUseGlobalState = mouse_can_use_global_state;
+
+    ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
+    platform_io.Platform_SetClipboardTextFn = ImGui_ImplSDL2_SetClipboardText;
+    platform_io.Platform_GetClipboardTextFn = ImGui_ImplSDL2_GetClipboardText;
+    platform_io.Platform_ClipboardUserData = nullptr;
+    platform_io.Platform_SetImeDataFn = ImGui_ImplSDL2_PlatformSetImeData;
+#ifdef __EMSCRIPTEN__
+    platform_io.Platform_OpenInShellFn = [](ImGuiContext*, const char* url) { ImGui_ImplSDL2_EmscriptenOpenURL(url); return true; };
+#endif
+
+    // Gamepad handling
+    //bd->GamepadMode = ImGui_ImplSDL2_GamepadMode_AutoFirst;
+    bd->WantUpdateGamepadsList = true;
+
+    // Load mouse cursors
+    bd->MouseCursors[ImGuiMouseCursor_Arrow] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+    bd->MouseCursors[ImGuiMouseCursor_TextInput] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_IBEAM);
+    bd->MouseCursors[ImGuiMouseCursor_ResizeAll] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
+    bd->MouseCursors[ImGuiMouseCursor_ResizeNS] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENS);
+    bd->MouseCursors[ImGuiMouseCursor_ResizeEW] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEWE);
+    bd->MouseCursors[ImGuiMouseCursor_ResizeNESW] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENESW);
+    bd->MouseCursors[ImGuiMouseCursor_ResizeNWSE] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENWSE);
+    bd->MouseCursors[ImGuiMouseCursor_Hand] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+    bd->MouseCursors[ImGuiMouseCursor_NotAllowed] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
+
+    // Set platform dependent data in viewport
+    // Our mouse update function expect PlatformHandle to be filled for the main viewport
+    ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+    main_viewport->PlatformHandle = (void*)(intptr_t)bd->WindowID;
+    main_viewport->PlatformHandleRaw = nullptr;
+    SDL_SysWMinfo info;
+    SDL_VERSION(&info.version);
+    if (SDL_GetWindowWMInfo(window, &info))
+    {
+#if defined(SDL_VIDEO_DRIVER_WINDOWS)
+        main_viewport->PlatformHandleRaw = (void*)info.info.win.window;
+#elif defined(__APPLE__) && defined(SDL_VIDEO_DRIVER_COCOA)
+        main_viewport->PlatformHandleRaw = (void*)info.info.cocoa.window;
+#endif
+    }
+
+    // From 2.0.5: Set SDL hint to receive mouse click events on window focus, otherwise SDL doesn't emit the event.
+    // Without this, when clicking to gain focus, our widgets wouldn't activate even though they showed as hovered.
+    // (This is unfortunately a global SDL setting, so enabling it might have a side-effect on your application.
+    // It is unlikely to make a difference, but if your app absolutely needs to ignore the initial on-focus click:
+    // you can ignore SDL_MOUSEBUTTONDOWN events coming right after a SDL_WINDOWEVENT_FOCUS_GAINED)
+#ifdef SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH
+    SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
+#endif
+
+    // From 2.0.18: Enable native IME.
+    // IMPORTANT: This is used at the time of SDL_CreateWindow() so this will only affects secondary windows, if any.
+    // For the main window to be affected, your application needs to call this manually before calling SDL_CreateWindow().
+#ifdef SDL_HINT_IME_SHOW_UI
+    SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
+#endif
+
+    // From 2.0.22: Disable auto-capture, this is preventing drag and drop across multiple windows (see #5710)
+#ifdef SDL_HINT_MOUSE_AUTO_CAPTURE
+    SDL_SetHint(SDL_HINT_MOUSE_AUTO_CAPTURE, "0");
+#endif
+
+    (void)sdl_gl_context; // Unused in 'master' branch.
+    return true;
+}
+
+//void ImGui_ImplSDL2_CloseGamepads()
+//{
+//    ImGui_ImplSDL2_Data* bd = ImGui_ImplSDL2_GetBackendData();
+//    if (bd->GamepadMode != ImGui_ImplSDL2_GamepadMode_Manual)
+//        for (SDL_GameController* gamepad : bd->Gamepads)
+//            SDL_GameControllerClose(gamepad);
+//    bd->Gamepads.resize(0);
+//}
+//
+//void ImGui_ImplSDL2_SetGamepadMode(ImGui_ImplSDL2_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array, int manual_gamepads_count)
+//{
+//    ImGui_ImplSDL2_Data* bd = ImGui_ImplSDL2_GetBackendData();
+//    ImGui_ImplSDL2_CloseGamepads();
+//    if (mode == ImGui_ImplSDL2_GamepadMode_Manual)
+//    {
+//        IM_ASSERT(manual_gamepads_array != nullptr && manual_gamepads_count > 0);
+//        for (int n = 0; n < manual_gamepads_count; n++)
+//            bd->Gamepads.push_back(manual_gamepads_array[n]);
+//    }
+//    else
+//    {
+//        IM_ASSERT(manual_gamepads_array == nullptr && manual_gamepads_count <= 0);
+//        bd->WantUpdateGamepadsList = true;
+//    }
+//    bd->GamepadMode = mode;
+//}
 
 #endif

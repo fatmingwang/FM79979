@@ -29,7 +29,11 @@
 
 #ifdef WITHOUT_SDL
 #include <stdint.h>
+#ifdef WASM
+#include <SDL2/SDL_endian.h>
+#else
 #include "SDL_endian.h"
+#endif
 #include "SDLnetsys.h"
 
 typedef uint8_t Uint8;

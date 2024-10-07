@@ -1,5 +1,6 @@
 #include <emscripten.h>
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 #include "stdafx.h"
 
 
@@ -19,11 +20,13 @@
 #include <emscripten/emscripten.h>
 #include <emscripten/websocket.h>
 
-#include "../../AllLibInclude.h"
+
 #include "GameApp.h"
 
 #include "Proto/addressbook.pb.h"
 #include "Proto/MessageTest.pb.h"
+
+SDL_Window* g_pSDL2Window = nullptr;
 //
 //EMSCRIPTEN_WEBSOCKET_T g_WebSocket;
 //
@@ -182,7 +185,7 @@ cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
 //console.log("========================");
 //</script>
 
-void handle_key_up(SDL_keysym* keysym)
+void handle_key_up(SDL_Keysym* keysym)
 {
 	switch (keysym->sym)
 	{
@@ -196,7 +199,7 @@ void handle_key_up(SDL_keysym* keysym)
 	}
 }
 
-void handle_key_down(SDL_keysym* keysym)
+void handle_key_down(SDL_Keysym* keysym)
 {
 	switch (keysym->sym) 
 	{
@@ -267,7 +270,7 @@ void Loop()
 	//{
 	//	g_pWASMBindingTest->Render();
 	//}
-	SDL_GL_SwapBuffers();
+	SDL_GL_SwapWindow(g_pSDL2Window);
 }
 
 int sockfd = -1;
@@ -359,22 +362,36 @@ int main()
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 	FMLog::Init();
-	printf("do SDL_Init(SDL_INIT_EVERYTHING)\n");
+	printf("do SDL_Init(SDL_INIT_EVERYTHING2)\n");
 #define	CANVANS_WIDTH	768
 #define	CANVANS_HEIGHT	1024
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
 	{
-		return -1;
+		printf("device no touch\n");
+		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) == -1)
+		{
+			std::cout << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
+			return -1;
+		}
 	}
+	printf("SDL_Init okay\n");
 	if (!emscripten_websocket_is_supported()) 
 	{
-		std::cout << "WebSockets are not supported in this browser." << std::endl;
+		printf("WebSockets are not supported in this browser");
 	}
 	//https://www.libsdl.org/release/SDL-1.2.15/docs/html/guidevideoopengl.html
 	//http://lazyfoo.net/SDL_tutorials/lesson04/index.php
-	SDL_Surface*l_pSurf_Display = nullptr;
+	//SDL_Surface*l_pSurf_Display = nullptr;
 	printf("do SDL_SetVideoMode\n");
-	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL)) == NULL)
+
+	// Create SDL window with OpenGL ES
+	g_pSDL2Window = SDL_CreateWindow("SDL2 OpenGL ES Example",
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED,
+		CANVANS_WIDTH, CANVANS_HEIGHT,
+		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+	//if ((l_pSurf_Display = SDL_CreateWindow(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL)) == NULL)
+	if (!g_pSDL2Window)
 	{
 		printf("do SDL_SetVideoMode failed\n");
 		return -1;
@@ -384,8 +401,18 @@ int main()
 	//g_pPreLoadFromInternet = new cPreLoadFromInternet();
 	//bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadResource.xml");
 
-	if (l_pSurf_Display)
+	if (g_pSDL2Window)
 	{
+		// Create OpenGL ES context
+		SDL_GLContext glContext = SDL_GL_CreateContext(g_pSDL2Window);
+		if (!glContext) {
+			printf("Failed to create OpenGL ES context:");
+			printf(SDL_GetError());
+			SDL_DestroyWindow(g_pSDL2Window);
+			SDL_Quit();
+			return -1;
+		}
+
 		//if (emscripten_websocket_is_supported()) 
 		//{
 		//	printf("emscripten_websocket_is_supported okay\n");

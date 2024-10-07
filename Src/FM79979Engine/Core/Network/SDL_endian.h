@@ -1,3 +1,5 @@
+#infdef WASM
+
 /*
     SDL - Simple DirectMedia Layer
     Copyright (C) 1997-2012 Sam Lantinga
@@ -221,3 +223,5 @@ static void wno_unused_myheadername(void)
 //#include "close_code.h"
 
 #endif /* _SDL_endian_h */
+
+#endif
