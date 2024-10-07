@@ -1,6 +1,16 @@
 #include <emscripten.h>
+
+//#define USE_SDL2
+//add to linker -sUSE_SDL=2 
+#ifdef USE_SDL2
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
+#else
+#include <SDL/SDL.h>
+#include <SDL/SDL_events.h>
+#endif
+
+
 #include "stdafx.h"
 
 
@@ -27,9 +37,12 @@
 #include "Proto/MessageTest.pb.h"
 #include "../../imgui/imgui.h"
 #include "../../imgui/ImGuiRender.h"
-
+#ifdef USE_SDL2
 SDL_Window* g_pSDL2Window = nullptr;
 SDL_GLContext g_glContext = nullptr;
+#endif
+extern bool g_bUseIMGUI;
+
 //
 //EMSCRIPTEN_WEBSOCKET_T g_WebSocket;
 //
@@ -218,12 +231,14 @@ void handle_key_down(SDL_Keysym* keysym)
 
 void process_events(void)
 {
-	return;
-	try {
+	//try {
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
-			ImGui_ImplSDL2_ProcessEvent(&event);
+			if (g_bUseIMGUI)
+			{
+				ImGui_ImplSDL2_ProcessEvent(&event);
+			}
 			if (g_pGameApp)
 			{
 				switch (event.type)
@@ -249,26 +264,30 @@ void process_events(void)
 				}
 			}
 		}
-	}
-	catch (const std::exception& e) {
-		printf("Caught exception: %s", e.what());
-	}
+	//}
+	//catch (const std::exception& e) {
+	//	printf("Caught exception: %s", e.what());
+	//}
 
 }
 
 void Loop()
 {
-	if (!g_pGameApp)
-	{
-		return;
-	}
+	//if (!g_pGameApp)
+	//{
+	//	return;
+	//}
 	int windowWidth = 800;
 	int windowHeight = 600;
-	try {
+	//try {
+#ifdef USE_SDL2
 		SDL_GetWindowSize(g_pSDL2Window, &windowWidth, &windowHeight);
-		ImGuiIO& io = ImGui::GetIO();
-		io.DisplaySize = ImVec2((float)windowWidth, (float)windowHeight);  // Set the correct display size
-
+#endif
+		if (g_bUseIMGUI)
+		{
+			ImGuiIO& io = ImGui::GetIO();
+			io.DisplaySize = ImVec2((float)windowWidth, (float)windowHeight);  // Set the correct display size
+		}
 		g_pGameApp->Run();
 		if (g_pPreLoadFromInternet)
 		{
@@ -277,8 +296,11 @@ void Loop()
 			{
 				SAFE_DELETE(g_pPreLoadFromInternet);
 				cGameApp::OutputDebugInfoString("finish pre-download files");
-				g_pGameApp->Init();
-				g_pGameApp->m_spOpenGLRender->m_vBGColor = Vector4::Red;
+				if (g_pGameApp)
+				{
+					g_pGameApp->Init();
+					g_pGameApp->m_spOpenGLRender->m_vBGColor = Vector4::Red;
+				}
 			}
 		}
 		else
@@ -289,11 +311,16 @@ void Loop()
 		//{
 		//	g_pWASMBindingTest->Render();
 		//}
+#ifdef USE_SDL2
 		SDL_GL_SwapWindow(g_pSDL2Window);
-	}
-	catch (const std::exception& e) {
-		printf("Caught exception: %s", e.what());
-	}
+#else
+		SDL_GL_SwapBuffers();
+#endif
+		
+	//}
+	//catch (const std::exception& e) {
+	//	printf("Caught exception: %s", e.what());
+	//}
 
 }
 
@@ -386,28 +413,38 @@ int main()
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 	FMLog::Init();
+	int CANVANS_WIDTH = EMSDK::EMSDK_GetBrowserWidth();
+	int CANVANS_HEIGHT = EMSDK::EMSDK_GetBrowserHeight();
+	cGameApp::CreateDefaultOpenGLRender();
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
+	cGameApp::m_sbDebugFunctionWorking = true;
 	printf("do SDL_Init(SDL_INIT_EVERYTHING2)\n");
-#define	CANVANS_WIDTH	768
-#define	CANVANS_HEIGHT	1024
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
 	{
 		printf("device no touch\n");
+#ifdef USE_SDL2
 		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_AUDIO) == -1)
+#endif
 		{
 			std::cout << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
 			return -1;
 		}
+
 	}
 	printf("SDL_Init okay\n");
-	if (!emscripten_websocket_is_supported()) 
-	{
-		printf("WebSockets are not supported in this browser");
-	}
+	//if (!emscripten_websocket_is_supported()) 
+	//{
+	//	printf("WebSockets are not supported in this browser");
+	//}
 	//https://www.libsdl.org/release/SDL-1.2.15/docs/html/guidevideoopengl.html
 	//http://lazyfoo.net/SDL_tutorials/lesson04/index.php
 	//SDL_Surface*l_pSurf_Display = nullptr;
 	printf("do SDL_SetVideoMode\n");
-
+	bool l_bSDLInitOk = true;
+#ifdef USE_SDL2
 	// Create SDL window with OpenGL ES
 	g_pSDL2Window = SDL_CreateWindow("SDL2 OpenGL ES Example",
 		SDL_WINDOWPOS_CENTERED,
@@ -420,29 +457,37 @@ int main()
 		printf("do SDL_SetVideoMode failed\n");
 		return -1;
 	}
+	// Create OpenGL ES context
+	g_glContext = SDL_GL_CreateContext(g_pSDL2Window);
+	if (!g_glContext)
+	{
+		printf("Failed to create OpenGL ES context:");
+		printf(SDL_GetError());
+		SDL_DestroyWindow(g_pSDL2Window);
+		SDL_Quit();
+		return -1;
+	}
+#else
+	SDL_Surface* l_pSurf_Display = nullptr;
+	FMLog::Log("SDL_SetVideoMode \n", false);
+	//if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL| SDL_RESIZABLE)) == NULL)
+	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL)) == NULL)
+	{
+		return -1;
+	}
+#endif
 	printf("do SDL_SetVideoMode okay\n");
 	//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	//g_pPreLoadFromInternet = new cPreLoadFromInternet();
 	//bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadResource.xml");
 
-	if (g_pSDL2Window)
+	if (l_bSDLInitOk)
 	{
-		// Create OpenGL ES context
-		g_glContext = SDL_GL_CreateContext(g_pSDL2Window);
-		if (!g_glContext) 
-		{
-			printf("Failed to create OpenGL ES context:");
-			printf(SDL_GetError());
-			SDL_DestroyWindow(g_pSDL2Window);
-			SDL_Quit();
-			return -1;
-		}
-		//SDL_GL_SetSwapInterval(1);
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();  // Mandatory to create the ImGui context
-
-		// Set ImGui style (optional)
-		ImGui::StyleColorsDark();
+		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
+		g_pGameApp->Init();
+		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1280;
+		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 720;
+		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(CANVANS_HEIGHT, CANVANS_WIDTH, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		//if (emscripten_websocket_is_supported()) 
 		//{
 		//	printf("emscripten_websocket_is_supported okay\n");
@@ -464,15 +509,14 @@ int main()
 		//}
 		//FMLog::Init();
 		printf("try to call ImGui_ImplSDL2_Init");
-		ImGui_ImplSDL2_Init(g_pSDL2Window);
-		cGameApp::CreateDefaultOpenGLRender();
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
-		cGameApp::m_sbDebugFunctionWorking = true;
-		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
-		g_pGameApp->Init();
+		if (g_bUseIMGUI)
+		{
+#ifdef USE_SDL2
+			ImGui_ImplSDL2_Init(g_pSDL2Window);
+#else
+			ImGui_ImplSDL2_Init();
+#endif
+		}
 		emscripten_set_main_loop(&Loop, 0 ,1);
 	}
 	return 0;

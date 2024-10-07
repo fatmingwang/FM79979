@@ -30,7 +30,13 @@
 #ifdef WITHOUT_SDL
 #include <stdint.h>
 #ifdef WASM
+//#define USE_SDL2
+#ifdef USE_SDL2
 #include <SDL2/SDL_endian.h>
+#else
+#include <SDL/SDL_endian.h>
+#endif
+
 #else
 #include "SDL_endian.h"
 #endif
