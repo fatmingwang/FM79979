@@ -219,6 +219,8 @@ void ImGui_ImplOpenGL3_Shutdown()
         io.Fonts->SetTexID(0);
         bd->FontTexture = 0;
     }
+    io.BackendRendererName = nullptr;
+    io.BackendRendererUserData = nullptr;
 }
 
 

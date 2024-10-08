@@ -37,6 +37,16 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
+	if (g_bUseIMGUI)
+	{
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
+		// Setup Dear ImGui style
+		ImGui::StyleColorsDark();
+	}
 }
 
 cEngineTestApp::~cEngineTestApp()
@@ -52,20 +62,6 @@ cEngineTestApp::~cEngineTestApp()
 void	cEngineTestApp::Init()
 {
 	cGameApp::Init();
-	if (g_bUseIMGUI)
-	{
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
-		// Setup Dear ImGui style
-		ImGui::StyleColorsDark();
-#ifdef WIN32
-		ImGui_ImplWin32_InitForOpenGL(cGameApp::m_spOpenGLRender->m_Handle);
-#endif
-		ImGui_ImplOpenGL3_Init();
-	}
 	if (g_pNetworkSample)
 	{
 		g_pNetworkSample->Init();

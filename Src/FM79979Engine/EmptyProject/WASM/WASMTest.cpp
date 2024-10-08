@@ -277,8 +277,8 @@ void Loop()
 	//{
 	//	return;
 	//}
-	int windowWidth = 800;
-	int windowHeight = 600;
+	int windowWidth = 1280;
+	int windowHeight = 720;
 	//try {
 #ifdef USE_SDL2
 		SDL_GetWindowSize(g_pSDL2Window, &windowWidth, &windowHeight);
@@ -484,6 +484,15 @@ int main()
 	if (l_bSDLInitOk)
 	{
 		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
+		if (g_bUseIMGUI)
+		{
+#ifdef USE_SDL2
+			ImGui_ImplSDL2_Init(g_pSDL2Window);
+#else
+			ImGui_ImplSDL2_Init();
+#endif
+		}
+		ImGui_ImplOpenGL3_Init();
 		g_pGameApp->Init();
 		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1280;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 720;
@@ -509,14 +518,6 @@ int main()
 		//}
 		//FMLog::Init();
 		printf("try to call ImGui_ImplSDL2_Init");
-		if (g_bUseIMGUI)
-		{
-#ifdef USE_SDL2
-			ImGui_ImplSDL2_Init(g_pSDL2Window);
-#else
-			ImGui_ImplSDL2_Init();
-#endif
-		}
 		emscripten_set_main_loop(&Loop, 0 ,1);
 	}
 	return 0;
