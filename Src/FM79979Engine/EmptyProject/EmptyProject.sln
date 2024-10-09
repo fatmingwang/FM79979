@@ -14,6 +14,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Freetype", "..\Freetype\Freetype.vcxproj", "{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32Test", "Win32Test\Win32Test.vcxproj", "{77E00846-770C-45AA-99A1-EF295FB97B74}"
+	ProjectSection(ProjectDependencies) = postProject
+		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC} = {84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMgltf", "..\Core\FMgltf\FMgltf.vcxproj", "{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}"
 EndProject
@@ -242,7 +245,6 @@ Global
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Debug|Emscripten.Build.0 = Debug|Emscripten
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Debug|x64.ActiveCfg = Debug|x64
-		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Debug|x64.Build.0 = Debug|x64
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Debug|x86.ActiveCfg = Debug|x64
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Debug|x86.Build.0 = Debug|x64
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.MinSizeRel|ARM.ActiveCfg = Release|Emscripten
@@ -270,7 +272,6 @@ Global
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|Emscripten.ActiveCfg = Release|Emscripten
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|Emscripten.Build.0 = Release|Emscripten
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|x64.ActiveCfg = Release|x64
-		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|x64.Build.0 = Release|x64
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|x86.ActiveCfg = Release|x64
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|x86.Build.0 = Release|x64
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.RelWithDebInfo|ARM.ActiveCfg = Release|Emscripten
@@ -344,7 +345,6 @@ Global
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug_NoPthread|ARM64.ActiveCfg = Debug_NoPthread|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug_NoPthread|ARM64.Build.0 = Debug_NoPthread|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug_NoPthread|Emscripten.ActiveCfg = Debug_NoPthread|Emscripten
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug_NoPthread|Emscripten.Build.0 = Debug_NoPthread|Emscripten
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug_NoPthread|x64.ActiveCfg = Debug_NoPthread|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug_NoPthread|x64.Build.0 = Debug_NoPthread|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug_NoPthread|x86.ActiveCfg = Debug_NoPthread|x64
@@ -352,7 +352,6 @@ Global
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|ARM.ActiveCfg = Debug|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|ARM64.ActiveCfg = Debug|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|Emscripten.Build.0 = Debug|Emscripten
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|x64.ActiveCfg = Debug|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|x64.Build.0 = Debug|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|x86.ActiveCfg = Debug|x64
@@ -372,7 +371,6 @@ Global
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release_NoPthread|ARM64.ActiveCfg = Release_NoPthread|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release_NoPthread|ARM64.Build.0 = Release_NoPthread|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release_NoPthread|Emscripten.ActiveCfg = Release_NoPthread|Emscripten
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release_NoPthread|Emscripten.Build.0 = Release_NoPthread|Emscripten
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release_NoPthread|x64.ActiveCfg = Release_NoPthread|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release_NoPthread|x64.Build.0 = Release_NoPthread|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release_NoPthread|x86.ActiveCfg = Release_NoPthread|x64
@@ -380,7 +378,6 @@ Global
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|ARM.ActiveCfg = Release|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|ARM64.ActiveCfg = Release|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|Emscripten.ActiveCfg = Release|Emscripten
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|Emscripten.Build.0 = Release|Emscripten
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|x64.ActiveCfg = Release|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|x64.Build.0 = Release|x64
 		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|x86.ActiveCfg = Release|x64

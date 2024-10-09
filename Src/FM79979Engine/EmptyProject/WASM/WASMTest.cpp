@@ -277,8 +277,8 @@ void Loop()
 	//{
 	//	return;
 	//}
-	int windowWidth = 1280;
-	int windowHeight = 720;
+	int windowWidth = EMSDK::EMSDK_GetBrowserWidth();
+	int windowHeight = EMSDK::EMSDK_GetBrowserHeight();
 	//try {
 #ifdef USE_SDL2
 		SDL_GetWindowSize(g_pSDL2Window, &windowWidth, &windowHeight);

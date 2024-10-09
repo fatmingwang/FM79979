@@ -245,7 +245,7 @@
     </PostBuildEvent>
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
-      <AdditionalDependencies>-lwebsocket.js</AdditionalDependencies>
+      <AdditionalDependencies>websocket.js</AdditionalDependencies>
       <AdditionalOptions>-s WEBSOCKET_SUBPROTOCOL=null -pthread  -s --profiling -s ALLOW_MEMORY_GROWTH=1   -s ERROR_ON_UNDEFINED_SYMBOLS=1  --bind -s PTHREAD_POOL_SIZE=3 -s FETCH=1 -s FULL_ES2=1 -s USE_PTHREADS=1 -s SOCKET_DEBUG=1 -s PROXY_POSIX_SOCKETS=1 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreLinkEvent>
@@ -275,7 +275,7 @@
     </PostBuildEvent>
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
-      <AdditionalDependencies>websocket.js </AdditionalDependencies>
+      <AdditionalDependencies>websocket.js</AdditionalDependencies>
       <AdditionalOptions>-lidbfs.js --bind -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1  --profiling -s DEMANGLE_SUPPORT=1 -g4 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLinkDirectories>
       </AdditionalLinkDirectories>
@@ -302,7 +302,7 @@
       <AdditionalOptions>-s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=1 --bind -pthread -s USE_PTHREADS=1 %(AdditionalOptions)</AdditionalOptions>
       <PreloadFile>../assets;</PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
-      <AdditionalDependencies>-lwebsocket.js</AdditionalDependencies>
+      <AdditionalDependencies>websocket.js</AdditionalDependencies>
       <ThreadProfiling>true</ThreadProfiling>
       <EnableMemoryGrowth>true</EnableMemoryGrowth>
       <TypedArrays>Default</TypedArrays>
@@ -322,7 +322,7 @@
       <PreloadFile>
       </PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
-      <AdditionalDependencies>-websocket.js</AdditionalDependencies>
+      <AdditionalDependencies>websocket.js</AdditionalDependencies>
       <ThreadProfiling>true</ThreadProfiling>
       <EnableMemoryGrowth>true</EnableMemoryGrowth>
       <TypedArrays>Default</TypedArrays>
