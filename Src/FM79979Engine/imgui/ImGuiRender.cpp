@@ -2,6 +2,11 @@
 #include "imgui.h"
 #include "ImGuiRender.h"
 #include "../Core/AllCoreInclude.h"
+
+
+#include <unordered_map>
+#include <string>
+#include <filesystem>
 #ifdef WIN32
 #include "windowsx.h"
 #elif defined(WASM)
@@ -83,10 +88,67 @@ ImGui_ImplOpenGL3_Data* ImGui_ImplOpenGL3_GetBackendData()
     return ImGui::GetCurrentContext() ? (ImGui_ImplOpenGL3_Data*)ImGui::GetIO().BackendRendererUserData : nullptr;
 }
 
+
+
+std::unordered_map<std::string, ImFont*>* g_ImGuiFontMap = nullptr;;
+void AddImGuiFonts(const std::vector<const char*>& fontPaths, const std::vector<float> e_FontSizeVector)
+{
+    assert(g_ImGuiFontMap == nullptr && "font added!?");
+    g_ImGuiFontMap = new std::unordered_map<std::string, ImFont*>();
+    ImGuiIO& io = ImGui::GetIO();
+    for(size_t i=0;i< e_FontSizeVector.size();++i)
+    //for (const char* fontPath : fontPaths)
+    {
+        const char* fontPath = fontPaths[i];
+        // Extract the font file name (e.g., "Arial.ttf") from the full path
+        std::string fontFileName = std::filesystem::path(fontPath).filename().string();
+
+        // Add the font to ImGui and store it in the map
+        float l_fFontSize = e_FontSizeVector[i];
+        ImFont* font = io.Fonts->AddFontFromFileTTF(fontPath, l_fFontSize,nullptr, io.Fonts->GetGlyphRangesChineseFull());
+        if (font)
+        {
+            (*g_ImGuiFontMap)[fontFileName] = font;  // Store it in the unordered_map with the file name as the key
+        }
+        else
+        {
+            // Handle the case where the font couldn't be loaded (e.g., file not found)
+            //std::cerr << "Failed to load font: " << fontPath << std::endl;
+            FMLOG("Failed to load font:%s", fontPath);
+        }
+    }
+
+    // Build the font atlas after adding all fonts
+    io.Fonts->Build();
+}
+
+// Function to get a font by its file name from the container
+ImFont* GetFontByFileName(const std::string& fontFileName)
+{
+    if (!g_ImGuiFontMap)
+    {
+        return nullptr;
+    }
+    auto it = g_ImGuiFontMap->find(fontFileName);
+    if (it != g_ImGuiFontMap->end())
+    {
+        return it->second;  // Return the font if found
+    }
+    else
+    {
+        return nullptr;  // Return nullptr if the font is not found
+    }
+}
+
+
 bool ImGui_ImplOpenGL3_CreateFontsTexture()
 {
-    ImGuiIO& io = ImGui::GetIO();
     ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+    ImGuiIO& io = ImGui::GetIO();
+    if (!g_ImGuiFontMap)
+    {
+        ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
+    }
 
     // Build texture atlas
     unsigned char* pixels;
@@ -404,13 +466,13 @@ struct ImGui_ImplWin32_Data
 // It is STRONGLY preferred that you use docking branch with multi-viewports (== single Dear ImGui context + multiple windows) instead of multiple Dear ImGui contexts.
 // FIXME: multi-context support is not well tested and probably dysfunctional in this backend.
 // FIXME: some shared resources (mouse cursor shape, gamepad) are mishandled when using multi-context.
-static ImGui_ImplWin32_Data* ImGui_ImplWin32_GetBackendData()
+ImGui_ImplWin32_Data* ImGui_ImplWin32_GetBackendData()
 {
     return ImGui::GetCurrentContext() ? (ImGui_ImplWin32_Data*)ImGui::GetIO().BackendPlatformUserData : nullptr;
 }
 
 // Functions
-static void ImGui_ImplWin32_UpdateKeyboardCodePage()
+void ImGui_ImplWin32_UpdateKeyboardCodePage()
 {
     // Retrieve keyboard code page, required for handling of non-Unicode Windows.
     ImGui_ImplWin32_Data* bd = ImGui_ImplWin32_GetBackendData();
@@ -420,7 +482,7 @@ static void ImGui_ImplWin32_UpdateKeyboardCodePage()
         bd->KeyboardCodePage = CP_ACP; // Fallback to default ANSI code page when fails.
 }
 
-static bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc)
+bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc)
 {
     ImGuiIO& io = ImGui::GetIO();
     IMGUI_CHECKVERSION();
@@ -503,7 +565,7 @@ void    ImGui_ImplWin32_Shutdown()
     IM_DELETE(bd);
 }
 
-static bool ImGui_ImplWin32_UpdateMouseCursor()
+bool ImGui_ImplWin32_UpdateMouseCursor()
 {
     ImGuiIO& io = ImGui::GetIO();
     if (io.ConfigFlags & ImGuiConfigFlags_NoMouseCursorChange)
@@ -536,12 +598,12 @@ static bool ImGui_ImplWin32_UpdateMouseCursor()
     return true;
 }
 
-static bool IsVkDown(int vk)
+bool IsVkDown(int vk)
 {
     return (::GetKeyState(vk) & 0x8000) != 0;
 }
 
-static void ImGui_ImplWin32_AddKeyEvent(ImGuiKey key, bool down, int native_keycode, int native_scancode = -1)
+void ImGui_ImplWin32_AddKeyEvent(ImGuiKey key, bool down, int native_keycode, int native_scancode = -1)
 {
     ImGuiIO& io = ImGui::GetIO();
     io.AddKeyEvent(key, down);
@@ -549,7 +611,7 @@ static void ImGui_ImplWin32_AddKeyEvent(ImGuiKey key, bool down, int native_keyc
     IM_UNUSED(native_scancode);
 }
 
-static void ImGui_ImplWin32_ProcessKeyEventsWorkarounds()
+void ImGui_ImplWin32_ProcessKeyEventsWorkarounds()
 {
     // Left & right Shift keys: when both are pressed together, Windows tend to not generate the WM_KEYUP event for the first released one.
     if (ImGui::IsKeyDown(ImGuiKey_LeftShift) && !IsVkDown(VK_LSHIFT))
@@ -564,7 +626,7 @@ static void ImGui_ImplWin32_ProcessKeyEventsWorkarounds()
         ImGui_ImplWin32_AddKeyEvent(ImGuiKey_RightSuper, false, VK_RWIN);
 }
 
-static void ImGui_ImplWin32_UpdateKeyModifiers()
+void ImGui_ImplWin32_UpdateKeyModifiers()
 {
     ImGuiIO& io = ImGui::GetIO();
     io.AddKeyEvent(ImGuiMod_Ctrl, IsVkDown(VK_CONTROL));
@@ -573,7 +635,7 @@ static void ImGui_ImplWin32_UpdateKeyModifiers()
     io.AddKeyEvent(ImGuiMod_Super, IsVkDown(VK_LWIN) || IsVkDown(VK_RWIN));
 }
 
-static void ImGui_ImplWin32_UpdateMouseData()
+void ImGui_ImplWin32_UpdateMouseData()
 {
     return;
     ImGui_ImplWin32_Data* bd = ImGui_ImplWin32_GetBackendData();
@@ -604,7 +666,7 @@ static void ImGui_ImplWin32_UpdateMouseData()
 }
 
 // Gamepad navigation mapping
-static void ImGui_ImplWin32_UpdateGamepads()
+void ImGui_ImplWin32_UpdateGamepads()
 {
 #ifndef IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
     ImGuiIO& io = ImGui::GetIO();
@@ -849,7 +911,7 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 
 // See https://learn.microsoft.com/en-us/windows/win32/tablet/system-events-and-mouse-messages
 // Prefer to call this at the top of the message handler to avoid the possibility of other Win32 calls interfering with this.
-static ImGuiMouseSource GetMouseSourceFromMessageExtraInfo()
+ImGuiMouseSource GetMouseSourceFromMessageExtraInfo()
 {
     LPARAM extra_info = ::GetMessageExtraInfo();
     if ((extra_info & 0xFFFFFF80) == 0xFF515700)
@@ -1056,7 +1118,7 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
 
 // Perform our own check with RtlVerifyVersionInfo() instead of using functions from <VersionHelpers.h> as they
 // require a manifest to be functional for checks above 8.1. See https://github.com/ocornut/imgui/issues/4200
-static BOOL _IsWindowsVersionOrGreater(WORD major, WORD minor, WORD)
+BOOL _IsWindowsVersionOrGreater(WORD major, WORD minor, WORD)
 {
     typedef LONG(WINAPI* PFN_RtlVerifyVersionInfo)(OSVERSIONINFOEXW*, ULONG, ULONGLONG);
     static PFN_RtlVerifyVersionInfo RtlVerifyVersionInfoFn = nullptr;
@@ -1581,7 +1643,7 @@ bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event)
 }
 
 
-static void ImGui_ImplSDL2_UpdateMouseData()
+void ImGui_ImplSDL2_UpdateMouseData()
 {
     ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
     ImGuiIO& io = ImGui::GetIO();
@@ -1616,7 +1678,7 @@ static void ImGui_ImplSDL2_UpdateMouseData()
     }
 }
 
-static void ImGui_ImplSDL2_UpdateMouseCursor()
+void ImGui_ImplSDL2_UpdateMouseCursor()
 {
     ImGuiIO& io = ImGui::GetIO();
     if (io.ConfigFlags & ImGuiConfigFlags_NoMouseCursorChange)

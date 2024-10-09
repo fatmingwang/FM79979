@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include <string>
 #ifdef WASM
 //#define USE_SDL2
 #ifdef USE_SDL2
@@ -29,3 +31,7 @@ bool	ImGui_ImplSDL2_Init();
 bool	ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
 void	ImGui_ImplSDL2_NewFrame();
 #endif
+
+struct ImFont* GetImFont(const char* e_strFileNme);
+void AddImGuiFonts(const std::vector<const char*>& fontPaths, const std::vector<float> e_FontSizeVector);
+struct ImFont* GetFontByFileName(const std::string& fontFileName);

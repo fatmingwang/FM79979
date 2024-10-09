@@ -123,7 +123,9 @@ namespace	FATMING_CORE
 		m_dbGamePlayTime = 0;
 		SystemErrorCheck();
 		if (!m_spOpenGLRender)
+		{
 			m_spOpenGLRender = new cOpenGLRender(e_vGameResolution, e_vViewportSize);
+		}
 		else
 		{
 			m_spOpenGLRender->m_vViewPortSize.x = 0;
