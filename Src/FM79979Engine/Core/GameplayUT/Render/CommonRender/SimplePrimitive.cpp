@@ -73,6 +73,11 @@ void	myVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean norm
 	glVertexAttribPointer(index, size, type, normalized,stride,pointer);
 	CHECK_GL_ERROR("myVertexAttribPointer");
 }
+void myglViewPort(GLint x, GLint y, GLsizei width, GLsizei height)
+{
+	glViewport(x, y, width, height);
+	CHECK_GL_ERROR("myglViewPort");
+}
 //end DEBUG
 #endif
 void	myGLBlendFunc(GLenum e_Src, GLenum e_Dest)

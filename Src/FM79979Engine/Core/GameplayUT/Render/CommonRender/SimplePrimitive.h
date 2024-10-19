@@ -41,12 +41,15 @@ void	myGlUVPointer(int Stride, const GLvoid*pData);
 void	myGlColorPointer(int Stride, const GLvoid*pData);
 void	myGlNormalPointer(int Stride, const GLvoid*pData);
 void	myVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
+void	myglViewPort(GLint x, GLint y, GLsizei width, GLsizei height);
 #else
 #define	myGlVertexPointer(Stride,pData)										glVertexAttribPointer(g_uiAttribArray[FVF_POS], Stride, GL_FLOAT, 0, 0, pData)
 #define	myGlUVPointer(Stride,pData)											glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], Stride, GL_FLOAT, 0, 0, pData)
 #define	myGlColorPointer(Stride,pData)										glVertexAttribPointer(g_uiAttribArray[FVF_DIFFUSE], Stride, GL_FLOAT, 0, 0, pData)
 #define	myGlNormalPointer(Stride,pData)										glVertexAttribPointer(g_uiAttribArray[FVF_NORMAL], Stride, GL_FLOAT, 0, 0, pData);
-#define	myVertexAttribPointer(index,size,type,normalized,stride,pointer);	glVertexAttribPointer(index,size,type,normalized,stride,pointer);
+#define	myVertexAttribPointer(index,size,type,normalized,stride,pointer)	glVertexAttribPointer(index,size,type,normalized,stride,pointer);
+#define	MyglViewPort(GLint x, GLint y, GLsizei width, GLsizei height)		glViewport(x,y,width,height);
+
 #endif
 #ifndef DEBUG
 #define	MY_GLDRAW_ARRAYS(mode, first,count)	glDrawArrays(mode, first,count)

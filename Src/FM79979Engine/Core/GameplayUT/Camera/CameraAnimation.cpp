@@ -240,7 +240,7 @@ namespace FATMING_CORE
 			//	Vector4	l_vViewport = m_pViewPortAnimationData->GetCurrentData();
 			//	if( l_vViewport != cGameApp::m_spOpenGLRender->m_vViewPortSize )
 			//	{
-			//		glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.z,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.w);
+			//		myglViewPort((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.z,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.w);
 			//	}
 			//}
 			if( m_bViewProjectionMatrixSet )

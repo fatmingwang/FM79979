@@ -9,8 +9,10 @@
 #include <filesystem>
 #ifdef WIN32
 #include "windowsx.h"
+bool g_bUseFullScreenResolution = true;
 #elif defined(WASM)
 #include <emscripten.h>
+#include <emscripten/html5.h>
 #include <emscripten/em_js.h>
 EM_JS(void, ImGui_ImplSDL2_EmscriptenOpenURL, (char const* url), { url = url ? UTF8ToString(url) : null; if (url) window.open(url, '_blank'); });
 #endif
@@ -302,13 +304,29 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_width, int
 
     // Setup viewport, orthographic projection matrix
     // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right). DisplayPos is (0,0) for single viewport apps.
+#ifdef WASM
+    //int windowWidth, windowHeight;
+    //emscripten_get_canvas_element_size("#canvas", &windowWidth, &windowHeight);
+    //GL_CALL(glViewport(0, 0, (GLsizei)windowHeight, (GLsizei)windowHeight));
+    
+    //GL_CALL(glViewport(cGameApp::m_spOpenGLRender->m_vViewPortSize.x, cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (GLsizei)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (GLsizei)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
+#else
     GL_CALL(glViewport(0, 0, (GLsizei)fb_width, (GLsizei)fb_height));
-    float L = draw_data->DisplayPos.x;
-    float R = draw_data->DisplayPos.x + draw_data->DisplaySize.x;
-    float T = draw_data->DisplayPos.y;
-    float B = draw_data->DisplayPos.y + draw_data->DisplaySize.y;
+#endif
+    //float L = draw_data->DisplayPos.x;
+    //float R = draw_data->DisplayPos.x + draw_data->DisplaySize.x;
+    //float T = draw_data->DisplayPos.y;
+    //float B = draw_data->DisplayPos.y + draw_data->DisplaySize.y;
     UseShaderProgram(g_strImGuiShaderName);
+#ifdef WIN32
+    if (!g_bUseFullScreenResolution)
+    {
+        glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);// 
+    }
+    else
+#endif
     glEnable2D((float)fb_width, (float)fb_height);
+    
     //SetupShaderViewProjectionMatrix((float*)ortho_projection, true);
     FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
     (void)vertex_array_object;
@@ -336,6 +354,26 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
     {
         return;
     }
+#ifdef WASM
+    static int l_siTestX = 0;
+    static int l_siTestY = 0;
+    if (l_siTestX != fb_width || l_siTestY != fb_height)
+    {
+        l_siTestX = fb_width;
+        l_siTestY = fb_height;
+        int l_iBrowserWidth = EMSDK::EMSDK_GetBrowserWidth();
+        int l_iBrowserHeight = EMSDK::EMSDK_GetBrowserHeight();
+        int	l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
+        int	l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
+        int	l_iCanvasPosX = EMSDK::EMSDK_GetCanvasPosX();
+        int	l_iCanvasPosY = EMSDK::EMSDK_GetCanvasPosY();
+        FMLog::Log(UT::ComposeMsgByFormat("FramebufferWidth:%d,FramebufferHeight:%d\nBrowserSize:%d,%d\nViewportSize:%d,%d\nCanvasPos:%d,%d", 
+            l_siTestX, l_siTestY,
+            l_iBrowserWidth, l_iBrowserHeight,
+            l_iViewportWidth, l_iViewportHeight,
+            l_iCanvasPosX, l_iCanvasPosY).c_str(), false);
+    }
+#endif
     ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
     // Backup GL state
     GLenum last_active_texture; glGetIntegerv(GL_ACTIVE_TEXTURE, (GLint*)&last_active_texture);
@@ -396,12 +434,30 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
                 // Project scissor/clipping rectangles into framebuffer space
                 ImVec2 clip_min((pcmd->ClipRect.x - clip_off.x) * clip_scale.x, (pcmd->ClipRect.y - clip_off.y) * clip_scale.y);
                 ImVec2 clip_max((pcmd->ClipRect.z - clip_off.x) * clip_scale.x, (pcmd->ClipRect.w - clip_off.y) * clip_scale.y);
+                //ImVec2 clip_min((pcmd->ClipRect.x - clip_off.x), (pcmd->ClipRect.y - clip_off.y));
+                //ImVec2 clip_max((pcmd->ClipRect.z - clip_off.x), (pcmd->ClipRect.w - clip_off.y));
                 if (clip_max.x <= clip_min.x || clip_max.y <= clip_min.y)
+                {
                     continue;
-
+                }
+                float l_fMyStartX = cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
+                float l_fMyStartY = cGameApp::m_spOpenGLRender->m_vViewPortSize.y;
                 // Apply scissor/clipping rectangle (Y is inverted in OpenGL)
-                GL_CALL(glScissor((int)clip_min.x, (int)((float)fb_height - clip_max.y), (int)(clip_max.x - clip_min.x), (int)(clip_max.y - clip_min.y)));
-
+                float l_fStartX = clip_min.x;
+                float l_fStartY = fb_height - clip_max.y;
+                float l_fWidth = clip_max.x - clip_min.x;
+                float l_fHeight = clip_max.y - clip_min.y;
+#ifdef WIN32
+                if (!g_bUseFullScreenResolution)
+                {
+                    GL_CALL(glScissor((int)l_fMyStartX  + l_fStartX,
+                        (int)((float)l_fMyStartY +l_fStartY),
+                        (int)(l_fWidth),
+                        (int)(l_fHeight)));
+                }
+                else
+#endif
+                    GL_CALL(glScissor((int)clip_min.x, (int)((float)fb_height - clip_max.y), (int)(clip_max.x - clip_min.x), (int)(clip_max.y - clip_min.y)));
                 // Bind texture, Draw
                 GL_CALL(glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->GetTexID()));
                 MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx)));
@@ -731,8 +787,20 @@ void    ImGui_ImplWin32_NewFrame()
     // Setup display size (every frame to accommodate for window resizing)
     RECT rect = { 0, 0, 0, 0 };
     ::GetClientRect(bd->hWnd, &rect);
-    io.DisplaySize = ImVec2((float)(rect.right - rect.left), (float)(rect.bottom - rect.top));
-
+    if (g_bUseFullScreenResolution)
+    {
+        io.DisplaySize = ImVec2((float)(rect.right - rect.left), (float)(rect.bottom - rect.top));
+    }
+    else
+    {
+        io.DisplaySize = ImVec2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+        //io.DisplaySize = ImVec2(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);// 
+    }
+    float l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x / io.DisplaySize.x;
+    float l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y / io.DisplaySize.y;
+    //float l_fScaleX = io.DisplaySize.x/ cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+    //float l_fScaleY = io.DisplaySize.y/ cGameApp::m_spOpenGLRender->m_vGameResolution.y;
+    //io.DisplayFramebufferScale = ImVec2(l_fScaleX, l_fScaleY);
     // Setup time step
     INT64 current_time = 0;
     ::QueryPerformanceCounter((LARGE_INTEGER*)&current_time);
@@ -1549,7 +1617,8 @@ bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event)
             return false;
         ImVec2 mouse_pos((float)event->motion.x, (float)event->motion.y);
         io.AddMouseSourceEvent(event->motion.which == SDL_TOUCH_MOUSEID ? ImGuiMouseSource_TouchScreen : ImGuiMouseSource_Mouse);
-        io.AddMousePosEvent(mouse_pos.x, mouse_pos.y);
+        io.AddMousePosEvent(cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y);
+        //io.AddMousePosEvent(mouse_pos.x, mouse_pos.y);
         return true;
     }
     case SDL_MOUSEWHEEL:
@@ -1714,10 +1783,10 @@ void ImGui_ImplSDL2_NewFrame()
     int w, h;
     int display_w, display_h;
     //SDL_GetWindowSize(bd->Window, &w, &h);
-    w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Width();
-    h = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Height();
     if (SDL_GetWindowFlags(bd->Window) & SDL_WINDOW_MINIMIZED)
+    {
         w = h = 0;
+    }
 //    if (bd->Renderer != nullptr)
 //    {
 //        SDL_GetRendererOutputSize(bd->Renderer, &display_w, &display_h);
@@ -1730,12 +1799,35 @@ void ImGui_ImplSDL2_NewFrame()
 #ifdef USE_SDL2
         SDL_GL_GetDrawableSize(bd->Window, &display_w, &display_h);
 #endif
-        display_w = w;
-        display_h = h;
-    io.DisplaySize = ImVec2((float)w, (float)h);
-    if (w > 0 && h > 0)
-        io.DisplayFramebufferScale = ImVec2((float)display_w / w, (float)display_h / h);
+    //int	l_iViewportWidth = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+    //int	l_iViewportHeight = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+    int	l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
+    int	l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
 
+
+    //w = l_iViewportWidth;
+    //h = l_iViewportHeight;
+    //display_w = w;
+    //display_h = h;
+    //io.DisplaySize = ImVec2(display_w, display_h);
+
+    //w = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+    //h = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
+    w = display_w =  cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+    h = display_h =  cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+
+    //io.DisplaySize = ImVec2(w,h);
+    io.DisplaySize = ImVec2(w, h);
+
+    if (w > 0 && h > 0)
+    {
+        float l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x/ display_w;
+        float l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y/ display_h;
+        //float l_fScaleX = display_w/ cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+        //float l_fScaleY = display_h/ cGameApp::m_spOpenGLRender->m_vGameResolution.y;
+        io.DisplayFramebufferScale = ImVec2(l_fScaleX, l_fScaleY);
+        //io.DisplayFramebufferScale = ImVec2(1,1);
+    }
     // Setup time step (we don't use SDL_GetTicks() because it is using millisecond resolution)
     // (Accept SDL_GetPerformanceCounter() not returning a monotonically increasing value. Happens in VMs and Emscripten, see #6189, #6114, #3644)
 #ifdef USE_SDL2

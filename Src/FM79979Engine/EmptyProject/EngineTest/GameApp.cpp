@@ -96,10 +96,31 @@ void	cEngineTestApp::Render()
 	MyGLEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
+	GLRender::RenderFilledRectangle(Vector2(0, 0), 1920, 1080, Vector4::One, 0);
 	//ImGui_ImplOpenGL3_RenderDrawData(struct ImDrawData* draw_data);
 	//SampleRender();
 	//this->m_pPhaseManager->Render();
 	cGameApp::ShowInfo();
+#ifdef WASM
+	int fb_width = (int)(ImGui::GetDrawData()->DisplaySize.x * ImGui::GetDrawData()->FramebufferScale.x);
+	int fb_height = (int)(ImGui::GetDrawData()->DisplaySize.y * ImGui::GetDrawData()->FramebufferScale.y);
+	int l_iBrowserWidth = EMSDK::EMSDK_GetBrowserWidth();
+	int l_iBrowserHeight = EMSDK::EMSDK_GetBrowserHeight();
+	int	l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
+	int	l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
+	int	l_iCanvasPosX = EMSDK::EMSDK_GetCanvasPosX();
+	int	l_iCanvasPosY = EMSDK::EMSDK_GetCanvasPosY();
+
+	int	l_iOpenGLViewportX = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+	int	l_iOpenGLViewportY = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+
+	cGameApp::RenderFont(0, 300, UT::ComposeMsgByFormat(L"FBSize:%d,:%d\nBrowserSize:%d,%d\nCavansSize:%d,%d\nCanvasPos:%d,%d\nOpenGLViewport:%d,%d",
+		fb_width, fb_height,
+		l_iBrowserWidth, l_iBrowserHeight,
+		l_iViewportWidth, l_iViewportHeight,
+		l_iCanvasPosX, l_iCanvasPosY,
+		l_iOpenGLViewportX, l_iOpenGLViewportY).c_str());
+#endif
 	//this->m_pPhaseManager->DebugRender();
 		// Start the Dear ImGui frame
 	if (g_bUseIMGUI)

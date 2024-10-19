@@ -97,25 +97,25 @@ namespace FATMING_CORE
 				case MyMath::X://no x
 				{
 					//first Left up,XView
-					glViewport(0,l_iHeight,l_iWidth,l_iHeight);
+					myglViewPort(0,l_iHeight,l_iWidth,l_iHeight);
 				}
 				break;
 				case MyMath::Y://no y
 				{
 					//second Right Up,YView
-					glViewport(l_iWidth,l_iHeight,l_iWidth,l_iHeight);
+					myglViewPort(l_iWidth,l_iHeight,l_iWidth,l_iHeight);
 				}
 				break;
 				case MyMath::Z://no z
 				{
 					//Third Left Down,ZView
-					glViewport(0,0,l_iWidth,l_iHeight);
+					myglViewPort(0,0,l_iWidth,l_iHeight);
 				}
 				break;
 				case MyMath::W:
 				{
 					//Fourth Right Down
-					glViewport(l_iWidth,0,l_iWidth,l_iHeight);
+					myglViewPort(l_iWidth,0,l_iWidth,l_iHeight);
 				}
 				break;
 			}

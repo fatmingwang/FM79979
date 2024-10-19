@@ -253,7 +253,7 @@ namespace FATMING_CORE
 		SetAcceptRationWithGameresolution(l_iViewportWidth, l_iViewportHeight,
 			(int)m_vGameResolution.x, (int)m_vGameResolution.y);
 #else
-		glViewport(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
+		myglViewPort(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
 		//need this one or screen flash...and I dont know why
 		glScissor(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
 		CHECK_GL_ERROR("after viewport");
@@ -265,7 +265,7 @@ namespace FATMING_CORE
 			m_vDeviceViewPortSize.z != m_vViewPortSize.z ||
 			m_vDeviceViewPortSize.w != m_vViewPortSize.w)
 		{
-			glViewport((GLint)m_vViewPortSize.x, (GLint)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
+			myglViewPort((GLint)m_vViewPortSize.x, (GLint)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
 			CHECK_GL_ERROR("after viewport 2");
 			MyGLEnable(GL_SCISSOR_TEST);
 			CHECK_GL_ERROR("before scissor");
@@ -382,7 +382,7 @@ namespace FATMING_CORE
 		m_vViewPortSize.y = (e_iDeviceViewportHeight - l_fViewPortH) / 2;
 		m_vViewPortSize.z = m_vViewPortSize.x + l_fViewPortW;
 		m_vViewPortSize.w = m_vViewPortSize.y + l_fViewPortH;
-		glViewport((int)m_vViewPortSize.x, (int)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
+		myglViewPort((int)m_vViewPortSize.x, (int)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
 #ifdef WIN32
 		m_vDeviceViewPortSize.x = 0;
 		m_vDeviceViewPortSize.y = 0;

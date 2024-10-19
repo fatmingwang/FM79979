@@ -1,4 +1,5 @@
 #include <emscripten.h>
+#include <emscripten/html5.h>
 
 //#define USE_SDL2
 //add to linker -sUSE_SDL=2 
@@ -277,17 +278,7 @@ void Loop()
 	//{
 	//	return;
 	//}
-	int windowWidth = EMSDK::EMSDK_GetBrowserWidth();
-	int windowHeight = EMSDK::EMSDK_GetBrowserHeight();
 	//try {
-#ifdef USE_SDL2
-		SDL_GetWindowSize(g_pSDL2Window, &windowWidth, &windowHeight);
-#endif
-		if (g_bUseIMGUI)
-		{
-			ImGuiIO& io = ImGui::GetIO();
-			io.DisplaySize = ImVec2((float)windowWidth, (float)windowHeight);  // Set the correct display size
-		}
 		g_pGameApp->Run();
 		if (g_pPreLoadFromInternet)
 		{
@@ -413,8 +404,8 @@ int main()
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 	FMLog::Init();
-	int CANVANS_WIDTH = EMSDK::EMSDK_GetBrowserWidth();
-	int CANVANS_HEIGHT = EMSDK::EMSDK_GetBrowserHeight();
+	int CANVANS_WIDTH = 1280;// EMSDK::EMSDK_GetBrowserWidth();
+	int CANVANS_HEIGHT = 720;// EMSDK::EMSDK_GetBrowserHeight();
 	cGameApp::CreateDefaultOpenGLRender();
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
