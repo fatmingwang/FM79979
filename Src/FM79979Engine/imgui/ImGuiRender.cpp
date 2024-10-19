@@ -9,7 +9,7 @@
 #include <filesystem>
 #ifdef WIN32
 #include "windowsx.h"
-bool g_bUseFullScreenResolution = true;
+bool g_bUseFullScreenResolution = false;
 #elif defined(WASM)
 #include <emscripten.h>
 #include <emscripten/html5.h>
@@ -1019,7 +1019,10 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
         POINT mouse_pos = { (LONG)GET_X_LPARAM(lParam), (LONG)GET_Y_LPARAM(lParam) };
         if (msg == WM_NCMOUSEMOVE && ::ScreenToClient(hwnd, &mouse_pos) == FALSE) // WM_NCMOUSEMOVE are provided in absolute coordinates.
             return 0;
-        //mouse_pos = cGameApp::m_sMousePosition;
+        if (!g_bUseFullScreenResolution)
+        {
+            mouse_pos = cGameApp::m_sMousePosition;
+        }
         io.AddMouseSourceEvent(mouse_source);
         io.AddMousePosEvent((float)mouse_pos.x, (float)mouse_pos.y);
         return 0;
