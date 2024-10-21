@@ -305,21 +305,14 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBuffe
     // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right). DisplayPos is (0,0) for single viewport apps.
     int l_iWindowWidth = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
     int l_iWindowHeight = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
-#ifdef WASM
-    if (!g_bUseMyViewPort)
-    {
-        emscripten_get_canvas_element_size("#canvas", &l_iWindowWidth, &l_iWindowHeight);
-    }
     //GL_CALL(glViewport(0, 0, (GLsizei)windowHeight, (GLsizei)windowHeight));
     //GL_CALL(glViewport(cGameApp::m_spOpenGLRender->m_vViewPortSize.x, cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (GLsizei)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (GLsizei)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
-#else
-    //GL_CALL(glViewport(0, 0, (GLsizei)fb_width, (GLsizei)fb_height));
+    //GL_CALL(glViewport(0, 0, (GLsizei)l_iFrameBufferWidth, (GLsizei)l_iFrameBufferHeight));
     if (!g_bUseMyViewPort)
     {
         l_iWindowWidth = e_iFrameBufferWidth;
         l_iWindowHeight = e_iFrameBufferHeight;
     }
-#endif
     //float L = draw_data->DisplayPos.x;
     //float R = draw_data->DisplayPos.x + draw_data->DisplaySize.x;
     //float T = draw_data->DisplayPos.y;
@@ -357,28 +350,26 @@ ImVec2	GetViewportOffsetPosition()
 void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
 {
     // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
-    //int fb_width = (int)(draw_data->DisplaySize.x * draw_data->FramebufferScale.x);
-    //int fb_height = (int)(draw_data->DisplaySize.y * draw_data->FramebufferScale.y);
-    int fb_width = (int)(draw_data->DisplaySize.x * draw_data->FramebufferScale.x);
-    int fb_height = (int)(draw_data->DisplaySize.y * draw_data->FramebufferScale.y);
+    //int l_iFrameBufferWidth = (int)(draw_data->DisplaySize.x * draw_data->FramebufferScale.x);
+    //int l_iFrameBufferHeight = (int)(draw_data->DisplaySize.y * draw_data->FramebufferScale.y);
+    int l_iFrameBufferWidth= (int)(draw_data->DisplaySize.x * draw_data->FramebufferScale.x);
+    int l_iFrameBufferHeight = (int)(draw_data->DisplaySize.y * draw_data->FramebufferScale.y);
     if (g_bUseMyViewPort)
     {
-        //fb_width = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
-        //fb_height = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
-        fb_width = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-        fb_height = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
+        l_iFrameBufferWidth = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+        l_iFrameBufferHeight = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
     }
-    if (fb_width <= 0 || fb_height <= 0)
+    if (l_iFrameBufferWidth <= 0 || l_iFrameBufferHeight <= 0)
     {
         return;
     }
 #ifdef WASM
     static int l_siTestX = 0;
     static int l_siTestY = 0;
-    if (l_siTestX != fb_width || l_siTestY != fb_height)
+    if (l_siTestX != l_iFrameBufferWidth || l_siTestY != l_iFrameBufferHeight)
     {
-        l_siTestX = fb_width;
-        l_siTestY = fb_height;
+        l_siTestX = l_iFrameBufferWidth;
+        l_siTestY = l_iFrameBufferHeight;
         int l_iBrowserWidth = EMSDK::EMSDK_GetBrowserWidth();
         int l_iBrowserHeight = EMSDK::EMSDK_GetBrowserHeight();
         int	l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
@@ -425,7 +416,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
     GL_CALL(glGenVertexArrays(1, &vertex_array_object));
 
     //fuck imhui using compact vertex struct not separate data
-    ImGui_ImplOpenGL3_SetupRenderState(draw_data, fb_width, fb_height, vertex_array_object);
+    ImGui_ImplOpenGL3_SetupRenderState(draw_data, l_iFrameBufferWidth, l_iFrameBufferHeight, vertex_array_object);
 
 
     // Will project scissor/clipping rectangles into framebuffer space
@@ -468,7 +459,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
                     float l_fMyStartY = cGameApp::m_spOpenGLRender->m_vViewPortSize.y;// 
                     // Apply scissor/clipping rectangle (Y is inverted in OpenGL)
                     float l_fStartX = clip_min.x/ l_vScale.x;
-                    float l_fStartY = (fb_height - clip_max.y)/ l_vScale.y;
+                    float l_fStartY = (l_iFrameBufferHeight - clip_max.y)/ l_vScale.y;
                     float l_fWidth = (clip_max.x - clip_min.x)/ l_vScale.x;
                     float l_fHeight = (clip_max.y - clip_min.y)/ l_vScale.y;
                     GL_CALL(glScissor((int)l_fMyStartX + l_fStartX,
@@ -478,7 +469,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
                 }
                 else
                 {
-                    GL_CALL(glScissor((int)clip_min.x, (int)((float)fb_height - clip_max.y), (int)(clip_max.x - clip_min.x), (int)(clip_max.y - clip_min.y)));
+                    GL_CALL(glScissor((int)clip_min.x, (int)((float)l_iFrameBufferHeight - clip_max.y), (int)(clip_max.x - clip_min.x), (int)(clip_max.y - clip_min.y)));
                 }
                     
                 // Bind texture, Draw
@@ -1850,8 +1841,8 @@ void ImGui_ImplSDL2_NewFrame()
     //h = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
     if (g_bUseMyViewPort)
     {
-        w = display_w = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
-        h = display_h = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+        w = display_w = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+        h = display_h = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
     }
     else
     {
@@ -1859,28 +1850,26 @@ void ImGui_ImplSDL2_NewFrame()
         h = display_h = l_iViewportHeight;
     }
 
-    //io.DisplaySize = ImVec2(w,h);
-    //io.DisplaySize = ImVec2(w,h);
     io.DisplaySize = ImVec2(w, h);
 
-    if (w > 0 && h > 0)
-    {
-        float l_fScaleX = 1;// display_w / cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-        float l_fScaleY = 1;// display_h / cGameApp::m_spOpenGLRender->m_vGameResolution.y;
-        //float l_fScaleX = display_w/ cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-        //float l_fScaleY = display_h/ cGameApp::m_spOpenGLRender->m_vGameResolution.y;
-        //io.DisplayFramebufferScale = ImVec2(l_fScaleX, l_fScaleY);
-        //io.DisplayFramebufferScale = ImVec2(1,1);
-        double canvasWidth, canvasHeight;
-        // Get canvas size (actual pixel size)
-        emscripten_get_element_css_size("canvas", &canvasWidth, &canvasHeight);
-        // Calculate the scale factor
-        float scaleX = (float)l_iViewportWidth / (float)l_iViewportWidth;
-        float scaleY = (float)l_iViewportHeight / (float)l_iViewportHeight;
+    //if (w > 0 && h > 0)
+    //{
+    //    float l_fScaleX = 1;// display_w / cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+    //    float l_fScaleY = 1;// display_h / cGameApp::m_spOpenGLRender->m_vGameResolution.y;
+    //    //float l_fScaleX = display_w/ cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+    //    //float l_fScaleY = display_h/ cGameApp::m_spOpenGLRender->m_vGameResolution.y;
+    //    //io.DisplayFramebufferScale = ImVec2(l_fScaleX, l_fScaleY);
+    //    //io.DisplayFramebufferScale = ImVec2(1,1);
+    //    double canvasWidth, canvasHeight;
+    //    // Get canvas size (actual pixel size)
+    //    emscripten_get_element_css_size("canvas", &canvasWidth, &canvasHeight);
+    //    // Calculate the scale factor
+    //    float scaleX = (float)l_iViewportWidth / (float)l_iViewportWidth;
+    //    float scaleY = (float)l_iViewportHeight / (float)l_iViewportHeight;
 
-        // Set ImGui DisplayFramebufferScale
-        io.DisplayFramebufferScale = ImVec2(scaleX, scaleY);
-    }
+    //    // Set ImGui DisplayFramebufferScale
+    //    io.DisplayFramebufferScale = ImVec2(scaleX, scaleY);
+    //}
     // Setup time step (we don't use SDL_GetTicks() because it is using millisecond resolution)
     // (Accept SDL_GetPerformanceCounter() not returning a monotonically increasing value. Happens in VMs and Emscripten, see #6189, #6114, #3644)
 #ifdef USE_SDL2

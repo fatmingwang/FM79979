@@ -146,12 +146,11 @@ void	cEngineTestApp::Render()
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
 	GLRender::RenderFilledRectangle(Vector2(0, 0), 1920, 1080, Vector4::One, 0);
-	//ImGui_ImplOpenGL3_RenderDrawData(struct ImDrawData* draw_data);
-	//SampleRender();
-	//this->m_pPhaseManager->Render();
-#ifdef WASM
 	int fb_width = (int)(ImGui::GetDrawData()->DisplaySize.x * ImGui::GetDrawData()->FramebufferScale.x);
 	int fb_height = (int)(ImGui::GetDrawData()->DisplaySize.y * ImGui::GetDrawData()->FramebufferScale.y);
+	int	l_iOpenGLViewportX = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+	int	l_iOpenGLViewportY = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+#ifdef WASM
 	int l_iBrowserWidth = EMSDK::EMSDK_GetBrowserWidth();
 	int l_iBrowserHeight = EMSDK::EMSDK_GetBrowserHeight();
 	int	l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
@@ -160,9 +159,6 @@ void	cEngineTestApp::Render()
 	int	l_iCanvasPosY = EMSDK::EMSDK_GetCanvasPosY();
 	int windowWidth, windowHeight;
 	emscripten_get_canvas_element_size("#canvas", &windowWidth, &windowHeight);
-
-	int	l_iOpenGLViewportX = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
-	int	l_iOpenGLViewportY = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
 
 	cGameApp::RenderFont(0, 300, UT::ComposeMsgByFormat(L"FBSize:%d,:%d\nBrowserSize:%d,%d\nCavansSize:%d,%d\nCanvasPos:%d,%d\nOpenGLViewport:%d,%d\nEMSCanvans:%d,%d",
 		fb_width, fb_height,
@@ -218,12 +214,6 @@ void	cEngineTestApp::Render()
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
-	int fb_width = (int)(ImGui::GetDrawData()->DisplaySize.x * ImGui::GetDrawData()->FramebufferScale.x);
-	int fb_height = (int)(ImGui::GetDrawData()->DisplaySize.y * ImGui::GetDrawData()->FramebufferScale.y);
-
-	int	l_iOpenGLViewportX = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
-	int	l_iOpenGLViewportY = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
-
 	cGameApp::RenderFont(0, 300, UT::ComposeMsgByFormat(L"FBSize:%d,:%d\nOpenGLViewport:%d,%d",
 		fb_width, fb_height,
 		l_iOpenGLViewportX, l_iOpenGLViewportY).c_str());
