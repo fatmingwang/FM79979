@@ -117,7 +117,7 @@ Index of this file:
 #ifndef IMGUI_ENABLE_FREETYPE
 #define IMGUI_ENABLE_STB_TRUETYPE
 #endif
-
+#include "../Core/Android/nv_file.h"
 //-----------------------------------------------------------------------------
 // [SECTION] Forward declarations
 //-----------------------------------------------------------------------------
@@ -401,7 +401,8 @@ static inline ImU64         ImFileRead(void*, ImU64, ImU64, ImFileHandle)       
 static inline ImU64         ImFileWrite(const void*, ImU64, ImU64, ImFileHandle)    { return 0; }
 #endif
 #ifndef IMGUI_DISABLE_DEFAULT_FILE_FUNCTIONS
-typedef FILE* ImFileHandle;
+//typedef FILE* ImFileHandle;
+typedef NvFile* ImFileHandle;
 IMGUI_API ImFileHandle      ImFileOpen(const char* filename, const char* mode);
 IMGUI_API bool              ImFileClose(ImFileHandle file);
 IMGUI_API ImU64             ImFileGetSize(ImFileHandle file);

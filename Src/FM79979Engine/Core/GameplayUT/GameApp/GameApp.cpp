@@ -47,6 +47,7 @@ namespace	FATMING_CORE
 	float												cGameApp::m_sfGameSpeedValue = 1.f;
 	bool												cGameApp::m_sbSpeedControl = false;
 	bool												cGameApp::m_sbFullScreen = false;
+	bool												cGameApp::m_sbDisableHotKey = false;
 	//
 	Vector3												cGameApp::m_svAccelerometer = Vector3::Zero;
 	float												cGameApp::m_sfForce = 0.f;
@@ -428,13 +429,19 @@ namespace	FATMING_CORE
 #if defined(WIN32)&& !defined(UWP)
 				case 13:
 				{
-					cGameApp::m_sbFullScreen = !cGameApp::m_sbFullScreen;
-					ToggleFullScreen(cGameApp::m_sbFullScreen, (HWND)m_spOpenGLRender->m_Handle);
+					if (cGameApp::m_sbDisableHotKey)
+					{
+						cGameApp::m_sbFullScreen = !cGameApp::m_sbFullScreen;
+						ToggleFullScreen(cGameApp::m_sbFullScreen, (HWND)m_spOpenGLRender->m_Handle);
+					}
 				}
 					break;
 #endif
 				case 'L'://enter
-					this->m_sbDoLockFPS = !this->m_sbDoLockFPS;
+					if (cGameApp::m_sbDisableHotKey)
+					{
+						this->m_sbDoLockFPS = !this->m_sbDoLockFPS;
+					}
 					break;
 				case 'R':
 					m_sfGameSpeedValue = 1.f;
@@ -443,16 +450,28 @@ namespace	FATMING_CORE
 					m_sbGamePause = !m_sbGamePause;
 					break;
 				case 38://up
-					this->m_spOpenGLRender->m_eDeviceDirection = eDD_PORTRAIT;
+					if (cGameApp::m_sbDisableHotKey)
+					{
+						this->m_spOpenGLRender->m_eDeviceDirection = eDD_PORTRAIT;
+					}
 					break;
 				case 37://left
-					this->m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
+					if (cGameApp::m_sbDisableHotKey)
+					{
+						this->m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
+					}
 					break;
 				case 39://right
-					this->m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_RIGHT;
+					if (cGameApp::m_sbDisableHotKey)
+					{
+						this->m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_RIGHT;
+					}
 					break;
 				case 40://down
-					this->m_spOpenGLRender->m_eDeviceDirection = eDD_UPSIDE_DOWN;
+					if (cGameApp::m_sbDisableHotKey)
+					{
+						this->m_spOpenGLRender->m_eDeviceDirection = eDD_UPSIDE_DOWN;
+					}
 					break;
 				case 44://PrtScr/SysRq
 					m_bDoScreenShot = true;

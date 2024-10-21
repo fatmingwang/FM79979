@@ -330,6 +330,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\EngineTest\JSBinding.cpp" />
+    <ClCompile Include="..\EngineTest\MyImGui.cpp" />
     <ClCompile Include="..\EngineTest\NetworkSample.cpp" />
     <ClCompile Include="..\EngineTest\Proto\addressbook.pb.cc" />
     <ClCompile Include="..\EngineTest\Proto\MessageTest.pb.cc" />
@@ -344,6 +345,7 @@
     <ClCompile Include="..\EngineTest\Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\EngineTest\MyImGui.h" />
     <ClInclude Include="..\EngineTest\NetworkSample.h" />
     <ClInclude Include="..\EngineTest\Proto\addressbook.pb.h" />
     <ClInclude Include="..\EngineTest\Proto\MessageTest.pb.h" />

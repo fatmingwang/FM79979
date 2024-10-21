@@ -1142,6 +1142,11 @@ static const ImVec2 TOOLTIP_DEFAULT_OFFSET = ImVec2(16, 10);            // Multi
 // [SECTION] FORWARD DECLARATIONS
 //-------------------------------------------------------------------------
 
+namespace UT
+{
+    extern NvFile* MyFileOpen(const char* e_strFileName, const char* e_strMode);
+}
+
 static void             SetCurrentWindow(ImGuiWindow* window);
 static ImGuiWindow*     CreateNewWindow(const char* name, ImGuiWindowFlags flags);
 static ImVec2           CalcNextScrollFromScrollTargetAndClamp(ImGuiWindow* window);
@@ -2226,15 +2231,16 @@ ImFileHandle ImFileOpen(const char* filename, const char* mode)
     ::MultiByteToWideChar(CP_UTF8, 0, mode, -1, mode_wbuf, mode_wsize);
     return ::_wfopen(filename_wbuf, mode_wbuf);
 #else
-    return fopen(filename, mode);
+    return UT::MyFileOpen(filename, mode);
+    //return fopen(filename, mode);
 #endif
 }
 
 // We should in theory be using fseeko()/ftello() with off_t and _fseeki64()/_ftelli64() with __int64, waiting for the PR that does that in a very portable pre-C++11 zero-warnings way.
-bool    ImFileClose(ImFileHandle f)     { return fclose(f) == 0; }
-ImU64   ImFileGetSize(ImFileHandle f)   { long off = 0, sz = 0; return ((off = ftell(f)) != -1 && !fseek(f, 0, SEEK_END) && (sz = ftell(f)) != -1 && !fseek(f, off, SEEK_SET)) ? (ImU64)sz : (ImU64)-1; }
-ImU64   ImFileRead(void* data, ImU64 sz, ImU64 count, ImFileHandle f)           { return fread(data, (size_t)sz, (size_t)count, f); }
-ImU64   ImFileWrite(const void* data, ImU64 sz, ImU64 count, ImFileHandle f)    { return fwrite(data, (size_t)sz, (size_t)count, f); }
+bool    ImFileClose(ImFileHandle f)     { return NvFClose(f) == 0; }
+ImU64   ImFileGetSize(ImFileHandle f)   { long off = 0, sz = 0; return ((off = NvFTell(f)) != -1 && !NvFSeek(f, 0, SEEK_END) && (sz = NvFTell(f)) != -1 && !NvFSeek(f, off, SEEK_SET)) ? (ImU64)sz : (ImU64)-1; }
+ImU64   ImFileRead(void* data, ImU64 sz, ImU64 count, ImFileHandle f)           { return NvFRead(data, (size_t)sz, (size_t)count, f); }
+ImU64   ImFileWrite(const void* data, ImU64 sz, ImU64 count, ImFileHandle f)    { return NvFWrite(data, (size_t)sz, (size_t)count, f); }
 #endif // #ifndef IMGUI_DISABLE_DEFAULT_FILE_FUNCTIONS
 
 // Helper: Load file content into memory

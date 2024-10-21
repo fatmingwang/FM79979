@@ -31,6 +31,9 @@
     <Filter Include="ProtoBuf">
       <UniqueIdentifier>{58cb5dc7-e437-4de6-b2e8-db6dc03a06b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\ImGui">
+      <UniqueIdentifier>{651be142-e51a-44c0-aeff-e9ee4275f6c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -75,6 +78,9 @@
     <ClCompile Include="..\EngineTest\Proto\MessageTest.pb.cc">
       <Filter>ProtoBuf</Filter>
     </ClCompile>
+    <ClCompile Include="..\EngineTest\MyImGui.cpp">
+      <Filter>Game\ImGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -118,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="..\EngineTest\Proto\MessageTest.pb.h">
       <Filter>ProtoBuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\MyImGui.h">
+      <Filter>Game\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

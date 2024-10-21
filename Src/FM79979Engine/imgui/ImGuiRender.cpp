@@ -1734,6 +1734,23 @@ bool ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event)
     }
 #endif
     }
+    //case SDL_FINGERDOWN: 
+    //{
+    //    float touchX = event.tfinger.x * windowWidth;
+    //    float touchY = event.tfinger.y * windowHeight;
+    //    ImGui::GetIO().MousePos = ImVec2(touchX, touchY);
+    //    ImGui::GetIO().MouseDown[0] = true;  // Simulate left click
+    //    break;
+    //}
+    //case SDL_FINGERMOTION: {
+    //    float touchX = event.tfinger.x * windowWidth;
+    //    float touchY = event.tfinger.y * windowHeight;
+    //    ImGui::GetIO().MousePos = ImVec2(touchX, touchY);
+    //    break;
+    //}
+    //case SDL_FINGERUP:
+    //    ImGui::GetIO().MouseDown[0] = false;  // Simulate left click release
+    //    break;
     return false;
 }
 

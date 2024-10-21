@@ -249,6 +249,7 @@
     <ClCompile Include="..\EngineTest\HappyHttpTest.cpp" />
     <ClCompile Include="..\EngineTest\JPEGCodingTest.cpp" />
     <ClCompile Include="..\EngineTest\JSBinding.cpp" />
+    <ClCompile Include="..\EngineTest\MyImGui.cpp" />
     <ClCompile Include="..\EngineTest\NetworkSample.cpp" />
     <ClCompile Include="..\EngineTest\Proto\addressbook.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -275,6 +276,7 @@
     <ClInclude Include="..\EngineTest\ComputerShader.h" />
     <ClInclude Include="..\EngineTest\ComputerShaderUniform.h" />
     <ClInclude Include="..\EngineTest\JPEGCodingTest.h" />
+    <ClInclude Include="..\EngineTest\MyImGui.h" />
     <ClInclude Include="..\EngineTest\NetworkSample.h" />
     <ClInclude Include="..\EngineTest\Proto\addressbook.pb.h" />
     <ClInclude Include="..\EngineTest\Proto\MessageTest.pb.h" />

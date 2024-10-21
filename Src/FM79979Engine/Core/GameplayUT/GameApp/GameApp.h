@@ -88,6 +88,7 @@ namespace	FATMING_CORE
 		//0-40(or bigger depend on device)????what is this?
 		static  float												m_sfForce;
 		static	bool												m_sbFullScreen;
+		static	bool												m_sbDisableHotKey;
 		//will be effect by key + and -,so keep - and + reserved
 		static	float												m_sfGameSpeedValue;
 		//if true it will control by key + and -
