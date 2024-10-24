@@ -27,7 +27,7 @@ namespace FATMING_CORE
 		Frame*	CloneFrameWithHierarchy();
 		//if you afried something wrong want manual to delete object set this->m_bIgnoreChildrenUpdate = true
 		//
-		//
+		//please call m_pRenderObject->SetParent(nullptr); before DestoryWithChildren?
 		static	void				DestoryWithChildren(Frame*e_pFrame);
 		Frame*						FinFrameByName(const wchar_t*e_strName);
 		// frame hierarchy
