@@ -1,6 +1,6 @@
 #include "MyGui.h"
-
-
+#include "../../Core/AllCoreInclude.h"
+using namespace	FATMING_CORE;
 cImGuiNode::cImGuiNode()
 {
 }
@@ -96,3 +96,34 @@ void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 		delete e_pImGuiNode;
 	}
 }
+
+#ifdef WIN32
+bool KeyPressed(int e_iK)
+{
+	auto l_Key = GetAsyncKeyState(e_iK);
+	return (GetFocus() == cGameApp::m_spOpenGLRender->m_Handle) && (l_Key & 0x8000);
+}
+bool HoldingKey(int key)
+{
+	return (GetFocus() == cGameApp::m_spOpenGLRender->m_Handle) && GetAsyncKeyState(key);
+}
+
+bool PressedBindingKeys(int key_1, int key_2)
+{
+	return (GetFocus() == cGameApp::m_spOpenGLRender->m_Handle) && (GetAsyncKeyState(key_1)) && (GetAsyncKeyState(key_2) & 1);
+}
+#else
+bool KeyPressed(int e_iK)
+{
+	return false;
+}
+bool HoldingKey(int key)
+{
+	return false;
+}
+
+bool PressedBindingKeys(int key_1, int key_2)
+{
+	return false;
+}
+#endif

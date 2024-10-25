@@ -21,6 +21,32 @@ enum eMyImGuiType
 };
 
 
+
+
+enum type_obj
+{
+	button = 1,
+	label,
+	slider_i,
+	slider_f,
+	checkbox,
+	radio,
+	toggle
+};
+enum class resize_opt
+{
+	off,
+	bottom_right,
+	top_left,
+	top_right,
+	bottom_left,
+	top,
+	bottom,
+	left,
+	right
+};
+
+
 class cImGuiNode
 {
 	bool						m_bPosDirty = false;
@@ -58,6 +84,7 @@ public:
 
 class basic_obj:public cImGuiNode,public cMyGuiMouseMovingData
 {
+public:
 	ImVec2		m_vSize = {0,0 };
 	ImVec2		m_vPos = { 0,0 };
 	ImVec2		m_vSizeObj = {0,0 };
@@ -88,3 +115,10 @@ struct form
 	bool		delete_me = false;
 	std::vector<child> child{ };
 };
+
+
+
+/// <returns></returns>
+bool KeyPressed(int e_iK);
+bool HoldingKey(int key);
+bool PressedBindingKeys(int key_1, int key_2);

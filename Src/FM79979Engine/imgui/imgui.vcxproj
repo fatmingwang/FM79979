@@ -35,6 +35,11 @@
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="MyGui\MyGui.h" />
+    <ClInclude Include="ThirtyParty\FileDialog\dirent\dirent.h" />
+    <ClInclude Include="ThirtyParty\FileDialog\ImGuiFileDialog.h" />
+    <ClInclude Include="ThirtyParty\FileDialog\ImGuiFileDialogConfig.h" />
+    <ClInclude Include="ThirtyParty\ImGuiBuilder\additional.h" />
+    <ClInclude Include="ThirtyParty\ImGuiBuilder\build_config.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui.cpp" />
@@ -44,6 +49,9 @@
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="MyGui\MyGui.cpp" />
+    <ClCompile Include="ThirtyParty\FileDialog\ImGuiFileDialog.cpp" />
+    <ClCompile Include="ThirtyParty\ImGuiBuilder\additional.cpp" />
+    <ClCompile Include="ThirtyParty\ImGuiBuilder\build_config.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

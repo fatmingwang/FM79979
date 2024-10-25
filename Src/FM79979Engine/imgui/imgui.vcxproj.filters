@@ -16,6 +16,15 @@
     <Filter Include="MyGui">
       <UniqueIdentifier>{b03e1a1f-a5d7-4170-85fd-5b07d4f30bbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirtyParty">
+      <UniqueIdentifier>{fb62d09d-1866-4d40-8999-9f650e41815b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirtyParty\FileDialog">
+      <UniqueIdentifier>{44ebef50-22c5-42e3-9924-2c6bcfe9f959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirtyParty\ImGuiBuilder">
+      <UniqueIdentifier>{d956298f-e0a1-4bfa-973b-7f8899e80bbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -42,6 +51,21 @@
     <ClInclude Include="MyGui\MyGui.h">
       <Filter>MyGui</Filter>
     </ClInclude>
+    <ClInclude Include="ThirtyParty\FileDialog\ImGuiFileDialog.h">
+      <Filter>ThirtyParty\FileDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirtyParty\FileDialog\ImGuiFileDialogConfig.h">
+      <Filter>ThirtyParty\FileDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirtyParty\FileDialog\dirent\dirent.h">
+      <Filter>ThirtyParty\FileDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirtyParty\ImGuiBuilder\additional.h">
+      <Filter>ThirtyParty\ImGuiBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirtyParty\ImGuiBuilder\build_config.h">
+      <Filter>ThirtyParty\ImGuiBuilder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui_widgets.cpp">
@@ -64,6 +88,15 @@
     </ClCompile>
     <ClCompile Include="MyGui\MyGui.cpp">
       <Filter>MyGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirtyParty\FileDialog\ImGuiFileDialog.cpp">
+      <Filter>ThirtyParty\FileDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirtyParty\ImGuiBuilder\additional.cpp">
+      <Filter>ThirtyParty\ImGuiBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirtyParty\ImGuiBuilder\build_config.cpp">
+      <Filter>ThirtyParty\ImGuiBuilder</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
