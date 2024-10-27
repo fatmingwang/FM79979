@@ -9,33 +9,11 @@
 #include <regex>
 #include <fstream>
 //#include "json.hpp"
-
-std::vector<std::string> split(const std::string& s, char delimiter)
-{
-	std::vector<std::string> tokens;
-	std::string token;
-	std::istringstream tokenStream(s);
-	while (std::getline(tokenStream, token, delimiter))
-	{
-		tokens.push_back(token);
-	}
-	return tokens;
-}
-
+#include "../../../Core/AllCoreInclude.h"
 
 bool is_number(std::string& s)
 {
-	auto find = s.find(' ');
-	if (find != std::string::npos)
-		s.replace(find, 1, "");
-	find = s.find('\n');
-	if (find != std::string::npos)
-		s.replace(find, 1, "");
-	find = s.find('\r');
-	if (find != std::string::npos)
-		s.replace(find, 1, "");
-
-	return std::regex_match(s, std::regex("[+-]?([0-9]*[.])?[0-9]+"));
+	return UT::IsNumber(s);
 }
 
 ImGuiStyle	g_ref_saved_style		= { };
@@ -167,7 +145,7 @@ bool im_config::window_flags::load( std::string style, ImGuiStyle& custom_gui_st
 
 			if ( line.find( ',' ) != std::string::npos )
 			{
-				auto b_line = split( line, ',' );
+				auto b_line = StringSplit( line, ',' );
 
 				switch ( fileindex )
 				{
@@ -329,7 +307,7 @@ bool im_config::color::load( std::string style, ImGuiStyle& custom_gui_style )
 
 			std::getline( file_import, line );
 
-			auto colors = split( line, ',' );
+			auto colors = StringSplit( line, ',' );
 
 			i = ImVec4( std::stof( colors[ 0 ] ), std::stof( colors[ 1 ] ), std::stof( colors[ 2 ] ), std::stof( colors[ 3 ] ) );
 

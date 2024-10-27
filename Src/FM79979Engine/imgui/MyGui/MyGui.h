@@ -9,30 +9,17 @@ enum eMyImGuiType
 	eMIGT_NODE = 0,
 	eMIGT_BUTTON = 1,
 	eMIGT_LABEL,
-	eMIGT_EDIT,
+	eMIGT_EDIT_BOX,
 	eMIGT_SLIDER_I,
 	eMIGT_SLIDER_F,
 	eMIGT_CHECKBOX,
 	eMIGT_RADIO,
 	eMIGT_TOOGLE,
 	eMIGT_FORM,//9
-	eMIGT_CHILD = 10,
+	eMIGT_PANEL = 10,
 	eMIGT_MAX
 };
 
-
-
-
-enum type_obj
-{
-	button = 1,
-	label,
-	slider_i,
-	slider_f,
-	checkbox,
-	radio,
-	toggle
-};
 enum class resize_opt
 {
 	off,
@@ -49,6 +36,8 @@ enum class resize_opt
 
 class cImGuiNode
 {
+	virtual	void				EndRender(){}
+	virtual	void				InternalRender(){}
 	bool						m_bPosDirty = false;
 	ImVec2						m_vLocalPos = { 0, 0 };
 	ImVec2						m_vWorldPos = { 0, 0 };
@@ -68,6 +57,7 @@ public:
 	//-1 to last one
 	void						SetParent(cImGuiNode* e_pParent,int e_iIndex = -1);
 	cImGuiNode*					GetParent(){return this->m_pParent;};
+	void						Render();// = 0;
 	static void					DeleteObjectAndAllChildren(cImGuiNode*e_pImGuiNode);
 };
 
@@ -77,48 +67,101 @@ class cMyGuiMouseMovingData
 public:
 	bool		change_pos = false;
 	bool		hover = false;
-	bool		delete_me = false;
 	bool		selected = false;
 	bool		locked = false;
 };
 
-class basic_obj:public cImGuiNode,public cMyGuiMouseMovingData
+class cMyGuiBasicObj:public cImGuiNode,public cMyGuiMouseMovingData
 {
+	virtual	void				InternalRender(){}
 public:
 	ImVec2		m_vSize = {0,0 };
 	ImVec2		m_vPos = { 0,0 };
 	ImVec2		m_vSizeObj = {0,0 };
+	void		RenderProperty();
 };
 
-struct child:public cMyGuiMouseMovingData
+//eMIGT_NODE = 0,
+//eMIGT_BUTTON = 1,
+//eMIGT_LABEL,
+//eMIGT_EDIT,
+//eMIGT_SLIDER_I,
+//eMIGT_SLIDER_F,
+//eMIGT_CHECKBOX,
+//eMIGT_RADIO,
+//eMIGT_TOOGLE,
+//eMIGT_FORM,//9
+//eMIGT_PANEL = 10,
+
+class cMyGuiNode :public cMyGuiBasicObj
 {
-	int			id = 0;
-	std::string name = "form";
-	int			father = 0;
+	virtual	void				InternalRender() {}
+public:
+};
+
+class cMyGuiButton :public cMyGuiBasicObj
+{
+	virtual	void				InternalRender() {}
+public:
+};
+
+class cMyGuiLabel :public cMyGuiBasicObj
+{
+	virtual	void				InternalRender() {}
+public:
+};
+
+class cMyGuiEditBox :public cMyGuiBasicObj
+{
+	virtual	void				InternalRender() {}
+public:
+};
+
+class cMyGuiSliderInteger :public cMyGuiBasicObj
+{
+	virtual	void				InternalRender() {}
+public:
+};
+
+class cMyGuiSliderFloatValue :public cMyGuiBasicObj
+{
+	virtual	void				InternalRender() {}
+public:
+};
+
+class cMyGuiCheckBox :public cMyGuiBasicObj
+{
+	virtual	void				InternalRender() {}
+public:
+};
+
+class cMyGuiRadio :public cMyGuiBasicObj
+{
+	virtual	void				InternalRender() {}
+public:
+};
+
+class cMyGuiToogle:public cMyGuiBasicObj
+{
+	virtual	void				InternalRender() {}
+public:
 	bool		border = true;
-	ImVec2		size = { };
-	ImVec2		pos = { };
 
 };
 
-struct form
+class cMyGuiForm :public cMyGuiBasicObj
 {
-	int			id = 0;
-	std::string name = "form";
-	ImVec2		size = { };
-	ImVec2		pos = { };
-	uint32_t	type_me = 0;
+	virtual	void				InternalRender() {}
+public:
 
-	// AGAIN REPEAT FIX THAT!
-	bool		change_pos = false;
-	bool		hover = false;
-	bool		delete_me = false;
-	std::vector<child> child{ };
+};
+
+class cMyGuiPanel :public cMyGuiBasicObj
+{
+	virtual	void				InternalRender() {}
+public:
+
 };
 
 
-
-/// <returns></returns>
-bool KeyPressed(int e_iK);
-bool HoldingKey(int key);
-bool PressedBindingKeys(int key_1, int key_2);
+cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType);

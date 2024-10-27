@@ -45,6 +45,9 @@
 #include <sys/stat.h>
 #endif
 
+#include <sstream>
+#include <regex>
+
 #ifdef UWP
 
 	using namespace Windows::UI::Popups;
@@ -1555,6 +1558,31 @@ namespace UT
 			}
 		}
 		return out;
+	}
+
+	std::vector<std::string> StringSplit(const std::string& s, char delimiter)
+	{
+		std::vector<std::string> tokens;
+		std::string token;
+		std::istringstream tokenStream(s);
+		while (std::getline(tokenStream, token, delimiter))
+		{
+			tokens.push_back(token);
+		}
+		return tokens;
+	}
+
+	bool IsNumber(std::string& s)
+	{
+		//from chatgpt
+		// Remove leading and trailing whitespace and newlines
+		s.erase(std::remove_if(s.begin(), s.end(), [](unsigned char c)
+			{
+				return std::isspace(c);
+			}), s.end());
+
+		// Regex to match a valid number
+		return std::regex_match(s, std::regex("[+-]?([0-9]*[.])?[0-9]+"));
 	}
 
 	std::string ToLower(const std::string& str)

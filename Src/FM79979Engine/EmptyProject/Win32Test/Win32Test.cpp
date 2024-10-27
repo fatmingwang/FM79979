@@ -55,6 +55,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+	int ll = 0;
+	int l1 = ++ll;
+	int l2 = ll++;
 	//auto l_Value1 = offsetof(ImDrawVert, pos);
 	//auto l_Value2 = offsetof(ImDrawVert, uv);
 	//auto l_Value3 = offsetof(ImDrawVert, col);

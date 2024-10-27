@@ -66,6 +66,9 @@
     <ClInclude Include="ThirtyParty\ImGuiBuilder\build_config.h">
       <Filter>ThirtyParty\ImGuiBuilder</Filter>
     </ClInclude>
+    <ClInclude Include="MyGui\MyImGuiUIEditor.h">
+      <Filter>MyGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui_widgets.cpp">
@@ -97,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="ThirtyParty\ImGuiBuilder\build_config.cpp">
       <Filter>ThirtyParty\ImGuiBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGui\MyImGuiUIEditor.cpp">
+      <Filter>MyGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

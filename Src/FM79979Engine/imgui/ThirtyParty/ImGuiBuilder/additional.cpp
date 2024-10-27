@@ -140,7 +140,7 @@ void ImGui::PopAllColorsCustom( )
 	ImGui::PopStyleColor( ImGuiCol_COUNT );
 }
 
-void ImGui::DrawObjBorder( basic_obj obj, float distance_thickness, ImU32 col )
+void ImGui::DrawObjBorder(cMyGuiBasicObj obj, float distance_thickness, ImU32 col )
 {
 	DrawObjBorder( obj.GetWorldPosition(), obj.m_vSizeObj, distance_thickness, col);
 }

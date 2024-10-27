@@ -107,8 +107,11 @@ namespace UT
 	std::wstring			CharToWchar(std::string	e_strChar);
 	std::wstring			UTF8ToWchar(const char* e_str);
 
-	std::string ToLower(const std::string& str);
-	std::wstring ToLower(const std::wstring& str);
+	std::vector<std::string> StringSplit(const std::string& s, char delimiter);
+	bool					IsNumber(std::string& s);
+
+	std::string				ToLower(const std::string& str);
+	std::wstring			ToLower(const std::wstring& str);
 
 	//a vector contain a bunch data,now input a index it is possible bigger than last index or smaller 0,
 	//so we have to find the proper one if we want it be loop
