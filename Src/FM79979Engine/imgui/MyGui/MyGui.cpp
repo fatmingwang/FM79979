@@ -10,6 +10,22 @@ cImGuiNode::~cImGuiNode()
 	DeleteObjectAndAllChildren(this);
 }
 
+void cImGuiNode::HierachyPositionRender()
+{
+	static ImVec2 l_vsMaxWindowSize(9999, 9999);
+	ImVec2 l_vPos = this->GetLocalPosition();
+	//auto l_pParent = this->GetParent();
+	//if (!l_pParent)
+	//{
+	//	ImGui::SetNextWindowPos(l_vPos);
+	//}
+	//else
+	{
+		ImGui::SetCursorPos(l_vPos);
+		ImGui::BeginChild("", l_vsMaxWindowSize, false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	}
+}
+
 void cImGuiNode::SetCachedWorldTransformDirty()
 {
 	if (!m_bPosDirty)
@@ -85,189 +101,16 @@ void cImGuiNode::SetParent(cImGuiNode* e_pParent, int e_iIndex)
 
 void cImGuiNode::Render()
 {
-	//// set pos for next obj render
-	//ImGui::SetCursorPos(this->GetLocalPosition());
-	////ImGui::GetCursorScreenPos();
-
-
-
-	//	// previous object, before rendering the others
-	//	for (auto new_id = obj.id - 1; new_id < m_objs.size(); ++new_id)
-	//	{
-	//		m_objs[new_id].id = new_id;
-	//		//std::cout << obj_render_me[new_id].id << std::endl;
-	//	}
-	//	return; //not to render the object
-	//}
-
-	//// To type any obj for render set in case
-	//// to render all obj for 1 time in loop
-
-	//// buffer for inputs
-	//std::string		buffer = "text here";
-	//int				value_i = 0;
-	//float			value_f = 0;
-	//static bool		true_bool = false;
-	//auto			normal_select = (m_current_item == (obj.name + ":" + std::to_string(obj.id)));
-
-
-	//auto relative_for_resize = [](basic_obj& obj) -> float
-	//	{
-	//		auto& g = *GImGui;
-	//		auto* window = g.CurrentWindow;
-	//		const auto& style = g.Style;
-	//		const auto	id = window->GetID(obj.name.c_str());
-	//		const auto	label_size = ImGui::CalcTextSize(obj.name.c_str(), nullptr, true);
-	//		const auto	frame_size = ImGui::CalcItemSize(ImVec2(0, 0), ImGui::CalcItemWidth(), (label_size.y) + style.FramePadding.y * 2.0f);
-	//		const auto	label_dif = (label_size.x > 0.0f ? style.ItemInnerSpacing.x + label_size.x : 0.0f);
-	//		if (obj.size.x == 0.f && obj.size.y == 0.f)
-	//			obj.size = ImVec2(frame_size.x + label_dif, frame_size.y);
-	//		return obj.size.x - label_dif;
-	//	};
-
-	//// render obj
-	//switch (obj.my_type)
-	//{
-	//case eMyImGuiType::eMIGT_BUTTON:
-	//	ImGui::Button(obj.name.c_str(), obj.size);
-	//	break;
-	//case eMIGT_LABEL:
-	//	ImGui::Text(obj.name.c_str());
-	//	break;
-	//case eMIGT_EDIT:
-	//{
-	//	ImGui::PushItemWidth(relative_for_resize(obj));
-	//	ImGui::InputText(obj.name.c_str(), const_cast<char*>(buffer.c_str()), 254);
-	//	ImGui::PopItemWidth();
-	//	break;
-	//}
-	//case eMIGT_SLIDER_I:
-	//{
-	//	ImGui::PushItemWidth(relative_for_resize(obj));
-	//	ImGui::SliderInt(obj.name.c_str(), &value_i, 0, 100);
-	//	ImGui::PopItemWidth();
-	//	break;
-	//}
-	//case eMIGT_SLIDER_F:
-	//{
-	//	ImGui::PushItemWidth(relative_for_resize(obj));
-	//	ImGui::SliderFloat(obj.name.c_str(), &value_f, 0, 100);
-	//	ImGui::PopItemWidth();
-	//	break;
-	//}
-	//case eMIGT_CHECKBOX:
-	//	ImGui::Checkbox(obj.name.c_str(), &true_bool);
-
-	//	break;
-	//case eMIGT_RADIO:
-	//	ImGui::RadioButton(obj.name.c_str(), true_bool);
-
-	//	break;
-	//case eMIGT_TOOGLE:
-	//	ImGui::ToggleButton(obj.name.c_str(), &true_bool);
-
-	//	break;
-	//default:
-	//	break;
-	//}
-	//obj.size_obj = ImGui::GetItemRectSize();
-
-	//bool scrollEnableY = ImGui::GetScrollMaxY() > 0.f;
-
-	//auto scrollPosY = ImGui::GetScrollY();
-
-	//ImVec2 oldPos = obj.pos;
-
-	//if (scrollEnableY)
-	//{
-	//	obj.pos.y -= scrollPosY;
-	//}
-
-	//if ((obj.selected || normal_select) && current_form_id == m_active_window_id)
-	//{
-	//	ImGui::DrawObjBorder(obj);
-	//}
-
-	//// get size and hover of object
-	////obj.hover		= ImGui::IsItemHovered( );
-	//obj.hover = my_IsItemHovered(obj.pos, obj.size_obj, 5.f);
-
-	//// Set family and type child etc for propri and execution modification on type
-	//auto left_clicked = ImGui::IsMouseClicked(0, false);
-	//auto right_clicked = ImGui::IsMouseClicked(1, false);
-	//auto show_context = normal_select;
-	//if (obj.hover && (left_clicked || right_clicked) && show_context == false)
-	//{
-	//	show_context = !left_clicked;
-	//	if (GetKeyState(VK_CONTROL) & 0x8000)
-	//		obj.selected = !obj.selected;
-	//	else
-	//	{
-	//		for (auto& o_obj : m_objs)
-	//			o_obj.selected = false;
-	//	}
-
-	//	m_current_item = obj.name + ':' + std::to_string(obj.id);
-	//	m_family = obj.form;
-	//	m_grandchild = obj.child;
-	//	m_index = obj.id;
-	//	m_type = obj.my_type;
-	//}
-
-	//ImGui::PushAllColorsDark(m_dark_style);
-
-	//if (show_context && ImGui::BeginPopupContextItem("##obj_context"))
-	//{
-	//	//style.ButtonTextAlign
-	//	auto& g = *GImGui;
-	//	auto backup1_y = g.Style.ButtonTextAlign.y;
-	//	auto backup2_y = g.Style.FramePadding.y;
-	//	g.Style.FramePadding.y = -1.3f;
-	//	g.Style.ButtonTextAlign.y = 0.f;
-	//	ImVec2 btn_size = { 60.f, 12.f };
-	//	if (ImGui::Button("delete", btn_size))
-	//	{
-	//		obj.delete_me = true;
-	//		m_current_item = "";
-	//		m_type = -1;
-	//	}
-	//	if (ImGui::Button("copy", btn_size))
-	//	{
-	//		copy_obj((eMyImGuiType)obj.my_type, obj.child, obj.size, obj.pos, false, false, true);
-	//	}
-	//	ImGui::Checkbox("lock", &obj.locked);
-	//	g.Style.ButtonTextAlign.y = backup1_y;
-	//	g.Style.FramePadding.y = backup2_y;
-	//	ImGui::EndPopup();
-	//}
-
-	//ImGui::PopAllColorsCustom();
-
-	//if (obj.hover)
-	//	SetCursor(this->cursor.m_arrow_all);
-
-	//obj.pos = oldPos;
-
-	//resize_obj(obj, normal_select);
-	ImVec2 l_vPos = this->GetLocalPosition();
-	auto l_pParent = this->GetParent();
-	if (!l_pParent)
-	{
-		ImGui::SetNextWindowPos(l_vPos);
-	}
-	else
-	{
-		ImGui::SetCursorPos(l_vPos);
-	}
 	this->InternalRender();
 	for (auto l_Child : this->m_ChildNodeVector)
 	{
 		l_Child->Render();
 	}
 	EndRender();
-	if (!l_pParent)
+	bool l_bRenderBorder = false;
+	if (l_bRenderBorder)
 	{
-		ImGui::SetNextWindowPos(l_vPos);
+		//ImGui::GetWindowDrawList()->AddRect(vMin, vMax, col, 0.f, 15, 0.01f);
 	}
 }
 
@@ -329,4 +172,77 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 			break;
 	}
 	return l_pObject;
+}
+
+float relative_for_resize(cMyGuiBasicObj & obj)
+{
+	//auto& g = *GImGui;
+	//auto* window = g.CurrentWindow;
+	//const auto& style = g.Style;
+	//const auto	id = window->GetID(obj.name.c_str());
+	//const auto	label_size = ImGui::CalcTextSize(obj.name.c_str(), nullptr, true);
+	//const auto	frame_size = ImGui::CalcItemSize(ImVec2(0, 0), ImGui::CalcItemWidth(), (label_size.y) + style.FramePadding.y * 2.0f);
+	//const auto	label_dif = (label_size.x > 0.0f ? style.ItemInnerSpacing.x + label_size.x : 0.0f);
+	//if (obj.size.x == 0.f && obj.size.y == 0.f)
+	//	obj.size = ImVec2(frame_size.x + label_dif, frame_size.y);
+	//return obj.size.x - label_dif;
+	return 0.f;
+};
+
+void cMyGuiPanel::InternalRender()
+{
+}
+
+void cMyGuiForm::InternalRender()
+{
+}
+
+void cMyGuiToogle::InternalRender()
+{
+	//ImGui::ToggleButton(obj.name.c_str(), &true_bool);
+}
+
+void cMyGuiRadio::InternalRender()
+{
+	//ImGui::RadioButton(obj.name.c_str(), true_bool);
+}
+
+void cMyGuiCheckBox::InternalRender()
+{
+	//ImGui::Checkbox(obj.name.c_str(), &true_bool);
+}
+
+void cMyGuiSliderFloatValue::InternalRender()
+{
+	//ImGui::PushItemWidth(relative_for_resize(obj));
+	//ImGui::SliderFloat(obj.name.c_str(), &value_f, 0, 100);
+	//ImGui::PopItemWidth();
+}
+
+void cMyGuiSliderInteger::InternalRender()
+{
+	//ImGui::PushItemWidth(relative_for_resize(obj));
+	//ImGui::SliderInt(obj.name.c_str(), &value_i, 0, 100);
+	//ImGui::PopItemWidth();
+}
+
+void cMyGuiEditBox::InternalRender()
+{
+	//ImGui::PushItemWidth(relative_for_resize(obj));
+	//ImGui::InputText(obj.name.c_str(), const_cast<char*>(buffer.c_str()), 254);
+	//ImGui::PopItemWidth();
+}
+
+void cMyGuiLabel::InternalRender()
+{
+	//ImGui::Text(obj.name.c_str());
+}
+
+void cMyGuiButton::InternalRender()
+{
+	//ImGui::Button(obj.name.c_str(), obj.size);
+}
+
+void cMyGuiNode::InternalRender()
+{
 }

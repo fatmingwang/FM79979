@@ -145,6 +145,46 @@ void	ShowMyGUIDebugInfo()
 // Variables for text box
 char inputText[256] = "";
 
+void	MyImGuiTesting()
+{
+	// Begin the parent window
+	ImGui::Begin("Parent Window", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+
+	ImGui::Text("This is the parent window.");
+
+	static bool l_sbShow = false;
+	// Create a button
+	if (ImGui::Button("Add Child Window"))
+	{
+		l_sbShow = !l_sbShow;
+	}
+	if (l_sbShow)
+	{
+		ImVec2 l_vPanelPos(50, 50);
+		ImGui::SetCursorPos(l_vPanelPos);
+		// When the button is clicked, create the child window
+		ImGui::BeginChild("Child Window", ImVec2(300, 200), true);
+		ImVec2 l_vPos1(10 + l_vPanelPos.x, 10 + l_vPanelPos.y);
+		ImGui::SetCursorPos(l_vPos1);  // Local position relative to the child window's content area
+		ImGui::Text("222This is the first child window.");
+		// Set the cursor position inside the child window to (50, 50)
+		ImVec2 l_vPos2(20 + l_vPanelPos.x, 20 + l_vPanelPos.y);
+		ImGui::SetCursorPos(l_vPos2);  // Local position relative to the child window's content area
+			// Create another nested child window inside the first child window
+			ImGui::BeginChild("Nested Child Window", ImVec2(1000, 1000), false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+			// Push a very large clipping rectangle (effectively disables clipping)
+			//ImGui::PushClipRect(ImVec2(-FLT_MAX, -FLT_MAX), ImVec2(FLT_MAX, FLT_MAX), true);
+			ImGui::SetCursorPos(ImVec2(10, 10));
+			ImGui::Text("111This is the nested child window positioned at (50, 50) inside the first child.");
+			//ImGui::PopClipRect();  // Restore clipping to normal
+			ImGui::EndChild();  // End the nested child window
+
+		ImGui::EndChild();  // End the first child window
+	}
+
+	ImGui::End();  // End the parent window
+}
+
 void MyImGuiTest()
 {
 	auto io = ImGui::GetIO();
@@ -162,6 +202,7 @@ void MyImGuiTest()
 	if (show_demo_window)
 		ImGui::ShowDemoWindow(&show_demo_window);
 	//2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
+	if(0)
 	{
 		static float f = 0.0f;
 		static int counter = 0;
@@ -190,6 +231,7 @@ void MyImGuiTest()
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 		ImGui::End();
 	}
+	MyImGuiTesting();
 	//MyCustomClippingWindow();// 
 	// Rendering
 	ImGui::Render();

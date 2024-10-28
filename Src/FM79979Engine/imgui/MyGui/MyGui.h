@@ -36,6 +36,7 @@ enum class resize_opt
 
 class cImGuiNode
 {
+	void						HierachyPositionRender();
 	virtual	void				EndRender(){}
 	virtual	void				InternalRender(){}
 	bool						m_bPosDirty = false;
@@ -95,55 +96,55 @@ public:
 
 class cMyGuiNode :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 };
 
 class cMyGuiButton :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 };
 
 class cMyGuiLabel :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 };
 
 class cMyGuiEditBox :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 };
 
 class cMyGuiSliderInteger :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 };
 
 class cMyGuiSliderFloatValue :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 };
 
 class cMyGuiCheckBox :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 };
 
 class cMyGuiRadio :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 };
 
 class cMyGuiToogle:public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 	bool		border = true;
 
@@ -151,14 +152,14 @@ public:
 
 class cMyGuiForm :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 
 };
 
 class cMyGuiPanel :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender() {}
+	virtual	void				InternalRender();
 public:
 
 };
