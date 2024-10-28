@@ -1,4 +1,6 @@
 #pragma once
+
+#include "../../Core/AllCommonInclude.h"
 #include "../imgui.h"
 #include <vector>
 #include <string>
@@ -34,21 +36,22 @@ enum class resize_opt
 };
 
 
-class cImGuiNode
+class cImGuiNode:public NamedTypedObject
 {
 	void						HierachyPositionRender();
-	virtual	void				EndRender(){}
-	virtual	void				InternalRender(){}
+	virtual	void				EndRender() = 0;
+	virtual	void				InternalRender() = 0;
 	bool						m_bPosDirty = false;
 	ImVec2						m_vLocalPos = { 0, 0 };
 	ImVec2						m_vWorldPos = { 0, 0 };
 	void						SetCachedWorldTransformDirty();
 	void						UpdateCachedWorldTransformIfNeeded();
 	cImGuiNode*					m_pParent;
+	std::vector<cImGuiNode*>	m_ChildNodeVector;
 public:
+	DEFINE_TYPE_INFO();
 	cImGuiNode();
 	~cImGuiNode();
-	std::vector<cImGuiNode*>	m_ChildNodeVector;
 	int							m_iID = 0;
 	std::string					m_strName = "Node";
 	eMyImGuiType				m_eType = eMIGT_NODE;
@@ -56,8 +59,10 @@ public:
 	void						SetLocalPosition(const ImVec2& vLocalPos);
 	ImVec2						GetWorldPosition();
 	//-1 to last one
-	void						SetParent(cImGuiNode* e_pParent,int e_iIndex = -1);
+	void						SetParent(cImGuiNode* e_pParent,int e_iChildIndex = -1);
 	cImGuiNode*					GetParent(){return this->m_pParent;};
+	void						AddChild(cImGuiNode* e_pChild, int e_iChildIndex = -1);
+	bool						SwapChild(int e_iIndex1, int e_iIndex2);
 	void						Render();// = 0;
 	static void					DeleteObjectAndAllChildren(cImGuiNode*e_pImGuiNode);
 };
@@ -74,12 +79,13 @@ public:
 
 class cMyGuiBasicObj:public cImGuiNode,public cMyGuiMouseMovingData
 {
+	virtual	void				EndRender(){}
 	virtual	void				InternalRender(){}
 public:
 	ImVec2		m_vSize = {0,0 };
 	ImVec2		m_vPos = { 0,0 };
 	ImVec2		m_vSizeObj = {0,0 };
-	void		RenderProperty();
+	virtual void				RenderProperty() = 0;
 };
 
 //eMIGT_NODE = 0,
@@ -96,73 +102,93 @@ public:
 
 class cMyGuiNode :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 class cMyGuiButton :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 class cMyGuiLabel :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 class cMyGuiEditBox :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 class cMyGuiSliderInteger :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 class cMyGuiSliderFloatValue :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 class cMyGuiCheckBox :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 class cMyGuiRadio :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 class cMyGuiToogle:public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
+	DEFINE_TYPE_INFO();
 	bool		border = true;
+	virtual void		RenderProperty()override;
 
 };
 
 class cMyGuiForm :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
-
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 class cMyGuiPanel :public cMyGuiBasicObj
 {
-	virtual	void				InternalRender();
+	virtual	void		InternalRender()override;
 public:
-
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
 };
 
 
-cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType);
+cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pParent);

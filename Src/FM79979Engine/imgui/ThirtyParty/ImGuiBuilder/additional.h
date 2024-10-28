@@ -13,5 +13,5 @@ namespace ImGui
 	bool InputTextEx( const char* label, std::string* str, ImGuiInputTextFlags flags );
 	//draw selected border
 	void DrawObjBorder( ImVec2 obj_pos, ImVec2 obj_size, float distance_thickness = 5.f, ImU32 col = IM_COL32( 255, 255, 0, 255 ) );
-	void DrawObjBorder(cMyGuiBasicObj obj, float distance_thickness = 5.f, ImU32 col = IM_COL32( 255, 255, 0, 255 ) );
+	void DrawObjBorder(cMyGuiBasicObj* obj, float distance_thickness = 5.f, ImU32 col = IM_COL32( 255, 255, 0, 255 ) );
 }

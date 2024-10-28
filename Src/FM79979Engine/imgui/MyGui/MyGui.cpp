@@ -1,6 +1,19 @@
 #include "MyGui.h"
 #include "../../Core/AllCoreInclude.h"
 using namespace	FATMING_CORE;
+TYPDE_DEFINE_MARCO(cImGuiNode);
+TYPDE_DEFINE_MARCO(cMyGuiNode);
+TYPDE_DEFINE_MARCO(cMyGuiButton);
+TYPDE_DEFINE_MARCO(cMyGuiLabel);
+TYPDE_DEFINE_MARCO(cMyGuiEditBox);
+TYPDE_DEFINE_MARCO(cMyGuiSliderInteger);
+TYPDE_DEFINE_MARCO(cMyGuiSliderFloatValue);
+TYPDE_DEFINE_MARCO(cMyGuiCheckBox);
+TYPDE_DEFINE_MARCO(cMyGuiRadio);
+TYPDE_DEFINE_MARCO(cMyGuiToogle);
+TYPDE_DEFINE_MARCO(cMyGuiForm);
+TYPDE_DEFINE_MARCO(cMyGuiPanel);
+
 cImGuiNode::cImGuiNode()
 {
 }
@@ -70,7 +83,7 @@ ImVec2 cImGuiNode::GetWorldPosition()
 	return m_vWorldPos;
 }
 
-void cImGuiNode::SetParent(cImGuiNode* e_pParent, int e_iIndex)
+void cImGuiNode::SetParent(cImGuiNode* e_pParent, int e_iChildIndex)
 {
 	if (this->m_pParent)
 	{
@@ -87,16 +100,34 @@ void cImGuiNode::SetParent(cImGuiNode* e_pParent, int e_iIndex)
 	this->m_pParent = e_pParent;
 	if (this->m_pParent)
 	{
-		if (e_iIndex == -1)
+		if (e_iChildIndex == -1)
 		{
 			this->m_pParent->m_ChildNodeVector.push_back(this);
 		}
 		else
 		{
-			this->m_pParent->m_ChildNodeVector.insert(this->m_pParent->m_ChildNodeVector.begin() + e_iIndex, this);
+			this->m_pParent->m_ChildNodeVector.insert(this->m_pParent->m_ChildNodeVector.begin() + e_iChildIndex, this);
 		}
 		
 	}
+}
+
+void cImGuiNode::AddChild(cImGuiNode* e_pChild, int e_iChildIndex)
+{
+	e_pChild->SetParent(this, e_iChildIndex);
+}
+
+bool cImGuiNode::SwapChild(int e_iIndex1, int e_iIndex2)
+{
+	if (e_iIndex2 < m_ChildNodeVector.size() && e_iIndex1 >=0 && e_iIndex1 != e_iIndex2)
+	{
+		auto l_pChild1 = m_ChildNodeVector[e_iIndex1];
+		auto l_pChild2 = m_ChildNodeVector[e_iIndex2];
+		m_ChildNodeVector[e_iIndex1] = l_pChild2;
+		m_ChildNodeVector[e_iIndex2] = l_pChild1;
+		return true;
+	}
+	return false;
 }
 
 void cImGuiNode::Render()
@@ -132,48 +163,6 @@ void cMyGuiBasicObj::RenderProperty()
 {
 }
 
-cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
-{
-	cMyGuiBasicObj* l_pObject = nullptr;
-	switch (e_eMyImGuiType)
-	{
-		case	eMIGT_NODE:
-			l_pObject = new cMyGuiNode();
-			break;
-		case	eMIGT_BUTTON:
-			l_pObject = new cMyGuiButton();
-			break;
-		case	eMIGT_LABEL:
-			l_pObject = new cMyGuiLabel();
-			break;
-		case	eMIGT_EDIT_BOX:
-			l_pObject = new cMyGuiEditBox();
-			break;
-		case	eMIGT_SLIDER_I:
-			l_pObject = new cMyGuiSliderInteger();
-			break;
-		case	eMIGT_SLIDER_F:
-			l_pObject = new cMyGuiSliderFloatValue();
-			break;
-		case	eMIGT_CHECKBOX:
-			l_pObject = new cMyGuiCheckBox();
-			break;
-		case	eMIGT_RADIO:
-			l_pObject = new cMyGuiRadio();
-			break;
-		case	eMIGT_TOOGLE:
-			l_pObject = new cMyGuiToogle();
-			break;
-		case	eMIGT_FORM:
-			l_pObject = new cMyGuiForm();
-			break;//9
-		case	eMIGT_PANEL:
-			l_pObject = new cMyGuiPanel();
-			break;
-	}
-	return l_pObject;
-}
-
 float relative_for_resize(cMyGuiBasicObj & obj)
 {
 	//auto& g = *GImGui;
@@ -193,13 +182,25 @@ void cMyGuiPanel::InternalRender()
 {
 }
 
+void cMyGuiPanel::RenderProperty()
+{
+}
+
 void cMyGuiForm::InternalRender()
+{
+}
+
+void cMyGuiForm::RenderProperty()
 {
 }
 
 void cMyGuiToogle::InternalRender()
 {
 	//ImGui::ToggleButton(obj.name.c_str(), &true_bool);
+}
+
+void cMyGuiToogle::RenderProperty()
+{
 }
 
 void cMyGuiRadio::InternalRender()
@@ -245,4 +246,48 @@ void cMyGuiButton::InternalRender()
 
 void cMyGuiNode::InternalRender()
 {
+}
+
+
+cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pParent)
+{
+	cMyGuiBasicObj* l_pObject = nullptr;
+	switch (e_eMyImGuiType)
+	{
+	case	eMIGT_NODE:
+		l_pObject = new cMyGuiNode();
+		break;
+	case	eMIGT_BUTTON:
+		l_pObject = new cMyGuiButton();
+		break;
+	case	eMIGT_LABEL:
+		l_pObject = new cMyGuiLabel();
+		break;
+	case	eMIGT_EDIT_BOX:
+		l_pObject = new cMyGuiEditBox();
+		break;
+	case	eMIGT_SLIDER_I:
+		l_pObject = new cMyGuiSliderInteger();
+		break;
+	case	eMIGT_SLIDER_F:
+		l_pObject = new cMyGuiSliderFloatValue();
+		break;
+	case	eMIGT_CHECKBOX:
+		l_pObject = new cMyGuiCheckBox();
+		break;
+	case	eMIGT_RADIO:
+		l_pObject = new cMyGuiRadio();
+		break;
+	case	eMIGT_TOOGLE:
+		l_pObject = new cMyGuiToogle();
+		break;
+	case	eMIGT_FORM:
+		l_pObject = new cMyGuiForm();
+		break;//9
+	case	eMIGT_PANEL:
+		l_pObject = new cMyGuiPanel();
+		break;
+	}
+	//e_pParent->add
+	return l_pObject;
 }

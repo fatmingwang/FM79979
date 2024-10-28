@@ -181,7 +181,7 @@ void	MyImGuiTesting()
 
 		ImGui::EndChild();  // End the first child window
 	}
-
+	//ImGui::GetWindowDrawList()->AddRect(ImVec2(100,100), ImVec2(500, 500), IM_COL32(255, 255, 0, 255), 0.f, 15, 0.01f);
 	ImGui::End();  // End the parent window
 }
 

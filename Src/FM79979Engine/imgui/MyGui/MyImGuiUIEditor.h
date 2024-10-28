@@ -36,6 +36,7 @@ class cMyImGuiUIEditor
 public:
 	cMyImGuiUIEditor();
 	~cMyImGuiUIEditor();
+	void			Render();
 
 };
 

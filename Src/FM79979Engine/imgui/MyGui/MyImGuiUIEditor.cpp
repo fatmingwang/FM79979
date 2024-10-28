@@ -124,6 +124,10 @@ cMyImGuiUIEditor::cMyImGuiUIEditor()
 {
 }
 
+void cMyImGuiUIEditor::Render()
+{
+}
+
 
 //Move obj with cursor
 
