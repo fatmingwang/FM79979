@@ -20,7 +20,6 @@ extern void	SampleMouseDown(int e_iPosX,int e_iPosY);
 extern void	SampleMouseMove(int e_iPosX,int e_iPosY);
 extern void	SampleMouseUp(int e_iPosX,int e_iPosY);
 extern void	SampleKeyup(char e_cKey);
-bool g_bUseIMGUI = true;
 
 #if defined(ANDROID)
 cEngineTestApp::cEngineTestApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil ):cGameApp(e_pActivity,e_pThreadEnv,e_pAppThreadThis,e_vGameResolution,e_vViewportSize,e_pNvEGLUtil)
@@ -41,10 +40,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
-	if (g_bUseIMGUI)
-	{
-		cMyImGuiMenu::Init();
-	}
+	cMyImGuiTesting::Init();
 }
 
 cEngineTestApp::~cEngineTestApp()
@@ -96,11 +92,8 @@ void	cEngineTestApp::Render()
 	MyGLEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
-	if (g_bUseIMGUI)
-	{
-		MyImGuiTest();
-	}
-	//cGameApp::ShowInfo();
+	cMyImGuiTesting::Render();
+	cGameApp::ShowInfo();
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 #endif

@@ -701,7 +701,7 @@ namespace	FATMING_CORE
 		if (cGameApp::m_spGlyphFontRender)
 		{
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1, 1, 0, 1));
-			int	l_iStaryPosY = 0;
+			int	l_iStaryPosY = 500;
 			wchar_t   l_str[MAX_PATH];
 			swprintf(l_str, MAX_PATH, L"MousePos:%d,%d", cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y);
 			cGameApp::m_spGlyphFontRender->RenderFont(0, l_iStaryPosY, l_str);

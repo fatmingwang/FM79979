@@ -71,21 +71,22 @@ public:
 class cMyGuiMouseMovingData
 {
 public:
-	bool		change_pos = false;
-	bool		hover = false;
-	bool		selected = false;
-	bool		locked = false;
+	bool		m_ChangePos = false;
+	bool		m_bHover = false;
+	bool		m_bSelected = false;
+	bool		m_bLocked = false;
 };
 
 class cMyGuiBasicObj:public cImGuiNode,public cMyGuiMouseMovingData
 {
 	virtual	void				EndRender(){}
 	virtual	void				InternalRender(){}
+	virtual void				RenderBaseProperty();
 public:
-	ImVec2		m_vSize = {0,0 };
-	ImVec2		m_vPos = { 0,0 };
-	ImVec2		m_vSizeObj = {0,0 };
-	virtual void				RenderProperty() = 0;
+	ImVec2						m_vSize = {0,0 };
+	ImVec2						m_vPos = { 0,0 };
+	ImVec2						m_vSizeObj = {0,0 };
+	virtual void				RenderProperty();
 };
 
 //eMIGT_NODE = 0,
@@ -105,7 +106,7 @@ class cMyGuiNode :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
-	virtual void		RenderProperty()override;
+	//virtual void		RenderProperty()override;
 };
 
 class cMyGuiButton :public cMyGuiBasicObj
@@ -113,7 +114,7 @@ class cMyGuiButton :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
-	virtual void		RenderProperty()override;
+	//virtual void		RenderProperty()override;
 };
 
 class cMyGuiLabel :public cMyGuiBasicObj
@@ -121,7 +122,7 @@ class cMyGuiLabel :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
-	virtual void		RenderProperty()override;
+	//virtual void		RenderProperty()override;
 };
 
 class cMyGuiEditBox :public cMyGuiBasicObj
@@ -129,7 +130,7 @@ class cMyGuiEditBox :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
-	virtual void		RenderProperty()override;
+	//virtual void		RenderProperty()override;
 };
 
 class cMyGuiSliderInteger :public cMyGuiBasicObj
@@ -137,7 +138,7 @@ class cMyGuiSliderInteger :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
-	virtual void		RenderProperty()override;
+	//virtual void		RenderProperty()override;
 };
 
 class cMyGuiSliderFloatValue :public cMyGuiBasicObj
@@ -145,7 +146,7 @@ class cMyGuiSliderFloatValue :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
-	virtual void		RenderProperty()override;
+	//virtual void		RenderProperty()override;
 };
 
 class cMyGuiCheckBox :public cMyGuiBasicObj
@@ -153,7 +154,7 @@ class cMyGuiCheckBox :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
-	virtual void		RenderProperty()override;
+	//virtual void		RenderProperty()override;
 };
 
 class cMyGuiRadio :public cMyGuiBasicObj
@@ -161,7 +162,7 @@ class cMyGuiRadio :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
-	virtual void		RenderProperty()override;
+	//virtual void		RenderProperty()override;
 };
 
 class cMyGuiToogle:public cMyGuiBasicObj

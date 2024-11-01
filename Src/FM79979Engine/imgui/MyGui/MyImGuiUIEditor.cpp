@@ -2,6 +2,7 @@
 #ifdef WIN32
 #include "../../Core/AllCoreInclude.h"
 #include "../ThirtyParty/FileDialog/ImGuiFileDialog.h"
+#include "../ImGuiRender.h"
 
 //cursor
 struct sMouseCursor
@@ -120,12 +121,105 @@ void cMyImGuiUIEditor::RenderRootNodeTree()
 {
 }
 
+void cMyImGuiUIEditor::RenderMenu()
+{
+	ImGui::SetNextWindowSize({ static_cast<float>(1280 - 16) + 1000, (float)250 });
+	ImGui::SetNextWindowPos({ 0, 0 });
+	ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	if (ImGui::BeginMenuBar())
+	{
+
+		if (ImGui::BeginMenu("Project"))
+		{
+			if (ImGui::MenuItem("Save"))
+			{
+				//ImGuiFileDialog::Instance()->OpenDialog("SaveProjectFileDlgKey", "Save File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
+			}
+
+			if (ImGui::MenuItem("Open"))
+			{
+				//ImGuiFileDialog::Instance()->OpenDialog("OpenProjectFileDlgKey", "Open File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
+			}
+
+			if (ImGui::MenuItem("Generate Code"))
+			{
+				//ImGuiFileDialog::Instance()->OpenDialog("GenCodeProjectFileDlgKey", "Open File", ".cpp,.h,.hpp", RegeditGetPath("ImGuiBuilderPath"), "imgui_builder");
+			}
+
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Editor"))
+		{
+			if (ImGui::MenuItem("Color"))
+			{
+				//m_color_menu = !m_color_menu;
+			}
+
+			if (ImGui::MenuItem("Style"))
+			{
+				//m_style_menu = !m_style_menu;
+			}
+
+			if (ImGui::MenuItem("Font"))
+			{
+				//m_font_menu = !m_font_menu;
+			}
+
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+	ImGui::End();
+}
+
+void cMyImGuiUIEditor::RenderDebugInfo()
+{
+	int	l_iOpenGLViewportX = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+	int	l_iOpenGLViewportY = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+	int fb_width = (int)(ImGui::GetDrawData()->DisplaySize.x * ImGui::GetDrawData()->FramebufferScale.x);
+	int fb_height = (int)(ImGui::GetDrawData()->DisplaySize.y * ImGui::GetDrawData()->FramebufferScale.y);
+#ifdef WASM
+	int l_iBrowserWidth = EMSDK::EMSDK_GetBrowserWidth();
+	int l_iBrowserHeight = EMSDK::EMSDK_GetBrowserHeight();
+	int	l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
+	int	l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
+	int	l_iCanvasPosX = EMSDK::EMSDK_GetCanvasPosX();
+	int	l_iCanvasPosY = EMSDK::EMSDK_GetCanvasPosY();
+	int windowWidth, windowHeight;
+	emscripten_get_canvas_element_size("#canvas", &windowWidth, &windowHeight);
+
+	cGameApp::RenderFont(0, 300, UT::ComposeMsgByFormat(L"FBSize:%d,:%d\nBrowserSize:%d,%d\nCavansSize:%d,%d\nCanvasPos:%d,%d\nOpenGLViewport:%d,%d\nEMSCanvans:%d,%d",
+		fb_width, fb_height,
+		l_iBrowserWidth, l_iBrowserHeight,
+		l_iViewportWidth, l_iViewportHeight,
+		l_iCanvasPosX, l_iCanvasPosY,
+		l_iOpenGLViewportX, l_iOpenGLViewportY,
+		windowWidth, windowHeight).c_str());
+#endif
+	cGameApp::RenderFont(0, 300, UT::ComposeMsgByFormat(L"FBSize:%d,:%d\nOpenGLViewport:%d,%d",
+		fb_width, fb_height,
+		l_iOpenGLViewportX, l_iOpenGLViewportY).c_str());
+}
+
 cMyImGuiUIEditor::cMyImGuiUIEditor()
+{
+}
+
+cMyImGuiUIEditor::~cMyImGuiUIEditor()
 {
 }
 
 void cMyImGuiUIEditor::Render()
 {
+#ifdef WIN32
+	ImGui_ImplWin32_NewFrame();
+#elif defined(WASM)
+	ImGui_ImplSDL2_NewFrame();
+#endif
+	ImGui::NewFrame();
+	RenderMenu();
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 

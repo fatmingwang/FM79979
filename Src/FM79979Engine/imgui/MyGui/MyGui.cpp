@@ -1,5 +1,6 @@
 #include "MyGui.h"
 #include "../../Core/AllCoreInclude.h"
+#include "../ThirtyParty/ImGuiBuilder/additional.h"
 using namespace	FATMING_CORE;
 TYPDE_DEFINE_MARCO(cImGuiNode);
 TYPDE_DEFINE_MARCO(cMyGuiNode);
@@ -157,6 +158,42 @@ void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 		}
 		delete e_pImGuiNode;
 	}
+}
+
+void cMyGuiBasicObj::RenderBaseProperty()
+{
+	ImGui::SetNextWindowPos({ 0, (float)500 });
+	ImGui::SetNextWindowSize({ 300, 700 - 100 });
+	ImGui::Begin("property", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus);
+		bool l_my_forms_active = ImGui::IsWindowFocused();
+		std::string l_strName = this->m_strName;
+		ImGui::InputTextEx("Name form", &l_strName, 0);
+		//ImGui::InputText("name form", name, 255);
+		if (ImGui::Button("Apply name"))
+		{
+			if (!this->m_strName.empty())
+			{
+				this->m_strName = l_strName;
+			}
+		}
+		//ImVec2		l_vSize = m_vSize;
+		ImVec2		l_vPos = m_vPos ;
+		//ImVec2		l_vSizeObj = m_vSizeObj;
+		ImGui::InputFloat("SizeX", &m_vSize.x, 1);
+		ImGui::InputFloat("SizeY", &m_vSize.y, 1);
+		ImGui::InputFloat("PosX", &m_vPos.x, 1);
+		ImGui::InputFloat("PosY", &m_vPos.y, 1);
+		if (m_vPos.x!= l_vPos.x || m_vPos.y != l_vPos.y)
+		{
+			this->SetLocalPosition(m_vPos);
+		}
+		bool l_bBorder = false;;
+		bool l_bLock = false;;
+		ImGui::Checkbox("Border", &l_bBorder);
+		ImGui::SameLine();
+		ImGui::Checkbox("Lock", &l_bLock);
+	ImGui::End();
+
 }
 
 void cMyGuiBasicObj::RenderProperty()

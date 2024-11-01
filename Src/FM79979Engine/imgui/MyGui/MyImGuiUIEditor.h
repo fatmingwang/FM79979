@@ -33,9 +33,11 @@ class cMyImGuiUIEditor
 	sMouseCursor*	m_pMouseCursor;
 	void			RenderFileDoalog();
 	void			RenderRootNodeTree();
+	void			RenderMenu();
+	void			RenderDebugInfo();
 public:
 	cMyImGuiUIEditor();
-	~cMyImGuiUIEditor();
+	virtual ~cMyImGuiUIEditor();
 	void			Render();
 
 };
