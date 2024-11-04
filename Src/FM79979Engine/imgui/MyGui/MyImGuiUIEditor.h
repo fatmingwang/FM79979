@@ -35,6 +35,9 @@ class cMyImGuiUIEditor
 	void			RenderRootNodeTree();
 	void			RenderMenu();
 	void			RenderDebugInfo();
+	void			Render1ToolBox();
+	ImGuiStyle				m_dark_style = { };
+	ImGuiStyle				m_custom_gui_style = { };
 public:
 	cMyImGuiUIEditor();
 	virtual ~cMyImGuiUIEditor();

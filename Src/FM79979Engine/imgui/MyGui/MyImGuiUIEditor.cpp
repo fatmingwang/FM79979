@@ -2,6 +2,7 @@
 #ifdef WIN32
 #include "../../Core/AllCoreInclude.h"
 #include "../ThirtyParty/FileDialog/ImGuiFileDialog.h"
+#include "../ThirtyParty/ImGuiBuilder/additional.h"
 #include "../ImGuiRender.h"
 
 //cursor
@@ -201,12 +202,90 @@ void cMyImGuiUIEditor::RenderDebugInfo()
 		l_iOpenGLViewportX, l_iOpenGLViewportY).c_str());
 }
 
+void cMyImGuiUIEditor::Render1ToolBox()
+{
+	ImGui::PushAllColorsDark(m_dark_style);
+	int l_iBuilderWindowHeight = 250;
+	auto width = 1280;
+	ImGui::SetNextWindowSize({ static_cast<float>(width - 16) + 1600, (float)l_iBuilderWindowHeight });
+	ImGui::SetNextWindowPos({ 0, 0 });
+	ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	if (ImGui::Button("New Form"))
+	{
+		//create_form();
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("New Child"))
+	{
+		//create_child();
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("New Button"))
+	{
+		//create_obj(eMyImGuiType::eMIGT_BUTTON);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("New Label"))
+	{
+		//create_obj(eMyImGuiType::eMIGT_LABEL);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("New Text"))
+	{
+		//create_obj(eMyImGuiType::eMIGT_EDIT);
+	}
+	ImGui::SameLine();
+
+	if (ImGui::Button("New Slider Int"))
+	{
+		//create_obj(eMyImGuiType::eMIGT_SLIDER_I);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("New Slider float"))
+	{
+		//create_obj(eMyImGuiType::eMIGT_SLIDER_F);
+	}
+
+	ImGui::SameLine();
+	if (ImGui::Button("New CheckBox"))
+	{
+		//create_obj(eMyImGuiType::eMIGT_CHECKBOX);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("New radio"))
+	{
+		//create_obj(eMyImGuiType::eMIGT_RADIO);
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("New toggle"))
+	{
+		//create_obj(eMyImGuiType::eMIGT_TOOGLE);
+	}
+	//object_property(l_iBuilderWindowHeight);
+	ImGui::PopAllColorsCustom();
+
+	ImGui::PushAllColorsCustom(m_custom_gui_style);
+
+	//show_form();
+
+	ImGui::PopAllColorsCustom();
+
+	ImGui::End();
+}
+
 cMyImGuiUIEditor::cMyImGuiUIEditor()
 {
+	ImGui::StyleColorsDark(&m_dark_style);
+	for (auto i = 0; i < ImGuiCol_COUNT; i++)
+	{
+		m_custom_gui_style.Colors[i] = m_dark_style.Colors[i];
+	}
+	m_pRoot = new cMyGuiForm();
 }
 
 cMyImGuiUIEditor::~cMyImGuiUIEditor()
 {
+	SAFE_DELETE(m_pRoot);
 }
 
 void cMyImGuiUIEditor::Render()
@@ -218,6 +297,11 @@ void cMyImGuiUIEditor::Render()
 #endif
 	ImGui::NewFrame();
 	RenderMenu();
+	Render1ToolBox();
+	if (m_pRoot)
+	{
+		m_pRoot->Render();
+	}
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
