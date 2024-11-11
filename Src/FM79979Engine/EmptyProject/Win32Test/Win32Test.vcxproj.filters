@@ -81,6 +81,9 @@
     <ClCompile Include="..\EngineTest\MyImGui.cpp">
       <Filter>Game\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="GUIForFileTransfer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -126,6 +129,9 @@
       <Filter>ProtoBuf</Filter>
     </ClInclude>
     <ClInclude Include="..\EngineTest\MyImGui.h">
+      <Filter>Game\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIForFileTransfer.h">
       <Filter>Game\ImGui</Filter>
     </ClInclude>
   </ItemGroup>

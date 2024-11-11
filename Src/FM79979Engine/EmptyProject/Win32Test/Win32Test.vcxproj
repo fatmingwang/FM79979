@@ -261,6 +261,7 @@
     </ClCompile>
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="..\EngineTest\WebsocketServer.cpp" />
+    <ClCompile Include="GUIForFileTransfer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">Create</PrecompiledHeader>
@@ -282,6 +283,7 @@
     <ClInclude Include="..\EngineTest\Proto\MessageTest.pb.h" />
     <ClInclude Include="..\EngineTest\TestShader.h" />
     <ClInclude Include="..\EngineTest\WebsocketServer.h" />
+    <ClInclude Include="GUIForFileTransfer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
