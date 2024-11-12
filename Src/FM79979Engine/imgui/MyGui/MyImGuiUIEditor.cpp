@@ -290,20 +290,16 @@ cMyImGuiUIEditor::~cMyImGuiUIEditor()
 
 void cMyImGuiUIEditor::Render()
 {
-#ifdef WIN32
-	ImGui_ImplWin32_NewFrame();
-#elif defined(WASM)
-	ImGui_ImplSDL2_NewFrame();
-#endif
-	ImGui::NewFrame();
+	ImGui_StartFrame();
+
 	RenderMenu();
 	Render1ToolBox();
 	if (m_pRoot)
 	{
 		m_pRoot->Render();
 	}
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+	ImGui_EndFrame();
 }
 
 

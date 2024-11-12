@@ -40,7 +40,6 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
-	cMyImGuiTesting::Init();
 }
 
 cEngineTestApp::~cEngineTestApp()
@@ -60,6 +59,7 @@ void	cEngineTestApp::Init()
 	{
 		g_pNetworkSample->Init();
 	}
+	cMyImGuiTesting::Init();
 	//LoadSample();
 
 	//cGamePhase*l_pGamePhase = new cGamePhase();

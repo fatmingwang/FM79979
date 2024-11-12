@@ -15,14 +15,14 @@
 //a drop box for set target game for use specific version
 //a button to combine 
 
-class cGUIForFileTransfer:NaemdTypedObject
+class cGUIForFileTransfer:NamedTypedObject
 {
 	enum eEnv
 	{
 		eE_DEV = 0,
 		eE_UAT,
 		eE_SIT,
-		eE_FUN,
+		eE_PLAY_FOR_FUN,
 		eE_PROD,
 		eE_MAX
 	};
@@ -43,6 +43,7 @@ class cGUIForFileTransfer:NaemdTypedObject
 	//
 	void							FetchVersionFileList();
 	void							ParseEnvData(const char*e_strFileName);
+	void							RenderMainUI();
 public:
 	cGUIForFileTransfer();
 	virtual ~cGUIForFileTransfer();

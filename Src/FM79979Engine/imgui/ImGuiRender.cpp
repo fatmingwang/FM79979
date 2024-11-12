@@ -252,7 +252,6 @@ bool    ImguiCreateShader()
 bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 {
     ImGuiIO& io = ImGui::GetIO();
-    IMGUI_CHECKVERSION();
     IM_ASSERT(io.BackendRendererUserData == nullptr && "Already initialized a renderer backend!");
     // Setup backend capabilities flags
     ImGui_ImplOpenGL3_Data* l_BS = IM_NEW(ImGui_ImplOpenGL3_Data)();
@@ -303,22 +302,22 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBuffe
 
     // Setup viewport, orthographic projection matrix
     // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right). DisplayPos is (0,0) for single viewport apps.
-    int l_iWindowWidth = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-    int l_iWindowHeight = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
+    float l_fWindowWidth = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+    float l_fWindowHeight = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
     //GL_CALL(glViewport(0, 0, (GLsizei)windowHeight, (GLsizei)windowHeight));
     //GL_CALL(glViewport(cGameApp::m_spOpenGLRender->m_vViewPortSize.x, cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (GLsizei)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (GLsizei)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
     //GL_CALL(glViewport(0, 0, (GLsizei)l_iFrameBufferWidth, (GLsizei)l_iFrameBufferHeight));
     if (!g_bUseMyViewPort)
     {
-        l_iWindowWidth = e_iFrameBufferWidth;
-        l_iWindowHeight = e_iFrameBufferHeight;
+        l_fWindowWidth = (float)e_iFrameBufferWidth;
+        l_fWindowHeight = (float)e_iFrameBufferHeight;
     }
     //float L = draw_data->DisplayPos.x;
     //float R = draw_data->DisplayPos.x + draw_data->DisplaySize.x;
     //float T = draw_data->DisplayPos.y;
     //float B = draw_data->DisplayPos.y + draw_data->DisplaySize.y;
     UseShaderProgram(g_strImGuiShaderName);
-    glEnable2D(l_iWindowWidth, l_iWindowHeight);
+    glEnable2D(l_fWindowWidth, l_fWindowHeight);
     //SetupShaderViewProjectionMatrix((float*)ortho_projection, true);
     FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
     (void)vertex_array_object;
@@ -356,8 +355,8 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
     int l_iFrameBufferHeight = (int)(draw_data->DisplaySize.y * draw_data->FramebufferScale.y);
     if (g_bUseMyViewPort)
     {
-        l_iFrameBufferWidth = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-        l_iFrameBufferHeight = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
+        l_iFrameBufferWidth = (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+        l_iFrameBufferHeight = (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y;
     }
     if (l_iFrameBufferWidth <= 0 || l_iFrameBufferHeight <= 0)
     {
@@ -506,6 +505,22 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
     (void)bd; // Not all compilation paths use this
 }
 
+void ImGui_StartFrame()
+{
+#if defined(WIN32)
+    ImGui_ImplWin32_NewFrame();
+#elif defined(WASM)
+    ImGui_ImplSDL2_NewFrame();
+#endif
+    ImGui::NewFrame();
+}
+
+void ImGui_EndFrame()
+{
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
 
 //=======================
 #ifdef WIN32
@@ -554,8 +569,9 @@ void ImGui_ImplWin32_UpdateKeyboardCodePage()
 
 bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc)
 {
-    ImGuiIO& io = ImGui::GetIO();
     IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
     IM_ASSERT(io.BackendPlatformUserData == nullptr && "Already initialized a platform backend!");
 
     INT64 perf_frequency, perf_counter;
@@ -1350,6 +1366,8 @@ bool ImGui_ImplSDL2_Init(SDL_Window* window)
 bool ImGui_ImplSDL2_Init()
 #endif
 {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
     FMLOG("ImGui_ImplSDL2_Init called");
     ImGuiIO& io = ImGui::GetIO();
     IM_ASSERT(io.BackendPlatformUserData == nullptr && "Already initialized a platform backend!");

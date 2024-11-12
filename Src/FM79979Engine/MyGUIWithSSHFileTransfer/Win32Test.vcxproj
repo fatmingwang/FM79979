@@ -137,7 +137,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;..\EngineTest;..\..\..\include\bt;..\..\ProtoBuffer\protobuf-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;..\EngineTest;..\..\..\include\bt;..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;DEBUG;_HAS_AUTO_PTR_ETC=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -245,75 +245,25 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\EngineTest\ComputerShader.cpp" />
-    <ClCompile Include="..\EngineTest\HappyHttpTest.cpp" />
-    <ClCompile Include="..\EngineTest\JPEGCodingTest.cpp" />
-    <ClCompile Include="..\EngineTest\JSBinding.cpp" />
-    <ClCompile Include="..\EngineTest\MyImGui.cpp" />
-    <ClCompile Include="..\EngineTest\NetworkSample.cpp" />
-    <ClCompile Include="..\EngineTest\Proto\addressbook.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\EngineTest\Proto\MessageTest.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\EngineTest\TestShader.cpp" />
-    <ClCompile Include="..\EngineTest\WebsocketServer.cpp" />
+    <ClCompile Include="GameApp.cpp" />
+    <ClCompile Include="GUIForFileTransfer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\EngineTest\TestPhase.cpp" />
     <ClCompile Include="Win32Test.cpp" />
-    <ClCompile Include="..\EngineTest\GameApp.cpp" />
-    <ClCompile Include="..\EngineTest\Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\EngineTest\ComputerShader.h" />
-    <ClInclude Include="..\EngineTest\ComputerShaderUniform.h" />
-    <ClInclude Include="..\EngineTest\JPEGCodingTest.h" />
-    <ClInclude Include="..\EngineTest\MyImGui.h" />
-    <ClInclude Include="..\EngineTest\NetworkSample.h" />
-    <ClInclude Include="..\EngineTest\Proto\addressbook.pb.h" />
-    <ClInclude Include="..\EngineTest\Proto\MessageTest.pb.h" />
-    <ClInclude Include="..\EngineTest\TestShader.h" />
-    <ClInclude Include="..\EngineTest\WebsocketServer.h" />
+    <ClInclude Include="GameApp.h" />
+    <ClInclude Include="GUIForFileTransfer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="test.h" />
-    <ClInclude Include="..\EngineTest\TestPhase.h" />
-    <ClInclude Include="..\EngineTest\GameApp.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="small.ico" />
-    <Image Include="test.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="test.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\FatmingCollada\FatmingCollada.vcxproj">
-      <Project>{27c4a269-2e08-4644-b3c9-f5090703fa1d}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\FMgltf\FMgltf.vcxproj">
-      <Project>{c8cbf889-95a8-44fa-99fb-feb27989dd7a}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\zlib\zlib.vcxproj">
-      <Project>{c2552b93-40e6-4118-ba99-2a8d500fc597}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\imgui\imgui.vcxproj">
+    <ProjectReference Include="..\imgui\imgui.vcxproj">
       <Project>{84dac78d-00ae-4fe3-aa06-be43606abbfc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ProtoBuffer\VSProject\libprotobuf.vcxproj">
-      <Project>{aa2f9274-a914-3c9d-8fe7-9ed3303ec581}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -321,11 +271,4 @@
     <Import Project="..\packages\websocketpp-mtk.repack.0.7.0-mtk19\build\native\websocketpp-mtk.repack.targets" Condition="Exists('..\packages\websocketpp-mtk.repack.0.7.0-mtk19\build\native\websocketpp-mtk.repack.targets')" />
     <Import Project="..\packages\asio-cppp-latest.1.12.2\build\native\asio-cppp-latest.targets" Condition="Exists('..\packages\asio-cppp-latest.1.12.2\build\native\asio-cppp-latest.targets')" />
   </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\websocketpp-mtk.repack.0.7.0-mtk19\build\native\websocketpp-mtk.repack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\websocketpp-mtk.repack.0.7.0-mtk19\build\native\websocketpp-mtk.repack.targets'))" />
-    <Error Condition="!Exists('..\packages\asio-cppp-latest.1.12.2\build\native\asio-cppp-latest.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\asio-cppp-latest.1.12.2\build\native\asio-cppp-latest.targets'))" />
-  </Target>
 </Project>
