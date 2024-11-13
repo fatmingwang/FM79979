@@ -15,6 +15,13 @@
 #include <emscripten/em_js.h>
 EM_JS(void, ImGui_ImplSDL2_EmscriptenOpenURL, (char const* url), { url = url ? UTF8ToString(url) : null; if (url) window.open(url, '_blank'); });
 #endif
+
+
+#ifdef WIN32
+void     ImGui_ImplWin32_NewFrame();
+#elif defined(WASM)
+void	ImGui_ImplSDL2_NewFrame();
+#endif
 bool g_bUseMyViewPort = true;
 //==========================================================================
 //==========================================================================

@@ -235,9 +235,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 		cNodeISAX	l_NodeISAX;
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 1024.;
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 768.f;
+		wchar_t l_str[666];
+		GetCurrentDirectory(666, l_str);
 		cGameApp::ResoluctionParse("EngineTestSetup.xml");
 		if (cGameApp::m_sbFullScreen)
+		{
 			l_dwFlag = WS_VISIBLE | WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+		}
 		g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height(), NULL, NULL, hInstance, NULL);
 	}
 	else

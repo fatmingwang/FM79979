@@ -14,9 +14,22 @@ TYPDE_DEFINE_MARCO(cMyGuiRadio);
 TYPDE_DEFINE_MARCO(cMyGuiToogle);
 TYPDE_DEFINE_MARCO(cMyGuiForm);
 TYPDE_DEFINE_MARCO(cMyGuiPanel);
+TYPDE_DEFINE_MARCO(cMyGuiComboBox);
+TYPDE_DEFINE_MARCO(cMyGuiListBox);
+
+
+
+//void	cImGuiNode::ApplySize(bool& e_bWidth, bool& e_bHeight)
+//{
+//	if (this->m_vSize.x >= 0)
+//	{
+//		ImGui::PushItemWidth(this->m_vSize.x);
+//	}
+//}
 
 cImGuiNode::cImGuiNode()
 {
+	m_pParent = nullptr;
 }
 
 cImGuiNode::~cImGuiNode()
@@ -38,6 +51,10 @@ void cImGuiNode::HierachyPositionRender()
 		ImGui::SetCursorPos(l_vPos);
 		ImGui::BeginChild("", l_vsMaxWindowSize, false, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	}
+}
+
+void cImGuiNode::EndRender()
+{
 }
 
 void cImGuiNode::SetCachedWorldTransformDirty()
@@ -177,15 +194,15 @@ void cMyGuiBasicObj::RenderBaseProperty()
 			}
 		}
 		//ImVec2		l_vSize = m_vSize;
-		ImVec2		l_vPos = m_vPos ;
+		ImVec2		l_vPos = GetLocalPosition();
 		//ImVec2		l_vSizeObj = m_vSizeObj;
 		ImGui::InputFloat("SizeX", &m_vSize.x, 1);
 		ImGui::InputFloat("SizeY", &m_vSize.y, 1);
-		ImGui::InputFloat("PosX", &m_vPos.x, 1);
-		ImGui::InputFloat("PosY", &m_vPos.y, 1);
-		if (m_vPos.x!= l_vPos.x || m_vPos.y != l_vPos.y)
+		ImGui::InputFloat("PosX", &l_vPos.x, 1);
+		ImGui::InputFloat("PosY", &l_vPos.y, 1);
+		if (m_vLocalPos.x!= l_vPos.x || m_vLocalPos.y != l_vPos.y)
 		{
-			this->SetLocalPosition(m_vPos);
+			this->SetLocalPosition(l_vPos);
 		}
 		bool l_bBorder = false;;
 		bool l_bLock = false;;
@@ -194,6 +211,15 @@ void cMyGuiBasicObj::RenderBaseProperty()
 		ImGui::Checkbox("Lock", &l_bLock);
 	ImGui::End();
 
+}
+
+cMyGuiBasicObj::cMyGuiBasicObj()
+{
+	m_vSize.y = m_vSize.x = 0;
+}
+
+cMyGuiBasicObj::~cMyGuiBasicObj()
+{
 }
 
 void cMyGuiBasicObj::RenderProperty()
@@ -217,6 +243,7 @@ float relative_for_resize(cMyGuiBasicObj & obj)
 
 void cMyGuiPanel::InternalRender()
 {
+
 }
 
 void cMyGuiPanel::RenderProperty()
@@ -225,6 +252,17 @@ void cMyGuiPanel::RenderProperty()
 
 void cMyGuiForm::InternalRender()
 {
+	//ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+	ImVec2 l_vSize(m_vSize);
+	ImGui::SetNextWindowSize(l_vSize);
+	auto l_vPos = GetWorldPosition();
+	ImGui::SetNextWindowPos({ l_vPos.x, l_vPos.y });
+	ImGui::Begin("MyGuiForm");
+}
+
+void cMyGuiForm::EndRender()
+{
+	ImGui::End();
 }
 
 void cMyGuiForm::RenderProperty()
@@ -276,14 +314,111 @@ void cMyGuiLabel::InternalRender()
 	//ImGui::Text(obj.name.c_str());
 }
 
+
+cMyGuiButton::cMyGuiButton()
+{
+	m_strText = "Button";
+}
+
+cMyGuiButton::~cMyGuiButton()
+{
+}
+
 void cMyGuiButton::InternalRender()
 {
+	if (ImGui::Button(m_strText.c_str(), this->m_vSize))
+	{
+
+	}
 	//ImGui::Button(obj.name.c_str(), obj.size);
 }
 
 void cMyGuiNode::InternalRender()
 {
 }
+
+void cMyGuiComboBox::InternalRender()
+{
+	this->m_vSize.y = 200.f;
+	if (this->m_vSize.y > 0)
+	{
+		ImGui::PushItemWidth(this->m_vSize.y);
+	}
+	// Array of items
+	const char* items3[] = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
+	static int selectedItemIndex3 = 0; // Track selected item index
+	m_strDataVector = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
+	const char* items4[999];
+	for (int i = 0; i < m_strDataVector.size(); ++i)
+	{
+		items4[i] = m_strDataVector[i].c_str();
+	}
+	//m_strEvnNameVector = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
+	// Create the combo box
+	if (ImGui::Combo("My ComboBox", &selectedItemIndex3, items4, m_strDataVector.size())) 
+	{
+		// Item selected - do something with selectedItemIndex
+		ImGui::Text("You selected: %s", items4[selectedItemIndex3]);
+	}
+	if (this->m_vSize.y > 0)
+	{
+		ImGui::PopItemWidth();
+	}
+}
+
+void cMyGuiComboBox::RenderProperty()
+{
+}
+
+void cMyGuiListBox::InternalRender()
+{
+	this->m_vSize.y = 200.f;
+	if (this->m_vSize.y > 0)
+	{
+		ImGui::PushItemWidth(this->m_vSize.y);
+	}
+	// Array of items
+	const char* items[] = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5","Item 6", "Item 7", "Item 8", "Item 9", "Item 10" };
+	static int selectedItemIndex = 0; // Track selected item index
+	// Create the listbox
+	if (ImGui::ListBox("Versiones", &selectedItemIndex, items, IM_ARRAYSIZE(items)))
+	{
+		// Item selected - do something with selectedItemIndex
+		ImGui::Text("You selected: %s", items[selectedItemIndex]);
+	}
+	if (this->m_vSize.y > 0)
+	{
+		ImGui::PopItemWidth();
+	}
+	//ImGui::Begin("Custom Scrollable List Example");
+
+	//// Define the size of the child window (Width, Height)
+	//ImVec2 childSize = ImVec2(0, 100.0f); // 100 pixels height, you can adjust this to control how much of the list is visible
+
+	//// Begin the child window, which will act as the scrollable area
+	//ImGui::BeginChild("ListBoxChild", childSize, true, ImGuiWindowFlags_None);
+
+	//// Loop through the items and create selectable items inside the child window
+	//for (int i = 0; i < IM_ARRAYSIZE(items); i++) {
+	//	// Highlight selected item
+	//	if (ImGui::Selectable(items[i], selectedItemIndex == i)) {
+	//		selectedItemIndex = i;
+	//	}
+	//}
+
+	//ImGui::EndChild(); // End the child window
+
+	//if (selectedItemIndex != -1) {
+	//	ImGui::Text("You selected: %s", items[selectedItemIndex]);
+	//}
+
+	//ImGui::End();
+}
+
+void cMyGuiListBox::RenderProperty()
+{
+}
+
 
 
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pParent)
@@ -323,6 +458,12 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pPare
 		break;//9
 	case	eMIGT_PANEL:
 		l_pObject = new cMyGuiPanel();
+		break;
+	case	eMIGT_COMBO_BOX:
+		l_pObject = new cMyGuiComboBox();
+		break;
+	case	eMIGT_LIST_BOX:
+		l_pObject = new cMyGuiListBox();
 		break;
 	}
 	//e_pParent->add

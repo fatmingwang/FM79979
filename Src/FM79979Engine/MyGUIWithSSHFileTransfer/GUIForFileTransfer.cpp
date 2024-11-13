@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "GUIForFileTransfer.h"
 #include "json.hpp"
+#include <fstream>
+#include <filesystem>
+#include <iostream>
+#include "../imgui/MyGui/MyGui.h"
 
 const char* g_strEnvJSONKey_LocalSource = "LocalSource";
 const char* g_strEnvJSONKey_BackupSource = "BackupSource";
@@ -23,9 +27,20 @@ std::string	g_strPushCommand;
 const char* g_strThisPullFileName = "ThisIsPull.bat";
 const char* g_strThisPushFileName = "ThisIsCommitAndPush.bat";
 
+namespace fs = std::filesystem;
+using json = nlohmann::json;
 
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
+	m_pRoot = new cMyGuiNode();
+	m_pMyGuiListBox = new cMyGuiListBox();
+	m_pMyGuiComboBox = new cMyGuiComboBox();
+	m_pMyGuiButton = new cMyGuiButton();
+	this->m_pRoot->AddChild(m_pMyGuiButton);
+	this->m_pRoot->AddChild(m_pMyGuiListBox);
+	this->m_pRoot->AddChild(m_pMyGuiComboBox);
+	//m_pMyGuiButton->SetSize(ImVec2(600,500));
+	
 }
 
 cGUIForFileTransfer::~cGUIForFileTransfer()
@@ -38,14 +53,27 @@ void cGUIForFileTransfer::FetchVersionFileList()
 
 void cGUIForFileTransfer::ParseEnvData(const char* e_strFileName)
 {
-
-
+	std::ifstream l_Json("Deploy.json");
+	json l_JsonData = json::parse(l_Json);
+	g_strLocalFolder = l_JsonData[g_strEnvJSONKey_LocalSource];
+	l_Json.close();
 }
 
 void cGUIForFileTransfer::RenderMainUI()
 {
-	ImGui::SetNextWindowSize({ static_cast<float>(1280 - 16) + 1000, (float)250 });
-	ImGui::SetNextWindowPos({ 0, 0 });
+	ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+	ImGui::SetNextWindowSize(l_vSize);
+	ImGui::SetNextWindowPos({ 100, 100 });
+	RenderMenu();
+	if (this->m_pRoot)
+	{
+		m_pRoot->Render();
+	}
+	ImGui::End();
+}
+
+void cGUIForFileTransfer::RenderMenu()
+{
 	ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	if (ImGui::BeginMenuBar())
 	{
@@ -90,7 +118,6 @@ void cGUIForFileTransfer::RenderMainUI()
 		}
 		ImGui::EndMenuBar();
 	}
-	ImGui::End();
 }
 
 void cGUIForFileTransfer::Init()

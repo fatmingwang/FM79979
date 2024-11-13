@@ -39,11 +39,17 @@ class cGUIForFileTransfer:NamedTypedObject
 	std::vector<std::string>		m_VersionVector;
 	bool							m_bDoingUpdate;
 	//
-	class cMyGuiNode* m_pRoot;
+	class cMyGuiNode*		m_pRoot;
+	class cMyGuiListBox*	m_pMyGuiListBox;
+	class cMyGuiComboBox*	m_pMyGuiComboBox;
+	class cMyGuiButton*		m_pMyGuiButton;
 	//
 	void							FetchVersionFileList();
 	void							ParseEnvData(const char*e_strFileName);
 	void							RenderMainUI();
+	void							RenderMenu();
+	//
+	std::vector<std::string>		m_strEvnNameVector;
 public:
 	cGUIForFileTransfer();
 	virtual ~cGUIForFileTransfer();

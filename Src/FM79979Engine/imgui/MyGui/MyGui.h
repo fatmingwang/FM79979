@@ -19,6 +19,8 @@ enum eMyImGuiType
 	eMIGT_TOOGLE,
 	eMIGT_FORM,//9
 	eMIGT_PANEL = 10,
+	eMIGT_COMBO_BOX,
+	eMIGT_LIST_BOX,
 	eMIGT_MAX
 };
 
@@ -38,6 +40,7 @@ enum class resize_opt
 
 class cImGuiNode:public NamedTypedObject
 {
+protected:
 	void						HierachyPositionRender();
 	virtual	void				EndRender() = 0;
 	virtual	void				InternalRender() = 0;
@@ -48,6 +51,9 @@ class cImGuiNode:public NamedTypedObject
 	void						UpdateCachedWorldTransformIfNeeded();
 	cImGuiNode*					m_pParent;
 	std::vector<cImGuiNode*>	m_ChildNodeVector;
+	////not every component suppot this.
+	//GET_SET_DEC(Vector2,m_vSize,GetSize,SetSize);
+	//void						ApplySize(bool&e_bWidth, bool& e_bHeight);
 public:
 	DEFINE_TYPE_INFO();
 	cImGuiNode();
@@ -82,9 +88,10 @@ class cMyGuiBasicObj:public cImGuiNode,public cMyGuiMouseMovingData
 	virtual	void				EndRender(){}
 	virtual	void				InternalRender(){}
 	virtual void				RenderBaseProperty();
+	GET_SET_DEC(ImVec2, m_vSize, GetSize, SetSize);
 public:
-	ImVec2						m_vSize = {0,0 };
-	ImVec2						m_vPos = { 0,0 };
+	cMyGuiBasicObj();
+	virtual ~cMyGuiBasicObj();
 	ImVec2						m_vSizeObj = {0,0 };
 	virtual void				RenderProperty();
 };
@@ -112,8 +119,11 @@ public:
 class cMyGuiButton :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
+	GET_SET_DEC(std::string,m_strText,GetText,SetText);
 public:
 	DEFINE_TYPE_INFO();
+	cMyGuiButton();
+	virtual ~cMyGuiButton();
 	//virtual void		RenderProperty()override;
 };
 
@@ -178,12 +188,30 @@ public:
 class cMyGuiForm :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
+	virtual	void		EndRender()override;
 public:
 	DEFINE_TYPE_INFO();
 	virtual void		RenderProperty()override;
 };
 
 class cMyGuiPanel :public cMyGuiBasicObj
+{
+	virtual	void		InternalRender()override;
+public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
+};
+
+class cMyGuiComboBox :public cMyGuiBasicObj
+{
+	virtual	void		InternalRender()override;
+	std::vector<std::string>	m_strDataVector;
+public:
+	DEFINE_TYPE_INFO();
+	virtual void		RenderProperty()override;
+};
+
+class cMyGuiListBox :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
 public:

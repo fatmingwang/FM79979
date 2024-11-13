@@ -175,8 +175,8 @@ void cMyImGuiUIEditor::RenderMenu()
 
 void cMyImGuiUIEditor::RenderDebugInfo()
 {
-	int	l_iOpenGLViewportX = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
-	int	l_iOpenGLViewportY = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+	int	l_iOpenGLViewportX = (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+	int	l_iOpenGLViewportY = (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
 	int fb_width = (int)(ImGui::GetDrawData()->DisplaySize.x * ImGui::GetDrawData()->FramebufferScale.x);
 	int fb_height = (int)(ImGui::GetDrawData()->DisplaySize.y * ImGui::GetDrawData()->FramebufferScale.y);
 #ifdef WASM
