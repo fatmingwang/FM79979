@@ -30,6 +30,7 @@ TYPDE_DEFINE_MARCO(cMyGuiListBox);
 cImGuiNode::cImGuiNode()
 {
 	m_pParent = nullptr;
+	m_bDoApplyPosition = m_bOnlyApplyPositionOnceForDragMoving = false;
 }
 
 cImGuiNode::~cImGuiNode()
@@ -86,13 +87,15 @@ void cImGuiNode::UpdateCachedWorldTransformIfNeeded()
 }
 
 
-void cImGuiNode::SetLocalPosition(const ImVec2& vLocalPos)
+void cImGuiNode::SetLocalPosition(const ImVec2& e_vLocalPos)
 {
-	if (m_vLocalPos.x != vLocalPos.x || m_vLocalPos.y != vLocalPos.y)
+	if (m_vLocalPos.x != e_vLocalPos.x || m_vLocalPos.y != e_vLocalPos.y)
 	{
+		m_vLocalPos = e_vLocalPos;
 		m_bPosDirty = true;
 		SetCachedWorldTransformDirty();
 	}
+	m_bDoApplyPosition = true;
 }
 
 ImVec2 cImGuiNode::GetWorldPosition()
@@ -150,7 +153,19 @@ bool cImGuiNode::SwapChild(int e_iIndex1, int e_iIndex2)
 
 void cImGuiNode::Render()
 {
+	if (this->m_bDoApplyPosition)
+	{
+		if (this->m_bOnlyApplyPositionOnceForDragMoving)
+		{
+			this->m_bDoApplyPosition = false;
+		}
+		ApplyPosition();
+	}
 	this->InternalRender();
+	if (this->m_ExtraRenderFunction)
+	{
+		this->m_ExtraRenderFunction(this);
+	}
 	for (auto l_Child : this->m_ChildNodeVector)
 	{
 		l_Child->Render();
@@ -175,6 +190,11 @@ void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 		}
 		delete e_pImGuiNode;
 	}
+}
+
+void cMyGuiBasicObj::ApplyPosition()
+{
+	ImGui::SetCursorPos(this->m_vLocalPos);
 }
 
 void cMyGuiBasicObj::RenderBaseProperty()
@@ -250,19 +270,35 @@ void cMyGuiPanel::RenderProperty()
 {
 }
 
-void cMyGuiForm::InternalRender()
+void cMyGuiForm::ApplyPosition()
 {
-	//ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-	ImVec2 l_vSize(m_vSize);
-	ImGui::SetNextWindowSize(l_vSize);
 	auto l_vPos = GetWorldPosition();
 	ImGui::SetNextWindowPos({ l_vPos.x, l_vPos.y });
-	ImGui::Begin("MyGuiForm");
+}
+
+void cMyGuiForm::InternalRender()
+{
+	if (m_vSize.x > 0 && m_vSize.y > 0)
+	{
+		ImGui::SetWindowSize(m_vSize);
+	}
+	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	ImGui::Begin(this->GetCharName().c_str(),nullptr, m_FormFlag);
 }
 
 void cMyGuiForm::EndRender()
 {
 	ImGui::End();
+}
+
+cMyGuiForm::cMyGuiForm()
+{
+	this->SetName(cMyGuiForm::TypeID);
+	m_FormFlag = 0;
+}
+
+cMyGuiForm::~cMyGuiForm()
+{
 }
 
 void cMyGuiForm::RenderProperty()
@@ -331,6 +367,11 @@ void cMyGuiButton::InternalRender()
 
 	}
 	//ImGui::Button(obj.name.c_str(), obj.size);
+}
+
+void cMyGuiNode::ApplyPosition()
+{
+	ImGui::SetNextWindowPos(this->m_vLocalPos);
 }
 
 void cMyGuiNode::InternalRender()

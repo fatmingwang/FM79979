@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+#include <functional>
+
 
 enum eMyImGuiType
 {
@@ -37,10 +39,15 @@ enum class resize_opt
 	right
 };
 
-
+typedef std::function<void(class cImGuiNode*)> f_MyImGuiExtraRenderFunction;
 class cImGuiNode:public NamedTypedObject
 {
+	f_MyImGuiExtraRenderFunction	m_ExtraRenderFunction = nullptr;
+	//
+	virtual void				ApplyPosition() = 0;
 protected:
+	bool						m_bDoApplyPosition = false;
+	//
 	void						HierachyPositionRender();
 	virtual	void				EndRender() = 0;
 	virtual	void				InternalRender() = 0;
@@ -54,6 +61,8 @@ protected:
 	////not every component suppot this.
 	//GET_SET_DEC(Vector2,m_vSize,GetSize,SetSize);
 	//void						ApplySize(bool&e_bWidth, bool& e_bHeight);
+	//for editor mode
+	GET_SET_DEC(bool,m_bOnlyApplyPositionOnceForDragMoving, GetOnlyApplyPositionOnceForDragMoving, SetOnlyApplyPositionOnceForDragMoving);
 public:
 	DEFINE_TYPE_INFO();
 	cImGuiNode();
@@ -62,7 +71,7 @@ public:
 	std::string					m_strName = "Node";
 	eMyImGuiType				m_eType = eMIGT_NODE;
 	ImVec2 						GetLocalPosition() { return m_vLocalPos;}
-	void						SetLocalPosition(const ImVec2& vLocalPos);
+	void						SetLocalPosition(const ImVec2& e_vLocalPos);
 	ImVec2						GetWorldPosition();
 	//-1 to last one
 	void						SetParent(cImGuiNode* e_pParent,int e_iChildIndex = -1);
@@ -71,6 +80,7 @@ public:
 	bool						SwapChild(int e_iIndex1, int e_iIndex2);
 	void						Render();// = 0;
 	static void					DeleteObjectAndAllChildren(cImGuiNode*e_pImGuiNode);
+	void						SetExtraRenderFunction(f_MyImGuiExtraRenderFunction e_MyImGuiExtraRenderFunction) { m_ExtraRenderFunction = e_MyImGuiExtraRenderFunction; }
 };
 
 
@@ -85,9 +95,10 @@ public:
 
 class cMyGuiBasicObj:public cImGuiNode,public cMyGuiMouseMovingData
 {
-	virtual	void				EndRender(){}
-	virtual	void				InternalRender(){}
-	virtual void				RenderBaseProperty();
+	virtual void					ApplyPosition()override;
+	virtual	void					EndRender(){}
+	virtual	void					InternalRender(){}
+	virtual void					RenderBaseProperty();
 	GET_SET_DEC(ImVec2, m_vSize, GetSize, SetSize);
 public:
 	cMyGuiBasicObj();
@@ -110,6 +121,7 @@ public:
 
 class cMyGuiNode :public cMyGuiBasicObj
 {
+	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
@@ -187,10 +199,14 @@ public:
 
 class cMyGuiForm :public cMyGuiBasicObj
 {
+	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
 	virtual	void		EndRender()override;
+	GET_SET_DEC(ImGuiWindowFlags, m_FormFlag, GetFormFlag, SetFormFlag);
 public:
 	DEFINE_TYPE_INFO();
+	cMyGuiForm();
+	virtual ~cMyGuiForm();
 	virtual void		RenderProperty()override;
 };
 

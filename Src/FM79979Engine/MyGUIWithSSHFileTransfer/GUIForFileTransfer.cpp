@@ -33,12 +33,32 @@ using json = nlohmann::json;
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
 	m_pRoot = new cMyGuiNode();
+	ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+	cMyGuiForm*l_pMyGuiForm = new cMyGuiForm();
+	l_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	l_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
+
+
+	auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
+
+	l_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
+	m_pRoot->AddChild(l_pMyGuiForm);
+	l_pMyGuiForm->SetSize(l_vSize);
+	l_pMyGuiForm->SetLocalPosition(ImVec2(100, 100));
+	//m_pRoot->
 	m_pMyGuiListBox = new cMyGuiListBox();
 	m_pMyGuiComboBox = new cMyGuiComboBox();
 	m_pMyGuiButton = new cMyGuiButton();
-	this->m_pRoot->AddChild(m_pMyGuiButton);
-	this->m_pRoot->AddChild(m_pMyGuiListBox);
-	this->m_pRoot->AddChild(m_pMyGuiComboBox);
+
+
+
+
+	m_pMyGuiButton->SetLocalPosition(ImVec2(100, 100));
+	m_pMyGuiListBox->SetLocalPosition(ImVec2(100, 300));
+	m_pMyGuiComboBox->SetLocalPosition(ImVec2(200, 600));
+	l_pMyGuiForm->AddChild(m_pMyGuiButton);
+	l_pMyGuiForm->AddChild(m_pMyGuiListBox);
+	l_pMyGuiForm->AddChild(m_pMyGuiComboBox);
 	//m_pMyGuiButton->SetSize(ImVec2(600,500));
 	
 }
@@ -61,20 +81,19 @@ void cGUIForFileTransfer::ParseEnvData(const char* e_strFileName)
 
 void cGUIForFileTransfer::RenderMainUI()
 {
-	ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-	ImGui::SetNextWindowSize(l_vSize);
-	ImGui::SetNextWindowPos({ 100, 100 });
-	RenderMenu();
+	//ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+	//ImGui::SetNextWindowSize(l_vSize);
+	//ImGui::SetNextWindowPos({ 100, 100 });
+	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	//RenderMenu();
 	if (this->m_pRoot)
 	{
 		m_pRoot->Render();
 	}
-	ImGui::End();
 }
 
-void cGUIForFileTransfer::RenderMenu()
+void cGUIForFileTransfer::RenderMenu(cImGuiNode* e_pNode)
 {
-	ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	if (ImGui::BeginMenuBar())
 	{
 
@@ -125,6 +144,8 @@ void cGUIForFileTransfer::Init()
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
+	ImGui::GetIO().IniFilename = nullptr;
+	ImGui::GetIO().LogFilename = nullptr;
 }
 
 void cGUIForFileTransfer::Update(float e_fElpaseTime)

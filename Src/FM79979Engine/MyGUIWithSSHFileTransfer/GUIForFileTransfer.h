@@ -47,7 +47,7 @@ class cGUIForFileTransfer:NamedTypedObject
 	void							FetchVersionFileList();
 	void							ParseEnvData(const char*e_strFileName);
 	void							RenderMainUI();
-	void							RenderMenu();
+	void							RenderMenu(class cImGuiNode*e_pNode);
 	//
 	std::vector<std::string>		m_strEvnNameVector;
 public:
