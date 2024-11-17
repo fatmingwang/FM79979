@@ -45,7 +45,9 @@ class cImGuiNode:public NamedTypedObject
 	f_MyImGuiExtraRenderFunction	m_ExtraRenderFunction = nullptr;
 	//
 	virtual void				ApplyPosition() = 0;
+	ImVec2						m_vImGuiRenderPos = { 0, 0 };
 protected:
+	bool						m_bThisUseContainerPositionDontApplyarentPositionToChild = false;
 	bool						m_bDoApplyPosition = false;
 	//
 	void						HierachyPositionRender();
@@ -61,7 +63,8 @@ protected:
 	////not every component suppot this.
 	//GET_SET_DEC(Vector2,m_vSize,GetSize,SetSize);
 	//void						ApplySize(bool&e_bWidth, bool& e_bHeight);
-	//for editor mode
+	// 
+	//for editor mode(drag position) you have to set this
 	GET_SET_DEC(bool,m_bOnlyApplyPositionOnceForDragMoving, GetOnlyApplyPositionOnceForDragMoving, SetOnlyApplyPositionOnceForDragMoving);
 public:
 	DEFINE_TYPE_INFO();
@@ -73,6 +76,9 @@ public:
 	ImVec2 						GetLocalPosition() { return m_vLocalPos;}
 	void						SetLocalPosition(const ImVec2& e_vLocalPos);
 	ImVec2						GetWorldPosition();
+	void						SetWorldPosition(const ImVec2& e_vWorldPos);
+	ImVec2						GetWorldImGuiRenderPosition();
+	
 	//-1 to last one
 	void						SetParent(cImGuiNode* e_pParent,int e_iChildIndex = -1);
 	cImGuiNode*					GetParent(){return this->m_pParent;};
@@ -95,6 +101,7 @@ public:
 
 class cMyGuiBasicObj:public cImGuiNode,public cMyGuiMouseMovingData
 {
+protected:
 	virtual void					ApplyPosition()override;
 	virtual	void					EndRender(){}
 	virtual	void					InternalRender(){}
@@ -212,9 +219,14 @@ public:
 
 class cMyGuiPanel :public cMyGuiBasicObj
 {
+	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
+	virtual	void		EndRender()override;
+	GET_SET_DEC(bool,m_bShowBorder, GetShowBorder, SetBorder);
 public:
 	DEFINE_TYPE_INFO();
+	cMyGuiPanel();
+	virtual ~cMyGuiPanel();
 	virtual void		RenderProperty()override;
 };
 

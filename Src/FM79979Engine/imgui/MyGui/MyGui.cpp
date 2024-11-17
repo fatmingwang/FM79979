@@ -30,7 +30,9 @@ TYPDE_DEFINE_MARCO(cMyGuiListBox);
 cImGuiNode::cImGuiNode()
 {
 	m_pParent = nullptr;
-	m_bDoApplyPosition = m_bOnlyApplyPositionOnceForDragMoving = false;
+	m_bDoApplyPosition = true;
+	m_bOnlyApplyPositionOnceForDragMoving = false;
+	this->SetName(this->Type());
 }
 
 cImGuiNode::~cImGuiNode()
@@ -78,11 +80,20 @@ void cImGuiNode::UpdateCachedWorldTransformIfNeeded()
 		{
 			m_pParent->UpdateCachedWorldTransformIfNeeded();
 			m_vWorldPos = ImVec2(m_pParent->m_vWorldPos.x + m_vLocalPos.x, m_pParent->m_vWorldPos.y + m_vLocalPos.y);
+			if (m_pParent->m_bThisUseContainerPositionDontApplyarentPositionToChild)
+			{
+				m_vImGuiRenderPos = m_vLocalPos;
+			}
+			else
+			{
+				m_vImGuiRenderPos = m_vWorldPos;
+			}
 		}
 		else
 		{
 			m_vWorldPos = m_vLocalPos;
 		}
+		m_bPosDirty = false;
 	}
 }
 
@@ -92,7 +103,7 @@ void cImGuiNode::SetLocalPosition(const ImVec2& e_vLocalPos)
 	if (m_vLocalPos.x != e_vLocalPos.x || m_vLocalPos.y != e_vLocalPos.y)
 	{
 		m_vLocalPos = e_vLocalPos;
-		m_bPosDirty = true;
+		m_bPosDirty = false;
 		SetCachedWorldTransformDirty();
 	}
 	m_bDoApplyPosition = true;
@@ -102,6 +113,26 @@ ImVec2 cImGuiNode::GetWorldPosition()
 {
 	UpdateCachedWorldTransformIfNeeded();
 	return m_vWorldPos;
+}
+
+void cImGuiNode::SetWorldPosition(const ImVec2& e_vWorldPos)
+{
+	if (m_pParent)
+	{
+		ImVec2 l_vParentPosition = m_pParent->GetWorldPosition();
+		ImVec2 l_vNewLocalPosition(e_vWorldPos.x - l_vParentPosition.x, e_vWorldPos.y - l_vParentPosition.y);
+		this->SetLocalPosition(l_vNewLocalPosition);
+	}
+	else
+	{
+		this->SetLocalPosition(e_vWorldPos);
+	}
+}
+
+ImVec2 cImGuiNode::GetWorldImGuiRenderPosition()
+{
+	GetWorldPosition();
+	return m_vImGuiRenderPos;
 }
 
 void cImGuiNode::SetParent(cImGuiNode* e_pParent, int e_iChildIndex)
@@ -119,6 +150,7 @@ void cImGuiNode::SetParent(cImGuiNode* e_pParent, int e_iChildIndex)
 		}
 	}
 	this->m_pParent = e_pParent;
+	this->m_bPosDirty = true;
 	if (this->m_pParent)
 	{
 		if (e_iChildIndex == -1)
@@ -194,7 +226,12 @@ void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 
 void cMyGuiBasicObj::ApplyPosition()
 {
-	ImGui::SetCursorPos(this->m_vLocalPos);
+	auto l_vPos = GetWorldImGuiRenderPosition();
+	ImGui::SetCursorPos(l_vPos);
+	//ImGui::SetCursorScreenPos(this->GetWorldPosition());
+	
+	//ImGui::SetCursorScreenPos(this->m_vLocalPos);
+	//ImGui::SetCursorPos(this->m_vLocalPos);
 }
 
 void cMyGuiBasicObj::RenderBaseProperty()
@@ -261,9 +298,40 @@ float relative_for_resize(cMyGuiBasicObj & obj)
 	return 0.f;
 };
 
+cMyGuiPanel::cMyGuiPanel()
+{
+	this->SetName(cMyGuiPanel::TypeID);
+	this->m_vSize = ImVec2(200, 200);
+	this->m_bShowBorder = true;
+	this->m_bThisUseContainerPositionDontApplyarentPositionToChild = true;
+}
+
+cMyGuiPanel::~cMyGuiPanel()
+{
+}
+
+void cMyGuiPanel::ApplyPosition()
+{
+	cMyGuiBasicObj::ApplyPosition();
+	//void cMyGuiBasicObj::ApplyPosition()
+	{
+		//ImGui::SetCursorPos(this->m_vLocalPos);
+	}
+	//auto l_vPos = GetWorldPosition();
+	//ImGui::SetNextWindowPos({ l_vPos.x, l_vPos.y });
+}
+
 void cMyGuiPanel::InternalRender()
 {
+	ImGui::BeginChild(this->GetCharName().c_str(), this->m_vSize,true);
+	// Move the cursor to the desired position for the child
+	//ImGui::SetCursorScreenPos(childPos);
+	//cMyGuiBasicObj::ApplyPosition();
+}
 
+void cMyGuiPanel::EndRender()
+{
+	ImGui::EndChild();
 }
 
 void cMyGuiPanel::RenderProperty()
@@ -284,6 +352,20 @@ void cMyGuiForm::InternalRender()
 	}
 	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	ImGui::Begin(this->GetCharName().c_str(),nullptr, m_FormFlag);
+	//form is draggable
+	if (!this->m_bDoApplyPosition)
+	{
+		ImVec2 l_CurrentFormPos = ImGui::GetWindowPos();
+		//ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar
+		if (m_FormFlag & ImGuiWindowFlags_NoBringToFrontOnFocus)
+		{
+			auto l_vFormPos = this->GetWorldPosition();
+			if (l_vFormPos.x != l_CurrentFormPos.x || l_vFormPos.y != l_CurrentFormPos.y)
+			{
+				SetWorldPosition(l_CurrentFormPos);
+			}
+		}
+	}
 }
 
 void cMyGuiForm::EndRender()
@@ -371,7 +453,7 @@ void cMyGuiButton::InternalRender()
 
 void cMyGuiNode::ApplyPosition()
 {
-	ImGui::SetNextWindowPos(this->m_vLocalPos);
+	//ImGui::SetNextWindowPos(this->m_vLocalPos);
 }
 
 void cMyGuiNode::InternalRender()

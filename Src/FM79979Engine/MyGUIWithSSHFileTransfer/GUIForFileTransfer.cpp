@@ -44,8 +44,8 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	l_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
 	m_pRoot->AddChild(l_pMyGuiForm);
 	l_pMyGuiForm->SetSize(l_vSize);
-	l_pMyGuiForm->SetLocalPosition(ImVec2(100, 100));
-	//m_pRoot->
+	l_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
+
 	m_pMyGuiListBox = new cMyGuiListBox();
 	m_pMyGuiComboBox = new cMyGuiComboBox();
 	m_pMyGuiButton = new cMyGuiButton();
@@ -53,12 +53,27 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 
 
 
-	m_pMyGuiButton->SetLocalPosition(ImVec2(100, 100));
-	m_pMyGuiListBox->SetLocalPosition(ImVec2(100, 300));
-	m_pMyGuiComboBox->SetLocalPosition(ImVec2(200, 600));
-	l_pMyGuiForm->AddChild(m_pMyGuiButton);
-	l_pMyGuiForm->AddChild(m_pMyGuiListBox);
-	l_pMyGuiForm->AddChild(m_pMyGuiComboBox);
+	cMyGuiNode*l_pMiddleNode = new cMyGuiNode();
+	l_pMiddleNode->SetLocalPosition(ImVec2(100, 100));
+	{
+		cMyGuiPanel* l_pMyGuiPanel = new cMyGuiPanel();
+		l_pMyGuiPanel->SetSize(ImVec2(1920/2, 1080/2));
+		l_pMiddleNode->AddChild(l_pMyGuiPanel);
+		l_pMyGuiPanel->AddChild(m_pMyGuiButton);
+		l_pMyGuiPanel->AddChild(m_pMyGuiListBox);
+		l_pMyGuiPanel->AddChild(m_pMyGuiComboBox);
+	}
+
+	m_pMyGuiButton->SetLocalPosition(ImVec2(00, 100));
+	m_pMyGuiComboBox->SetLocalPosition(ImVec2(100, 200));
+	m_pMyGuiListBox->SetLocalPosition(ImVec2(200, 300));
+	l_pMyGuiForm->AddChild(l_pMiddleNode);
+	//must set this
+	//m_pRoot->SetCachedWorldTransformDirty();
+	
+	//l_pMyGuiForm->AddChild(m_pMyGuiButton);
+	//l_pMyGuiForm->AddChild(m_pMyGuiListBox);
+	//l_pMyGuiForm->AddChild(m_pMyGuiComboBox);
 	//m_pMyGuiButton->SetSize(ImVec2(600,500));
 	
 }
