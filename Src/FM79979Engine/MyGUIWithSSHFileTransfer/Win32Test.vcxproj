@@ -137,7 +137,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;..\EngineTest;..\..\..\include\bt;..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\openssl\include;..\..\..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;..\EngineTest;..\..\..\include\bt;..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;DEBUG;_HAS_AUTO_PTR_ETC=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -247,6 +247,7 @@
   <ItemGroup>
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GUIForFileTransfer.cpp" />
+    <ClCompile Include="SFTPTransfer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|x64'">Create</PrecompiledHeader>

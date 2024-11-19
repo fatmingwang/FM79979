@@ -51,6 +51,14 @@
 #pragma comment(lib, "../../../lib/Release/Freetype.lib")
 #endif
 
+#pragma comment(lib, "./openssl/lib/libcrypto.lib")
+#pragma comment(lib, "./openssl/lib/libssl.lib")
+#pragma comment(lib, "./openssl/lib/libssh2.lib")
+#pragma comment(lib, "Ws2_32.lib")
+
+
+
+
 //#define VLD_DEBUG
 //
 //#ifdef VLD_DEBUG

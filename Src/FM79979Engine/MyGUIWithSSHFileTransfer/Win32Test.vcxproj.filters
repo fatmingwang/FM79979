@@ -30,6 +30,9 @@
     <ClCompile Include="GUIForFileTransfer.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="SFTPTransfer.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
