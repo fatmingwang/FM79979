@@ -260,6 +260,7 @@
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GUIForFileTransfer.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SFTPTransfer.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

@@ -47,5 +47,8 @@
     <ClInclude Include="GUIForFileTransfer.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="SFTPTransfer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
