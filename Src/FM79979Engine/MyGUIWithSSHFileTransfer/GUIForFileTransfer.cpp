@@ -73,8 +73,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pMyGuiComboBox->SetLocalPosition(ImVec2(100, 200));
 	m_pMyGuiListBox->SetLocalPosition(ImVec2(200, 300));
 	l_pMyGuiForm->AddChild(l_pMiddleNode);
-	//must set this
-	//m_pRoot->SetCachedWorldTransformDirty();
+
 	
 	//l_pMyGuiForm->AddChild(m_pMyGuiButton);
 	//l_pMyGuiForm->AddChild(m_pMyGuiListBox);
