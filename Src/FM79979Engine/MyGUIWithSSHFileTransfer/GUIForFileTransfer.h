@@ -39,7 +39,7 @@ class cGUIForFileTransfer:NamedTypedObject
 	std::vector<std::string>		m_VersionVector;
 	bool							m_bDoingUpdate;
 	//
-	class cMyGuiNode*		m_pRoot;
+	class cMyGuiRootNode*	m_pRoot;
 	class cMyGuiListBox*	m_pMyGuiListBox;
 	class cMyGuiComboBox*	m_pMyGuiComboBox;
 	class cMyGuiButton*		m_pMyGuiButton;

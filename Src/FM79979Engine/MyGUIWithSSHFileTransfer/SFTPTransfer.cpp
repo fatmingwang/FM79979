@@ -13,11 +13,6 @@
 
 namespace fs = std::filesystem;
 
-#define SERVER_IP "127.0.0.1"
-#define SERVER_PORT 22
-#define USERNAME "your_username"
-#define PASSWORD "your_password"
-
 
 // Upload a file using SFTP
 bool upload_file(LIBSSH2_SFTP* sftp_session, const std::string& local_path, const std::string& remote_path)
@@ -92,6 +87,10 @@ bool upload_directory(LIBSSH2_SFTP* sftp_session, const std::string& local_dir, 
 
 int UploadDirectorySample()
 {
+	const char* SERVER_IP = "127.0.0.1";
+	const int SERVER_PORT = 22;
+	const char* USERNAME = "your_username";
+	const char* PASSWORD = "your_password";
 	int sock;
 	struct sockaddr_in server_addr;
 
@@ -256,6 +255,10 @@ bool download_directory(LIBSSH2_SFTP* sftp_session, const std::string& remote_di
 
 int DownloadDirectorySample()
 {
+	const char* SERVER_IP = "127.0.0.1";
+	const int SERVER_PORT = 22;
+	const char* USERNAME = "your_username";
+	const char* PASSWORD = "your_password";
 	int sock;
 	struct sockaddr_in server_addr;
 
@@ -335,8 +338,8 @@ struct sLIBSSH2SocketData
 {
 	int m_iSock;
 	sockaddr_in m_ServerAddr;
-	LIBSSH2_SESSION* m_pSession;
-	LIBSSH2_SFTP* m_pSFTPSession;
+	LIBSSH2_SESSION* m_pSession = nullptr;
+	LIBSSH2_SFTP* m_pSFTPSession = nullptr;
 	std::string m_strLocalDirectory = "path_to_local_directory";
 	std::string m_strRemoteDirectory = "path_to_remote_directory";
 
@@ -345,21 +348,31 @@ struct sLIBSSH2SocketData
 	std::string m_strIP = "127.0.0.1";
 	int			m_iPort = 44;
 	bool		m_bConnectedOk = false;
+	f_CompleteFunction	m_fCompleteFunction;
 	sLIBSSH2SocketData()
 	{
 	}
 	~sLIBSSH2SocketData()
 	{
-		//// Upload a directory recursively
-		//std::string local_dir = "path_to_local_directory";
-		//std::string remote_dir = "path_to_remote_directory";
-		//upload_directory(sftp_session, local_dir, remote_dir);
+		Close();
+	}
 
+	void	Close()
+	{
 		// Clean up
-		libssh2_sftp_shutdown(m_pSFTPSession);
-		libssh2_session_disconnect(m_pSession, "Normal Shutdown");
-		libssh2_session_free(m_pSession);
+		if (m_pSFTPSession)
+		{
+			libssh2_sftp_shutdown(m_pSFTPSession);
+			m_pSFTPSession = nullptr;
+		}
+		if (m_pSession)
+		{
+			libssh2_session_disconnect(m_pSession, "Normal Shutdown");
+			libssh2_session_free(m_pSession);
+			m_pSession = nullptr;
+		}
 		close(m_iSock);
+		m_iSock = 0;
 	}
 
 
@@ -378,7 +391,12 @@ struct sLIBSSH2SocketData
 		{
 			return false;
 		}
-		return upload_directory(m_pSFTPSession, local_dir, remote_dir);
+		bool l_bResult = upload_directory(m_pSFTPSession, local_dir, remote_dir);
+		if (this->m_fCompleteFunction)
+		{
+			this->m_fCompleteFunction();
+		}
+		return l_bResult;
 	}
 
 	bool	DoDownloadFile(const std::string& local_dir, const std::string& remote_dir)
@@ -415,9 +433,9 @@ struct sLIBSSH2SocketData
 		}
 
 		m_ServerAddr.sin_family = AF_INET;
-		m_ServerAddr.sin_port = htons(SERVER_PORT);
+		m_ServerAddr.sin_port = htons(m_iPort);
 		//#pragma comment(lib, "Ws2_32.lib")
-		inet_pton(AF_INET, SERVER_IP, &m_ServerAddr.sin_addr);
+		inet_pton(AF_INET, m_strIP.c_str(), &m_ServerAddr.sin_addr);
 
 		// Connect to the SSH server
 		if (connect(m_iSock, (struct sockaddr*)&m_ServerAddr, sizeof(m_ServerAddr)) < 0)
@@ -443,7 +461,7 @@ struct sLIBSSH2SocketData
 		}
 
 		// Authenticate via username and password
-		if (libssh2_userauth_password(m_pSession, USERNAME, PASSWORD))
+		if (libssh2_userauth_password(m_pSession, this->m_strUserName.c_str(),this->m_strPassword.c_str()))
 		{
 			std::cerr << "Authentication failed" << std::endl;
 			libssh2_session_disconnect(m_pSession, "Normal Shutdown");
@@ -461,13 +479,32 @@ struct sLIBSSH2SocketData
 			return false;
 		}
 		m_bConnectedOk = true;
+		return true;
 	}
 };
 
-std::map<std::string, sLIBSSH2SocketData*>* g_pLIBSSH2SocketDataMap = nullptr;
+std::map<eEnvType, sLIBSSH2SocketData*>* g_pLIBSSH2SocketDataMap = nullptr;
 
-void AssignEnvData(const char* e_strUserName, const char* e_strPW, const char* e_strIP, const int e_iPort)
+void AssignEnvData(const char* e_strUserName, const char* e_strPW, const char* e_strIP, const int e_iPort, const eEnvType e_eEnvType)
 {
+	if (!g_pLIBSSH2SocketDataMap)
+	{
+		LibSSH2Init();
+	}
+	sLIBSSH2SocketData*l_pLIBSSH2SocketData = nullptr;
+	auto l_IT = g_pLIBSSH2SocketDataMap->find(e_eEnvType);
+	if (l_IT == g_pLIBSSH2SocketDataMap->end())
+	{
+		l_pLIBSSH2SocketData = new sLIBSSH2SocketData();
+		g_pLIBSSH2SocketDataMap->insert({ e_eEnvType, l_pLIBSSH2SocketData });
+	}
+	if (l_pLIBSSH2SocketData)
+	{
+		l_pLIBSSH2SocketData->m_strIP = e_strIP;
+		l_pLIBSSH2SocketData->m_iPort = e_iPort;
+		l_pLIBSSH2SocketData->m_strUserName = e_strUserName;
+		l_pLIBSSH2SocketData->m_strPassword = e_strPW;
+	}
 }
 
 void LibSSH2Init()
@@ -476,29 +513,84 @@ void LibSSH2Init()
 	{
 		// Initialize libssh2
 		auto l_Result = libssh2_init(0);
-		g_pLIBSSH2SocketDataMap = new std::map<std::string, sLIBSSH2SocketData*>();
+		g_pLIBSSH2SocketDataMap = new std::map<eEnvType, sLIBSSH2SocketData*>();
 
 	}
 }
 
-bool UploadFileOrDirectory(const char* e_strEnvName,const std::string& e_strLocalPath, const std::string& e_strRemotePath)
+bool UploadFileOrDirectory(const std::string& e_strLocalPath, const std::string& e_strRemotePath, std::vector<eEnvType>& e_eEnvTypeVector, f_CompleteFunction e_fCompleteFunction)
 {
-	if (fs::is_directory(e_strLocalPath))
+	if (!g_pLIBSSH2SocketDataMap)
 	{
-
+		return false;
 	}
-	else
+	bool l_bIsDirectory = fs::is_directory(e_strLocalPath);
+	std::function<void(float)> l_Function = [l_bIsDirectory,e_eEnvTypeVector, e_strLocalPath, e_strRemotePath, e_fCompleteFunction](float e_fElapsedTime)
 	{
+		for (auto l_Type : e_eEnvTypeVector)
+		{
+			auto l_IT = g_pLIBSSH2SocketDataMap->find(l_Type);
+			if (l_IT != g_pLIBSSH2SocketDataMap->end())
+			{
+				if (l_IT->second->DoConnect())
+				{
+					if (l_bIsDirectory)
+					{
+						l_IT->second->DoUploadDirectory(e_strLocalPath, e_strRemotePath);
+					}
+					else
+					{
+						l_IT->second->DoUploadFile(e_strLocalPath, e_strRemotePath);
+					}
+					
+				}
+				else
+				{
+					UT::ErrorMsgByFormat("connect to %d failed", l_Type);
+					if (e_fCompleteFunction)
+					{
+						e_fCompleteFunction();
+					}
+					//return false;
+				}
+			}
+			else
+			{
 
-	}
+			}
+		}
+		if (e_fCompleteFunction)
+		{
+			e_fCompleteFunction();
+		}
+	};
+	cCPP11Thread	l_cCPP11Thread;
+	l_cCPP11Thread.ThreadDetach(l_Function, "qoo");
+	return true;
 	return false;
 }
 
-bool DownloadFileOrDirectory(const char* e_strEnvName, const std::string& e_strLocalPath, const std::string& e_strRemotePath)
+bool DownloadFileOrDirectory(const std::string& e_strLocalPath, const std::string& e_strRemotePath, std::vector<eEnvType>& e_eEnvTypeVector, f_CompleteFunction e_fCompleteFunction)
 {
+	if (!g_pLIBSSH2SocketDataMap)
+	{
+		return false;
+	}
 	if (fs::is_directory(e_strLocalPath))
 	{
+		for (auto l_Type : e_eEnvTypeVector)
+		{
+			auto l_IT = g_pLIBSSH2SocketDataMap->find(l_Type);
+			if (l_IT != g_pLIBSSH2SocketDataMap->end())
+			{
+				l_IT->second->DoUploadDirectory(e_strLocalPath, e_strRemotePath);
+			}
+			else
+			{
 
+			}
+		}
+		return true;
 	}
 	else
 	{

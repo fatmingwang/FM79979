@@ -11,7 +11,7 @@
 enum eMyImGuiType
 {
 	eMIGT_NODE = 0,
-	eMIGT_BUTTON = 1,
+	eMIGT_BUTTON,// = 0,
 	eMIGT_LABEL,
 	eMIGT_EDIT_BOX,
 	eMIGT_SLIDER_I,
@@ -126,7 +126,7 @@ public:
 //eMIGT_FORM,//9
 //eMIGT_PANEL = 10,
 
-class cMyGuiNode :public cMyGuiBasicObj
+class cMyGuiRootNode :public cMyGuiBasicObj
 {
 	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;

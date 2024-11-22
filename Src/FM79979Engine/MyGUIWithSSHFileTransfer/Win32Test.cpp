@@ -56,6 +56,10 @@
 #pragma comment(lib, "./openssl/lib/libssh2.lib")
 #pragma comment(lib, "Ws2_32.lib")
 
+#include <iostream>
+#include <future>
+#include <thread>
+#include <chrono>
 
 
 
@@ -88,6 +92,60 @@ extern LRESULT  ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wPara
 //#define offsetof(s,m) ((::size_t)&reinterpret_cast<char const volatile&>((((s*)0)->m)))
 
 
+int longRunningTask() {
+	std::this_thread::sleep_for(std::chrono::seconds(3)); // Simulate a long task
+	return 42; // Example result
+}
+
+void Qoo1()
+{
+	std::cout << "Starting long-running task..." << std::endl;
+
+	// Run the task asynchronously
+	std::future<int> futureResult = std::async(std::launch::async, longRunningTask);
+
+	// Perform other work while waiting (simulate with a simple message)
+	std::cout << "Doing other work while waiting for the task to complete..." << std::endl;
+
+	// Wait for the result
+	int result = futureResult.get();
+
+	std::cout << "Task completed with result: " << result << std::endl;
+}
+
+// Long-running task function
+void longRunningTask(std::promise<int> promise) {
+	std::this_thread::sleep_for(std::chrono::seconds(3)); // Simulate a long task
+	promise.set_value(42); // Send the result
+}
+
+
+void Qoo2()
+{
+	std::cout << "Starting long-running task..." << std::endl;
+
+	// Create a promise and its associated future
+	std::promise<int> promise;
+	std::future<int> future = promise.get_future();
+
+	// Start the thread using a lambda to wrap the call and pass the promise
+	std::thread taskThread([&promise]() mutable 
+	{
+		longRunningTask(std::move(promise));
+	});
+
+	// Perform other work while waiting (simulate with a simple message)
+	std::cout << "Doing other work while waiting for the task to complete..." << std::endl;
+
+	// Wait for the result
+	int result = future.get();
+
+	std::cout << "Task completed with result: " << result << std::endl;
+
+	// Join the thread
+	taskThread.join();
+
+}
 
 int APIENTRY wWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -119,6 +177,9 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	}
 	_CrtMemState s1;
 	_CrtMemCheckpoint(&s1);
+
+	//Qoo1();
+	//Qoo2();
 
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
@@ -241,8 +302,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	if (cGameApp::m_spOpenGLRender)
 	{
 		cNodeISAX	l_NodeISAX;
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 1024.;
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 768.f;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = 1024.;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = 768.f;
 		wchar_t l_str[666];
 		GetCurrentDirectory(666, l_str);
 		cGameApp::ResoluctionParse("EngineTestSetup.xml");

@@ -69,9 +69,6 @@
     <ClInclude Include="MyGui\MyImGuiUIEditor.h">
       <Filter>MyGui</Filter>
     </ClInclude>
-    <ClInclude Include="MyGui\MyGuiMenu.h">
-      <Filter>MyGui</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui_widgets.cpp">

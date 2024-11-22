@@ -3,7 +3,7 @@
 #include "../ThirtyParty/ImGuiBuilder/additional.h"
 using namespace	FATMING_CORE;
 TYPDE_DEFINE_MARCO(cImGuiNode);
-TYPDE_DEFINE_MARCO(cMyGuiNode);
+TYPDE_DEFINE_MARCO(cMyGuiRootNode);
 TYPDE_DEFINE_MARCO(cMyGuiButton);
 TYPDE_DEFINE_MARCO(cMyGuiLabel);
 TYPDE_DEFINE_MARCO(cMyGuiEditBox);
@@ -377,6 +377,7 @@ cMyGuiForm::cMyGuiForm()
 {
 	this->SetName(cMyGuiForm::TypeID);
 	m_FormFlag = 0;
+	this->m_bThisUseContainerPositionDontApplyarentPositionToChild = true;
 }
 
 cMyGuiForm::~cMyGuiForm()
@@ -450,13 +451,13 @@ void cMyGuiButton::InternalRender()
 	}
 	//ImGui::Button(obj.name.c_str(), obj.size);
 }
-
-void cMyGuiNode::ApplyPosition()
+//please us epanel and set border false to retend it's a  node
+void cMyGuiRootNode::ApplyPosition()
 {
-	//ImGui::SetNextWindowPos(this->m_vLocalPos);
+	ImGui::SetNextWindowPos(this->m_vLocalPos);
 }
 
-void cMyGuiNode::InternalRender()
+void cMyGuiRootNode::InternalRender()
 {
 }
 
@@ -549,9 +550,9 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pPare
 	cMyGuiBasicObj* l_pObject = nullptr;
 	switch (e_eMyImGuiType)
 	{
-	case	eMIGT_NODE:
-		l_pObject = new cMyGuiNode();
-		break;
+	//case	eMIGT_NODE:
+	//	l_pObject = new cMyGuiRootNode();
+	//	break;
 	case	eMIGT_BUTTON:
 		l_pObject = new cMyGuiButton();
 		break;
