@@ -147,6 +147,40 @@ void Qoo2()
 
 }
 
+void FrameDeleteTest()
+{
+	Frame*l_pFrameRoot = new Frame();
+	l_pFrameRoot->SetName(L"Root");
+	Frame*l_pFrameTest_1 = new Frame();
+	l_pFrameTest_1->SetName(L"_1");
+	Frame*l_pFrameTest_2 = new Frame();
+	l_pFrameTest_2->SetName(L"_2");
+	l_pFrameRoot->AddChild(l_pFrameTest_1);
+	l_pFrameRoot->AddChild(l_pFrameTest_2);
+	{
+		Frame* l_pFrameTest_1_1 = new Frame();
+		l_pFrameTest_1_1->SetName(L"_1_1");
+		Frame* l_pFrameTest_1_2 = new Frame();
+		l_pFrameTest_1_2->SetName(L"_1_2");
+		l_pFrameTest_1->AddChild(l_pFrameTest_1_1);
+		l_pFrameTest_1->AddChild(l_pFrameTest_1_2);
+
+		Frame* l_pFrameTest_2_1 = new Frame();
+		l_pFrameTest_2_1->SetName(L"_2_1");
+		l_pFrameTest_2->AddChild(l_pFrameTest_2_1);
+		{
+			Frame* l_pFrameTest_2_1_1 = new Frame();
+			l_pFrameTest_2_1_1->SetName(L"_2_1_1");
+			Frame* l_pFrameTest_2_1_2 = new Frame();
+			l_pFrameTest_2_1_2->SetName(L"_2_1_2");
+			l_pFrameTest_2_1->AddChild(l_pFrameTest_2_1_1);
+			l_pFrameTest_2_1->AddChild(l_pFrameTest_2_1_2);
+		}
+	}
+	Frame::DestoryWithChildren(l_pFrameRoot);
+	int a = 0;
+}
+
 int APIENTRY wWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR    lpCmdLine,
@@ -212,7 +246,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)g_WindowSize.x, (int)g_WindowSize.y, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	}
 	SetTimer (g_hWnd, 0, 0, NULL) ;
-
+	//FrameDeleteTest();
 
     //MouseHook = SetWindowsHookEx(WH_MOUSE_LL,MouseHookProc,hInstance,0);
 	// Main message loop:

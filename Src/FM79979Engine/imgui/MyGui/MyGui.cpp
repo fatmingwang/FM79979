@@ -37,7 +37,23 @@ cImGuiNode::cImGuiNode()
 
 cImGuiNode::~cImGuiNode()
 {
-	DeleteObjectAndAllChildren(this);
+	SetParent(nullptr);
+	//DeleteObjectAndAllChildren(this);
+	DestoryWithChildren();
+}
+
+void cImGuiNode::DestoryWithChildren()
+{
+	auto l_uiSize = m_ChildNodeVector.size();
+	std::vector<cImGuiNode*>	l_ChildNodeVector = m_ChildNodeVector;
+	for (size_t i = 0; i < l_uiSize; i++)
+	{
+		l_ChildNodeVector[i]->SetParent(nullptr);
+	}
+	for (size_t i = 0; i < l_uiSize; i++)
+	{
+		SAFE_DELETE(l_ChildNodeVector[i]);
+	}
 }
 
 void cImGuiNode::HierachyPositionRender()
@@ -214,7 +230,6 @@ void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 {
 	if (e_pImGuiNode)
 	{
-		e_pImGuiNode->SetParent(nullptr);
 		auto l_uiSize = e_pImGuiNode->m_ChildNodeVector.size();
 		for (size_t i = 0; i < l_uiSize; i++)
 		{
@@ -454,7 +469,7 @@ void cMyGuiButton::InternalRender()
 //please us epanel and set border false to retend it's a  node
 void cMyGuiRootNode::ApplyPosition()
 {
-	ImGui::SetNextWindowPos(this->m_vLocalPos);
+	//ImGui::SetNextWindowPos(this->m_vLocalPos);
 }
 
 void cMyGuiRootNode::InternalRender()

@@ -7,7 +7,7 @@ namespace FATMING_CORE
 {
 
 	// int e_iType:0 for next sibling,1 for first child
-	Frame*	GoThoughAllFrameFromaFirstToEndWithClone(Frame*e_pSrcFrame, Frame*e_pDestFrame, int e_iType)
+	Frame*	GoThoughAllFrameFromaFirstToEndWithClone(Frame*e_pSrcFrame, Frame*e_pDestFrame, int e_iType,bool e_bCallSibling = false)
 	{
 		if (e_pSrcFrame)
 		{
@@ -19,17 +19,22 @@ namespace FATMING_CORE
 					e_pDestFrame->SetNextSibling(l_pCloneFrame);
 				}
 				else
-					if (e_iType == 1)
-					{
-						e_pDestFrame->AddChildToLast(l_pCloneFrame);
-					}
+				if (e_iType == 1)
+				{
+					e_pDestFrame->AddChildToLast(l_pCloneFrame);
+				}
 			}
-			auto l_pFrame = e_pSrcFrame->GetNextSibling();
-			if (l_pFrame)
-				GoThoughAllFrameFromaFirstToEndWithClone(l_pFrame, l_pCloneFrame, 0);
+			Frame*l_pFrame = nullptr;
+			if (e_bCallSibling)
+			{
+				l_pFrame = e_pSrcFrame->GetNextSibling();
+				GoThoughAllFrameFromaFirstToEndWithClone(l_pFrame, l_pCloneFrame, 0, e_bCallSibling);
+			}
 			l_pFrame = e_pSrcFrame->GetFirstChild();
 			if (l_pFrame)
-				GoThoughAllFrameFromaFirstToEndWithClone(l_pFrame, l_pCloneFrame, 1);
+			{
+				GoThoughAllFrameFromaFirstToEndWithClone(l_pFrame, l_pCloneFrame, 1,true);
+			}
 			return l_pCloneFrame;
 		}
 		return nullptr;
@@ -40,12 +45,12 @@ namespace FATMING_CORE
 		Frame*l_pMe = this;
 		GoThoughAllFrameFromaLastToFirst(
 			[l_pMe](void*e_pData, Frame*e_pFrame)
-		{
-			if (e_pFrame != l_pMe)
 			{
-				delete e_pFrame;
+				if (e_pFrame != l_pMe)
+				{
+					delete e_pFrame;
+				}
 			}
-		}
 		, this, this);
 	}
 
@@ -131,18 +136,22 @@ namespace FATMING_CORE
 	//l_pFrameTest4->AddChild(l_pFrameTest5);
 	//l_pFrameTest4->AddChild(l_pFrameTest6);
 	//Frame::DestoryWithChildren(l_pFrameTest);
-	void	Frame::DestoryWithChildren(Frame*e_pFrame)
+	void	Frame::DestoryWithChildren(Frame*e_pFrame, bool e_bDoNextSibling)
 	{
 		if (e_pFrame)
 		{
 			//e_pFrame->m_bDestroyConnectionWhileDestroy = false;
-			DestoryWithChildren(e_pFrame->GetNextSibling());
+			//should not do this but I am lazy to fix this now
+			if (e_bDoNextSibling)
+			{
+				DestoryWithChildren(e_pFrame->GetNextSibling(), e_bDoNextSibling);
+			}
 			//??why,because MPDI...MPDI will kill child by itself.
 			//if( !e_pFrame->IsIgnoreChildrenUpdate() )
 			{
-				DestoryWithChildren(e_pFrame->GetFirstChild());
+				DestoryWithChildren(e_pFrame->GetFirstChild(),true);
 			}
-			//FMLog::LogWithFlag(e_pFrame->GetName());
+			FMLog::Log(e_pFrame->GetName(),false);
 			SAFE_DELETE(e_pFrame);
 		}
 	}
@@ -155,13 +164,15 @@ namespace FATMING_CORE
 	}
 
 
-	Frame*	Frame::FinFrameByName(const wchar_t*e_strName)
+	Frame*	Frame::FinFrameByName(const wchar_t*e_strName, bool e_bDoNextSibling)
 	{
 		if (!wcscmp(e_strName, GetName()))
-			return this;
-		if (this->GetNextSibling() != nullptr)
 		{
-			return GetNextSibling()->FinFrameByName(e_strName);
+			return this;
+		}
+		if (e_bDoNextSibling && this->GetNextSibling() != nullptr)
+		{
+			return GetNextSibling()->FinFrameByName(e_strName, e_bDoNextSibling);
 		}
 
 		if (GetFirstChild() != nullptr)
@@ -191,7 +202,9 @@ namespace FATMING_CORE
 			while (l_pFirstChild)
 			{
 				if (l_pFirstChild->GetNextSibling())
+				{
 					l_pFirstChild = l_pFirstChild->GetNextSibling();
+				}
 				else
 				{
 					l_pFirstChild->m_pNextSibling = pChild;
@@ -306,7 +319,9 @@ namespace FATMING_CORE
 		while (pChild != nullptr)
 		{
 			if (pChild == pOtherFrame)
+			{
 				return true;
+			}
 			pChild = pChild->GetNextSibling();
 		}
 		return false;
@@ -578,7 +593,7 @@ namespace FATMING_CORE
 	//	}
 	//}
 
-	void	Frame::DumpDebugInfo()
+	void	Frame::DumpDebugInfo(bool e_bDoNextSibling)
 	{
 		Frame*l_pParentNode = GetParent();
 		int	l_iLevel = 0;
@@ -599,41 +614,50 @@ namespace FATMING_CORE
 			FMLog::Log(l_strDebugInfo.c_str(), false);
 			if (GetFirstChild())
 			{
-				GetFirstChild()->DumpDebugInfo();
+				GetFirstChild()->DumpDebugInfo(true);
 			}
 		}
 
-		if (GetNextSibling())
+		if (e_bDoNextSibling && GetNextSibling())
 		{
-			GetNextSibling()->DumpDebugInfo();
+			GetNextSibling()->DumpDebugInfo(e_bDoNextSibling);
 		}
 	}
 
-	void	GoThoughAllFrameFromaLastToFirst(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData)
+	void	GoThoughAllFrameFromaLastToFirst(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData, bool e_bDoNextSibling)
 	{
 		if (e_pFrame)
 		{
+			//why? I donno it should be wrong,don't need to check next sibling
 			auto l_pFrame = e_pFrame->GetNextSibling();
-			if (l_pFrame)
-				GoThoughAllFrameFromaLastToFirst(e_Function, l_pFrame, e_pData);
+			if (e_bDoNextSibling && l_pFrame)
+			{
+				GoThoughAllFrameFromaLastToFirst(e_Function, l_pFrame, e_pData, e_bDoNextSibling);
+			}
 			l_pFrame = e_pFrame->GetFirstChild();
 			if (l_pFrame)
-				GoThoughAllFrameFromaLastToFirst(e_Function, l_pFrame, e_pData);
+			{
+				GoThoughAllFrameFromaLastToFirst(e_Function, l_pFrame, e_pData,true);
+			}
 			e_Function(e_pData, e_pFrame);
 		}
 	}
 
-	void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData)
+	void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData, bool e_bDoNextSibling)
 	{
 		if (e_pFrame)
 		{
 			e_Function(e_pData, e_pFrame);
 			auto l_pFrame = e_pFrame->GetNextSibling();
-			if (l_pFrame)
-				GoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame, e_pData);
+			if (e_bDoNextSibling && l_pFrame)
+			{
+				GoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame, e_pData, e_bDoNextSibling);
+			}
 			l_pFrame = e_pFrame->GetFirstChild();
 			if (l_pFrame)
-				GoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame, e_pData);
+			{
+				GoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame, e_pData, true);
+			}
 		}
 	}
 

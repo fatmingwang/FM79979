@@ -28,8 +28,8 @@ namespace FATMING_CORE
 		//if you afried something wrong want manual to delete object set this->m_bIgnoreChildrenUpdate = true
 		//
 		//please call m_pRenderObject->SetParent(nullptr); before DestoryWithChildren?
-		static	void				DestoryWithChildren(Frame*e_pFrame);
-		Frame*						FinFrameByName(const wchar_t*e_strName);
+		static	void				DestoryWithChildren(Frame*e_pFrame,bool e_bDoNextSibling = false);
+		Frame*						FinFrameByName(const wchar_t*e_strName, bool e_bDoNextSibling = false);
 		// frame hierarchy
 		virtual	void                AddChild(Frame* pChild, bool e_bUpdateRelatedPosition = true);
 		virtual	void                AddChildToLast(Frame* pChild, bool e_bUpdateRelatedPosition = true);
@@ -96,7 +96,7 @@ namespace FATMING_CORE
 		//virtual	void				AllUpdate(float e_fElpaseTime);
 		//virtual	void				AllRender();
 
-		void						DumpDebugInfo();
+		void						DumpDebugInfo(bool e_bDoNextSibling = false);
 		GET_SET(bool, m_bIgnoreChildrenUpdate, IsIgnoreChildrenUpdate, SetIgnoreChildrenUpdate);
 		GET_SET(bool, m_bIgnoreChildrenRender, IsIgnoreChildrenRender, SetIgnoreChildrenRender);
 		GET_SET_DEC(bool, m_bVisible, IsVisible, SetVisible);
@@ -119,8 +119,8 @@ namespace FATMING_CORE
 		bool						m_bAutoUpdateBound;//button dont need this
 	};
 	//sibling child then pop up back
-	void	GoThoughAllFrameFromaLastToFirst(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData);
-	void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData);
+	void	GoThoughAllFrameFromaLastToFirst(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData, bool e_bDoNextSibling = false);
+	void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData, bool e_bDoNextSibling = false);
 	//only for first child and its sibling
 	void	GoThoughFirstChildLevel(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData);
 //end namespace FATMING_CORE

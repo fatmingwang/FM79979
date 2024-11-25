@@ -46,6 +46,7 @@ class cImGuiNode:public NamedTypedObject
 	//
 	virtual void				ApplyPosition() = 0;
 	ImVec2						m_vImGuiRenderPos = { 0, 0 };
+	void						DestoryWithChildren();
 protected:
 	bool						m_bThisUseContainerPositionDontApplyarentPositionToChild = false;
 	bool						m_bDoApplyPosition = false;

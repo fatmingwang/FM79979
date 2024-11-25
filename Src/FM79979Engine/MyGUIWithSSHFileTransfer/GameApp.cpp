@@ -57,6 +57,7 @@ void	cMyApp::Render()
 		m_pGUIForFileTransfer->Render();
 	}
 	//cMyImGuiTesting::Render();
+	GLRender::RenderRectangle(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y, cMatrix44::Identity, Vector4::Red);
 	cGameApp::ShowInfo();
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);

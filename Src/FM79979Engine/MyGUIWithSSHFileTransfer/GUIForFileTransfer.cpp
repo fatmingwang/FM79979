@@ -87,6 +87,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 
 cGUIForFileTransfer::~cGUIForFileTransfer()
 {
+	SAFE_DELETE(m_pRoot);
 }
 
 void cGUIForFileTransfer::FetchVersionFileList()
