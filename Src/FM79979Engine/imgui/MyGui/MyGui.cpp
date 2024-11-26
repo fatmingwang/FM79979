@@ -462,7 +462,10 @@ void cMyGuiButton::InternalRender()
 {
 	if (ImGui::Button(m_strText.c_str(), this->m_vSize))
 	{
-
+		if (m_fOnClickFunction)
+		{
+			m_fOnClickFunction();
+		}
 	}
 	//ImGui::Button(obj.name.c_str(), obj.size);
 }
@@ -483,21 +486,20 @@ void cMyGuiComboBox::InternalRender()
 	{
 		ImGui::PushItemWidth(this->m_vSize.y);
 	}
-	// Array of items
-	const char* items3[] = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
-	static int selectedItemIndex3 = 0; // Track selected item index
-	m_strDataVector = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
-	const char* items4[999];
+	const char* l_strTemp[999];
 	for (int i = 0; i < m_strDataVector.size(); ++i)
 	{
-		items4[i] = m_strDataVector[i].c_str();
+		l_strTemp[i] = m_strDataVector[i].c_str();
 	}
 	//m_strEvnNameVector = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
 	// Create the combo box
-	if (ImGui::Combo("My ComboBox", &selectedItemIndex3, items4, m_strDataVector.size())) 
+	if (ImGui::Combo("My ComboBox", &m_iSelectedIndex, l_strTemp, m_strDataVector.size()))
 	{
-		// Item selected - do something with selectedItemIndex
-		ImGui::Text("You selected: %s", items4[selectedItemIndex3]);
+		if (m_fOnSelectFunction)
+		{
+			m_fOnSelectFunction(m_iSelectedIndex);
+		}
+		
 	}
 	if (this->m_vSize.y > 0)
 	{
@@ -505,25 +507,63 @@ void cMyGuiComboBox::InternalRender()
 	}
 }
 
+cMyGuiComboBox::cMyGuiComboBox()
+{
+	m_iSelectedIndex = 0;
+	m_strDataVector = { "none" };
+}
+
 void cMyGuiComboBox::RenderProperty()
 {
 }
 
+void cMyGuiListBox::RenderMultiSelectable()
+{
+	static std::vector<std::string> items = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+	static std::vector<bool> selected(items.size(), false); // Track selected states
+	// Start List Box
+	if (ImGui::BeginListBox("##multiselect", ImVec2(-FLT_MIN, 6 * ImGui::GetTextLineHeightWithSpacing())))
+	{
+		for (size_t i = 0; i < items.size(); ++i)
+		{
+			// Display checkbox for each item
+			ImGui::Selectable(items[i].c_str(), selected[i], ImGuiSelectableFlags_AllowDoubleClick);
+
+			// Handle multi-select with modifier keys (Shift or Ctrl)
+			bool l_bCtrl = ImGui::IsKeyDown(ImGuiKey_RightCtrl) | ImGui::IsKeyDown(ImGuiKey_LeftCtrl);
+			if (ImGui::IsItemClicked() && l_bCtrl)
+			{
+				selected[i] = !selected[i];
+			}
+		}
+		ImGui::EndListBox();
+	}
+}
+
 void cMyGuiListBox::InternalRender()
 {
+	//RenderMultiSelectable();
+	//return;
 	this->m_vSize.y = 200.f;
 	if (this->m_vSize.y > 0)
 	{
 		ImGui::PushItemWidth(this->m_vSize.y);
 	}
-	// Array of items
-	const char* items[] = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5","Item 6", "Item 7", "Item 8", "Item 9", "Item 10" };
-	static int selectedItemIndex = 0; // Track selected item index
+	const char* l_strTemp[999];
+	for (int i = 0; i < m_strDataVector.size(); ++i)
+	{
+		l_strTemp[i] = m_strDataVector[i].c_str();
+	}
 	// Create the listbox
-	if (ImGui::ListBox("Versiones", &selectedItemIndex, items, IM_ARRAYSIZE(items)))
+	int l_iCount = (int)m_strDataVector.size();
+	if (ImGui::ListBox("Versiones", &m_iSelectedIndex, l_strTemp, l_iCount))
 	{
 		// Item selected - do something with selectedItemIndex
-		ImGui::Text("You selected: %s", items[selectedItemIndex]);
+		//ImGui::Text("You selected: %s", items[selectedItemIndex]);
+		if (m_fOnSelectFunction)
+		{
+			m_fOnSelectFunction(m_iSelectedIndex);
+		}
 	}
 	if (this->m_vSize.y > 0)
 	{

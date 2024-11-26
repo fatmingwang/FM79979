@@ -731,13 +731,13 @@ namespace	FATMING_CORE
 		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	}
 
-	void cGameApp::ShowInfoOnScreen(const wchar_t* e_strInfo)
+	void cGameApp::ShowInfoOnScreen(const wchar_t* e_strInfo, float e_fPeriod)
 	{
 		if (!g_pShowInfoOnScreen)
 		{
 			g_pShowInfoOnScreen = new std::vector<sShowInfoOnScreen>();
 		}
-		sShowInfoOnScreen l_ShowInfoOnScreen = {5.f,e_strInfo };
+		sShowInfoOnScreen l_ShowInfoOnScreen = { e_fPeriod,e_strInfo };
 		g_pShowInfoOnScreen->push_back(l_ShowInfoOnScreen);
 	}
 

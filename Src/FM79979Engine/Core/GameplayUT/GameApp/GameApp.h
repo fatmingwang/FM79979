@@ -136,7 +136,7 @@ namespace	FATMING_CORE
 		static	cGlyphFontRender*									GetGlyphFontRenderByFileName(const wchar_t*e_strFileName);
 		static	cGlyphFontRender*									GetGlyphFontRender(const wchar_t*e_strFileName);
 		static	void												ShowInfo();
-		static	void												ShowInfoOnScreen(const wchar_t*e_strInfo);
+		static	void												ShowInfoOnScreen(const wchar_t*e_strInfo,float e_fPeriod = 1.f);
 		//e_iKeyBoardType = 0 as default,e_iKeyBoardType = 1 as Numeric pad,
 		//in android if e_iKeyBoardType is one u have to setup
 		//FinishInput(String e_strValue);,Chancel();take a look at cpp

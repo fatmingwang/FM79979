@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "GUIForFileTransfer.h"
-#include "json.hpp"
 #include <fstream>
 #include <filesystem>
 #include <iostream>
 #include "../imgui/MyGui/MyGui.h"
-
 #include "SFTPTransfer.h"
 
 
@@ -25,7 +23,14 @@ const char* g_strEnvJSONKey_GoogleSheetName = "GoogleSheetName";
 const char* g_strEnvJSONKey_VersionFileDirectory = "VersionFileDirectory";
 const char* g_strEnvJSONKey_UploadGoogleSheetExeFileDirectory = "UploadGoogleSheetExeFileDirectory";
 
+
 std::string	g_strLocalFolder;
+std::string	g_strTargetFolder;
+std::string	g_strGoogleSheetName;
+std::string	g_strUploadGoogleSheetExeFileDirectory;
+std::string	g_strVersionFileDirectory;
+
+
 std::string	g_strPullCommand;
 std::string	g_strPushCommand;
 
@@ -33,19 +38,17 @@ const char* g_strThisPullFileName = "ThisIsPull.bat";
 const char* g_strThisPushFileName = "ThisIsCommitAndPush.bat";
 
 namespace fs = std::filesystem;
-using json = nlohmann::json;
+
 
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
+	ParseEnvData("Deploy.json");
 	m_pRoot = new cMyGuiRootNode();
 	ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	cMyGuiForm*l_pMyGuiForm = new cMyGuiForm();
 	l_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	l_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
-
-
 	auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
-
 	l_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
 	m_pRoot->AddChild(l_pMyGuiForm);
 	l_pMyGuiForm->SetSize(l_vSize);
@@ -54,9 +57,33 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pMyGuiListBox = new cMyGuiListBox();
 	m_pMyGuiComboBox = new cMyGuiComboBox();
 	m_pMyGuiButton = new cMyGuiButton();
+	m_pMyGuiButton->m_fOnClickFunction = []
+	()
+	{
+		cGameApp::ShowInfoOnScreen(L"Clicked");
+	};
 
 
+	std::vector<std::string> l_strEnvNameVector;
+	for (int i = eE_DEV; i < eE_MAX; ++i)
+	{
+		l_strEnvNameVector.push_back(GetEnvName((eEnv)i));
+		
+	}
+	m_pMyGuiComboBox->SetDataVector(l_strEnvNameVector);
+	m_pMyGuiComboBox->m_fOnSelectFunction = 
+	[](int e_iIndex)
+	{
+			int a = 0;
+	};
 
+	m_pMyGuiListBox->SetDataVector(l_strEnvNameVector);
+	m_pMyGuiListBox->m_fOnSelectFunction =
+		[](int e_iIndex)
+		{
+			int a = 0;
+		};
+	
 
 	//cMyGuiNode*l_pMiddleNode = new cMyGuiNode();
 	//l_pMiddleNode->SetLocalPosition(ImVec2(100, 100));
@@ -90,16 +117,89 @@ cGUIForFileTransfer::~cGUIForFileTransfer()
 	SAFE_DELETE(m_pRoot);
 }
 
+std::string cGUIForFileTransfer::GetEnvName(eEnv e_eEnv)
+{
+	if (e_eEnv == eE_DEV)
+	{
+		return "Dev";
+	}
+	else
+	if (e_eEnv == eE_UAT)
+	{
+		return "Uat";
+	}
+	else
+	if (e_eEnv == eE_SIT)
+	{
+		return "Sit";
+	}
+	else
+	if (e_eEnv == eE_PLAY_FOR_FUN)
+	{
+		return "Funplay";
+	}
+	else
+	if (e_eEnv == eE_PROD)
+	{
+		return "Prod";
+	}
+	return std::string("unknown");
+}
+
 void cGUIForFileTransfer::FetchVersionFileList()
 {
+}
+//{
+//	"LocalSource": "..\\Info",
+//	"TargetFolder" : "system/Info",
+//	"GoogleSheetName" : "InfoPage",
+//	"UploadGoogleSheetExeFileDirectory" : "..\\..\\DeployTools\\",
+//	"VersionFileDirectory" : "../",
+//	"Dev" : {
+//	"BackupSource": "\\\\192.168.250.71\\client\\games-DEV1",
+//	"Deploy" : {
+//	"SFTPDirectory": "/usr/share/nginx/html/games",
+//		"TargetIP" : "192.168.250.47",
+//		"user" : "root",
+//		"pw" : "",
+//		"port" : "22"
+//	}
+//	}
+//}
+
+cGUIForFileTransfer::sEnvData::sEnvData(json e_json)
+{
+	m_strBackupDirectory = e_json[g_strEnvJSONKey_BackupSource];
+	auto l_Deploy = e_json[g_strEnvJSONKey_DeployEnvironmentData];
+	m_strTargetIP = l_Deploy[g_strEnvJSONKey_TargetSourceIP];
+	m_strRemoteUserName = l_Deploy[g_strEnvJSONKey_UserName];
+	m_strRemotePassword = l_Deploy[g_strEnvJSONKey_Password];
+	std::string l_strPort = l_Deploy[g_strEnvJSONKey_Port];
+	m_iPort = GetInt(l_strPort);
+	
 }
 
 void cGUIForFileTransfer::ParseEnvData(const char* e_strFileName)
 {
-	std::ifstream l_Json("Deploy.json");
-	json l_JsonData = json::parse(l_Json);
+	std::ifstream l_JsonStream("Deploy.json");
+	json l_JsonData = json::parse(l_JsonStream);
+	l_JsonStream.close();
+
 	g_strLocalFolder = l_JsonData[g_strEnvJSONKey_LocalSource];
-	l_Json.close();
+	g_strTargetFolder = l_JsonData[g_strEnvJSONKey_TargetFolder];
+	g_strGoogleSheetName = l_JsonData[g_strEnvJSONKey_GoogleSheetName];
+	g_strUploadGoogleSheetExeFileDirectory = l_JsonData[g_strEnvJSONKey_UploadGoogleSheetExeFileDirectory];
+	g_strVersionFileDirectory = l_JsonData[g_strEnvJSONKey_VersionFileDirectory];
+	for (int i = eE_DEV; i < eE_MAX; ++i)
+	{
+		
+		auto l_Json = l_JsonData[GetEnvName((eEnv)i)];
+		if (l_Json.is_object())
+		{
+			sEnvData l_EnvData(l_Json);
+			this->m_EnvDataMap[(eEnv)i] = l_EnvData;
+		}
+	}
 }
 
 void cGUIForFileTransfer::RenderMainUI()

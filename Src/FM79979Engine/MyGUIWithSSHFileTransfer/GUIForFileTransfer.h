@@ -1,4 +1,6 @@
 #pragma once
+#include "json.hpp"
+using json = nlohmann::json;
 
 //a Deploy.json for file content
 //a combobox for src env
@@ -26,6 +28,8 @@ class cGUIForFileTransfer:NamedTypedObject
 		eE_PROD,
 		eE_MAX
 	};
+	std::string						GetEnvName(eEnv e_eEnv);
+					
 	struct sEnvData
 	{
 		std::string					m_steVersionFileName;
@@ -33,9 +37,14 @@ class cGUIForFileTransfer:NamedTypedObject
 		//
 		std::string					m_strBackupDirectory;
 		//
+		std::string					m_strTargetIP;
 		std::string					m_strRemoteUserName;
 		std::string					m_strRemotePassword;
+		int							m_iPort;
+		sEnvData(json e_json);
+		sEnvData(){}
 	};
+	std::map<eEnv, sEnvData>		m_EnvDataMap;
 	std::vector<std::string>		m_VersionVector;
 	bool							m_bDoingUpdate;
 	//

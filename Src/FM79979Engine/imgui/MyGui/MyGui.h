@@ -145,6 +145,7 @@ public:
 	cMyGuiButton();
 	virtual ~cMyGuiButton();
 	//virtual void		RenderProperty()override;
+	std::function<void()>	m_fOnClickFunction;
 };
 
 class cMyGuiLabel :public cMyGuiBasicObj
@@ -233,15 +234,20 @@ public:
 
 class cMyGuiComboBox :public cMyGuiBasicObj
 {
-	virtual	void		InternalRender()override;
-	std::vector<std::string>	m_strDataVector;
+	virtual	void				InternalRender()override;
+	//
+	GET_SET_DEC(std::vector<std::string>, m_strDataVector, GetDataVector, SetDataVector);
+	GET_SET_DEC(int,m_iSelectedIndex,GetSelectedIndex,SetSelectedIndex);
 public:
 	DEFINE_TYPE_INFO();
-	virtual void		RenderProperty()override;
+	cMyGuiComboBox();
+	virtual void				RenderProperty()override;
+	std::function<void(int)>	m_fOnSelectFunction;
 };
 
-class cMyGuiListBox :public cMyGuiBasicObj
+class cMyGuiListBox :public cMyGuiComboBox
 {
+	void				RenderMultiSelectable();
 	virtual	void		InternalRender()override;
 public:
 	DEFINE_TYPE_INFO();
