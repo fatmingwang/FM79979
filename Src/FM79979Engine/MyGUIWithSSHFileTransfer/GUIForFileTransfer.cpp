@@ -57,10 +57,22 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pMyGuiListBox = new cMyGuiListBox();
 	m_pMyGuiComboBox = new cMyGuiComboBox();
 	m_pMyGuiButton = new cMyGuiButton();
-	m_pMyGuiButton->m_fOnClickFunction = []
+	m_pMyGuiButton->SetText("MyButton\nQoo");
+	//m_pMyGuiButton->SetEnable(false);
+	//m_pMyGuiListBox->SetEnable(false);
+	//m_pMyGuiComboBox->SetEnable(false);
+	m_pMyGuiButton->m_fOnClickFunction = [this]
 	()
 	{
 		cGameApp::ShowInfoOnScreen(L"Clicked");
+		m_pRoot->ShowYesNoDialog([this]
+		(bool e_bResult)
+		{
+			//if (e_bResult)
+			{
+				m_pMyGuiButton->SetVisible(e_bResult);
+			}
+		});
 	};
 
 
@@ -97,6 +109,12 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 		l_pMyGuiPanel->AddChild(m_pMyGuiListBox);
 		l_pMyGuiPanel->AddChild(m_pMyGuiComboBox);
 		l_pMyGuiForm->AddChild(l_pMyGuiPanel);
+
+		cMyGuiEditBox*l_pMyGuiEditBox = new cMyGuiEditBox();
+		l_pMyGuiPanel->AddChild(l_pMyGuiEditBox);
+		l_pMyGuiEditBox->SetMultiLines(true);
+		l_pMyGuiEditBox->SetHint("");
+		l_pMyGuiEditBox->SetLocalPosition(500, 100);
 	}
 
 	m_pMyGuiButton->SetLocalPosition(ImVec2(00, 100));
@@ -181,24 +199,31 @@ cGUIForFileTransfer::sEnvData::sEnvData(json e_json)
 
 void cGUIForFileTransfer::ParseEnvData(const char* e_strFileName)
 {
-	std::ifstream l_JsonStream("Deploy.json");
-	json l_JsonData = json::parse(l_JsonStream);
-	l_JsonStream.close();
-
-	g_strLocalFolder = l_JsonData[g_strEnvJSONKey_LocalSource];
-	g_strTargetFolder = l_JsonData[g_strEnvJSONKey_TargetFolder];
-	g_strGoogleSheetName = l_JsonData[g_strEnvJSONKey_GoogleSheetName];
-	g_strUploadGoogleSheetExeFileDirectory = l_JsonData[g_strEnvJSONKey_UploadGoogleSheetExeFileDirectory];
-	g_strVersionFileDirectory = l_JsonData[g_strEnvJSONKey_VersionFileDirectory];
-	for (int i = eE_DEV; i < eE_MAX; ++i)
+	if (fs::exists("Deploy.json"))
 	{
-		
-		auto l_Json = l_JsonData[GetEnvName((eEnv)i)];
-		if (l_Json.is_object())
+		std::ifstream l_JsonStream("Deploy.json");
+		json l_JsonData = json::parse(l_JsonStream);
+		l_JsonStream.close();
+
+		g_strLocalFolder = l_JsonData[g_strEnvJSONKey_LocalSource];
+		g_strTargetFolder = l_JsonData[g_strEnvJSONKey_TargetFolder];
+		g_strGoogleSheetName = l_JsonData[g_strEnvJSONKey_GoogleSheetName];
+		g_strUploadGoogleSheetExeFileDirectory = l_JsonData[g_strEnvJSONKey_UploadGoogleSheetExeFileDirectory];
+		g_strVersionFileDirectory = l_JsonData[g_strEnvJSONKey_VersionFileDirectory];
+		for (int i = eE_DEV; i < eE_MAX; ++i)
 		{
-			sEnvData l_EnvData(l_Json);
-			this->m_EnvDataMap[(eEnv)i] = l_EnvData;
+
+			auto l_Json = l_JsonData[GetEnvName((eEnv)i)];
+			if (l_Json.is_object())
+			{
+				sEnvData l_EnvData(l_Json);
+				this->m_EnvDataMap[(eEnv)i] = l_EnvData;
+			}
 		}
+	}
+	else
+	{
+		UT::ErrorMsg("Deploy.json not exists","Error");
 	}
 }
 
@@ -281,7 +306,6 @@ void cGUIForFileTransfer::Render()
 	ImGui_StartFrame();
 
 	RenderMainUI();
-
 
 	ImGui_EndFrame();
 }

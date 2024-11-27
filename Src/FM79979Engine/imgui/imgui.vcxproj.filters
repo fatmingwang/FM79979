@@ -25,6 +25,9 @@
     <Filter Include="ThirtyParty\ImGuiBuilder">
       <UniqueIdentifier>{d956298f-e0a1-4bfa-973b-7f8899e80bbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="miscu">
+      <UniqueIdentifier>{14b660ce-6686-4802-9b27-aa4abf9ecb3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imconfig.h">
@@ -69,6 +72,9 @@
     <ClInclude Include="MyGui\MyImGuiUIEditor.h">
       <Filter>MyGui</Filter>
     </ClInclude>
+    <ClInclude Include="misc\cpp\imgui_stdlib.h">
+      <Filter>miscu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui_widgets.cpp">
@@ -103,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="MyGui\MyImGuiUIEditor.cpp">
       <Filter>MyGui</Filter>
+    </ClCompile>
+    <ClCompile Include="misc\cpp\imgui_stdlib.cpp">
+      <Filter>miscu</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

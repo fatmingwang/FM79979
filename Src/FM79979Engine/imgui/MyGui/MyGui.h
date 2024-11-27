@@ -67,6 +67,8 @@ protected:
 	// 
 	//for editor mode(drag position) you have to set this
 	GET_SET_DEC(bool,m_bOnlyApplyPositionOnceForDragMoving, GetOnlyApplyPositionOnceForDragMoving, SetOnlyApplyPositionOnceForDragMoving);
+	GET_SET_DEC(bool, m_bEnable, GetEnable, SetEnable);
+	GET_SET_DEC(bool, m_bVisible, GetVisible, SetVisible);
 public:
 	DEFINE_TYPE_INFO();
 	cImGuiNode();
@@ -76,6 +78,7 @@ public:
 	eMyImGuiType				m_eType = eMIGT_NODE;
 	ImVec2 						GetLocalPosition() { return m_vLocalPos;}
 	void						SetLocalPosition(const ImVec2& e_vLocalPos);
+	void						SetLocalPosition(float e_fPosX, float e_fPosY);
 	ImVec2						GetWorldPosition();
 	void						SetWorldPosition(const ImVec2& e_vWorldPos);
 	ImVec2						GetWorldImGuiRenderPosition();
@@ -131,9 +134,15 @@ class cMyGuiRootNode :public cMyGuiBasicObj
 {
 	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
+	virtual	void		EndRender();
+	bool				m_bShowYesNoDialog = false;
+	std::function<void(bool)>m_CompleteFunction;
 public:
 	DEFINE_TYPE_INFO();
 	//virtual void		RenderProperty()override;
+	//for yes no dialog something
+	//f_MyImGuiExtraRenderFunction	m_ExtraLastRenderFunction = nullptr;
+	void				ShowYesNoDialog(std::function<void(bool)>e_CompleteFunction);
 };
 
 class cMyGuiButton :public cMyGuiBasicObj
@@ -159,8 +168,13 @@ public:
 class cMyGuiEditBox :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
+	void				RenderMultiLine();
+	GET_SET_DEC(std::string, m_strText, GetText, SetText);
+	GET_SET_DEC(std::string, m_strHint, GetHint, SetHint);
+	GET_SET_DEC(bool,m_bMultiLines, IsMultiLines, SetMultiLines);
 public:
 	DEFINE_TYPE_INFO();
+	cMyGuiEditBox();
 	//virtual void		RenderProperty()override;
 };
 
@@ -253,6 +267,9 @@ public:
 	DEFINE_TYPE_INFO();
 	virtual void		RenderProperty()override;
 };
+
+void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction);
+
 
 
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pParent);

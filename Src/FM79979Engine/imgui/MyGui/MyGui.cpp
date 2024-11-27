@@ -1,4 +1,5 @@
 #include "MyGui.h"
+#include "../misc/cpp/imgui_stdlib.h"
 #include "../../Core/AllCoreInclude.h"
 #include "../ThirtyParty/ImGuiBuilder/additional.h"
 using namespace	FATMING_CORE;
@@ -30,6 +31,8 @@ TYPDE_DEFINE_MARCO(cMyGuiListBox);
 cImGuiNode::cImGuiNode()
 {
 	m_pParent = nullptr;
+	m_bEnable = true;
+	m_bVisible = true;
 	m_bDoApplyPosition = true;
 	m_bOnlyApplyPositionOnceForDragMoving = false;
 	this->SetName(this->Type());
@@ -125,6 +128,11 @@ void cImGuiNode::SetLocalPosition(const ImVec2& e_vLocalPos)
 	m_bDoApplyPosition = true;
 }
 
+void cImGuiNode::SetLocalPosition(float e_fPosX, float e_fPosY)
+{
+	SetLocalPosition(ImVec2(e_fPosX,e_fPosY));
+}
+
 ImVec2 cImGuiNode::GetWorldPosition()
 {
 	UpdateCachedWorldTransformIfNeeded();
@@ -201,6 +209,10 @@ bool cImGuiNode::SwapChild(int e_iIndex1, int e_iIndex2)
 
 void cImGuiNode::Render()
 {
+	if (!m_bVisible)
+	{
+		return;
+	}
 	if (this->m_bDoApplyPosition)
 	{
 		if (this->m_bOnlyApplyPositionOnceForDragMoving)
@@ -209,7 +221,15 @@ void cImGuiNode::Render()
 		}
 		ApplyPosition();
 	}
+	if (!m_bEnable)
+	{
+		ImGui::BeginDisabled();
+	}
 	this->InternalRender();
+	if (!m_bEnable)
+	{
+		ImGui::EndDisabled();
+	}
 	if (this->m_ExtraRenderFunction)
 	{
 		this->m_ExtraRenderFunction(this);
@@ -436,12 +456,80 @@ void cMyGuiSliderInteger::InternalRender()
 	//ImGui::PopItemWidth();
 }
 
+cMyGuiEditBox::cMyGuiEditBox()
+{
+	m_bMultiLines = false;
+	m_strHint = "please input...";
+}
+
 void cMyGuiEditBox::InternalRender()
 {
-	//ImGui::PushItemWidth(relative_for_resize(obj));
-	//ImGui::InputText(obj.name.c_str(), const_cast<char*>(buffer.c_str()), 254);
-	//ImGui::PopItemWidth();
+	this->m_vSize.x = 100.f;
+	if (this->m_vSize.x > 0)
+	{
+		ImGui::PushItemWidth(this->m_vSize.x);
+	}
+	if (m_bMultiLines)
+	{
+		RenderMultiLine();
+	}
+	else
+	{
+		if (m_strHint.length())
+		{
+			const char* hint = "Enter your text here..."; // Hint text
+			ImGui::InputTextWithHint("##hint", hint, &m_strText);
+		}
+		else
+		{
+
+			ImGui::InputText("Input", &m_strText);
+		}
+	}
+	//ImGui::Text("Current Text:");
+	//ImGui::TextWrapped("%s", text.c_str()); // Display the current text
+	if (this->m_vSize.x > 0)
+	{
+		ImGui::PopItemWidth();
+	}
 }
+
+void cMyGuiEditBox::RenderMultiLine()
+{
+	//if (m_strHint.length() && this->m_strText.length() == 0)
+	//{
+	//	size_t l_iLength = strlen(this->m_strText.c_str());
+	//	if (l_iLength == 0)
+	//	{
+	//		// Render the hint
+	//		ImGui::PushStyleColor(ImGuiCol_Text, ImGui::GetStyleColorVec4(ImGuiCol_TextDisabled)); // Use a "disabled" color
+	//		ImGui::TextUnformatted(m_strHint.c_str());
+	//		ImGui::PopStyleColor();
+
+	//		// Overlay the hint text on the input field
+	//		ImGui::SetItemAllowOverlap();
+	//	}
+	//}
+	// Render the multi-line input text box
+	if (ImGui::InputTextMultiline("##multiline", &this->m_strText, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 10), ImGuiInputTextFlags_AllowTabInput))
+	{
+		//if (l_iLength*2 >= l_iCapacity)
+		//{
+		//	m_strText.reserve(l_iCapacity * 2); // Double the buffer size
+		//	m_strText.resize(strlen(m_strText.c_str()));
+		//}
+	}
+
+
+	//// Multi-line input text box
+	//static std::string text = "This is a multi-line text box.\nYou can edit this text.\nFeel free to type more lines.";
+	//ImGui::InputTextMultiline("##multiline",
+	//						  &text[0],
+	//						  text.capacity() + 1,
+	//						  ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 10),
+	//						  ImGuiInputTextFlags_AllowTabInput);
+}
+
 
 void cMyGuiLabel::InternalRender()
 {
@@ -479,12 +567,30 @@ void cMyGuiRootNode::InternalRender()
 {
 }
 
+void cMyGuiRootNode::EndRender()
+{
+	if (m_bShowYesNoDialog)
+	{
+		CallYesNoDialog(m_CompleteFunction);
+	}
+}
+
+void cMyGuiRootNode::ShowYesNoDialog(std::function<void(bool)> e_CompleteFunction)
+{
+	m_CompleteFunction = e_CompleteFunction;
+	m_bShowYesNoDialog = true;
+	m_CompleteFunction = [e_CompleteFunction,this](bool e_bResult)
+	{
+			e_CompleteFunction(e_bResult);
+			m_bShowYesNoDialog = false;
+	};
+}
+
 void cMyGuiComboBox::InternalRender()
 {
-	this->m_vSize.y = 200.f;
-	if (this->m_vSize.y > 0)
+	if (this->m_vSize.x > 0)
 	{
-		ImGui::PushItemWidth(this->m_vSize.y);
+		ImGui::PushItemWidth(this->m_vSize.x);
 	}
 	const char* l_strTemp[999];
 	for (int i = 0; i < m_strDataVector.size(); ++i)
@@ -501,7 +607,7 @@ void cMyGuiComboBox::InternalRender()
 		}
 		
 	}
-	if (this->m_vSize.y > 0)
+	if (this->m_vSize.x > 0)
 	{
 		ImGui::PopItemWidth();
 	}
@@ -511,6 +617,7 @@ cMyGuiComboBox::cMyGuiComboBox()
 {
 	m_iSelectedIndex = 0;
 	m_strDataVector = { "none" };
+	this->m_vSize.x = 200.f;
 }
 
 void cMyGuiComboBox::RenderProperty()
@@ -545,9 +652,9 @@ void cMyGuiListBox::InternalRender()
 	//RenderMultiSelectable();
 	//return;
 	this->m_vSize.y = 200.f;
-	if (this->m_vSize.y > 0)
+	if (this->m_vSize.x > 0)
 	{
-		ImGui::PushItemWidth(this->m_vSize.y);
+		ImGui::PushItemWidth(this->m_vSize.x);
 	}
 	const char* l_strTemp[999];
 	for (int i = 0; i < m_strDataVector.size(); ++i)
@@ -565,7 +672,7 @@ void cMyGuiListBox::InternalRender()
 			m_fOnSelectFunction(m_iSelectedIndex);
 		}
 	}
-	if (this->m_vSize.y > 0)
+	if (this->m_vSize.x > 0)
 	{
 		ImGui::PopItemWidth();
 	}
@@ -599,6 +706,54 @@ void cMyGuiListBox::RenderProperty()
 }
 
 
+
+void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction)
+{
+	//static bool showPopup = true;
+	//static bool userChoice = false; // Stores the user's choice (true = Yes, false = No)
+
+	//// Button to trigger the popup
+	//if (ImGui::Button("Open Yes/No Dialog"))
+	//{
+	//	showPopup = true; // Trigger popup display
+	//}
+
+	//// Create a modal popup
+	//if (showPopup)
+	//{
+		ImGui::OpenPopup("Yes/No Dialog");
+	//}
+
+	if (ImGui::BeginPopupModal("Yes/No Dialog", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to proceed?");
+		ImGui::Separator();
+
+		// "Yes" button
+		if (ImGui::Button("Yes"))
+		{
+			//userChoice = true; // Yes selected
+			e_CompleteFunction(true);
+			//showPopup = false; // Close popup
+			ImGui::CloseCurrentPopup();
+			//std::cout << "User selected: Yes\n"; // Handle choice
+		}
+
+		ImGui::SameLine();
+
+		// "No" button
+		if (ImGui::Button("No"))
+		{
+			e_CompleteFunction(false);
+			//userChoice = false; // No selected
+			//showPopup = false; // Close popup
+			ImGui::CloseCurrentPopup();
+			//std::cout << "User selected: No\n"; // Handle choice
+		}
+
+		ImGui::EndPopup();
+	}
+}
 
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pParent)
 {
