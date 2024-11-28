@@ -571,18 +571,43 @@ void cMyGuiRootNode::EndRender()
 {
 	if (m_bShowYesNoDialog)
 	{
-		CallYesNoDialog(m_CompleteFunction);
+		CallYesNoDialog(m_CompleteFunction, m_strDialogMessage.c_str(), m_strYesButtonText.c_str(), m_strNoButtonText.c_str());
+	}
+	if (m_bShowConfirmDialog)
+	{
+		CallConfirmDialog(m_CompleteFunction, m_strDialogMessage.c_str(), m_strYesButtonText.c_str());
 	}
 }
 
-void cMyGuiRootNode::ShowYesNoDialog(std::function<void(bool)> e_CompleteFunction)
+void cMyGuiRootNode::ShowYesNoDialog(std::function<void(bool)> e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText, const char* e_strNoButtonText)
 {
+	m_strDialogMessage = e_strContent;
+	m_strYesButtonText = e_strYesButtonText;
+	m_strNoButtonText = e_strNoButtonText;
 	m_CompleteFunction = e_CompleteFunction;
 	m_bShowYesNoDialog = true;
 	m_CompleteFunction = [e_CompleteFunction,this](bool e_bResult)
 	{
+		if (e_CompleteFunction)
+		{
 			e_CompleteFunction(e_bResult);
-			m_bShowYesNoDialog = false;
+		}
+		m_bShowYesNoDialog = false;
+	};
+}
+
+void cMyGuiRootNode::ShowConfirmDialog(const char* e_strContent, const char* e_strConfirmButtonText, std::function<void(bool)> e_CompleteFunction)
+{
+	m_bShowConfirmDialog = true;
+	m_strDialogMessage = e_strContent;
+	m_strYesButtonText = e_strConfirmButtonText;
+	m_CompleteFunction = [e_CompleteFunction, this](bool e_bResult)
+	{
+		if (e_CompleteFunction)
+		{
+			e_CompleteFunction(e_bResult);
+		}
+		m_bShowConfirmDialog = false;
 	};
 }
 
@@ -599,7 +624,7 @@ void cMyGuiComboBox::InternalRender()
 	}
 	//m_strEvnNameVector = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
 	// Create the combo box
-	if (ImGui::Combo("My ComboBox", &m_iSelectedIndex, l_strTemp, m_strDataVector.size()))
+	if (ImGui::Combo("My ComboBox", &m_iSelectedIndex, l_strTemp,(int)m_strDataVector.size()))
 	{
 		if (m_fOnSelectFunction)
 		{
@@ -706,8 +731,32 @@ void cMyGuiListBox::RenderProperty()
 }
 
 
+void CallConfirmDialog(std::function<void(bool)>e_CompleteFunction,const char*e_strContent, const char* e_strConfirmButtonText, const char* e_strTitle)
+{
+	//{
+	ImGui::OpenPopup(e_strTitle);
+	//}
 
-void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction)
+	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text(e_strContent);
+		ImGui::Separator();
+		// "Yes" button
+		if (ImGui::Button(e_strConfirmButtonText))
+		{
+			//userChoice = true; // Yes selected
+			e_CompleteFunction(true);
+			//showPopup = false; // Close popup
+			ImGui::CloseCurrentPopup();
+			//std::cout << "User selected: Yes\n"; // Handle choice
+		}
+
+		ImGui::EndPopup();
+	}
+}
+
+
+void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText, const char* e_strNoButtonText, const char* e_strTitle)
 {
 	//static bool showPopup = true;
 	//static bool userChoice = false; // Stores the user's choice (true = Yes, false = No)
@@ -721,16 +770,16 @@ void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction)
 	//// Create a modal popup
 	//if (showPopup)
 	//{
-		ImGui::OpenPopup("Yes/No Dialog");
+		ImGui::OpenPopup(e_strTitle);
 	//}
 
-	if (ImGui::BeginPopupModal("Yes/No Dialog", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 	{
-		ImGui::Text("Do you want to proceed?");
+		ImGui::Text(e_strContent);
 		ImGui::Separator();
 
 		// "Yes" button
-		if (ImGui::Button("Yes"))
+		if (ImGui::Button(e_strYesButtonText))
 		{
 			//userChoice = true; // Yes selected
 			e_CompleteFunction(true);
@@ -742,7 +791,7 @@ void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction)
 		ImGui::SameLine();
 
 		// "No" button
-		if (ImGui::Button("No"))
+		if (ImGui::Button(e_strNoButtonText))
 		{
 			e_CompleteFunction(false);
 			//userChoice = false; // No selected

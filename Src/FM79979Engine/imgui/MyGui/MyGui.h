@@ -136,13 +136,19 @@ class cMyGuiRootNode :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 	virtual	void		EndRender();
 	bool				m_bShowYesNoDialog = false;
+	bool				m_bShowConfirmDialog = false;
 	std::function<void(bool)>m_CompleteFunction;
+	std::string			m_strDialogMessage = "";
+	std::string			m_strYesButtonText = "Yes";
+	std::string			m_strNoButtonText = "No";
+
 public:
 	DEFINE_TYPE_INFO();
 	//virtual void		RenderProperty()override;
 	//for yes no dialog something
 	//f_MyImGuiExtraRenderFunction	m_ExtraLastRenderFunction = nullptr;
-	void				ShowYesNoDialog(std::function<void(bool)>e_CompleteFunction);
+	void				ShowYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No");
+	void				ShowConfirmDialog(const char* e_strContent, const char* e_strConfirmButtonText = "Confirm" ,std::function<void(bool)>e_CompleteFunction = nullptr);
 };
 
 class cMyGuiButton :public cMyGuiBasicObj
@@ -268,7 +274,8 @@ public:
 	virtual void		RenderProperty()override;
 };
 
-void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction);
+void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No",const char*e_strTitle = "Yes or No");
+void CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText = "Confirm", const char* e_strTitle = "Confirm");
 
 
 

@@ -1,6 +1,5 @@
 #pragma once
-#include "json.hpp"
-using json = nlohmann::json;
+#include "./SFTPTransfer.h"
 
 //a Deploy.json for file content
 //a combobox for src env
@@ -19,31 +18,7 @@ using json = nlohmann::json;
 
 class cGUIForFileTransfer:NamedTypedObject
 {
-	enum eEnv
-	{
-		eE_DEV = 0,
-		eE_UAT,
-		eE_SIT,
-		eE_PLAY_FOR_FUN,
-		eE_PROD,
-		eE_MAX
-	};
 	std::string						GetEnvName(eEnv e_eEnv);
-					
-	struct sEnvData
-	{
-		std::string					m_steVersionFileName;
-		std::vector<std::string>	m_VersionVector;
-		//
-		std::string					m_strBackupDirectory;
-		//
-		std::string					m_strTargetIP;
-		std::string					m_strRemoteUserName;
-		std::string					m_strRemotePassword;
-		int							m_iPort;
-		sEnvData(json e_json);
-		sEnvData(){}
-	};
 	std::map<eEnv, sEnvData>		m_EnvDataMap;
 	std::vector<std::string>		m_VersionVector;
 	bool							m_bDoingUpdate;

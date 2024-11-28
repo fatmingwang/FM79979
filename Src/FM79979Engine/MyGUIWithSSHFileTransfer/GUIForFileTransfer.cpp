@@ -40,6 +40,9 @@ const char* g_strThisPushFileName = "ThisIsCommitAndPush.bat";
 namespace fs = std::filesystem;
 
 
+
+const char* g_strRileFileName = "version/Rule.json";
+
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
 	ParseEnvData("Deploy.json");
@@ -68,11 +71,20 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 		m_pRoot->ShowYesNoDialog([this]
 		(bool e_bResult)
 		{
-			//if (e_bResult)
+			if (e_bResult)
 			{
-				m_pMyGuiButton->SetVisible(e_bResult);
+				m_pMyGuiButton->SetEnable(false);
+				std::vector<eEnv> l_Vector = { eEnv::eE_DEV };
+				DownloadFileOrDirectory(g_strRileFileName, g_strRileFileName, l_Vector, [this](std::string e_strResult)
+				{
+						m_pMyGuiButton->SetEnable(true);
+						m_pRoot->ShowConfirmDialog("download finished");
+				});
+				
+				//m_pMyGuiButton->SetVisible(e_bResult);
+				
 			}
-		});
+		},"download Rule.json file?");
 	};
 
 
@@ -152,7 +164,7 @@ std::string cGUIForFileTransfer::GetEnvName(eEnv e_eEnv)
 		return "Sit";
 	}
 	else
-	if (e_eEnv == eE_PLAY_FOR_FUN)
+	if (e_eEnv == eE_FUN)
 	{
 		return "Funplay";
 	}
@@ -185,13 +197,14 @@ void cGUIForFileTransfer::FetchVersionFileList()
 //	}
 //}
 
-cGUIForFileTransfer::sEnvData::sEnvData(json e_json)
+sEnvData::sEnvData(json e_json)
 {
 	m_strBackupDirectory = e_json[g_strEnvJSONKey_BackupSource];
 	auto l_Deploy = e_json[g_strEnvJSONKey_DeployEnvironmentData];
 	m_strTargetIP = l_Deploy[g_strEnvJSONKey_TargetSourceIP];
 	m_strRemoteUserName = l_Deploy[g_strEnvJSONKey_UserName];
 	m_strRemotePassword = l_Deploy[g_strEnvJSONKey_Password];
+	m_strRemoteDirectory = l_Deploy[g_strEnvJSONKey_SFTPDirectory];
 	std::string l_strPort = l_Deploy[g_strEnvJSONKey_Port];
 	m_iPort = GetInt(l_strPort);
 	
@@ -218,6 +231,7 @@ void cGUIForFileTransfer::ParseEnvData(const char* e_strFileName)
 			{
 				sEnvData l_EnvData(l_Json);
 				this->m_EnvDataMap[(eEnv)i] = l_EnvData;
+				AssignEnvData((eEnv)i, l_EnvData);
 			}
 		}
 	}
