@@ -2,6 +2,8 @@
 #include "../misc/cpp/imgui_stdlib.h"
 #include "../../Core/AllCoreInclude.h"
 #include "../ThirtyParty/ImGuiBuilder/additional.h"
+#include <iostream>
+
 using namespace	FATMING_CORE;
 TYPDE_DEFINE_MARCO(cImGuiNode);
 TYPDE_DEFINE_MARCO(cMyGuiRootNode);
@@ -166,7 +168,7 @@ void cImGuiNode::SetParent(cImGuiNode* e_pParent, int e_iChildIndex)
 		size_t l_uiSize = this->m_pParent->m_ChildNodeVector.size();
 		for (size_t i = 0; i < l_uiSize; i++)
 		{
-			if (this->m_pParent->m_ChildNodeVector[i] == this)
+			if (this->m_pParent->m_ChildNodeVector[i]->GetUniqueID() == this->GetUniqueID())
 			{
 				this->m_pParent->m_ChildNodeVector.erase(this->m_pParent->m_ChildNodeVector.begin() + i);
 				break;
@@ -567,6 +569,38 @@ void cMyGuiRootNode::InternalRender()
 {
 }
 
+void ShowTreeViewWindow(cImGuiNode* rootNode)
+{
+	cImGuiNode* l_pDragNode = nullptr;
+	cImGuiNode* l_pDropParent = nullptr;
+	ImVec2 minSize(400, 300);
+	ImVec2 maxSize(FLT_MAX, FLT_MAX); // No maximum size constraint
+	ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
+	if (ImGui::Begin("Tree View Window"))
+	{
+		// Set the size of the tree view region
+		//ImVec2 treeViewSize = ImVec2(300, 400); // Width: 300px, Height: 400px
+		ImVec2 treeViewSize = ImGui::GetContentRegionAvail();
+
+		// Begin a child region to contain the tree
+		ImGui::BeginChild("TreeViewRegion", treeViewSize, true, ImGuiWindowFlags_HorizontalScrollbar);
+
+		// Display the tree starting from the root node
+		if (rootNode)
+		{
+			DisplayTree(rootNode, &l_pDragNode, &l_pDropParent);
+		}
+
+		// End the child region
+		ImGui::EndChild();
+	}
+	ImGui::End();
+	if (l_pDropParent && l_pDragNode)
+	{
+		l_pDragNode->SetParent(l_pDropParent);
+	}
+}
+
 void cMyGuiRootNode::EndRender()
 {
 	if (m_bShowYesNoDialog)
@@ -577,6 +611,13 @@ void cMyGuiRootNode::EndRender()
 	{
 		CallConfirmDialog(m_CompleteFunction, m_strDialogMessage.c_str(), m_strYesButtonText.c_str());
 	}
+	if (m_bShowFullScreenBlackText)
+	{
+		CallFullScreenBlackText(m_strDialogMessage.c_str());
+	}
+
+	ShowTreeViewWindow(this);
+	this->m_bVisible = true;
 }
 
 void cMyGuiRootNode::ShowYesNoDialog(std::function<void(bool)> e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText, const char* e_strNoButtonText)
@@ -609,6 +650,19 @@ void cMyGuiRootNode::ShowConfirmDialog(const char* e_strContent, const char* e_s
 		}
 		m_bShowConfirmDialog = false;
 	};
+}
+
+void cMyGuiRootNode::ShowFullScreenBlackText(const char* e_strContent)
+{
+	if (e_strContent == nullptr)
+	{
+		m_bShowFullScreenBlackText = false;
+	}
+	else
+	{
+		m_bShowFullScreenBlackText = true;
+		this->m_strDialogMessage = e_strContent;
+	}
 }
 
 void cMyGuiComboBox::InternalRender()
@@ -730,80 +784,6 @@ void cMyGuiListBox::RenderProperty()
 {
 }
 
-
-void CallConfirmDialog(std::function<void(bool)>e_CompleteFunction,const char*e_strContent, const char* e_strConfirmButtonText, const char* e_strTitle)
-{
-	//{
-	ImGui::OpenPopup(e_strTitle);
-	//}
-
-	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text(e_strContent);
-		ImGui::Separator();
-		// "Yes" button
-		if (ImGui::Button(e_strConfirmButtonText))
-		{
-			//userChoice = true; // Yes selected
-			e_CompleteFunction(true);
-			//showPopup = false; // Close popup
-			ImGui::CloseCurrentPopup();
-			//std::cout << "User selected: Yes\n"; // Handle choice
-		}
-
-		ImGui::EndPopup();
-	}
-}
-
-
-void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText, const char* e_strNoButtonText, const char* e_strTitle)
-{
-	//static bool showPopup = true;
-	//static bool userChoice = false; // Stores the user's choice (true = Yes, false = No)
-
-	//// Button to trigger the popup
-	//if (ImGui::Button("Open Yes/No Dialog"))
-	//{
-	//	showPopup = true; // Trigger popup display
-	//}
-
-	//// Create a modal popup
-	//if (showPopup)
-	//{
-		ImGui::OpenPopup(e_strTitle);
-	//}
-
-	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text(e_strContent);
-		ImGui::Separator();
-
-		// "Yes" button
-		if (ImGui::Button(e_strYesButtonText))
-		{
-			//userChoice = true; // Yes selected
-			e_CompleteFunction(true);
-			//showPopup = false; // Close popup
-			ImGui::CloseCurrentPopup();
-			//std::cout << "User selected: Yes\n"; // Handle choice
-		}
-
-		ImGui::SameLine();
-
-		// "No" button
-		if (ImGui::Button(e_strNoButtonText))
-		{
-			e_CompleteFunction(false);
-			//userChoice = false; // No selected
-			//showPopup = false; // Close popup
-			ImGui::CloseCurrentPopup();
-			//std::cout << "User selected: No\n"; // Handle choice
-		}
-
-		ImGui::EndPopup();
-	}
-}
-
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pParent)
 {
 	cMyGuiBasicObj* l_pObject = nullptr;
@@ -851,4 +831,154 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pPare
 	}
 	//e_pParent->add
 	return l_pObject;
+}
+
+void CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText, const char* e_strTitle)
+{
+	//{
+	ImGui::OpenPopup(e_strTitle);
+	//}
+
+	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text(e_strContent);
+		ImGui::Separator();
+		// "Yes" button
+		if (ImGui::Button(e_strConfirmButtonText))
+		{
+			//userChoice = true; // Yes selected
+			e_CompleteFunction(true);
+			//showPopup = false; // Close popup
+			ImGui::CloseCurrentPopup();
+			//std::cout << "User selected: Yes\n"; // Handle choice
+		}
+
+		ImGui::EndPopup();
+	}
+}
+
+
+void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText, const char* e_strNoButtonText, const char* e_strTitle)
+{
+	//static bool showPopup = true;
+	//static bool userChoice = false; // Stores the user's choice (true = Yes, false = No)
+
+	//// Button to trigger the popup
+	//if (ImGui::Button("Open Yes/No Dialog"))
+	//{
+	//	showPopup = true; // Trigger popup display
+	//}
+
+	//// Create a modal popup
+	//if (showPopup)
+	//{
+	ImGui::OpenPopup(e_strTitle);
+	//}
+
+	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text(e_strContent);
+		ImGui::Separator();
+
+		// "Yes" button
+		if (ImGui::Button(e_strYesButtonText))
+		{
+			//userChoice = true; // Yes selected
+			e_CompleteFunction(true);
+			//showPopup = false; // Close popup
+			ImGui::CloseCurrentPopup();
+			//std::cout << "User selected: Yes\n"; // Handle choice
+		}
+
+		ImGui::SameLine();
+
+		// "No" button
+		if (ImGui::Button(e_strNoButtonText))
+		{
+			e_CompleteFunction(false);
+			//userChoice = false; // No selected
+			//showPopup = false; // Close popup
+			ImGui::CloseCurrentPopup();
+			//std::cout << "User selected: No\n"; // Handle choice
+		}
+
+		ImGui::EndPopup();
+	}
+}
+
+void CallFullScreenBlackText(const char* e_strContent)
+{
+	ImGui::OpenPopup("\t\t\t");
+	if (ImGui::BeginPopupModal("\t\t\t", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text(e_strContent);
+
+		ImGui::EndPopup();
+	}
+}
+
+//struct TreeNode
+//{
+//	std::string name;
+//	std::vector<TreeNode> children;
+//};
+
+void DisplayTree(cImGuiNode* e_pNode, cImGuiNode** e_ppDragNode, cImGuiNode** e_ppDropParent, bool e_bRenderVisibleCheckBox)
+{
+	if (!e_pNode)
+	{
+		return;
+	}
+	auto l_strID = ValueToString(e_pNode->GetUniqueID());
+	// Display the tree node with a checkbox
+	bool l_bVisible = e_pNode->IsVisible(); // Assume cImGuiNode has an IsChecked() method
+	ImGui::PushID(e_pNode); // Push a unique ID for the checkbox
+	if (ImGui::Checkbox("", &l_bVisible))
+	{
+		e_pNode->SetVisible(l_bVisible); // Assume cImGuiNode has a SetChecked() method
+	}
+	ImGui::PopID(); // Restore ID stack
+	ImGui::SameLine(); // Align the checkbox with the tree node
+
+	// Determine if this node has children
+	bool hasChildren = !e_pNode->GetChildNodeVector().empty();
+	// Set TreeNodeEx flags
+	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow;
+	if (!hasChildren)
+	{
+		nodeFlags |= ImGuiTreeNodeFlags_Leaf; // Mark as a leaf to remove the arrow
+	}
+	//if (ImGui::TreeNode(l_strID.c_str(), "%s", e_pNode->GetCharName().c_str()))
+	if (ImGui::TreeNodeEx(l_strID.c_str(), nodeFlags, "%s", e_pNode->GetCharName().c_str()))
+	{
+		if (ImGui::BeginDragDropSource())
+		{
+			//std::cout << "Dragging Node: " << e_pNode->GetCharName() << std::endl;
+			ImGui::SetDragDropPayload("TREE_NODE", &e_pNode, sizeof(cImGuiNode*));
+			ImGui::Text("Dragging %s", e_pNode->GetCharName().c_str());
+			ImGui::EndDragDropSource();
+		}
+
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("TREE_NODE"))
+			{
+				cImGuiNode** payload_node = (cImGuiNode**)payload->Data;
+				//std::cout << "Dropping Node on: " << e_pNode->GetCharName() << std::endl;
+				if (payload_node && *payload_node)
+				{
+					*e_ppDragNode = *payload_node;
+					*e_ppDropParent = e_pNode;
+				}
+			}
+			ImGui::EndDragDropTarget();
+		}
+
+		for (auto& child : e_pNode->GetChildNodeVector())
+		{
+			DisplayTree(child, e_ppDragNode, e_ppDropParent, e_bRenderVisibleCheckBox);
+		}
+
+		ImGui::TreePop();
+	}
 }

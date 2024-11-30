@@ -12,6 +12,8 @@ enum eEnv
 	eE_MAX,
 };
 
+std::string GetEnvName(eEnv e_eEnv);
+
 struct sEnvData
 {
 	std::string					m_steVersionFileName;

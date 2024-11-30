@@ -670,7 +670,7 @@ bool UploadFileOrDirectory(const std::string& e_strLocalPath, const std::string&
 				}
 				else
 				{
-					UT::ErrorMsgByFormat("connect to %d failed", l_Type);
+					UT::ErrorMsgByFormat("connect to %s failed", GetEnvName(l_Type).c_str());
 					break;
 				}
 			}
@@ -700,11 +700,13 @@ bool DownloadFileOrDirectory(const std::string& e_strRemotePath, const std::stri
 	bool l_bIsDirectory = e_strLocalFilePath.find(".") != std::string::npos? false: true;
 	std::function<void()> l_Function = [l_bIsDirectory, e_eEnvTypeVector, e_strLocalFilePath, e_strRemotePath, e_fCompleteFunction]()
 	{
+		std::string l_strInfo;
 		for (auto l_Type : e_eEnvTypeVector)
 		{
 			auto l_IT = g_pLIBSSH2SocketDataMap->find(l_Type);
 			if (l_IT != g_pLIBSSH2SocketDataMap->end())
 			{
+				//if (0)
 				if (l_IT->second->DoConnect())
 				{
 					auto l_strDiectory = l_IT->second->m_EnvData.m_strRemoteDirectory;
@@ -720,7 +722,10 @@ bool DownloadFileOrDirectory(const std::string& e_strRemotePath, const std::stri
 				}
 				else
 				{
-					UT::ErrorMsgByFormat("connect to %d failed", l_Type);
+					auto l_strInnerInfo = UT::ComposeMsgByFormat("connect to %s failed", GetEnvName(l_Type).c_str());
+					l_strInfo += l_strInnerInfo;
+					l_strInfo += "\n";
+					UT::ErrorMsgByFormat(l_strInnerInfo.c_str());
 					break;
 				}
 			}
@@ -731,7 +736,12 @@ bool DownloadFileOrDirectory(const std::string& e_strRemotePath, const std::stri
 		}
 		if (e_fCompleteFunction)
 		{
-			e_fCompleteFunction("");
+			if (l_strInfo.length() == 0)
+			{
+				l_strInfo = e_strRemotePath + " download to " + e_strLocalFilePath + " finished";
+			}
+			e_fCompleteFunction(l_strInfo.c_str());
+			
 		}
 	};
 	std::thread t(l_Function);
@@ -748,4 +758,33 @@ void LibSSH2ShutDown()
 	}
 	libssh2_exit();
 	SDLNet_Quit();
+}
+
+std::string GetEnvName(eEnv e_eEnv)
+{
+	if (e_eEnv == eE_DEV)
+	{
+		return "Dev";
+	}
+	else
+	if (e_eEnv == eE_UAT)
+	{
+		return "Uat";
+	}
+	else
+	if (e_eEnv == eE_SIT)
+	{
+		return "Sit";
+	}
+	else
+	if (e_eEnv == eE_FUN)
+	{
+		return "Funplay";
+	}
+	else
+	if (e_eEnv == eE_PROD)
+	{
+		return "Prod";
+	}
+	return std::string("unknown");
 }

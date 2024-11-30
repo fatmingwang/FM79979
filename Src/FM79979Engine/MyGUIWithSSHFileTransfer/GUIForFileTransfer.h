@@ -18,7 +18,6 @@
 
 class cGUIForFileTransfer:NamedTypedObject
 {
-	std::string						GetEnvName(eEnv e_eEnv);
 	std::map<eEnv, sEnvData>		m_EnvDataMap;
 	std::vector<std::string>		m_VersionVector;
 	bool							m_bDoingUpdate;

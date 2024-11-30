@@ -21,6 +21,8 @@ namespace FATMING_CORE
 
 	cMessageSender::~cMessageSender()
 	{
+		assert(this->m_pParent->m_bDoUpdate == false&&"do not delete object during cMessageSenderManager::Update");
+		
 		UnregistorAll();
 		//--++g_iNumcMessageSender;
 		//g_IDAndMessageSenderMap.erase(this);
@@ -93,7 +95,9 @@ namespace FATMING_CORE
 		m_EventFunctionMap[e_usID] = e_MessageFunction;
 		if (m_pParent)
 		{
+
 			std::vector<cMessageSenderManager::sEventFunctionAndType<EventFunction>>*l_pVector = nullptr;
+			MUTEX_PLACE_HOLDER(m_pParent->m_EventMapMutex, "cMessageSender::RegEvent");
 			auto l_Iterator = m_pParent->m_EventFunctionAndTypeMap.find(e_usID);
 			if (l_Iterator == m_pParent->m_EventFunctionAndTypeMap.end())
 			{
@@ -119,6 +123,7 @@ namespace FATMING_CORE
 		if (m_pParent)
 		{
 			std::vector<cMessageSenderManager::sEventFunctionAndType<EventDelegate>>* l_pVector = nullptr;
+			MUTEX_PLACE_HOLDER(m_pParent->m_EventMapMutex, "cMessageSender::RegDelegate");
 			auto l_Iterator = m_pParent->m_EventDelegateAndTypeMap.find(e_usID);
 			if (l_Iterator == m_pParent->m_EventDelegateAndTypeMap.end())
 			{
@@ -211,6 +216,7 @@ namespace FATMING_CORE
 	{
 		if (m_pParent)
 		{
+			MUTEX_PLACE_HOLDER(m_pParent->m_EventMapMutex, "cMessageSender::UnregEvent");
 			auto l_Iterator = m_pParent->m_EventFunctionAndTypeMap.find(e_usID);
 			if (l_Iterator != m_pParent->m_EventFunctionAndTypeMap.end())
 			{
@@ -244,6 +250,7 @@ namespace FATMING_CORE
 	{
 		if (m_pParent)
 		{
+			MUTEX_PLACE_HOLDER(m_pParent->m_EventMapMutex, "cMessageSender::UnregDelegate");
 			auto l_Iterator = m_pParent->m_EventDelegateAndTypeMap.find(e_usID);
 			if (l_Iterator != m_pParent->m_EventDelegateAndTypeMap.end())
 			{
@@ -373,6 +380,7 @@ namespace FATMING_CORE
 
 	bool cMessageSenderManager::EventMessageShotImmediately(unsigned int e_usID, void * e_pData)
 	{
+		MUTEX_PLACE_HOLDER(m_EventMapMutex, "cMessageSenderManager::EventMessageShotImmediately");
 		auto l_Iterator = m_EventFunctionAndTypeMap.find(e_usID);
 		if (l_Iterator != m_EventFunctionAndTypeMap.end())
 		{
@@ -446,6 +454,7 @@ namespace FATMING_CORE
 
 	bool cMessageSenderManager::EventMessageDelegateShotImmediately(NamedTypedObject* e_pSender, unsigned int e_usID, void* e_pData)
 	{
+		MUTEX_PLACE_HOLDER(m_EventMapMutex, "cMessageSenderManager::EventMessageDelegateShotImmediately");
 		auto l_Iterator = m_EventDelegateAndTypeMap.find(e_usID);
 		if (l_Iterator != m_EventDelegateAndTypeMap.end())
 		{
@@ -476,6 +485,7 @@ namespace FATMING_CORE
 
 	void	cMessageSenderManager::Update(float e_fElpaseTime)
 	{
+		m_bDoUpdate = true;
 		std::vector<sWaitEmitEvent>l_WaitForEmitEvent;
 		{
 			MUTEX_PLACE_HOLDER(m_WaitForEmitEventMutex,"cMessageSenderManager::Update");
@@ -484,7 +494,9 @@ namespace FATMING_CORE
 		}
 		for(auto l_WaitEmitEvent: l_WaitForEmitEvent)
 		{
+			MUTEX_PLACE_HOLDER(m_EventMapMutex, "cMessageSenderManager::Update1");
 			{
+				//this coudle crash if object deleted(vector size changed) but I am lazy to fix this now
 				auto l_Iterator = m_EventFunctionAndTypeMap.find(l_WaitEmitEvent.usID);
 				if (l_Iterator != m_EventFunctionAndTypeMap.end())
 				{
@@ -502,6 +514,7 @@ namespace FATMING_CORE
 				}
 			}
 			{
+				//this coudle crash if object deleted(vector size changed) but I am lazy to fix this now
 				auto l_Iterator = m_EventDelegateAndTypeMap.find(l_WaitEmitEvent.usID);
 				if (l_Iterator != m_EventDelegateAndTypeMap.end())
 				{
@@ -519,7 +532,7 @@ namespace FATMING_CORE
 				}
 			}
 		}
-
+		m_bDoUpdate = false;
 	}
 
 	void cMessageSenderManager::ClearEvent()

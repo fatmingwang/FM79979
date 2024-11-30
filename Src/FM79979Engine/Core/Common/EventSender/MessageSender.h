@@ -23,6 +23,7 @@ namespace FATMING_CORE
 
 	//REG_NET_MESSAGE_FUNCTION(MSG_GS2CL_CHANGE_ROUTE_RESPONSE,&cTradeRouteDataFromServer::Received_MSG_GS2CL_CHANGE_ROUTE_RESPONSE);
 	//REG_EVENT(eOPEM_CLOSE_TRADE_ROUTE_UI_LAYOUT,&cRegionMapChange::OnCloseLayout);
+	//do not do  new or delete cMessageSender object in event becasuse it's possible get crash and I am lazy to fix it now.
 	#define REG_NET_MESSAGE_FUNCTION(MESSAGE_ID,Function)RegNetworkMessageFunction(MESSAGE_ID,std::bind(Function,this,std::placeholders::_1));
 	#define	REG_EVENT(EventID,Function)RegEvent(EventID,std::bind(Function,this,std::placeholders::_1));
 
@@ -98,6 +99,7 @@ namespace FATMING_CORE
 		};
 		void				AddMessageSender(size_t e_uiAddress,cMessageSender*e_pMessageSender);
 		void				RemoveMessageSender(size_t e_uiAddress);
+		bool				m_bDoUpdate = false;
 	private:
 		//key is address
 		std::map<size_t,cMessageSender*>	m_AllMessageSenderMap;
@@ -111,6 +113,7 @@ namespace FATMING_CORE
 		std::vector<sWaitEmitEvent>																			m_WaitForEmitEvent;
 #ifndef _M_CEE//manage code dont support thread
 		std::mutex																							m_WaitForEmitEventMutex;
+		std::mutex																							m_EventMapMutex;
 #endif
 	public:
 		cMessageSenderManager();

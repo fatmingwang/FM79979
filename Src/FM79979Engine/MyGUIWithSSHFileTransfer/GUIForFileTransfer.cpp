@@ -67,18 +67,20 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pMyGuiButton->m_fOnClickFunction = [this]
 	()
 	{
-		cGameApp::ShowInfoOnScreen(L"Clicked");
+		//cGameApp::ShowInfoOnScreen(L"Clicked");
 		m_pRoot->ShowYesNoDialog([this]
 		(bool e_bResult)
 		{
 			if (e_bResult)
 			{
-				m_pMyGuiButton->SetEnable(false);
+				m_pRoot->ShowFullScreenBlackText("wait for download ");
+				//m_pMyGuiButton->SetEnable(false);
 				std::vector<eEnv> l_Vector = { eEnv::eE_DEV };
 				DownloadFileOrDirectory(g_strRileFileName, g_strRileFileName, l_Vector, [this](std::string e_strResult)
 				{
-						m_pMyGuiButton->SetEnable(true);
-						m_pRoot->ShowConfirmDialog("download finished");
+						m_pRoot->ShowFullScreenBlackText(nullptr);
+						//m_pMyGuiButton->SetEnable(true);
+						m_pRoot->ShowConfirmDialog(e_strResult.c_str());
 				});
 				
 				//m_pMyGuiButton->SetVisible(e_bResult);
@@ -103,14 +105,11 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 
 	m_pMyGuiListBox->SetDataVector(l_strEnvNameVector);
 	m_pMyGuiListBox->m_fOnSelectFunction =
-		[](int e_iIndex)
-		{
-			int a = 0;
-		};
-	
+	[](int e_iIndex)
+	{
+		int a = 0;
+	};
 
-	//cMyGuiNode*l_pMiddleNode = new cMyGuiNode();
-	//l_pMiddleNode->SetLocalPosition(ImVec2(100, 100));
 	{
 		cMyGuiPanel* l_pMyGuiPanel = new cMyGuiPanel();
 		l_pMyGuiPanel->SetBorder(false);
@@ -145,35 +144,6 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 cGUIForFileTransfer::~cGUIForFileTransfer()
 {
 	SAFE_DELETE(m_pRoot);
-}
-
-std::string cGUIForFileTransfer::GetEnvName(eEnv e_eEnv)
-{
-	if (e_eEnv == eE_DEV)
-	{
-		return "Dev";
-	}
-	else
-	if (e_eEnv == eE_UAT)
-	{
-		return "Uat";
-	}
-	else
-	if (e_eEnv == eE_SIT)
-	{
-		return "Sit";
-	}
-	else
-	if (e_eEnv == eE_FUN)
-	{
-		return "Funplay";
-	}
-	else
-	if (e_eEnv == eE_PROD)
-	{
-		return "Prod";
-	}
-	return std::string("unknown");
 }
 
 void cGUIForFileTransfer::FetchVersionFileList()

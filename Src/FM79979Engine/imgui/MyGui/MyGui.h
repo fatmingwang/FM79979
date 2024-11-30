@@ -68,7 +68,7 @@ protected:
 	//for editor mode(drag position) you have to set this
 	GET_SET_DEC(bool,m_bOnlyApplyPositionOnceForDragMoving, GetOnlyApplyPositionOnceForDragMoving, SetOnlyApplyPositionOnceForDragMoving);
 	GET_SET_DEC(bool, m_bEnable, GetEnable, SetEnable);
-	GET_SET_DEC(bool, m_bVisible, GetVisible, SetVisible);
+	GET_SET_DEC(bool, m_bVisible, IsVisible, SetVisible);
 public:
 	DEFINE_TYPE_INFO();
 	cImGuiNode();
@@ -91,6 +91,7 @@ public:
 	void						Render();// = 0;
 	static void					DeleteObjectAndAllChildren(cImGuiNode*e_pImGuiNode);
 	void						SetExtraRenderFunction(f_MyImGuiExtraRenderFunction e_MyImGuiExtraRenderFunction) { m_ExtraRenderFunction = e_MyImGuiExtraRenderFunction; }
+	std::vector<cImGuiNode*>&	GetChildNodeVector(){return m_ChildNodeVector;}
 };
 
 
@@ -137,6 +138,7 @@ class cMyGuiRootNode :public cMyGuiBasicObj
 	virtual	void		EndRender();
 	bool				m_bShowYesNoDialog = false;
 	bool				m_bShowConfirmDialog = false;
+	bool				m_bShowFullScreenBlackText = false;
 	std::function<void(bool)>m_CompleteFunction;
 	std::string			m_strDialogMessage = "";
 	std::string			m_strYesButtonText = "Yes";
@@ -149,6 +151,7 @@ public:
 	//f_MyImGuiExtraRenderFunction	m_ExtraLastRenderFunction = nullptr;
 	void				ShowYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No");
 	void				ShowConfirmDialog(const char* e_strContent, const char* e_strConfirmButtonText = "Confirm" ,std::function<void(bool)>e_CompleteFunction = nullptr);
+	void				ShowFullScreenBlackText(const char* e_strContent);
 };
 
 class cMyGuiButton :public cMyGuiBasicObj
@@ -274,9 +277,13 @@ public:
 	virtual void		RenderProperty()override;
 };
 
-void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No",const char*e_strTitle = "Yes or No");
-void CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText = "Confirm", const char* e_strTitle = "Confirm");
-
+void	CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No",const char*e_strTitle = "Yes or No");
+void	CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText = "Confirm", const char* e_strTitle = "Confirm");
+void	CallFullScreenBlackText(const char* e_strContent);
+void	RenderTreeNode(cMyGuiRootNode* e_pRoot);
 
 
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pParent);
+
+void DisplayTree(cImGuiNode* e_pNode, cImGuiNode**e_pDragNode, cImGuiNode**e_pDropParent,bool e_bRenderVisibleCheckBox = true);
+void ShowTreeViewWindow(cImGuiNode* rootNode);
