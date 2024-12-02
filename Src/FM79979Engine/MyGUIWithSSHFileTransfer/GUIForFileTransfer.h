@@ -38,6 +38,6 @@ public:
 	virtual ~cGUIForFileTransfer();
 	void	Init();
 	void	Update(float e_fElpaseTime);
-	void	Render();
+	void	Render(float*e_pfMatrix = nullptr);
 	void	Destory();
 };

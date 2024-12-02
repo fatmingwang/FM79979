@@ -135,7 +135,7 @@ namespace	FATMING_CORE
 		static	bool												AddExternalFunction(DoButtonGoal_Callback e_pCallBack, const wchar_t*e_strExternalFunctionName);
 		static	cGlyphFontRender*									GetGlyphFontRenderByFileName(const wchar_t*e_strFileName);
 		static	cGlyphFontRender*									GetGlyphFontRender(const wchar_t*e_strFileName);
-		static	void												ShowInfo();
+		static	void												ShowInfo(const wchar_t*e_strExtraInfo = nullptr);
 		static	void												ShowInfoOnScreen(const wchar_t*e_strInfo,float e_fPeriod = 1.f);
 		//e_iKeyBoardType = 0 as default,e_iKeyBoardType = 1 as Numeric pad,
 		//in android if e_iKeyBoardType is one u have to setup

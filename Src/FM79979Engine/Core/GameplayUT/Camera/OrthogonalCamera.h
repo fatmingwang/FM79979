@@ -75,6 +75,7 @@ namespace FATMING_CORE
 		//convert expect view rect to real viewport's data
 		//e_vRealViewPort should input GameApp's Viewport,but if cGameApp is not actived,ensure what are u doing
 		bool					ViewportConvert(Vector4 e_vShowRect,Vector2 e_vRealViewPort,Vector4*e_pResult);
+		Vector4					GetGLSciccorRect(Vector4 e_vViewRect);
 		bool					IsVisible(Vector4 e_vShowRect);
 		//Vector4*				GetViewRectPointer(){return &m_vViewRect;}
 	};

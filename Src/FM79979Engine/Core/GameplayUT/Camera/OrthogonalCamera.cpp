@@ -2,6 +2,7 @@
 #include "../OpenGL/GLSL/Shader.h"
 #include "SimpleCamera.h"
 #include "../Render/CommonRender/SimplePrimitive.h"
+#include "../GameApp/GameApp.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cOrthogonalCamera);
@@ -66,7 +67,7 @@ namespace FATMING_CORE
 
 		e_MousePosition.x = l_fScaleX*e_vCameraViewRect.Width()+e_vCameraViewRect.x;
 		e_MousePosition.y = l_fScaleY*e_vCameraViewRect.Height()+e_vCameraViewRect.y;
-		return e_MousePosition;	
+		return e_MousePosition;
 	}
     //void    cOrthogonalCamera::MoveViewRect(Vector2 e_vDirection)
     //{
@@ -302,6 +303,71 @@ namespace FATMING_CORE
 				*e_pResult = ViewRectToOpenGLScissor(l_vLocalSpaceShowRect);
 		}
 		return true;
+	}
+
+	Vector4 cOrthogonalCamera::GetGLSciccorRect(Vector4 e_vViewRect)
+	{
+		Vector4	l_vLocalSpaceShowRect(e_vViewRect.x - m_vViewRect.x, e_vViewRect.y - m_vViewRect.y,
+									  e_vViewRect.z - m_vViewRect.x, e_vViewRect.w - m_vViewRect.y);
+		Vector2 l_vResoulution(this->m_vViewRect.Width(), this->m_vViewRect.Height());
+		return ViewRectToOpenGLScissor(l_vLocalSpaceShowRect,cGameApp::m_spOpenGLRender->m_vViewPortSize, l_vResoulution, eDeviceDirection::eDD_PORTRAIT);
+		////auto l_vScale = cGameApp::m_spOpenGLRender->GetViewPortAndGameResolutionScale();
+		//Vector2 l_vViewRectSize(this->m_vViewRect.Width(), m_vViewRect.Height());
+		//Vector2 l_vViewPortSize(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+		//Vector2 l_vScale(l_vViewPortSize.x/ l_vViewRectSize.x, l_vViewPortSize.y / l_vViewRectSize.y);
+		//Vector4 l_vOutViewPort;
+		//l_vOutViewPort.x = l_vLocalSpaceShowRect.x*l_vScale.x;
+		//l_vOutViewPort.y = l_vLocalSpaceShowRect.y*l_vScale.y;
+		//l_vOutViewPort.z = l_vLocalSpaceShowRect.z*l_vScale.x;
+		//l_vOutViewPort.w = l_vLocalSpaceShowRect.w*l_vScale.y;
+
+		//float l_fWidth = l_vOutViewPort.z - l_vOutViewPort.x;
+		//float l_fHeight = l_vOutViewPort.w - l_vOutViewPort.y;
+
+		////l_vOutViewPort.y = e_vViewPortSize.y-l_vOutViewPort.w;
+		//l_vOutViewPort.z = l_fWidth;
+		//l_vOutViewPort.w = l_fHeight;
+
+		//l_vOutViewPort.x += cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
+		//l_vOutViewPort.y += cGameApp::m_spOpenGLRender->m_vViewPortSize.y;
+		
+
+		//if (l_vOutViewPort.x < 0)
+		//{
+		//	l_vOutViewPort.x = 0;
+		//}
+		//if (l_vOutViewPort.y < 0)
+		//{
+		//	l_vOutViewPort.y = 0;
+		//}
+		//if (l_vOutViewPort.z < 0)
+		//{
+		//	l_vOutViewPort.z = 0;
+		//}
+		//if (l_vOutViewPort.w < 0)
+		//{
+		//	l_vOutViewPort.w = 0;
+		//}
+
+		//if (l_vOutViewPort.x > l_vViewPortSize.x)
+		//{
+		//	l_vOutViewPort.x = l_vViewPortSize.x;
+		//}
+		//if (l_vOutViewPort.y > l_vViewPortSize.y)
+		//{
+		//	l_vOutViewPort.y = l_vViewPortSize.y;
+		//}
+
+		//if (l_vOutViewPort.x+l_vOutViewPort.z >= e_vViewPortSize.x)
+		//{
+		//	l_vOutViewPort.z = e_vViewPortSize.x- l_vOutViewPort.x;
+		//}
+		//if (l_vOutViewPort.y+l_vOutViewPort.w >= e_vViewPortSize.y)
+		//{
+		//	l_vOutViewPort.w = e_vViewPortSize.y- l_vOutViewPort.y;
+		//}
+
+		//return l_vOutViewPort;
 	}
 
 	bool		cOrthogonalCamera::IsVisible(Vector4 e_vShowRect)

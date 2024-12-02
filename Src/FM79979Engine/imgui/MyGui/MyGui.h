@@ -7,6 +7,7 @@
 
 #include <functional>
 
+#define	MYGUI_DEFAULT_IMPLEMENT()	DEFINE_TYPE_INFO();virtual std::wstring GetTypeName(){return this->Type();}
 
 enum eMyImGuiType
 {
@@ -23,6 +24,7 @@ enum eMyImGuiType
 	eMIGT_PANEL = 10,
 	eMIGT_COMBO_BOX,
 	eMIGT_LIST_BOX,
+	eMIGT_ROOT_NODE,
 	eMIGT_MAX
 };
 
@@ -71,6 +73,7 @@ protected:
 	GET_SET_DEC(bool, m_bVisible, IsVisible, SetVisible);
 public:
 	DEFINE_TYPE_INFO();
+	virtual std::wstring GetTypeName() = 0;
 	cImGuiNode();
 	~cImGuiNode();
 	int							m_iID = 0;
@@ -145,7 +148,7 @@ class cMyGuiRootNode :public cMyGuiBasicObj
 	std::string			m_strNoButtonText = "No";
 
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 	//for yes no dialog something
 	//f_MyImGuiExtraRenderFunction	m_ExtraLastRenderFunction = nullptr;
@@ -159,7 +162,7 @@ class cMyGuiButton :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 	GET_SET_DEC(std::string,m_strText,GetText,SetText);
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiButton();
 	virtual ~cMyGuiButton();
 	//virtual void		RenderProperty()override;
@@ -170,7 +173,7 @@ class cMyGuiLabel :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
 
@@ -182,7 +185,7 @@ class cMyGuiEditBox :public cMyGuiBasicObj
 	GET_SET_DEC(std::string, m_strHint, GetHint, SetHint);
 	GET_SET_DEC(bool,m_bMultiLines, IsMultiLines, SetMultiLines);
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiEditBox();
 	//virtual void		RenderProperty()override;
 };
@@ -191,7 +194,7 @@ class cMyGuiSliderInteger :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
 
@@ -199,7 +202,7 @@ class cMyGuiSliderFloatValue :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
 
@@ -207,7 +210,7 @@ class cMyGuiCheckBox :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
 
@@ -215,7 +218,7 @@ class cMyGuiRadio :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
 
@@ -223,7 +226,7 @@ class cMyGuiToogle:public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	bool		border = true;
 	virtual void		RenderProperty()override;
 
@@ -236,7 +239,7 @@ class cMyGuiForm :public cMyGuiBasicObj
 	virtual	void		EndRender()override;
 	GET_SET_DEC(ImGuiWindowFlags, m_FormFlag, GetFormFlag, SetFormFlag);
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiForm();
 	virtual ~cMyGuiForm();
 	virtual void		RenderProperty()override;
@@ -249,7 +252,7 @@ class cMyGuiPanel :public cMyGuiBasicObj
 	virtual	void		EndRender()override;
 	GET_SET_DEC(bool,m_bShowBorder, GetShowBorder, SetBorder);
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiPanel();
 	virtual ~cMyGuiPanel();
 	virtual void		RenderProperty()override;
@@ -262,7 +265,7 @@ class cMyGuiComboBox :public cMyGuiBasicObj
 	GET_SET_DEC(std::vector<std::string>, m_strDataVector, GetDataVector, SetDataVector);
 	GET_SET_DEC(int,m_iSelectedIndex,GetSelectedIndex,SetSelectedIndex);
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiComboBox();
 	virtual void				RenderProperty()override;
 	std::function<void(int)>	m_fOnSelectFunction;
@@ -273,7 +276,7 @@ class cMyGuiListBox :public cMyGuiComboBox
 	void				RenderMultiSelectable();
 	virtual	void		InternalRender()override;
 public:
-	DEFINE_TYPE_INFO();
+	MYGUI_DEFAULT_IMPLEMENT();
 	virtual void		RenderProperty()override;
 };
 
@@ -283,7 +286,18 @@ void	CallFullScreenBlackText(const char* e_strContent);
 void	RenderTreeNode(cMyGuiRootNode* e_pRoot);
 
 
-cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pParent);
+cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType);
+template<class TYPE>TYPE* GetMyGuiObjWithType(eMyImGuiType e_eMyImGuiType)
+{
+	return (TYPE*)GetMyGuiObj(e_eMyImGuiType);
+}
 
-void DisplayTree(cImGuiNode* e_pNode, cImGuiNode**e_pDragNode, cImGuiNode**e_pDropParent,bool e_bRenderVisibleCheckBox = true);
+template<class TYPE>TYPE* GetMyGuiObjWithType()
+{
+	TYPE* l_pTYPE = new TYPE();
+	l_pTYPE->SetName(TYPE::TypeID);
+	return l_pTYPE;
+}
+
+void DisplayTree(cImGuiNode* e_pNode, cImGuiNode** e_ppDragNode, cImGuiNode** e_ppDropParent, cImGuiNode*& e_ppSelectedNode, bool e_bRenderVisibleCheckBox = true);
 void ShowTreeViewWindow(cImGuiNode* rootNode);

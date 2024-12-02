@@ -46,9 +46,9 @@ const char* g_strRileFileName = "version/Rule.json";
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
 	ParseEnvData("Deploy.json");
-	m_pRoot = new cMyGuiRootNode();
-	ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-	cMyGuiForm*l_pMyGuiForm = new cMyGuiForm();
+	m_pRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
+	ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x*2, cGameApp::m_spOpenGLRender->m_vGameResolution.y*2);
+	cMyGuiForm* l_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
 	l_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	l_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
 	auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
@@ -57,10 +57,14 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	l_pMyGuiForm->SetSize(l_vSize);
 	l_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
 
-	m_pMyGuiListBox = new cMyGuiListBox();
-	m_pMyGuiComboBox = new cMyGuiComboBox();
-	m_pMyGuiButton = new cMyGuiButton();
-	m_pMyGuiButton->SetText("MyButton\nQoo");
+	m_pMyGuiListBox = GetMyGuiObjWithType<cMyGuiListBox>();
+	m_pMyGuiComboBox = GetMyGuiObjWithType<cMyGuiComboBox>();
+	m_pMyGuiButton = GetMyGuiObjWithType<cMyGuiButton>();
+	m_pMyGuiButton->SetText("MyButton\nQoo\nQoo\nQoo\nQoo\nQoo\nQoo");
+	cMyGuiEditBox* l_pMyGuiEditBox = GetMyGuiObjWithType<cMyGuiEditBox>();
+	l_pMyGuiEditBox->SetMultiLines(true);
+	l_pMyGuiEditBox->SetHint("");
+	l_pMyGuiEditBox->SetLocalPosition(500, 100);
 	//m_pMyGuiButton->SetEnable(false);
 	//m_pMyGuiListBox->SetEnable(false);
 	//m_pMyGuiComboBox->SetEnable(false);
@@ -111,24 +115,23 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	};
 
 	{
-		cMyGuiPanel* l_pMyGuiPanel = new cMyGuiPanel();
+		cMyGuiPanel* l_pMyGuiPanel = GetMyGuiObjWithType<cMyGuiPanel>();
 		l_pMyGuiPanel->SetBorder(false);
-		l_pMyGuiPanel->SetLocalPosition(ImVec2(100, 100));
+		l_pMyGuiPanel->SetLocalPosition(ImVec2(0, 0));
 		l_pMyGuiPanel->SetSize(ImVec2(1920/2, 1080/2));
 		//l_pMiddleNode->AddChild(l_pMyGuiPanel);
+		m_pMyGuiButton->SetName(L"1");
+		m_pMyGuiListBox->SetName(L"2");
+		m_pMyGuiComboBox->SetName(L"3");
+		l_pMyGuiEditBox->SetName(L"4");
 		l_pMyGuiPanel->AddChild(m_pMyGuiButton);
 		l_pMyGuiPanel->AddChild(m_pMyGuiListBox);
 		l_pMyGuiPanel->AddChild(m_pMyGuiComboBox);
-		l_pMyGuiForm->AddChild(l_pMyGuiPanel);
-
-		cMyGuiEditBox*l_pMyGuiEditBox = new cMyGuiEditBox();
 		l_pMyGuiPanel->AddChild(l_pMyGuiEditBox);
-		l_pMyGuiEditBox->SetMultiLines(true);
-		l_pMyGuiEditBox->SetHint("");
-		l_pMyGuiEditBox->SetLocalPosition(500, 100);
+		l_pMyGuiForm->AddChild(l_pMyGuiPanel);	
 	}
 
-	m_pMyGuiButton->SetLocalPosition(ImVec2(00, 100));
+	m_pMyGuiButton->SetLocalPosition(ImVec2(100, 100));
 	m_pMyGuiComboBox->SetLocalPosition(ImVec2(100, 200));
 	m_pMyGuiListBox->SetLocalPosition(ImVec2(200, 300));
 	// l_pMyGuiForm->AddChild(l_pMiddleNode);
@@ -285,13 +288,13 @@ void cGUIForFileTransfer::Update(float e_fElpaseTime)
 
 }
 
-void cGUIForFileTransfer::Render()
+void cGUIForFileTransfer::Render(float* e_pfMatrix)
 {
 	ImGui_StartFrame();
 
 	RenderMainUI();
 
-	ImGui_EndFrame();
+	ImGui_EndFrame(e_pfMatrix);
 }
 
 void cGUIForFileTransfer::Destory()

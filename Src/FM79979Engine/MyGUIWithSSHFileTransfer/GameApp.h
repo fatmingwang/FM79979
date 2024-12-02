@@ -3,6 +3,7 @@
 
 	class	cMyApp:public cGameApp
 	{
+		cOrthogonalCamera* m_p2DCamera;
 		class cGUIForFileTransfer* m_pGUIForFileTransfer;
 	protected:
 		void	Update(float e_fElpaseTime);

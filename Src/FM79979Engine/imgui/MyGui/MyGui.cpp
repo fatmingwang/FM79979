@@ -37,7 +37,7 @@ cImGuiNode::cImGuiNode()
 	m_bVisible = true;
 	m_bDoApplyPosition = true;
 	m_bOnlyApplyPositionOnceForDragMoving = false;
-	this->SetName(this->Type());
+	//this->SetName(GetTypeName());
 }
 
 cImGuiNode::~cImGuiNode()
@@ -358,12 +358,23 @@ void cMyGuiPanel::ApplyPosition()
 	//ImGui::SetNextWindowPos({ l_vPos.x, l_vPos.y });
 }
 
+
+void f_MySkipScissor(const ImDrawList* parent_list, const ImDrawCmd* cmd)
+{
+	//cmd->m_bSkipScissor = false;
+}
+
+
 void cMyGuiPanel::InternalRender()
 {
+	//static bool l_bSkipScissor = true;
+	//ImDrawList* draw_list = ImGui::GetWindowDrawList();
+	//draw_list->AddCallback(f_MySkipScissor, &l_bSkipScissor);
 	ImGui::BeginChild(this->GetCharName().c_str(), this->m_vSize,true);
 	// Move the cursor to the desired position for the child
 	//ImGui::SetCursorScreenPos(childPos);
 	//cMyGuiBasicObj::ApplyPosition();
+
 }
 
 void cMyGuiPanel::EndRender()
@@ -383,12 +394,16 @@ void cMyGuiForm::ApplyPosition()
 
 void cMyGuiForm::InternalRender()
 {
+	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	//m_FormFlag = ImGuiWindowFlags_NoTitleBar;
+	ImGui::Begin(this->GetCharName().c_str(),nullptr, m_FormFlag);
 	if (m_vSize.x > 0 && m_vSize.y > 0)
 	{
 		ImGui::SetWindowSize(m_vSize);
 	}
-	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
-	ImGui::Begin(this->GetCharName().c_str(),nullptr, m_FormFlag);
+	//ImDrawList* draw_list = ImGui::GetWindowDrawList();
+	//static bool l_bSkipScissor = true;
+	//draw_list->AddCallback(f_MySkipScissor, &l_bSkipScissor);
 	//form is draggable
 	if (!this->m_bDoApplyPosition)
 	{
@@ -573,6 +588,7 @@ void ShowTreeViewWindow(cImGuiNode* rootNode)
 {
 	cImGuiNode* l_pDragNode = nullptr;
 	cImGuiNode* l_pDropParent = nullptr;
+	static cImGuiNode* l_pSelectedNode = nullptr;
 	ImVec2 minSize(400, 300);
 	ImVec2 maxSize(FLT_MAX, FLT_MAX); // No maximum size constraint
 	ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
@@ -588,7 +604,7 @@ void ShowTreeViewWindow(cImGuiNode* rootNode)
 		// Display the tree starting from the root node
 		if (rootNode)
 		{
-			DisplayTree(rootNode, &l_pDragNode, &l_pDropParent);
+			DisplayTree(rootNode, &l_pDragNode, &l_pDropParent, l_pSelectedNode);
 		}
 
 		// End the child region
@@ -597,7 +613,7 @@ void ShowTreeViewWindow(cImGuiNode* rootNode)
 	ImGui::End();
 	if (l_pDropParent && l_pDragNode)
 	{
-		l_pDragNode->SetParent(l_pDropParent);
+		//l_pDragNode->SetParent(l_pDropParent);
 	}
 }
 
@@ -615,8 +631,10 @@ void cMyGuiRootNode::EndRender()
 	{
 		CallFullScreenBlackText(m_strDialogMessage.c_str());
 	}
-
-	ShowTreeViewWindow(this);
+	if (m_ChildNodeVector.size())
+	{
+		//ShowTreeViewWindow(this->m_ChildNodeVector[0]);
+	}
 	this->m_bVisible = true;
 }
 
@@ -783,56 +801,6 @@ void cMyGuiListBox::InternalRender()
 void cMyGuiListBox::RenderProperty()
 {
 }
-
-cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType, cMyGuiBasicObj* e_pParent)
-{
-	cMyGuiBasicObj* l_pObject = nullptr;
-	switch (e_eMyImGuiType)
-	{
-	//case	eMIGT_NODE:
-	//	l_pObject = new cMyGuiRootNode();
-	//	break;
-	case	eMIGT_BUTTON:
-		l_pObject = new cMyGuiButton();
-		break;
-	case	eMIGT_LABEL:
-		l_pObject = new cMyGuiLabel();
-		break;
-	case	eMIGT_EDIT_BOX:
-		l_pObject = new cMyGuiEditBox();
-		break;
-	case	eMIGT_SLIDER_I:
-		l_pObject = new cMyGuiSliderInteger();
-		break;
-	case	eMIGT_SLIDER_F:
-		l_pObject = new cMyGuiSliderFloatValue();
-		break;
-	case	eMIGT_CHECKBOX:
-		l_pObject = new cMyGuiCheckBox();
-		break;
-	case	eMIGT_RADIO:
-		l_pObject = new cMyGuiRadio();
-		break;
-	case	eMIGT_TOOGLE:
-		l_pObject = new cMyGuiToogle();
-		break;
-	case	eMIGT_FORM:
-		l_pObject = new cMyGuiForm();
-		break;//9
-	case	eMIGT_PANEL:
-		l_pObject = new cMyGuiPanel();
-		break;
-	case	eMIGT_COMBO_BOX:
-		l_pObject = new cMyGuiComboBox();
-		break;
-	case	eMIGT_LIST_BOX:
-		l_pObject = new cMyGuiListBox();
-		break;
-	}
-	//e_pParent->add
-	return l_pObject;
-}
-
 void CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText, const char* e_strTitle)
 {
 	//{
@@ -922,63 +890,163 @@ void CallFullScreenBlackText(const char* e_strContent)
 //	std::string name;
 //	std::vector<TreeNode> children;
 //};
+// 
 
-void DisplayTree(cImGuiNode* e_pNode, cImGuiNode** e_ppDragNode, cImGuiNode** e_ppDropParent, bool e_bRenderVisibleCheckBox)
+void DisplayTree(cImGuiNode* e_pNode, cImGuiNode** e_ppDragNode, cImGuiNode** e_ppDropParent, cImGuiNode*& e_ppSelectedNode, bool e_bRenderVisibleCheckBox)
 {
 	if (!e_pNode)
 	{
 		return;
 	}
+
 	auto l_strID = ValueToString(e_pNode->GetUniqueID());
-	// Display the tree node with a checkbox
-	bool l_bVisible = e_pNode->IsVisible(); // Assume cImGuiNode has an IsChecked() method
-	ImGui::PushID(e_pNode); // Push a unique ID for the checkbox
+
+	// Display the checkbox for visibility
+	bool l_bVisible = e_pNode->IsVisible();
+	ImGui::PushID(e_pNode); // Unique ID for the checkbox
 	if (ImGui::Checkbox("", &l_bVisible))
 	{
-		e_pNode->SetVisible(l_bVisible); // Assume cImGuiNode has a SetChecked() method
+		e_pNode->SetVisible(l_bVisible);
 	}
-	ImGui::PopID(); // Restore ID stack
-	ImGui::SameLine(); // Align the checkbox with the tree node
+	ImGui::PopID();
+	ImGui::SameLine();
 
-	// Determine if this node has children
+	// Configure TreeNode flags
 	bool hasChildren = !e_pNode->GetChildNodeVector().empty();
-	// Set TreeNodeEx flags
-	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow;
+	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 	if (!hasChildren)
 	{
-		nodeFlags |= ImGuiTreeNodeFlags_Leaf; // Mark as a leaf to remove the arrow
+		nodeFlags |= ImGuiTreeNodeFlags_Leaf;
 	}
-	//if (ImGui::TreeNode(l_strID.c_str(), "%s", e_pNode->GetCharName().c_str()))
-	if (ImGui::TreeNodeEx(l_strID.c_str(), nodeFlags, "%s", e_pNode->GetCharName().c_str()))
+	if (e_ppSelectedNode == e_pNode)
 	{
-		if (ImGui::BeginDragDropSource())
-		{
-			//std::cout << "Dragging Node: " << e_pNode->GetCharName() << std::endl;
-			ImGui::SetDragDropPayload("TREE_NODE", &e_pNode, sizeof(cImGuiNode*));
-			ImGui::Text("Dragging %s", e_pNode->GetCharName().c_str());
-			ImGui::EndDragDropSource();
-		}
+		nodeFlags |= ImGuiTreeNodeFlags_Selected;
+	}
 
-		if (ImGui::BeginDragDropTarget())
+	bool l_bNodeOpen = ImGui::TreeNodeEx(l_strID.c_str(), nodeFlags, "%s", e_pNode->GetCharName().c_str());
+	if (ImGui::IsItemClicked())
+	{
+		e_ppSelectedNode = e_pNode;
+	}
+	const char*l_strDragDropSourceID = "TREE_NODE";
+	// Handle drag-and-drop source
+	if (ImGui::BeginDragDropSource())
+	{
+		ImGui::SetDragDropPayload(l_strDragDropSourceID, &e_pNode, sizeof(cImGuiNode*));
+		ImGui::Text("Dragging %s", e_pNode->GetCharName().c_str());
+		ImGui::EndDragDropSource();
+	}
+
+	// Render the tree node children
+	if (l_bNodeOpen)
+	{
+		auto& l_ChildrenVector = e_pNode->GetChildNodeVector();
+		for (size_t i = 0; i <= l_ChildrenVector.size(); ++i)
 		{
-			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("TREE_NODE"))
+			if (l_ChildrenVector.size() > 0)
 			{
-				cImGuiNode** payload_node = (cImGuiNode**)payload->Data;
-				//std::cout << "Dropping Node on: " << e_pNode->GetCharName() << std::endl;
-				if (payload_node && *payload_node)
-				{
-					*e_ppDragNode = *payload_node;
-					*e_ppDropParent = e_pNode;
-				}
-			}
-			ImGui::EndDragDropTarget();
-		}
+				// Push a unique ID for each drop zone
+				ImGui::PushID(i);
 
-		for (auto& child : e_pNode->GetChildNodeVector())
-		{
-			DisplayTree(child, e_ppDragNode, e_ppDropParent, e_bRenderVisibleCheckBox);
+				// Render drop zone between nodes (or at the end)
+				ImGui::Selectable("##DropZone", false, ImGuiSelectableFlags_AllowItemOverlap, ImVec2(0, 1));
+			}
+			// Highlight drop zone during drag
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(l_strDragDropSourceID))
+				{
+					cImGuiNode* draggedNode = *(cImGuiNode**)payload->Data;
+
+					if (draggedNode != e_pNode)
+					{
+						// Remove dragged node from its original parent
+						auto& parentChildren = draggedNode->GetParent()->GetChildNodeVector();
+						// Insert dragged node at the current position
+						int l_iIndex = i;
+						if (l_iIndex < 0)l_iIndex = 0;
+						if (l_iIndex >= l_ChildrenVector.size())l_iIndex = l_ChildrenVector.size() - 1;
+						//auto it = std::find(parentChildren.begin(), parentChildren.end(), draggedNode);
+						//if (it != parentChildren.end())
+						//{
+						//	parentChildren.erase(it);
+						//}
+						draggedNode->SetParent(e_pNode, l_iIndex);
+						//children.insert(children.begin() + i, draggedNode);
+
+						// Update drag-and-drop tracking pointers
+						*e_ppDragNode = draggedNode;
+						*e_ppDropParent = e_pNode;
+					}
+				}
+				ImGui::EndDragDropTarget();
+			}
+			if (l_ChildrenVector.size() > 0)
+			{
+				ImGui::PopID(); // Pop the unique ID for the drop zone
+			}
+
+			// Render the child node
+			if (i < l_ChildrenVector.size())
+			{
+				DisplayTree(l_ChildrenVector[i], e_ppDragNode, e_ppDropParent, e_ppSelectedNode, e_bRenderVisibleCheckBox);
+			}
 		}
 
 		ImGui::TreePop();
 	}
+}
+
+cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
+{
+	cMyGuiBasicObj* l_pObject = nullptr;
+	switch (e_eMyImGuiType)
+	{
+		//case	eMIGT_NODE:
+		//	l_pObject = new cMyGuiRootNode();
+		//	break;
+		case	eMIGT_BUTTON:
+		l_pObject = new cMyGuiButton();
+		break;
+		case	eMIGT_LABEL:
+		l_pObject = new cMyGuiLabel();
+		break;
+		case	eMIGT_EDIT_BOX:
+		l_pObject = new cMyGuiEditBox();
+		break;
+		case	eMIGT_SLIDER_I:
+		l_pObject = new cMyGuiSliderInteger();
+		break;
+		case	eMIGT_SLIDER_F:
+		l_pObject = new cMyGuiSliderFloatValue();
+		break;
+		case	eMIGT_CHECKBOX:
+		l_pObject = new cMyGuiCheckBox();
+		break;
+		case	eMIGT_RADIO:
+		l_pObject = new cMyGuiRadio();
+		break;
+		case	eMIGT_TOOGLE:
+		l_pObject = new cMyGuiToogle();
+		break;
+		case	eMIGT_FORM:
+		l_pObject = new cMyGuiForm();
+		break;//9
+		case	eMIGT_PANEL:
+		l_pObject = new cMyGuiPanel();
+		break;
+		case	eMIGT_COMBO_BOX:
+		l_pObject = new cMyGuiComboBox();
+		break;
+		case	eMIGT_LIST_BOX:
+		l_pObject = new cMyGuiListBox();
+		break;
+		case	eMIGT_ROOT_NODE:
+		l_pObject = new cMyGuiRootNode();
+		break;
+		
+	}
+	//e_pParent->add
+	l_pObject->SetName(l_pObject->GetTypeName());
+	return l_pObject;
 }

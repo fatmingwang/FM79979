@@ -692,7 +692,7 @@ namespace	FATMING_CORE
 		return m_spGlyphFontRenderVector->GetObject(e_strFileName);
 	}
 
-	void	cGameApp::ShowInfo()
+	void	cGameApp::ShowInfo(const wchar_t* e_strExtraInfo)
 	{
 		if (!m_sbDebugFunctionWorking)
 			return;
@@ -724,6 +724,11 @@ namespace	FATMING_CORE
 			l_strInfo = L"Pause:";
 			l_strInfo += ValueToStringW(m_sbGamePause);
 			cGameApp::m_spGlyphFontRender->RenderFont(l_fStaryPosX, (float)l_fStaryPosY, l_strInfo);
+			if (e_strExtraInfo)
+			{
+				l_fStaryPosY += 20;
+				cGameApp::m_spGlyphFontRender->RenderFont(l_fStaryPosX, (float)l_fStaryPosY, e_strExtraInfo);
+			}
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1, 1, 1, 1));
 
 		}

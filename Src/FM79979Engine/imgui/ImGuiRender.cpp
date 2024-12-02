@@ -59,6 +59,8 @@ bool g_bUseMyViewPort = true;
 
 
 
+std::function<float* (float*)>	f_ImGuiCameraPositionConvertFunction = nullptr;
+std::function<void(long&, long&)>	f_ImGuiGetCameraCursorPosition;
 
 const wchar_t* g_strImGuiShaderName = L"ImGuiShader";
 cBaseShader* g_pImGuiShader = nullptr;
@@ -293,7 +295,7 @@ void ImGui_ImplOpenGL3_Shutdown()
 }
 
 
-void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBufferWidth, int e_iFrameBufferHeight, GLuint vertex_array_object)
+void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBufferWidth, int e_iFrameBufferHeight, GLuint vertex_array_object, float* e_pCameraMatrix)
 {
     ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
 
@@ -324,8 +326,16 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBuffe
     //float T = draw_data->DisplayPos.y;
     //float B = draw_data->DisplayPos.y + draw_data->DisplaySize.y;
     UseShaderProgram(g_strImGuiShaderName);
-    glEnable2D(l_fWindowWidth, l_fWindowHeight);
     //SetupShaderViewProjectionMatrix((float*)ortho_projection, true);
+    if (e_pCameraMatrix)
+    {
+        //FATMING_CORE::SetupShaderWorldMatrix(e_pCameraMatrix);
+        FATMING_CORE::SetupShaderViewProjectionMatrix(e_pCameraMatrix, true);
+    }
+    else
+    {
+        glEnable2D(l_fWindowWidth, l_fWindowHeight);
+    }
     FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
     (void)vertex_array_object;
     glBindVertexArray(vertex_array_object);
@@ -340,24 +350,18 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBuffe
     GL_CALL(glVertexAttribPointer(g_pImGuiShader->m_uiAttribArray[FVF_DIFFUSE], 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, col)));
 }
 
-ImVec2	GetViewportOffsetPosition()
-{
-    //float l_fScaleX = cGameApp::m_spOpenGLRender->m_vViewPortSize.x / cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-    //float l_fScaleY = cGameApp::m_spOpenGLRender->m_vViewPortSize.y / cGameApp::m_spOpenGLRender->m_vGameResolution.y;
-    //float l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x / cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
-    //float l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y / cGameApp::m_spOpenGLRender->m_vViewPortSize.y;
-    Vector2 l_vScale = cGameApp::m_spOpenGLRender->GetViewPortAndGameResolutionScale();
-    return ImVec2(cGameApp::m_spOpenGLRender->m_vViewPortSize.x / l_vScale.x, cGameApp::m_spOpenGLRender->m_vViewPortSize.y / l_vScale.y);
-}
+//ImVec2	GetViewportOffsetPosition()
+//{
+//    Vector2 l_vScale = cGameApp::m_spOpenGLRender->GetViewPortAndGameResolutionScale();
+//    return ImVec2(cGameApp::m_spOpenGLRender->m_vViewPortSize.x / l_vScale.x, cGameApp::m_spOpenGLRender->m_vViewPortSize.y / l_vScale.y);
+//}
 
 // OpenGL3 Render function.
 // Note that this implementation is little overcomplicated because we are saving/setting up/restoring every OpenGL state explicitly.
 // This is in order to be able to run within an OpenGL engine that doesn't do so.
-void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
+void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCameraMatrix)
 {
     // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
-    //int l_iFrameBufferWidth = (int)(draw_data->DisplaySize.x * draw_data->FramebufferScale.x);
-    //int l_iFrameBufferHeight = (int)(draw_data->DisplaySize.y * draw_data->FramebufferScale.y);
     int l_iFrameBufferWidth= (int)(draw_data->DisplaySize.x * draw_data->FramebufferScale.x);
     int l_iFrameBufferHeight = (int)(draw_data->DisplaySize.y * draw_data->FramebufferScale.y);
     if (g_bUseMyViewPort)
@@ -422,7 +426,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
     GL_CALL(glGenVertexArrays(1, &vertex_array_object));
 
     //fuck imhui using compact vertex struct not separate data
-    ImGui_ImplOpenGL3_SetupRenderState(draw_data, l_iFrameBufferWidth, l_iFrameBufferHeight, vertex_array_object);
+    ImGui_ImplOpenGL3_SetupRenderState(draw_data, l_iFrameBufferWidth, l_iFrameBufferHeight, vertex_array_object, e_pCameraMatrix);
 
 
     // Will project scissor/clipping rectangles into framebuffer space
@@ -447,41 +451,56 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
             }
             else
             {
-                // Project scissor/clipping rectangles into framebuffer space
-                ImVec2 clip_min((pcmd->ClipRect.x - clip_off.x) * clip_scale.x, (pcmd->ClipRect.y - clip_off.y) * clip_scale.y);
-                ImVec2 clip_max((pcmd->ClipRect.z - clip_off.x) * clip_scale.x, (pcmd->ClipRect.w - clip_off.y) * clip_scale.y);
-                //ImVec2 clip_min((pcmd->ClipRect.x - clip_off.x), (pcmd->ClipRect.y - clip_off.y));
-                //ImVec2 clip_max((pcmd->ClipRect.z - clip_off.x), (pcmd->ClipRect.w - clip_off.y));
-                if (clip_max.x <= clip_min.x || clip_max.y <= clip_min.y)
+                if (!pcmd->UserCallbackData)
                 {
-                    continue;
+                    // Project scissor/clipping rectangles into framebuffer space
+                    ImVec2 clip_min((pcmd->ClipRect.x - clip_off.x) * clip_scale.x, (pcmd->ClipRect.y - clip_off.y) * clip_scale.y);
+                    ImVec2 clip_max((pcmd->ClipRect.z - clip_off.x) * clip_scale.x, (pcmd->ClipRect.w - clip_off.y) * clip_scale.y);
+                    if (clip_max.x <= clip_min.x || clip_max.y <= clip_min.y)
+                    {
+                        continue;
+                    }
+                    if (g_bUseMyViewPort)
+                    {
+                        Vector4 l_vCameraRect;
+                        if (f_ImGuiCameraPositionConvertFunction)
+                        {
+                            // Apply scissor/clipping rectangle (Y is inverted in OpenGL)
+                            float l_fStartX = clip_min.x;
+                            float l_fStartY = pcmd->ClipRect.y;
+                            float l_fWidth = (clip_max.x - clip_min.x);
+                            float l_fHeight = (clip_max.y - clip_min.y);
+                            Vector4 l_vRect(l_fStartX, l_fStartY, l_fStartX + l_fWidth, l_fStartY + l_fHeight);
+                            l_vCameraRect = f_ImGuiCameraPositionConvertFunction(l_vRect);
+                            GL_CALL(glScissor((int)(l_vCameraRect.x),
+                                              (int)(l_vCameraRect.y),
+                                              (int)(l_vCameraRect.z),
+                                              (int)(l_vCameraRect.w)));
+                        }
+                        else
+                        {
+                            float l_fMyStartX = cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
+                            float l_fMyStartY = cGameApp::m_spOpenGLRender->m_vViewPortSize.y;// 
+                            // Apply scissor/clipping rectangle (Y is inverted in OpenGL)
+                            float l_fStartX = clip_min.x / l_vScale.x;
+                            float l_fStartY = (l_iFrameBufferHeight - clip_max.y) / l_vScale.y;
+                            float l_fWidth = (clip_max.x - clip_min.x) / l_vScale.x;
+                            float l_fHeight = (clip_max.y - clip_min.y) / l_vScale.y;
+                            Vector4 l_v((l_fMyStartX + l_fStartX), ((float)l_fMyStartY + l_fStartY), l_fWidth, l_fHeight);
+                            GL_CALL(glScissor((int)(l_fMyStartX + l_fStartX),
+                                              (int)((float)l_fMyStartY + l_fStartY),
+                                              (int)(l_fWidth),
+                                              (int)(l_fHeight)));
+                        }
+                    }
+                    else
+                    {
+                        GL_CALL(glScissor((int)clip_min.x, (int)((float)l_iFrameBufferHeight - clip_max.y), (int)(clip_max.x - clip_min.x), (int)(clip_max.y - clip_min.y)));
+                    }
                 }
-                if (g_bUseMyViewPort)
-                {
-                    ImVec2 l_Offset = ImVec2(0, 0);//	GetViewportOffsetPosition();
-                    //float l_fMyStartX = l_Offset.x;// cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
-                    //float l_fMyStartY = l_Offset.y; //cGameApp::m_spOpenGLRender->m_vViewPortSize.y;
-                    float l_fMyStartX = cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
-                    float l_fMyStartY = cGameApp::m_spOpenGLRender->m_vViewPortSize.y;// 
-                    // Apply scissor/clipping rectangle (Y is inverted in OpenGL)
-                    float l_fStartX = clip_min.x/ l_vScale.x;
-                    float l_fStartY = (l_iFrameBufferHeight - clip_max.y)/ l_vScale.y;
-                    float l_fWidth = (clip_max.x - clip_min.x)/ l_vScale.x;
-                    float l_fHeight = (clip_max.y - clip_min.y)/ l_vScale.y;
-                    GL_CALL(glScissor((int)l_fMyStartX + l_fStartX,
-                        (int)((float)l_fMyStartY + l_fStartY),
-                        (int)(l_fWidth),
-                        (int)(l_fHeight)));
-                }
-                else
-                {
-                    GL_CALL(glScissor((int)clip_min.x, (int)((float)l_iFrameBufferHeight - clip_max.y), (int)(clip_max.x - clip_min.x), (int)(clip_max.y - clip_min.y)));
-                }
-                    
                 // Bind texture, Draw
                 GL_CALL(glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->GetTexID()));
                 MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx)));
-                //GL_CALL(glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx))));
             }
         }
     }
@@ -522,10 +541,10 @@ void ImGui_StartFrame()
     ImGui::NewFrame();
 }
 
-void ImGui_EndFrame()
+void ImGui_EndFrame(float* e_pfMatrix)
 {
     ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData(), e_pfMatrix);
 }
 
 
@@ -1058,10 +1077,19 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
         }
         POINT mouse_pos = { (LONG)GET_X_LPARAM(lParam), (LONG)GET_Y_LPARAM(lParam) };
         if (msg == WM_NCMOUSEMOVE && ::ScreenToClient(hwnd, &mouse_pos) == FALSE) // WM_NCMOUSEMOVE are provided in absolute coordinates.
+        {
             return 0;
+        }
         if (g_bUseMyViewPort)
         {
-            mouse_pos = cGameApp::m_sMousePosition;
+            if (f_ImGuiGetCameraCursorPosition)
+            {
+                f_ImGuiGetCameraCursorPosition(mouse_pos.x, mouse_pos.y);
+            }
+            else
+            {
+                mouse_pos = cGameApp::m_sMousePosition;
+            }
         }
         io.AddMouseSourceEvent(mouse_source);
         io.AddMousePosEvent((float)mouse_pos.x, (float)mouse_pos.y);

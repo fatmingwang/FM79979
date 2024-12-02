@@ -71,11 +71,12 @@ Vector4	ViewRectToOpenGLScissor(Vector4 e_v2DViewRange,Vector4 e_vViewPort,Vecto
 	Vector4	l_vScissor;
 	float	l_fWidth = (e_v2DViewRange.z-e_v2DViewRange.x);
 	float	l_fHeight = (e_v2DViewRange.w-e_v2DViewRange.y);
+	
 	switch(e_eDeviceDirection)
 	{
 		case eDD_PORTRAIT:
 			l_vScissor.x = e_v2DViewRange.x;
-			l_vScissor.y = l_vViewSize.y-e_v2DViewRange.y-l_fHeight;
+			l_vScissor.y = l_vViewSize.y-(e_v2DViewRange.y+l_fHeight);
 			break;
 		case eDD_UPSIDE_DOWN:
 			l_vScissor.x = l_vViewSize.x-(e_v2DViewRange.x+l_fWidth);
