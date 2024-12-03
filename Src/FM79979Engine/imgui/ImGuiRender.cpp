@@ -18,7 +18,7 @@ EM_JS(void, ImGui_ImplSDL2_EmscriptenOpenURL, (char const* url), { url = url ? U
 
 
 #ifdef WIN32
-void     ImGui_ImplWin32_NewFrame();
+void     ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize);
 #elif defined(WASM)
 void	ImGui_ImplSDL2_NewFrame();
 #endif
@@ -59,7 +59,7 @@ bool g_bUseMyViewPort = true;
 
 
 
-std::function<float* (float*)>	f_ImGuiCameraPositionConvertFunction = nullptr;
+std::function<float* (float*)>	    f_ImGuiCameraPositionConvertFunction = nullptr;
 std::function<void(long&, long&)>	f_ImGuiGetCameraCursorPosition;
 
 const wchar_t* g_strImGuiShaderName = L"ImGuiShader";
@@ -295,7 +295,7 @@ void ImGui_ImplOpenGL3_Shutdown()
 }
 
 
-void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBufferWidth, int e_iFrameBufferHeight, GLuint vertex_array_object, float* e_pCameraMatrix)
+void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBufferWidth, int e_iFrameBufferHeight, GLuint vertex_array_object, float* e_pCameraMatrix, float* e_pGameResolutionSize)
 {
     ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
 
@@ -313,6 +313,12 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBuffe
     // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right). DisplayPos is (0,0) for single viewport apps.
     float l_fWindowWidth = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
     float l_fWindowHeight = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
+    if (e_pGameResolutionSize)
+    {
+        l_fWindowWidth = e_pGameResolutionSize[0];
+        l_fWindowHeight = e_pGameResolutionSize[1];
+    }
+    else
     if (!g_bUseMyViewPort)
     {
         l_fWindowWidth = (float)e_iFrameBufferWidth;
@@ -350,7 +356,7 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBuffe
 // OpenGL3 Render function.
 // Note that this implementation is little overcomplicated because we are saving/setting up/restoring every OpenGL state explicitly.
 // This is in order to be able to run within an OpenGL engine that doesn't do so.
-void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCameraMatrix)
+void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCameraMatrix, float* e_pGameResolutionSize)
 {
     // Avoid rendering when minimized, scale coordinates for retina displays (screen coordinates != framebuffer coordinates)
     int l_iFrameBufferWidth= (int)(draw_data->DisplaySize.x * draw_data->FramebufferScale.x);
@@ -417,13 +423,20 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
     GL_CALL(glGenVertexArrays(1, &vertex_array_object));
 
     //fuck imhui using compact vertex struct not separate data
-    ImGui_ImplOpenGL3_SetupRenderState(draw_data, l_iFrameBufferWidth, l_iFrameBufferHeight, vertex_array_object, e_pCameraMatrix);
+    ImGui_ImplOpenGL3_SetupRenderState(draw_data, l_iFrameBufferWidth, l_iFrameBufferHeight, vertex_array_object, e_pCameraMatrix, e_pGameResolutionSize);
 
 
     // Will project scissor/clipping rectangles into framebuffer space
     ImVec2 clip_off = draw_data->DisplayPos;         // (0,0) unless using multi-viewports
     ImVec2 clip_scale = draw_data->FramebufferScale; // (1,1) unless using retina display which are often (2,2)
     Vector2	l_vScale = cGameApp::m_spOpenGLRender->GetViewPortAndGameResolutionScale();
+    if (e_pGameResolutionSize)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        auto l_DisplaySize = io.DisplaySize;
+        l_vScale.x = l_DisplaySize.x/ e_pGameResolutionSize[0];
+        l_vScale.y = l_DisplaySize.y/ e_pGameResolutionSize[1];
+    }
     // Render command lists
     for (int n = 0; n < draw_data->CmdListsCount; n++)
     {
@@ -442,7 +455,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
             }
             else
             {
-                if (!pcmd->UserCallbackData)
+                //if (!pcmd->UserCallbackData)
                 {
                     // Project scissor/clipping rectangles into framebuffer space
                     ImVec2 clip_min((pcmd->ClipRect.x - clip_off.x) * clip_scale.x, (pcmd->ClipRect.y - clip_off.y) * clip_scale.y);
@@ -459,6 +472,8 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
                             // Apply scissor/clipping rectangle (Y is inverted in OpenGL)
                             float l_fStartX = clip_min.x;
                             float l_fStartY = pcmd->ClipRect.y;
+                            //float l_fWidth = (clip_max.x - clip_min.x)* l_vScale.x;
+                            //float l_fHeight = (clip_max.y - clip_min.y)* l_vScale.y;
                             float l_fWidth = (clip_max.x - clip_min.x);
                             float l_fHeight = (clip_max.y - clip_min.y);
                             Vector4 l_vRect(l_fStartX, l_fStartY, l_fStartX + l_fWidth, l_fStartY + l_fHeight);
@@ -522,20 +537,20 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
     (void)bd; // Not all compilation paths use this
 }
 
-void ImGui_StartFrame()
+void ImGui_StartFrame(float* e_pGameResolutionSize)
 {
 #if defined(WIN32)
-    ImGui_ImplWin32_NewFrame();
+    ImGui_ImplWin32_NewFrame(e_pGameResolutionSize);
 #elif defined(WASM)
     ImGui_ImplSDL2_NewFrame();
 #endif
     ImGui::NewFrame();
 }
 
-void ImGui_EndFrame(float* e_pfMatrix)
+void ImGui_EndFrame(float* e_pfMatrix, float* e_pGameResolutionSize)
 {
     ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData(), e_pfMatrix);
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData(), e_pfMatrix, e_pGameResolutionSize);
 }
 
 
@@ -825,7 +840,7 @@ void ImGui_ImplWin32_UpdateGamepads()
 #endif // #ifndef IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
 }
 
-void    ImGui_ImplWin32_NewFrame()
+void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize)
 {
     ImGui_ImplWin32_Data* bd = ImGui_ImplWin32_GetBackendData();
     IM_ASSERT(bd != nullptr && "Context or backend not initialized? Did you call ImGui_ImplWin32_Init()?");
@@ -836,14 +851,20 @@ void    ImGui_ImplWin32_NewFrame()
     ::GetClientRect(bd->hWnd, &rect);
     if (g_bUseMyViewPort)
     {
-        io.DisplaySize = ImVec2(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);// 
+        if (e_pGameResolutionSize)
+        {
+            io.DisplaySize = ImVec2(e_pGameResolutionSize[0], e_pGameResolutionSize[1]);// 
+        }
+        else
+        {
+            io.DisplaySize = ImVec2(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);// 
+        }
+        
     }
     else
     {
         io.DisplaySize = ImVec2((float)(rect.right - rect.left), (float)(rect.bottom - rect.top));
     }
-    float l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x / io.DisplaySize.x;
-    float l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y / io.DisplaySize.y;
     // Setup time step
     INT64 current_time = 0;
     ::QueryPerformanceCounter((LARGE_INTEGER*)&current_time);

@@ -47,7 +47,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 {
 	ParseEnvData("Deploy.json");
 	m_pRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
-	ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x*2, cGameApp::m_spOpenGLRender->m_vGameResolution.y*2);
+	ImVec2 l_vSize(1920,1080);
 	cMyGuiForm* l_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
 	l_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	l_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
@@ -115,6 +115,8 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	};
 
 	{
+		cMyGuiScroller*l_pMyGuiScroller = GetMyGuiObjWithType<cMyGuiScroller>();
+		l_pMyGuiScroller->SetLocalPosition(ImVec2(600, 300));
 		cMyGuiPanel* l_pMyGuiPanel = GetMyGuiObjWithType<cMyGuiPanel>();
 		l_pMyGuiPanel->SetBorder(false);
 		l_pMyGuiPanel->SetLocalPosition(ImVec2(0, 0));
@@ -124,6 +126,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 		m_pMyGuiListBox->SetName(L"2");
 		m_pMyGuiComboBox->SetName(L"3");
 		l_pMyGuiEditBox->SetName(L"4");
+		l_pMyGuiPanel->AddChild(l_pMyGuiScroller);
 		l_pMyGuiPanel->AddChild(m_pMyGuiButton);
 		l_pMyGuiPanel->AddChild(m_pMyGuiListBox);
 		l_pMyGuiPanel->AddChild(m_pMyGuiComboBox);
@@ -288,13 +291,13 @@ void cGUIForFileTransfer::Update(float e_fElpaseTime)
 
 }
 
-void cGUIForFileTransfer::Render(float* e_pfMatrix)
+void cGUIForFileTransfer::Render(float* e_pfMatrix, float* e_pfGameResolutoinSize)
 {
-	ImGui_StartFrame();
+	ImGui_StartFrame(e_pfGameResolutoinSize);
 
 	RenderMainUI();
 
-	ImGui_EndFrame(e_pfMatrix);
+	ImGui_EndFrame(e_pfMatrix, e_pfGameResolutoinSize);
 }
 
 void cGUIForFileTransfer::Destory()

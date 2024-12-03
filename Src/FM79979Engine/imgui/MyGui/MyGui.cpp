@@ -19,7 +19,7 @@ TYPDE_DEFINE_MARCO(cMyGuiForm);
 TYPDE_DEFINE_MARCO(cMyGuiPanel);
 TYPDE_DEFINE_MARCO(cMyGuiComboBox);
 TYPDE_DEFINE_MARCO(cMyGuiListBox);
-
+TYPDE_DEFINE_MARCO(cMyGuiScroller);
 
 
 //void	cImGuiNode::ApplySize(bool& e_bWidth, bool& e_bHeight)
@@ -339,6 +339,7 @@ cMyGuiPanel::cMyGuiPanel()
 {
 	this->SetName(cMyGuiPanel::TypeID);
 	this->m_vSize = ImVec2(200, 200);
+	m_FormFlag = 0;
 	this->m_bShowBorder = true;
 	this->m_bThisUseContainerPositionDontApplyarentPositionToChild = true;
 }
@@ -370,7 +371,12 @@ void cMyGuiPanel::InternalRender()
 	//static bool l_bSkipScissor = true;
 	//ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	//draw_list->AddCallback(f_MySkipScissor, &l_bSkipScissor);
-	ImGui::BeginChild(this->GetCharName().c_str(), this->m_vSize,true);
+	//child_size, true, ImGuiWindowFlags_NoBackground))
+	
+	if (ImGui::BeginChild(this->GetCharName().c_str(), this->m_vSize, true, m_FormFlag))
+	{
+		int a = 0;
+	}
 	// Move the cursor to the desired position for the child
 	//ImGui::SetCursorScreenPos(childPos);
 	//cMyGuiBasicObj::ApplyPosition();
@@ -395,7 +401,7 @@ void cMyGuiForm::ApplyPosition()
 void cMyGuiForm::InternalRender()
 {
 	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
-	//m_FormFlag = ImGuiWindowFlags_NoTitleBar;
+	//m_FormFlag = ImGuiWindowFlags_NoTitleBar| ImGuiWindowFlags_NoBackground;
 	ImGui::Begin(this->GetCharName().c_str(),nullptr, m_FormFlag);
 	if (m_vSize.x > 0 && m_vSize.y > 0)
 	{
@@ -1044,9 +1050,82 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 		case	eMIGT_ROOT_NODE:
 		l_pObject = new cMyGuiRootNode();
 		break;
+		case	eMIGT_SCROLLER:
+			l_pObject = new cMyGuiScroller();
+		break;
+		
 		
 	}
 	//e_pParent->add
 	l_pObject->SetName(l_pObject->GetTypeName());
 	return l_pObject;
+}
+
+void cMyGuiScroller::InternalRender()
+{
+	// Number of items to display
+	static const int num_items = 100;
+	static char items[num_items][32];
+	static float scroll_y = 0.0f; // Current scroll position
+
+	// Populate the items
+	for (int i = 0; i < num_items; i++)
+	{
+		snprintf(items[i], sizeof(items[i]), "Item %d", i);
+	}
+		
+
+	// Set the size of the scrollable region
+	ImVec2 child_size(200.0f, 300.0f);
+
+	int l_iSelectedIndex = m_iSelectedIndex;
+	if (ImGui::BeginChild("ScrollingRegion", child_size, true, ImGuiWindowFlags_AlwaysVerticalScrollbar))
+	{
+		ImGui::Text("Scroll below:");
+
+		// Display items in the scrolling region
+		for (int i = 0; i < num_items; i++)
+		{
+			if (i == l_iSelectedIndex)
+			{
+				ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 0.0f, 1.0f)); // Yellow for selection
+
+			}
+			if (ImGui::Selectable(ValueToString(i).c_str(), m_iSelectedIndex == i))
+			{
+				// Update selected index on click
+				m_iSelectedIndex = i;
+
+				// Handle the selection event
+				//printf("Selected Item: %s\n", items[i].c_str());
+			}
+
+			//ImGui::Image(textures[i].id, textures[i].size);
+			//ImGui::Text("%s", items[i]);
+			if (i == l_iSelectedIndex)
+			{
+				ImGui::PopStyleColor();
+			}
+		}
+
+		// Track scrolling position
+		scroll_y = ImGui::GetScrollY();
+		ImGui::EndChild();
+	}
+
+	// Display current scroll position
+	ImGui::Text("Scroll Y: %.2f", scroll_y);
+}
+
+void cMyGuiScroller::RenderProperty()
+{
+}
+
+cMyGuiScroller::cMyGuiScroller()
+{
+	m_iSelectedIndex = 0;
+}
+
+cMyGuiScroller::~cMyGuiScroller()
+{
 }

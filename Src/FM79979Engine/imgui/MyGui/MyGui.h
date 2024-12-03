@@ -25,6 +25,7 @@ enum eMyImGuiType
 	eMIGT_COMBO_BOX,
 	eMIGT_LIST_BOX,
 	eMIGT_ROOT_NODE,
+	eMIGT_SCROLLER,
 	eMIGT_MAX
 };
 
@@ -251,6 +252,7 @@ class cMyGuiPanel :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 	virtual	void		EndRender()override;
 	GET_SET_DEC(bool,m_bShowBorder, GetShowBorder, SetBorder);
+	GET_SET_DEC(ImGuiWindowFlags, m_FormFlag, GetFormFlag, SetFormFlag);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiPanel();
@@ -271,6 +273,8 @@ public:
 	std::function<void(int)>	m_fOnSelectFunction;
 };
 
+
+
 class cMyGuiListBox :public cMyGuiComboBox
 {
 	void				RenderMultiSelectable();
@@ -278,6 +282,17 @@ class cMyGuiListBox :public cMyGuiComboBox
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	virtual void		RenderProperty()override;
+};
+
+class cMyGuiScroller :public cMyGuiBasicObj
+{
+	virtual	void		InternalRender()override;
+	GET_SET_DEC(int, m_iSelectedIndex, GetSelectedIndex, SetSelectedIndex);
+public:
+	MYGUI_DEFAULT_IMPLEMENT();
+	virtual void		RenderProperty()override;
+	cMyGuiScroller();
+	virtual ~cMyGuiScroller();
 };
 
 void	CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No",const char*e_strTitle = "Yes or No");

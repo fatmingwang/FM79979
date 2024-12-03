@@ -21,8 +21,8 @@ extern std::function<void (long&, long&)>	f_ImGuiGetCameraCursorPosition;
 bool     ImGui_ImplOpenGL3_Init(const char* glsl_version = nullptr);
 void     ImGui_ImplOpenGL3_Shutdown();
 void     ImGui_ImplOpenGL3_RenderDrawData(struct ImDrawData* draw_data,float*e_pCameraMatrix = nullptr);
-void     ImGui_StartFrame();
-void     ImGui_EndFrame(float*e_pfMatrix = nullptr);
+void     ImGui_StartFrame(float*e_pGameResolutionSize = nullptr);
+void     ImGui_EndFrame(float*e_pfMatrix = nullptr, float* e_pGameResolutionSize = nullptr);
 #ifdef WIN32
 bool     ImGui_ImplWin32_Init(void* hwnd);
 bool     ImGui_ImplWin32_InitForOpenGL(void* hwnd);

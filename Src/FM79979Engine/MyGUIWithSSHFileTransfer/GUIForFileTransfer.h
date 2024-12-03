@@ -38,6 +38,6 @@ public:
 	virtual ~cGUIForFileTransfer();
 	void	Init();
 	void	Update(float e_fElpaseTime);
-	void	Render(float*e_pfMatrix = nullptr);
+	void	Render(float*e_pfMatrix = nullptr,float*e_pfGameResolutoinSize = nullptr);
 	void	Destory();
 };
