@@ -382,14 +382,35 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		return true;
 	}
-	float   l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x/ cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
-	float   l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y/ cGameApp::m_spOpenGLRender->m_vViewPortSize.y;
+	//float   l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x/ cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
+	//float   l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y/ cGameApp::m_spOpenGLRender->m_vViewPortSize.y;
 	switch (message)
 	{
 	case  WM_SIZE:
 		g_WindowSize.x = (int)LOWORD(lParam);
 		g_WindowSize.y = (int)HIWORD(lParam);
-		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+		RECT clientRect;
+		if (GetClientRect(hWnd, &clientRect))
+		{
+			int width = clientRect.right - clientRect.left;
+			int height = clientRect.bottom - clientRect.top;
+			cGameApp::m_spOpenGLRender->m_vGameResolution.x = width;
+			cGameApp::m_spOpenGLRender->m_vGameResolution.y = height;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.z = width;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.w = height;
+			cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize = cGameApp::m_spOpenGLRender->m_vViewPortSize;
+			//std::cout << "Client Area Width: " << width << "\n";
+			//std::cout << "Client Area Height: " << height << "\n";
+		}
+		else
+		{
+			//std::cerr << "Failed to get client area." << std::endl;
+		}
+		//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+		//cGameApp::m_spOpenGLRender->m_vGameResolution.x = g_WindowSize.x;
+		//cGameApp::m_spOpenGLRender->m_vGameResolution.y = g_WindowSize.y;
 		break;
 	case WM_TIMER:
 		if( !g_bLeave && g_pGameApp )

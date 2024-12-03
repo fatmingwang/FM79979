@@ -64,8 +64,8 @@ void	cMyApp::Update(float e_fElpaseTime)
 		if (m_p2DCamera)
 		{
 			//Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
-			Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Height());
-			m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1],cGameApp::m_sMouseWhellDelta,cGameApp::m_sScreenMousePosition.x,cGameApp::m_sScreenMousePosition.y,l_vViewPort);
+			Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+			m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1],cGameApp::m_sMouseWhellDelta,cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y,l_vViewPort);
 		}
 		m_p2DCamera->Update(e_fElpaseTime);
 	}
@@ -77,11 +77,12 @@ void	cMyApp::Update(float e_fElpaseTime)
 
 void	cMyApp::Render()
 {
-	this->m_spOpenGLRender->m_vGameResolution = Vector2(1920, 1080);
+	//this->m_spOpenGLRender->m_vGameResolution = Vector2(1920, 1080);
 	this->m_spOpenGLRender->m_vBGColor = Vector4(0.5, 0.5, 0.5, 1);
 	cGameApp::Render();
 	if (m_p2DCamera)
 	{
+		m_p2DCamera->SetResolution(Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		m_p2DCamera->Render();
 		m_p2DCamera->DrawGrid();
 	}

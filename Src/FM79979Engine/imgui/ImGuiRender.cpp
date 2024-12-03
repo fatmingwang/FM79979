@@ -313,9 +313,6 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBuffe
     // Our visible imgui space lies from draw_data->DisplayPos (top left) to draw_data->DisplayPos+data_data->DisplaySize (bottom right). DisplayPos is (0,0) for single viewport apps.
     float l_fWindowWidth = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
     float l_fWindowHeight = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
-    //GL_CALL(glViewport(0, 0, (GLsizei)windowHeight, (GLsizei)windowHeight));
-    //GL_CALL(glViewport(cGameApp::m_spOpenGLRender->m_vViewPortSize.x, cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (GLsizei)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (GLsizei)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
-    //GL_CALL(glViewport(0, 0, (GLsizei)l_iFrameBufferWidth, (GLsizei)l_iFrameBufferHeight));
     if (!g_bUseMyViewPort)
     {
         l_fWindowWidth = (float)e_iFrameBufferWidth;
@@ -349,12 +346,6 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBuffe
     GL_CALL(glVertexAttribPointer(g_pImGuiShader->m_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, GL_FALSE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, uv)));
     GL_CALL(glVertexAttribPointer(g_pImGuiShader->m_uiAttribArray[FVF_DIFFUSE], 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(ImDrawVert), (GLvoid*)offsetof(ImDrawVert, col)));
 }
-
-//ImVec2	GetViewportOffsetPosition()
-//{
-//    Vector2 l_vScale = cGameApp::m_spOpenGLRender->GetViewPortAndGameResolutionScale();
-//    return ImVec2(cGameApp::m_spOpenGLRender->m_vViewPortSize.x / l_vScale.x, cGameApp::m_spOpenGLRender->m_vViewPortSize.y / l_vScale.y);
-//}
 
 // OpenGL3 Render function.
 // Note that this implementation is little overcomplicated because we are saving/setting up/restoring every OpenGL state explicitly.
@@ -845,21 +836,14 @@ void    ImGui_ImplWin32_NewFrame()
     ::GetClientRect(bd->hWnd, &rect);
     if (g_bUseMyViewPort)
     {
-        //io.DisplaySize = ImVec2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
         io.DisplaySize = ImVec2(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);// 
-        //Vector2 l_vScale = cGameApp::m_spOpenGLRender->GetViewPortAndGameResolutionScale();
-        //io.DisplaySize = ImVec2(cGameApp::m_spOpenGLRender->m_vGameResolution.x/ l_vScale.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y/l_vScale.y);
     }
     else
     {
         io.DisplaySize = ImVec2((float)(rect.right - rect.left), (float)(rect.bottom - rect.top));
-        //io.DisplaySize = ImVec2(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);// 
     }
     float l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x / io.DisplaySize.x;
     float l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y / io.DisplaySize.y;
-    //float l_fScaleX = io.DisplaySize.x/ cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-    //float l_fScaleY = io.DisplaySize.y/ cGameApp::m_spOpenGLRender->m_vGameResolution.y;
-    //io.DisplayFramebufferScale = ImVec2(l_fScaleX, l_fScaleY);
     // Setup time step
     INT64 current_time = 0;
     ::QueryPerformanceCounter((LARGE_INTEGER*)&current_time);
@@ -1895,8 +1879,6 @@ void ImGui_ImplSDL2_NewFrame()
 #ifdef USE_SDL2
         SDL_GL_GetDrawableSize(bd->Window, &display_w, &display_h);
 #endif
-    //int	l_iViewportWidth = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
-    //int	l_iViewportHeight = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
     int	l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
     int	l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
 
@@ -1907,8 +1889,6 @@ void ImGui_ImplSDL2_NewFrame()
     //display_h = h;
     //io.DisplaySize = ImVec2(display_w, display_h);
 
-    //w = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-    //h = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
     if (g_bUseMyViewPort)
     {
         w = display_w = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
@@ -1922,24 +1902,6 @@ void ImGui_ImplSDL2_NewFrame()
 
     io.DisplaySize = ImVec2(w, h);
 
-    //if (w > 0 && h > 0)
-    //{
-    //    float l_fScaleX = 1;// display_w / cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-    //    float l_fScaleY = 1;// display_h / cGameApp::m_spOpenGLRender->m_vGameResolution.y;
-    //    //float l_fScaleX = display_w/ cGameApp::m_spOpenGLRender->m_vGameResolution.x;
-    //    //float l_fScaleY = display_h/ cGameApp::m_spOpenGLRender->m_vGameResolution.y;
-    //    //io.DisplayFramebufferScale = ImVec2(l_fScaleX, l_fScaleY);
-    //    //io.DisplayFramebufferScale = ImVec2(1,1);
-    //    double canvasWidth, canvasHeight;
-    //    // Get canvas size (actual pixel size)
-    //    emscripten_get_element_css_size("canvas", &canvasWidth, &canvasHeight);
-    //    // Calculate the scale factor
-    //    float scaleX = (float)l_iViewportWidth / (float)l_iViewportWidth;
-    //    float scaleY = (float)l_iViewportHeight / (float)l_iViewportHeight;
-
-    //    // Set ImGui DisplayFramebufferScale
-    //    io.DisplayFramebufferScale = ImVec2(scaleX, scaleY);
-    //}
     // Setup time step (we don't use SDL_GetTicks() because it is using millisecond resolution)
     // (Accept SDL_GetPerformanceCounter() not returning a monotonically increasing value. Happens in VMs and Emscripten, see #6189, #6114, #3644)
 #ifdef USE_SDL2
