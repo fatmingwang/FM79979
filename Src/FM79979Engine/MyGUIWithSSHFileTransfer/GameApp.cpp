@@ -18,21 +18,22 @@ cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) 
 	//cMyImGuiTesting::Init();
 	m_pGUIForFileTransfer = new cGUIForFileTransfer();
 	m_p2DCamera = new cOrthogonalCamera();
-	f_ImGuiCameraPositionConvertFunction = std::bind(&cOrthogonalCamera::GetGLSciccorRect, m_p2DCamera, std::placeholders::_1);
-	f_ImGuiGetCameraCursorPosition = [this](long&e_PosX, long& e_PosY)
+
+	auto l_ImGuiCameraPositionConvertFunction = std::bind(&cOrthogonalCamera::GetGLSciccorRect, m_p2DCamera, std::placeholders::_1);
+	auto l_ImGuiGetCameraCursorPosition = [this](long&e_PosX, long& e_PosY)
 	{
 		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
 		e_PosX = l_vPos.x;
 		e_PosY = l_vPos.y;
 	};
+	SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, 0);
+	SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction,0);
 }
 
 cMyApp::~cMyApp()
 {
 	SAFE_DELETE(m_p2DCamera);
 	SAFE_DELETE(m_pGUIForFileTransfer);
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui::DestroyContext();
 	Destroy();
 }
 
@@ -90,7 +91,7 @@ void	cMyApp::Render()
 	{
 		m_p2DCamera->SetResolution(l_ViewPortSize);
 		m_p2DCamera->Render();
-		m_p2DCamera->DrawGrid();
+		m_p2DCamera->DrawGrid(0.f,0.f,Vector4(0.5f, 1.f, 0.f, 0.3f),2.f);
 	}
 	if (m_pGUIForFileTransfer)
 	{

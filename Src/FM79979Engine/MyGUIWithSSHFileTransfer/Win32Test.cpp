@@ -238,10 +238,6 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	if (1)
 	{
 		g_pGameApp = new cMyApp(g_hWnd, cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
-#ifdef WIN32
-		ImGui_ImplWin32_InitForOpenGL(cGameApp::m_spOpenGLRender->m_Handle);
-#endif
-		ImGui_ImplOpenGL3_Init();
 		g_pGameApp->Init();
 		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)g_WindowSize.x, (int)g_WindowSize.y, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	}
@@ -263,9 +259,6 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 			}
 		}
 	}
-
-	ImGui_ImplWin32_Shutdown();
-
 	//UnhookWindowsHookEx(MouseHook);
 	SAFE_DELETE(g_pGameApp);
 	//SAFE_DELETE(g_pGameApp->m_spOpenGLRender);

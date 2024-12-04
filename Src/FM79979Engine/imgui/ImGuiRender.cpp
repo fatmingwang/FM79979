@@ -18,7 +18,8 @@ EM_JS(void, ImGui_ImplSDL2_EmscriptenOpenURL, (char const* url), { url = url ? U
 
 
 #ifdef WIN32
-void     ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize);
+void    ImGui_ImplWin32_Shutdown();
+void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize, int e_iContextIndex);
 #elif defined(WASM)
 void	ImGui_ImplSDL2_NewFrame();
 #endif
@@ -58,9 +59,13 @@ bool g_bUseMyViewPort = true;
 
 
 
+int g_iNumImGuiContext = 2;
 
-std::function<float* (float*)>	    f_ImGuiCameraPositionConvertFunction = nullptr;
-std::function<void(long&, long&)>	f_ImGuiGetCameraCursorPosition;
+
+std::map<int, std::function<float*(float*)>>g_fContextIndexAndImGuiCameraPositionConvertFunctionMap;
+std::map<int, std::function<void(long&, long&)>>g_fContextIndexAndImGuiGetCameraCursorPositionMap;
+std::vector<ImGuiContext*>*g_pImGuiContextVector = nullptr;
+int                         g_iCurrenctContextIndex = 0;
 
 const wchar_t* g_strImGuiShaderName = L"ImGuiShader";
 cBaseShader* g_pImGuiShader = nullptr;
@@ -257,33 +262,56 @@ bool    ImguiCreateShader()
     glGenBuffers(1, &bd->ElementsHandle);
     return true;
 }
+#ifdef WIN32
+bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc);
 // Functions
-bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
-{
-    ImGuiIO& io = ImGui::GetIO();
-    IM_ASSERT(io.BackendRendererUserData == nullptr && "Already initialized a renderer backend!");
-    // Setup backend capabilities flags
-    ImGui_ImplOpenGL3_Data* l_BS = IM_NEW(ImGui_ImplOpenGL3_Data)();
-    io.BackendRendererUserData = (void*)l_BS;
-#ifdef WASM
-    io.BackendRendererName = "imgui_impl_fm79979_WASM";
+bool    ImGui_ImplOpenGL3_Init(void* hwnd, const char* glsl_version, int e_iNumContext)
 #else
-    io.BackendRendererName = "imgui_impl_fm79979_OPENGL";
+bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 #endif
-    if (!l_BS->FontTexture)
+{
+#ifdef WIN32
+    ImGui_ImplWin32_InitEx(hwnd, true);
+    //ImGui_ImplWin32_InitForOpenGL(hwnd);
+#endif
+    g_iNumImGuiContext = e_iNumContext;
+    for (int i = 0; i < g_iNumImGuiContext; ++i)
     {
-        ImGui_ImplOpenGL3_CreateFontsTexture();
+        if (g_pImGuiContextVector)
+        {
+            ImGui::SetCurrentContext((*g_pImGuiContextVector)[i]);
+        }
+        ImGuiIO& io = ImGui::GetIO();
+        IM_ASSERT(io.BackendRendererUserData == nullptr && "Already initialized a renderer backend!");
+        // Setup backend capabilities flags
+        ImGui_ImplOpenGL3_Data* l_BS = IM_NEW(ImGui_ImplOpenGL3_Data)();
+        io.BackendRendererUserData = (void*)l_BS;
+#ifdef WASM
+        io.BackendRendererName = "imgui_impl_fm79979_WASM";
+#else
+        io.BackendRendererName = "imgui_impl_fm79979_OPENGL";
+#endif
+        if (!l_BS->FontTexture)
+        {
+            ImGui_ImplOpenGL3_CreateFontsTexture();
+        }
+        ImguiCreateShader();
     }
-    ImguiCreateShader();
     return true;
 }
 
-void ImGui_ImplOpenGL3_Shutdown()
+void ImGui_ImplOpenGL3_ShutdownInner()
 {
     ImGuiIO& io = ImGui::GetIO();
     ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
-    if (bd->VboHandle) { glDeleteBuffers(1, &bd->VboHandle); bd->VboHandle = 0; }
-    if (bd->ElementsHandle) { glDeleteBuffers(1, &bd->ElementsHandle); bd->ElementsHandle = 0; }
+    if (bd->VboHandle)
+    {
+        glDeleteBuffers(1, &bd->VboHandle); bd->VboHandle = 0;
+    }
+    if (bd->ElementsHandle)
+    {
+        glDeleteBuffers(1, &bd->ElementsHandle); bd->ElementsHandle = 0;
+    }
     if (bd->FontTexture)
     {
         glDeleteTextures(1, &bd->FontTexture);
@@ -292,6 +320,50 @@ void ImGui_ImplOpenGL3_Shutdown()
     }
     io.BackendRendererName = nullptr;
     io.BackendRendererUserData = nullptr;
+}
+
+void SetImGuiGetCameraCursorPosition(std::function<void(long&, long&)> e_Function, int e_iContextIndex)
+{
+    g_fContextIndexAndImGuiGetCameraCursorPositionMap[e_iContextIndex] = e_Function;
+}
+
+void SetImGuiCameraPositionConvertFunction(std::function<float* (float*)> e_Function, int e_iContextIndex)
+{
+    g_fContextIndexAndImGuiCameraPositionConvertFunctionMap[e_iContextIndex] = e_Function;
+}
+
+void ImGui_ImplOpenGL3_Shutdown()
+{
+#ifdef WIN32
+    ImGui_ImplWin32_Shutdown();
+#else
+    if (g_pImGuiContextVector)
+    {
+        for (size_t i = 0; i < g_pImGuiContextVector->size(); ++i)
+        {
+            ImGui::SetCurrentContext((*g_pImGuiContextVector)[i]);
+            ImGui_ImplOpenGL3_ShutdownInner();
+        };
+    }
+    else
+    {
+        ImGui_ImplOpenGL3_ShutdownInner();
+    }
+    
+#endif
+    if (g_pImGuiContextVector)
+    {
+        for (size_t i = 0; i < g_pImGuiContextVector->size(); ++i)
+        {
+            ImGui::DestroyContext((*g_pImGuiContextVector)[i]);
+        }
+        
+        SAFE_DELETE(g_pImGuiContextVector);
+    }
+    else
+    {
+        ImGui::DestroyContext();
+    }
 }
 
 
@@ -329,6 +401,7 @@ void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int e_iFrameBuffe
     //float T = draw_data->DisplayPos.y;
     //float B = draw_data->DisplayPos.y + draw_data->DisplaySize.y;
     UseShaderProgram(g_strImGuiShaderName);
+    g_pImGuiShader->Use();
     //SetupShaderViewProjectionMatrix((float*)ortho_projection, true);
     if (e_pCameraMatrix)
     {
@@ -437,6 +510,13 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
         l_vScale.x = l_DisplaySize.x/ e_pGameResolutionSize[0];
         l_vScale.y = l_DisplaySize.y/ e_pGameResolutionSize[1];
     }
+    std::function<float* (float*)>l_fImGuiCameraPositionConvertFunction;
+    auto l_IT = g_fContextIndexAndImGuiCameraPositionConvertFunctionMap.find(g_iCurrenctContextIndex);
+    if (l_IT != g_fContextIndexAndImGuiCameraPositionConvertFunctionMap.end())
+    {
+        l_fImGuiCameraPositionConvertFunction = l_IT->second;
+    }
+    
     // Render command lists
     for (int n = 0; n < draw_data->CmdListsCount; n++)
     {
@@ -467,7 +547,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
                     if (g_bUseMyViewPort)
                     {
                         Vector4 l_vCameraRect;
-                        if (f_ImGuiCameraPositionConvertFunction)
+                        if (l_fImGuiCameraPositionConvertFunction)
                         {
                             // Apply scissor/clipping rectangle (Y is inverted in OpenGL)
                             float l_fStartX = clip_min.x;
@@ -477,7 +557,19 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
                             float l_fWidth = (clip_max.x - clip_min.x);
                             float l_fHeight = (clip_max.y - clip_min.y);
                             Vector4 l_vRect(l_fStartX, l_fStartY, l_fStartX + l_fWidth, l_fStartY + l_fHeight);
-                            l_vCameraRect = f_ImGuiCameraPositionConvertFunction(l_vRect);
+                            l_vCameraRect = l_fImGuiCameraPositionConvertFunction(l_vRect);
+                            //if (l_vCameraRect.x < 0)
+                            //    l_vCameraRect.x = 0;
+                            //if (l_vCameraRect.y < 0)
+                            //    l_vCameraRect.y = 0;
+                            //if (l_vCameraRect.z > cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Width())
+                            //{
+                            //    l_vCameraRect.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Width();
+                            //}
+                            //if (l_vCameraRect.w > cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Height())
+                            //{
+                            //    l_vCameraRect.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Height();
+                            //}
                             GL_CALL(glScissor((int)(l_vCameraRect.x),
                                               (int)(l_vCameraRect.y),
                                               (int)(l_vCameraRect.z),
@@ -537,10 +629,11 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
     (void)bd; // Not all compilation paths use this
 }
 
-void ImGui_StartFrame(float* e_pGameResolutionSize)
+void ImGui_StartFrame(float* e_pGameResolutionSize,int e_iContextIndex)
 {
+    g_iCurrenctContextIndex = e_iContextIndex;
 #if defined(WIN32)
-    ImGui_ImplWin32_NewFrame(e_pGameResolutionSize);
+    ImGui_ImplWin32_NewFrame(e_pGameResolutionSize, e_iContextIndex);
 #elif defined(WASM)
     ImGui_ImplSDL2_NewFrame();
 #endif
@@ -599,10 +692,8 @@ void ImGui_ImplWin32_UpdateKeyboardCodePage()
         bd->KeyboardCodePage = CP_ACP; // Fallback to default ANSI code page when fails.
 }
 
-bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc)
+bool    ImGui_ImplWin32_InitExInner(void* hwnd, bool platform_has_own_dc)
 {
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     IM_ASSERT(io.BackendPlatformUserData == nullptr && "Already initialized a platform backend!");
 
@@ -650,37 +741,64 @@ bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc)
             break;
         }
 #endif // IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
+}
+
+bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc)
+{
+    IMGUI_CHECKVERSION();
+    if (g_iNumImGuiContext > 1 && !g_pImGuiContextVector)
+    {
+        g_pImGuiContextVector = new std::vector<ImGuiContext*>();
+        for (int i = 0; i < g_iNumImGuiContext; ++i)
+        {
+            auto l_pDefaultImGuiContext = ImGui::CreateContext();
+            ImGui::SetCurrentContext(l_pDefaultImGuiContext);
+            g_pImGuiContextVector->push_back(l_pDefaultImGuiContext);
+            ImGui_ImplWin32_InitExInner(hwnd, platform_has_own_dc);
+        }
+    }
+    else
+    {
+        ImGui::CreateContext();
+        ImGui_ImplWin32_InitExInner(hwnd, platform_has_own_dc);
+    }
 
     return true;
 }
 
-IMGUI_IMPL_API bool     ImGui_ImplWin32_Init(void* hwnd)
-{
-    return ImGui_ImplWin32_InitEx(hwnd, false);
-}
-
-IMGUI_IMPL_API bool     ImGui_ImplWin32_InitForOpenGL(void* hwnd)
-{
-    // OpenGL needs CS_OWNDC
-    return ImGui_ImplWin32_InitEx(hwnd, true);
-}
-
-void    ImGui_ImplWin32_Shutdown()
+void ReleaseWin32BackendData()
 {
     ImGui_ImplWin32_Data* bd = ImGui_ImplWin32_GetBackendData();
     IM_ASSERT(bd != nullptr && "No platform backend to shutdown, or already shutdown?");
     ImGuiIO& io = ImGui::GetIO();
-
     // Unload XInput library
 #ifndef IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
     if (bd->XInputDLL)
         ::FreeLibrary(bd->XInputDLL);
 #endif // IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
-
+    ImGui_ImplOpenGL3_ShutdownInner();
     io.BackendPlatformName = nullptr;
     io.BackendPlatformUserData = nullptr;
     io.BackendFlags &= ~(ImGuiBackendFlags_HasMouseCursors | ImGuiBackendFlags_HasSetMousePos | ImGuiBackendFlags_HasGamepad);
+    SAFE_DELETE(io.BackendRendererUserData);// = nullptr;
     IM_DELETE(bd);
+}
+
+void    ImGui_ImplWin32_Shutdown()
+{
+    if (g_pImGuiContextVector)
+    {
+        for (size_t i = 0; i < g_pImGuiContextVector->size(); ++i)
+        {
+            ImGui::SetCurrentContext((*g_pImGuiContextVector)[i]);
+            ReleaseWin32BackendData();
+        }
+        SAFE_DELETE(g_pImGuiContextVector);
+    }
+    else
+    {
+        ReleaseWin32BackendData();
+    }
 }
 
 bool ImGui_ImplWin32_UpdateMouseCursor()
@@ -840,12 +958,26 @@ void ImGui_ImplWin32_UpdateGamepads()
 #endif // #ifndef IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
 }
 
-void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize)
+void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize,int e_iContextIndex)
 {
+    if (e_iContextIndex)
+    {
+        //ImGui::SetCurrentContext(e_pDefaultImGuiContext);
+        if (g_pImGuiContextVector)
+        {
+            ImGui::SetCurrentContext((*g_pImGuiContextVector)[e_iContextIndex]);
+        }
+    }
+    else
+    {
+        if (g_pImGuiContextVector)
+        {
+            ImGui::SetCurrentContext((*g_pImGuiContextVector)[0]);
+        }
+    }
     ImGui_ImplWin32_Data* bd = ImGui_ImplWin32_GetBackendData();
     IM_ASSERT(bd != nullptr && "Context or backend not initialized? Did you call ImGui_ImplWin32_Init()?");
     ImGuiIO& io = ImGui::GetIO();
-
     // Setup display size (every frame to accommodate for window resizing)
     RECT rect = { 0, 0, 0, 0 };
     ::GetClientRect(bd->hWnd, &rect);
@@ -1053,67 +1185,75 @@ ImGuiMouseSource GetMouseSourceFromMessageExtraInfo()
     return ImGuiMouseSource_Mouse;
 }
 
-IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandlerInner(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam,int e_iContextIndex)
 {
+    std::function<void(long&, long&)> l_fImGuiGetCameraCursorPosition;
+    auto l_IT = g_fContextIndexAndImGuiGetCameraCursorPositionMap.find(e_iContextIndex);
+    if (l_IT != g_fContextIndexAndImGuiGetCameraCursorPositionMap.end())
+    {
+        l_fImGuiGetCameraCursorPosition = l_IT->second;
+    }
     // Most backends don't have silent checks like this one, but we need it because WndProc are called early in CreateWindow().
     // We silently allow both context or just only backend data to be nullptr.
     ImGui_ImplWin32_Data* bd = ImGui_ImplWin32_GetBackendData();
     if (bd == nullptr)
+    {
         return 0;
+    }
     ImGuiIO& io = ImGui::GetIO();
 
     switch (msg)
     {
-    case WM_MOUSEMOVE:
-    case WM_NCMOUSEMOVE:
-    {
-        // We need to call TrackMouseEvent in order to receive WM_MOUSELEAVE events
-        ImGuiMouseSource mouse_source = GetMouseSourceFromMessageExtraInfo();
-        const int area = (msg == WM_MOUSEMOVE) ? 1 : 2;
-        bd->MouseHwnd = hwnd;
-        if (bd->MouseTrackedArea != area)
+        case WM_MOUSEMOVE:
+        case WM_NCMOUSEMOVE:
         {
-            TRACKMOUSEEVENT tme_cancel = { sizeof(tme_cancel), TME_CANCEL, hwnd, 0 };
-            TRACKMOUSEEVENT tme_track = { sizeof(tme_track), (DWORD)((area == 2) ? (TME_LEAVE | TME_NONCLIENT) : TME_LEAVE), hwnd, 0 };
-            if (bd->MouseTrackedArea != 0)
-                ::TrackMouseEvent(&tme_cancel);
-            ::TrackMouseEvent(&tme_track);
-            bd->MouseTrackedArea = area;
-        }
-        POINT mouse_pos = { (LONG)GET_X_LPARAM(lParam), (LONG)GET_Y_LPARAM(lParam) };
-        if (msg == WM_NCMOUSEMOVE && ::ScreenToClient(hwnd, &mouse_pos) == FALSE) // WM_NCMOUSEMOVE are provided in absolute coordinates.
-        {
+            // We need to call TrackMouseEvent in order to receive WM_MOUSELEAVE events
+            ImGuiMouseSource mouse_source = GetMouseSourceFromMessageExtraInfo();
+            const int area = (msg == WM_MOUSEMOVE) ? 1 : 2;
+            bd->MouseHwnd = hwnd;
+            if (bd->MouseTrackedArea != area)
+            {
+                TRACKMOUSEEVENT tme_cancel = { sizeof(tme_cancel), TME_CANCEL, hwnd, 0 };
+                TRACKMOUSEEVENT tme_track = { sizeof(tme_track), (DWORD)((area == 2) ? (TME_LEAVE | TME_NONCLIENT) : TME_LEAVE), hwnd, 0 };
+                if (bd->MouseTrackedArea != 0)
+                    ::TrackMouseEvent(&tme_cancel);
+                ::TrackMouseEvent(&tme_track);
+                bd->MouseTrackedArea = area;
+            }
+            POINT mouse_pos = { (LONG)GET_X_LPARAM(lParam), (LONG)GET_Y_LPARAM(lParam) };
+            if (msg == WM_NCMOUSEMOVE && ::ScreenToClient(hwnd, &mouse_pos) == FALSE) // WM_NCMOUSEMOVE are provided in absolute coordinates.
+            {
+                return 0;
+            }
+            if (g_bUseMyViewPort)
+            {
+                if (l_fImGuiGetCameraCursorPosition)
+                {
+                    l_fImGuiGetCameraCursorPosition(mouse_pos.x, mouse_pos.y);
+                }
+                else
+                {
+                    mouse_pos = cGameApp::m_sMousePosition;
+                }
+            }
+            io.AddMouseSourceEvent(mouse_source);
+            io.AddMousePosEvent((float)mouse_pos.x, (float)mouse_pos.y);
             return 0;
         }
-        if (g_bUseMyViewPort)
+        case WM_MOUSELEAVE:
+        case WM_NCMOUSELEAVE:
         {
-            if (f_ImGuiGetCameraCursorPosition)
+            const int area = (msg == WM_MOUSELEAVE) ? 1 : 2;
+            if (bd->MouseTrackedArea == area)
             {
-                f_ImGuiGetCameraCursorPosition(mouse_pos.x, mouse_pos.y);
+                if (bd->MouseHwnd == hwnd)
+                    bd->MouseHwnd = nullptr;
+                bd->MouseTrackedArea = 0;
+                io.AddMousePosEvent(-FLT_MAX, -FLT_MAX);
             }
-            else
-            {
-                mouse_pos = cGameApp::m_sMousePosition;
-            }
+            return 0;
         }
-        io.AddMouseSourceEvent(mouse_source);
-        io.AddMousePosEvent((float)mouse_pos.x, (float)mouse_pos.y);
-        return 0;
-    }
-    case WM_MOUSELEAVE:
-    case WM_NCMOUSELEAVE:
-    {
-        const int area = (msg == WM_MOUSELEAVE) ? 1 : 2;
-        if (bd->MouseTrackedArea == area)
-        {
-            if (bd->MouseHwnd == hwnd)
-                bd->MouseHwnd = nullptr;
-            bd->MouseTrackedArea = 0;
-            io.AddMousePosEvent(-FLT_MAX, -FLT_MAX);
-        }
-        return 0;
-    }
-    case WM_DESTROY:
+        case WM_DESTROY:
         if (bd->MouseHwnd == hwnd && bd->MouseTrackedArea != 0)
         {
             TRACKMOUSEEVENT tme_cancel = { sizeof(tme_cancel), TME_CANCEL, hwnd, 0 };
@@ -1123,100 +1263,142 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
             io.AddMousePosEvent(-FLT_MAX, -FLT_MAX);
         }
         return 0;
-    case WM_LBUTTONDOWN: case WM_LBUTTONDBLCLK:
-    case WM_RBUTTONDOWN: case WM_RBUTTONDBLCLK:
-    case WM_MBUTTONDOWN: case WM_MBUTTONDBLCLK:
-    case WM_XBUTTONDOWN: case WM_XBUTTONDBLCLK:
-    {
-        ImGuiMouseSource mouse_source = GetMouseSourceFromMessageExtraInfo();
-        int button = 0;
-        if (msg == WM_LBUTTONDOWN || msg == WM_LBUTTONDBLCLK) { button = 0; }
-        if (msg == WM_RBUTTONDOWN || msg == WM_RBUTTONDBLCLK) { button = 1; }
-        if (msg == WM_MBUTTONDOWN || msg == WM_MBUTTONDBLCLK) { button = 2; }
-        if (msg == WM_XBUTTONDOWN || msg == WM_XBUTTONDBLCLK) { button = (GET_XBUTTON_WPARAM(wParam) == XBUTTON1) ? 3 : 4; }
-        if (bd->MouseButtonsDown == 0 && ::GetCapture() == nullptr)
-            ::SetCapture(hwnd);
-        bd->MouseButtonsDown |= 1 << button;
-        io.AddMouseSourceEvent(mouse_source);
-        io.AddMouseButtonEvent(button, true);
-        return 0;
-    }
-    case WM_LBUTTONUP:
-    case WM_RBUTTONUP:
-    case WM_MBUTTONUP:
-    case WM_XBUTTONUP:
-    {
-        ImGuiMouseSource mouse_source = GetMouseSourceFromMessageExtraInfo();
-        int button = 0;
-        if (msg == WM_LBUTTONUP) { button = 0; }
-        if (msg == WM_RBUTTONUP) { button = 1; }
-        if (msg == WM_MBUTTONUP) { button = 2; }
-        if (msg == WM_XBUTTONUP) { button = (GET_XBUTTON_WPARAM(wParam) == XBUTTON1) ? 3 : 4; }
-        bd->MouseButtonsDown &= ~(1 << button);
-        if (bd->MouseButtonsDown == 0 && ::GetCapture() == hwnd)
-            ::ReleaseCapture();
-        io.AddMouseSourceEvent(mouse_source);
-        io.AddMouseButtonEvent(button, false);
-        return 0;
-    }
-    case WM_MOUSEWHEEL:
+        case WM_LBUTTONDOWN: case WM_LBUTTONDBLCLK:
+        case WM_RBUTTONDOWN: case WM_RBUTTONDBLCLK:
+        case WM_MBUTTONDOWN: case WM_MBUTTONDBLCLK:
+        case WM_XBUTTONDOWN: case WM_XBUTTONDBLCLK:
+        {
+            ImGuiMouseSource mouse_source = GetMouseSourceFromMessageExtraInfo();
+            int button = 0;
+            if (msg == WM_LBUTTONDOWN || msg == WM_LBUTTONDBLCLK)
+            {
+                button = 0;
+            }
+            if (msg == WM_RBUTTONDOWN || msg == WM_RBUTTONDBLCLK)
+            {
+                button = 1;
+            }
+            if (msg == WM_MBUTTONDOWN || msg == WM_MBUTTONDBLCLK)
+            {
+                button = 2;
+            }
+            if (msg == WM_XBUTTONDOWN || msg == WM_XBUTTONDBLCLK)
+            {
+                button = (GET_XBUTTON_WPARAM(wParam) == XBUTTON1) ? 3 : 4;
+            }
+            if (bd->MouseButtonsDown == 0 && ::GetCapture() == nullptr)
+                ::SetCapture(hwnd);
+            bd->MouseButtonsDown |= 1 << button;
+            io.AddMouseSourceEvent(mouse_source);
+            io.AddMouseButtonEvent(button, true);
+            return 0;
+        }
+        case WM_LBUTTONUP:
+        case WM_RBUTTONUP:
+        case WM_MBUTTONUP:
+        case WM_XBUTTONUP:
+        {
+            ImGuiMouseSource mouse_source = GetMouseSourceFromMessageExtraInfo();
+            int button = 0;
+            if (msg == WM_LBUTTONUP)
+            {
+                button = 0;
+            }
+            if (msg == WM_RBUTTONUP)
+            {
+                button = 1;
+            }
+            if (msg == WM_MBUTTONUP)
+            {
+                button = 2;
+            }
+            if (msg == WM_XBUTTONUP)
+            {
+                button = (GET_XBUTTON_WPARAM(wParam) == XBUTTON1) ? 3 : 4;
+            }
+            bd->MouseButtonsDown &= ~(1 << button);
+            if (bd->MouseButtonsDown == 0 && ::GetCapture() == hwnd)
+                ::ReleaseCapture();
+            io.AddMouseSourceEvent(mouse_source);
+            io.AddMouseButtonEvent(button, false);
+            return 0;
+        }
+        case WM_MOUSEWHEEL:
         io.AddMouseWheelEvent(0.0f, (float)GET_WHEEL_DELTA_WPARAM(wParam) / (float)WHEEL_DELTA);
         return 0;
-    case WM_MOUSEHWHEEL:
+        case WM_MOUSEHWHEEL:
         io.AddMouseWheelEvent(-(float)GET_WHEEL_DELTA_WPARAM(wParam) / (float)WHEEL_DELTA, 0.0f);
         return 0;
-    case WM_KEYDOWN:
-    case WM_KEYUP:
-    case WM_SYSKEYDOWN:
-    case WM_SYSKEYUP:
-    {
-        const bool is_key_down = (msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN);
-        if (wParam < 256)
+        case WM_KEYDOWN:
+        case WM_KEYUP:
+        case WM_SYSKEYDOWN:
+        case WM_SYSKEYUP:
         {
-            // Submit modifiers
-            ImGui_ImplWin32_UpdateKeyModifiers();
-
-            // Obtain virtual key code and convert to ImGuiKey
-            const ImGuiKey key = ImGui_ImplWin32_KeyEventToImGuiKey(wParam, lParam);
-            const int vk = (int)wParam;
-            const int scancode = (int)LOBYTE(HIWORD(lParam));
-
-            // Special behavior for VK_SNAPSHOT / ImGuiKey_PrintScreen as Windows doesn't emit the key down event.
-            if (key == ImGuiKey_PrintScreen && !is_key_down)
-                ImGui_ImplWin32_AddKeyEvent(key, true, vk, scancode);
-
-            // Submit key event
-            if (key != ImGuiKey_None)
-                ImGui_ImplWin32_AddKeyEvent(key, is_key_down, vk, scancode);
-
-            // Submit individual left/right modifier events
-            if (vk == VK_SHIFT)
+            const bool is_key_down = (msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN);
+            if (wParam < 256)
             {
-                // Important: Shift keys tend to get stuck when pressed together, missing key-up events are corrected in ImGui_ImplWin32_ProcessKeyEventsWorkarounds()
-                if (IsVkDown(VK_LSHIFT) == is_key_down) { ImGui_ImplWin32_AddKeyEvent(ImGuiKey_LeftShift, is_key_down, VK_LSHIFT, scancode); }
-                if (IsVkDown(VK_RSHIFT) == is_key_down) { ImGui_ImplWin32_AddKeyEvent(ImGuiKey_RightShift, is_key_down, VK_RSHIFT, scancode); }
+                // Submit modifiers
+                ImGui_ImplWin32_UpdateKeyModifiers();
+
+                // Obtain virtual key code and convert to ImGuiKey
+                const ImGuiKey key = ImGui_ImplWin32_KeyEventToImGuiKey(wParam, lParam);
+                const int vk = (int)wParam;
+                const int scancode = (int)LOBYTE(HIWORD(lParam));
+
+                // Special behavior for VK_SNAPSHOT / ImGuiKey_PrintScreen as Windows doesn't emit the key down event.
+                if (key == ImGuiKey_PrintScreen && !is_key_down)
+                    ImGui_ImplWin32_AddKeyEvent(key, true, vk, scancode);
+
+                // Submit key event
+                if (key != ImGuiKey_None)
+                    ImGui_ImplWin32_AddKeyEvent(key, is_key_down, vk, scancode);
+
+                // Submit individual left/right modifier events
+                if (vk == VK_SHIFT)
+                {
+                    // Important: Shift keys tend to get stuck when pressed together, missing key-up events are corrected in ImGui_ImplWin32_ProcessKeyEventsWorkarounds()
+                    if (IsVkDown(VK_LSHIFT) == is_key_down)
+                    {
+                        ImGui_ImplWin32_AddKeyEvent(ImGuiKey_LeftShift, is_key_down, VK_LSHIFT, scancode);
+                    }
+                    if (IsVkDown(VK_RSHIFT) == is_key_down)
+                    {
+                        ImGui_ImplWin32_AddKeyEvent(ImGuiKey_RightShift, is_key_down, VK_RSHIFT, scancode);
+                    }
+                }
+                else if (vk == VK_CONTROL)
+                {
+                    if (IsVkDown(VK_LCONTROL) == is_key_down)
+                    {
+                        ImGui_ImplWin32_AddKeyEvent(ImGuiKey_LeftCtrl, is_key_down, VK_LCONTROL, scancode);
+                    }
+                    if (IsVkDown(VK_RCONTROL) == is_key_down)
+                    {
+                        ImGui_ImplWin32_AddKeyEvent(ImGuiKey_RightCtrl, is_key_down, VK_RCONTROL, scancode);
+                    }
+                }
+                else if (vk == VK_MENU)
+                {
+                    if (IsVkDown(VK_LMENU) == is_key_down)
+                    {
+                        ImGui_ImplWin32_AddKeyEvent(ImGuiKey_LeftAlt, is_key_down, VK_LMENU, scancode);
+                    }
+                    if (IsVkDown(VK_RMENU) == is_key_down)
+                    {
+                        ImGui_ImplWin32_AddKeyEvent(ImGuiKey_RightAlt, is_key_down, VK_RMENU, scancode);
+                    }
+                }
             }
-            else if (vk == VK_CONTROL)
-            {
-                if (IsVkDown(VK_LCONTROL) == is_key_down) { ImGui_ImplWin32_AddKeyEvent(ImGuiKey_LeftCtrl, is_key_down, VK_LCONTROL, scancode); }
-                if (IsVkDown(VK_RCONTROL) == is_key_down) { ImGui_ImplWin32_AddKeyEvent(ImGuiKey_RightCtrl, is_key_down, VK_RCONTROL, scancode); }
-            }
-            else if (vk == VK_MENU)
-            {
-                if (IsVkDown(VK_LMENU) == is_key_down) { ImGui_ImplWin32_AddKeyEvent(ImGuiKey_LeftAlt, is_key_down, VK_LMENU, scancode); }
-                if (IsVkDown(VK_RMENU) == is_key_down) { ImGui_ImplWin32_AddKeyEvent(ImGuiKey_RightAlt, is_key_down, VK_RMENU, scancode); }
-            }
+            return 0;
         }
-        return 0;
-    }
-    case WM_SETFOCUS:
-    case WM_KILLFOCUS:
+        case WM_SETFOCUS:
+        case WM_KILLFOCUS:
         io.AddFocusEvent(msg == WM_SETFOCUS);
         return 0;
-    case WM_INPUTLANGCHANGE:
+        case WM_INPUTLANGCHANGE:
         ImGui_ImplWin32_UpdateKeyboardCodePage();
         return 0;
-    case WM_CHAR:
+        case WM_CHAR:
         if (::IsWindowUnicode(hwnd))
         {
             // You can also use ToAscii()+GetKeyboardState() to retrieve characters.
@@ -1230,17 +1412,33 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
             io.AddInputCharacter(wch);
         }
         return 0;
-    case WM_SETCURSOR:
+        case WM_SETCURSOR:
         // This is required to restore cursor when transitioning from e.g resize borders to client area.
         if (LOWORD(lParam) == HTCLIENT && ImGui_ImplWin32_UpdateMouseCursor())
             return 1;
         return 0;
-    case WM_DEVICECHANGE:
+        case WM_DEVICECHANGE:
 #ifndef IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
         if ((UINT)wParam == DBT_DEVNODES_CHANGED)
             bd->WantUpdateHasGamepad = true;
 #endif
         return 0;
+    }
+    return 0;
+}
+
+IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+    if (g_pImGuiContextVector)
+    {
+        for (size_t i = 0; i < g_pImGuiContextVector->size(); ++i)
+        {
+            ImGui::SetCurrentContext((*g_pImGuiContextVector)[i]);
+            if (ImGui_ImplWin32_WndProcHandlerInner(hwnd, msg, wParam, lParam,i))
+            {
+                return true;
+            }
+        }
     }
     return 0;
 }

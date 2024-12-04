@@ -335,6 +335,12 @@ float relative_for_resize(cMyGuiBasicObj & obj)
 	return 0.f;
 };
 
+void f_MySkipScissor(const ImDrawList* parent_list, const ImDrawCmd* cmd)
+{
+	//cmd->m_bSkipScissor = false;
+}
+
+
 cMyGuiPanel::cMyGuiPanel()
 {
 	this->SetName(cMyGuiPanel::TypeID);
@@ -357,12 +363,6 @@ void cMyGuiPanel::ApplyPosition()
 	}
 	//auto l_vPos = GetWorldPosition();
 	//ImGui::SetNextWindowPos({ l_vPos.x, l_vPos.y });
-}
-
-
-void f_MySkipScissor(const ImDrawList* parent_list, const ImDrawCmd* cmd)
-{
-	//cmd->m_bSkipScissor = false;
 }
 
 
@@ -402,11 +402,14 @@ void cMyGuiForm::InternalRender()
 {
 	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	//m_FormFlag = ImGuiWindowFlags_NoTitleBar| ImGuiWindowFlags_NoBackground;
+	
 	ImGui::Begin(this->GetCharName().c_str(),nullptr, m_FormFlag);
+	ImGui::PushClipRect(ImVec2(-99999, -99999), ImVec2(9999, 9999), false);
 	if (m_vSize.x > 0 && m_vSize.y > 0)
 	{
 		ImGui::SetWindowSize(m_vSize);
 	}
+	//if (window_pos.x < 0)
 	//ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	//static bool l_bSkipScissor = true;
 	//draw_list->AddCallback(f_MySkipScissor, &l_bSkipScissor);
@@ -424,10 +427,12 @@ void cMyGuiForm::InternalRender()
 			}
 		}
 	}
+
 }
 
 void cMyGuiForm::EndRender()
 {
+	ImGui::PopClipRect();
 	ImGui::End();
 }
 
