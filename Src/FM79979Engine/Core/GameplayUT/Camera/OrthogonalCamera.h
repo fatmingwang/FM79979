@@ -51,11 +51,12 @@ namespace FATMING_CORE
 		//it could be different because not whole mornintor support the solution wa wanted.
 		//e_bYInvert is because the z is invert so Y is invert too,but in the 3D world we do not expect this...
 		//ignore for worldtransform now because I am lazy to test it
-		void					Render(bool e_bYInvert = false);
+		void					Render(bool e_bYInvert = false,const wchar_t*e_strShaderName = nullptr);
 		//
 		//void    				MoveViewRect(Vector2 e_vDirection);
 		//start point will have a offset if offset value is not 0
 		void					DrawGrid(float e_fXOffset = 0.f,float e_fYOffset = 0.f,Vector4 e_vColor = Vector4(0.5f,1.f,0.f,1.f),float e_fLineWidth = 2.f);
+		void					DrawGridCoordinateInfo(float e_fXOffset = -80.f, float e_fYOffset = -30.f);
 		void					DrawSelectFrame();
 		void					Reset();
 		Vector2					GetScreenViewPortSize(){ return  Vector2(m_vViewRect.z-m_vViewRect.x,m_vViewRect.w-m_vViewRect.y); }

@@ -23,8 +23,8 @@ cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) 
 	auto l_ImGuiGetCameraCursorPosition = [this](long&e_PosX, long& e_PosY)
 	{
 		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
-		e_PosX = l_vPos.x;
-		e_PosY = l_vPos.y;
+		e_PosX = (long)l_vPos.x;
+		e_PosY = (long)l_vPos.y;
 	};
 	SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, 0);
 	SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction,0);
@@ -65,13 +65,15 @@ void	cMyApp::Update(float e_fElpaseTime)
 		if (m_p2DCamera)
 		{
 			float l_fMoveSpeed = 1.f;
+			short l_cMouseWhellDelta = 0;
 			if (cGameApp::m_sucKeyData[17] || cGameApp::m_sucKeyData[229])
 			{
+				l_cMouseWhellDelta = cGameApp::m_sMouseWhellDelta;
 				l_fMoveSpeed = 3.f;
 			}
 			//Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 			Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
-			m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1],cGameApp::m_sMouseWhellDelta,cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y,l_vViewPort, l_fMoveSpeed);
+			m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1], l_cMouseWhellDelta,cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y,l_vViewPort, l_fMoveSpeed);
 		}
 		m_p2DCamera->Update(e_fElpaseTime);
 	}
@@ -92,6 +94,7 @@ void	cMyApp::Render()
 		m_p2DCamera->SetResolution(l_ViewPortSize);
 		m_p2DCamera->Render();
 		m_p2DCamera->DrawGrid(0.f,0.f,Vector4(0.5f, 1.f, 0.f, 0.3f),2.f);
+		GLRender::RenderRectangle(1920, 1080, cMatrix44::Identity, Vector4::Red);
 	}
 	if (m_pGUIForFileTransfer)
 	{
@@ -100,6 +103,9 @@ void	cMyApp::Render()
 			//Vector2 l_vSize = l_ViewPortSize;// m_p2DCamera->GetScreenViewPortSize();
 			Vector2 l_vSize = m_p2DCamera->GetScreenViewPortSize();
 			m_pGUIForFileTransfer->Render(m_p2DCamera->GetProjectionMatrix(), l_vSize);
+
+			m_p2DCamera->Render(false,DEFAULT_SHADER);
+			m_p2DCamera->DrawGridCoordinateInfo(-80.f, -30.f);
 		}
 		else
 		{
@@ -109,7 +115,6 @@ void	cMyApp::Render()
 	}
 	//cMyImGuiTesting::Render();
 	//GLRender::RenderRectangle(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y, cMatrix44::Identity, Vector4::Red);
-	GLRender::RenderRectangle(1920,1080, cMatrix44::Identity, Vector4::Red);
 	std::wstring l_strExtraInfo;
 	if (m_p2DCamera)
 	{

@@ -697,12 +697,13 @@ namespace	FATMING_CORE
 		if (!m_sbDebugFunctionWorking)
 			return;
 		//glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+		UseShaderProgram();
 		glEnable2D(1280, 720);
 		if (cGameApp::m_spGlyphFontRender)
 		{
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1, 1, 0, 1));
-			float	l_fStaryPosX = 800.f;
-			float	l_fStaryPosY = 500.f;
+			float	l_fStaryPosX = 850.f;
+			float	l_fStaryPosY = 550.f;
 			wchar_t   l_str[MAX_PATH];
 			swprintf(l_str, MAX_PATH, L"MousePos:%d,%d", cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y);
 			cGameApp::m_spGlyphFontRender->RenderFont(l_fStaryPosX, l_fStaryPosY, l_str);
@@ -714,8 +715,8 @@ namespace	FATMING_CORE
 			std::wstring	l_strInfo = ComposeMsgByFormat(L"ElpaseTime:%.2f", (float)m_dbGamePlayTime);
 			l_fStaryPosY += 20;
 			cGameApp::m_spGlyphFontRender->RenderFont(l_fStaryPosX,  (float)l_fStaryPosY, l_strInfo);
-			l_fStaryPosY += 20;
-			cGameApp::m_spGlyphFontRender->RenderFont(l_fStaryPosX, (float)l_fStaryPosY, cGameApp::m_sbDoLockFPS ? L"LockFPS" : L"No LockFPS");
+			//l_fStaryPosY += 20;
+			//cGameApp::m_spGlyphFontRender->RenderFont(l_fStaryPosX, (float)l_fStaryPosY, cGameApp::m_sbDoLockFPS ? L"LockFPS" : L"No LockFPS");
 			l_fStaryPosY += 20;
 			l_strInfo = L"Speed:";
 			l_strInfo += ValueToStringW(m_sfGameSpeedValue);

@@ -741,6 +741,7 @@ bool    ImGui_ImplWin32_InitExInner(void* hwnd, bool platform_has_own_dc)
             break;
         }
 #endif // IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
+    return true;
 }
 
 bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc)
@@ -1434,7 +1435,7 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
         for (size_t i = 0; i < g_pImGuiContextVector->size(); ++i)
         {
             ImGui::SetCurrentContext((*g_pImGuiContextVector)[i]);
-            if (ImGui_ImplWin32_WndProcHandlerInner(hwnd, msg, wParam, lParam,i))
+            if (ImGui_ImplWin32_WndProcHandlerInner(hwnd, msg, wParam, lParam,(int)i))
             {
                 return true;
             }

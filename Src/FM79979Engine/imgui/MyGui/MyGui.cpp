@@ -957,7 +957,7 @@ void DisplayTree(cImGuiNode* e_pNode, cImGuiNode** e_ppDragNode, cImGuiNode** e_
 			if (l_ChildrenVector.size() > 0)
 			{
 				// Push a unique ID for each drop zone
-				ImGui::PushID(i);
+				ImGui::PushID((int)i);
 
 				// Render drop zone between nodes (or at the end)
 				ImGui::Selectable("##DropZone", false, ImGuiSelectableFlags_AllowItemOverlap, ImVec2(0, 1));
@@ -974,9 +974,15 @@ void DisplayTree(cImGuiNode* e_pNode, cImGuiNode** e_ppDragNode, cImGuiNode** e_
 						// Remove dragged node from its original parent
 						auto& parentChildren = draggedNode->GetParent()->GetChildNodeVector();
 						// Insert dragged node at the current position
-						int l_iIndex = i;
-						if (l_iIndex < 0)l_iIndex = 0;
-						if (l_iIndex >= l_ChildrenVector.size())l_iIndex = l_ChildrenVector.size() - 1;
+						int l_iIndex = (int)i;
+						if (l_iIndex < 0)
+						{
+							l_iIndex = 0;
+						}
+						if (l_iIndex >= l_ChildrenVector.size())
+						{
+							l_iIndex = (int)l_ChildrenVector.size() - 1;
+						}
 						//auto it = std::find(parentChildren.begin(), parentChildren.end(), draggedNode);
 						//if (it != parentChildren.end())
 						//{

@@ -53,8 +53,8 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	cMyGuiForm* l_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
 	l_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	l_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
-	auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
-	l_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
+	//auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
+	//l_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
 	m_pRoot->AddChild(l_pMyGuiForm);
 	l_pMyGuiForm->SetSize(l_vSize);
 	l_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
@@ -263,7 +263,8 @@ void cGUIForFileTransfer::RenderToolBox()
 	ImGui::SetNextWindowSizeConstraints(ImVec2(0, -1), ImVec2(FLT_MAX, -1));
 	ImGui::SetNextWindowSize(ImVec2(0, 0));
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4.00f, 5.00f));
-	ImGui::Begin("Sidebar", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
+	ImGui::Begin("Sidebar", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize| ImGuiWindowFlags_MenuBar);
+	RenderMenu();
 	ImGui::PushClipRect(ImVec2(-99999, -99999), ImVec2(9999, 9999), false);
 	/// content-sidebar
 	{
@@ -541,7 +542,7 @@ void cGUIForFileTransfer::RenderToolBox()
 	ImGui::PopStyleVar(1);
 }
 
-void cGUIForFileTransfer::RenderMenu(cImGuiNode* e_pNode)
+void cGUIForFileTransfer::RenderMenu()
 {
 	if (ImGui::BeginMenuBar())
 	{
@@ -565,21 +566,30 @@ void cGUIForFileTransfer::RenderMenu(cImGuiNode* e_pNode)
 
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("Editor"))
+		//if (ImGui::BeginMenu("Editor"))
+		//{
+		//	if (ImGui::MenuItem("Color"))
+		//	{
+		//		//m_color_menu = !m_color_menu;
+		//	}
+
+		//	if (ImGui::MenuItem("Style"))
+		//	{
+		//		//m_style_menu = !m_style_menu;
+		//	}
+
+		//	if (ImGui::MenuItem("Font"))
+		//	{
+		//		//m_font_menu = !m_font_menu;
+		//	}
+
+		//	ImGui::EndMenu();
+		//}
+		if (ImGui::BeginMenu("View"))
 		{
-			if (ImGui::MenuItem("Color"))
+			if (ImGui::MenuItem("ShowInfo"))
 			{
-				//m_color_menu = !m_color_menu;
-			}
-
-			if (ImGui::MenuItem("Style"))
-			{
-				//m_style_menu = !m_style_menu;
-			}
-
-			if (ImGui::MenuItem("Font"))
-			{
-				//m_font_menu = !m_font_menu;
+				cGameApp::m_sbDebugFunctionWorking = !cGameApp::m_sbDebugFunctionWorking;
 			}
 
 			ImGui::EndMenu();

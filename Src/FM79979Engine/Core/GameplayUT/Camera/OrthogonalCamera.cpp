@@ -90,8 +90,12 @@ namespace FATMING_CORE
 		FATMING_CORE::SetupShaderViewProjectionMatrix( m_ProjectionMatrix,true );
 	}
 
-	void	cOrthogonalCamera::Render(bool e_bYInvert)
+	void	cOrthogonalCamera::Render(bool e_bYInvert, const wchar_t* e_strShaderName)
 	{
+		if (e_strShaderName)
+		{
+			UseShaderProgram(e_strShaderName);
+		}
 		//push attribute
 		MyGLDisable(GL_DEPTH_TEST);
 		MyGLDisable(GL_CULL_FACE);
@@ -116,8 +120,8 @@ namespace FATMING_CORE
 
 		float	l_fResolutionWidth = m_vViewRect.z-m_vViewRect.x;
 		float	l_fResolutionHeight = m_vViewRect.w-m_vViewRect.y;
-		float	l_fRow = l_fResolutionWidth/m_fGridWidth;
-		float	l_fColumn = l_fResolutionHeight/m_fGridHeight;
+		float	l_fColumn = l_fResolutionWidth/m_fGridWidth;
+		float	l_fRow = l_fResolutionHeight/m_fGridHeight;
 		int	l_iRow = (int)l_fRow;
 		int	l_iColumn = (int)l_fColumn;
 		l_iRow = l_fRow-l_iRow>0.f?l_iRow+1:(l_iRow);
@@ -129,8 +133,10 @@ namespace FATMING_CORE
 		int	l_iTotalCount = (l_iRow+2+l_iColumn+2)*2;
 
 
-		if( l_iRow<=0||l_iColumn<=0 )
+		if (l_iRow <= 0 || l_iColumn <= 0)
+		{
 			return;
+		}
 		//glTranslatef(-l_fXOffset,-l_fYOffset,0.f);
 		glLineWidth(e_fLineWidth);
 		if( m_iTotalGridVertexSize != l_iTotalCount )
@@ -140,29 +146,140 @@ namespace FATMING_CORE
 			m_pDrawGridVertex = new Vector2[m_iTotalGridVertexSize];
 		}
 		Vector2*l_vAllVertices = m_pDrawGridVertex;
-		float	l_fStartUp = m_vViewRect.y-m_fGridHeight;
-		float	l_fEndDown = m_vViewRect.w+m_fGridHeight;
-		float	l_fStartLeft = m_vViewRect.x-m_fGridWidth;
-		float	l_fEndRight = m_vViewRect.z+m_fGridWidth;
+		float	l_fStartY = m_vViewRect.y-m_fGridHeight;
+		float	l_fEndY = m_vViewRect.w+m_fGridHeight;
+		float	l_fStartX = m_vViewRect.x-m_fGridWidth;
+		float	l_fEndX = m_vViewRect.z+m_fGridWidth;
 		//+2 from l_iTotalCount
-		for( int i=0;i<l_iRow+2;++i )
+		for( int i=0;i< l_iColumn +2;++i )
 		{
-			l_vAllVertices[i*2] = Vector2(l_fStartLeft+i*m_fGridWidth,l_fStartUp);
-			l_vAllVertices[i*2+1] = Vector2(l_fStartLeft+i*m_fGridWidth,l_fEndDown);
+			l_vAllVertices[i*2] = Vector2(l_fStartX +i*m_fGridWidth, l_fStartY);
+			l_vAllVertices[i*2+1] = Vector2(l_fStartX +i*m_fGridWidth, l_fEndY);
 			l_vAllVertices[i*2].x+=e_fXOffset;
 			l_vAllVertices[i*2+1].x+=e_fXOffset;
 		}
 		//+2 from l_iTotalCount
-		int	l_iTotalRow = (l_iRow+2)*2;
-		for( int j=0;j<l_iColumn+2;++j )
+		int	l_iTotalColumn = (l_iColumn+2)*2;
+		for( int j=0;j< l_iRow +2;++j )
 		{
-			l_vAllVertices[l_iTotalRow+j*2]		=	Vector2(l_fStartLeft,l_fStartUp+j*m_fGridHeight);
-			l_vAllVertices[l_iTotalRow+j*2+1]	=	Vector2(l_fEndRight,l_fStartUp+j*m_fGridHeight);
-			l_vAllVertices[l_iTotalRow+j*2].y	+=	e_fYOffset;
-			l_vAllVertices[l_iTotalRow+j*2+1].y	+=	e_fYOffset;
+			l_vAllVertices[l_iTotalColumn +j*2]		=	Vector2(l_fStartX, l_fStartY +j*m_fGridHeight);
+			l_vAllVertices[l_iTotalColumn +j*2+1]	=	Vector2(l_fEndX, l_fStartY +j*m_fGridHeight);
+			l_vAllVertices[l_iTotalColumn +j*2].y	+=	e_fYOffset;
+			l_vAllVertices[l_iTotalColumn +j*2+1].y	+=	e_fYOffset;
 		}
 		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(-l_fXOffset,-l_fYOffset,0.f));
 		RenderLine((float*)l_vAllVertices, l_iTotalCount, e_vColor, 2, l_mat);
+	}
+	void	cOrthogonalCamera::DrawGridCoordinateInfo(float e_fXOffset, float e_fYOffset)
+	{
+		float	l_fResolutionWidth = m_vViewRect.z - m_vViewRect.x;
+		float	l_fResolutionHeight = m_vViewRect.w - m_vViewRect.y;
+		float	l_fColumn = l_fResolutionWidth / m_fGridWidth;
+		float	l_fRow = l_fResolutionHeight / m_fGridHeight;
+		int	l_iRow = (int)l_fRow;
+		int	l_iColumn = (int)l_fColumn;
+		if (l_iRow <= 0 || l_iColumn <= 0)
+		{
+			return;
+		}
+		float	l_fStartX = m_vViewRect.x;
+		float	l_fEndX = m_vViewRect.z;
+		float	l_fStartY = m_vViewRect.y;
+		float	l_fEndY = m_vViewRect.w;
+		float	l_fPosX = (m_vViewRect.x) / m_fGridWidth;
+		float	l_fPosY = (m_vViewRect.y) / m_fGridHeight;
+		float	l_fXOffset = (l_fPosX - (int)(l_fPosX)) * m_fGridWidth;
+		float	l_fYOffset = (l_fPosY - (int)(l_fPosY)) * m_fGridHeight;
+		Vector2 l_vRenderPos(e_fXOffset, e_fYOffset);
+		//Vector2 l_vCenterPos(m_vViewRect.GetCenter());
+		//cGameApp::RenderFont(l_fStartX+200, l_vCenterPos.y,UT::ComposeMsgByFormat(L"%d,%d", (int)l_fStartX,(int)l_vCenterPos.y).c_str());
+		if (0)
+		{
+			for (int i = 0; i < l_iColumn + 2; ++i)
+			{
+				//l_vAllVertices[i * 2] = Vector2(l_fStartX + i * m_fGridWidth, l_fStartY);
+				//l_vAllVertices[i * 2 + 1] = Vector2(l_fStartX + i * m_fGridWidth, l_fEndY);
+				//l_vAllVertices[i * 2].x += e_fXOffset;
+				//l_vAllVertices[i * 2 + 1].x += e_fXOffset;
+				auto l_vPos = Vector2(l_fStartX + i * m_fGridWidth, l_fEndY+ e_fYOffset);
+				cGameApp::RenderFont(l_vPos.x - l_fXOffset, l_vPos.y - l_fYOffset, ValueToStringW((int)l_vPos.y).c_str());
+			}
+			//+2 from l_iTotalCount
+			int	l_iTotalColumn = (l_iColumn + 2) * 2;
+			for (int j = 0; j < l_iRow + 2; ++j)
+			{
+				//l_vAllVertices[l_iTotalColumn + j * 2] = Vector2(l_fStartX, l_fStartY + j * m_fGridHeight);
+				//l_vAllVertices[l_iTotalColumn + j * 2 + 1] = Vector2(l_fEndX, l_fStartY + j * m_fGridHeight);
+				//l_vAllVertices[l_iTotalColumn + j * 2].y += e_fYOffset;
+				//l_vAllVertices[l_iTotalColumn + j * 2 + 1].y += e_fYOffset;
+				auto l_vPos = Vector2(l_fEndX+ e_fXOffset, l_fStartY + j * m_fGridHeight);
+				cGameApp::RenderFont(l_vPos.x - l_fXOffset, l_vPos.y - l_fYOffset, ValueToStringW((int)l_vPos.x).c_str());
+			}
+		}
+		else
+		{
+			for (int i = 0; i < l_iRow+2; ++i)
+			{
+				int l_iValue = (int)(l_fStartY + (i * m_fGridHeight));
+				//int l_AbsValue = abs(l_iValue) % (int)m_fGridHeight;
+				//int l_iRenderValue = (int)(l_iValue - l_fYOffset);
+				//int l_iRenderValue = l_iValue<0?l_iValue+l_AbsValue + (int)m_fGridHeight : l_iValue - l_AbsValue + (int)m_fGridHeight;
+				int l_iRenderValue = (int)(l_iValue - (int)l_fYOffset);
+				//for float offset
+				if (l_iRenderValue < 0)
+				{
+					l_iRenderValue -= 2;
+				}
+				else
+				{
+					l_iRenderValue += 2;
+				}
+				int l_iModulate = l_iRenderValue % (int)m_fGridHeight;
+				l_iRenderValue = l_iRenderValue - l_iModulate;
+				//if (l_iModulate)
+				//{
+				//	if (l_iRenderValue < 0)
+				//	{
+				//		l_iRenderValue = l_iRenderValue + 100 - l_iModulate;
+				//	}
+				//	else
+				//	{
+				//		l_iRenderValue = l_iRenderValue + 100 - l_iModulate;
+				//	}
+				//}
+				cGameApp::RenderFont(l_fEndX + l_vRenderPos.x, (float)l_iValue- l_fYOffset, ValueToStringW(l_iRenderValue).c_str());
+			}
+			for (int i = 0; i < l_iColumn+2; ++i)
+			{
+				int l_iValue = (int)(l_fStartX + (i * m_fGridWidth));
+				//int l_AbsValue = abs(l_iValue) % (int)m_fGridHeight;
+				//int l_iRenderValue = (int)(l_iValue - l_fXOffset);
+				//int l_iRenderValue = (l_iValue + 50) / 100 * 100;
+				//int l_iRenderValue = l_iValue<0? l_iValue+l_AbsValue +(int)m_fGridHeight: l_iValue - l_AbsValue + (int)m_fGridHeight;
+				//l_iRenderValue = (l_iRenderValue + 50) / 100 * 100;
+				int l_iRenderValue = (int)(l_iValue - (int)l_fXOffset);
+				//for float offset
+				if (l_iRenderValue < 0)
+				{
+					l_iRenderValue -= 2;
+				}
+				else
+				{
+					l_iRenderValue += 2;
+				}
+				int l_iModulate = l_iRenderValue % (int)m_fGridWidth;
+				l_iRenderValue = l_iRenderValue - l_iModulate;
+				//if (l_iModulate>=1)
+				//{
+				//	l_iRenderValue = l_iRenderValue + 100 - l_iModulate;
+				//}
+				//else
+				//{
+				//	l_iRenderValue = l_iRenderValue + 100 - l_iModulate;
+				//}
+				cGameApp::RenderFont((float)l_iValue- l_fXOffset, l_fEndY + l_vRenderPos.y, ValueToStringW(l_iRenderValue).c_str());
+			}
+		}
 	}
 
 	void	cOrthogonalCamera::DrawSelectFrame()
