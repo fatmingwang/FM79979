@@ -53,8 +53,8 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	cMyGuiForm* l_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
 	l_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	l_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
-	//auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
-	//l_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
+	auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
+	l_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
 	m_pRoot->AddChild(l_pMyGuiForm);
 	l_pMyGuiForm->SetSize(l_vSize);
 	l_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
@@ -154,6 +154,11 @@ cGUIForFileTransfer::~cGUIForFileTransfer()
 	SAFE_DELETE(m_pRoot);
 	SAFE_DELETE(m_pToolBoxRoot);
 	ImGui_ImplOpenGL3_Shutdown();
+}
+
+void cGUIForFileTransfer::GenerateRenderData()
+{
+
 }
 
 void cGUIForFileTransfer::GenerateToolBox()
@@ -264,7 +269,8 @@ void cGUIForFileTransfer::RenderToolBox()
 	ImGui::SetNextWindowSize(ImVec2(0, 0));
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4.00f, 5.00f));
 	ImGui::Begin("Sidebar", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize| ImGuiWindowFlags_MenuBar);
-	RenderMenu();
+	RenderPopupMenuContext();
+	RenderMenu(nullptr);
 	ImGui::PushClipRect(ImVec2(-99999, -99999), ImVec2(9999, 9999), false);
 	/// content-sidebar
 	{
@@ -542,7 +548,7 @@ void cGUIForFileTransfer::RenderToolBox()
 	ImGui::PopStyleVar(1);
 }
 
-void cGUIForFileTransfer::RenderMenu()
+void cGUIForFileTransfer::RenderMenu(class cImGuiNode*e_pImGuiNode)
 {
 	if (ImGui::BeginMenuBar())
 	{
@@ -598,6 +604,34 @@ void cGUIForFileTransfer::RenderMenu()
 	}
 }
 
+void cGUIForFileTransfer::RenderPopupMenuContext()
+{
+	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
+	{
+		if (ImGui::BeginMenu("Add"))
+		{
+			if (ImGui::BeginMenu("Primitives"))
+			{
+				if (ImGui::MenuItem("Listbox"))
+				{
+
+				}
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Data Inputs"))
+			{
+				if (ImGui::MenuItem("Slider Angle"))
+				{
+
+				}
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::EndPopup();
+	}
+}
+
 void cGUIForFileTransfer::Init()
 {
 	ImGui_ImplOpenGL3_Init(cGameApp::m_spOpenGLRender->m_Handle, nullptr, 2);
@@ -608,6 +642,18 @@ void cGUIForFileTransfer::Init()
 	ImGui::GetIO().IniFilename = nullptr;
 	ImGui::GetIO().LogFilename = nullptr;
 	ImGui::GetIO().FontGlobalScale = 1.5f;
+	if (m_p2DCamera)
+	{
+		auto l_ImGuiCameraPositionConvertFunction = std::bind(&cOrthogonalCamera::GetGLSciccorRect, m_p2DCamera, std::placeholders::_1);
+		auto l_ImGuiGetCameraCursorPosition = [this](long& e_PosX, long& e_PosY)
+		{
+			auto l_vPos = m_p2DCamera->GetMouseWorldPos();
+			e_PosX = (long)l_vPos.x;
+			e_PosY = (long)l_vPos.y;
+		};
+		SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, 0);
+		SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction, 0);
+	}
 }
 
 void cGUIForFileTransfer::Update(float e_fElpaseTime)
@@ -621,7 +667,19 @@ void cGUIForFileTransfer::Render(float* e_pfMatrix, float* e_pfGameResolutoinSiz
 	//RenderToolBox();
 	RenderMainUI();
 	ImGui_EndFrame(e_pfMatrix, e_pfGameResolutoinSize);
-
+	if (m_p2DCamera)
+	{
+		m_p2DCamera->Render(false, DEFAULT_SHADER);
+		m_p2DCamera->DrawGridCoordinateInfo(-80.f, -30.f);
+	}
+	if (cGameApp::m_sucKeyData[17])
+	{
+		m_p2DCamera->Render();
+		m_p2DCamera->DrawGrid(0.f, 0.f, Vector4(0.5f, 1.f, 0.f, 0.3f), 2.f);
+		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
+		auto l_strExtraInfo = UT::ComposeMsgByFormat(L"%d,%d", (int)l_vPos.x, (int)l_vPos.y);
+		cGameApp::RenderFont(l_vPos, l_strExtraInfo.c_str());
+	}
 	//cMatrix44	l_matProjection;
 	float l_f[2] = { 1920.f, 1080.f };
 	//glhOrthof2((float*)l_matProjection.m, 0, 1920, 1080, 0, -10000, 10000);

@@ -16,18 +16,9 @@ cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) 
 	this->m_sbSpeedControl = true;
 #endif
 	//cMyImGuiTesting::Init();
-	m_pGUIForFileTransfer = new cGUIForFileTransfer();
 	m_p2DCamera = new cOrthogonalCamera();
-
-	auto l_ImGuiCameraPositionConvertFunction = std::bind(&cOrthogonalCamera::GetGLSciccorRect, m_p2DCamera, std::placeholders::_1);
-	auto l_ImGuiGetCameraCursorPosition = [this](long&e_PosX, long& e_PosY)
-	{
-		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
-		e_PosX = (long)l_vPos.x;
-		e_PosY = (long)l_vPos.y;
-	};
-	SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, 0);
-	SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction,0);
+	m_pGUIForFileTransfer = new cGUIForFileTransfer();
+	m_pGUIForFileTransfer->m_p2DCamera = m_p2DCamera;
 }
 
 cMyApp::~cMyApp()
@@ -103,9 +94,6 @@ void	cMyApp::Render()
 			//Vector2 l_vSize = l_ViewPortSize;// m_p2DCamera->GetScreenViewPortSize();
 			Vector2 l_vSize = m_p2DCamera->GetScreenViewPortSize();
 			m_pGUIForFileTransfer->Render(m_p2DCamera->GetProjectionMatrix(), l_vSize);
-
-			m_p2DCamera->Render(false,DEFAULT_SHADER);
-			m_p2DCamera->DrawGridCoordinateInfo(-80.f, -30.f);
 		}
 		else
 		{

@@ -23,18 +23,20 @@ class cGUIForFileTransfer:NamedTypedObject
 	std::vector<std::string>		m_VersionVector;
 	bool							m_bDoingUpdate;
 	//
-	class cMyGuiRootNode*	m_pToolBoxRoot;
-	class cMyGuiRootNode*	m_pRoot;
-	class cMyGuiListBox*	m_pMyGuiListBox;
-	class cMyGuiComboBox*	m_pMyGuiComboBox;
-	class cMyGuiButton*		m_pMyGuiButton;
+	class cMyGuiRootNode*			m_pToolBoxRoot;
+	class cMyGuiRootNode*			m_pRoot;
+	class cMyGuiListBox*			m_pMyGuiListBox;
+	class cMyGuiComboBox*			m_pMyGuiComboBox;
+	class cMyGuiButton*				m_pMyGuiButton;
+	void							GenerateRenderData();
 	//
 	void							GenerateToolBox();
 	void							FetchVersionFileList();
 	void							ParseEnvData(const char*e_strFileName);
 	void							RenderMainUI();
 	void							RenderToolBox();
-	void							RenderMenu();
+	void							RenderMenu(class cImGuiNode*);
+	void							RenderPopupMenuContext();
 	//
 	std::vector<std::string>		m_strEvnNameVector;
 public:
@@ -44,4 +46,5 @@ public:
 	void	Update(float e_fElpaseTime);
 	void	Render(float*e_pfMatrix = nullptr,float*e_pfGameResolutoinSize = nullptr);
 	void	Destory();
+	cOrthogonalCamera* m_p2DCamera = nullptr;
 };
