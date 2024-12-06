@@ -50,14 +50,14 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	ParseEnvData("Deploy.json");
 	m_pRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
 	ImVec2 l_vSize(1920,1080);
-	cMyGuiForm* l_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
-	l_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
-	l_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
+	m_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
+	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
 	auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
-	l_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
-	m_pRoot->AddChild(l_pMyGuiForm);
-	l_pMyGuiForm->SetSize(l_vSize);
-	l_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
+	m_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
+	m_pRoot->AddChild(m_pMyGuiForm);
+	m_pMyGuiForm->SetSize(l_vSize);
+	m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
 
 	m_pMyGuiListBox = GetMyGuiObjWithType<cMyGuiListBox>();
 	m_pMyGuiComboBox = GetMyGuiObjWithType<cMyGuiComboBox>();
@@ -71,7 +71,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	//m_pMyGuiListBox->SetEnable(false);
 	//m_pMyGuiComboBox->SetEnable(false);
 	m_pMyGuiButton->m_fOnClickFunction = [this]
-	()
+	(cMyGuiButton* e_pMyGuiButton)
 	{
 		//cGameApp::ShowInfoOnScreen(L"Clicked");
 		m_pRoot->ShowYesNoDialog([this]
@@ -133,7 +133,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 		l_pMyGuiPanel->AddChild(m_pMyGuiListBox);
 		l_pMyGuiPanel->AddChild(m_pMyGuiComboBox);
 		l_pMyGuiPanel->AddChild(l_pMyGuiEditBox);
-		l_pMyGuiForm->AddChild(l_pMyGuiPanel);	
+		m_pMyGuiForm->AddChild(l_pMyGuiPanel);
 	}
 
 	m_pMyGuiButton->SetLocalPosition(ImVec2(100, 100));
@@ -165,7 +165,23 @@ void cGUIForFileTransfer::GenerateToolBox()
 {
 	if(!m_pToolBoxRoot)
 	{
-		m_pToolBoxRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
+		m_pToolBoxRoot = GetMyGuiObjWithType<cMyGuiBasicObj>();
+		m_pToolBoxRoot->SetNotApplyPosition(false);
+		for (int l_eMyImGuiType = eMyImGuiType::eMIGT_NODE; l_eMyImGuiType<eMyImGuiType::eMIGT_MAX;++l_eMyImGuiType)
+		{
+			auto l_pMyGuiButton = GetMyGuiObjWithType<cMyGuiButton>();
+			l_pMyGuiButton->SetText(GetMyGuiObjLabel((eMyImGuiType)l_eMyImGuiType));
+			l_pMyGuiButton->m_fOnClickFunction = [this,l_eMyImGuiType](cMyGuiButton*e_pMyGuiButton)
+			{
+					cMyGuiBasicObj*l_pObject = GetMyGuiObj((eMyImGuiType)l_eMyImGuiType);
+					l_pObject->SetLocalPosition(ImVec2(200, 200));
+					m_pMyGuiForm->AddChild(l_pObject);
+					
+			};
+			m_pToolBoxRoot->AddChild(l_pMyGuiButton);
+			l_pMyGuiButton->SetNotApplyPosition(false);
+		}
+
 	}
 }
 
@@ -285,57 +301,60 @@ void cGUIForFileTransfer::RenderToolBox()
 		//ANCHOR SIDEBAR.PRIMITIVES
 		ImGui::Text("Primitives");
 		ImGui::Separator();
-
-		if (ImGui::Button("Window"))
+		if (m_pToolBoxRoot)
 		{
-			//bw.state = true;
+			m_pToolBoxRoot->Render();
 		}
+		//if (ImGui::Button("Window"))
+		//{
+		//	//bw.state = true;
+		//}
 
-		if (ImGui::Button("Button"))
-		{
-			//bw.create("button");
-		}
-			
+		//if (ImGui::Button("Button"))
+		//{
+		//	//bw.create("button");
+		//}
+		//	
 
-		if (ImGui::Button("Radio Button"))
-		{
-			//bw.create("radio");
-		}			
+		//if (ImGui::Button("Radio Button"))
+		//{
+		//	//bw.create("radio");
+		//}			
 
-		if (ImGui::Button("Checkbox"))
-		{
-			//bw.create("checkbox");
-		}
-			
+		//if (ImGui::Button("Checkbox"))
+		//{
+		//	//bw.create("checkbox");
+		//}
+		//	
 
-		if (ImGui::Button("Text"))
-		{
+		//if (ImGui::Button("Text"))
+		//{
 
-		}
-		//bw.create("text");
+		//}
+		////bw.create("text");
 
-		if (ImGui::Button("Bullet"))
-		{
+		//if (ImGui::Button("Bullet"))
+		//{
 
-		}
-			//bw.create("bullet");
+		//}
+		//	//bw.create("bullet");
 
-		if (ImGui::Button("Arrow"))
-		{
+		//if (ImGui::Button("Arrow"))
+		//{
 
-		}
-			//bw.create("arrow");
+		//}
+		//	//bw.create("arrow");
 
-		if (ImGui::Button("Combo"))
-		{
+		//if (ImGui::Button("Combo"))
+		//{
 
-		}
-			//bw.create("combo");
+		//}
+		//	//bw.create("combo");
 
-		if (ImGui::Button("Listbox"))
-		{
+		//if (ImGui::Button("Listbox"))
+		//{
 
-		}
+		//}
 			//bw.create("listbox");
 
 		ImGui::Separator();

@@ -580,7 +580,7 @@ void cMyGuiButton::InternalRender()
 	{
 		if (m_fOnClickFunction)
 		{
-			m_fOnClickFunction();
+			m_fOnClickFunction(this);
 		}
 	}
 	//ImGui::Button(obj.name.c_str(), obj.size);
@@ -644,7 +644,11 @@ void cMyGuiRootNode::EndRender()
 	}
 	if (m_ChildNodeVector.size())
 	{
-		//ShowTreeViewWindow(this->m_ChildNodeVector[0]);
+		//for(auto l_pObject : this->m_ChildNodeVector)
+		//{
+		//	ShowTreeViewWindow(l_pObject);
+		//}
+		ShowTreeViewWindow(this->m_ChildNodeVector[0]);
 	}
 	this->m_bVisible = true;
 }
@@ -1068,8 +1072,49 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 		
 	}
 	//e_pParent->add
-	l_pObject->SetName(l_pObject->GetTypeName());
+	if (l_pObject)
+	{
+		l_pObject->SetName(l_pObject->GetTypeName());
+	}
 	return l_pObject;
+}
+
+const char* GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType)
+{
+		//eMIGT_NODE = 0,
+		//eMIGT_BUTTON,// = 0,
+		//eMIGT_LABEL,
+		//eMIGT_EDIT_BOX,
+		//eMIGT_SLIDER_I,
+		//eMIGT_SLIDER_F,
+		//eMIGT_CHECKBOX,
+		//eMIGT_RADIO,
+		//eMIGT_TOOGLE,
+		//eMIGT_FORM,//9
+		//eMIGT_PANEL = 10,
+		//eMIGT_COMBO_BOX,
+		//eMIGT_LIST_BOX,
+		//eMIGT_ROOT_NODE,
+		//eMIGT_SCROLLER,
+	const char* l_strTypeAndLabel[] =
+	{
+		"Node",
+		"Button",
+		"Label",
+		"EditBox",
+		"SLiderIntger",
+		"SLiderFloat",
+		"CheckBox",
+		"Radio",
+		"Toogle",
+		"Form",
+		"Panel",
+		"ComboBox",
+		"ListBox",
+		"RootNode",
+		"Scroller"
+	};
+	return l_strTypeAndLabel[e_eMyImGuiType];
 }
 
 void cMyGuiScroller::InternalRender()

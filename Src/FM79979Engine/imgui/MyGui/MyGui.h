@@ -86,6 +86,7 @@ public:
 	ImVec2						GetWorldPosition();
 	void						SetWorldPosition(const ImVec2& e_vWorldPos);
 	ImVec2						GetWorldImGuiRenderPosition();
+	void						SetNotApplyPosition(bool e_b){m_bDoApplyPosition = e_b;}
 	
 	//-1 to last one
 	void						SetParent(cImGuiNode* e_pParent,int e_iChildIndex = -1);
@@ -119,6 +120,10 @@ protected:
 public:
 	cMyGuiBasicObj();
 	virtual ~cMyGuiBasicObj();
+	virtual std::wstring GetTypeName()override
+	{
+		return L"cMyGuiBasicObj";
+	}
 	ImVec2						m_vSizeObj = {0,0 };
 	virtual void				RenderProperty();
 };
@@ -167,7 +172,7 @@ public:
 	cMyGuiButton();
 	virtual ~cMyGuiButton();
 	//virtual void		RenderProperty()override;
-	std::function<void()>	m_fOnClickFunction;
+	std::function<void(cMyGuiButton*)>	m_fOnClickFunction;
 };
 
 class cMyGuiLabel :public cMyGuiBasicObj
@@ -302,6 +307,7 @@ void	RenderTreeNode(cMyGuiRootNode* e_pRoot);
 
 
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType);
+const char*		GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType);
 template<class TYPE>TYPE* GetMyGuiObjWithType(eMyImGuiType e_eMyImGuiType)
 {
 	return (TYPE*)GetMyGuiObj(e_eMyImGuiType);

@@ -23,11 +23,12 @@ class cGUIForFileTransfer:NamedTypedObject
 	std::vector<std::string>		m_VersionVector;
 	bool							m_bDoingUpdate;
 	//
-	class cMyGuiRootNode*			m_pToolBoxRoot;
+	class cMyGuiBasicObj*			m_pToolBoxRoot;
 	class cMyGuiRootNode*			m_pRoot;
 	class cMyGuiListBox*			m_pMyGuiListBox;
 	class cMyGuiComboBox*			m_pMyGuiComboBox;
 	class cMyGuiButton*				m_pMyGuiButton;
+	class cMyGuiForm*				m_pMyGuiForm;
 	void							GenerateRenderData();
 	//
 	void							GenerateToolBox();
