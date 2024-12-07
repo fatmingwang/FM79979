@@ -561,7 +561,7 @@ void cMyGuiEditBox::RenderMultiLine()
 
 void cMyGuiLabel::InternalRender()
 {
-	//ImGui::Text(obj.name.c_str());
+	ImGui::Text(m_strText.c_str());
 }
 
 

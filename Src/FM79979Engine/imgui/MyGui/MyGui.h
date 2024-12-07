@@ -178,6 +178,7 @@ public:
 class cMyGuiLabel :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
+	GET_SET_DEC(std::string, m_strText, GetText, SetText);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;

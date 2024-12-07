@@ -169,6 +169,12 @@ void cGUIForFileTransfer::GenerateToolBox()
 		m_pToolBoxRoot->SetNotApplyPosition(false);
 		for (int l_eMyImGuiType = eMyImGuiType::eMIGT_NODE; l_eMyImGuiType<eMyImGuiType::eMIGT_MAX;++l_eMyImGuiType)
 		{
+			printf("%d\n", l_eMyImGuiType);
+			if (l_eMyImGuiType == eMyImGuiType::eMIGT_NODE || l_eMyImGuiType == eMyImGuiType::eMIGT_FORM || 
+				l_eMyImGuiType == eMyImGuiType::eMIGT_ROOT_NODE)
+			{
+				continue;
+			}
 			auto l_pMyGuiButton = GetMyGuiObjWithType<cMyGuiButton>();
 			l_pMyGuiButton->SetText(GetMyGuiObjLabel((eMyImGuiType)l_eMyImGuiType));
 			l_pMyGuiButton->m_fOnClickFunction = [this,l_eMyImGuiType](cMyGuiButton*e_pMyGuiButton)
