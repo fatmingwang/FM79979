@@ -371,9 +371,33 @@ void cMyGuiPanel::InternalRender()
 	//ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	//draw_list->AddCallback(f_MySkipScissor, &l_bSkipScissor);
 	//child_size, true, ImGuiWindowFlags_NoBackground))
-	
+
 	if (ImGui::BeginChild(this->GetCharName().c_str(), this->m_vSize, true, m_FormFlag))
 	{
+		//ImGui::PushClipRect(ImVec2(-9999, -9999), ImVec2(9999, 9999), false);
+		ImDrawList* draw_list = ImGui::GetWindowDrawList();
+
+		for (int i = 0; i < draw_list->_ClipRectStack.size(); ++i)
+		{
+			ImVec4 clip_rect = ImVec4(
+				draw_list->_ClipRectStack[i].x,
+				draw_list->_ClipRectStack[i].y,
+				draw_list->_ClipRectStack[i].z,
+				draw_list->_ClipRectStack[i].w
+			);
+			draw_list->_ClipRectStack[i].x = -9999;
+			draw_list->_ClipRectStack[i].y = -9999;
+			draw_list->_ClipRectStack[i].z = 9999;
+			draw_list->_ClipRectStack[i].w = 9999;
+			ImVec4 clip_rect2 = ImVec4(
+				draw_list->_ClipRectStack[i].x,
+				draw_list->_ClipRectStack[i].y,
+				draw_list->_ClipRectStack[i].z,
+				draw_list->_ClipRectStack[i].w
+			);
+			int a = 0;
+		}
+
 		int a = 0;
 	}
 	// Move the cursor to the desired position for the child
@@ -384,6 +408,7 @@ void cMyGuiPanel::InternalRender()
 
 void cMyGuiPanel::EndRender()
 {
+	//ImGui::PopClipRect();
 	ImGui::EndChild();
 }
 
@@ -401,14 +426,22 @@ void cMyGuiForm::InternalRender()
 {
 	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	//m_FormFlag = ImGuiWindowFlags_NoTitleBar| ImGuiWindowFlags_NoBackground;
-	
-	ImGui::Begin(this->GetCharName().c_str(),nullptr, m_FormFlag);
-	ImGui::PushClipRect(ImVec2(-99999, -99999), ImVec2(9999, 9999), false);
+
+	bool l_bClosed = false;
+	//ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
+	ImGui::SetNextWindowSize(m_vSize, ImGuiCond_Always);
+	ImGui::Begin(this->GetCharName().c_str(), &l_bClosed, m_FormFlag);
+	//ImGui::PushClipRect(ImVec2(-9999, -9999), ImVec2(9999, 9999), true);
 	if (m_vSize.x > 0 && m_vSize.y > 0)
 	{
 		ImGui::SetWindowSize(m_vSize);
 	}
-	//if (window_pos.x < 0)
+	if (l_bClosed)
+	{
+		int a = 0;
+	}	
+	ImGuiViewport* viewport = ImGui::GetMainViewport();
+	viewport->m_bSkipViewportClip = true;
 	//ImDrawList* draw_list = ImGui::GetWindowDrawList();
 	//static bool l_bSkipScissor = true;
 	//draw_list->AddCallback(f_MySkipScissor, &l_bSkipScissor);
@@ -431,7 +464,7 @@ void cMyGuiForm::InternalRender()
 
 void cMyGuiForm::EndRender()
 {
-	ImGui::PopClipRect();
+	//ImGui::PopClipRect();
 	ImGui::End();
 }
 
@@ -495,7 +528,7 @@ void cMyGuiCheckBox::InternalRender()
 
 cMyGuiCheckBox::cMyGuiCheckBox()
 {
-	m_strText = "CheckBox9999999999999999999";
+	m_strText = "CheckBox";
 	m_bChecked = false;
 }
 
@@ -663,15 +696,15 @@ void cMyGuiRootNode::InternalRender()
 {
 }
 
-void ShowTreeViewWindow(cImGuiNode* rootNode)
+void ShowTreeViewWindow(cImGuiNode* rootNode,int e_iRenderFlag)
 {
 	cImGuiNode* l_pDragNode = nullptr;
 	cImGuiNode* l_pDropParent = nullptr;
 	static cImGuiNode* l_pSelectedNode = nullptr;
-	ImVec2 minSize(400, 300);
-	ImVec2 maxSize(FLT_MAX, FLT_MAX); // No maximum size constraint
-	ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
-	if (ImGui::Begin("Tree View Window"))
+	//ImVec2 minSize(400, 300);
+	//ImVec2 maxSize(9999, 9999); // No maximum size constraint
+	//ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
+	if (ImGui::Begin("Tree View Window"), nullptr,e_iRenderFlag)
 	{
 		// Set the size of the tree view region
 		//ImVec2 treeViewSize = ImVec2(300, 400); // Width: 300px, Height: 400px
@@ -716,7 +749,7 @@ void cMyGuiRootNode::EndRender()
 		//{
 		//	ShowTreeViewWindow(l_pObject);
 		//}
-		ShowTreeViewWindow(this->m_ChildNodeVector[0]);
+		//ShowTreeViewWindow(this->m_ChildNodeVector[0]);
 	}
 	this->m_bVisible = true;
 }

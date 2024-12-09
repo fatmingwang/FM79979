@@ -62,8 +62,9 @@ bool g_bUseMyViewPort = true;
 int g_iNumImGuiContext = 2;
 
 
-std::map<int, std::function<float*(float*)>>g_fContextIndexAndImGuiCameraPositionConvertFunctionMap;
-std::map<int, std::function<void(long&, long&)>>g_fContextIndexAndImGuiGetCameraCursorPositionMap;
+std::map<int, std::function<float*(float*)>>    g_ContextIndexAndImGuiCameraPositionConvertFunctionMap;
+std::map<int, std::function<void(long&, long&)>>g_ContextIndexAndImGuiGetCameraCursorPositionMap;
+std::map<int, bool>                             g_ContextIndexAndMouseEventEnableMap;
 std::vector<ImGuiContext*>*g_pImGuiContextVector = nullptr;
 int                         g_iCurrenctContextIndex = 0;
 
@@ -322,14 +323,19 @@ void ImGui_ImplOpenGL3_ShutdownInner()
     io.BackendRendererUserData = nullptr;
 }
 
-void SetImGuiGetCameraCursorPosition(std::function<void(long&, long&)> e_Function, int e_iContextIndex)
+void    SetImGuiGetCameraCursorPosition(std::function<void(long&, long&)> e_Function, int e_iContextIndex)
 {
-    g_fContextIndexAndImGuiGetCameraCursorPositionMap[e_iContextIndex] = e_Function;
+    g_ContextIndexAndImGuiGetCameraCursorPositionMap[e_iContextIndex] = e_Function;
 }
 
-void SetImGuiCameraPositionConvertFunction(std::function<float* (float*)> e_Function, int e_iContextIndex)
+void    SetImGuiCameraPositionConvertFunction(std::function<float* (float*)> e_Function, int e_iContextIndex)
 {
-    g_fContextIndexAndImGuiCameraPositionConvertFunctionMap[e_iContextIndex] = e_Function;
+    g_ContextIndexAndImGuiCameraPositionConvertFunctionMap[e_iContextIndex] = e_Function;
+}
+
+void    SetImGuiMouseEnable(bool e_bMouseEventEnable, int e_iContextIndex)
+{
+    g_ContextIndexAndMouseEventEnableMap[e_iContextIndex] = e_bMouseEventEnable;
 }
 
 void ImGui_ImplOpenGL3_Shutdown()
@@ -511,8 +517,8 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
         l_vScale.y = l_DisplaySize.y/ e_pGameResolutionSize[1];
     }
     std::function<float* (float*)>l_fImGuiCameraPositionConvertFunction;
-    auto l_IT = g_fContextIndexAndImGuiCameraPositionConvertFunctionMap.find(g_iCurrenctContextIndex);
-    if (l_IT != g_fContextIndexAndImGuiCameraPositionConvertFunctionMap.end())
+    auto l_IT = g_ContextIndexAndImGuiCameraPositionConvertFunctionMap.find(g_iCurrenctContextIndex);
+    if (l_IT != g_ContextIndexAndImGuiCameraPositionConvertFunctionMap.end())
     {
         l_fImGuiCameraPositionConvertFunction = l_IT->second;
     }
@@ -1189,10 +1195,18 @@ ImGuiMouseSource GetMouseSourceFromMessageExtraInfo()
 IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandlerInner(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam,int e_iContextIndex)
 {
     std::function<void(long&, long&)> l_fImGuiGetCameraCursorPosition;
-    auto l_IT = g_fContextIndexAndImGuiGetCameraCursorPositionMap.find(e_iContextIndex);
-    if (l_IT != g_fContextIndexAndImGuiGetCameraCursorPositionMap.end())
+    auto l_IT = g_ContextIndexAndImGuiGetCameraCursorPositionMap.find(e_iContextIndex);
+    if (l_IT != g_ContextIndexAndImGuiGetCameraCursorPositionMap.end())
     {
         l_fImGuiGetCameraCursorPosition = l_IT->second;
+    }
+    auto l_IT2 = g_ContextIndexAndMouseEventEnableMap.find(e_iContextIndex);
+    if (l_IT2 != g_ContextIndexAndMouseEventEnableMap.end())
+    {
+        if (!l_IT2->second)
+        {
+            return false;
+        }
     }
     // Most backends don't have silent checks like this one, but we need it because WndProc are called early in CreateWindow().
     // We silently allow both context or just only backend data to be nullptr.

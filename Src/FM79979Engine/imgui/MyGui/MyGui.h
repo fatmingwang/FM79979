@@ -344,4 +344,4 @@ template<class TYPE>TYPE* GetMyGuiObjWithType()
 }
 
 void DisplayTree(cImGuiNode* e_pNode, cImGuiNode** e_ppDragNode, cImGuiNode** e_ppDropParent, cImGuiNode*& e_ppSelectedNode, bool e_bRenderVisibleCheckBox = true);
-void ShowTreeViewWindow(cImGuiNode* rootNode);
+void ShowTreeViewWindow(cImGuiNode* rootNode,int e_iRenderFlag = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);

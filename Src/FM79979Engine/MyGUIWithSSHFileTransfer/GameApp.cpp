@@ -37,6 +37,11 @@ void	cMyApp::Init()
 	{
 		m_pGUIForFileTransfer->Init();
 	}
+	if (m_p2DCamera)
+	{
+		m_p2DCamera->SetCameraPos(Vector2(840,544));
+		m_p2DCamera->SetScale(1.25);
+	}
 }
 
 float ConvertOpenGLYTo2DUpY(float e_fPos)
@@ -85,7 +90,6 @@ void	cMyApp::Render()
 		m_p2DCamera->SetResolution(l_ViewPortSize);
 		m_p2DCamera->Render();
 		m_p2DCamera->DrawGrid(0.f,0.f,Vector4(0.5f, 1.f, 0.f, 0.3f),2.f);
-		GLRender::RenderRectangle(1920, 1080, cMatrix44::Identity, Vector4::Red);
 	}
 	if (m_pGUIForFileTransfer)
 	{

@@ -286,14 +286,28 @@ void HelpMarker(const char* desc)
 
 void cGUIForFileTransfer::RenderToolBox()
 {
+	static bool l_bDoOnce = true;
+	const int l_iWidth = 200;
+
+	if (cGameApp::m_sScreenMousePosition.x <= l_iWidth)
+	{
+		SetImGuiMouseEnable(false, m_iRootNodeRenderContextIndex);
+	}
+	else
+	{
+		SetImGuiMouseEnable(true, m_iRootNodeRenderContextIndex);
+	}
+
 	ImGui::SetNextWindowPos(ImVec2(0,0));
-	ImGui::SetNextWindowSizeConstraints(ImVec2(0, -1), ImVec2(FLT_MAX, -1));
-	ImGui::SetNextWindowSize(ImVec2(0, 1080));
+	ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth, 100), ImVec2(FLT_MAX, 500));
+	if (l_bDoOnce)
+	{
+		ImGui::SetNextWindowSize(ImVec2(l_iWidth, 1080));
+	}
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4.00f, 5.00f));
-	ImGui::Begin("Sidebar", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize| ImGuiWindowFlags_MenuBar);
-	ImGui::PushClipRect(ImVec2(-99999, -99999), ImVec2(9999, 9999), false);
+	ImGui::Begin("Sidebar", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize| ImGuiWindowFlags_MenuBar);
 	RenderPopupMenuContext();
-	RenderMenu(nullptr);
+	//RenderMenu(nullptr);
 	{
 		//ANCHOR SIDEBAR.PRIMITIVES
 		ImGui::Text("Common"); HelpMarker
@@ -304,7 +318,14 @@ void cGUIForFileTransfer::RenderToolBox()
 			m_pToolBoxRoot->Render();
 		}
 	}
-	ImGui::PopClipRect();
+	ImGui::SetNextWindowPos(ImVec2(0,500));
+	if (l_bDoOnce)
+	{
+		//ImGui::SetNextWindowSize(ImVec2(l_iWidth, 500));
+		ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth, 500), ImVec2(FLT_MAX, 500));
+		l_bDoOnce = false;
+	}
+	ShowTreeViewWindow(this->m_pRoot->GetChildNodeVector()[0], ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize| ImGuiWindowFlags_NoCollapse);
 	ImGui::End();
 	ImGui::PopStyleVar(1);
 }
@@ -412,8 +433,8 @@ void cGUIForFileTransfer::Init()
 			e_PosX = (long)l_vPos.x;
 			e_PosY = (long)l_vPos.y;
 		};
-		SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, 0);
-		SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction, 0);
+		SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, m_iRootNodeRenderContextIndex);
+		SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction, m_iRootNodeRenderContextIndex);
 	}
 }
 
@@ -424,10 +445,12 @@ void cGUIForFileTransfer::Update(float e_fElpaseTime)
 
 void cGUIForFileTransfer::Render(float* e_pfMatrix, float* e_pfGameResolutoinSize)
 {
+	float l_fTargetGameResolution[2] = { 1920.f, 1080.f };
 	ImGui_StartFrame(e_pfGameResolutoinSize);
 	//RenderToolBox();
 	RenderMainUI();
 	ImGui_EndFrame(e_pfMatrix, e_pfGameResolutoinSize);
+	GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
 	if (m_p2DCamera)
 	{
 		m_p2DCamera->Render(false, DEFAULT_SHADER);
@@ -442,10 +465,10 @@ void cGUIForFileTransfer::Render(float* e_pfMatrix, float* e_pfGameResolutoinSiz
 		cGameApp::RenderFont(l_vPos, l_strExtraInfo.c_str());
 	}
 	//cMatrix44	l_matProjection;
-	float l_f[2] = { 1920.f, 1080.f };
 	//glhOrthof2((float*)l_matProjection.m, 0, 1920, 1080, 0, -10000, 10000);
 	//ImGui_StartFrame();
-	ImGui_StartFrame(l_f,1);
+
+	ImGui_StartFrame(l_fTargetGameResolution,1);
 	RenderToolBox();
 	ImGui_EndFrame();
 }

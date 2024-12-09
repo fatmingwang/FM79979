@@ -18,6 +18,8 @@
 
 class cGUIForFileTransfer:NamedTypedObject
 {
+	int								m_iToolboxRenderContextIndex = 1;
+	int								m_iRootNodeRenderContextIndex = 0;
 	ImGuiContext*					m_pToolBoxGuiContext = nullptr;
 	std::map<eEnv, sEnvData>		m_EnvDataMap;
 	std::vector<std::string>		m_VersionVector;
