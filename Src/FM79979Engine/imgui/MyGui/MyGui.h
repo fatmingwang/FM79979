@@ -117,6 +117,7 @@ protected:
 	virtual	void					InternalRender(){}
 	virtual void					RenderBaseProperty();
 	GET_SET_DEC(ImVec2, m_vSize, GetSize, SetSize);
+	GET_SET_DEC(std::string, m_strText, GetText, SetText);
 public:
 	cMyGuiBasicObj();
 	virtual ~cMyGuiBasicObj();
@@ -178,8 +179,9 @@ public:
 class cMyGuiLabel :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
-	GET_SET_DEC(std::string, m_strText, GetText, SetText);
 public:
+	cMyGuiLabel();
+	virtual ~cMyGuiLabel();
 	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
@@ -188,7 +190,6 @@ class cMyGuiEditBox :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
 	void				RenderMultiLine();
-	GET_SET_DEC(std::string, m_strText, GetText, SetText);
 	GET_SET_DEC(std::string, m_strHint, GetHint, SetHint);
 	GET_SET_DEC(bool,m_bMultiLines, IsMultiLines, SetMultiLines);
 public:
@@ -200,7 +201,13 @@ public:
 class cMyGuiSliderInteger :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
+	GET_SET_DEC(int, m_iMax, GetMax, SetMax);
+	GET_SET_DEC(int, m_iMin, GetMin, SetMin);
+	GET_SET_DEC(std::string, m_strName, GetName, SetName);
+	int  m_iValue;
 public:
+	cMyGuiSliderInteger();
+	virtual ~cMyGuiSliderInteger();
 	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
@@ -208,7 +215,13 @@ public:
 class cMyGuiSliderFloatValue :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
+	GET_SET_DEC(float, m_fMax, GetMax, SetMax);
+	GET_SET_DEC(float, m_fMin, GetMin, SetMin);
+	GET_SET_DEC(std::string, m_strName, GetName, SetName);
+	float  m_fValue;
 public:
+	cMyGuiSliderFloatValue();
+	virtual ~cMyGuiSliderFloatValue();
 	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
@@ -216,7 +229,10 @@ public:
 class cMyGuiCheckBox :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
+	GET_SET_DEC(bool, m_bChecked, IsChecked, SetChecked);
 public:
+	cMyGuiCheckBox();
+	virtual ~cMyGuiCheckBox();
 	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
@@ -224,7 +240,10 @@ public:
 class cMyGuiRadio :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
+	GET_SET_DEC(bool, m_bChecked, IsChecked, SetChecked);
 public:
+	cMyGuiRadio();
+	virtual ~cMyGuiRadio();
 	MYGUI_DEFAULT_IMPLEMENT();
 	//virtual void		RenderProperty()override;
 };
@@ -232,7 +251,10 @@ public:
 class cMyGuiToogle:public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
+	GET_SET_DEC(bool, m_bChecked, IsChecked, SetChecked);
 public:
+	cMyGuiToogle();
+	virtual ~cMyGuiToogle();
 	MYGUI_DEFAULT_IMPLEMENT();
 	bool		border = true;
 	virtual void		RenderProperty()override;

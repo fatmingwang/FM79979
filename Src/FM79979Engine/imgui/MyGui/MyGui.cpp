@@ -320,19 +320,18 @@ void cMyGuiBasicObj::RenderProperty()
 {
 }
 
-float relative_for_resize(cMyGuiBasicObj & obj)
+float relative_for_resize(std::string&e_strName,ImVec2&e_vSize)
 {
-	//auto& g = *GImGui;
-	//auto* window = g.CurrentWindow;
-	//const auto& style = g.Style;
-	//const auto	id = window->GetID(obj.name.c_str());
-	//const auto	label_size = ImGui::CalcTextSize(obj.name.c_str(), nullptr, true);
-	//const auto	frame_size = ImGui::CalcItemSize(ImVec2(0, 0), ImGui::CalcItemWidth(), (label_size.y) + style.FramePadding.y * 2.0f);
-	//const auto	label_dif = (label_size.x > 0.0f ? style.ItemInnerSpacing.x + label_size.x : 0.0f);
-	//if (obj.size.x == 0.f && obj.size.y == 0.f)
-	//	obj.size = ImVec2(frame_size.x + label_dif, frame_size.y);
-	//return obj.size.x - label_dif;
 	return 0.f;
+	//auto g = ImGui::GetCurrentContext();
+	//const auto	label_size = ImGui::CalcTextSize(e_strName.c_str(), nullptr, true);
+	//const auto	frame_size = ImGui::CalcItemSize(ImVec2(0, 0), ImGui::CalcItemWidth(), (label_size.y));
+	//const auto	label_dif = (label_size.x > 0.0f ? label_size.x : 0.0f);
+	//if (e_vSize.x == 0.f && e_vSize.y == 0.f)
+	//{
+	//	e_vSize = ImVec2(frame_size.x + label_dif, frame_size.y);
+	//}
+	//return e_vSize.x - label_dif;
 };
 
 void f_MySkipScissor(const ImDrawList* parent_list, const ImDrawCmd* cmd)
@@ -451,9 +450,20 @@ void cMyGuiForm::RenderProperty()
 {
 }
 
+
+cMyGuiToogle::cMyGuiToogle()
+{
+	m_strText = "Toogle";
+	m_bChecked = false;
+}
+
+cMyGuiToogle::~cMyGuiToogle()
+{
+}
+
 void cMyGuiToogle::InternalRender()
 {
-	//ImGui::ToggleButton(obj.name.c_str(), &true_bool);
+	ImGui::ToggleButton(m_strText.c_str(), &m_bChecked);
 }
 
 void cMyGuiToogle::RenderProperty()
@@ -462,26 +472,75 @@ void cMyGuiToogle::RenderProperty()
 
 void cMyGuiRadio::InternalRender()
 {
-	//ImGui::RadioButton(obj.name.c_str(), true_bool);
+	if(ImGui::RadioButton(m_strText.c_str(), m_bChecked))
+	{
+		m_bChecked = !m_bChecked;
+	}
+}
+
+cMyGuiRadio::cMyGuiRadio()
+{
+	m_bChecked = false;
+	m_strText = "Radio";
+}
+
+cMyGuiRadio::~cMyGuiRadio()
+{
 }
 
 void cMyGuiCheckBox::InternalRender()
 {
-	//ImGui::Checkbox(obj.name.c_str(), &true_bool);
+	ImGui::Checkbox(m_strText.c_str(), &m_bChecked);
+}
+
+cMyGuiCheckBox::cMyGuiCheckBox()
+{
+	m_strText = "CheckBox9999999999999999999";
+	m_bChecked = false;
+}
+
+cMyGuiCheckBox::~cMyGuiCheckBox()
+{
+}
+
+cMyGuiSliderFloatValue::cMyGuiSliderFloatValue()
+{
+	m_fMax = 100.f;
+	m_fMin = 0.f;
+	m_fValue = 50.f;
+	this->m_vSize.x = 100.f;
+	m_strName = "SliderFloat";
+}
+
+cMyGuiSliderFloatValue::~cMyGuiSliderFloatValue()
+{
 }
 
 void cMyGuiSliderFloatValue::InternalRender()
 {
-	//ImGui::PushItemWidth(relative_for_resize(obj));
-	//ImGui::SliderFloat(obj.name.c_str(), &value_f, 0, 100);
-	//ImGui::PopItemWidth();
+	ImGui::PushItemWidth(m_vSize.x);
+	ImGui::SliderFloat(m_strName.c_str(), &m_fValue, m_fMin, m_fMax);
+	ImGui::PopItemWidth();
 }
 
 void cMyGuiSliderInteger::InternalRender()
 {
-	//ImGui::PushItemWidth(relative_for_resize(obj));
-	//ImGui::SliderInt(obj.name.c_str(), &value_i, 0, 100);
-	//ImGui::PopItemWidth();
+	ImGui::PushItemWidth(m_vSize.x);
+	ImGui::SliderInt(m_strName.c_str(), &m_iValue, m_iMin, m_iMax);
+	ImGui::PopItemWidth();
+}
+
+cMyGuiSliderInteger::cMyGuiSliderInteger()
+{
+	this->m_vSize.x = 100.f;
+	m_iMax = 100;
+	m_iMin = 0;
+	m_iValue = 50;
+	m_strName = "SliderIntger";
+}
+
+cMyGuiSliderInteger::~cMyGuiSliderInteger()
+{
 }
 
 cMyGuiEditBox::cMyGuiEditBox()
@@ -562,6 +621,15 @@ void cMyGuiEditBox::RenderMultiLine()
 void cMyGuiLabel::InternalRender()
 {
 	ImGui::Text(m_strText.c_str());
+}
+
+cMyGuiLabel::cMyGuiLabel()
+{
+	m_strText = "Label";
+}
+
+cMyGuiLabel::~cMyGuiLabel()
+{
 }
 
 
@@ -728,7 +796,7 @@ void cMyGuiComboBox::InternalRender()
 cMyGuiComboBox::cMyGuiComboBox()
 {
 	m_iSelectedIndex = 0;
-	m_strDataVector = { "none" };
+	m_strDataVector = { "1","2","3" };
 	this->m_vSize.x = 200.f;
 }
 
@@ -1170,7 +1238,9 @@ void cMyGuiScroller::InternalRender()
 	}
 
 	// Display current scroll position
+#ifdef DEBUG
 	ImGui::Text("Scroll Y: %.2f", scroll_y);
+#endif
 }
 
 void cMyGuiScroller::RenderProperty()
