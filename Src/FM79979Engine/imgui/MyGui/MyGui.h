@@ -323,6 +323,24 @@ public:
 	virtual ~cMyGuiScroller();
 };
 
+class cMyTreeView :public NamedTypedObject
+{
+	cImGuiNode* m_pDragNode = nullptr;
+	cImGuiNode* m_pDropParent = nullptr;
+	cImGuiNode* m_pSelectedNode = nullptr;
+	int			m_iDropIndex = -1;
+	void RenderTreeivewPopupMenuContext();
+	void DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox);
+public:
+	int m_iRenderFlag = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove;
+	cImGuiNode* m_pRoot = nullptr;
+	cMyTreeView();
+	virtual ~cMyTreeView();
+	void Render();
+};
+
+
+
 void	CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No",const char*e_strTitle = "Yes or No");
 void	CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText = "Confirm", const char* e_strTitle = "Confirm");
 void	CallFullScreenBlackText(const char* e_strContent);
@@ -342,6 +360,3 @@ template<class TYPE>TYPE* GetMyGuiObjWithType()
 	l_pTYPE->SetName(TYPE::TypeID);
 	return l_pTYPE;
 }
-
-void DisplayTree(cImGuiNode* e_pNode, cImGuiNode** e_ppDragNode, cImGuiNode** e_ppDropParent, cImGuiNode*& e_ppSelectedNode, bool e_bRenderVisibleCheckBox = true);
-void ShowTreeViewWindow(cImGuiNode* rootNode,int e_iRenderFlag = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove);

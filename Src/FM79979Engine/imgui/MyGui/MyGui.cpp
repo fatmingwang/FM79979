@@ -695,40 +695,6 @@ void cMyGuiRootNode::ApplyPosition()
 void cMyGuiRootNode::InternalRender()
 {
 }
-
-void ShowTreeViewWindow(cImGuiNode* rootNode,int e_iRenderFlag)
-{
-	cImGuiNode* l_pDragNode = nullptr;
-	cImGuiNode* l_pDropParent = nullptr;
-	static cImGuiNode* l_pSelectedNode = nullptr;
-	//ImVec2 minSize(400, 300);
-	//ImVec2 maxSize(9999, 9999); // No maximum size constraint
-	//ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
-	if (ImGui::Begin("Tree View Window"), nullptr,e_iRenderFlag)
-	{
-		// Set the size of the tree view region
-		//ImVec2 treeViewSize = ImVec2(300, 400); // Width: 300px, Height: 400px
-		ImVec2 treeViewSize = ImGui::GetContentRegionAvail();
-
-		// Begin a child region to contain the tree
-		ImGui::BeginChild("TreeViewRegion", treeViewSize, true, ImGuiWindowFlags_HorizontalScrollbar);
-
-		// Display the tree starting from the root node
-		if (rootNode)
-		{
-			DisplayTree(rootNode, &l_pDragNode, &l_pDropParent, l_pSelectedNode);
-		}
-
-		// End the child region
-		ImGui::EndChild();
-	}
-	ImGui::End();
-	if (l_pDropParent && l_pDragNode)
-	{
-		//l_pDragNode->SetParent(l_pDropParent);
-	}
-}
-
 void cMyGuiRootNode::EndRender()
 {
 	if (m_bShowYesNoDialog)
@@ -1287,4 +1253,176 @@ cMyGuiScroller::cMyGuiScroller()
 
 cMyGuiScroller::~cMyGuiScroller()
 {
+}
+
+cMyTreeView::cMyTreeView()
+{
+}
+
+cMyTreeView::~cMyTreeView()
+{
+}
+
+void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox)
+{
+	if (!e_pNode)
+	{
+		return;
+	}
+
+	auto l_strID = ValueToString(e_pNode->GetUniqueID());
+
+	// Display the checkbox for visibility
+	bool l_bVisible = e_pNode->IsVisible();
+	ImGui::PushID(e_pNode); // Unique ID for the checkbox
+	if (ImGui::Checkbox("", &l_bVisible))
+	{
+		e_pNode->SetVisible(l_bVisible);
+	}
+	ImGui::PopID();
+	ImGui::SameLine();
+
+	// Configure TreeNode flags
+	bool hasChildren = !e_pNode->GetChildNodeVector().empty();
+	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+	if (!hasChildren)
+	{
+		nodeFlags |= ImGuiTreeNodeFlags_Leaf;
+	}
+	if (m_pSelectedNode == e_pNode)
+	{
+		nodeFlags |= ImGuiTreeNodeFlags_Selected;
+	}
+
+	bool l_bNodeOpen = ImGui::TreeNodeEx(l_strID.c_str(), nodeFlags, "%s", e_pNode->GetCharName().c_str());
+	if (ImGui::IsItemClicked())
+	{
+		m_pSelectedNode = e_pNode;
+	}
+	const char* l_strDragDropSourceID = "TREE_NODE";
+	// Handle drag-and-drop source
+	if (ImGui::BeginDragDropSource())
+	{
+		ImGui::SetDragDropPayload(l_strDragDropSourceID, &e_pNode, sizeof(cImGuiNode*));
+		ImGui::Text("Dragging %s", e_pNode->GetCharName().c_str());
+		ImGui::EndDragDropSource();
+	}
+
+	// Render the tree node children
+	if (l_bNodeOpen)
+	{
+		auto& l_ChildrenVector = e_pNode->GetChildNodeVector();
+		for (size_t i = 0; i <= l_ChildrenVector.size(); ++i)
+		{
+			if (l_ChildrenVector.size() > 0)
+			{
+				// Push a unique ID for each drop zone
+				ImGui::PushID((int)i);
+
+				// Render drop zone between nodes (or at the end)
+				ImGui::Selectable("##DropZone", false, ImGuiSelectableFlags_AllowItemOverlap, ImVec2(0, 1));
+			}
+			// Highlight drop zone during drag
+			if (ImGui::BeginDragDropTarget())
+			{
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(l_strDragDropSourceID))
+				{
+					cImGuiNode* draggedNode = *(cImGuiNode**)payload->Data;
+
+					if (draggedNode != e_pNode)
+					{
+						// Remove dragged node from its original parent
+						auto& parentChildren = draggedNode->GetParent()->GetChildNodeVector();
+						// Insert dragged node at the current position
+						int l_iIndex = (int)i;
+						if (l_iIndex < 0)
+						{
+							l_iIndex = 0;
+						}
+						if (l_iIndex >= l_ChildrenVector.size())
+						{
+							l_iIndex = (int)l_ChildrenVector.size() - 1;
+						}
+						m_iDropIndex = l_iIndex;
+
+						// Update drag-and-drop tracking pointers
+						m_pDragNode = draggedNode;
+						m_pDropParent = e_pNode;
+					}
+				}
+				ImGui::EndDragDropTarget();
+			}
+			if (l_ChildrenVector.size() > 0)
+			{
+				ImGui::PopID(); // Pop the unique ID for the drop zone
+			}
+
+			// Render the child node
+			if (i < l_ChildrenVector.size())
+			{
+				DisplayTree(l_ChildrenVector[i], e_bRenderVisibleCheckBox);
+			}
+		}
+
+		ImGui::TreePop();
+	}
+}
+
+void cMyTreeView::RenderTreeivewPopupMenuContext()
+{
+	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
+	{
+		if (ImGui::MenuItem("Copy"))
+		{
+
+		}
+		if (ImGui::MenuItem("Paste"))
+		{
+
+		}
+		if (ImGui::MenuItem("Cut"))
+		{
+
+		}
+		ImGui::EndPopup();
+	}
+}
+
+void cMyTreeView::Render()
+{
+	if (!m_pRoot)
+	{
+		return;
+	}
+	m_pSelectedNode = nullptr;
+	m_pDragNode = nullptr;
+	m_pDropParent = nullptr;
+	//ImVec2 minSize(400, 300);
+	//ImVec2 maxSize(9999, 9999); // No maximum size constraint
+	//ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
+	if (ImGui::Begin("Tree View Window"), nullptr, m_iRenderFlag)
+	{
+
+		// Set the size of the tree view region
+		//ImVec2 treeViewSize = ImVec2(300, 400); // Width: 300px, Height: 400px
+		ImVec2 treeViewSize = ImGui::GetContentRegionAvail();
+
+		// Begin a child region to contain the tree
+		ImGui::BeginChild("TreeViewRegion", treeViewSize, true, ImGuiWindowFlags_AlwaysVerticalScrollbar| ImGuiWindowFlags_AlwaysHorizontalScrollbar);
+
+		// Display the tree starting from the root node
+		if (m_pRoot)
+		{
+			this->DisplayTree(m_pRoot, true);
+		}
+		this->RenderTreeivewPopupMenuContext();
+		// End the child region
+		ImGui::EndChild();
+	}
+	ImGui::End();
+
+	if (m_pDragNode && m_pDropParent)
+	{
+		m_pDragNode->SetParent(m_pDropParent, m_iDropIndex);
+	}
 }

@@ -46,6 +46,7 @@ const char* g_strRileFileName = "version/Rule.json";
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
 	m_pToolBoxRoot = nullptr;
+	m_pTreeView = new cMyTreeView();
 	GenerateToolBox();
 	ParseEnvData("Deploy.json");
 	m_pRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
@@ -318,14 +319,18 @@ void cGUIForFileTransfer::RenderToolBox()
 			m_pToolBoxRoot->Render();
 		}
 	}
-	ImGui::SetNextWindowPos(ImVec2(0,500));
+	
 	if (l_bDoOnce)
 	{
+		ImGui::SetNextWindowPos(ImVec2(0, 500));
 		//ImGui::SetNextWindowSize(ImVec2(l_iWidth, 500));
 		ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth, 500), ImVec2(FLT_MAX, 500));
-		l_bDoOnce = false;
+		//l_bDoOnce = false;
 	}
-	ShowTreeViewWindow(this->m_pRoot->GetChildNodeVector()[0], ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize| ImGuiWindowFlags_NoCollapse);
+	int l_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
+	//ShowTreeViewWindow(this->m_pRoot->GetChildNodeVector()[0], l_iRenderFlag);
+	m_pTreeView->m_pRoot = this->m_pRoot->GetChildNodeVector()[0];
+	m_pTreeView->Render();
 	ImGui::End();
 	ImGui::PopStyleVar(1);
 }
@@ -387,6 +392,34 @@ void cGUIForFileTransfer::RenderMenu(class cImGuiNode*e_pImGuiNode)
 }
 
 void cGUIForFileTransfer::RenderPopupMenuContext()
+{
+	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
+	{
+		if (ImGui::BeginMenu("Add"))
+		{
+			if (ImGui::BeginMenu("Primitives"))
+			{
+				if (ImGui::MenuItem("Listbox"))
+				{
+
+				}
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Data Inputs"))
+			{
+				if (ImGui::MenuItem("Slider Angle"))
+				{
+
+				}
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::EndPopup();
+	}
+}
+
+void cGUIForFileTransfer::RenderTreeivewPopupMenuContext()
 {
 	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
 	{

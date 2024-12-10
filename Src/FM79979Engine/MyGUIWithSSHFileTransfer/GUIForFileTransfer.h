@@ -18,6 +18,7 @@
 
 class cGUIForFileTransfer:NamedTypedObject
 {
+	class cMyTreeView*m_pTreeView = nullptr;
 	int								m_iToolboxRenderContextIndex = 1;
 	int								m_iRootNodeRenderContextIndex = 0;
 	ImGuiContext*					m_pToolBoxGuiContext = nullptr;
@@ -40,6 +41,7 @@ class cGUIForFileTransfer:NamedTypedObject
 	void							RenderToolBox();
 	void							RenderMenu(class cImGuiNode*);
 	void							RenderPopupMenuContext();
+	void							RenderTreeivewPopupMenuContext();
 	//
 	std::vector<std::string>		m_strEvnNameVector;
 public:
