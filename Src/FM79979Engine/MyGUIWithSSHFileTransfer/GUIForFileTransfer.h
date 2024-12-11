@@ -27,7 +27,7 @@ class cGUIForFileTransfer:NamedTypedObject
 	bool							m_bDoingUpdate;
 	//
 	class cMyGuiBasicObj*			m_pToolBoxRoot;
-	class cMyGuiRootNode*			m_pRoot;
+	class cMyGuiRootNode*			m_pMainUIRoot;
 	class cMyGuiListBox*			m_pMyGuiListBox;
 	class cMyGuiComboBox*			m_pMyGuiComboBox;
 	class cMyGuiButton*				m_pMyGuiButton;

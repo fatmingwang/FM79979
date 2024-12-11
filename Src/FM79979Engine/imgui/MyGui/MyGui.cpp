@@ -211,6 +211,7 @@ bool cImGuiNode::SwapChild(int e_iIndex1, int e_iIndex2)
 
 void cImGuiNode::Render()
 {
+	m_bCollided = false;
 	if (!m_bVisible)
 	{
 		return;
@@ -228,6 +229,9 @@ void cImGuiNode::Render()
 		ImGui::BeginDisabled();
 	}
 	this->InternalRender();
+
+	GetRenderRect();
+
 	if (!m_bEnable)
 	{
 		ImGui::EndDisabled();
@@ -248,6 +252,30 @@ void cImGuiNode::Render()
 	}
 }
 
+void cImGuiNode::DebugRender()
+{
+	if (!m_bVisible)
+	{
+		return;
+	}
+	Vector2 l_vRenderPos(m_RenderRect.x, m_RenderRect.y);
+	//cGameApp::RenderFont(l_vRenderPos, UT::ComposeMsgByFormat(L"Min:%d,%d\nMax:%d,%d", (int)m_RenderRect.x, (int)m_RenderRect.y, (int)m_RenderRect.z, (int)m_RenderRect.w).c_str());
+	cGameApp::RenderFont(l_vRenderPos, this->GetName());
+	if (m_bCollided)
+	{
+		RenderRectangle(l_vRenderPos, m_RenderRect.Width(), m_RenderRect.Height(), Vector4::Yellow);
+	}
+	else
+	{
+		RenderRectangle(l_vRenderPos, m_RenderRect.Width(), m_RenderRect.Height(), Vector4::Green);
+	}
+	
+	for (auto l_Child : this->m_ChildNodeVector)
+	{
+		l_Child->DebugRender();
+	}
+}
+
 void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 {
 	if (e_pImGuiNode)
@@ -260,6 +288,36 @@ void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 		delete e_pImGuiNode;
 	}
 }
+
+cImGuiNode*cImGuiNode::Collided(int e_iPosX, int e_iPosY)
+{
+	if (this->m_bVisible)
+	{
+		for (auto l_Child : this->m_ChildNodeVector)
+		{
+			if (l_Child->Collided(e_iPosX, e_iPosY))
+			{
+				return l_Child;
+			}
+		}
+		if (m_RenderRect.CollidePoint(e_iPosX, e_iPosY))
+		{
+			this->m_bCollided = true;
+			return this;
+		}
+	}
+	return nullptr;
+}
+
+cMyGuiBasicObj::cMyGuiBasicObj()
+{
+	m_vSize.y = m_vSize.x = 0;
+}
+
+cMyGuiBasicObj::~cMyGuiBasicObj()
+{
+}
+
 
 void cMyGuiBasicObj::ApplyPosition()
 {
@@ -307,13 +365,11 @@ void cMyGuiBasicObj::RenderBaseProperty()
 
 }
 
-cMyGuiBasicObj::cMyGuiBasicObj()
+void	cMyGuiBasicObj::GetRenderRect()
 {
-	m_vSize.y = m_vSize.x = 0;
-}
-
-cMyGuiBasicObj::~cMyGuiBasicObj()
-{
+	auto l_MinRect = ImGui::GetItemRectMin();
+	auto l_MaxRect = ImGui::GetItemRectMax();
+	m_RenderRect = Vector4(l_MinRect.x, l_MinRect.y, l_MaxRect.x, l_MaxRect.y);
 }
 
 void cMyGuiBasicObj::RenderProperty()
@@ -374,6 +430,8 @@ void cMyGuiPanel::InternalRender()
 
 	if (ImGui::BeginChild(this->GetCharName().c_str(), this->m_vSize, true, m_FormFlag))
 	{
+		ImVec2 childPos = ImGui::GetWindowPos();
+		m_RenderRect = Vector4(childPos.x, childPos.y, childPos.x + m_vSize.x, childPos.y + m_vSize.y);
 		//ImGui::PushClipRect(ImVec2(-9999, -9999), ImVec2(9999, 9999), false);
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
 
@@ -686,6 +744,89 @@ void cMyGuiButton::InternalRender()
 	}
 	//ImGui::Button(obj.name.c_str(), obj.size);
 }
+void cMyGuiRootNode::CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText, const char* e_strTitle)
+{
+	//{
+	ImGui::OpenPopup(e_strTitle);
+	//}
+
+	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text(e_strContent);
+		ImGui::Separator();
+		// "Yes" button
+		if (ImGui::Button(e_strConfirmButtonText))
+		{
+			//userChoice = true; // Yes selected
+			e_CompleteFunction(true);
+			//showPopup = false; // Close popup
+			ImGui::CloseCurrentPopup();
+			//std::cout << "User selected: Yes\n"; // Handle choice
+		}
+
+		ImGui::EndPopup();
+	}
+}
+
+
+void cMyGuiRootNode::CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText, const char* e_strNoButtonText, const char* e_strTitle)
+{
+	//static bool showPopup = true;
+	//static bool userChoice = false; // Stores the user's choice (true = Yes, false = No)
+
+	//// Button to trigger the popup
+	//if (ImGui::Button("Open Yes/No Dialog"))
+	//{
+	//	showPopup = true; // Trigger popup display
+	//}
+
+	//// Create a modal popup
+	//if (showPopup)
+	//{
+	ImGui::OpenPopup(e_strTitle);
+	//}
+
+	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text(e_strContent);
+		ImGui::Separator();
+
+		// "Yes" button
+		if (ImGui::Button(e_strYesButtonText))
+		{
+			//userChoice = true; // Yes selected
+			e_CompleteFunction(true);
+			//showPopup = false; // Close popup
+			ImGui::CloseCurrentPopup();
+			//std::cout << "User selected: Yes\n"; // Handle choice
+		}
+
+		ImGui::SameLine();
+
+		// "No" button
+		if (ImGui::Button(e_strNoButtonText))
+		{
+			e_CompleteFunction(false);
+			//userChoice = false; // No selected
+			//showPopup = false; // Close popup
+			ImGui::CloseCurrentPopup();
+			//std::cout << "User selected: No\n"; // Handle choice
+		}
+
+		ImGui::EndPopup();
+	}
+}
+
+void cMyGuiRootNode::CallFullScreenBlackText(const char* e_strContent)
+{
+	ImGui::OpenPopup("\t\t\t");
+	if (ImGui::BeginPopupModal("\t\t\t", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text(e_strContent);
+
+		ImGui::EndPopup();
+	}
+}
 //please us epanel and set border false to retend it's a  node
 void cMyGuiRootNode::ApplyPosition()
 {
@@ -718,6 +859,11 @@ void cMyGuiRootNode::EndRender()
 		//ShowTreeViewWindow(this->m_ChildNodeVector[0]);
 	}
 	this->m_bVisible = true;
+}
+
+void cMyGuiRootNode::GetRenderRect()
+{
+
 }
 
 void cMyGuiRootNode::ShowYesNoDialog(std::function<void(bool)> e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText, const char* e_strNoButtonText)
@@ -763,6 +909,11 @@ void cMyGuiRootNode::ShowFullScreenBlackText(const char* e_strContent)
 		m_bShowFullScreenBlackText = true;
 		this->m_strDialogMessage = e_strContent;
 	}
+}
+
+void cMyGuiRootNode::DebugRender()
+{
+	cMyGuiBasicObj::DebugRender();
 }
 
 void cMyGuiComboBox::InternalRender()
@@ -883,305 +1034,15 @@ void cMyGuiListBox::InternalRender()
 void cMyGuiListBox::RenderProperty()
 {
 }
-void CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText, const char* e_strTitle)
+
+cMyGuiScroller::cMyGuiScroller()
 {
-	//{
-	ImGui::OpenPopup(e_strTitle);
-	//}
-
-	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text(e_strContent);
-		ImGui::Separator();
-		// "Yes" button
-		if (ImGui::Button(e_strConfirmButtonText))
-		{
-			//userChoice = true; // Yes selected
-			e_CompleteFunction(true);
-			//showPopup = false; // Close popup
-			ImGui::CloseCurrentPopup();
-			//std::cout << "User selected: Yes\n"; // Handle choice
-		}
-
-		ImGui::EndPopup();
-	}
+	m_iSelectedIndex = 0;
+	this->m_vSize = ImVec2(200, 300);
 }
 
-
-void CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText, const char* e_strNoButtonText, const char* e_strTitle)
+cMyGuiScroller::~cMyGuiScroller()
 {
-	//static bool showPopup = true;
-	//static bool userChoice = false; // Stores the user's choice (true = Yes, false = No)
-
-	//// Button to trigger the popup
-	//if (ImGui::Button("Open Yes/No Dialog"))
-	//{
-	//	showPopup = true; // Trigger popup display
-	//}
-
-	//// Create a modal popup
-	//if (showPopup)
-	//{
-	ImGui::OpenPopup(e_strTitle);
-	//}
-
-	if (ImGui::BeginPopupModal(e_strTitle, nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text(e_strContent);
-		ImGui::Separator();
-
-		// "Yes" button
-		if (ImGui::Button(e_strYesButtonText))
-		{
-			//userChoice = true; // Yes selected
-			e_CompleteFunction(true);
-			//showPopup = false; // Close popup
-			ImGui::CloseCurrentPopup();
-			//std::cout << "User selected: Yes\n"; // Handle choice
-		}
-
-		ImGui::SameLine();
-
-		// "No" button
-		if (ImGui::Button(e_strNoButtonText))
-		{
-			e_CompleteFunction(false);
-			//userChoice = false; // No selected
-			//showPopup = false; // Close popup
-			ImGui::CloseCurrentPopup();
-			//std::cout << "User selected: No\n"; // Handle choice
-		}
-
-		ImGui::EndPopup();
-	}
-}
-
-void CallFullScreenBlackText(const char* e_strContent)
-{
-	ImGui::OpenPopup("\t\t\t");
-	if (ImGui::BeginPopupModal("\t\t\t", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text(e_strContent);
-
-		ImGui::EndPopup();
-	}
-}
-
-//struct TreeNode
-//{
-//	std::string name;
-//	std::vector<TreeNode> children;
-//};
-// 
-
-void DisplayTree(cImGuiNode* e_pNode, cImGuiNode** e_ppDragNode, cImGuiNode** e_ppDropParent, cImGuiNode*& e_ppSelectedNode, bool e_bRenderVisibleCheckBox)
-{
-	if (!e_pNode)
-	{
-		return;
-	}
-
-	auto l_strID = ValueToString(e_pNode->GetUniqueID());
-
-	// Display the checkbox for visibility
-	bool l_bVisible = e_pNode->IsVisible();
-	ImGui::PushID(e_pNode); // Unique ID for the checkbox
-	if (ImGui::Checkbox("", &l_bVisible))
-	{
-		e_pNode->SetVisible(l_bVisible);
-	}
-	ImGui::PopID();
-	ImGui::SameLine();
-
-	// Configure TreeNode flags
-	bool hasChildren = !e_pNode->GetChildNodeVector().empty();
-	ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
-	if (!hasChildren)
-	{
-		nodeFlags |= ImGuiTreeNodeFlags_Leaf;
-	}
-	if (e_ppSelectedNode == e_pNode)
-	{
-		nodeFlags |= ImGuiTreeNodeFlags_Selected;
-	}
-
-	bool l_bNodeOpen = ImGui::TreeNodeEx(l_strID.c_str(), nodeFlags, "%s", e_pNode->GetCharName().c_str());
-	if (ImGui::IsItemClicked())
-	{
-		e_ppSelectedNode = e_pNode;
-	}
-	const char*l_strDragDropSourceID = "TREE_NODE";
-	// Handle drag-and-drop source
-	if (ImGui::BeginDragDropSource())
-	{
-		ImGui::SetDragDropPayload(l_strDragDropSourceID, &e_pNode, sizeof(cImGuiNode*));
-		ImGui::Text("Dragging %s", e_pNode->GetCharName().c_str());
-		ImGui::EndDragDropSource();
-	}
-
-	// Render the tree node children
-	if (l_bNodeOpen)
-	{
-		auto& l_ChildrenVector = e_pNode->GetChildNodeVector();
-		for (size_t i = 0; i <= l_ChildrenVector.size(); ++i)
-		{
-			if (l_ChildrenVector.size() > 0)
-			{
-				// Push a unique ID for each drop zone
-				ImGui::PushID((int)i);
-
-				// Render drop zone between nodes (or at the end)
-				ImGui::Selectable("##DropZone", false, ImGuiSelectableFlags_AllowItemOverlap, ImVec2(0, 1));
-			}
-			// Highlight drop zone during drag
-			if (ImGui::BeginDragDropTarget())
-			{
-				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload(l_strDragDropSourceID))
-				{
-					cImGuiNode* draggedNode = *(cImGuiNode**)payload->Data;
-
-					if (draggedNode != e_pNode)
-					{
-						// Remove dragged node from its original parent
-						auto& parentChildren = draggedNode->GetParent()->GetChildNodeVector();
-						// Insert dragged node at the current position
-						int l_iIndex = (int)i;
-						if (l_iIndex < 0)
-						{
-							l_iIndex = 0;
-						}
-						if (l_iIndex >= l_ChildrenVector.size())
-						{
-							l_iIndex = (int)l_ChildrenVector.size() - 1;
-						}
-						//auto it = std::find(parentChildren.begin(), parentChildren.end(), draggedNode);
-						//if (it != parentChildren.end())
-						//{
-						//	parentChildren.erase(it);
-						//}
-						draggedNode->SetParent(e_pNode, l_iIndex);
-						//children.insert(children.begin() + i, draggedNode);
-
-						// Update drag-and-drop tracking pointers
-						*e_ppDragNode = draggedNode;
-						*e_ppDropParent = e_pNode;
-					}
-				}
-				ImGui::EndDragDropTarget();
-			}
-			if (l_ChildrenVector.size() > 0)
-			{
-				ImGui::PopID(); // Pop the unique ID for the drop zone
-			}
-
-			// Render the child node
-			if (i < l_ChildrenVector.size())
-			{
-				DisplayTree(l_ChildrenVector[i], e_ppDragNode, e_ppDropParent, e_ppSelectedNode, e_bRenderVisibleCheckBox);
-			}
-		}
-
-		ImGui::TreePop();
-	}
-}
-
-cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
-{
-	cMyGuiBasicObj* l_pObject = nullptr;
-	switch (e_eMyImGuiType)
-	{
-		//case	eMIGT_NODE:
-		//	l_pObject = new cMyGuiRootNode();
-		//	break;
-		case	eMIGT_BUTTON:
-		l_pObject = new cMyGuiButton();
-		break;
-		case	eMIGT_LABEL:
-		l_pObject = new cMyGuiLabel();
-		break;
-		case	eMIGT_EDIT_BOX:
-		l_pObject = new cMyGuiEditBox();
-		break;
-		case	eMIGT_SLIDER_I:
-		l_pObject = new cMyGuiSliderInteger();
-		break;
-		case	eMIGT_SLIDER_F:
-		l_pObject = new cMyGuiSliderFloatValue();
-		break;
-		case	eMIGT_CHECKBOX:
-		l_pObject = new cMyGuiCheckBox();
-		break;
-		case	eMIGT_RADIO:
-		l_pObject = new cMyGuiRadio();
-		break;
-		case	eMIGT_TOOGLE:
-		l_pObject = new cMyGuiToogle();
-		break;
-		case	eMIGT_FORM:
-		l_pObject = new cMyGuiForm();
-		break;//9
-		case	eMIGT_PANEL:
-		l_pObject = new cMyGuiPanel();
-		break;
-		case	eMIGT_COMBO_BOX:
-		l_pObject = new cMyGuiComboBox();
-		break;
-		case	eMIGT_LIST_BOX:
-		l_pObject = new cMyGuiListBox();
-		break;
-		case	eMIGT_ROOT_NODE:
-		l_pObject = new cMyGuiRootNode();
-		break;
-		case	eMIGT_SCROLLER:
-			l_pObject = new cMyGuiScroller();
-		break;
-		
-		
-	}
-	//e_pParent->add
-	if (l_pObject)
-	{
-		l_pObject->SetName(l_pObject->GetTypeName());
-	}
-	return l_pObject;
-}
-
-const char* GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType)
-{
-		//eMIGT_NODE = 0,
-		//eMIGT_BUTTON,// = 0,
-		//eMIGT_LABEL,
-		//eMIGT_EDIT_BOX,
-		//eMIGT_SLIDER_I,
-		//eMIGT_SLIDER_F,
-		//eMIGT_CHECKBOX,
-		//eMIGT_RADIO,
-		//eMIGT_TOOGLE,
-		//eMIGT_FORM,//9
-		//eMIGT_PANEL = 10,
-		//eMIGT_COMBO_BOX,
-		//eMIGT_LIST_BOX,
-		//eMIGT_ROOT_NODE,
-		//eMIGT_SCROLLER,
-	const char* l_strTypeAndLabel[] =
-	{
-		"Node",
-		"Button",
-		"Label",
-		"EditBox",
-		"SLiderIntger",
-		"SLiderFloat",
-		"CheckBox",
-		"Radio",
-		"Toogle",
-		"Form",
-		"Panel",
-		"ComboBox",
-		"ListBox",
-		"RootNode",
-		"Scroller"
-	};
-	return l_strTypeAndLabel[e_eMyImGuiType];
 }
 
 void cMyGuiScroller::InternalRender()
@@ -1196,14 +1057,12 @@ void cMyGuiScroller::InternalRender()
 	{
 		snprintf(items[i], sizeof(items[i]), "Item %d", i);
 	}
-		
-
-	// Set the size of the scrollable region
-	ImVec2 child_size(200.0f, 300.0f);
 
 	int l_iSelectedIndex = m_iSelectedIndex;
-	if (ImGui::BeginChild("ScrollingRegion", child_size, true, ImGuiWindowFlags_AlwaysVerticalScrollbar))
+	if (ImGui::BeginChild("ScrollingRegion", this->m_vSize, true, ImGuiWindowFlags_AlwaysVerticalScrollbar))
 	{
+		ImVec2 childPos = ImGui::GetWindowPos();
+		m_RenderRect = Vector4(childPos.x,childPos.y, childPos.x+ m_vSize.x, childPos.y+ m_vSize.y);
 		ImGui::Text("Scroll below:");
 
 		// Display items in the scrolling region
@@ -1218,9 +1077,6 @@ void cMyGuiScroller::InternalRender()
 			{
 				// Update selected index on click
 				m_iSelectedIndex = i;
-
-				// Handle the selection event
-				//printf("Selected Item: %s\n", items[i].c_str());
 			}
 
 			//ImGui::Image(textures[i].id, textures[i].size);
@@ -1242,16 +1098,11 @@ void cMyGuiScroller::InternalRender()
 #endif
 }
 
+void cMyGuiScroller::GetRenderRect()
+{
+}
+
 void cMyGuiScroller::RenderProperty()
-{
-}
-
-cMyGuiScroller::cMyGuiScroller()
-{
-	m_iSelectedIndex = 0;
-}
-
-cMyGuiScroller::~cMyGuiScroller()
 {
 }
 
@@ -1293,21 +1144,57 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox
 	{
 		nodeFlags |= ImGuiTreeNodeFlags_Selected;
 	}
-
-	bool l_bNodeOpen = ImGui::TreeNodeEx(l_strID.c_str(), nodeFlags, "%s", e_pNode->GetCharName().c_str());
-	if (ImGui::IsItemClicked())
-	{
-		m_pSelectedNode = e_pNode;
-	}
+	bool l_bNodeOpen = false;
 	const char* l_strDragDropSourceID = "TREE_NODE";
-	// Handle drag-and-drop source
-	if (ImGui::BeginDragDropSource())
+	if (m_bDoRename && this->m_pSelectedNode == e_pNode)
 	{
-		ImGui::SetDragDropPayload(l_strDragDropSourceID, &e_pNode, sizeof(cImGuiNode*));
-		ImGui::Text("Dragging %s", e_pNode->GetCharName().c_str());
-		ImGui::EndDragDropSource();
-	}
+		l_bNodeOpen = false;
+		char buffer[128];
+		strncpy(buffer, this->m_pSelectedNode->GetCharName().c_str(), sizeof(buffer));
+		buffer[sizeof(buffer) - 1] = '\0';
 
+		// Render an input text for renaming
+		if (ImGui::InputText("##Rename", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
+		{
+			this->m_pSelectedNode->SetName(buffer);
+			m_bDoRename = false;
+			m_pSelectedNode = nullptr;
+		}
+
+
+		// Automatically focus the input field when renaming starts
+		if (ImGui::IsItemActive() == false)
+		{
+			ImGui::SetKeyboardFocusHere(-1);
+		}
+
+		// If the user clicks elsewhere or presses Esc, cancel renaming
+		if (!ImGui::IsItemFocused() && ImGui::IsMouseClicked(0))
+		{
+			m_bDoRename = false;
+			m_pSelectedNode = nullptr;
+		}
+	}
+	else
+	{
+		l_bNodeOpen = ImGui::TreeNodeEx(l_strID.c_str(), nodeFlags, "%s", e_pNode->GetCharName().c_str());
+		if (!m_bDoRename)
+		{
+			if (ImGui::IsItemClicked())
+			{
+				m_pSelectedNodeRect[0] = ImGui::GetItemRectMin();
+				m_pSelectedNodeRect[1] = ImGui::GetItemRectMax();
+				m_pSelectedNode = e_pNode;
+			}
+			// Handle drag-and-drop source
+			if (ImGui::BeginDragDropSource())
+			{
+				ImGui::SetDragDropPayload(l_strDragDropSourceID, &e_pNode, sizeof(cImGuiNode*));
+				ImGui::Text("Dragging %s", e_pNode->GetCharName().c_str());
+				ImGui::EndDragDropSource();
+			}
+		}
+	}
 	// Render the tree node children
 	if (l_bNodeOpen)
 	{
@@ -1374,7 +1261,7 @@ void cMyTreeView::RenderTreeivewPopupMenuContext()
 	{
 		if (ImGui::MenuItem("Copy"))
 		{
-
+			m_pCopyNode = this->m_pSelectedNode;
 		}
 		if (ImGui::MenuItem("Paste"))
 		{
@@ -1383,6 +1270,11 @@ void cMyTreeView::RenderTreeivewPopupMenuContext()
 		if (ImGui::MenuItem("Cut"))
 		{
 
+		}
+		if (ImGui::MenuItem("Delete"))
+		{
+			this->m_pSelectedNode = nullptr;
+			m_pCopyNode = nullptr;
 		}
 		ImGui::EndPopup();
 	}
@@ -1394,7 +1286,6 @@ void cMyTreeView::Render()
 	{
 		return;
 	}
-	m_pSelectedNode = nullptr;
 	m_pDragNode = nullptr;
 	m_pDropParent = nullptr;
 	//ImVec2 minSize(400, 300);
@@ -1424,5 +1315,117 @@ void cMyTreeView::Render()
 	if (m_pDragNode && m_pDropParent)
 	{
 		m_pDragNode->SetParent(m_pDropParent, m_iDropIndex);
+		m_pSelectedNode = nullptr;
 	}
+	if (m_pSelectedNode && ImGui::IsKeyPressed(ImGuiKey_F2))
+	{
+		auto l_MousePos = cGameApp::m_sMousePosition;
+		Vector4 l_vRect(m_pSelectedNodeRect[0].x, m_pSelectedNodeRect[0].y, m_pSelectedNodeRect[1].x, m_pSelectedNodeRect[1].y);
+		if(l_vRect.CollidePoint((int)l_MousePos.x, (int)l_MousePos.y))
+		//if (ImGui::IsMouseHoveringRect(m_pSelectedNodeRect[0], m_pSelectedNodeRect[1]))
+		{
+			m_bDoRename = true;
+		}
+	}
+}
+
+
+
+cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
+{
+	cMyGuiBasicObj* l_pObject = nullptr;
+	switch (e_eMyImGuiType)
+	{
+		//case	eMIGT_NODE:
+		//	l_pObject = new cMyGuiRootNode();
+		//	break;
+		case	eMIGT_BUTTON:
+		l_pObject = new cMyGuiButton();
+		break;
+		case	eMIGT_LABEL:
+		l_pObject = new cMyGuiLabel();
+		break;
+		case	eMIGT_EDIT_BOX:
+		l_pObject = new cMyGuiEditBox();
+		break;
+		case	eMIGT_SLIDER_I:
+		l_pObject = new cMyGuiSliderInteger();
+		break;
+		case	eMIGT_SLIDER_F:
+		l_pObject = new cMyGuiSliderFloatValue();
+		break;
+		case	eMIGT_CHECKBOX:
+		l_pObject = new cMyGuiCheckBox();
+		break;
+		case	eMIGT_RADIO:
+		l_pObject = new cMyGuiRadio();
+		break;
+		case	eMIGT_TOOGLE:
+		l_pObject = new cMyGuiToogle();
+		break;
+		case	eMIGT_FORM:
+		l_pObject = new cMyGuiForm();
+		break;//9
+		case	eMIGT_PANEL:
+		l_pObject = new cMyGuiPanel();
+		break;
+		case	eMIGT_COMBO_BOX:
+		l_pObject = new cMyGuiComboBox();
+		break;
+		case	eMIGT_LIST_BOX:
+		l_pObject = new cMyGuiListBox();
+		break;
+		case	eMIGT_ROOT_NODE:
+		l_pObject = new cMyGuiRootNode();
+		break;
+		case	eMIGT_SCROLLER:
+		l_pObject = new cMyGuiScroller();
+		break;
+
+
+	}
+	//e_pParent->add
+	if (l_pObject)
+	{
+		l_pObject->SetName(l_pObject->GetTypeName());
+	}
+	return l_pObject;
+}
+
+const char* GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType)
+{
+	//eMIGT_NODE = 0,
+	//eMIGT_BUTTON,// = 0,
+	//eMIGT_LABEL,
+	//eMIGT_EDIT_BOX,
+	//eMIGT_SLIDER_I,
+	//eMIGT_SLIDER_F,
+	//eMIGT_CHECKBOX,
+	//eMIGT_RADIO,
+	//eMIGT_TOOGLE,
+	//eMIGT_FORM,//9
+	//eMIGT_PANEL = 10,
+	//eMIGT_COMBO_BOX,
+	//eMIGT_LIST_BOX,
+	//eMIGT_ROOT_NODE,
+	//eMIGT_SCROLLER,
+	const char* l_strTypeAndLabel[] =
+	{
+		"Node",
+		"Button",
+		"Label",
+		"EditBox",
+		"SLiderIntger",
+		"SLiderFloat",
+		"CheckBox",
+		"Radio",
+		"Toogle",
+		"Form",
+		"Panel",
+		"ComboBox",
+		"ListBox",
+		"RootNode",
+		"Scroller"
+	};
+	return l_strTypeAndLabel[e_eMyImGuiType];
 }

@@ -49,14 +49,14 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pTreeView = new cMyTreeView();
 	GenerateToolBox();
 	ParseEnvData("Deploy.json");
-	m_pRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
+	m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
 	ImVec2 l_vSize(1920,1080);
 	m_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
 	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
 	auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
-	m_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
-	m_pRoot->AddChild(m_pMyGuiForm);
+	//m_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
+	m_pMainUIRoot->AddChild(m_pMyGuiForm);
 	m_pMyGuiForm->SetSize(l_vSize);
 	m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
 
@@ -75,19 +75,19 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	(cMyGuiButton* e_pMyGuiButton)
 	{
 		//cGameApp::ShowInfoOnScreen(L"Clicked");
-		m_pRoot->ShowYesNoDialog([this]
+		m_pMainUIRoot->ShowYesNoDialog([this]
 		(bool e_bResult)
 		{
 			if (e_bResult)
 			{
-				m_pRoot->ShowFullScreenBlackText("wait for download ");
+				m_pMainUIRoot->ShowFullScreenBlackText("wait for download ");
 				//m_pMyGuiButton->SetEnable(false);
 				std::vector<eEnv> l_Vector = { eEnv::eE_DEV };
 				DownloadFileOrDirectory(g_strRileFileName, g_strRileFileName, l_Vector, [this](std::string e_strResult)
 				{
-						m_pRoot->ShowFullScreenBlackText(nullptr);
+						m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
 						//m_pMyGuiButton->SetEnable(true);
-						m_pRoot->ShowConfirmDialog(e_strResult.c_str());
+						m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
 				});
 				
 				//m_pMyGuiButton->SetVisible(e_bResult);
@@ -152,7 +152,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 
 cGUIForFileTransfer::~cGUIForFileTransfer()
 {
-	SAFE_DELETE(m_pRoot);
+	SAFE_DELETE(m_pMainUIRoot);
 	SAFE_DELETE(m_pToolBoxRoot);
 	ImGui_ImplOpenGL3_Shutdown();
 }
@@ -264,9 +264,9 @@ void cGUIForFileTransfer::RenderMainUI()
 	//ImGui::SetNextWindowPos({ 100, 100 });
 	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	//RenderMenu();
-	if (this->m_pRoot)
+	if (this->m_pMainUIRoot)
 	{
-		m_pRoot->Render();
+		m_pMainUIRoot->Render();
 	}
 }
 
@@ -308,7 +308,7 @@ void cGUIForFileTransfer::RenderToolBox()
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4.00f, 5.00f));
 	ImGui::Begin("Sidebar", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize| ImGuiWindowFlags_MenuBar);
 	RenderPopupMenuContext();
-	//RenderMenu(nullptr);
+	RenderMenu(nullptr);
 	{
 		//ANCHOR SIDEBAR.PRIMITIVES
 		ImGui::Text("Common"); HelpMarker
@@ -329,7 +329,7 @@ void cGUIForFileTransfer::RenderToolBox()
 	}
 	int l_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
 	//ShowTreeViewWindow(this->m_pRoot->GetChildNodeVector()[0], l_iRenderFlag);
-	m_pTreeView->m_pRoot = this->m_pRoot->GetChildNodeVector()[0];
+	m_pTreeView->m_pRoot = this->m_pMainUIRoot->GetChildNodeVector()[0];
 	m_pTreeView->Render();
 	ImGui::End();
 	ImGui::PopStyleVar(1);
@@ -494,7 +494,11 @@ void cGUIForFileTransfer::Render(float* e_pfMatrix, float* e_pfGameResolutoinSiz
 		m_p2DCamera->Render();
 		m_p2DCamera->DrawGrid(0.f, 0.f, Vector4(0.5f, 1.f, 0.f, 0.3f), 2.f);
 		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
+		auto l_pItem = this->m_pMainUIRoot->Collided(l_vPos.x, l_vPos.y);
+		this->m_pMainUIRoot->DebugRender();
 		auto l_strExtraInfo = UT::ComposeMsgByFormat(L"%d,%d", (int)l_vPos.x, (int)l_vPos.y);
+		l_vPos.y -= 50;
+		l_vPos.x -= 50;
 		cGameApp::RenderFont(l_vPos, l_strExtraInfo.c_str());
 	}
 	//cMatrix44	l_matProjection;

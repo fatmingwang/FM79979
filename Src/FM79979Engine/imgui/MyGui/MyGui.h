@@ -45,6 +45,8 @@ enum class resize_opt
 typedef std::function<void(class cImGuiNode*)> f_MyImGuiExtraRenderFunction;
 class cImGuiNode:public NamedTypedObject
 {
+protected:
+	Vector4							m_RenderRect;
 	f_MyImGuiExtraRenderFunction	m_ExtraRenderFunction = nullptr;
 	//
 	virtual void				ApplyPosition() = 0;
@@ -57,6 +59,7 @@ protected:
 	void						HierachyPositionRender();
 	virtual	void				EndRender() = 0;
 	virtual	void				InternalRender() = 0;
+	virtual	void				GetRenderRect() = 0;
 	bool						m_bPosDirty = false;
 	ImVec2						m_vLocalPos = { 0, 0 };
 	ImVec2						m_vWorldPos = { 0, 0 };
@@ -72,6 +75,7 @@ protected:
 	GET_SET_DEC(bool,m_bOnlyApplyPositionOnceForDragMoving, GetOnlyApplyPositionOnceForDragMoving, SetOnlyApplyPositionOnceForDragMoving);
 	GET_SET_DEC(bool, m_bEnable, GetEnable, SetEnable);
 	GET_SET_DEC(bool, m_bVisible, IsVisible, SetVisible);
+	bool							m_bCollided = false;
 public:
 	DEFINE_TYPE_INFO();
 	virtual std::wstring GetTypeName() = 0;
@@ -94,9 +98,11 @@ public:
 	void						AddChild(cImGuiNode* e_pChild, int e_iChildIndex = -1);
 	bool						SwapChild(int e_iIndex1, int e_iIndex2);
 	void						Render();// = 0;
-	static void					DeleteObjectAndAllChildren(cImGuiNode*e_pImGuiNode);
+	virtual void				DebugRender();
+	static	void				DeleteObjectAndAllChildren(cImGuiNode*e_pImGuiNode);
 	void						SetExtraRenderFunction(f_MyImGuiExtraRenderFunction e_MyImGuiExtraRenderFunction) { m_ExtraRenderFunction = e_MyImGuiExtraRenderFunction; }
 	std::vector<cImGuiNode*>&	GetChildNodeVector(){return m_ChildNodeVector;}
+	virtual cImGuiNode*			Collided(int e_iPosX,int e_iPosY);
 };
 
 
@@ -118,6 +124,7 @@ protected:
 	virtual void					RenderBaseProperty();
 	GET_SET_DEC(ImVec2, m_vSize, GetSize, SetSize);
 	GET_SET_DEC(std::string, m_strText, GetText, SetText);
+	virtual	void					GetRenderRect()override;
 public:
 	cMyGuiBasicObj();
 	virtual ~cMyGuiBasicObj();
@@ -143,6 +150,9 @@ public:
 
 class cMyGuiRootNode :public cMyGuiBasicObj
 {
+	static void			CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No", const char* e_strTitle = "Yes or No");
+	static void			CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText = "Confirm", const char* e_strTitle = "Confirm");
+	static void			CallFullScreenBlackText(const char* e_strContent);
 	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
 	virtual	void		EndRender();
@@ -153,6 +163,7 @@ class cMyGuiRootNode :public cMyGuiBasicObj
 	std::string			m_strDialogMessage = "";
 	std::string			m_strYesButtonText = "Yes";
 	std::string			m_strNoButtonText = "No";
+	virtual	void		GetRenderRect()override;
 
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
@@ -162,6 +173,7 @@ public:
 	void				ShowYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No");
 	void				ShowConfirmDialog(const char* e_strContent, const char* e_strConfirmButtonText = "Confirm" ,std::function<void(bool)>e_CompleteFunction = nullptr);
 	void				ShowFullScreenBlackText(const char* e_strContent);
+	virtual void		DebugRender()override;
 };
 
 class cMyGuiButton :public cMyGuiBasicObj
@@ -281,6 +293,7 @@ class cMyGuiPanel :public cMyGuiBasicObj
 	virtual	void		EndRender()override;
 	GET_SET_DEC(bool,m_bShowBorder, GetShowBorder, SetBorder);
 	GET_SET_DEC(ImGuiWindowFlags, m_FormFlag, GetFormFlag, SetFormFlag);
+	virtual	void		GetRenderRect()override{ }
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiPanel();
@@ -316,6 +329,7 @@ class cMyGuiScroller :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
 	GET_SET_DEC(int, m_iSelectedIndex, GetSelectedIndex, SetSelectedIndex);
+	virtual	void		GetRenderRect()override;
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	virtual void		RenderProperty()override;
@@ -325,9 +339,13 @@ public:
 
 class cMyTreeView :public NamedTypedObject
 {
+	cImGuiNode* m_pCopyNode = nullptr;
 	cImGuiNode* m_pDragNode = nullptr;
 	cImGuiNode* m_pDropParent = nullptr;
 	cImGuiNode* m_pSelectedNode = nullptr;
+
+	ImVec2		m_pSelectedNodeRect[2];
+	bool		m_bDoRename = false;
 	int			m_iDropIndex = -1;
 	void RenderTreeivewPopupMenuContext();
 	void DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox);
@@ -338,13 +356,6 @@ public:
 	virtual ~cMyTreeView();
 	void Render();
 };
-
-
-
-void	CallYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No",const char*e_strTitle = "Yes or No");
-void	CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText = "Confirm", const char* e_strTitle = "Confirm");
-void	CallFullScreenBlackText(const char* e_strContent);
-void	RenderTreeNode(cMyGuiRootNode* e_pRoot);
 
 
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType);
