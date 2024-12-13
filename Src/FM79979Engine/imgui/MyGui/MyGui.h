@@ -42,6 +42,8 @@ enum class resize_opt
 	right
 };
 
+bool	CheckMouseAndCurrentWindowCollision();
+
 typedef std::function<void(class cImGuiNode*)> f_MyImGuiExtraRenderFunction;
 class cImGuiNode:public NamedTypedObject
 {
@@ -53,7 +55,7 @@ protected:
 	ImVec2						m_vImGuiRenderPos = { 0, 0 };
 	void						DestoryWithChildren();
 protected:
-	bool						m_bThisUseContainerPositionDontApplyarentPositionToChild = false;
+	bool						m_bThisUseContainerPositionDontApplyParentPositionToChild = false;
 	bool						m_bDoApplyPosition = false;
 	//
 	void						HierachyPositionRender();
@@ -347,14 +349,19 @@ class cMyTreeView :public NamedTypedObject
 	ImVec2		m_pSelectedNodeRect[2];
 	bool		m_bDoRename = false;
 	int			m_iDropIndex = -1;
-	void RenderTreeivewPopupMenuContext();
-	void DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox);
+	void		RenderTreeivewPopupMenuContext();
+	void		DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox);
+	bool		m_bAssignStartData = true;
+	bool		m_bCollided = false;
 public:
-	int m_iRenderFlag = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove;
+	int m_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
 	cImGuiNode* m_pRoot = nullptr;
+	ImVec2		m_vSize = ImVec2(350,1000);
+	ImVec2		m_vPosition = ImVec2(1600,0);
 	cMyTreeView();
 	virtual ~cMyTreeView();
-	void Render();
+	void		Render();
+	bool		IsCollided(int e_iPosX, int e_iPosY);
 };
 
 

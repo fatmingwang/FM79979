@@ -22,13 +22,20 @@ TYPDE_DEFINE_MARCO(cMyGuiListBox);
 TYPDE_DEFINE_MARCO(cMyGuiScroller);
 
 
-//void	cImGuiNode::ApplySize(bool& e_bWidth, bool& e_bHeight)
-//{
-//	if (this->m_vSize.x >= 0)
-//	{
-//		ImGui::PushItemWidth(this->m_vSize.x);
-//	}
-//}
+bool CheckMouseAndCurrentWindowCollision()
+{
+	ImVec2 mousePos = ImGui::GetMousePos();
+	ImVec2 windowPos = ImGui::GetWindowPos();
+	ImVec2 windowSize = ImGui::GetWindowSize();
+
+	bool isMouseInside =
+		mousePos.x >= windowPos.x &&
+		mousePos.x <= (windowPos.x + windowSize.x) &&
+		mousePos.y >= windowPos.y &&
+		mousePos.y <= (windowPos.y + windowSize.y);
+
+	return isMouseInside;
+}
 
 cImGuiNode::cImGuiNode()
 {
@@ -101,7 +108,7 @@ void cImGuiNode::UpdateCachedWorldTransformIfNeeded()
 		{
 			m_pParent->UpdateCachedWorldTransformIfNeeded();
 			m_vWorldPos = ImVec2(m_pParent->m_vWorldPos.x + m_vLocalPos.x, m_pParent->m_vWorldPos.y + m_vLocalPos.y);
-			if (m_pParent->m_bThisUseContainerPositionDontApplyarentPositionToChild)
+			if (m_pParent->m_bThisUseContainerPositionDontApplyParentPositionToChild)
 			{
 				m_vImGuiRenderPos = m_vLocalPos;
 			}
@@ -402,7 +409,7 @@ cMyGuiPanel::cMyGuiPanel()
 	this->m_vSize = ImVec2(200, 200);
 	m_FormFlag = 0;
 	this->m_bShowBorder = true;
-	this->m_bThisUseContainerPositionDontApplyarentPositionToChild = true;
+	this->m_bThisUseContainerPositionDontApplyParentPositionToChild = true;
 }
 
 cMyGuiPanel::~cMyGuiPanel()
@@ -530,7 +537,7 @@ cMyGuiForm::cMyGuiForm()
 {
 	this->SetName(cMyGuiForm::TypeID);
 	m_FormFlag = 0;
-	this->m_bThisUseContainerPositionDontApplyarentPositionToChild = true;
+	this->m_bThisUseContainerPositionDontApplyParentPositionToChild = true;
 }
 
 cMyGuiForm::~cMyGuiForm()
@@ -1108,6 +1115,7 @@ void cMyGuiScroller::RenderProperty()
 
 cMyTreeView::cMyTreeView()
 {
+
 }
 
 cMyTreeView::~cMyTreeView()
@@ -1255,6 +1263,7 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox
 	}
 }
 
+
 void cMyTreeView::RenderTreeivewPopupMenuContext()
 {
 	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
@@ -1288,6 +1297,14 @@ void cMyTreeView::Render()
 	}
 	m_pDragNode = nullptr;
 	m_pDropParent = nullptr;
+	if (m_bAssignStartData)
+	{
+		ImGui::SetNextWindowPos(m_vPosition);
+		//ImGui::SetNextWindowSize(ImVec2(l_iWidth, 500));
+		ImGui::SetNextWindowSizeConstraints(m_vSize, ImVec2(FLT_MAX, 1080));
+		m_bAssignStartData = false;
+	}
+
 	//ImVec2 minSize(400, 300);
 	//ImVec2 maxSize(9999, 9999); // No maximum size constraint
 	//ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
@@ -1297,10 +1314,12 @@ void cMyTreeView::Render()
 		// Set the size of the tree view region
 		//ImVec2 treeViewSize = ImVec2(300, 400); // Width: 300px, Height: 400px
 		ImVec2 treeViewSize = ImGui::GetContentRegionAvail();
-
+		//m_bCollided = ImGui::IsWindowHovered();
+		m_vPosition = ImGui:: GetWindowPos();
+		m_vSize = ImGui::GetWindowSize();
+		this->m_bCollided = CheckMouseAndCurrentWindowCollision();
 		// Begin a child region to contain the tree
 		ImGui::BeginChild("TreeViewRegion", treeViewSize, true, ImGuiWindowFlags_AlwaysVerticalScrollbar| ImGuiWindowFlags_AlwaysHorizontalScrollbar);
-
 		// Display the tree starting from the root node
 		if (m_pRoot)
 		{
@@ -1327,6 +1346,22 @@ void cMyTreeView::Render()
 			m_bDoRename = true;
 		}
 	}
+}
+
+bool cMyTreeView::IsCollided(int e_iPosX, int e_iPosY)
+{
+	if (m_bCollided)
+	{
+		int a = 0;
+	}
+	return m_bCollided;
+	Vector4 l_vRect(m_vPosition.x, m_vPosition.y, m_vPosition.x+ m_vSize.x, m_vPosition.y+ m_vSize.y);
+	auto l_bResult = l_vRect.CollidePoint(e_iPosX,e_iPosY);
+	if (l_bResult)
+	{
+		int a = 0;
+	}
+	return l_bResult;
 }
 
 

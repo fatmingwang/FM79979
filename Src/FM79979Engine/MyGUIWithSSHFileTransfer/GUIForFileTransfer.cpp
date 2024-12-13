@@ -289,16 +289,7 @@ void cGUIForFileTransfer::RenderToolBox()
 {
 	static bool l_bDoOnce = true;
 	const int l_iWidth = 200;
-
-	if (cGameApp::m_sScreenMousePosition.x <= l_iWidth)
-	{
-		SetImGuiMouseEnable(false, m_iRootNodeRenderContextIndex);
-	}
-	else
-	{
-		SetImGuiMouseEnable(true, m_iRootNodeRenderContextIndex);
-	}
-
+	auto l_MousePos = this->m_p2DCamera->GetMouseWorldPos();
 	ImGui::SetNextWindowPos(ImVec2(0,0));
 	ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth, 100), ImVec2(FLT_MAX, 500));
 	if (l_bDoOnce)
@@ -307,6 +298,15 @@ void cGUIForFileTransfer::RenderToolBox()
 	}
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4.00f, 5.00f));
 	ImGui::Begin("Sidebar", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize| ImGuiWindowFlags_MenuBar);
+	auto l_bCollided = m_pTreeView->IsCollided(l_MousePos.x, l_MousePos.y);
+	if (l_bCollided|| CheckMouseAndCurrentWindowCollision())
+	{
+		SetImGuiMouseEnable(false, m_iRootNodeRenderContextIndex);
+	}
+	else
+	{
+		SetImGuiMouseEnable(true, m_iRootNodeRenderContextIndex);
+	}
 	RenderPopupMenuContext();
 	RenderMenu(nullptr);
 	{
@@ -322,10 +322,10 @@ void cGUIForFileTransfer::RenderToolBox()
 	
 	if (l_bDoOnce)
 	{
-		ImGui::SetNextWindowPos(ImVec2(0, 500));
+		ImGui::SetNextWindowPos(ImVec2(1680, 0));
 		//ImGui::SetNextWindowSize(ImVec2(l_iWidth, 500));
-		ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth, 500), ImVec2(FLT_MAX, 500));
-		//l_bDoOnce = false;
+		ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth+50, 900), ImVec2(FLT_MAX,1080));
+		l_bDoOnce = false;
 	}
 	int l_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
 	//ShowTreeViewWindow(this->m_pRoot->GetChildNodeVector()[0], l_iRenderFlag);
