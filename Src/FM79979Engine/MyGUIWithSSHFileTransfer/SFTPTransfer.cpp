@@ -792,7 +792,7 @@ bool	ListRemoteDirectory(eEnv e_EnvType,const std::string& e_strRemotePath, f_Ge
 			{
 				auto l_strDiectory = l_IT->second->m_EnvData.m_strRemoteDirectory;
 				l_strDiectory += "/" + e_strRemotePath;
-				l_IT->second->DoListRemoteDirectory(e_strRemotePath, l_FilesVector, l_DirectoriesVector);
+				l_IT->second->DoListRemoteDirectory(l_strDiectory, l_DirectoriesVector, l_FilesVector);
 			}
 			else
 			{

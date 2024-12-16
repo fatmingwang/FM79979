@@ -43,6 +43,30 @@ namespace fs = std::filesystem;
 
 const char* g_strRuleFileName = "version/Rule.json";
 
+
+bool isNumber(const std::string& str, int* e_pOutValue)
+{
+	try
+	{
+		auto l_Value = std::stoi(str); // Try to convert to integer
+		if (e_pOutValue)
+		{
+			*e_pOutValue = l_Value;
+		}
+		return true;
+	}
+	catch (const std::invalid_argument& e)
+	{
+		printf(e.what());
+		return false; // Not a valid number
+	}
+	catch (const std::out_of_range& e)
+	{
+		printf(e.what());
+		return false; // Number out of range
+	}
+}
+
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
 	ParseRuleFile(g_strRuleFileName);
@@ -98,7 +122,6 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 						m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
 						m_pUploadRuleFileButton->SetEnable(true);
 						m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
-						m_pVersionListBox;
 				});
 				
 			}
@@ -116,13 +139,44 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 				m_pMainUIRoot->ShowFullScreenBlackText("wait for download ");
 				m_pFetchRuleFileButton->SetEnable(false);
 				std::vector<eEnv> l_Vector = { eEnv::eE_DEV };
-				DownloadFileOrDirectory(g_strRuleFileName, g_strRuleFileName, l_Vector, [this](std::string e_strResult)
+				ListRemoteDirectory(eEnv::eE_DEV,"",[this](std::vector<std::string>e_DirectoryVector, std::vector<std::string>e_FileVector)
+				{
+					std::vector<int>l_NumberVector;
+					std::vector<std::string>l_strNumberVector;
+					for (auto l_IT : e_DirectoryVector)
+					{
+						int l_iOutValue = 0;
+						if (isNumber(l_IT,&l_iOutValue))
+						{
+							l_NumberVector.push_back(l_iOutValue);
+						}
+					}
+					std::sort(l_NumberVector.begin(), l_NumberVector.end());
+					for (const auto& num : l_NumberVector)
+					{
+						l_strNumberVector.push_back(std::to_string(num));
+					}
+					m_pVersionListBox->SetItemList(l_strNumberVector);
+					m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
+					m_pFetchRuleFileButton->SetEnable(true);
+					if (l_NumberVector.size())
+					{
+						m_pVersionListBox->SetName(L"VersionList");
+					}
+					else
+					{
+						m_pVersionListBox->SetName(L"No Env Version Data");
+					}
+					int a = 0;
+				});
+
+				/*DownloadFileOrDirectory(g_strRuleFileName, g_strRuleFileName, l_Vector, [this](std::string e_strResult)
 				{
 						m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
 						m_pFetchRuleFileButton->SetEnable(true);
 						m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
 						ParseRuleFile(g_strRuleFileName);
-				});
+				});*/
 				
 			}
 		},"download Rule.json file?");
@@ -250,25 +304,6 @@ void cGUIForFileTransfer::ParseEnvData(const char* e_strFileName)
 	}
 }
 
-bool isNumber(const std::string& str)
-{
-	try
-	{
-		auto l_Value = std::stoi(str); // Try to convert to integer
-		return true;
-	}
-	catch (const std::invalid_argument& e)
-	{
-		printf(e.what());
-		return false; // Not a valid number
-	}
-	catch (const std::out_of_range& e)
-	{
-		printf(e.what());
-		return false; // Number out of range
-	}
-}
-
 void cGUIForFileTransfer::ParseRuleFile(const char* e_strFileName)
 {
 	if (fs::exists(e_strFileName))
@@ -285,7 +320,7 @@ void cGUIForFileTransfer::ParseRuleFile(const char* e_strFileName)
 		std::vector<std::string>	l_strVersionVector;
 		for (const auto& [key, value] : l_SpecialGameRule.items())
 		{
-			if (isNumber(key))
+			if (isNumber(key,nullptr))
 			{
 				std::string l_strkey = key;
 				std::string l_strvalue = value;
@@ -298,8 +333,11 @@ void cGUIForFileTransfer::ParseRuleFile(const char* e_strFileName)
 				std::cout << "Key: " << key << ", Value: " << value << std::endl;
 			}
 		}
-		m_iAllGameSharedCodeVersion;
-		m_pVersionListBox->SetItemList(l_strVersionVector);
+		isNumber(l_LatestVersion.c_str(), &m_iAllGameSharedCodeVersion);
+		if (m_pVersionListBox)
+		{
+			//m_pVersionListBox->SetItemList(l_strVersionVector);
+		}
 	}
 }
 
