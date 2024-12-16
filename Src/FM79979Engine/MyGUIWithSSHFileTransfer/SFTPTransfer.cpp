@@ -98,7 +98,7 @@ int UploadDirectorySample()
 	libssh2_init(0);
 
 	// Create socket
-	sock = socket(AF_INET, SOCK_STREAM, 0);
+	sock = (int)socket(AF_INET, SOCK_STREAM, 0);
 	if (sock < 0)
 	{
 		perror("Socket creation failed");
@@ -246,16 +246,16 @@ void delete_remote_directory(LIBSSH2_SFTP* sftp_session, const std::string& remo
 
 
 
-void list_remote_directory(LIBSSH2_SFTP* sftp_session, const std::string& remote_dir, std::vector<std::string>& e_FilesVector, std::vector<std::string>& e_DirectoriesVector)
+bool list_remote_directory(LIBSSH2_SFTP* sftp_session, const std::string& remote_dir, std::vector<std::string>& e_FilesVector, std::vector<std::string>& e_DirectoriesVector)
 {
 	LIBSSH2_SFTP_HANDLE* sftp_handle = libssh2_sftp_opendir(sftp_session, remote_dir.c_str());
 	if (!sftp_handle)
 	{
 		std::cerr << "Failed to open remote directory: " << remote_dir << std::endl;
-		return;
+		return false;
 	}
 
-	char buffer[512];
+	char buffer[2048];
 	LIBSSH2_SFTP_ATTRIBUTES attrs;
 
 	std::cout << "Contents of remote directory: " << remote_dir << std::endl;
@@ -276,18 +276,19 @@ void list_remote_directory(LIBSSH2_SFTP* sftp_session, const std::string& remote
 			std::cout << "[DIR]  " << name << std::endl;
 		}
 		else
-			if (attrs.permissions & LIBSSH2_SFTP_S_IFREG)
-			{
-				e_FilesVector.push_back(name);
-				std::cout << "[FILE] " << name << std::endl;
-			}
-			else
-			{
-				std::cout << "[OTHER] " << name << std::endl;
-			}
+		if (attrs.permissions & LIBSSH2_SFTP_S_IFREG)
+		{
+			e_FilesVector.push_back(name);
+			std::cout << "[FILE] " << name << std::endl;
+		}
+		else
+		{
+			std::cout << "[OTHER] " << name << std::endl;
+		}
 	}
 
 	libssh2_sftp_closedir(sftp_handle);
+	return true;
 }
 
 
@@ -395,7 +396,7 @@ int DownloadDirectorySample()
 	libssh2_init(0);
 
 	// Create socket
-	sock = socket(AF_INET, SOCK_STREAM, 0);
+	sock = (int)socket(AF_INET, SOCK_STREAM, 0);
 	if (sock < 0)
 	{
 		perror("Socket creation failed");
@@ -532,6 +533,15 @@ struct sLIBSSH2SocketData
 		return download_file(m_pSFTPSession, remote_dir, local_dir);
 	}
 
+	bool	DoListRemoteDirectory(const std::string& remote_dir, std::vector<std::string>& e_FilesVector, std::vector<std::string>& e_DirectoriesVector)
+	{
+		if (!m_bConnectedOk)
+		{
+			return false;
+		}
+		return list_remote_directory(m_pSFTPSession, remote_dir, e_FilesVector, e_DirectoriesVector);
+	}
+
 	bool	DoDownloadDirectory(const std::string& remote_dir, const std::string& local_dir)
 	{
 		if (!m_bConnectedOk)
@@ -548,7 +558,7 @@ struct sLIBSSH2SocketData
 		//int sock;
 		//struct sockaddr_in server_addr;
 		// Create socket
-		m_iSock = socket(AF_INET, SOCK_STREAM, 0);
+		m_iSock = (int)socket(AF_INET, SOCK_STREAM, 0);
 		if (m_iSock < 0)
 		{
 			perror("Socket creation failed");
@@ -749,6 +759,61 @@ bool DownloadFileOrDirectory(const std::string& e_strRemotePath, const std::stri
 			}
 			e_fCompleteFunction(l_strInfo.c_str());
 			
+		}
+	};
+	std::thread t(l_Function);
+	t.detach();
+	//l_pCPP11Thread->ThreadDetach(l_Function, "qoo");
+	return true;
+}
+
+bool	ListRemoteDirectory(eEnv e_EnvType,const std::string& e_strRemotePath, f_GetDirectoryContentCompleteFunction e_fGetDirectoryContentCompleteFunction)
+{
+	if (!g_pLIBSSH2SocketDataMap)
+	{
+		return false;
+	}
+	//cCPP11Thread*l_pCPP11Thread = new cCPP11Thread();
+	bool l_bIsDirectory = e_strRemotePath.find(".") != std::string::npos ? false : true;
+	if (!l_bIsDirectory)
+	{
+		return false;
+	}
+	std::function<void()> l_Function = [e_EnvType, e_strRemotePath, e_fGetDirectoryContentCompleteFunction]()
+	{
+		std::vector<std::string> l_FilesVector;
+		std::vector<std::string> l_DirectoriesVector;
+		std::string l_strInfo;
+		auto l_IT = g_pLIBSSH2SocketDataMap->find(e_EnvType);
+		if (l_IT != g_pLIBSSH2SocketDataMap->end())
+		{
+			//if (0)
+			if (l_IT->second->DoConnect())
+			{
+				auto l_strDiectory = l_IT->second->m_EnvData.m_strRemoteDirectory;
+				l_strDiectory += "/" + e_strRemotePath;
+				l_IT->second->DoListRemoteDirectory(e_strRemotePath, l_FilesVector, l_DirectoriesVector);
+			}
+			else
+			{
+				auto l_strInnerInfo = UT::ComposeMsgByFormat("connect to %s failed", GetEnvName(e_EnvType).c_str());
+				l_strInfo += l_strInnerInfo;
+				l_strInfo += "\n";
+				UT::ErrorMsgByFormat(l_strInnerInfo.c_str());
+			}
+		}
+		else
+		{
+
+		}
+		if (e_fGetDirectoryContentCompleteFunction)
+		{
+			if (l_strInfo.length() == 0)
+			{
+				//l_strInfo = e_strRemotePath + " download to " + e_strLocalFilePath + " finished";
+			}
+			
+			e_fGetDirectoryContentCompleteFunction(l_FilesVector, l_DirectoriesVector);
 		}
 	};
 	std::thread t(l_Function);

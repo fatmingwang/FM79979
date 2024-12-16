@@ -122,7 +122,6 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 						m_pFetchRuleFileButton->SetEnable(true);
 						m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
 						ParseRuleFile(g_strRuleFileName);
-						m_pVersionListBox;
 				});
 				
 			}
@@ -255,15 +254,17 @@ bool isNumber(const std::string& str)
 {
 	try
 	{
-		std::stoi(str); // Try to convert to integer
+		auto l_Value = std::stoi(str); // Try to convert to integer
 		return true;
 	}
 	catch (const std::invalid_argument& e)
 	{
+		printf(e.what());
 		return false; // Not a valid number
 	}
 	catch (const std::out_of_range& e)
 	{
+		printf(e.what());
 		return false; // Number out of range
 	}
 }
@@ -281,12 +282,14 @@ void cGUIForFileTransfer::ParseRuleFile(const char* e_strFileName)
 		//auto specialGameRule = jsonData["SpecialGameRule"];
 
 		// Iterate through the key-value pairs in "SpecialGameRule"
+		std::vector<std::string>	l_strVersionVector;
 		for (const auto& [key, value] : l_SpecialGameRule.items())
 		{
 			if (isNumber(key))
 			{
 				std::string l_strkey = key;
 				std::string l_strvalue = value;
+				l_strVersionVector.push_back(l_strvalue);
 			}
 			else
 			{
@@ -294,7 +297,9 @@ void cGUIForFileTransfer::ParseRuleFile(const char* e_strFileName)
 				std::string l_strvalue = value;
 				std::cout << "Key: " << key << ", Value: " << value << std::endl;
 			}
-		}		
+		}
+		m_iAllGameSharedCodeVersion;
+		m_pVersionListBox->SetItemList(l_strVersionVector);
 	}
 }
 

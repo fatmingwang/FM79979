@@ -31,9 +31,11 @@ struct sEnvData
 };
 
 
-typedef std::function<void(std::string)> f_CompleteFunction;
+typedef std::function<void(std::string)>				f_CompleteFunction;
+typedef std::function<void(std::vector<std::string>, std::vector<std::string>)>	f_GetDirectoryContentCompleteFunction;
 void	AssignEnvData(const eEnv e_eEnvType, sEnvData e_EnvData);
 void	LibSSH2Init();
 bool	UploadFileOrDirectory(const std::string& e_strLocalPath, const std::string& e_strRemotePath,std::vector<eEnv>& e_eEnvTypeVector, f_CompleteFunction e_fCompleteFunction);
 bool	DownloadFileOrDirectory(const std::string& e_strRemotePath, const std::string& e_strLocalFilePath, std::vector<eEnv>& e_eEnvTypeVector, f_CompleteFunction e_fCompleteFunction);
+bool	ListRemoteDirectory(eEnv e_EnvType,const std::string& e_strRemotePath, f_GetDirectoryContentCompleteFunction e_fGetDirectoryContentCompleteFunction);
 void	LibSSH2ShutDown();
