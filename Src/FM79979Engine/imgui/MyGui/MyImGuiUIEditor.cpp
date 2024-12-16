@@ -341,7 +341,7 @@ void cMyImGuiUIEditor::Render()
 		m_p2DCamera->Render();
 		m_p2DCamera->DrawGrid(0.f, 0.f, Vector4(0.5f, 1.f, 0.f, 0.3f), 2.f);
 		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
-		auto l_pItem = this->m_pMainUIRoot->Collided(l_vPos.x, l_vPos.y);
+		auto l_pItem = this->m_pMainUIRoot->Collided((int)l_vPos.x, (int)l_vPos.y);
 		this->m_pMainUIRoot->DebugRender();
 		auto l_strExtraInfo = UT::ComposeMsgByFormat(L"%d,%d", (int)l_vPos.x, (int)l_vPos.y);
 		l_vPos.y -= 50;

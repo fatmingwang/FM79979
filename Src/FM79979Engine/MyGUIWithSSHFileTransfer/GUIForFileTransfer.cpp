@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "GUIForFileTransfer.h"
 #include <fstream>
 #include <filesystem>
@@ -45,18 +45,30 @@ const char* g_strRuleFileName = "version/Rule.json";
 
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
+	ParseRuleFile(g_strRuleFileName);
 	ParseEnvData("Deploy.json");
 	m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
 	ImVec2 l_vSize(1920,1080);
 	m_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
 	//m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
-	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);// | ImGuiWindowFlags_NoTitleBar);
+	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse| ImGuiWindowFlags_NoTitleBar);
+	m_pMyGuiForm->SetShowCloseCutton(false);
+	m_pMyGuiForm->m_fFormCloseFunction = [](cMyGuiForm* e_pMyGuiForm)
+	{
+			int a = 0;
+	};
 	m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
 	m_pMainUIRoot->AddChild(m_pMyGuiForm);
 	m_pMyGuiForm->SetSize(l_vSize);
 	m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
 
-
+	cMyGuiBasicObj*l_pMyGuiBasicObj = GetMyGuiObjWithType<cMyGuiBasicObj>();
+	l_pMyGuiBasicObj->SetExtraRenderFunction([this]
+	(cImGuiNode* e_pNode)
+	{
+		NumericUpDown("Numeric Up/Down", &m_iAllGameSharedCodeVersion, 0,100,1);
+		//ImGui::DragInt("Drag Int", &value, 1.0f, -100, 100);
+	});
 	m_pUploadRuleFileButton = GetMyGuiObjWithType<cMyGuiButton>();
 	m_pTargetEnvListBox = GetMyGuiObjWithType<cMyGuiListBox>();
 	m_pVersionListBox = GetMyGuiObjWithType<cMyGuiListBox>();
@@ -109,6 +121,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 						m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
 						m_pFetchRuleFileButton->SetEnable(true);
 						m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
+						ParseRuleFile(g_strRuleFileName);
 						m_pVersionListBox;
 				});
 				
@@ -154,6 +167,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pMyGuiForm->AddChild(m_pRuleJsonContentEditbox);
 	m_pMyGuiForm->AddChild(m_pVersionListBox);
 	m_pMyGuiForm->AddChild(m_pUploadRuleFileButton);
+	m_pMyGuiForm->AddChild(l_pMyGuiBasicObj);
 
 	m_pFetchRuleFileButton->SetLocalPosition(ImVec2(100, 200));
 	m_pSourceEnvComboBox->SetLocalPosition(ImVec2(100, 100));
@@ -161,6 +175,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pVersionListBox->SetLocalPosition(ImVec2(500, 100));
 	m_pRuleJsonContentEditbox->SetLocalPosition(350, 400);
 	m_pUploadRuleFileButton->SetLocalPosition(100, 600);
+	l_pMyGuiBasicObj->SetLocalPosition(300, 20);
 	
 }
 
@@ -233,6 +248,53 @@ void cGUIForFileTransfer::ParseEnvData(const char* e_strFileName)
 	else
 	{
 		UT::ErrorMsg("Deploy.json not exists","Error");
+	}
+}
+
+bool isNumber(const std::string& str)
+{
+	try
+	{
+		std::stoi(str); // Try to convert to integer
+		return true;
+	}
+	catch (const std::invalid_argument& e)
+	{
+		return false; // Not a valid number
+	}
+	catch (const std::out_of_range& e)
+	{
+		return false; // Number out of range
+	}
+}
+
+void cGUIForFileTransfer::ParseRuleFile(const char* e_strFileName)
+{
+	if (fs::exists(e_strFileName))
+	{
+		std::ifstream l_JsonStream(e_strFileName);
+		json l_JsonData = json::parse(l_JsonStream);
+		l_JsonStream.close();
+		std::string l_LatestVersion = l_JsonData["LatestVersion"];
+		auto l_SpecialGameRule = l_JsonData["SpecialGameRule"];
+
+		//auto specialGameRule = jsonData["SpecialGameRule"];
+
+		// Iterate through the key-value pairs in "SpecialGameRule"
+		for (const auto& [key, value] : l_SpecialGameRule.items())
+		{
+			if (isNumber(key))
+			{
+				std::string l_strkey = key;
+				std::string l_strvalue = value;
+			}
+			else
+			{
+				std::string l_strkey = key;
+				std::string l_strvalue = value;
+				std::cout << "Key: " << key << ", Value: " << value << std::endl;
+			}
+		}		
 	}
 }
 

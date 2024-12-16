@@ -126,9 +126,9 @@ protected:
 	virtual	void					EndRender(){}
 	virtual	void					InternalRender(){}
 	virtual void					RenderBaseProperty();
+	virtual	void					GetRenderRect()override;
 	GET_SET_DEC(ImVec2, m_vSize, GetSize, SetSize);
 	GET_SET_DEC(std::string, m_strText, GetText, SetText);
-	virtual	void					GetRenderRect()override;
 public:
 	cMyGuiBasicObj();
 	virtual ~cMyGuiBasicObj();
@@ -136,8 +136,8 @@ public:
 	{
 		return L"cMyGuiBasicObj";
 	}
-	ImVec2						m_vSizeObj = {0,0 };
-	virtual void				RenderProperty();
+	ImVec2							m_vSizeObj = {0,0 };
+	virtual void					RenderProperty();
 };
 
 //eMIGT_NODE = 0,
@@ -284,11 +284,13 @@ class cMyGuiForm :public cMyGuiBasicObj
 	virtual	void		EndRender()override;
 	// ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
 	GET_SET_DEC(ImGuiWindowFlags, m_FormFlag, GetFormFlag, SetFormFlag);
+	GET_SET_DEC(bool,m_bShowCloseCutton, IsShowCloseCutton, SetShowCloseCutton);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiForm();
 	virtual ~cMyGuiForm();
 	virtual void		RenderProperty()override;
+	std::function<void(cMyGuiForm*)>		m_fFormCloseFunction;
 };
 
 class cMyGuiPanel :public cMyGuiBasicObj
@@ -383,6 +385,8 @@ template<class TYPE>TYPE* GetMyGuiObjWithType(eMyImGuiType e_eMyImGuiType)
 {
 	return (TYPE*)GetMyGuiObj(e_eMyImGuiType);
 }
+void NumericUpDown(const char* label, int* value, int minValue = 0, int maxValue = 100, int step = 1);
+
 
 template<class TYPE>TYPE* GetMyGuiObjWithType()
 {

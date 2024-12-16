@@ -52,17 +52,19 @@ void	cMyApp::Init()
 	}
 	if (m_p2DCamera)
 	{
-		m_p2DCamera->SetCameraPos(Vector2(960,544));
+		RECT clientRect;
+		if (GetClientRect((HWND)cGameApp::m_spOpenGLRender->m_Handle, &clientRect))
+		{
+			
+			m_p2DCamera->SetCameraPos(Vector2(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top)/2);
+		}
+		else
+		{
+			m_p2DCamera->SetCameraPos(Vector2(960, 544));
+		}
+		
 		//m_p2DCamera->SetScale(1.25);
 	}
-}
-
-float ConvertOpenGLYTo2DUpY(float e_fPos)
-{
-	return cGameApp::m_spOpenGLRender->m_vGameResolution.y - e_fPos;
-	//g_pTestOrthogonalCamera->m_
-	//return g_pTestOrthogonalCamera->GetGLSciccorRect(e_Rect);
-	return 0.f;
 }
 
 

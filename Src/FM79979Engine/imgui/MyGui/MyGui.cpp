@@ -506,7 +506,8 @@ void cMyGuiForm::InternalRender()
 	bool l_bOpen = true;
 	//ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(m_vSize, ImGuiCond_Always);
-	ImGui::Begin(this->GetCharName().c_str(), &l_bOpen, m_FormFlag);
+	//ImGui::Begin(this->GetCharName().c_str(), &l_bOpen, m_FormFlag);
+	ImGui::Begin(this->GetCharName().c_str(), m_bShowCloseCutton?&l_bOpen:nullptr, m_FormFlag);// 
 	//ImGui::PushClipRect(ImVec2(-9999, -9999), ImVec2(9999, 9999), true);
 	if (m_vSize.x > 0 && m_vSize.y > 0)
 	{
@@ -514,6 +515,10 @@ void cMyGuiForm::InternalRender()
 	}
 	if (!l_bOpen)
 	{
+		if (m_fFormCloseFunction)
+		{
+			m_fFormCloseFunction(this);
+		}
 		int a = 0;
 	}	
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -546,6 +551,7 @@ void cMyGuiForm::EndRender()
 
 cMyGuiForm::cMyGuiForm()
 {
+	m_bShowCloseCutton = false;
 	this->SetName(cMyGuiForm::TypeID);
 	m_FormFlag = 0;
 	this->m_bThisUseContainerPositionDontApplyParentPositionToChild = true;
@@ -1395,6 +1401,49 @@ bool cMyTreeView::IsCollided(int e_iPosX, int e_iPosY)
 	return l_bResult;
 }
 
+
+void NumericUpDown(const char* label, int* value, int minValue, int maxValue, int step)
+{
+
+	ImGui::PushID(label);
+
+	ImGui::PushItemWidth(250);
+	// Create the input field
+   // Create the input field
+	ImGui::InputInt("##input", value, step, 100, ImGuiInputTextFlags_CharsDecimal);
+	bool l_bChenged = false;
+	// Detect keyboard input when the input is focused
+	if (ImGui::IsItemFocused())
+	{
+		if (ImGui::IsKeyPressed(ImGuiKey_UpArrow))
+		{
+			*value += step;  // Increment value when Up key is pressed
+			l_bChenged = true;
+		}
+		if (ImGui::IsKeyPressed(ImGuiKey_DownArrow))
+		{
+			*value -= step;  // Decrement value when Down key is pressed
+			l_bChenged = true;
+		}
+		//if (l_bChenged)
+		{
+			// Force refresh of the input text display
+			ImGui::SetItemAllowOverlap();  // Allow overlap of input field if value changed
+		}
+	}
+	// Clamp the value to the defined range
+	if (*value < minValue)
+	{
+		*value = minValue;
+	}
+	if (*value > maxValue)
+	{
+		*value = maxValue;
+	}
+
+	ImGui::PopItemWidth();
+	ImGui::PopID();
+}
 
 
 void RenderHintLabel(const char* e_strContent)

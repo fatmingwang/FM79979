@@ -18,6 +18,7 @@
 
 class cGUIForFileTransfer:NamedTypedObject
 {
+	int								m_iAllGameSharedCodeVersion = 0;
 	std::map<eEnv, sEnvData>		m_EnvDataMap;
 	std::vector<std::string>		m_VersionVector;
 	bool							m_bDoingUpdate;
@@ -33,6 +34,7 @@ class cGUIForFileTransfer:NamedTypedObject
 	//
 	void							FetchVersionFileList();
 	void							ParseEnvData(const char*e_strFileName);
+	void							ParseRuleFile(const char* e_strFileName);
 	//
 	std::vector<std::string>		m_strEvnNameVector;
 public:

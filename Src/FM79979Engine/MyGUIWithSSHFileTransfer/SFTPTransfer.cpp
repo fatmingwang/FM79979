@@ -717,7 +717,14 @@ bool DownloadFileOrDirectory(const std::string& e_strRemotePath, const std::stri
 					}
 					else
 					{
-						l_IT->second->DoDownloadFile(l_strDiectory, e_strLocalFilePath);
+						if (!l_IT->second->DoDownloadFile(l_strDiectory, e_strLocalFilePath))
+						{
+							auto l_strInnerInfo = UT::ComposeMsgByFormat("download %s failed", l_strDiectory.c_str());
+							l_strInfo += l_strInnerInfo;
+							l_strInfo += "\n";
+							UT::ErrorMsgByFormat(l_strInnerInfo.c_str());
+							break;
+						}
 					}
 				}
 				else
