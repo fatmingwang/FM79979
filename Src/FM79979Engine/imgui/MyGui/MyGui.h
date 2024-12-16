@@ -364,7 +364,7 @@ public:
 	bool		IsCollided(int e_iPosX, int e_iPosY);
 };
 
-
+void			RenderHintLabel(const char* e_strContent);
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType);
 const char*		GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType);
 template<class TYPE>TYPE* GetMyGuiObjWithType(eMyImGuiType e_eMyImGuiType)

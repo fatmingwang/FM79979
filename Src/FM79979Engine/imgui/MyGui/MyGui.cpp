@@ -1115,7 +1115,7 @@ void cMyGuiScroller::RenderProperty()
 
 cMyTreeView::cMyTreeView()
 {
-
+	this->SetName(L"cMyTreeView");
 }
 
 cMyTreeView::~cMyTreeView()
@@ -1365,6 +1365,21 @@ bool cMyTreeView::IsCollided(int e_iPosX, int e_iPosY)
 }
 
 
+
+void RenderHintLabel(const char* e_strContent)
+{
+	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.92f, 0.92f, 0.92f, 1.00f));
+	ImGui::TextDisabled("(?)");
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+		ImGui::TextUnformatted(e_strContent);
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
+	ImGui::PopStyleColor(1);
+}
 
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 {

@@ -7,13 +7,30 @@ struct sMouseCursor;
 //from ImGuiBuilder
 //https://github.com/Code-Building/ImGuiBuilder
 
+namespace FATMING_CORE
+{
+	class  cOrthogonalCamera;
+}
+
 class cImGuiNode;
 
 class cMyImGuiUIEditor
 {
-	cImGuiNode*		m_pRoot;
-	int				m_uiUniqueID = 0;
-	int				GetUniqueID();
+	int								m_iToolboxRenderContextIndex = 1;
+	int								m_iRootNodeRenderContextIndex = 0;
+	class cMyGuiBasicObj*			m_pToolBoxRoot = nullptr;
+	class cMyGuiRootNode*			m_pMainUIRoot = nullptr;
+	class cMyGuiForm*				m_pMyGuiForm = nullptr;
+	class cMyTreeView*				m_pTreeView = nullptr;
+	void							GenerateToolBox();
+	void							RenderMainUI();
+	void							RenderToolBox();
+	void							RenderMenu(class cImGuiNode*);
+	void							RenderPopupMenuContext();
+	void							RenderTreeivewPopupMenuContext();
+
+	//int								m_uiUniqueID = 0;
+	//int								GetUniqueID();
 	enum eFILE_DIALOG_RESULT
 	{
 		eFDR_NONE = 0,
@@ -28,20 +45,21 @@ class cMyImGuiUIEditor
 	};
 	void move_item(ImVec2& obj_pos, bool& continue_edt);
 	//
-	bool			m_MovingObj = false;
-	bool			m_ResizeObj = false;
-	sMouseCursor*	m_pMouseCursor;
-	void			RenderFileDoalog();
-	void			RenderRootNodeTree();
-	void			RenderMenu();
-	void			RenderDebugInfo();
-	void			Render1ToolBox();
+	bool					m_MovingObj = false;
+	bool					m_ResizeObj = false;
+	sMouseCursor*			m_pMouseCursor;
+	void					RenderFileDoalog();
+	void					RenderMenu();
+	void					RenderDebugInfo();
+	void					Render1ToolBox();
 	ImGuiStyle				m_dark_style = { };
 	ImGuiStyle				m_custom_gui_style = { };
 public:
 	cMyImGuiUIEditor();
 	virtual ~cMyImGuiUIEditor();
+	void			Init();
 	void			Render();
+	class  cOrthogonalCamera* m_p2DCamera = nullptr;
 
 };
 

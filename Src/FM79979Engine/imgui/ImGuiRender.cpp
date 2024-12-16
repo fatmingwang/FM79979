@@ -59,7 +59,7 @@ bool g_bUseMyViewPort = true;
 
 
 
-int g_iNumImGuiContext = 2;
+int g_iNumImGuiContext = 1;
 
 
 std::map<int, std::function<float*(float*)>>    g_ContextIndexAndImGuiCameraPositionConvertFunctionMap;
@@ -1453,6 +1453,13 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
             {
                 return true;
             }
+        }
+    }
+    else
+    {
+        if (ImGui_ImplWin32_WndProcHandlerInner(hwnd, msg, wParam, lParam,0))
+        {
+            return true;
         }
     }
     return 0;

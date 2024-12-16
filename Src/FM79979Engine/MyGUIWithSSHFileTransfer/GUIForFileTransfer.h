@@ -18,15 +18,10 @@
 
 class cGUIForFileTransfer:NamedTypedObject
 {
-	class cMyTreeView*m_pTreeView = nullptr;
-	int								m_iToolboxRenderContextIndex = 1;
-	int								m_iRootNodeRenderContextIndex = 0;
-	ImGuiContext*					m_pToolBoxGuiContext = nullptr;
 	std::map<eEnv, sEnvData>		m_EnvDataMap;
 	std::vector<std::string>		m_VersionVector;
 	bool							m_bDoingUpdate;
 	//
-	class cMyGuiBasicObj*			m_pToolBoxRoot;
 	class cMyGuiRootNode*			m_pMainUIRoot;
 	class cMyGuiListBox*			m_pMyGuiListBox;
 	class cMyGuiComboBox*			m_pMyGuiComboBox;
@@ -34,14 +29,10 @@ class cGUIForFileTransfer:NamedTypedObject
 	class cMyGuiForm*				m_pMyGuiForm;
 	void							GenerateRenderData();
 	//
-	void							GenerateToolBox();
 	void							FetchVersionFileList();
 	void							ParseEnvData(const char*e_strFileName);
 	void							RenderMainUI();
-	void							RenderToolBox();
 	void							RenderMenu(class cImGuiNode*);
-	void							RenderPopupMenuContext();
-	void							RenderTreeivewPopupMenuContext();
 	//
 	std::vector<std::string>		m_strEvnNameVector;
 public:

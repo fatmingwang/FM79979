@@ -111,15 +111,61 @@ void cMyImGuiUIEditor::RenderFileDoalog()
 					break;
 				}
 			}
-
 			ImGuiFileDialog::Instance()->Close();
 		}
 		++i;
 	}
 }
 
-void cMyImGuiUIEditor::RenderRootNodeTree()
+cMyImGuiUIEditor::cMyImGuiUIEditor()
 {
+	m_pToolBoxRoot = nullptr;
+	m_pTreeView = new cMyTreeView();
+	m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
+	ImVec2 l_vSize(1920, 1080);
+	m_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
+	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
+	m_pMainUIRoot->AddChild(m_pMyGuiForm);
+	m_pMyGuiForm->SetSize(l_vSize);
+	m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
+	GenerateToolBox();
+	ImGui::StyleColorsDark(&m_dark_style);
+	for (auto i = 0; i < ImGuiCol_COUNT; i++)
+	{
+		m_custom_gui_style.Colors[i] = m_dark_style.Colors[i];
+	}
+}
+
+cMyImGuiUIEditor::~cMyImGuiUIEditor()
+{
+	SAFE_DELETE(m_pMainUIRoot);
+	SAFE_DELETE(m_pToolBoxRoot);
+	SAFE_DELETE(m_pTreeView);
+	ImGui_ImplOpenGL3_Shutdown();
+}
+
+void cMyImGuiUIEditor::Init()
+{
+	ImGui_ImplOpenGL3_Init(cGameApp::m_spOpenGLRender->m_Handle, nullptr, 2);
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
+	ImGui::GetIO().IniFilename = nullptr;
+	ImGui::GetIO().LogFilename = nullptr;
+	ImGui::GetIO().FontGlobalScale = 1.5f;
+	if (m_p2DCamera)
+	{
+		auto l_ImGuiCameraPositionConvertFunction = std::bind(&cOrthogonalCamera::GetGLSciccorRect, m_p2DCamera, std::placeholders::_1);
+		auto l_ImGuiGetCameraCursorPosition = [this](long& e_PosX, long& e_PosY)
+			{
+				auto l_vPos = m_p2DCamera->GetMouseWorldPos();
+				e_PosX = (long)l_vPos.x;
+				e_PosY = (long)l_vPos.y;
+			};
+		SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, m_iRootNodeRenderContextIndex);
+		SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction, m_iRootNodeRenderContextIndex);
+	}
 }
 
 void cMyImGuiUIEditor::RenderMenu()
@@ -273,32 +319,37 @@ void cMyImGuiUIEditor::Render1ToolBox()
 	ImGui::End();
 }
 
-cMyImGuiUIEditor::cMyImGuiUIEditor()
-{
-	ImGui::StyleColorsDark(&m_dark_style);
-	for (auto i = 0; i < ImGuiCol_COUNT; i++)
-	{
-		m_custom_gui_style.Colors[i] = m_dark_style.Colors[i];
-	}
-	m_pRoot = new cMyGuiForm();
-}
-
-cMyImGuiUIEditor::~cMyImGuiUIEditor()
-{
-	SAFE_DELETE(m_pRoot);
-}
-
 void cMyImGuiUIEditor::Render()
 {
-	ImGui_StartFrame();
-
-	RenderMenu();
-	Render1ToolBox();
-	if (m_pRoot)
+	if (!m_p2DCamera)
 	{
-		m_pRoot->Render();
+		return;
 	}
-
+	Vector2 l_vSize = m_p2DCamera->GetScreenViewPortSize();
+	float l_fTargetGameResolution[2] = { 1920.f, 1080.f };
+	ImGui_StartFrame(l_fTargetGameResolution);
+	RenderMainUI();
+	ImGui_EndFrame(m_p2DCamera->GetProjectionMatrix(), l_vSize);
+	GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
+	if (m_p2DCamera)
+	{
+		m_p2DCamera->Render(false, DEFAULT_SHADER);
+		m_p2DCamera->DrawGridCoordinateInfo(-80.f, -30.f);
+	}
+	if (cGameApp::m_sucKeyData[17])
+	{
+		m_p2DCamera->Render();
+		m_p2DCamera->DrawGrid(0.f, 0.f, Vector4(0.5f, 1.f, 0.f, 0.3f), 2.f);
+		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
+		auto l_pItem = this->m_pMainUIRoot->Collided(l_vPos.x, l_vPos.y);
+		this->m_pMainUIRoot->DebugRender();
+		auto l_strExtraInfo = UT::ComposeMsgByFormat(L"%d,%d", (int)l_vPos.x, (int)l_vPos.y);
+		l_vPos.y -= 50;
+		l_vPos.x -= 50;
+		cGameApp::RenderFont(l_vPos, l_strExtraInfo.c_str());
+	}
+	ImGui_StartFrame(l_fTargetGameResolution, 1);
+	RenderToolBox();
 	ImGui_EndFrame();
 }
 
@@ -321,10 +372,209 @@ bool PressedBindingKeys(int key_1, int key_2)
 	return (GetFocus() == cGameApp::m_spOpenGLRender->m_Handle) && (GetAsyncKeyState(key_1)) && (GetAsyncKeyState(key_2) & 1);
 }
 
-int cMyImGuiUIEditor::GetUniqueID()
+void cMyImGuiUIEditor::GenerateToolBox()
 {
-	return ++m_uiUniqueID;
+	if (!m_pToolBoxRoot)
+	{
+		m_pToolBoxRoot = GetMyGuiObjWithType<cMyGuiBasicObj>();
+		m_pToolBoxRoot->SetNotApplyPosition(false);
+		for (int l_eMyImGuiType = eMyImGuiType::eMIGT_NODE; l_eMyImGuiType < eMyImGuiType::eMIGT_MAX; ++l_eMyImGuiType)
+		{
+			printf("%d\n", l_eMyImGuiType);
+			if (l_eMyImGuiType == eMyImGuiType::eMIGT_NODE || l_eMyImGuiType == eMyImGuiType::eMIGT_FORM ||
+				l_eMyImGuiType == eMyImGuiType::eMIGT_ROOT_NODE)
+			{
+				continue;
+			}
+			auto l_pMyGuiButton = GetMyGuiObjWithType<cMyGuiButton>();
+			l_pMyGuiButton->SetText(GetMyGuiObjLabel((eMyImGuiType)l_eMyImGuiType));
+			l_pMyGuiButton->m_fOnClickFunction = [this, l_eMyImGuiType](cMyGuiButton* e_pMyGuiButton)
+				{
+					cMyGuiBasicObj* l_pObject = GetMyGuiObj((eMyImGuiType)l_eMyImGuiType);
+					l_pObject->SetLocalPosition(ImVec2(200, 200));
+					m_pMyGuiForm->AddChild(l_pObject);
+
+				};
+			m_pToolBoxRoot->AddChild(l_pMyGuiButton);
+			l_pMyGuiButton->SetNotApplyPosition(false);
+		}
+	}
 }
+
+void cMyImGuiUIEditor::RenderMainUI()
+{
+	if (this->m_pMainUIRoot)
+	{
+		m_pMainUIRoot->Render();
+	}
+}
+
+void cMyImGuiUIEditor::RenderToolBox()
+{
+	static bool l_bDoOnce = true;
+	const int l_iWidth = 200;
+	auto l_MousePos = this->m_p2DCamera->GetMouseWorldPos();
+	ImGui::SetNextWindowPos(ImVec2(0, 0));
+	ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth, 100), ImVec2(FLT_MAX, 500));
+	if (l_bDoOnce)
+	{
+		ImGui::SetNextWindowSize(ImVec2(l_iWidth, 1080));
+	}
+	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4.00f, 5.00f));
+	ImGui::Begin("Sidebar", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_MenuBar);
+	auto l_bCollided = m_pTreeView->IsCollided((int)l_MousePos.x, (int)l_MousePos.y);
+	if (l_bCollided || CheckMouseAndCurrentWindowCollision())
+	{
+		SetImGuiMouseEnable(false, m_iRootNodeRenderContextIndex);
+	}
+	else
+	{
+		SetImGuiMouseEnable(true, m_iRootNodeRenderContextIndex);
+	}
+	RenderPopupMenuContext();
+	RenderMenu(nullptr);
+	{
+		//ANCHOR SIDEBAR.PRIMITIVES
+		ImGui::Text("Common"); RenderHintLabel
+		("common component");
+		ImGui::Separator();
+		if (m_pToolBoxRoot)
+		{
+			m_pToolBoxRoot->Render();
+		}
+	}
+
+	if (l_bDoOnce)
+	{
+		ImGui::SetNextWindowPos(ImVec2(1680, 0));
+		//ImGui::SetNextWindowSize(ImVec2(l_iWidth, 500));
+		ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth + 50, 900), ImVec2(FLT_MAX, 1080));
+		l_bDoOnce = false;
+	}
+	int l_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
+	//ShowTreeViewWindow(this->m_pMainUIRoot->GetChildNodeVector()[0], l_iRenderFlag);
+	m_pTreeView->m_pRoot = this->m_pMainUIRoot->GetChildNodeVector()[0];
+	m_pTreeView->Render();
+	ImGui::End();
+	ImGui::PopStyleVar(1);
+}
+
+void cMyImGuiUIEditor::RenderMenu(cImGuiNode*)
+{
+	if (ImGui::BeginMenuBar())
+	{
+
+		if (ImGui::BeginMenu("Project"))
+		{
+			if (ImGui::MenuItem("Save"))
+			{
+				//ImGuiFileDialog::Instance()->OpenDialog("SaveProjectFileDlgKey", "Save File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
+			}
+
+			if (ImGui::MenuItem("Open"))
+			{
+				//ImGuiFileDialog::Instance()->OpenDialog("OpenProjectFileDlgKey", "Open File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
+			}
+
+			if (ImGui::MenuItem("Generate Code"))
+			{
+				//ImGuiFileDialog::Instance()->OpenDialog("GenCodeProjectFileDlgKey", "Open File", ".cpp,.h,.hpp", RegeditGetPath("ImGuiBuilderPath"), "imgui_builder");
+			}
+
+			ImGui::EndMenu();
+		}
+		//if (ImGui::BeginMenu("Editor"))
+		//{
+		//	if (ImGui::MenuItem("Color"))
+		//	{
+		//		//m_color_menu = !m_color_menu;
+		//	}
+
+		//	if (ImGui::MenuItem("Style"))
+		//	{
+		//		//m_style_menu = !m_style_menu;
+		//	}
+
+		//	if (ImGui::MenuItem("Font"))
+		//	{
+		//		//m_font_menu = !m_font_menu;
+		//	}
+
+		//	ImGui::EndMenu();
+		//}
+		if (ImGui::BeginMenu("View"))
+		{
+			if (ImGui::MenuItem("ShowInfo"))
+			{
+				cGameApp::m_sbDebugFunctionWorking = !cGameApp::m_sbDebugFunctionWorking;
+			}
+
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+}
+
+void cMyImGuiUIEditor::RenderPopupMenuContext()
+{
+	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
+	{
+		if (ImGui::BeginMenu("Add"))
+		{
+			if (ImGui::BeginMenu("Primitives"))
+			{
+				if (ImGui::MenuItem("Listbox"))
+				{
+
+				}
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Data Inputs"))
+			{
+				if (ImGui::MenuItem("Slider Angle"))
+				{
+
+				}
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::EndPopup();
+	}
+}
+
+void cMyImGuiUIEditor::RenderTreeivewPopupMenuContext()
+{
+	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
+	{
+		if (ImGui::BeginMenu("Add"))
+		{
+			if (ImGui::BeginMenu("Primitives"))
+			{
+				if (ImGui::MenuItem("Listbox"))
+				{
+
+				}
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Data Inputs"))
+			{
+				if (ImGui::MenuItem("Slider Angle"))
+				{
+
+				}
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::EndPopup();
+	}
+}
+
+//int cMyImGuiUIEditor::GetUniqueID()
+//{
+//	return ++m_uiUniqueID;
+//}
 void cMyImGuiUIEditor::move_item(ImVec2& obj_pos, bool& continue_edt)
 {
 	static ImVec2 old_pos{ };

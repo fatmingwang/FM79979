@@ -45,9 +45,6 @@ const char* g_strRileFileName = "version/Rule.json";
 
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
-	m_pToolBoxRoot = nullptr;
-	m_pTreeView = new cMyTreeView();
-	GenerateToolBox();
 	ParseEnvData("Deploy.json");
 	m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
 	ImVec2 l_vSize(1920,1080);
@@ -153,43 +150,12 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 cGUIForFileTransfer::~cGUIForFileTransfer()
 {
 	SAFE_DELETE(m_pMainUIRoot);
-	SAFE_DELETE(m_pToolBoxRoot);
 	ImGui_ImplOpenGL3_Shutdown();
 }
 
 void cGUIForFileTransfer::GenerateRenderData()
 {
 
-}
-
-void cGUIForFileTransfer::GenerateToolBox()
-{
-	if(!m_pToolBoxRoot)
-	{
-		m_pToolBoxRoot = GetMyGuiObjWithType<cMyGuiBasicObj>();
-		m_pToolBoxRoot->SetNotApplyPosition(false);
-		for (int l_eMyImGuiType = eMyImGuiType::eMIGT_NODE; l_eMyImGuiType<eMyImGuiType::eMIGT_MAX;++l_eMyImGuiType)
-		{
-			printf("%d\n", l_eMyImGuiType);
-			if (l_eMyImGuiType == eMyImGuiType::eMIGT_NODE || l_eMyImGuiType == eMyImGuiType::eMIGT_FORM || 
-				l_eMyImGuiType == eMyImGuiType::eMIGT_ROOT_NODE)
-			{
-				continue;
-			}
-			auto l_pMyGuiButton = GetMyGuiObjWithType<cMyGuiButton>();
-			l_pMyGuiButton->SetText(GetMyGuiObjLabel((eMyImGuiType)l_eMyImGuiType));
-			l_pMyGuiButton->m_fOnClickFunction = [this,l_eMyImGuiType](cMyGuiButton*e_pMyGuiButton)
-			{
-					cMyGuiBasicObj*l_pObject = GetMyGuiObj((eMyImGuiType)l_eMyImGuiType);
-					l_pObject->SetLocalPosition(ImVec2(200, 200));
-					m_pMyGuiForm->AddChild(l_pObject);
-					
-			};
-			m_pToolBoxRoot->AddChild(l_pMyGuiButton);
-			l_pMyGuiButton->SetNotApplyPosition(false);
-		}
-
-	}
 }
 
 void cGUIForFileTransfer::FetchVersionFileList()
@@ -270,71 +236,6 @@ void cGUIForFileTransfer::RenderMainUI()
 	}
 }
 
-void HelpMarker(const char* desc)
-{
-	ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.92f, 0.92f, 0.92f, 1.00f));
-	ImGui::TextDisabled("(?)");
-	if (ImGui::IsItemHovered())
-	{
-		ImGui::BeginTooltip();
-		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-		ImGui::TextUnformatted(desc);
-		ImGui::PopTextWrapPos();
-		ImGui::EndTooltip();
-	}
-	ImGui::PopStyleColor(1);
-}
-
-void cGUIForFileTransfer::RenderToolBox()
-{
-	static bool l_bDoOnce = true;
-	const int l_iWidth = 200;
-	auto l_MousePos = this->m_p2DCamera->GetMouseWorldPos();
-	ImGui::SetNextWindowPos(ImVec2(0,0));
-	ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth, 100), ImVec2(FLT_MAX, 500));
-	if (l_bDoOnce)
-	{
-		ImGui::SetNextWindowSize(ImVec2(l_iWidth, 1080));
-	}
-	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4.00f, 5.00f));
-	ImGui::Begin("Sidebar", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize| ImGuiWindowFlags_MenuBar);
-	auto l_bCollided = m_pTreeView->IsCollided(l_MousePos.x, l_MousePos.y);
-	if (l_bCollided|| CheckMouseAndCurrentWindowCollision())
-	{
-		SetImGuiMouseEnable(false, m_iRootNodeRenderContextIndex);
-	}
-	else
-	{
-		SetImGuiMouseEnable(true, m_iRootNodeRenderContextIndex);
-	}
-	RenderPopupMenuContext();
-	RenderMenu(nullptr);
-	{
-		//ANCHOR SIDEBAR.PRIMITIVES
-		ImGui::Text("Common"); HelpMarker
-		("common component");
-		ImGui::Separator();
-		if (m_pToolBoxRoot)
-		{
-			m_pToolBoxRoot->Render();
-		}
-	}
-	
-	if (l_bDoOnce)
-	{
-		ImGui::SetNextWindowPos(ImVec2(1680, 0));
-		//ImGui::SetNextWindowSize(ImVec2(l_iWidth, 500));
-		ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth+50, 900), ImVec2(FLT_MAX,1080));
-		l_bDoOnce = false;
-	}
-	int l_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
-	//ShowTreeViewWindow(this->m_pRoot->GetChildNodeVector()[0], l_iRenderFlag);
-	m_pTreeView->m_pRoot = this->m_pMainUIRoot->GetChildNodeVector()[0];
-	m_pTreeView->Render();
-	ImGui::End();
-	ImGui::PopStyleVar(1);
-}
-
 void cGUIForFileTransfer::RenderMenu(class cImGuiNode*e_pImGuiNode)
 {
 	if (ImGui::BeginMenuBar())
@@ -391,66 +292,10 @@ void cGUIForFileTransfer::RenderMenu(class cImGuiNode*e_pImGuiNode)
 	}
 }
 
-void cGUIForFileTransfer::RenderPopupMenuContext()
-{
-	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
-	{
-		if (ImGui::BeginMenu("Add"))
-		{
-			if (ImGui::BeginMenu("Primitives"))
-			{
-				if (ImGui::MenuItem("Listbox"))
-				{
-
-				}
-				ImGui::EndMenu();
-			}
-			if (ImGui::BeginMenu("Data Inputs"))
-			{
-				if (ImGui::MenuItem("Slider Angle"))
-				{
-
-				}
-				ImGui::EndMenu();
-			}
-			ImGui::EndMenu();
-		}
-		ImGui::EndPopup();
-	}
-}
-
-void cGUIForFileTransfer::RenderTreeivewPopupMenuContext()
-{
-	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
-	{
-		if (ImGui::BeginMenu("Add"))
-		{
-			if (ImGui::BeginMenu("Primitives"))
-			{
-				if (ImGui::MenuItem("Listbox"))
-				{
-
-				}
-				ImGui::EndMenu();
-			}
-			if (ImGui::BeginMenu("Data Inputs"))
-			{
-				if (ImGui::MenuItem("Slider Angle"))
-				{
-
-				}
-				ImGui::EndMenu();
-			}
-			ImGui::EndMenu();
-		}
-		ImGui::EndPopup();
-	}
-}
 
 void cGUIForFileTransfer::Init()
 {
-	ImGui_ImplOpenGL3_Init(cGameApp::m_spOpenGLRender->m_Handle, nullptr, 2);
-	m_pToolBoxGuiContext = ImGui::CreateContext();
+	ImGui_ImplOpenGL3_Init(cGameApp::m_spOpenGLRender->m_Handle, nullptr);
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
@@ -466,8 +311,8 @@ void cGUIForFileTransfer::Init()
 			e_PosX = (long)l_vPos.x;
 			e_PosY = (long)l_vPos.y;
 		};
-		SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, m_iRootNodeRenderContextIndex);
-		SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction, m_iRootNodeRenderContextIndex);
+		SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, 0);
+		SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction, 0);
 	}
 }
 
@@ -484,37 +329,11 @@ void cGUIForFileTransfer::Render(float* e_pfMatrix, float* e_pfGameResolutoinSiz
 	RenderMainUI();
 	ImGui_EndFrame(e_pfMatrix, e_pfGameResolutoinSize);
 	GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
-	if (m_p2DCamera)
-	{
-		m_p2DCamera->Render(false, DEFAULT_SHADER);
-		m_p2DCamera->DrawGridCoordinateInfo(-80.f, -30.f);
-	}
-	if (cGameApp::m_sucKeyData[17])
-	{
-		m_p2DCamera->Render();
-		m_p2DCamera->DrawGrid(0.f, 0.f, Vector4(0.5f, 1.f, 0.f, 0.3f), 2.f);
-		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
-		auto l_pItem = this->m_pMainUIRoot->Collided(l_vPos.x, l_vPos.y);
-		this->m_pMainUIRoot->DebugRender();
-		auto l_strExtraInfo = UT::ComposeMsgByFormat(L"%d,%d", (int)l_vPos.x, (int)l_vPos.y);
-		l_vPos.y -= 50;
-		l_vPos.x -= 50;
-		cGameApp::RenderFont(l_vPos, l_strExtraInfo.c_str());
-	}
-	//cMatrix44	l_matProjection;
-	//glhOrthof2((float*)l_matProjection.m, 0, 1920, 1080, 0, -10000, 10000);
-	//ImGui_StartFrame();
-
-	ImGui_StartFrame(l_fTargetGameResolution,1);
-	RenderToolBox();
-	ImGui_EndFrame();
 }
 
 void cGUIForFileTransfer::Destory()
 {
 }
-
-
 
 // Draw a 9-sliced texture
 void DrawNineSlicedTexture(ImTextureID texture, ImVec2 pos, ImVec2 size, ImVec4 borders, ImVec2 uv_min, ImVec2 uv_max)

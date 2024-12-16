@@ -5,7 +5,8 @@
 #include "../imgui/imgui.h"
 
 #include "GUIForFileTransfer.h"
-
+#include "../imgui/MyGui/MyImGuiUIEditor.h"
+cMyImGuiUIEditor* g_pMyImGuiUIEditor = nullptr;
 
 cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) :cGameApp(e_Hwnd, e_vGameResolution, e_vViewportSize)
 {
@@ -15,16 +16,24 @@ cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) 
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
-	//cMyImGuiTesting::Init();
+	//g_pMyImGuiUIEditor = new cMyImGuiUIEditor();
 	m_p2DCamera = new cOrthogonalCamera();
 	m_pGUIForFileTransfer = new cGUIForFileTransfer();
-	m_pGUIForFileTransfer->m_p2DCamera = m_p2DCamera;
+	if (g_pMyImGuiUIEditor)
+	{
+		g_pMyImGuiUIEditor->m_p2DCamera = m_p2DCamera;
+	}
+	if (m_pGUIForFileTransfer)
+	{
+		m_pGUIForFileTransfer->m_p2DCamera = m_p2DCamera;
+	}
 }
 
 cMyApp::~cMyApp()
 {
 	SAFE_DELETE(m_p2DCamera);
 	SAFE_DELETE(m_pGUIForFileTransfer);
+	SAFE_DELETE(g_pMyImGuiUIEditor);
 	Destroy();
 }
 
@@ -36,6 +45,10 @@ void	cMyApp::Init()
 	if (m_pGUIForFileTransfer)
 	{
 		m_pGUIForFileTransfer->Init();
+	}
+	if (g_pMyImGuiUIEditor)
+	{
+		g_pMyImGuiUIEditor->Init();
 	}
 	if (m_p2DCamera)
 	{
@@ -90,6 +103,10 @@ void	cMyApp::Render()
 		m_p2DCamera->SetResolution(l_ViewPortSize);
 		m_p2DCamera->Render();
 		m_p2DCamera->DrawGrid(0.f,0.f,Vector4(0.5f, 1.f, 0.f, 0.3f),2.f);
+	}
+	if (g_pMyImGuiUIEditor)
+	{
+		g_pMyImGuiUIEditor->Render();
 	}
 	if (m_pGUIForFileTransfer)
 	{

@@ -4,7 +4,7 @@
 	class	cMyApp:public cGameApp
 	{
 		cOrthogonalCamera* m_p2DCamera;
-		class cGUIForFileTransfer* m_pGUIForFileTransfer;
+		class cGUIForFileTransfer* m_pGUIForFileTransfer = nullptr;
 	protected:
 		void	Update(float e_fElpaseTime);
 		void	Render();
