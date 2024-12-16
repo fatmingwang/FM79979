@@ -52,8 +52,8 @@ void	cMyApp::Init()
 	}
 	if (m_p2DCamera)
 	{
-		m_p2DCamera->SetCameraPos(Vector2(840,544));
-		m_p2DCamera->SetScale(1.25);
+		m_p2DCamera->SetCameraPos(Vector2(960,544));
+		//m_p2DCamera->SetScale(1.25);
 	}
 }
 
@@ -82,7 +82,8 @@ void	cMyApp::Update(float e_fElpaseTime)
 			}
 			//Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 			Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
-			m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1], l_cMouseWhellDelta,cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y,l_vViewPort, l_fMoveSpeed);
+			//m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1], l_cMouseWhellDelta,cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y,l_vViewPort, l_fMoveSpeed);
+			m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],false, 0, cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, l_vViewPort, l_fMoveSpeed);
 		}
 		m_p2DCamera->Update(e_fElpaseTime);
 	}

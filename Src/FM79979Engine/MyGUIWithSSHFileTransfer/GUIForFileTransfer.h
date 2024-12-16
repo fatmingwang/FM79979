@@ -23,16 +23,16 @@ class cGUIForFileTransfer:NamedTypedObject
 	bool							m_bDoingUpdate;
 	//
 	class cMyGuiRootNode*			m_pMainUIRoot;
-	class cMyGuiListBox*			m_pMyGuiListBox;
-	class cMyGuiComboBox*			m_pMyGuiComboBox;
-	class cMyGuiButton*				m_pMyGuiButton;
+	class cMyGuiListBox*			m_pVersionListBox;
+	class cMyGuiListBox*			m_pTargetEnvListBox;
+	class cMyGuiComboBox*			m_pSourceEnvComboBox;
+	class cMyGuiButton*				m_pFetchRuleFileButton;
+	class cMyGuiButton*				m_pUploadRuleFileButton;
 	class cMyGuiForm*				m_pMyGuiForm;
-	void							GenerateRenderData();
+	class cMyGuiEditBox*			m_pRuleJsonContentEditbox;
 	//
 	void							FetchVersionFileList();
 	void							ParseEnvData(const char*e_strFileName);
-	void							RenderMainUI();
-	void							RenderMenu(class cImGuiNode*);
 	//
 	std::vector<std::string>		m_strEvnNameVector;
 public:
@@ -41,6 +41,5 @@ public:
 	void	Init();
 	void	Update(float e_fElpaseTime);
 	void	Render(float*e_pfMatrix = nullptr,float*e_pfGameResolutoinSize = nullptr);
-	void	Destory();
 	cOrthogonalCamera* m_p2DCamera = nullptr;
 };

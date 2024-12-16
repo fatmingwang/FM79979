@@ -120,6 +120,8 @@ public:
 class cMyGuiBasicObj:public cImGuiNode,public cMyGuiMouseMovingData
 {
 protected:
+	bool							m_bNameOnTop = true;
+	void							RenderNameOnTop();
 	virtual void					ApplyPosition()override;
 	virtual	void					EndRender(){}
 	virtual	void					InternalRender(){}
@@ -280,6 +282,7 @@ class cMyGuiForm :public cMyGuiBasicObj
 	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
 	virtual	void		EndRender()override;
+	// ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
 	GET_SET_DEC(ImGuiWindowFlags, m_FormFlag, GetFormFlag, SetFormFlag);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
@@ -307,13 +310,17 @@ class cMyGuiComboBox :public cMyGuiBasicObj
 {
 	virtual	void				InternalRender()override;
 	//
-	GET_SET_DEC(std::vector<std::string>, m_strDataVector, GetDataVector, SetDataVector);
+protected:
+	std::vector<std::string>	m_ItemList;
+	std::vector<const char*>	m_ItemTempList;
 	GET_SET_DEC(int,m_iSelectedIndex,GetSelectedIndex,SetSelectedIndex);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiComboBox();
 	virtual void				RenderProperty()override;
 	std::function<void(int)>	m_fOnSelectFunction;
+	std::vector<std::string>	GetItemList(){return m_ItemList;}
+	virtual void	SetItemList(std::vector<std::string>e_ItemList);
 };
 
 
@@ -322,9 +329,14 @@ class cMyGuiListBox :public cMyGuiComboBox
 {
 	void				RenderMultiSelectable();
 	virtual	void		InternalRender()override;
+	GET_SET_DEC(bool, m_bMiltiSelecteable, IsMiltiSelecteable, SetMiltiSelecteable)
+	std::vector<bool>	m_SelectedIndices;
 public:
+	cMyGuiListBox();
+	virtual ~cMyGuiListBox();
 	MYGUI_DEFAULT_IMPLEMENT();
 	virtual void		RenderProperty()override;
+	virtual void		SetItemList(std::vector<std::string>e_ItemList);
 };
 
 class cMyGuiScroller :public cMyGuiBasicObj

@@ -41,7 +41,7 @@ namespace fs = std::filesystem;
 
 
 
-const char* g_strRileFileName = "version/Rule.json";
+const char* g_strRuleFileName = "version/Rule.json";
 
 cGUIForFileTransfer::cGUIForFileTransfer()
 {
@@ -49,45 +49,68 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
 	ImVec2 l_vSize(1920,1080);
 	m_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
-	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	//m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);// | ImGuiWindowFlags_NoTitleBar);
 	m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
-	auto l_ExtraFunction = std::bind(&cGUIForFileTransfer::RenderMenu, this,std::placeholders::_1);
-	//m_pMyGuiForm->SetExtraRenderFunction(l_ExtraFunction);
 	m_pMainUIRoot->AddChild(m_pMyGuiForm);
 	m_pMyGuiForm->SetSize(l_vSize);
 	m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
 
-	m_pMyGuiListBox = GetMyGuiObjWithType<cMyGuiListBox>();
-	m_pMyGuiComboBox = GetMyGuiObjWithType<cMyGuiComboBox>();
-	m_pMyGuiButton = GetMyGuiObjWithType<cMyGuiButton>();
-	m_pMyGuiButton->SetText("MyButton\nQoo\nQoo\nQoo\nQoo\nQoo\nQoo");
-	cMyGuiEditBox* l_pMyGuiEditBox = GetMyGuiObjWithType<cMyGuiEditBox>();
-	l_pMyGuiEditBox->SetMultiLines(true);
-	l_pMyGuiEditBox->SetHint("");
-	l_pMyGuiEditBox->SetLocalPosition(500, 100);
-	//m_pMyGuiButton->SetEnable(false);
-	//m_pMyGuiListBox->SetEnable(false);
-	//m_pMyGuiComboBox->SetEnable(false);
-	m_pMyGuiButton->m_fOnClickFunction = [this]
+
+	m_pUploadRuleFileButton = GetMyGuiObjWithType<cMyGuiButton>();
+	m_pTargetEnvListBox = GetMyGuiObjWithType<cMyGuiListBox>();
+	m_pVersionListBox = GetMyGuiObjWithType<cMyGuiListBox>();
+	m_pSourceEnvComboBox = GetMyGuiObjWithType<cMyGuiComboBox>();
+	m_pFetchRuleFileButton = GetMyGuiObjWithType<cMyGuiButton>();
+	m_pFetchRuleFileButton->SetText("Fetch \nRule.json");
+	m_pUploadRuleFileButton->SetText("Upload");
+	m_pRuleJsonContentEditbox = GetMyGuiObjWithType<cMyGuiEditBox>();
+	m_pRuleJsonContentEditbox->SetMultiLines(true);
+	m_pRuleJsonContentEditbox->SetHint("");
+	m_pRuleJsonContentEditbox->SetSize(ImVec2(1000, 600));
+
+	m_pUploadRuleFileButton->m_fOnClickFunction = [this]
 	(cMyGuiButton* e_pMyGuiButton)
 	{
-		//cGameApp::ShowInfoOnScreen(L"Clicked");
+		m_pMainUIRoot->ShowYesNoDialog([this]
+		(bool e_bResult)
+		{
+			if (e_bResult)
+			{
+				m_pMainUIRoot->ShowFullScreenBlackText("wait for upload ");
+				m_pUploadRuleFileButton->SetEnable(false);
+				std::vector<eEnv> l_Vector = { eEnv::eE_DEV };
+				UploadFileOrDirectory("myRuleTemp.json", g_strRuleFileName, l_Vector, [this](std::string e_strResult)
+				//DownloadFileOrDirectory(g_strRuleFileName, g_strRuleFileName, l_Vector, [this](std::string e_strResult)
+				{
+						m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
+						m_pUploadRuleFileButton->SetEnable(true);
+						m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
+						m_pVersionListBox;
+				});
+				
+			}
+		},"upload local Rule.json file?");
+	};
+
+	m_pFetchRuleFileButton->m_fOnClickFunction = [this]
+	(cMyGuiButton* e_pMyGuiButton)
+	{
 		m_pMainUIRoot->ShowYesNoDialog([this]
 		(bool e_bResult)
 		{
 			if (e_bResult)
 			{
 				m_pMainUIRoot->ShowFullScreenBlackText("wait for download ");
-				//m_pMyGuiButton->SetEnable(false);
+				m_pFetchRuleFileButton->SetEnable(false);
 				std::vector<eEnv> l_Vector = { eEnv::eE_DEV };
-				DownloadFileOrDirectory(g_strRileFileName, g_strRileFileName, l_Vector, [this](std::string e_strResult)
+				DownloadFileOrDirectory(g_strRuleFileName, g_strRuleFileName, l_Vector, [this](std::string e_strResult)
 				{
 						m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
-						//m_pMyGuiButton->SetEnable(true);
+						m_pFetchRuleFileButton->SetEnable(true);
 						m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
+						m_pVersionListBox;
 				});
-				
-				//m_pMyGuiButton->SetVisible(e_bResult);
 				
 			}
 		},"download Rule.json file?");
@@ -100,50 +123,44 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 		l_strEnvNameVector.push_back(GetEnvName((eEnv)i));
 		
 	}
-	m_pMyGuiComboBox->SetDataVector(l_strEnvNameVector);
-	m_pMyGuiComboBox->m_fOnSelectFunction = 
+	m_pSourceEnvComboBox->SetItemList(l_strEnvNameVector);
+	m_pSourceEnvComboBox->m_fOnSelectFunction =
 	[](int e_iIndex)
 	{
 			int a = 0;
 	};
 
-	m_pMyGuiListBox->SetDataVector(l_strEnvNameVector);
-	m_pMyGuiListBox->m_fOnSelectFunction =
+	m_pTargetEnvListBox->SetItemList(l_strEnvNameVector);
+	m_pTargetEnvListBox->SetMiltiSelecteable(false);
+	m_pTargetEnvListBox->m_fOnSelectFunction =
 	[](int e_iIndex)
 	{
 		int a = 0;
 	};
 
-	{
-		cMyGuiScroller*l_pMyGuiScroller = GetMyGuiObjWithType<cMyGuiScroller>();
-		l_pMyGuiScroller->SetLocalPosition(ImVec2(600, 300));
-		cMyGuiPanel* l_pMyGuiPanel = GetMyGuiObjWithType<cMyGuiPanel>();
-		l_pMyGuiPanel->SetBorder(false);
-		l_pMyGuiPanel->SetLocalPosition(ImVec2(0, 0));
-		l_pMyGuiPanel->SetSize(ImVec2(1920/2, 1080/2));
-		//l_pMiddleNode->AddChild(l_pMyGuiPanel);
-		m_pMyGuiButton->SetName(L"1");
-		m_pMyGuiListBox->SetName(L"2");
-		m_pMyGuiComboBox->SetName(L"3");
-		l_pMyGuiEditBox->SetName(L"4");
-		l_pMyGuiPanel->AddChild(l_pMyGuiScroller);
-		l_pMyGuiPanel->AddChild(m_pMyGuiButton);
-		l_pMyGuiPanel->AddChild(m_pMyGuiListBox);
-		l_pMyGuiPanel->AddChild(m_pMyGuiComboBox);
-		l_pMyGuiPanel->AddChild(l_pMyGuiEditBox);
-		m_pMyGuiForm->AddChild(l_pMyGuiPanel);
-	}
+	m_pVersionListBox->SetItemList({});
 
-	m_pMyGuiButton->SetLocalPosition(ImVec2(100, 100));
-	m_pMyGuiComboBox->SetLocalPosition(ImVec2(100, 200));
-	m_pMyGuiListBox->SetLocalPosition(ImVec2(200, 300));
-	// l_pMyGuiForm->AddChild(l_pMiddleNode);
 
-	
-	//l_pMyGuiForm->AddChild(m_pMyGuiButton);
-	//l_pMyGuiForm->AddChild(m_pMyGuiListBox);
-	//l_pMyGuiForm->AddChild(m_pMyGuiComboBox);
-	//m_pMyGuiButton->SetSize(ImVec2(600,500));
+
+	m_pFetchRuleFileButton->SetName(L"FetchButton");
+	m_pUploadRuleFileButton->SetName(L"UploadButton");
+	m_pTargetEnvListBox->SetName(L"TargetEnv");
+	m_pVersionListBox->SetName(L"No Env Version Data");
+	m_pSourceEnvComboBox->SetName(L"SourceEnv");
+	m_pRuleJsonContentEditbox->SetName(L"Rule Content");
+	m_pMyGuiForm->AddChild(m_pFetchRuleFileButton);
+	m_pMyGuiForm->AddChild(m_pTargetEnvListBox);
+	m_pMyGuiForm->AddChild(m_pSourceEnvComboBox);
+	m_pMyGuiForm->AddChild(m_pRuleJsonContentEditbox);
+	m_pMyGuiForm->AddChild(m_pVersionListBox);
+	m_pMyGuiForm->AddChild(m_pUploadRuleFileButton);
+
+	m_pFetchRuleFileButton->SetLocalPosition(ImVec2(100, 200));
+	m_pSourceEnvComboBox->SetLocalPosition(ImVec2(100, 100));
+	m_pTargetEnvListBox->SetLocalPosition(ImVec2(100, 300));
+	m_pVersionListBox->SetLocalPosition(ImVec2(500, 100));
+	m_pRuleJsonContentEditbox->SetLocalPosition(350, 400);
+	m_pUploadRuleFileButton->SetLocalPosition(100, 600);
 	
 }
 
@@ -153,10 +170,6 @@ cGUIForFileTransfer::~cGUIForFileTransfer()
 	ImGui_ImplOpenGL3_Shutdown();
 }
 
-void cGUIForFileTransfer::GenerateRenderData()
-{
-
-}
 
 void cGUIForFileTransfer::FetchVersionFileList()
 {
@@ -223,76 +236,6 @@ void cGUIForFileTransfer::ParseEnvData(const char* e_strFileName)
 	}
 }
 
-void cGUIForFileTransfer::RenderMainUI()
-{
-	//ImVec2 l_vSize(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-	//ImGui::SetNextWindowSize(l_vSize);
-	//ImGui::SetNextWindowPos({ 100, 100 });
-	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
-	//RenderMenu();
-	if (this->m_pMainUIRoot)
-	{
-		m_pMainUIRoot->Render();
-	}
-}
-
-void cGUIForFileTransfer::RenderMenu(class cImGuiNode*e_pImGuiNode)
-{
-	if (ImGui::BeginMenuBar())
-	{
-
-		if (ImGui::BeginMenu("Project"))
-		{
-			if (ImGui::MenuItem("Save"))
-			{
-				//ImGuiFileDialog::Instance()->OpenDialog("SaveProjectFileDlgKey", "Save File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
-			}
-
-			if (ImGui::MenuItem("Open"))
-			{
-				//ImGuiFileDialog::Instance()->OpenDialog("OpenProjectFileDlgKey", "Open File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
-			}
-
-			if (ImGui::MenuItem("Generate Code"))
-			{
-				//ImGuiFileDialog::Instance()->OpenDialog("GenCodeProjectFileDlgKey", "Open File", ".cpp,.h,.hpp", RegeditGetPath("ImGuiBuilderPath"), "imgui_builder");
-			}
-
-			ImGui::EndMenu();
-		}
-		//if (ImGui::BeginMenu("Editor"))
-		//{
-		//	if (ImGui::MenuItem("Color"))
-		//	{
-		//		//m_color_menu = !m_color_menu;
-		//	}
-
-		//	if (ImGui::MenuItem("Style"))
-		//	{
-		//		//m_style_menu = !m_style_menu;
-		//	}
-
-		//	if (ImGui::MenuItem("Font"))
-		//	{
-		//		//m_font_menu = !m_font_menu;
-		//	}
-
-		//	ImGui::EndMenu();
-		//}
-		if (ImGui::BeginMenu("View"))
-		{
-			if (ImGui::MenuItem("ShowInfo"))
-			{
-				cGameApp::m_sbDebugFunctionWorking = !cGameApp::m_sbDebugFunctionWorking;
-			}
-
-			ImGui::EndMenu();
-		}
-		ImGui::EndMenuBar();
-	}
-}
-
-
 void cGUIForFileTransfer::Init()
 {
 	ImGui_ImplOpenGL3_Init(cGameApp::m_spOpenGLRender->m_Handle, nullptr);
@@ -325,14 +268,12 @@ void cGUIForFileTransfer::Render(float* e_pfMatrix, float* e_pfGameResolutoinSiz
 {
 	float l_fTargetGameResolution[2] = { 1920.f, 1080.f };
 	ImGui_StartFrame(e_pfGameResolutoinSize);
-	//RenderToolBox();
-	RenderMainUI();
+	if (this->m_pMainUIRoot)
+	{
+		m_pMainUIRoot->Render();
+	}
 	ImGui_EndFrame(e_pfMatrix, e_pfGameResolutoinSize);
 	GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
-}
-
-void cGUIForFileTransfer::Destory()
-{
 }
 
 // Draw a 9-sliced texture

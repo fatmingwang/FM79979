@@ -326,6 +326,17 @@ cMyGuiBasicObj::~cMyGuiBasicObj()
 }
 
 
+void cMyGuiBasicObj::RenderNameOnTop()
+{
+	if (m_bNameOnTop)
+	{
+		auto l_strName = this->GetCharName();
+		auto l_PosX = ImGui::GetCursorPosX();
+		ImGui::Text(l_strName.c_str());
+		ImGui::SetCursorPosX(l_PosX);
+	}
+}
+
 void cMyGuiBasicObj::ApplyPosition()
 {
 	auto l_vPos = GetWorldImGuiRenderPosition();
@@ -492,16 +503,16 @@ void cMyGuiForm::InternalRender()
 	//ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
 	//m_FormFlag = ImGuiWindowFlags_NoTitleBar| ImGuiWindowFlags_NoBackground;
 
-	bool l_bClosed = false;
+	bool l_bOpen = true;
 	//ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(m_vSize, ImGuiCond_Always);
-	ImGui::Begin(this->GetCharName().c_str(), &l_bClosed, m_FormFlag);
+	ImGui::Begin(this->GetCharName().c_str(), &l_bOpen, m_FormFlag);
 	//ImGui::PushClipRect(ImVec2(-9999, -9999), ImVec2(9999, 9999), true);
 	if (m_vSize.x > 0 && m_vSize.y > 0)
 	{
 		ImGui::SetWindowSize(m_vSize);
 	}
-	if (l_bClosed)
+	if (!l_bOpen)
 	{
 		int a = 0;
 	}	
@@ -649,7 +660,7 @@ cMyGuiEditBox::cMyGuiEditBox()
 
 void cMyGuiEditBox::InternalRender()
 {
-	this->m_vSize.x = 100.f;
+	//this->m_vSize.x = 100.f;
 	if (this->m_vSize.x > 0)
 	{
 		ImGui::PushItemWidth(this->m_vSize.x);
@@ -696,7 +707,7 @@ void cMyGuiEditBox::RenderMultiLine()
 	//	}
 	//}
 	// Render the multi-line input text box
-	if (ImGui::InputTextMultiline("##multiline", &this->m_strText, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 10), ImGuiInputTextFlags_AllowTabInput))
+	if (ImGui::InputTextMultiline("##multiline", &this->m_strText, this->m_vSize, ImGuiInputTextFlags_AllowTabInput))
 	{
 		//if (l_iLength*2 >= l_iCapacity)
 		//{
@@ -849,21 +860,15 @@ void cMyGuiRootNode::EndRender()
 	{
 		CallYesNoDialog(m_CompleteFunction, m_strDialogMessage.c_str(), m_strYesButtonText.c_str(), m_strNoButtonText.c_str());
 	}
+	else
 	if (m_bShowConfirmDialog)
 	{
 		CallConfirmDialog(m_CompleteFunction, m_strDialogMessage.c_str(), m_strYesButtonText.c_str());
 	}
+	else
 	if (m_bShowFullScreenBlackText)
 	{
 		CallFullScreenBlackText(m_strDialogMessage.c_str());
-	}
-	if (m_ChildNodeVector.size())
-	{
-		//for(auto l_pObject : this->m_ChildNodeVector)
-		//{
-		//	ShowTreeViewWindow(l_pObject);
-		//}
-		//ShowTreeViewWindow(this->m_ChildNodeVector[0]);
 	}
 	this->m_bVisible = true;
 }
@@ -929,14 +934,10 @@ void cMyGuiComboBox::InternalRender()
 	{
 		ImGui::PushItemWidth(this->m_vSize.x);
 	}
-	const char* l_strTemp[999];
-	for (int i = 0; i < m_strDataVector.size(); ++i)
-	{
-		l_strTemp[i] = m_strDataVector[i].c_str();
-	}
+	int l_iCount = (int)m_ItemTempList.size();
 	//m_strEvnNameVector = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
 	// Create the combo box
-	if (ImGui::Combo("My ComboBox", &m_iSelectedIndex, l_strTemp,(int)m_strDataVector.size()))
+	if (ImGui::Combo(this->GetCharName().c_str(), &m_iSelectedIndex, &m_ItemTempList[0], l_iCount))
 	{
 		if (m_fOnSelectFunction)
 		{
@@ -953,31 +954,63 @@ void cMyGuiComboBox::InternalRender()
 cMyGuiComboBox::cMyGuiComboBox()
 {
 	m_iSelectedIndex = 0;
-	m_strDataVector = { "1","2","3" };
+	SetItemList({ "1","2","3" });
 	this->m_vSize.x = 200.f;
+}
+
+void cMyGuiComboBox::SetItemList(std::vector<std::string> e_ItemList)
+{
+	m_ItemList = e_ItemList;
+	m_ItemTempList.clear();
+	for (std::string&l_IT : m_ItemList)
+	{
+		m_ItemTempList.push_back(l_IT.c_str());
+	}
 }
 
 void cMyGuiComboBox::RenderProperty()
 {
 }
 
+cMyGuiListBox::cMyGuiListBox()
+{
+	this->m_vSize.x = 200.f;
+	m_bMiltiSelecteable = false;
+}
+
+cMyGuiListBox::~cMyGuiListBox()
+{
+}
+
+void cMyGuiListBox::RenderProperty()
+{
+}
+
+void cMyGuiListBox::SetItemList(std::vector<std::string> e_ItemList)
+{
+	cMyGuiComboBox::SetItemList(e_ItemList);
+	
+	int l_iCount = (int)m_ItemTempList.size();
+	m_SelectedIndices = std::vector<bool>(l_iCount, false);
+}
+
 void cMyGuiListBox::RenderMultiSelectable()
 {
-	static std::vector<std::string> items = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-	static std::vector<bool> selected(items.size(), false); // Track selected states
-	// Start List Box
-	if (ImGui::BeginListBox("##multiselect", ImVec2(-FLT_MIN, 6 * ImGui::GetTextLineHeightWithSpacing())))
+	//this->RenderNameOnTop();
+	auto l_strName = this->GetCharName();
+	int l_iCount = (int)m_ItemTempList.size();
+	if (ImGui::BeginListBox(l_strName.c_str(), this->m_vSize))
+	//if (ImGui::BeginListBox("##listbox", this->m_vSize))
 	{
-		for (size_t i = 0; i < items.size(); ++i)
+		for (size_t i = 0; i < l_iCount; ++i)
 		{
 			// Display checkbox for each item
-			ImGui::Selectable(items[i].c_str(), selected[i], ImGuiSelectableFlags_AllowDoubleClick);
-
+			ImGui::Selectable(m_ItemTempList[i], m_SelectedIndices[i], ImGuiSelectableFlags_AllowDoubleClick);
 			// Handle multi-select with modifier keys (Shift or Ctrl)
-			bool l_bCtrl = ImGui::IsKeyDown(ImGuiKey_RightCtrl) | ImGui::IsKeyDown(ImGuiKey_LeftCtrl);
+			bool l_bCtrl = true;// ImGui::IsKeyDown(ImGuiKey_RightCtrl) | ImGui::IsKeyDown(ImGuiKey_LeftCtrl);
 			if (ImGui::IsItemClicked() && l_bCtrl)
 			{
-				selected[i] = !selected[i];
+				m_SelectedIndices[i] = !m_SelectedIndices[i];
 			}
 		}
 		ImGui::EndListBox();
@@ -986,24 +1019,26 @@ void cMyGuiListBox::RenderMultiSelectable()
 
 void cMyGuiListBox::InternalRender()
 {
-	//RenderMultiSelectable();
-	//return;
-	this->m_vSize.y = 200.f;
+	if (m_bMiltiSelecteable)
+	{
+		RenderMultiSelectable();
+		return;
+	}
 	if (this->m_vSize.x > 0)
 	{
 		ImGui::PushItemWidth(this->m_vSize.x);
 	}
-	const char* l_strTemp[999];
-	for (int i = 0; i < m_strDataVector.size(); ++i)
+	const char** l_pItemTempList = nullptr;
+	int l_iCount = (int)m_ItemTempList.size();
+	if (l_iCount)
 	{
-		l_strTemp[i] = m_strDataVector[i].c_str();
+		l_pItemTempList = &m_ItemTempList[0];
 	}
-	// Create the listbox
-	int l_iCount = (int)m_strDataVector.size();
-	if (ImGui::ListBox("Versiones", &m_iSelectedIndex, l_strTemp, l_iCount))
+	//this->RenderNameOnTop();
+	auto l_strName = this->GetCharName();
+	if (ImGui::ListBox(l_strName.c_str(), &m_iSelectedIndex, l_pItemTempList, l_iCount))
+	//if (ImGui::ListBox("##listbox", &m_iSelectedIndex, l_pItemTempList, l_iCount))
 	{
-		// Item selected - do something with selectedItemIndex
-		//ImGui::Text("You selected: %s", items[selectedItemIndex]);
 		if (m_fOnSelectFunction)
 		{
 			m_fOnSelectFunction(m_iSelectedIndex);
@@ -1036,10 +1071,6 @@ void cMyGuiListBox::InternalRender()
 	//}
 
 	//ImGui::End();
-}
-
-void cMyGuiListBox::RenderProperty()
-{
 }
 
 cMyGuiScroller::cMyGuiScroller()
