@@ -54,6 +54,13 @@
 
 #endif
 
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <filesystem>
+
+namespace fs = std::filesystem;
+
 namespace UT
 {
 	//--------------------------------------------------------------------------------------
@@ -741,6 +748,43 @@ namespace UT
 		return true;
 	}
 
+	bool		SaveStringToFile(const std::string& filePath, const std::string& content)
+	{
+		//try
+		//{
+			// Ensure the directory exists
+			fs::path path(filePath);
+			if (path.has_parent_path())
+			{
+				fs::create_directories(path.parent_path());
+			}
+
+			// Open file for writing
+			std::ofstream outFile(filePath, std::ios::out | std::ios::trunc);
+			if (!outFile)
+			{
+				std::cerr << "Error: Could not open file for writing: " << filePath << '\n';
+				return false;
+			}
+
+			// Write content to the file
+			outFile << content;
+			outFile.close();
+
+			if (!outFile.good())
+			{
+				std::cerr << "Error: Failed to write content to file: " << filePath << '\n';
+				return false;
+			}
+
+			return true; // Success
+		//}
+		//catch (const std::exception& e)
+		//{
+		//	std::cerr << "Exception: " << e.what() << '\n';
+		//	return false;
+		//}
+	}
 #ifdef IOS
 	//because iphone using bundle resource,so the resource store in its specific path.
 	void GetAppleBundelResourcePathByObjectPath( const char*e_strSrc,char*e_strDest)

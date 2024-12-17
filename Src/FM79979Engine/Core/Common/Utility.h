@@ -72,6 +72,7 @@ namespace UT
 	//please delete received data(delete[] data)
 	char*					GetFileContent(const char* e_strFileName,int&e_iFileLength,const char*e_strMode = "r");
 	bool					SaveTxtToFile(const char* e_strFileName,const char*e_strContent,int e_iByteCount);
+	bool					SaveStringToFile(const std::string& filePath, const std::string& content);
 	long					GetFileSize(NvFile*e_pFile);
 	bool					IsFileExists( const char* FileName );
 	bool					MyRemoveFile( const char* FileName );

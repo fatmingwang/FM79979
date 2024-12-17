@@ -35,6 +35,8 @@ class cGUIForFileTransfer:NamedTypedObject
 	void							FetchVersionFileList();
 	void							ParseEnvData(const char*e_strFileName);
 	void							ParseRuleFile(const char* e_strFileName);
+	void							DownloadRuleFileAndGetDirectoryList();
+	bool							CheckEditboxContentJson();
 	//
 	std::vector<std::string>		m_strEvnNameVector;
 public:

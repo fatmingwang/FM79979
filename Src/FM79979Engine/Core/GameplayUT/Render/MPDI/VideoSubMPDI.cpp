@@ -1,3 +1,4 @@
+#include <cstddef> 
 #include "VideoSubMPDI.h"
 #ifdef WIN32
 #include "../VideoPlayer/AVIPlayer.h"

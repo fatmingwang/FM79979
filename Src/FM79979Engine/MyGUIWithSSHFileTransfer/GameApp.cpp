@@ -6,8 +6,8 @@
 
 #include "GUIForFileTransfer.h"
 #include "../imgui/MyGui/MyImGuiUIEditor.h"
-cMyImGuiUIEditor* g_pMyImGuiUIEditor = nullptr;
 
+cMyImGuiUIEditor* g_pMyImGuiUIEditor = nullptr;
 cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) :cGameApp(e_Hwnd, e_vGameResolution, e_vViewportSize)
 {
 	this->m_sbDebugFunctionWorking = true;
@@ -82,10 +82,15 @@ void	cMyApp::Update(float e_fElpaseTime)
 				l_cMouseWhellDelta = cGameApp::m_sMouseWhellDelta;
 				l_fMoveSpeed = 3.f;
 			}
-			//Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 			Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
-			//m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1], l_cMouseWhellDelta,cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y,l_vViewPort, l_fMoveSpeed);
-			m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],false, 0, cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, l_vViewPort, l_fMoveSpeed);
+			if (g_pMyImGuiUIEditor)
+			{
+				m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0], cGameApp::m_sbMouseClickStatus[1], l_cMouseWhellDelta, cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, l_vViewPort, l_fMoveSpeed);
+			}
+			else
+			{
+				m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0], false, 0, cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, l_vViewPort, l_fMoveSpeed);
+			}
 		}
 		m_p2DCamera->Update(e_fElpaseTime);
 	}

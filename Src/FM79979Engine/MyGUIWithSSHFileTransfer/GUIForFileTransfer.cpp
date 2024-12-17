@@ -93,6 +93,8 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 		NumericUpDown("Numeric Up/Down", &m_iAllGameSharedCodeVersion, 0,100,1);
 		//ImGui::DragInt("Drag Int", &value, 1.0f, -100, 100);
 	});
+	auto l_pJsonContentCheckButton = GetMyGuiObjWithType<cMyGuiButton>();
+	l_pJsonContentCheckButton->SetText("Check Json Content");
 	m_pUploadRuleFileButton = GetMyGuiObjWithType<cMyGuiButton>();
 	m_pTargetEnvListBox = GetMyGuiObjWithType<cMyGuiListBox>();
 	m_pVersionListBox = GetMyGuiObjWithType<cMyGuiListBox>();
@@ -105,6 +107,16 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pRuleJsonContentEditbox->SetHint("");
 	m_pRuleJsonContentEditbox->SetSize(ImVec2(1000, 600));
 
+
+	l_pJsonContentCheckButton->m_fOnClickFunction = [this]
+	(cMyGuiButton* e_pMyGuiButton)
+	{
+			if (CheckEditboxContentJson())
+			{
+
+			}
+	};
+
 	m_pUploadRuleFileButton->m_fOnClickFunction = [this]
 	(cMyGuiButton* e_pMyGuiButton)
 	{
@@ -113,10 +125,18 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 		{
 			if (e_bResult)
 			{
+				const char* l_strTempFile = "version/myRuleTemp.json";
 				m_pMainUIRoot->ShowFullScreenBlackText("wait for upload ");
 				m_pUploadRuleFileButton->SetEnable(false);
 				std::vector<eEnv> l_Vector = { eEnv::eE_DEV };
-				UploadFileOrDirectory("myRuleTemp.json", g_strRuleFileName, l_Vector, [this](std::string e_strResult)
+				if (CheckEditboxContentJson())
+				{
+					SaveStringToFile(l_strTempFile, m_pRuleJsonContentEditbox->GetText().c_str());
+					//UT::SaveTxtToFile("version/myRuleTemp.json", m_pRuleJsonContentEditbox->GetText().c_str());
+					auto l_strContent = this->m_pRuleJsonContentEditbox->GetText();
+				}
+				//UploadFileOrDirectory(l_strTempFile,g_strRuleFileName, l_Vector, [this](std::string e_strResult)
+				UploadFileOrDirectory(l_strTempFile, l_strTempFile, l_Vector, [this](std::string e_strResult)
 				//DownloadFileOrDirectory(g_strRuleFileName, g_strRuleFileName, l_Vector, [this](std::string e_strResult)
 				{
 						m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
@@ -138,46 +158,52 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 			{
 				m_pMainUIRoot->ShowFullScreenBlackText("wait for download ");
 				m_pFetchRuleFileButton->SetEnable(false);
-				std::vector<eEnv> l_Vector = { eEnv::eE_DEV };
-				ListRemoteDirectory(eEnv::eE_DEV,"",[this](std::vector<std::string>e_DirectoryVector, std::vector<std::string>e_FileVector)
+				if(1)
 				{
-					std::vector<int>l_NumberVector;
-					std::vector<std::string>l_strNumberVector;
-					for (auto l_IT : e_DirectoryVector)
+					DownloadRuleFileAndGetDirectoryList();
+				}
+				else
+				{
+					std::vector<eEnv> l_Vector = { eEnv::eE_DEV };
+					ListRemoteDirectory(eEnv::eE_DEV, "", [this](std::vector<std::string>e_DirectoryVector, std::vector<std::string>e_FileVector)
 					{
-						int l_iOutValue = 0;
-						if (isNumber(l_IT,&l_iOutValue))
+						std::vector<int>l_NumberVector;
+						std::vector<std::string>l_strNumberVector;
+						for (auto l_IT : e_DirectoryVector)
 						{
-							l_NumberVector.push_back(l_iOutValue);
+							int l_iOutValue = 0;
+							if (isNumber(l_IT, &l_iOutValue))
+							{
+								l_NumberVector.push_back(l_iOutValue);
+							}
 						}
-					}
-					std::sort(l_NumberVector.begin(), l_NumberVector.end());
-					for (const auto& num : l_NumberVector)
-					{
-						l_strNumberVector.push_back(std::to_string(num));
-					}
-					m_pVersionListBox->SetItemList(l_strNumberVector);
-					m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
-					m_pFetchRuleFileButton->SetEnable(true);
-					if (l_NumberVector.size())
-					{
-						m_pVersionListBox->SetName(L"VersionList");
-					}
-					else
-					{
-						m_pVersionListBox->SetName(L"No Env Version Data");
-					}
-					int a = 0;
-				});
-
-				/*DownloadFileOrDirectory(g_strRuleFileName, g_strRuleFileName, l_Vector, [this](std::string e_strResult)
-				{
+						std::sort(l_NumberVector.begin(), l_NumberVector.end());
+						for (const auto& num : l_NumberVector)
+						{
+							l_strNumberVector.push_back(std::to_string(num));
+						}
+						m_pVersionListBox->SetItemList(l_strNumberVector);
 						m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
 						m_pFetchRuleFileButton->SetEnable(true);
-						m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
-						ParseRuleFile(g_strRuleFileName);
-				});*/
-				
+						if (l_NumberVector.size())
+						{
+							m_pVersionListBox->SetName(L"VersionList");
+						}
+						else
+						{
+							m_pVersionListBox->SetName(L"No Env Version Data");
+						}
+						int a = 0;
+					});
+
+					/*DownloadFileOrDirectory(g_strRuleFileName, g_strRuleFileName, l_Vector, [this](std::string e_strResult)
+					{
+							m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
+							m_pFetchRuleFileButton->SetEnable(true);
+							m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
+							ParseRuleFile(g_strRuleFileName);
+					});*/
+				}				
 			}
 		},"download Rule.json file?");
 	};
@@ -221,7 +247,9 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pMyGuiForm->AddChild(m_pVersionListBox);
 	m_pMyGuiForm->AddChild(m_pUploadRuleFileButton);
 	m_pMyGuiForm->AddChild(l_pMyGuiBasicObj);
-
+	m_pMyGuiForm->AddChild(l_pJsonContentCheckButton);
+	
+	l_pJsonContentCheckButton->SetLocalPosition(ImVec2(1400, 400));
 	m_pFetchRuleFileButton->SetLocalPosition(ImVec2(100, 200));
 	m_pSourceEnvComboBox->SetLocalPosition(ImVec2(100, 100));
 	m_pTargetEnvListBox->SetLocalPosition(ImVec2(100, 300));
@@ -339,6 +367,91 @@ void cGUIForFileTransfer::ParseRuleFile(const char* e_strFileName)
 			//m_pVersionListBox->SetItemList(l_strVersionVector);
 		}
 	}
+}
+
+void cGUIForFileTransfer::DownloadRuleFileAndGetDirectoryList()
+{
+	eEnv l_eEnv = (eEnv)m_pSourceEnvComboBox->GetSelectedIndex();
+	sLIBSSH2SocketData* l_pLIBSSH2SocketData = sLIBSSH2SocketData::GetDataByEnv(l_eEnv);
+	if (l_pLIBSSH2SocketData)
+	{
+		std::function<void()> l_Function = [this, l_pLIBSSH2SocketData]()
+		{
+			m_pMainUIRoot->ShowFullScreenBlackText("connecting...");
+			if (l_pLIBSSH2SocketData->DoConnect())
+			{
+				m_pMainUIRoot->ShowFullScreenBlackText("try do download rule file");
+				if (l_pLIBSSH2SocketData->DoDownloadFile(g_strRuleFileName, g_strRuleFileName))
+				{
+					m_pMainUIRoot->ShowFullScreenBlackText("try do download version list");
+					std::string l_strRemotDir = "";
+					std::vector<std::string> l_FilesVector;
+					std::vector<std::string> l_DirectoriesVector;
+					if (l_pLIBSSH2SocketData->DoListRemoteDirectory(l_strRemotDir, l_FilesVector, l_DirectoriesVector))
+					{
+						m_pUploadRuleFileButton->SetEnable(true);
+						m_pMainUIRoot->ShowConfirmDialog("data updated");
+
+						std::vector<std::string>l_strNumberVector;
+						std::vector<int>l_NumberVector;
+						for (auto l_IT : l_DirectoriesVector)
+						{
+							int l_iOutValue = 0;
+							if (isNumber(l_IT, &l_iOutValue))
+							{
+								l_NumberVector.push_back(l_iOutValue);
+							}
+						}
+						std::sort(l_NumberVector.begin(), l_NumberVector.end());
+						for (const auto& num : l_NumberVector)
+						{
+							l_strNumberVector.push_back(std::to_string(num));
+						}
+						m_pVersionListBox->SetItemList(l_strNumberVector);
+						m_pFetchRuleFileButton->SetEnable(true);
+						if (l_DirectoriesVector.size())
+						{
+							m_pVersionListBox->SetName(L"VersionList");
+							auto l_str = GetTxtFileContent(g_strRuleFileName);
+							m_pRuleJsonContentEditbox->SetText(l_str);
+						}
+						else
+						{
+							m_pVersionListBox->SetName(L"No Env Version Data");
+						}
+						return;
+					}
+				}
+			}
+			else
+			{
+				UT::ErrorMsgByFormat("connect to %s failed", GetEnvName(eEnv::eE_DEV).c_str());
+			}
+			m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
+			m_pUploadRuleFileButton->SetEnable(true);
+			//m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
+			m_pMainUIRoot->ShowConfirmDialog("something wrong");
+		};
+		std::thread t(l_Function);
+		t.detach();
+	}
+}
+
+bool cGUIForFileTransfer::CheckEditboxContentJson()
+{
+	auto l_strContent = this->m_pRuleJsonContentEditbox->GetText();
+	try
+	{
+		json l_JsonData = json::parse(l_strContent);
+	}
+	catch (json::exception& e)
+	//catch (std::exception& e)
+	{
+		m_pMainUIRoot->ShowConfirmDialog(e.what());
+		return false;
+	}
+	m_pMainUIRoot->ShowConfirmDialog("ok");
+	return true;
 }
 
 void cGUIForFileTransfer::Init()

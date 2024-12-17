@@ -891,6 +891,8 @@ void cMyGuiRootNode::ShowYesNoDialog(std::function<void(bool)> e_CompleteFunctio
 	m_strNoButtonText = e_strNoButtonText;
 	m_CompleteFunction = e_CompleteFunction;
 	m_bShowYesNoDialog = true;
+	m_bShowConfirmDialog = false;
+	m_bShowFullScreenBlackText = false;
 	m_CompleteFunction = [e_CompleteFunction,this](bool e_bResult)
 	{
 		if (e_CompleteFunction)
@@ -904,6 +906,8 @@ void cMyGuiRootNode::ShowYesNoDialog(std::function<void(bool)> e_CompleteFunctio
 void cMyGuiRootNode::ShowConfirmDialog(const char* e_strContent, const char* e_strConfirmButtonText, std::function<void(bool)> e_CompleteFunction)
 {
 	m_bShowConfirmDialog = true;
+	m_bShowYesNoDialog = false;
+	m_bShowFullScreenBlackText = false;
 	m_strDialogMessage = e_strContent;
 	m_strYesButtonText = e_strConfirmButtonText;
 	m_CompleteFunction = [e_CompleteFunction, this](bool e_bResult)
@@ -918,6 +922,9 @@ void cMyGuiRootNode::ShowConfirmDialog(const char* e_strContent, const char* e_s
 
 void cMyGuiRootNode::ShowFullScreenBlackText(const char* e_strContent)
 {
+	m_bShowYesNoDialog = false;
+	m_bShowConfirmDialog = false;
+	m_bShowFullScreenBlackText = false;
 	if (e_strContent == nullptr)
 	{
 		m_bShowFullScreenBlackText = false;

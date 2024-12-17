@@ -271,11 +271,11 @@ bool    ImGui_ImplOpenGL3_Init(void* hwnd, const char* glsl_version, int e_iNumC
 bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 #endif
 {
+    g_iNumImGuiContext = e_iNumContext;
 #ifdef WIN32
     ImGui_ImplWin32_InitEx(hwnd, true);
     //ImGui_ImplWin32_InitForOpenGL(hwnd);
 #endif
-    g_iNumImGuiContext = e_iNumContext;
     for (int i = 0; i < g_iNumImGuiContext; ++i)
     {
         if (g_pImGuiContextVector)
