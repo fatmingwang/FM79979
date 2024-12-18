@@ -10365,7 +10365,10 @@ static void ImGui::ErrorCheckNewFrameSanityChecks()
     if (g.IO.DeltaTime <= 0.0f && g.FrameCount > 0)
         g.IO.DeltaTime = 0.00001f;
 #endif
-
+    if (g.FrameCount != 0 && g.FrameCountEnded != g.FrameCount)
+    {
+        int a = 0;
+    }
     // Check user data
     // (We pass an error message in the assert expression to make it visible to programmers who are not using a debugger, as most assert handlers display their argument)
     IM_ASSERT(g.Initialized);

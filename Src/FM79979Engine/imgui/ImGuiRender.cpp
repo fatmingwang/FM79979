@@ -19,7 +19,7 @@ EM_JS(void, ImGui_ImplSDL2_EmscriptenOpenURL, (char const* url), { url = url ? U
 
 #ifdef WIN32
 void    ImGui_ImplWin32_Shutdown();
-void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize, int e_iContextIndex);
+void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize);
 #elif defined(WASM)
 void	ImGui_ImplSDL2_NewFrame();
 #endif
@@ -281,6 +281,7 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
         if (g_pImGuiContextVector)
         {
             ImGui::SetCurrentContext((*g_pImGuiContextVector)[i]);
+            g_ContextIndexAndMouseEventEnableMap[i] = true;
         }
         ImGuiIO& io = ImGui::GetIO();
         IM_ASSERT(io.BackendRendererUserData == nullptr && "Already initialized a renderer backend!");
@@ -336,6 +337,15 @@ void    SetImGuiCameraPositionConvertFunction(std::function<float* (float*)> e_F
 void    SetImGuiMouseEnable(bool e_bMouseEventEnable, int e_iContextIndex)
 {
     g_ContextIndexAndMouseEventEnableMap[e_iContextIndex] = e_bMouseEventEnable;
+}
+
+void EditboxFocusChangedChangeMouseEnable(bool e_bMouseEventEnable)
+{
+    for (auto &l_IT : g_ContextIndexAndMouseEventEnableMap)
+    {
+        l_IT.second = false;
+    }
+    g_ContextIndexAndMouseEventEnableMap[g_iCurrenctContextIndex] = e_bMouseEventEnable;
 }
 
 void ImGui_ImplOpenGL3_Shutdown()
@@ -638,8 +648,23 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data, float* e_pCamera
 void ImGui_StartFrame(float* e_pGameResolutionSize,int e_iContextIndex)
 {
     g_iCurrenctContextIndex = e_iContextIndex;
+    if (e_iContextIndex)
+    {
+        //ImGui::SetCurrentContext(e_pDefaultImGuiContext);
+        if (g_pImGuiContextVector)
+        {
+            ImGui::SetCurrentContext((*g_pImGuiContextVector)[e_iContextIndex]);
+        }
+    }
+    else
+    {
+        if (g_pImGuiContextVector)
+        {
+            ImGui::SetCurrentContext((*g_pImGuiContextVector)[0]);
+        }
+    }
 #if defined(WIN32)
-    ImGui_ImplWin32_NewFrame(e_pGameResolutionSize, e_iContextIndex);
+    ImGui_ImplWin32_NewFrame(e_pGameResolutionSize);
 #elif defined(WASM)
     ImGui_ImplSDL2_NewFrame();
 #endif
@@ -965,23 +990,8 @@ void ImGui_ImplWin32_UpdateGamepads()
 #endif // #ifndef IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
 }
 
-void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize,int e_iContextIndex)
+void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize)
 {
-    if (e_iContextIndex)
-    {
-        //ImGui::SetCurrentContext(e_pDefaultImGuiContext);
-        if (g_pImGuiContextVector)
-        {
-            ImGui::SetCurrentContext((*g_pImGuiContextVector)[e_iContextIndex]);
-        }
-    }
-    else
-    {
-        if (g_pImGuiContextVector)
-        {
-            ImGui::SetCurrentContext((*g_pImGuiContextVector)[0]);
-        }
-    }
     ImGui_ImplWin32_Data* bd = ImGui_ImplWin32_GetBackendData();
     IM_ASSERT(bd != nullptr && "Context or backend not initialized? Did you call ImGui_ImplWin32_Init()?");
     ImGuiIO& io = ImGui::GetIO();
@@ -1448,7 +1458,16 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
     {
         for (size_t i = 0; i < g_pImGuiContextVector->size(); ++i)
         {
+            auto l_IT2 = g_ContextIndexAndMouseEventEnableMap.find(i);
+            if (l_IT2 != g_ContextIndexAndMouseEventEnableMap.end())
+            {
+                if (!l_IT2->second)
+                {
+                    continue;
+                }
+            }
             ImGui::SetCurrentContext((*g_pImGuiContextVector)[i]);
+            //ImGui::SetCurrentContext(1);
             if (ImGui_ImplWin32_WndProcHandlerInner(hwnd, msg, wParam, lParam,(int)i))
             {
                 return true;

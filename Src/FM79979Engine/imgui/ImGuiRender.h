@@ -18,6 +18,7 @@
 void		SetImGuiGetCameraCursorPosition(std::function<void(long&, long&)> e_Function, int e_iContextIndex = 0);
 void		SetImGuiCameraPositionConvertFunction(std::function<float* (float*)> e_Function, int e_iContextIndex = 0);
 void		SetImGuiMouseEnable(bool e_bMouseEventEnable, int e_iContextIndex = 0);
+void		EditboxFocusChangedChangeMouseEnable(bool e_bMouseEventEnable);
 
 void		ImGui_ImplOpenGL3_Shutdown();
 void		ImGui_ImplOpenGL3_RenderDrawData(struct ImDrawData* draw_data,float*e_pCameraMatrix = nullptr);

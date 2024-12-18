@@ -16,9 +16,12 @@ cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) 
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
-	//g_pMyImGuiUIEditor = new cMyImGuiUIEditor();
+	g_pMyImGuiUIEditor = new cMyImGuiUIEditor();
 	m_p2DCamera = new cOrthogonalCamera();
-	m_pGUIForFileTransfer = new cGUIForFileTransfer();
+	if (!g_pMyImGuiUIEditor)
+	{
+		m_pGUIForFileTransfer = new cGUIForFileTransfer();
+	}
 	if (g_pMyImGuiUIEditor)
 	{
 		g_pMyImGuiUIEditor->m_p2DCamera = m_p2DCamera;
@@ -88,6 +91,7 @@ void	cMyApp::Update(float e_fElpaseTime)
 				m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0], cGameApp::m_sbMouseClickStatus[1], l_cMouseWhellDelta, cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, l_vViewPort, l_fMoveSpeed);
 			}
 			else
+			if(m_pGUIForFileTransfer)
 			{
 				m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0], false, 0, cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, l_vViewPort, l_fMoveSpeed);
 			}

@@ -3,6 +3,7 @@
 #include "../../Core/AllCoreInclude.h"
 #include "../ThirtyParty/ImGuiBuilder/additional.h"
 #include <iostream>
+#include "../ImGuiRender.h"
 
 using namespace	FATMING_CORE;
 TYPDE_DEFINE_MARCO(cImGuiNode);
@@ -661,7 +662,42 @@ cMyGuiSliderInteger::~cMyGuiSliderInteger()
 cMyGuiEditBox::cMyGuiEditBox()
 {
 	m_bMultiLines = false;
+	this->m_vSize.x = 200;
 	m_strHint = "please input...";
+}
+
+//extern void    SetImGuiMouseEnable(bool e_bMouseEventEnable, int e_iContextIndex);
+int InputCallback(ImGuiInputTextCallbackData* data)
+{
+	// Avoid calling NewFrame(), Render(), or EndFrame() here!
+
+	//SetImGuiMouseEnable(false, 1);
+	return 1;
+}
+
+
+void cMyGuiEditBox::FocusCheck()
+{
+	bool l_bPrevious = m_bFocused;
+	m_bFocused = ImGui::IsItemFocused();
+	// Get the bounding box of the InputText widget
+	ImVec2 itemMin = ImGui::GetItemRectMin();
+	ImVec2 itemMax = ImGui::GetItemRectMax();
+
+	// Get the current mouse position
+	ImVec2 mousePos = ImGui::GetMousePos();
+
+	// Check if the mouse is within the widget's bounds
+	bool isMouseInRange = (mousePos.x >= itemMin.x && mousePos.x <= itemMax.x &&
+						   mousePos.y >= itemMin.y && mousePos.y <= itemMax.y);
+
+	// If the widget is focused and the mouse leaves the area, clear the focus
+	if (m_bFocused && !isMouseInRange)
+	{
+		ImGui::SetItemDefaultFocus();
+		m_bFocused = false;
+	}
+
 }
 
 void cMyGuiEditBox::InternalRender()
@@ -680,12 +716,35 @@ void cMyGuiEditBox::InternalRender()
 		if (m_strHint.length())
 		{
 			const char* hint = "Enter your text here..."; // Hint text
-			ImGui::InputTextWithHint("##hint", hint, &m_strText);
+			if (ImGui::InputTextWithHint("##hint", hint, &m_strText))
+			{
+			}
 		}
 		else
 		{
 
-			ImGui::InputText("Input", &m_strText);
+	//InputText(const char* label, std::string * str, ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = nullptr, void* user_data = nullptr);
+			//ImGui::InputText(const char* label, std::string * str, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback, void* user_data)
+			if (ImGui::InputText("Input", &m_strText, ImGuiInputTextFlags_CallbackAlways, InputCallback, nullptr))
+			{
+			}
+		}
+	}
+	bool l_bPrevious = m_bFocused;
+	if (1)
+	{
+		m_bFocused = ImGui::IsItemFocused();
+	}
+	else
+	{
+		//FocusCheck();
+	}
+	if (l_bPrevious != m_bFocused)
+	{
+		EditboxFocusChangedChangeMouseEnable(m_bFocused);
+		if (m_fFocusedChangedFunction)
+		{
+			m_fFocusedChangedFunction(m_bFocused);
 		}
 	}
 	//ImGui::Text("Current Text:");
@@ -1326,6 +1385,14 @@ void cMyTreeView::RenderTreeivewPopupMenuContext()
 		}
 		if (ImGui::MenuItem("Delete"))
 		{
+			if (this->m_pSelectedNode)
+			{
+				if (this->m_pSelectedNode->Type() != cMyGuiForm::TypeID)
+				{
+					this->m_pSelectedNode->SetParent(nullptr);
+					SAFE_DELETE(this->m_pSelectedNode);
+				}
+			}
 			this->m_pSelectedNode = nullptr;
 			m_pCopyNode = nullptr;
 		}

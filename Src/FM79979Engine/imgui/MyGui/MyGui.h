@@ -204,13 +204,16 @@ public:
 
 class cMyGuiEditBox :public cMyGuiBasicObj
 {
+	void				FocusCheck();
 	virtual	void		InternalRender()override;
 	void				RenderMultiLine();
 	GET_SET_DEC(std::string, m_strHint, GetHint, SetHint);
 	GET_SET_DEC(bool,m_bMultiLines, IsMultiLines, SetMultiLines);
+	bool				m_bFocused = false;
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiEditBox();
+	std::function<void(bool)>	m_fFocusedChangedFunction;
 	//virtual void		RenderProperty()override;
 };
 

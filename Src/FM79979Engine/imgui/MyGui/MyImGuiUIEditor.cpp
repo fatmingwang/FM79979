@@ -327,7 +327,7 @@ void cMyImGuiUIEditor::Render()
 	}
 	Vector2 l_vSize = m_p2DCamera->GetScreenViewPortSize();
 	float l_fTargetGameResolution[2] = { 1920.f, 1080.f };
-	ImGui_StartFrame(l_fTargetGameResolution);
+	ImGui_StartFrame(l_fTargetGameResolution, m_iRootNodeRenderContextIndex);
 	RenderMainUI();
 	ImGui_EndFrame(m_p2DCamera->GetProjectionMatrix(), l_vSize);
 	GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
@@ -348,7 +348,7 @@ void cMyImGuiUIEditor::Render()
 		l_vPos.x -= 50;
 		cGameApp::RenderFont(l_vPos, l_strExtraInfo.c_str());
 	}
-	ImGui_StartFrame(l_fTargetGameResolution, 1);
+	ImGui_StartFrame(l_fTargetGameResolution, m_iToolboxRenderContextIndex);
 	RenderToolBox();
 	ImGui_EndFrame();
 }
@@ -392,6 +392,10 @@ void cMyImGuiUIEditor::GenerateToolBox()
 				{
 					cMyGuiBasicObj* l_pObject = GetMyGuiObj((eMyImGuiType)l_eMyImGuiType);
 					l_pObject->SetLocalPosition(ImVec2(200, 200));
+					if (l_pObject->Type() == cMyGuiEditBox::TypeID)
+					{
+						l_pObject->SetEnable(false);
+					}
 					m_pMyGuiForm->AddChild(l_pObject);
 
 				};
@@ -459,7 +463,7 @@ void cMyImGuiUIEditor::RenderToolBox()
 	ImGui::PopStyleVar(1);
 }
 
-void cMyImGuiUIEditor::RenderMenu(cImGuiNode*)
+void cMyImGuiUIEditor::RenderMenu(cImGuiNode*e_pNode)
 {
 	if (ImGui::BeginMenuBar())
 	{

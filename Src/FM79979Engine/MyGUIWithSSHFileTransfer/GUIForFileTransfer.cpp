@@ -134,16 +134,19 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 					SaveStringToFile(l_strTempFile, m_pRuleJsonContentEditbox->GetText().c_str());
 					//UT::SaveTxtToFile("version/myRuleTemp.json", m_pRuleJsonContentEditbox->GetText().c_str());
 					auto l_strContent = this->m_pRuleJsonContentEditbox->GetText();
+					//UploadFileOrDirectory(l_strTempFile,g_strRuleFileName, l_Vector, [this](std::string e_strResult)
+					UploadFileOrDirectory(l_strTempFile, l_strTempFile, l_Vector, [this](std::string e_strResult)
+										  //DownloadFileOrDirectory(g_strRuleFileName, g_strRuleFileName, l_Vector, [this](std::string e_strResult)
+										  {
+											  m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
+											  m_pUploadRuleFileButton->SetEnable(true);
+											  m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
+										  });
 				}
-				//UploadFileOrDirectory(l_strTempFile,g_strRuleFileName, l_Vector, [this](std::string e_strResult)
-				UploadFileOrDirectory(l_strTempFile, l_strTempFile, l_Vector, [this](std::string e_strResult)
-				//DownloadFileOrDirectory(g_strRuleFileName, g_strRuleFileName, l_Vector, [this](std::string e_strResult)
+				else
 				{
-						m_pMainUIRoot->ShowFullScreenBlackText(nullptr);
-						m_pUploadRuleFileButton->SetEnable(true);
-						m_pMainUIRoot->ShowConfirmDialog(e_strResult.c_str());
-				});
-				
+
+				}
 			}
 		},"upload local Rule.json file?");
 	};
