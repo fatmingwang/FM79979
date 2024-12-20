@@ -301,11 +301,13 @@ cImGuiNode*cImGuiNode::Collided(int e_iPosX, int e_iPosY)
 {
 	if (this->m_bVisible)
 	{
+		cImGuiNode* l_pCollidedObject = nullptr;
 		for (auto l_Child : this->m_ChildNodeVector)
 		{
-			if (l_Child->Collided(e_iPosX, e_iPosY))
+			l_pCollidedObject = l_Child->Collided(e_iPosX, e_iPosY);
+			if (l_pCollidedObject)
 			{
-				return l_Child;
+				return l_pCollidedObject;
 			}
 		}
 		if (m_RenderRect.CollidePoint(e_iPosX, e_iPosY))
@@ -316,6 +318,40 @@ cImGuiNode*cImGuiNode::Collided(int e_iPosX, int e_iPosY)
 	}
 	return nullptr;
 }
+
+bool cImGuiNode::ExportJsonFile(const char* e_strFileName)
+{
+	if (!this->m_pParent)
+	{
+		this->GetCharName();
+		this->Type();
+		this->GetLocalPosition();
+		this->GetWorldPosition();
+		return true;
+	}
+	return false;
+}
+
+//void cImGuiNode::DoSerialize(nlohmann::json& e_JSON)
+//{
+//	const char* l_strChildrenKey = "Children";
+//	std::string nodeType = ValueToString(Type());
+//	e_JSON[nodeType] =
+//	{
+//		{"Name", GetCharName()},
+//		//{"Local", ValueToString(GetLocalPosition())},
+//	};
+//	if (GetChildNodeVector().size())
+//	{
+//		e_JSON[nodeType][l_strChildrenKey] = nlohmann::json::array();
+//		for (auto l_Child : GetChildNodeVector())
+//		{
+//			nlohmann::json l_ChildJson;
+//			l_Child->DoSerialize(l_ChildJson);
+//			e_JSON[nodeType][l_strChildrenKey].push_back(l_ChildJson);
+//		}
+//	}
+//}
 
 cMyGuiBasicObj::cMyGuiBasicObj()
 {

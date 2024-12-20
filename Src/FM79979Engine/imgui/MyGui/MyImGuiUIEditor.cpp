@@ -4,6 +4,61 @@
 #include "../ThirtyParty/FileDialog/ImGuiFileDialog.h"
 #include "../ThirtyParty/ImGuiBuilder/additional.h"
 #include "../ImGuiRender.h"
+#include "../../../include/json.hpp"
+
+
+
+std::string ValueToString(ImVec2 e_v)
+{
+	return ValueToString(Vector2(e_v.x, e_v.y));
+}
+
+// Serialize a TreeNode into a JSON object
+void serialize(cImGuiNode* e_pNode, nlohmann::json& e_JSON)
+{
+	if (!e_pNode)
+	{
+		return;
+	}
+	const char* l_strChildrenKey = "Children";
+	std::string nodeType = ValueToString(e_pNode->Type());
+	e_JSON[nodeType] = 
+	{
+		{"Name", e_pNode->GetCharName()},
+		{"Local", ValueToString(e_pNode->GetLocalPosition())},
+	};
+	if (e_pNode->GetChildNodeVector().size())
+	{
+		e_JSON[nodeType][l_strChildrenKey] = nlohmann::json::array();
+		for (auto l_Child : e_pNode->GetChildNodeVector())
+		{
+			nlohmann::json l_ChildJson;
+			serialize(l_Child, l_ChildJson);
+			e_JSON[nodeType][l_strChildrenKey].push_back(l_ChildJson);
+		}
+	}
+}
+
+// Save a TreeNode to a file
+void saveTreeToFile(cImGuiNode* e_pNode, const std::string& filename)
+{
+	nlohmann::json json;
+	serialize(e_pNode, json);
+
+	// Write JSON to file
+	std::ofstream file(filename);
+	if (file.is_open())
+	{
+		file << json.dump(4); // Pretty print with 4 spaces
+		file.close();
+		//std::cout << "Tree saved to " << filename << std::endl;
+	}
+	else
+	{
+		//std::cerr << "Failed to open file: " << filename << std::endl;
+	}
+}
+
 
 //cursor
 struct sMouseCursor
@@ -180,6 +235,7 @@ void cMyImGuiUIEditor::RenderMenu()
 		{
 			if (ImGui::MenuItem("Save"))
 			{
+				saveTreeToFile(this->m_pMainUIRoot, "qoo.json");
 				//ImGuiFileDialog::Instance()->OpenDialog("SaveProjectFileDlgKey", "Save File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
 			}
 
@@ -341,7 +397,7 @@ void cMyImGuiUIEditor::Render()
 		m_p2DCamera->Render();
 		m_p2DCamera->DrawGrid(0.f, 0.f, Vector4(0.5f, 1.f, 0.f, 0.3f), 2.f);
 		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
-		auto l_pItem = this->m_pMainUIRoot->Collided((int)l_vPos.x, (int)l_vPos.y);
+		this->m_pMainUIRoot->Collided((int)l_vPos.x, (int)l_vPos.y);
 		this->m_pMainUIRoot->DebugRender();
 		auto l_strExtraInfo = UT::ComposeMsgByFormat(L"%d,%d", (int)l_vPos.x, (int)l_vPos.y);
 		l_vPos.y -= 50;
@@ -351,6 +407,50 @@ void cMyImGuiUIEditor::Render()
 	ImGui_StartFrame(l_fTargetGameResolution, m_iToolboxRenderContextIndex);
 	RenderToolBox();
 	ImGui_EndFrame();
+}
+
+void cMyImGuiUIEditor::Update(float e_fElpaeeTime)
+{
+	if (cGameApp::m_sbMouseClickStatus[0])
+	{
+		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
+		if (this->m_pMainUIRoot)
+		{
+			if (m_pCollidedItem)
+			{
+				auto l_vPositionOffset = l_vPos- m_vMouseClickPos;
+				auto l_vLocalPositionOffset = ImVec2(m_vObjectLocalPosition.x + l_vPositionOffset.x, m_vObjectLocalPosition.y + l_vPositionOffset.y);
+				m_pCollidedItem->SetLocalPosition(l_vLocalPositionOffset);
+			}
+			else
+			{
+				m_pCollidedItem = this->m_pMainUIRoot->Collided((int)l_vPos.x, (int)l_vPos.y);
+				if (m_pCollidedItem)
+				{
+					m_vMouseClickPos = l_vPos;
+					m_vObjectLocalPosition = m_pCollidedItem->GetLocalPosition();
+				}
+			}
+		}
+	}
+	else
+	{
+		m_pCollidedItem = nullptr;
+	}
+}
+//cImageNode:
+//{
+//	Name:"",
+//	LocalPositionL"",
+//		Child:
+//		[
+//		]
+//}
+
+
+void cMyImGuiUIEditor::SaveToFile(const char* e_strFileName)
+{
+	saveTreeToFile(this->m_pMainUIRoot, e_strFileName);
 }
 
 
@@ -540,6 +640,10 @@ void cMyImGuiUIEditor::RenderPopupMenuContext()
 
 				}
 				ImGui::EndMenu();
+			}
+			if (ImGui::MenuItem("Save"))
+			{
+				saveTreeToFile(this->m_pMainUIRoot, "qoo.json");
 			}
 			ImGui::EndMenu();
 		}

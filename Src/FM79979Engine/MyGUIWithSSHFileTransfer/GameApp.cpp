@@ -102,6 +102,10 @@ void	cMyApp::Update(float e_fElpaseTime)
 	{
 		m_pGUIForFileTransfer->Update(e_fElpaseTime);
 	}
+	if (g_pMyImGuiUIEditor)
+	{
+		g_pMyImGuiUIEditor->Update(e_fElpaseTime);
+	}
 }
 
 void	cMyApp::Render()

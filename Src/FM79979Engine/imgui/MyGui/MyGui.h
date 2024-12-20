@@ -105,6 +105,8 @@ public:
 	void						SetExtraRenderFunction(f_MyImGuiExtraRenderFunction e_MyImGuiExtraRenderFunction) { m_ExtraRenderFunction = e_MyImGuiExtraRenderFunction; }
 	std::vector<cImGuiNode*>&	GetChildNodeVector(){return m_ChildNodeVector;}
 	virtual cImGuiNode*			Collided(int e_iPosX,int e_iPosY);
+	bool						ExportJsonFile(const char*e_strFileName);
+	//virtual void				DoSerialize(nlohmann::json&e_Json);
 };
 
 

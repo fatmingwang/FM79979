@@ -1,6 +1,7 @@
 #pragma once
 #ifdef WIN32
 #include "./MyGui.h"
+#include "../../../include/json.hpp"
 
 struct sMouseCursor;
 
@@ -54,12 +55,19 @@ class cMyImGuiUIEditor
 	void					Render1ToolBox();
 	ImGuiStyle				m_dark_style = { };
 	ImGuiStyle				m_custom_gui_style = { };
+	//
+	cImGuiNode*				m_pCollidedItem = nullptr;
+	Vector2					m_vMouseClickPos;
+	ImVec2					m_vObjectLocalPosition;
 public:
 	cMyImGuiUIEditor();
 	virtual ~cMyImGuiUIEditor();
 	void			Init();
 	void			Render();
+	void			Update(float e_fElpaeeTime);
 	class  cOrthogonalCamera* m_p2DCamera = nullptr;
+
+	void					SaveToFile(const char* e_strFileName);
 
 };
 
