@@ -398,7 +398,7 @@ cImGuiNode*cImGuiNode::DoUnSerialize(const nlohmann::json& e_Json)
 	//parseChildren(e_Json);
 	std::string l_strType = e_Json.begin().key();
 
-	auto l_ImguiNode = GetImGuiNodeByType(ValueToStringW(l_strType).c_str());
+	//auto l_ImguiNode = GetImGuiNodeByType(ValueToStringW(l_strType).c_str());
 
 	auto l_Object = e_Json[l_strType];
 	// Indent output based on recursion level
