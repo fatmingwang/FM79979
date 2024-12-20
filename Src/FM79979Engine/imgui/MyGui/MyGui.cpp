@@ -4,10 +4,12 @@
 #include "../ThirtyParty/ImGuiBuilder/additional.h"
 #include <iostream>
 #include "../ImGuiRender.h"
+#include <fstream>
+#include <filesystem>
+#include <iostream>
 
 using namespace	FATMING_CORE;
 TYPDE_DEFINE_MARCO(cImGuiNode);
-TYPDE_DEFINE_MARCO(cMyGuiRootNode);
 TYPDE_DEFINE_MARCO(cMyGuiButton);
 TYPDE_DEFINE_MARCO(cMyGuiLabel);
 TYPDE_DEFINE_MARCO(cMyGuiEditBox);
@@ -21,6 +23,27 @@ TYPDE_DEFINE_MARCO(cMyGuiPanel);
 TYPDE_DEFINE_MARCO(cMyGuiComboBox);
 TYPDE_DEFINE_MARCO(cMyGuiListBox);
 TYPDE_DEFINE_MARCO(cMyGuiScroller);
+TYPDE_DEFINE_MARCO(cMyGuiRootNode);
+
+
+std::map<std::wstring, eMyImGuiType> g_ImguiTypeNameAndType =
+{
+	{cImGuiNode::TypeID,eMyImGuiType::eMIGT_NODE},
+	{cMyGuiButton::TypeID,eMyImGuiType::eMIGT_BUTTON},
+	{cMyGuiLabel::TypeID,eMyImGuiType::eMIGT_LABEL},
+	{cMyGuiEditBox::TypeID,eMyImGuiType::eMIGT_EDIT_BOX},
+	{cMyGuiSliderInteger::TypeID,eMyImGuiType::eMIGT_SLIDER_I},
+	{cMyGuiSliderFloatValue::TypeID,eMyImGuiType::eMIGT_SLIDER_F},
+	{cMyGuiCheckBox::TypeID,eMyImGuiType::eMIGT_CHECKBOX},
+	{cMyGuiRadio::TypeID,eMyImGuiType::eMIGT_RADIO},
+	{cMyGuiToogle::TypeID,eMyImGuiType::eMIGT_TOOGLE},
+	{cMyGuiForm::TypeID,eMyImGuiType::eMIGT_FORM},
+	{cMyGuiPanel::TypeID,eMyImGuiType::eMIGT_PANEL},
+	{cMyGuiComboBox::TypeID,eMyImGuiType::eMIGT_COMBO_BOX},
+	{cMyGuiListBox::TypeID,eMyImGuiType::eMIGT_LIST_BOX},
+	{cMyGuiRootNode::TypeID,eMyImGuiType::eMIGT_ROOT_NODE},
+	{cMyGuiScroller::TypeID,eMyImGuiType::eMIGT_SCROLLER}
+};
 
 
 bool CheckMouseAndCurrentWindowCollision()
@@ -321,37 +344,98 @@ cImGuiNode*cImGuiNode::Collided(int e_iPosX, int e_iPosY)
 
 bool cImGuiNode::ExportJsonFile(const char* e_strFileName)
 {
-	if (!this->m_pParent)
+	nlohmann::json json;
+	this->DoSerialize(json);
+
+	// Write JSON to file
+	std::ofstream file(e_strFileName);
+	if (file.is_open())
 	{
-		this->GetCharName();
-		this->Type();
-		this->GetLocalPosition();
-		this->GetWorldPosition();
+		file << json.dump(4); // Pretty print with 4 spaces
+		file.close();
+		//std::cout << "Tree saved to " << filename << std::endl;
 		return true;
-	}
+	}	
 	return false;
 }
 
-//void cImGuiNode::DoSerialize(nlohmann::json& e_JSON)
-//{
-//	const char* l_strChildrenKey = "Children";
-//	std::string nodeType = ValueToString(Type());
-//	e_JSON[nodeType] =
-//	{
-//		{"Name", GetCharName()},
-//		//{"Local", ValueToString(GetLocalPosition())},
-//	};
-//	if (GetChildNodeVector().size())
-//	{
-//		e_JSON[nodeType][l_strChildrenKey] = nlohmann::json::array();
-//		for (auto l_Child : GetChildNodeVector())
-//		{
-//			nlohmann::json l_ChildJson;
-//			l_Child->DoSerialize(l_ChildJson);
-//			e_JSON[nodeType][l_strChildrenKey].push_back(l_ChildJson);
-//		}
-//	}
-//}
+
+std::string ValueToString(ImVec2 e_v)
+{
+	return ValueToString(Vector2(e_v.x, e_v.y));
+}
+
+ImVec2	GetImVec2(std::string e_str)
+{
+	auto l_vPos = GetVector2(e_str.c_str());
+	return ImVec2(l_vPos.x, l_vPos.y);
+}
+
+void cImGuiNode::DoSerialize(nlohmann::json& e_JSON)
+{
+	const char* l_strChildrenKey = "Children";
+	std::string nodeType = ValueToString(Type());
+	e_JSON[nodeType] =
+	{
+		{"Name", GetCharName()},
+		{"UID", this->m_uiUniqueID},
+		{"Local", ValueToString(GetLocalPosition())},
+	};
+	if (GetChildNodeVector().size())
+	{
+		e_JSON[nodeType][l_strChildrenKey] = nlohmann::json::array();
+		for (auto l_Child : GetChildNodeVector())
+		{
+			nlohmann::json l_ChildJson;
+			l_Child->DoSerialize(l_ChildJson);
+			e_JSON[nodeType][l_strChildrenKey].push_back(l_ChildJson);
+		}
+	}
+}
+
+cImGuiNode*cImGuiNode::DoUnSerialize(const nlohmann::json& e_Json)
+{
+	//parseChildren(e_Json);
+	std::string l_strType = e_Json.begin().key();
+
+	auto l_ImguiNode = GetImGuiNodeByType(ValueToStringW(l_strType).c_str());
+
+	auto l_Object = e_Json[l_strType];
+	// Indent output based on recursion level
+	//std::string indent(level * 2, ' ');
+
+	// Process current node
+	if (l_Object.contains("Name"))
+	{
+		//std::cout << indent << "Name: " << l_Object.value("Name", "") << std::endl;
+	}
+	if (l_Object.contains("UID"))
+	{
+		//std::cout << indent << "UID: " << l_Object.value("UID", 0) << std::endl;
+	}
+	if (l_Object.contains("Local"))
+	{
+		auto l_strPos = l_Object.value("Local", "");
+		this->SetLocalPosition(GetImVec2(l_strPos));
+	}
+
+	// Recursively parse "Children" if it exists
+	if (l_Object.contains("Children") && l_Object["Children"].is_array())
+	{
+		for (const auto& child : l_Object["Children"])
+		{
+			DoUnSerialize(child);
+		}
+	}
+	//std::string l_strType = e_Json.begin().key();
+	//auto l_Object = e_Json[l_strType];
+	//// Access attributes of the object
+	//std::string l_strName = l_Object.value("Name", "");   // Default value "" if "Name" does not exist
+	//std::string l_strUID = std::to_string(l_Object.value("UID", 0)); // Convert UID to string, default 0
+	//std::string l_strLocal = l_Object.value("Local", ""); // Default value "" if "Local" does not exist	
+
+	return nullptr;
+}
 
 cMyGuiBasicObj::cMyGuiBasicObj()
 {
@@ -1630,6 +1714,18 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 		l_pObject->SetName(l_pObject->GetTypeName());
 	}
 	return l_pObject;
+}
+
+
+
+cImGuiNode* GetImGuiNodeByType(const wchar_t* e_strType)
+{
+	auto l_IT = g_ImguiTypeNameAndType.find(e_strType);
+	if (l_IT != g_ImguiTypeNameAndType.end())
+	{
+		return GetMyGuiObj(l_IT->second);
+	}
+	return nullptr;
 }
 
 const char* GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType)

@@ -67,7 +67,8 @@ public:
 	void			Update(float e_fElpaeeTime);
 	class  cOrthogonalCamera* m_p2DCamera = nullptr;
 
-	void					SaveToFile(const char* e_strFileName);
+	void			SaveToFile(const char* e_strFileName);
+	void			OpenFile(const char* e_strFileName);
 
 };
 

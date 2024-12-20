@@ -6,6 +6,7 @@
 #include <string>
 
 #include <functional>
+#include "../../../include/json.hpp"
 
 #define	MYGUI_DEFAULT_IMPLEMENT()	DEFINE_TYPE_INFO();virtual std::wstring GetTypeName(){return this->Type();}
 
@@ -106,7 +107,8 @@ public:
 	std::vector<cImGuiNode*>&	GetChildNodeVector(){return m_ChildNodeVector;}
 	virtual cImGuiNode*			Collided(int e_iPosX,int e_iPosY);
 	bool						ExportJsonFile(const char*e_strFileName);
-	//virtual void				DoSerialize(nlohmann::json&e_Json);
+	virtual void				DoSerialize(nlohmann::json&e_Json);
+	virtual cImGuiNode*			DoUnSerialize(const nlohmann::json& e_Json);
 };
 
 
@@ -385,6 +387,7 @@ public:
 
 void			RenderHintLabel(const char* e_strContent);
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType);
+cImGuiNode*		GetImGuiNodeByType(const wchar_t*e_strType);
 const char*		GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType);
 template<class TYPE>TYPE* GetMyGuiObjWithType(eMyImGuiType e_eMyImGuiType)
 {

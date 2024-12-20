@@ -6,60 +6,6 @@
 #include "../ImGuiRender.h"
 #include "../../../include/json.hpp"
 
-
-
-std::string ValueToString(ImVec2 e_v)
-{
-	return ValueToString(Vector2(e_v.x, e_v.y));
-}
-
-// Serialize a TreeNode into a JSON object
-void serialize(cImGuiNode* e_pNode, nlohmann::json& e_JSON)
-{
-	if (!e_pNode)
-	{
-		return;
-	}
-	const char* l_strChildrenKey = "Children";
-	std::string nodeType = ValueToString(e_pNode->Type());
-	e_JSON[nodeType] = 
-	{
-		{"Name", e_pNode->GetCharName()},
-		{"Local", ValueToString(e_pNode->GetLocalPosition())},
-	};
-	if (e_pNode->GetChildNodeVector().size())
-	{
-		e_JSON[nodeType][l_strChildrenKey] = nlohmann::json::array();
-		for (auto l_Child : e_pNode->GetChildNodeVector())
-		{
-			nlohmann::json l_ChildJson;
-			serialize(l_Child, l_ChildJson);
-			e_JSON[nodeType][l_strChildrenKey].push_back(l_ChildJson);
-		}
-	}
-}
-
-// Save a TreeNode to a file
-void saveTreeToFile(cImGuiNode* e_pNode, const std::string& filename)
-{
-	nlohmann::json json;
-	serialize(e_pNode, json);
-
-	// Write JSON to file
-	std::ofstream file(filename);
-	if (file.is_open())
-	{
-		file << json.dump(4); // Pretty print with 4 spaces
-		file.close();
-		//std::cout << "Tree saved to " << filename << std::endl;
-	}
-	else
-	{
-		//std::cerr << "Failed to open file: " << filename << std::endl;
-	}
-}
-
-
 //cursor
 struct sMouseCursor
 {
@@ -235,7 +181,8 @@ void cMyImGuiUIEditor::RenderMenu()
 		{
 			if (ImGui::MenuItem("Save"))
 			{
-				saveTreeToFile(this->m_pMainUIRoot, "qoo.json");
+				//saveTreeToFile(this->m_pMainUIRoot, "qoo.json");
+				//this->SaveToFile("qoo.json");
 				//ImGuiFileDialog::Instance()->OpenDialog("SaveProjectFileDlgKey", "Save File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
 			}
 
@@ -450,7 +397,23 @@ void cMyImGuiUIEditor::Update(float e_fElpaeeTime)
 
 void cMyImGuiUIEditor::SaveToFile(const char* e_strFileName)
 {
-	saveTreeToFile(this->m_pMainUIRoot, e_strFileName);
+	if (this->m_pMainUIRoot)
+	{
+		this->m_pMainUIRoot->ExportJsonFile(e_strFileName);
+	}
+}
+
+void cMyImGuiUIEditor::OpenFile(const char* e_strFileName)
+{
+	if (this->m_pMainUIRoot)
+	{
+		using json = nlohmann::json;
+		std::ifstream l_JsonStream(e_strFileName);
+		auto l_JsonData = json::parse(l_JsonStream);
+		l_JsonStream.close();
+		auto l_strKEy = l_JsonData.begin().key();
+		this->m_pMainUIRoot->DoUnSerialize(l_JsonData);
+	}
 }
 
 
@@ -641,11 +604,15 @@ void cMyImGuiUIEditor::RenderPopupMenuContext()
 				}
 				ImGui::EndMenu();
 			}
-			if (ImGui::MenuItem("Save"))
-			{
-				saveTreeToFile(this->m_pMainUIRoot, "qoo.json");
-			}
 			ImGui::EndMenu();
+		}
+		if (ImGui::MenuItem("Save"))
+		{
+			this->SaveToFile("qoo.json");
+		}
+		if (ImGui::MenuItem("Open"))
+		{
+			this->OpenFile("qoo.json");
 		}
 		ImGui::EndPopup();
 	}
