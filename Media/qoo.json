@@ -1,0 +1,273 @@
+{
+    "cMyGuiRootNode": {
+        "Children": [
+            {
+                "cMyGuiForm": {
+                    "Children": [
+                        {
+                            "cMyGuiDatePicker": {
+                                "m_iDay": 1,
+                                "m_iID": 16,
+                                "m_iMonth": 1,
+                                "m_iYear": 2025,
+                                "m_strImGuiName": "cMyGuiDatePicker",
+                                "m_strText": "ReleaseDate:",
+                                "m_vLocalPos": {
+                                    "x": 24.370025634765625,
+                                    "y": 245.50003051757813
+                                },
+                                "m_vSize": {
+                                    "x": 100.0,
+                                    "y": 30.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 24.370025634765625,
+                                    "y": 245.50003051757813
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiComboBox": {
+                                "m_ItemList": [
+                                    "10028",
+                                    "10029",
+                                    "10030",
+                                    "10031",
+                                    "10032",
+                                    "10033",
+                                    "10034",
+                                    "10035",
+                                    "10036",
+                                    "10037",
+                                    "10038",
+                                    "10039",
+                                    "10040",
+                                    "10041",
+                                    "10042",
+                                    "10043"
+                                ],
+                                "m_iID": 18,
+                                "m_iSelectedIndex": 0,
+                                "m_strImGuiName": "cMyGuiComboBox",
+                                "m_strText": "GameCode",
+                                "m_vLocalPos": {
+                                    "x": 24.370025634765625,
+                                    "y": 80.79000854492188
+                                },
+                                "m_vSize": {
+                                    "x": 200.0,
+                                    "y": 200.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 24.370025634765625,
+                                    "y": 80.79000854492188
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiComboBox": {
+                              "m_ItemList": [
+                                "Line",
+                                "Line",
+                                "Line"
+                              ],
+                                "m_iID": 19,
+                                "m_iSelectedIndex": 0,
+                                "m_strImGuiName": "cMyGuiComboBox",
+                                "m_strText": "LineType",
+                                "m_vLocalPos": {
+                                    "x": 21.6400146484375,
+                                    "y": 169.9700164794922
+                                },
+                                "m_vSize": {
+                                    "x": 200.0,
+                                    "y": 200.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 21.6400146484375,
+                                    "y": 169.9700164794922
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiToogle": {
+                                "m_iID": 20,
+                                "m_strImGuiName": "cMyGuiToogle",
+                                "m_strText": "JP",
+                                "m_vLocalPos": {
+                                    "x": 33.470001220703125,
+                                    "y": 311.01995849609375
+                                },
+                                "m_vSize": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 33.470001220703125,
+                                    "y": 311.01995849609375
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiToogle": {
+                                "m_iID": 22,
+                                "m_strImGuiName": "cMyGuiToogle",
+                                "m_strText": "FG Pickup",
+                                "m_vLocalPos": {
+                                    "x": 35.290008544921875,
+                                    "y": 360.15997314453125
+                                },
+                                "m_vSize": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 35.290008544921875,
+                                    "y": 360.15997314453125
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiToogle": {
+                                "m_iID": 23,
+                                "m_strImGuiName": "cMyGuiToogle",
+                                "m_strText": "Collection",
+                                "m_vLocalPos": {
+                                    "x": 30.740020751953125,
+                                    "y": 402.92999267578125
+                                },
+                                "m_vSize": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 30.740020751953125,
+                                    "y": 402.92999267578125
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiEditBox": {
+                                "m_bMultiLines": false,
+                                "m_iID": 24,
+                                "m_strHint": "please input...",
+                                "m_strImGuiName": "cMyGuiEditBox",
+                                "m_strText": "1.2",
+                                "m_vLocalPos": {
+                                    "x": 28.010009765625,
+                                    "y": 449.3399658203125
+                                },
+                                "m_vSize": {
+                                    "x": 300.0,
+                                    "y": 100.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 28.010009765625,
+                                    "y": 449.3399658203125
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiEditBox": {
+                                "m_bMultiLines": false,
+                                "m_iID": 25,
+                                "m_strHint": "please input...",
+                                "m_strImGuiName": "cMyGuiEditBox",
+                                "m_strText": "50",
+                                "m_vLocalPos": {
+                                    "x": 29.83001708984375,
+                                    "y": 514.8600463867188
+                                },
+                                "m_vSize": {
+                                    "x": 300.0,
+                                    "y": 100.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 29.83001708984375,
+                                    "y": 514.8600463867188
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiComboBox": {
+                              "m_ItemList": [
+                                "1(slot)",
+                                "2(mini)",
+                                "3(og)"
+                              ],
+                                "m_iID": 26,
+                                "m_iSelectedIndex": 0,
+                                "m_strImGuiName": "game type",
+                                "m_strText": "",
+                                "m_vLocalPos": {
+                                    "x": 35.28997802734375,
+                                    "y": 573.0999755859375
+                                },
+                                "m_vSize": {
+                                    "x": 200.0,
+                                    "y": 200.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 35.28997802734375,
+                                    "y": 573.0999755859375
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiEditBox": {
+                                "m_bMultiLines": false,
+                                "m_iID": 27,
+                                "m_strHint": "please input...",
+                                "m_strImGuiName": "cMyGuiEditBox",
+                                "m_strText": "SpecialPlatformRtp",
+                                "m_vLocalPos": {
+                                    "x": 27.0999755859375,
+                                    "y": 641.3499755859375
+                                },
+                                "m_vSize": {
+                                    "x": 300.0,
+                                    "y": 100.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 27.0999755859375,
+                                    "y": 641.3499755859375
+                                }
+                            }
+                        }
+                    ],
+                    "m_FormFlag": 0,
+                    "m_iID": 1,
+                    "m_strImGuiName": "cMyGuiForm",
+                    "m_strText": "",
+                    "m_vLocalPos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "m_vSize": {
+                        "x": 1920.0,
+                        "y": 1080.0
+                    },
+                    "m_vWorldPos": {
+                        "x": 0.0,
+                        "y": 0.0
+                    }
+                }
+            }
+        ],
+        "m_iID": 0,
+        "m_strImGuiName": "cMyGuiRootNode",
+        "m_strText": "RootNode",
+        "m_vLocalPos": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "m_vSize": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "m_vWorldPos": {
+            "x": 0.0,
+            "y": 0.0
+        }
+    }
+}

@@ -22,13 +22,24 @@ virtual bool InternalSerialize(const nlohmann::json& e_Json)override		\
 	return true;															\
 }																			\
 virtual nlohmann::json		GetJson()override{return *Variable;}			\
+public:																		\
 virtual void				CreateImguiDataData()override					\
 {																			\
 	m_pData = std::make_unique<VariableType>();								\
 	Variable = std::dynamic_pointer_cast<VariableType>(m_pData);			\
 	this->SetName(this->Type());											\
 	SetImGuiName(this->Type());												\
-}
+	auto l_IT = g_ImguiTypeNameAndType.find(this->Type());					\
+	if (l_IT != g_ImguiTypeNameAndType.end())								\
+	{																		\
+		this->m_pData->m_strText = GetMyGuiObjLabel(l_IT->second);			\
+	}																		\
+	else																	\
+	{																		\
+		this->m_pData->m_strText = ValueToString(this->Type());				\
+	}																		\
+}																			\
+protected:
 
 
 
@@ -98,8 +109,19 @@ enum eMyImGuiType
 	eMIGT_LIST_BOX,
 	eMIGT_ROOT_NODE,
 	eMIGT_SCROLLER,
+	eMIGT_DATA_PICKER,
 	eMIGT_MAX
 };
+
+class cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType);
+class cImGuiNode* GetImGuiNodeByType(const wchar_t* e_strType);
+const char* GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType);
+template<class TYPE>TYPE* GetMyGuiObjWithType(eMyImGuiType e_eMyImGuiType)
+{
+	return (TYPE*)GetMyGuiObj(e_eMyImGuiType);
+}
+extern std::map<std::wstring, eMyImGuiType> g_ImguiTypeNameAndType;
+
 
 enum class resize_opt
 {
@@ -159,6 +181,7 @@ protected:
 		std::string					m_strText;
 		ImVec2						m_vLocalPos = { 0, 0 };
 		ImVec2						m_vWorldPos = { 0, 0 };
+		sImguiData();
 		virtual ~sImguiData() = default;
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiData, m_vSize, m_iID, m_strImGuiName, m_strText, m_vLocalPos, m_vWorldPos);
 	};
@@ -191,6 +214,7 @@ public:
 	std::vector<cImGuiNode*>&	GetChildNodeVector(){return m_ChildNodeVector;}
 	bool						ExportJsonFile(const char*e_strFileName);
 	std::wstring 				GetNameW();
+	std::string					GetRenderText();
 	//
 	virtual void				CreateImguiDataData() = 0;
 	virtual void				DoSerialize(nlohmann::json&e_Json);
@@ -300,21 +324,25 @@ class cMyGuiEditBox :public cMyGuiBasicObj
 	void				FocusCheck();
 	virtual	void		InternalRender()override;
 	void				RenderMultiLine();
-	GET_SET_DEC(std::string, m_strHint, GetHint, SetHint);
-	GET_SET_DEC(bool,m_bMultiLines, IsMultiLines, SetMultiLines);
 	bool				m_bFocused = false;
 	struct sImguiEditBoxData:public sImguiData
 	{
 		std::string m_strHint = "please input...";
 		bool m_bMultiLines = false;
+		sImguiEditBoxData()
+		{
+			this->m_vSize = ImVec2(300, 100);
+		}
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiEditBoxData, MY_IMGUI_BASE_DATA, m_strHint, m_bMultiLines);
 	};
-	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiEditBoxData, m_EditBoxData)
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiEditBoxData, m_pEditBoxData)
 	//virtual bool				InternalSerialize(const nlohmann::json& e_Json);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiEditBox();
 	std::function<void(bool)>	m_fFocusedChangedFunction;
+	GET_SET(std::string, m_pEditBoxData->m_strHint, GetHint, SetHint);
+	GET_SET(bool, m_pEditBoxData->m_bMultiLines, IsMultiLines, SetMultiLines);
 	//virtual void		RenderProperty()override;
 };
 
@@ -416,7 +444,7 @@ class cMyGuiForm :public cMyGuiBasicObj
 		int m_FormFlag = 0;
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiFormData, MY_IMGUI_BASE_DATA,m_FormFlag);
 	};
-	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiFormData, m_FormData);
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiFormData, m_pFormData);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiForm();
@@ -430,14 +458,26 @@ class cMyGuiPanel :public cMyGuiBasicObj
 	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
 	virtual	void		EndRender()override;
-	GET_SET_DEC(bool,m_bShowBorder, GetShowBorder, SetBorder);
-	GET_SET_DEC(ImGuiWindowFlags, m_FormFlag, GetFormFlag, SetFormFlag);
-	virtual	void		GetRenderRect()override{ }
+
+	struct sImguiPanelData :public sImguiData
+	{
+		bool	m_bShowBorder = true;
+		int		m_iFormFlag = ImGuiWindowFlags_ChildWindow;
+		sImguiPanelData()
+		{
+			this->m_vSize = ImVec2(200, 200);
+		}
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiPanelData, MY_IMGUI_BASE_DATA, m_iFormFlag, m_bShowBorder);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiPanelData, m_pPanelData);
+	virtual	void		GetRenderRect()override{}
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiPanel();
 	virtual ~cMyGuiPanel();
 	virtual void		RenderProperty()override;
+	GET_SET(bool, m_pPanelData->m_bShowBorder, GetShowBorder, SetBorder);
+	GET_SET(ImGuiWindowFlags, m_pPanelData->m_iFormFlag, GetFormFlag, SetFormFlag);
 };
 
 class cMyGuiComboBox :public cMyGuiBasicObj
@@ -445,15 +485,28 @@ class cMyGuiComboBox :public cMyGuiBasicObj
 	virtual	void				InternalRender()override;
 	//
 protected:
-	std::vector<std::string>	m_ItemList;
+	struct sImguiComboxData :public sImguiData
+	{
+		std::vector<std::string>	m_ItemList;
+		int	m_iSelectedIndex;
+		sImguiComboxData()
+		{
+			m_ItemList = { "1","2","3" };
+			m_vSize.x = 200.f;
+			m_vSize.y = 200.f;
+		}
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiComboxData, MY_IMGUI_BASE_DATA, m_ItemList, m_iSelectedIndex);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiComboxData, m_pImguiComboxData);
+protected:
 	std::vector<const char*>	m_ItemTempList;
-	GET_SET_DEC(int,m_iSelectedIndex,GetSelectedIndex,SetSelectedIndex);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiComboBox();
+	GET_SET(int, m_pImguiComboxData->m_iSelectedIndex, GetSelectedIndex, SetSelectedIndex);
 	virtual void				RenderProperty()override;
 	std::function<void(int)>	m_fOnSelectFunction;
-	std::vector<std::string>	GetItemList(){return m_ItemList;}
+	std::vector<std::string>	GetItemList(){return m_pImguiComboxData->m_ItemList;}
 	virtual void	SetItemList(std::vector<std::string>e_ItemList);
 };
 
@@ -473,7 +526,7 @@ public:
 	virtual void		SetItemList(std::vector<std::string>e_ItemList);
 };
 
-class cMyGuiScroller :public cMyGuiBasicObj
+class cMyGuiScroller :public cMyGuiComboBox
 {
 	virtual	void		InternalRender()override;
 	GET_SET_DEC(int, m_iSelectedIndex, GetSelectedIndex, SetSelectedIndex);
@@ -484,6 +537,32 @@ public:
 	cMyGuiScroller();
 	virtual ~cMyGuiScroller();
 };
+
+class cMyGuiDatePicker :public cMyGuiBasicObj
+{
+	virtual	void		InternalRender()override;
+	virtual	void		GetRenderRect()override;
+	struct sImguiDatePickerData :public sImguiData
+	{
+		int m_iYear = 2025;
+		int m_iMonth = 1;
+		int	m_iDay = 1;
+		sImguiDatePickerData()
+		{
+			m_vSize.x = 100.f;
+			m_vSize.y = 30.f;
+			this->m_strText = "Date:";
+		}
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiDatePickerData, MY_IMGUI_BASE_DATA, m_iYear, m_iMonth, m_iDay);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiDatePickerData, m_pImguiDatePickerData);
+public:
+	MYGUI_DEFAULT_IMPLEMENT();
+	virtual void		RenderProperty()override;
+	cMyGuiDatePicker();
+	virtual ~cMyGuiDatePicker();
+};
+
 
 class cMyTreeView :public NamedTypedObject
 {
@@ -509,16 +588,6 @@ public:
 	void		Render();
 	bool		IsCollided(int e_iPosX, int e_iPosY);
 };
-
-void			RenderHintLabel(const char* e_strContent);
-cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType);
-cImGuiNode*		GetImGuiNodeByType(const wchar_t*e_strType);
-const char*		GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType);
-template<class TYPE>TYPE* GetMyGuiObjWithType(eMyImGuiType e_eMyImGuiType)
-{
-	return (TYPE*)GetMyGuiObj(e_eMyImGuiType);
-}
-void NumericUpDown(const char* label, int* value, int minValue = 0, int maxValue = 100, int step = 1);
 
 
 template<class TYPE>TYPE* GetMyGuiObjWithType()

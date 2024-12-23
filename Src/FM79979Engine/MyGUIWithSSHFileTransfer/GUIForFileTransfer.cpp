@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <iostream>
 #include "../imgui/MyGui/MyGui.h"
+#include "../imgui/MyGui/MyGUIUtilities.h"
 #include "SFTPTransfer.h"
 #include "json.hpp"
 

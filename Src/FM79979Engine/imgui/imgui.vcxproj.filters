@@ -75,6 +75,9 @@
     <ClInclude Include="misc\cpp\imgui_stdlib.h">
       <Filter>miscu</Filter>
     </ClInclude>
+    <ClInclude Include="MyGui\MyGUIUtilities.h">
+      <Filter>MyGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui_widgets.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="misc\cpp\imgui_stdlib.cpp">
       <Filter>miscu</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGui\MyGUIUtilities.cpp">
+      <Filter>MyGui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

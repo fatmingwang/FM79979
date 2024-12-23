@@ -5,6 +5,7 @@
 #include "../ThirtyParty/ImGuiBuilder/additional.h"
 #include "../ImGuiRender.h"
 #include "../../../include/json.hpp"
+#include "MyGUIUtilities.h"
 
 //cursor
 struct sMouseCursor
@@ -44,7 +45,7 @@ void cMyImGuiUIEditor::RenderFileDoalog()
 		HKEY hKey;
 		RegOpenKeyExA(HKEY_CURRENT_USER, NULL, 0, KEY_SET_VALUE, &hKey);
 
-		auto status = RegSetValueExA(hKey, keyname.c_str(), NULL, REG_SZ, (LPBYTE)value.c_str(), value.size() + 1);
+		auto status = RegSetValueExA(hKey, keyname.c_str(), NULL, REG_SZ, (LPBYTE)value.c_str(), (DWORD)value.size() + 1);
 
 		printf_s("RegSetValueEx: %d\n", status);
 
@@ -414,6 +415,8 @@ void cMyImGuiUIEditor::OpenFile(const char* e_strFileName)
 		auto l_strKEy = l_JsonData.begin().key();
 		SAFE_DELETE(this->m_pMainUIRoot);
 		this->m_pMainUIRoot = (cMyGuiRootNode*)cImGuiNode::DoUnSerialize(l_JsonData);
+		auto l_ChildVector =  this->m_pMainUIRoot->GetChildNodeVector();
+		m_pMyGuiForm = (cMyGuiForm*)l_ChildVector[0];
 	}
 }
 
