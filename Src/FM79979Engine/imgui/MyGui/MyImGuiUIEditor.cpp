@@ -123,9 +123,9 @@ cMyImGuiUIEditor::cMyImGuiUIEditor()
 	m_pToolBoxRoot = nullptr;
 	m_pTreeView = new cMyTreeView();
 	m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
-	ImVec2 l_vSize(1920, 1080);
+	ImVec2 l_vSize(920, 1080);
 	m_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
-	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar| ImGuiWindowFlags_NoMove);
 	m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
 	m_pMainUIRoot->AddChild(m_pMyGuiForm);
 	m_pMyGuiForm->SetSize(l_vSize);
@@ -412,10 +412,10 @@ void cMyImGuiUIEditor::OpenFile(const char* e_strFileName)
 		auto l_JsonData = json::parse(l_JsonStream);
 		l_JsonStream.close();
 		auto l_strKEy = l_JsonData.begin().key();
-		this->m_pMainUIRoot->DoUnSerialize(l_JsonData);
+		SAFE_DELETE(this->m_pMainUIRoot);
+		this->m_pMainUIRoot = (cMyGuiRootNode*)cImGuiNode::DoUnSerialize(l_JsonData);
 	}
 }
-
 
 //Move obj with cursor
 

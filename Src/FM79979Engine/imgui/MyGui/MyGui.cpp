@@ -8,6 +8,48 @@
 #include <filesystem>
 #include <iostream>
 
+
+#define	sTest_DATA a, b, m_strName
+// Base structure
+struct sTest
+{
+	int a = 0;
+	double b = 0.0;
+	std::string m_strName;
+	NLOHMANN_DEFINE_TYPE_INTRUSIVE(sTest, a, b, m_strName)
+};
+
+// Derived structure
+struct sTest2 : public sTest
+{
+	int a2 = 0;
+	double b2 = 0.0;
+	std::string m_strName2;
+
+	// Combine base and derived members for JSON serialization
+	NLOHMANN_DEFINE_TYPE_INTRUSIVE(sTest2, sTest_DATA, a2, b2, m_strName2)
+};
+
+
+void  JsonTesting()
+{
+	// Deserialize JSON to derived structure
+	nlohmann::json newJson = R"({
+        "a": 10,
+        "b": 1.618,
+        "m_strName": "Base Test",
+		"m_strName3": "Base Testqoo",
+        "a2": 20,
+        "b2": 3.14159,
+        "m_strName2": "Derived Test"
+    })"_json;
+
+	sTest2 newStruct;
+	newStruct = newJson.get<sTest2>();
+}
+
+
+
 using namespace	FATMING_CORE;
 TYPDE_DEFINE_MARCO(cImGuiNode);
 TYPDE_DEFINE_MARCO(cMyGuiButton);
@@ -63,12 +105,13 @@ bool CheckMouseAndCurrentWindowCollision()
 
 cImGuiNode::cImGuiNode()
 {
+	//JsonTesting();
 	m_pParent = nullptr;
 	m_bEnable = true;
 	m_bVisible = true;
 	m_bDoApplyPosition = true;
 	m_bOnlyApplyPositionOnceForDragMoving = false;
-	//this->SetName(GetTypeName());
+	//this->SetImGuiName(GetTypeName());
 }
 
 cImGuiNode::~cImGuiNode()
@@ -131,30 +174,35 @@ void cImGuiNode::UpdateCachedWorldTransformIfNeeded()
 		if (m_pParent)
 		{
 			m_pParent->UpdateCachedWorldTransformIfNeeded();
-			m_vWorldPos = ImVec2(m_pParent->m_vWorldPos.x + m_vLocalPos.x, m_pParent->m_vWorldPos.y + m_vLocalPos.y);
+			m_pData->m_vWorldPos = ImVec2(m_pParent->m_pData->m_vWorldPos.x + m_pData->m_vLocalPos.x, m_pParent->m_pData->m_vWorldPos.y + m_pData->m_vLocalPos.y);
 			if (m_pParent->m_bThisUseContainerPositionDontApplyParentPositionToChild)
 			{
-				m_vImGuiRenderPos = m_vLocalPos;
+				m_vImGuiRenderPos = m_pData->m_vLocalPos;
 			}
 			else
 			{
-				m_vImGuiRenderPos = m_vWorldPos;
+				m_vImGuiRenderPos = m_pData->m_vWorldPos;
 			}
 		}
 		else
 		{
-			m_vWorldPos = m_vLocalPos;
+			m_pData->m_vWorldPos = m_pData->m_vLocalPos;
 		}
 		m_bPosDirty = false;
 	}
 }
 
 
+void cImGuiNode::SetImGuiName(const wchar_t* e_strImGuiNmae)
+{
+	m_pData->m_strImGuiName = ValueToString(e_strImGuiNmae);
+}
+
 void cImGuiNode::SetLocalPosition(const ImVec2& e_vLocalPos)
 {
-	if (m_vLocalPos.x != e_vLocalPos.x || m_vLocalPos.y != e_vLocalPos.y)
+	if (m_pData->m_vLocalPos.x != e_vLocalPos.x || m_pData->m_vLocalPos.y != e_vLocalPos.y)
 	{
-		m_vLocalPos = e_vLocalPos;
+		m_pData->m_vLocalPos = e_vLocalPos;
 		m_bPosDirty = false;
 		SetCachedWorldTransformDirty();
 	}
@@ -169,7 +217,7 @@ void cImGuiNode::SetLocalPosition(float e_fPosX, float e_fPosY)
 ImVec2 cImGuiNode::GetWorldPosition()
 {
 	UpdateCachedWorldTransformIfNeeded();
-	return m_vWorldPos;
+	return m_pData->m_vWorldPos;
 }
 
 void cImGuiNode::SetWorldPosition(const ImVec2& e_vWorldPos)
@@ -320,6 +368,11 @@ void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 	}
 }
 
+nlohmann::json cImGuiNode::GetJson()
+{
+	return *m_pData;
+}
+
 cImGuiNode*cImGuiNode::Collided(int e_iPosX, int e_iPosY)
 {
 	if (this->m_bVisible)
@@ -374,72 +427,82 @@ ImVec2	GetImVec2(std::string e_str)
 void cImGuiNode::DoSerialize(nlohmann::json& e_JSON)
 {
 	const char* l_strChildrenKey = "Children";
-	std::string nodeType = ValueToString(Type());
-	e_JSON[nodeType] =
-	{
-		{"Name", GetCharName()},
-		{"UID", this->m_uiUniqueID},
-		{"Local", ValueToString(GetLocalPosition())},
-	};
+	std::string l_strNodeType = ValueToString(Type());
+	e_JSON[l_strNodeType] = this->GetJson();
+	//{
+	//	{"Name", GetImGuiName()},
+	//	{"UID", this->m_uiUniqueID},
+	//	{"Local", ValueToString(GetLocalPosition())},
+	//};
 	if (GetChildNodeVector().size())
 	{
-		e_JSON[nodeType][l_strChildrenKey] = nlohmann::json::array();
+		e_JSON[l_strNodeType][l_strChildrenKey] = nlohmann::json::array();
 		for (auto l_Child : GetChildNodeVector())
 		{
 			nlohmann::json l_ChildJson;
 			l_Child->DoSerialize(l_ChildJson);
-			e_JSON[nodeType][l_strChildrenKey].push_back(l_ChildJson);
+			e_JSON[l_strNodeType][l_strChildrenKey].push_back(l_ChildJson);
 		}
 	}
 }
 
-cImGuiNode*cImGuiNode::DoUnSerialize(const nlohmann::json& e_Json)
+bool cImGuiNode::InternalSerialize(const nlohmann::json& e_Json)
 {
-	//parseChildren(e_Json);
+	m_pData = std::make_shared<sImguiData>();
+	*m_pData = e_Json;
+	return true;
+}
+
+bool cImGuiNode::UnSerialize(const nlohmann::json& e_Json)
+{
+	// Ensure the JSON has at least one key-value pair
+	if (!e_Json.is_object() || e_Json.empty())
+	{
+		return false;
+	}
 	std::string l_strType = e_Json.begin().key();
 
-	//auto l_ImguiNode = GetImGuiNodeByType(ValueToStringW(l_strType).c_str());
-
 	auto l_Object = e_Json[l_strType];
-	// Indent output based on recursion level
-	//std::string indent(level * 2, ' ');
-
-	// Process current node
-	if (l_Object.contains("Name"))
-	{
-		//std::cout << indent << "Name: " << l_Object.value("Name", "") << std::endl;
-	}
-	if (l_Object.contains("UID"))
-	{
-		//std::cout << indent << "UID: " << l_Object.value("UID", 0) << std::endl;
-	}
-	if (l_Object.contains("Local"))
-	{
-		auto l_strPos = l_Object.value("Local", "");
-		this->SetLocalPosition(GetImVec2(l_strPos));
-	}
-
-	// Recursively parse "Children" if it exists
+	InternalSerialize(l_Object);
 	if (l_Object.contains("Children") && l_Object["Children"].is_array())
 	{
 		for (const auto& child : l_Object["Children"])
 		{
-			DoUnSerialize(child);
+			auto l_pChildNode = cImGuiNode::DoUnSerialize(child);
+			if (l_pChildNode)
+			{
+				AddChild(l_pChildNode);
+			}
 		}
 	}
-	//std::string l_strType = e_Json.begin().key();
-	//auto l_Object = e_Json[l_strType];
-	//// Access attributes of the object
-	//std::string l_strName = l_Object.value("Name", "");   // Default value "" if "Name" does not exist
-	//std::string l_strUID = std::to_string(l_Object.value("UID", 0)); // Convert UID to string, default 0
-	//std::string l_strLocal = l_Object.value("Local", ""); // Default value "" if "Local" does not exist	
+	return true;
+}
 
-	return nullptr;
+cImGuiNode*cImGuiNode::DoUnSerialize(const nlohmann::json& e_Json)
+{
+	// Ensure the JSON has at least one key-value pair
+	if (!e_Json.is_object() || e_Json.empty())
+	{
+		return nullptr;
+	}
+	std::string l_strType = e_Json.begin().key();
+
+	auto l_ImguiNode = GetImGuiNodeByType(ValueToStringW(l_strType).c_str());
+	if (l_ImguiNode)
+	{
+		l_ImguiNode->UnSerialize(e_Json);
+		return l_ImguiNode;
+	}
+	return l_ImguiNode;
+}
+
+std::wstring cImGuiNode::GetNameW()
+{
+	return std::wstring();
 }
 
 cMyGuiBasicObj::cMyGuiBasicObj()
 {
-	m_vSize.y = m_vSize.x = 0;
 }
 
 cMyGuiBasicObj::~cMyGuiBasicObj()
@@ -451,7 +514,7 @@ void cMyGuiBasicObj::RenderNameOnTop()
 {
 	if (m_bNameOnTop)
 	{
-		auto l_strName = this->GetCharName();
+		auto l_strName = this->GetImGuiName();
 		auto l_PosX = ImGui::GetCursorPosX();
 		ImGui::Text(l_strName.c_str());
 		ImGui::SetCursorPosX(l_PosX);
@@ -474,24 +537,24 @@ void cMyGuiBasicObj::RenderBaseProperty()
 	ImGui::SetNextWindowSize({ 300, 700 - 100 });
 	ImGui::Begin("property", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus);
 		bool l_my_forms_active = ImGui::IsWindowFocused();
-		std::string l_strName = this->m_strName;
+		std::string l_strName = this->m_pData->m_strImGuiName;
 		ImGui::InputTextEx("Name form", &l_strName, 0);
 		//ImGui::InputText("name form", name, 255);
 		if (ImGui::Button("Apply name"))
 		{
-			if (!this->m_strName.empty())
+			if (!this->m_pData->m_strImGuiName.empty())
 			{
-				this->m_strName = l_strName;
+				this->m_pData->m_strImGuiName = l_strName;
 			}
 		}
 		//ImVec2		l_vSize = m_vSize;
 		ImVec2		l_vPos = GetLocalPosition();
 		//ImVec2		l_vSizeObj = m_vSizeObj;
-		ImGui::InputFloat("SizeX", &m_vSize.x, 1);
-		ImGui::InputFloat("SizeY", &m_vSize.y, 1);
+		ImGui::InputFloat("SizeX", &m_pData->m_vSize.x, 1);
+		ImGui::InputFloat("SizeY", &m_pData->m_vSize.y, 1);
 		ImGui::InputFloat("PosX", &l_vPos.x, 1);
 		ImGui::InputFloat("PosY", &l_vPos.y, 1);
-		if (m_vLocalPos.x!= l_vPos.x || m_vLocalPos.y != l_vPos.y)
+		if (m_pData->m_vLocalPos.x!= l_vPos.x || m_pData->m_vLocalPos.y != l_vPos.y)
 		{
 			this->SetLocalPosition(l_vPos);
 		}
@@ -513,6 +576,20 @@ void	cMyGuiBasicObj::GetRenderRect()
 
 void cMyGuiBasicObj::RenderProperty()
 {
+}
+
+void cMyGuiBasicObj::CreateImguiDataData()
+{
+	m_pData = std::make_shared<sImguiData>();
+	auto l_IT = g_ImguiTypeNameAndType.find(this->Type());
+	if (l_IT != g_ImguiTypeNameAndType.end())
+	{
+		this->m_pData->m_strText = GetMyGuiObjLabel(l_IT->second);
+	}
+	else
+	{
+		this->m_pData->m_strText = ValueToString(this->Type());
+	}
 }
 
 float relative_for_resize(std::string&e_strName,ImVec2&e_vSize)
@@ -538,8 +615,8 @@ void f_MySkipScissor(const ImDrawList* parent_list, const ImDrawCmd* cmd)
 cMyGuiPanel::cMyGuiPanel()
 {
 	this->SetName(cMyGuiPanel::TypeID);
-	this->m_vSize = ImVec2(200, 200);
-	m_FormFlag = 0;
+	SetImGuiName(cMyGuiPanel::TypeID);
+	this->m_pData->m_vSize = ImVec2(200, 200);
 	this->m_bShowBorder = true;
 	this->m_bThisUseContainerPositionDontApplyParentPositionToChild = true;
 }
@@ -567,10 +644,10 @@ void cMyGuiPanel::InternalRender()
 	//draw_list->AddCallback(f_MySkipScissor, &l_bSkipScissor);
 	//child_size, true, ImGuiWindowFlags_NoBackground))
 
-	if (ImGui::BeginChild(this->GetCharName().c_str(), this->m_vSize, true, m_FormFlag))
+	if (ImGui::BeginChild(this->GetImGuiName().c_str(), this->m_pData->m_vSize, true, m_FormFlag))
 	{
 		ImVec2 childPos = ImGui::GetWindowPos();
-		m_RenderRect = Vector4(childPos.x, childPos.y, childPos.x + m_vSize.x, childPos.y + m_vSize.y);
+		m_RenderRect = Vector4(childPos.x, childPos.y, childPos.x + m_pData->m_vSize.x, childPos.y + m_pData->m_vSize.y);
 		//ImGui::PushClipRect(ImVec2(-9999, -9999), ImVec2(9999, 9999), false);
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
 
@@ -626,13 +703,13 @@ void cMyGuiForm::InternalRender()
 
 	bool l_bOpen = true;
 	//ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
-	ImGui::SetNextWindowSize(m_vSize, ImGuiCond_Always);
-	//ImGui::Begin(this->GetCharName().c_str(), &l_bOpen, m_FormFlag);
-	ImGui::Begin(this->GetCharName().c_str(), m_bShowCloseCutton?&l_bOpen:nullptr, m_FormFlag);// 
+	ImGui::SetNextWindowSize(m_pData->m_vSize, ImGuiCond_Always);
+	//ImGui::Begin(this->GetImGuiName().c_str(), &l_bOpen, m_FormFlag);
+	ImGui::Begin(this->GetImGuiName().c_str(), m_bShowCloseCutton?&l_bOpen:nullptr, m_FormFlag);// 
 	//ImGui::PushClipRect(ImVec2(-9999, -9999), ImVec2(9999, 9999), true);
-	if (m_vSize.x > 0 && m_vSize.y > 0)
+	if (m_pData->m_vSize.x > 0 && m_pData->m_vSize.y > 0)
 	{
-		ImGui::SetWindowSize(m_vSize);
+		ImGui::SetWindowSize(m_pData->m_vSize);
 	}
 	if (!l_bOpen)
 	{
@@ -673,8 +750,6 @@ void cMyGuiForm::EndRender()
 cMyGuiForm::cMyGuiForm()
 {
 	m_bShowCloseCutton = false;
-	this->SetName(cMyGuiForm::TypeID);
-	m_FormFlag = 0;
 	this->m_bThisUseContainerPositionDontApplyParentPositionToChild = true;
 }
 
@@ -686,10 +761,17 @@ void cMyGuiForm::RenderProperty()
 {
 }
 
+void cMyGuiForm::CreateImguiDataData()
+{
+	m_pData = std::make_unique<sImguiFormData>();
+	m_FormData = std::dynamic_pointer_cast<sImguiFormData>(m_pData);
+	this->SetName(cMyGuiForm::TypeID);
+	SetImGuiName(cMyGuiForm::TypeID);
+	m_FormFlag = 0;
+}
 
 cMyGuiToogle::cMyGuiToogle()
 {
-	m_strText = "Toogle";
 	m_bChecked = false;
 }
 
@@ -699,7 +781,7 @@ cMyGuiToogle::~cMyGuiToogle()
 
 void cMyGuiToogle::InternalRender()
 {
-	ImGui::ToggleButton(m_strText.c_str(), &m_bChecked);
+	ImGui::ToggleButton(this->m_pData->m_strText.c_str(), &m_bChecked);
 }
 
 void cMyGuiToogle::RenderProperty()
@@ -708,7 +790,7 @@ void cMyGuiToogle::RenderProperty()
 
 void cMyGuiRadio::InternalRender()
 {
-	if(ImGui::RadioButton(m_strText.c_str(), m_bChecked))
+	if(ImGui::RadioButton(this->m_pData->m_strText.c_str(), m_bChecked))
 	{
 		m_bChecked = !m_bChecked;
 	}
@@ -717,7 +799,6 @@ void cMyGuiRadio::InternalRender()
 cMyGuiRadio::cMyGuiRadio()
 {
 	m_bChecked = false;
-	m_strText = "Radio";
 }
 
 cMyGuiRadio::~cMyGuiRadio()
@@ -726,12 +807,11 @@ cMyGuiRadio::~cMyGuiRadio()
 
 void cMyGuiCheckBox::InternalRender()
 {
-	ImGui::Checkbox(m_strText.c_str(), &m_bChecked);
+	ImGui::Checkbox(this->m_pData->m_strText.c_str(), &m_bChecked);
 }
 
 cMyGuiCheckBox::cMyGuiCheckBox()
 {
-	m_strText = "CheckBox";
 	m_bChecked = false;
 }
 
@@ -744,8 +824,8 @@ cMyGuiSliderFloatValue::cMyGuiSliderFloatValue()
 	m_fMax = 100.f;
 	m_fMin = 0.f;
 	m_fValue = 50.f;
-	this->m_vSize.x = 100.f;
-	m_strName = "SliderFloat";
+	this->m_pData->m_vSize.x = 100.f;
+	this->m_pData->m_strImGuiName = "SliderFloat";
 }
 
 cMyGuiSliderFloatValue::~cMyGuiSliderFloatValue()
@@ -754,25 +834,25 @@ cMyGuiSliderFloatValue::~cMyGuiSliderFloatValue()
 
 void cMyGuiSliderFloatValue::InternalRender()
 {
-	ImGui::PushItemWidth(m_vSize.x);
-	ImGui::SliderFloat(m_strName.c_str(), &m_fValue, m_fMin, m_fMax);
+	ImGui::PushItemWidth(m_pData->m_vSize.x);
+	ImGui::SliderFloat(this->m_pData->m_strImGuiName.c_str(), &m_fValue, m_fMin, m_fMax);
 	ImGui::PopItemWidth();
 }
 
 void cMyGuiSliderInteger::InternalRender()
 {
-	ImGui::PushItemWidth(m_vSize.x);
-	ImGui::SliderInt(m_strName.c_str(), &m_iValue, m_iMin, m_iMax);
+	ImGui::PushItemWidth(m_pData->m_vSize.x);
+	ImGui::SliderInt(this->m_pData->m_strImGuiName.c_str(), &m_iValue, m_iMin, m_iMax);
 	ImGui::PopItemWidth();
 }
 
 cMyGuiSliderInteger::cMyGuiSliderInteger()
 {
-	this->m_vSize.x = 100.f;
+	this->m_pData->m_vSize.x = 100.f;
 	m_iMax = 100;
 	m_iMin = 0;
 	m_iValue = 50;
-	m_strName = "SliderIntger";
+	this->m_pData->m_strImGuiName = "SliderIntger";
 }
 
 cMyGuiSliderInteger::~cMyGuiSliderInteger()
@@ -781,10 +861,24 @@ cMyGuiSliderInteger::~cMyGuiSliderInteger()
 
 cMyGuiEditBox::cMyGuiEditBox()
 {
-	m_bMultiLines = false;
-	this->m_vSize.x = 200;
-	m_strHint = "please input...";
 }
+
+void cMyGuiEditBox::CreateImguiDataData()
+{
+	m_pData = std::make_shared<sImguiEditBoxData>();
+	m_EditBoxData = std::dynamic_pointer_cast<sImguiEditBoxData>(m_pData);
+	m_EditBoxData->m_bMultiLines = false;
+	m_EditBoxData->m_vSize.x = 200;
+	m_EditBoxData->m_strHint = "please input...";
+}
+
+//bool cMyGuiEditBox::InternalSerialize(const nlohmann::json& e_Json)
+//{
+//	m_EditBoxData = std::make_shared<sImguiEditBoxData>();
+//	*m_EditBoxData = e_Json;
+//	m_pData = std::dynamic_pointer_cast<sImguiEditBoxData>(m_EditBoxData);
+//	return true;
+//}
 
 //extern void    SetImGuiMouseEnable(bool e_bMouseEventEnable, int e_iContextIndex);
 int InputCallback(ImGuiInputTextCallbackData* data)
@@ -822,10 +916,10 @@ void cMyGuiEditBox::FocusCheck()
 
 void cMyGuiEditBox::InternalRender()
 {
-	//this->m_vSize.x = 100.f;
-	if (this->m_vSize.x > 0)
+	//this->m_pData->m_vSize.x = 100.f;
+	if (this->m_pData->m_vSize.x > 0)
 	{
-		ImGui::PushItemWidth(this->m_vSize.x);
+		ImGui::PushItemWidth(this->m_pData->m_vSize.x);
 	}
 	if (m_bMultiLines)
 	{
@@ -836,7 +930,7 @@ void cMyGuiEditBox::InternalRender()
 		if (m_strHint.length())
 		{
 			const char* hint = "Enter your text here..."; // Hint text
-			if (ImGui::InputTextWithHint("##hint", hint, &m_strText))
+			if (ImGui::InputTextWithHint("##hint", hint, &this->m_pData->m_strText))
 			{
 			}
 		}
@@ -845,7 +939,7 @@ void cMyGuiEditBox::InternalRender()
 
 	//InputText(const char* label, std::string * str, ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = nullptr, void* user_data = nullptr);
 			//ImGui::InputText(const char* label, std::string * str, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback, void* user_data)
-			if (ImGui::InputText("Input", &m_strText, ImGuiInputTextFlags_CallbackAlways, InputCallback, nullptr))
+			if (ImGui::InputText("Input", &this->m_pData->m_strText, ImGuiInputTextFlags_CallbackAlways, InputCallback, nullptr))
 			{
 			}
 		}
@@ -869,7 +963,7 @@ void cMyGuiEditBox::InternalRender()
 	}
 	//ImGui::Text("Current Text:");
 	//ImGui::TextWrapped("%s", text.c_str()); // Display the current text
-	if (this->m_vSize.x > 0)
+	if (this->m_pData->m_vSize.x > 0)
 	{
 		ImGui::PopItemWidth();
 	}
@@ -877,9 +971,9 @@ void cMyGuiEditBox::InternalRender()
 
 void cMyGuiEditBox::RenderMultiLine()
 {
-	//if (m_strHint.length() && this->m_strText.length() == 0)
+	//if (m_strHint.length() && this->this->m_pData->m_strText.length() == 0)
 	//{
-	//	size_t l_iLength = strlen(this->m_strText.c_str());
+	//	size_t l_iLength = strlen(this->this->m_pData->m_strText.c_str());
 	//	if (l_iLength == 0)
 	//	{
 	//		// Render the hint
@@ -892,7 +986,7 @@ void cMyGuiEditBox::RenderMultiLine()
 	//	}
 	//}
 	// Render the multi-line input text box
-	if (ImGui::InputTextMultiline("##multiline", &this->m_strText, this->m_vSize, ImGuiInputTextFlags_AllowTabInput))
+	if (ImGui::InputTextMultiline("##multiline", &this->m_pData->m_strText, this->m_pData->m_vSize, ImGuiInputTextFlags_AllowTabInput))
 	{
 		//if (l_iLength*2 >= l_iCapacity)
 		//{
@@ -914,12 +1008,11 @@ void cMyGuiEditBox::RenderMultiLine()
 
 void cMyGuiLabel::InternalRender()
 {
-	ImGui::Text(m_strText.c_str());
+	ImGui::Text(this->m_pData->m_strText.c_str());
 }
 
 cMyGuiLabel::cMyGuiLabel()
 {
-	m_strText = "Label";
 }
 
 cMyGuiLabel::~cMyGuiLabel()
@@ -929,7 +1022,6 @@ cMyGuiLabel::~cMyGuiLabel()
 
 cMyGuiButton::cMyGuiButton()
 {
-	m_strText = "Button";
 }
 
 cMyGuiButton::~cMyGuiButton()
@@ -938,7 +1030,7 @@ cMyGuiButton::~cMyGuiButton()
 
 void cMyGuiButton::InternalRender()
 {
-	if (ImGui::Button(m_strText.c_str(), this->m_vSize))
+	if (ImGui::Button(this->m_pData->m_strText.c_str(), this->m_pData->m_vSize))
 	{
 		if (m_fOnClickFunction)
 		{
@@ -1122,14 +1214,14 @@ void cMyGuiRootNode::DebugRender()
 
 void cMyGuiComboBox::InternalRender()
 {
-	if (this->m_vSize.x > 0)
+	if (this->m_pData->m_vSize.x > 0)
 	{
-		ImGui::PushItemWidth(this->m_vSize.x);
+		ImGui::PushItemWidth(this->m_pData->m_vSize.x);
 	}
 	int l_iCount = (int)m_ItemTempList.size();
 	//m_strEvnNameVector = { "Option 1", "Option 2", "Option 3", "Option 4", "Option 5" };
 	// Create the combo box
-	if (ImGui::Combo(this->GetCharName().c_str(), &m_iSelectedIndex, &m_ItemTempList[0], l_iCount))
+	if (ImGui::Combo(this->GetImGuiName().c_str(), &m_iSelectedIndex, &m_ItemTempList[0], l_iCount))
 	{
 		if (m_fOnSelectFunction)
 		{
@@ -1137,7 +1229,7 @@ void cMyGuiComboBox::InternalRender()
 		}
 		
 	}
-	if (this->m_vSize.x > 0)
+	if (this->m_pData->m_vSize.x > 0)
 	{
 		ImGui::PopItemWidth();
 	}
@@ -1147,7 +1239,7 @@ cMyGuiComboBox::cMyGuiComboBox()
 {
 	m_iSelectedIndex = 0;
 	SetItemList({ "1","2","3" });
-	this->m_vSize.x = 200.f;
+	this->m_pData->m_vSize.x = 200.f;
 }
 
 void cMyGuiComboBox::SetItemList(std::vector<std::string> e_ItemList)
@@ -1166,7 +1258,7 @@ void cMyGuiComboBox::RenderProperty()
 
 cMyGuiListBox::cMyGuiListBox()
 {
-	this->m_vSize.x = 200.f;
+	this->m_pData->m_vSize.x = 200.f;
 	m_bMiltiSelecteable = false;
 }
 
@@ -1189,10 +1281,10 @@ void cMyGuiListBox::SetItemList(std::vector<std::string> e_ItemList)
 void cMyGuiListBox::RenderMultiSelectable()
 {
 	//this->RenderNameOnTop();
-	auto l_strName = this->GetCharName();
+	auto l_strName = this->GetImGuiName();
 	int l_iCount = (int)m_ItemTempList.size();
-	if (ImGui::BeginListBox(l_strName.c_str(), this->m_vSize))
-	//if (ImGui::BeginListBox("##listbox", this->m_vSize))
+	if (ImGui::BeginListBox(l_strName.c_str(), this->m_pData->m_vSize))
+	//if (ImGui::BeginListBox("##listbox", this->m_pData->m_vSize))
 	{
 		for (size_t i = 0; i < l_iCount; ++i)
 		{
@@ -1216,9 +1308,9 @@ void cMyGuiListBox::InternalRender()
 		RenderMultiSelectable();
 		return;
 	}
-	if (this->m_vSize.x > 0)
+	if (this->m_pData->m_vSize.x > 0)
 	{
-		ImGui::PushItemWidth(this->m_vSize.x);
+		ImGui::PushItemWidth(this->m_pData->m_vSize.x);
 	}
 	const char** l_pItemTempList = nullptr;
 	int l_iCount = (int)m_ItemTempList.size();
@@ -1227,7 +1319,7 @@ void cMyGuiListBox::InternalRender()
 		l_pItemTempList = &m_ItemTempList[0];
 	}
 	//this->RenderNameOnTop();
-	auto l_strName = this->GetCharName();
+	auto l_strName = this->GetImGuiName();
 	if (ImGui::ListBox(l_strName.c_str(), &m_iSelectedIndex, l_pItemTempList, l_iCount))
 	//if (ImGui::ListBox("##listbox", &m_iSelectedIndex, l_pItemTempList, l_iCount))
 	{
@@ -1236,7 +1328,7 @@ void cMyGuiListBox::InternalRender()
 			m_fOnSelectFunction(m_iSelectedIndex);
 		}
 	}
-	if (this->m_vSize.x > 0)
+	if (this->m_pData->m_vSize.x > 0)
 	{
 		ImGui::PopItemWidth();
 	}
@@ -1268,7 +1360,7 @@ void cMyGuiListBox::InternalRender()
 cMyGuiScroller::cMyGuiScroller()
 {
 	m_iSelectedIndex = 0;
-	this->m_vSize = ImVec2(200, 300);
+	this->m_pData->m_vSize = ImVec2(200, 300);
 }
 
 cMyGuiScroller::~cMyGuiScroller()
@@ -1289,10 +1381,10 @@ void cMyGuiScroller::InternalRender()
 	}
 
 	int l_iSelectedIndex = m_iSelectedIndex;
-	if (ImGui::BeginChild("ScrollingRegion", this->m_vSize, true, ImGuiWindowFlags_AlwaysVerticalScrollbar))
+	if (ImGui::BeginChild("ScrollingRegion", this->m_pData->m_vSize, true, ImGuiWindowFlags_AlwaysVerticalScrollbar))
 	{
 		ImVec2 childPos = ImGui::GetWindowPos();
-		m_RenderRect = Vector4(childPos.x,childPos.y, childPos.x+ m_vSize.x, childPos.y+ m_vSize.y);
+		m_RenderRect = Vector4(childPos.x,childPos.y, childPos.x+ this->m_pData->m_vSize.x, childPos.y+ this->m_pData->m_vSize.y);
 		ImGui::Text("Scroll below:");
 
 		// Display items in the scrolling region
@@ -1339,6 +1431,7 @@ void cMyGuiScroller::RenderProperty()
 cMyTreeView::cMyTreeView()
 {
 	this->SetName(L"cMyTreeView");
+	//SetImGuiName(cMyGuiForm::TypeID);
 }
 
 cMyTreeView::~cMyTreeView()
@@ -1381,13 +1474,13 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox
 	{
 		l_bNodeOpen = false;
 		char buffer[128];
-		strncpy(buffer, this->m_pSelectedNode->GetCharName().c_str(), sizeof(buffer));
+		strncpy(buffer, this->m_pSelectedNode->GetImGuiName().c_str(), sizeof(buffer));
 		buffer[sizeof(buffer) - 1] = '\0';
 
 		// Render an input text for renaming
 		if (ImGui::InputText("##Rename", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
 		{
-			this->m_pSelectedNode->SetName(buffer);
+			this->m_pSelectedNode->SetImGuiName(buffer);
 			m_bDoRename = false;
 			m_pSelectedNode = nullptr;
 		}
@@ -1408,7 +1501,7 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox
 	}
 	else
 	{
-		l_bNodeOpen = ImGui::TreeNodeEx(l_strID.c_str(), nodeFlags, "%s", e_pNode->GetCharName().c_str());
+		l_bNodeOpen = ImGui::TreeNodeEx(l_strID.c_str(), nodeFlags, "%s", e_pNode->GetImGuiName().c_str());
 		if (!m_bDoRename)
 		{
 			if (ImGui::IsItemClicked())
@@ -1421,7 +1514,7 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox
 			if (ImGui::BeginDragDropSource())
 			{
 				ImGui::SetDragDropPayload(l_strDragDropSourceID, &e_pNode, sizeof(cImGuiNode*));
-				ImGui::Text("Dragging %s", e_pNode->GetCharName().c_str());
+				ImGui::Text("Dragging %s", e_pNode->GetImGuiName().c_str());
 				ImGui::EndDragDropSource();
 			}
 		}
@@ -1711,7 +1804,9 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 	//e_pParent->add
 	if (l_pObject)
 	{
-		l_pObject->SetName(l_pObject->GetTypeName());
+		l_pObject->CreateImguiDataData();
+		l_pObject->SetName(l_pObject->Type());
+		l_pObject->SetImGuiName(l_pObject->Type());
 	}
 	return l_pObject;
 }

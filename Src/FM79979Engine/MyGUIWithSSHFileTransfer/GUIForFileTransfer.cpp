@@ -190,11 +190,11 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 						m_pFetchRuleFileButton->SetEnable(true);
 						if (l_NumberVector.size())
 						{
-							m_pVersionListBox->SetName(L"VersionList");
+							m_pVersionListBox->SetImGuiName(L"VersionList");
 						}
 						else
 						{
-							m_pVersionListBox->SetName(L"No Env Version Data");
+							m_pVersionListBox->SetImGuiName(L"No Env Version Data");
 						}
 						int a = 0;
 					});
@@ -237,12 +237,12 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 
 
 
-	m_pFetchRuleFileButton->SetName(L"FetchButton");
-	m_pUploadRuleFileButton->SetName(L"UploadButton");
-	m_pTargetEnvListBox->SetName(L"TargetEnv");
-	m_pVersionListBox->SetName(L"No Env Version Data");
-	m_pSourceEnvComboBox->SetName(L"SourceEnv");
-	m_pRuleJsonContentEditbox->SetName(L"Rule Content");
+	m_pFetchRuleFileButton->SetImGuiName(L"FetchButton");
+	m_pUploadRuleFileButton->SetImGuiName(L"UploadButton");
+	m_pTargetEnvListBox->SetImGuiName(L"TargetEnv");
+	m_pVersionListBox->SetImGuiName(L"No Env Version Data");
+	m_pSourceEnvComboBox->SetImGuiName(L"SourceEnv");
+	m_pRuleJsonContentEditbox->SetImGuiName(L"Rule Content");
 	m_pMyGuiForm->AddChild(m_pFetchRuleFileButton);
 	m_pMyGuiForm->AddChild(m_pTargetEnvListBox);
 	m_pMyGuiForm->AddChild(m_pSourceEnvComboBox);
@@ -414,13 +414,13 @@ void cGUIForFileTransfer::DownloadRuleFileAndGetDirectoryList()
 						m_pFetchRuleFileButton->SetEnable(true);
 						if (l_DirectoriesVector.size())
 						{
-							m_pVersionListBox->SetName(L"VersionList");
+							m_pVersionListBox->SetImGuiName(L"VersionList");
 							auto l_str = GetTxtFileContent(g_strRuleFileName);
 							m_pRuleJsonContentEditbox->SetText(l_str);
 						}
 						else
 						{
-							m_pVersionListBox->SetName(L"No Env Version Data");
+							m_pVersionListBox->SetImGuiName(L"No Env Version Data");
 						}
 						return;
 					}

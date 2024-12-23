@@ -10,6 +10,70 @@
 
 #define	MYGUI_DEFAULT_IMPLEMENT()	DEFINE_TYPE_INFO();virtual std::wstring GetTypeName(){return this->Type();}
 
+#define	MY_IMGUI_BASE_DATA m_vSize, m_iID, m_strImGuiName, m_strText, m_vLocalPos, m_vWorldPos
+
+#define	LAZY_INTERNAL_SERIALIZE_FUNCTION(VariableType,Variable)				\
+std::shared_ptr<VariableType> Variable;										\
+virtual bool InternalSerialize(const nlohmann::json& e_Json)override		\
+{																			\
+	Variable = std::make_shared<VariableType>();							\
+	*Variable = e_Json;														\
+	m_pData = std::dynamic_pointer_cast<VariableType>(Variable);			\
+	return true;															\
+}																			\
+virtual nlohmann::json		GetJson()override{return *Variable;}
+
+
+
+namespace nlohmann
+{
+	template <>
+	struct adl_serializer<ImVec2>
+	{
+		static void to_json(json& j, const ImVec2& v)
+		{
+			j = json{ {"x", v.x}, {"y", v.y} };
+		}
+
+		static void from_json(const json& j, ImVec2& v)
+		{
+			j.at("x").get_to(v.x);
+			j.at("y").get_to(v.y);
+		}
+	};
+}
+
+
+template <typename T>
+class cProperty
+{
+private:
+	T m_Value;
+
+public:
+	cProperty(T initialValue = T{}) : m_Value(initialValue)
+	{
+	}
+
+	// Getter
+	operator T& ()
+	{
+		return m_Value;
+	}
+	operator const T& () const
+	{
+		return m_Value;
+	}
+
+	// Setter
+	cProperty& operator=(const T& e_Value)
+	{
+		m_Value = e_Value;
+		return *this;
+	}
+};
+
+
 enum eMyImGuiType
 {
 	eMIGT_NODE = 0,
@@ -64,8 +128,6 @@ protected:
 	virtual	void				InternalRender() = 0;
 	virtual	void				GetRenderRect() = 0;
 	bool						m_bPosDirty = false;
-	ImVec2						m_vLocalPos = { 0, 0 };
-	ImVec2						m_vWorldPos = { 0, 0 };
 	void						SetCachedWorldTransformDirty();
 	void						UpdateCachedWorldTransformIfNeeded();
 	cImGuiNode*					m_pParent;
@@ -74,20 +136,37 @@ protected:
 	//GET_SET_DEC(Vector2,m_vSize,GetSize,SetSize);
 	//void						ApplySize(bool&e_bWidth, bool& e_bHeight);
 	// 
+	bool						m_bCollided = false;
+	virtual bool				InternalSerialize(const nlohmann::json& e_Json);
+	bool						UnSerialize(const nlohmann::json& e_Json);
 	//for editor mode(drag position) you have to set this
 	GET_SET_DEC(bool,m_bOnlyApplyPositionOnceForDragMoving, GetOnlyApplyPositionOnceForDragMoving, SetOnlyApplyPositionOnceForDragMoving);
 	GET_SET_DEC(bool, m_bEnable, GetEnable, SetEnable);
 	GET_SET_DEC(bool, m_bVisible, IsVisible, SetVisible);
-	bool							m_bCollided = false;
+
+	struct sImguiData
+	{
+		ImVec2						m_vSize;
+		int							m_iID = 0;
+		std::string					m_strImGuiName = "Node";
+		std::string					m_strText;
+		ImVec2						m_vLocalPos = { 0, 0 };
+		ImVec2						m_vWorldPos = { 0, 0 };
+		virtual ~sImguiData() = default;
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiData, m_vSize, m_iID, m_strImGuiName, m_strText, m_vLocalPos, m_vWorldPos);
+	};
+	std::shared_ptr<sImguiData>		m_pData;
+	
 public:
 	DEFINE_TYPE_INFO();
 	virtual std::wstring GetTypeName() = 0;
 	cImGuiNode();
 	~cImGuiNode();
-	int							m_iID = 0;
-	std::string					m_strName = "Node";
-	eMyImGuiType				m_eType = eMIGT_NODE;
-	ImVec2 						GetLocalPosition() { return m_vLocalPos;}
+	GET_SET(ImVec2, m_pData->m_vSize, GetSize, SetSize)
+	GET_SET(std::string, m_pData->m_strImGuiName, GetImGuiName, SetImGuiName);
+	GET_SET(std::string, m_pData->m_strText, GetText, SetText);
+	void						SetImGuiName(const wchar_t* e_strImGuiNmae);
+	ImVec2 						GetLocalPosition() { return this->m_pData->m_vLocalPos;}
 	void						SetLocalPosition(const ImVec2& e_vLocalPos);
 	void						SetLocalPosition(float e_fPosX, float e_fPosY);
 	ImVec2						GetWorldPosition();
@@ -101,27 +180,31 @@ public:
 	void						AddChild(cImGuiNode* e_pChild, int e_iChildIndex = -1);
 	bool						SwapChild(int e_iIndex1, int e_iIndex2);
 	void						Render();// = 0;
-	virtual void				DebugRender();
-	static	void				DeleteObjectAndAllChildren(cImGuiNode*e_pImGuiNode);
 	void						SetExtraRenderFunction(f_MyImGuiExtraRenderFunction e_MyImGuiExtraRenderFunction) { m_ExtraRenderFunction = e_MyImGuiExtraRenderFunction; }
 	std::vector<cImGuiNode*>&	GetChildNodeVector(){return m_ChildNodeVector;}
-	virtual cImGuiNode*			Collided(int e_iPosX,int e_iPosY);
 	bool						ExportJsonFile(const char*e_strFileName);
+	std::wstring 				GetNameW();
+	//
+	virtual void				CreateImguiDataData() = 0;
 	virtual void				DoSerialize(nlohmann::json&e_Json);
-	virtual cImGuiNode*			DoUnSerialize(const nlohmann::json& e_Json);
+	virtual cImGuiNode*			Collided(int e_iPosX, int e_iPosY);
+	virtual void				DebugRender();
+	static cImGuiNode*			DoUnSerialize(const nlohmann::json& e_Json);
+	static	void				DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode);
+	virtual nlohmann::json		GetJson();
 };
 
 
-class cMyGuiMouseMovingData
-{
-public:
-	bool		m_ChangePos = false;
-	bool		m_bHover = false;
-	bool		m_bSelected = false;
-	bool		m_bLocked = false;
-};
+//class cMyGuiMouseMovingData
+//{
+//public:
+//	bool		m_ChangePos = false;
+//	bool		m_bHover = false;
+//	bool		m_bSelected = false;
+//	bool		m_bLocked = false;
+//};
 
-class cMyGuiBasicObj:public cImGuiNode,public cMyGuiMouseMovingData
+class cMyGuiBasicObj:public cImGuiNode//,public cMyGuiMouseMovingData
 {
 protected:
 	bool							m_bNameOnTop = true;
@@ -131,8 +214,6 @@ protected:
 	virtual	void					InternalRender(){}
 	virtual void					RenderBaseProperty();
 	virtual	void					GetRenderRect()override;
-	GET_SET_DEC(ImVec2, m_vSize, GetSize, SetSize);
-	GET_SET_DEC(std::string, m_strText, GetText, SetText);
 public:
 	cMyGuiBasicObj();
 	virtual ~cMyGuiBasicObj();
@@ -142,6 +223,7 @@ public:
 	}
 	ImVec2							m_vSizeObj = {0,0 };
 	virtual void					RenderProperty();
+	virtual void					CreateImguiDataData()override;
 };
 
 //eMIGT_NODE = 0,
@@ -187,13 +269,13 @@ public:
 class cMyGuiButton :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
-	GET_SET_DEC(std::string,m_strText,GetText,SetText);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiButton();
 	virtual ~cMyGuiButton();
 	//virtual void		RenderProperty()override;
 	std::function<void(cMyGuiButton*)>	m_fOnClickFunction;
+
 };
 
 class cMyGuiLabel :public cMyGuiBasicObj
@@ -214,11 +296,20 @@ class cMyGuiEditBox :public cMyGuiBasicObj
 	GET_SET_DEC(std::string, m_strHint, GetHint, SetHint);
 	GET_SET_DEC(bool,m_bMultiLines, IsMultiLines, SetMultiLines);
 	bool				m_bFocused = false;
+	struct sImguiEditBoxData:public sImguiData
+	{
+		std::string m_strHint;
+		bool m_bMultiLines;
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiEditBoxData, MY_IMGUI_BASE_DATA, m_strHint, m_bMultiLines);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiEditBoxData, m_EditBoxData)
+	//virtual bool				InternalSerialize(const nlohmann::json& e_Json);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiEditBox();
 	std::function<void(bool)>	m_fFocusedChangedFunction;
 	//virtual void		RenderProperty()override;
+	virtual void		CreateImguiDataData()override;
 };
 
 class cMyGuiSliderInteger :public cMyGuiBasicObj
@@ -226,7 +317,7 @@ class cMyGuiSliderInteger :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 	GET_SET_DEC(int, m_iMax, GetMax, SetMax);
 	GET_SET_DEC(int, m_iMin, GetMin, SetMin);
-	GET_SET_DEC(std::string, m_strName, GetName, SetName);
+	//GET_SET_DEC(std::string, m_strName, GetName, SetName);
 	int  m_iValue;
 public:
 	cMyGuiSliderInteger();
@@ -240,7 +331,7 @@ class cMyGuiSliderFloatValue :public cMyGuiBasicObj
 	virtual	void		InternalRender()override;
 	GET_SET_DEC(float, m_fMax, GetMax, SetMax);
 	GET_SET_DEC(float, m_fMin, GetMin, SetMin);
-	GET_SET_DEC(std::string, m_strName, GetName, SetName);
+	//GET_SET_DEC(std::string, m_strName, GetName, SetName);
 	float  m_fValue;
 public:
 	cMyGuiSliderFloatValue();
@@ -292,12 +383,20 @@ class cMyGuiForm :public cMyGuiBasicObj
 	// ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
 	GET_SET_DEC(ImGuiWindowFlags, m_FormFlag, GetFormFlag, SetFormFlag);
 	GET_SET_DEC(bool,m_bShowCloseCutton, IsShowCloseCutton, SetShowCloseCutton);
+
+	struct sImguiFormData :public sImguiData
+	{
+		int m_FormFlag;
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiFormData, MY_IMGUI_BASE_DATA,m_FormFlag);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiFormData, m_FormData);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiForm();
 	virtual ~cMyGuiForm();
 	virtual void		RenderProperty()override;
 	std::function<void(cMyGuiForm*)>		m_fFormCloseFunction;
+	virtual void				CreateImguiDataData()override;
 };
 
 class cMyGuiPanel :public cMyGuiBasicObj
@@ -399,6 +498,8 @@ void NumericUpDown(const char* label, int* value, int minValue = 0, int maxValue
 template<class TYPE>TYPE* GetMyGuiObjWithType()
 {
 	TYPE* l_pTYPE = new TYPE();
+	l_pTYPE->CreateImguiDataData();
 	l_pTYPE->SetName(TYPE::TypeID);
+	l_pTYPE->SetImGuiName(TYPE::TypeID);
 	return l_pTYPE;
 }
