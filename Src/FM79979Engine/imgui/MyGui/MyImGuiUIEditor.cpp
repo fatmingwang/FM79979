@@ -354,6 +354,33 @@ void cMyImGuiUIEditor::Render()
 	}
 	ImGui_StartFrame(l_fTargetGameResolution, m_iToolboxRenderContextIndex);
 	RenderToolBox();
+	if (ImGuiFileDialog::Instance()->Display("OpenFile", 0, ImVec2(800, 800), ImVec2(1850, 1000)))
+	{
+		if (ImGuiFileDialog::Instance()->IsOk())
+		{ // action if OK
+			std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+			std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
+			// action
+			this->OpenFile(filePathName.c_str());
+
+		}
+		// close
+		ImGuiFileDialog::Instance()->Close();
+		AllImGuiMouseEnable();
+	}
+	if (ImGuiFileDialog::Instance()->Display("SaveFile", 0, ImVec2(800, 800), ImVec2(1850, 1000)))
+	{
+		if (ImGuiFileDialog::Instance()->IsOk())
+		{ // action if OK
+			std::string filePathName = ImGuiFileDialog::Instance()->GetFilePathName();
+			std::string filePath = ImGuiFileDialog::Instance()->GetCurrentPath();
+			// action
+			this->SaveToFile(filePathName.c_str());
+		}
+		// close
+		ImGuiFileDialog::Instance()->Close();
+		AllImGuiMouseEnable();
+	}
 	ImGui_EndFrame();
 }
 
@@ -611,11 +638,18 @@ void cMyImGuiUIEditor::RenderPopupMenuContext()
 		}
 		if (ImGui::MenuItem("Save"))
 		{
-			this->SaveToFile("qoo.json");
+			//this->SaveToFile("qoo.json");
+			IGFD::FileDialogConfig config;
+			config.path = ".";
+			ImGuiFileDialog::Instance()->OpenDialog("SaveFile", "Choose File", ".json", config);
+			EditboxFocusChangedChangeMouseEnable(true);
 		}
 		if (ImGui::MenuItem("Open"))
 		{
-			this->OpenFile("qoo.json");
+			IGFD::FileDialogConfig config;
+			config.path = ".";
+			ImGuiFileDialog::Instance()->OpenDialog("OpenFile", "Choose File", ".json", config);
+			EditboxFocusChangedChangeMouseEnable(true);
 		}
 		ImGui::EndPopup();
 	}

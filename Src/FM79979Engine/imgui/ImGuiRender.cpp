@@ -348,6 +348,14 @@ void EditboxFocusChangedChangeMouseEnable(bool e_bMouseEventEnable)
     g_ContextIndexAndMouseEventEnableMap[g_iCurrenctContextIndex] = e_bMouseEventEnable;
 }
 
+void AllImGuiMouseEnable()
+{
+    for (auto& l_IT : g_ContextIndexAndMouseEventEnableMap)
+    {
+        l_IT.second = true;
+    }
+}
+
 void ImGui_ImplOpenGL3_Shutdown()
 {
 #ifdef WIN32

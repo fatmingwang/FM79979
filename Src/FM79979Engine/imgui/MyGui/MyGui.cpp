@@ -843,11 +843,18 @@ void cMyGuiEditBox::InternalRender()
 	}
 	else
 	{
-		//FocusCheck();
+		FocusCheck();
 	}
 	if (l_bPrevious != m_bFocused)
 	{
-		EditboxFocusChangedChangeMouseEnable(m_bFocused);
+		if (m_bFocused)
+		{
+			EditboxFocusChangedChangeMouseEnable(m_bFocused);
+		}
+		else
+		{
+			AllImGuiMouseEnable();
+		}
 		if (m_fFocusedChangedFunction)
 		{
 			m_fFocusedChangedFunction(m_bFocused);
