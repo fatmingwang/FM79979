@@ -21,7 +21,14 @@ virtual bool InternalSerialize(const nlohmann::json& e_Json)override		\
 	m_pData = std::dynamic_pointer_cast<VariableType>(Variable);			\
 	return true;															\
 }																			\
-virtual nlohmann::json		GetJson()override{return *Variable;}
+virtual nlohmann::json		GetJson()override{return *Variable;}			\
+virtual void				CreateImguiDataData()override					\
+{																			\
+	m_pData = std::make_unique<VariableType>();								\
+	Variable = std::dynamic_pointer_cast<VariableType>(m_pData);			\
+	this->SetName(this->Type());											\
+	SetImGuiName(this->Type());												\
+}
 
 
 
@@ -298,8 +305,8 @@ class cMyGuiEditBox :public cMyGuiBasicObj
 	bool				m_bFocused = false;
 	struct sImguiEditBoxData:public sImguiData
 	{
-		std::string m_strHint;
-		bool m_bMultiLines;
+		std::string m_strHint = "please input...";
+		bool m_bMultiLines = false;
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiEditBoxData, MY_IMGUI_BASE_DATA, m_strHint, m_bMultiLines);
 	};
 	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiEditBoxData, m_EditBoxData)
@@ -309,34 +316,54 @@ public:
 	cMyGuiEditBox();
 	std::function<void(bool)>	m_fFocusedChangedFunction;
 	//virtual void		RenderProperty()override;
-	virtual void		CreateImguiDataData()override;
 };
 
 class cMyGuiSliderInteger :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
-	GET_SET_DEC(int, m_iMax, GetMax, SetMax);
-	GET_SET_DEC(int, m_iMin, GetMin, SetMin);
-	//GET_SET_DEC(std::string, m_strName, GetName, SetName);
-	int  m_iValue;
+	struct sImguiSliderData :public sImguiData
+	{
+		int m_iMax = 100;
+		int m_iMin = 0;
+		int m_iValue = 50;
+		sImguiSliderData()
+		{
+			this->m_vSize.x = 200.f;
+		}
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiSliderData, MY_IMGUI_BASE_DATA, m_iMax, m_iMin, m_iValue);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiSliderData, m_psSliderData);
 public:
 	cMyGuiSliderInteger();
 	virtual ~cMyGuiSliderInteger();
 	MYGUI_DEFAULT_IMPLEMENT();
+	GET_SET(int, m_psSliderData->m_iMax, GetMax, SetMax);
+	GET_SET(int, m_psSliderData->m_iMin, GetMin, SetMin);
 	//virtual void		RenderProperty()override;
+
 };
 
 class cMyGuiSliderFloatValue :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
-	GET_SET_DEC(float, m_fMax, GetMax, SetMax);
-	GET_SET_DEC(float, m_fMin, GetMin, SetMin);
-	//GET_SET_DEC(std::string, m_strName, GetName, SetName);
-	float  m_fValue;
+	struct sImguiSliderData :public sImguiData
+	{
+		float m_fMax = 100.f;
+		float m_fMin = 0;
+		float m_fValue = 50.f;
+		sImguiSliderData()
+		{
+			this->m_vSize.x = 200.f;
+		}
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiSliderData, MY_IMGUI_BASE_DATA, m_fMax, m_fMin, m_fValue);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiSliderData, m_psSliderData);
 public:
 	cMyGuiSliderFloatValue();
 	virtual ~cMyGuiSliderFloatValue();
 	MYGUI_DEFAULT_IMPLEMENT();
+	GET_SET(float, m_psSliderData->m_fMax, GetMax, SetMax);
+	GET_SET(float, m_psSliderData->m_fMin, GetMin, SetMin);
 	//virtual void		RenderProperty()override;
 };
 
@@ -386,7 +413,7 @@ class cMyGuiForm :public cMyGuiBasicObj
 
 	struct sImguiFormData :public sImguiData
 	{
-		int m_FormFlag;
+		int m_FormFlag = 0;
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE(sImguiFormData, MY_IMGUI_BASE_DATA,m_FormFlag);
 	};
 	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiFormData, m_FormData);
@@ -396,7 +423,6 @@ public:
 	virtual ~cMyGuiForm();
 	virtual void		RenderProperty()override;
 	std::function<void(cMyGuiForm*)>		m_fFormCloseFunction;
-	virtual void				CreateImguiDataData()override;
 };
 
 class cMyGuiPanel :public cMyGuiBasicObj

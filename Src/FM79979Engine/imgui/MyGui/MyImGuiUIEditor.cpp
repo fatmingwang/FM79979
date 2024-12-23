@@ -123,7 +123,7 @@ cMyImGuiUIEditor::cMyImGuiUIEditor()
 	m_pToolBoxRoot = nullptr;
 	m_pTreeView = new cMyTreeView();
 	m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
-	ImVec2 l_vSize(920, 1080);
+	ImVec2 l_vSize(1920, 1080);
 	m_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
 	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar| ImGuiWindowFlags_NoMove);
 	m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);

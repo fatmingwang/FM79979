@@ -761,15 +761,6 @@ void cMyGuiForm::RenderProperty()
 {
 }
 
-void cMyGuiForm::CreateImguiDataData()
-{
-	m_pData = std::make_unique<sImguiFormData>();
-	m_FormData = std::dynamic_pointer_cast<sImguiFormData>(m_pData);
-	this->SetName(cMyGuiForm::TypeID);
-	SetImGuiName(cMyGuiForm::TypeID);
-	m_FormFlag = 0;
-}
-
 cMyGuiToogle::cMyGuiToogle()
 {
 	m_bChecked = false;
@@ -821,11 +812,6 @@ cMyGuiCheckBox::~cMyGuiCheckBox()
 
 cMyGuiSliderFloatValue::cMyGuiSliderFloatValue()
 {
-	m_fMax = 100.f;
-	m_fMin = 0.f;
-	m_fValue = 50.f;
-	this->m_pData->m_vSize.x = 100.f;
-	this->m_pData->m_strImGuiName = "SliderFloat";
 }
 
 cMyGuiSliderFloatValue::~cMyGuiSliderFloatValue()
@@ -835,24 +821,19 @@ cMyGuiSliderFloatValue::~cMyGuiSliderFloatValue()
 void cMyGuiSliderFloatValue::InternalRender()
 {
 	ImGui::PushItemWidth(m_pData->m_vSize.x);
-	ImGui::SliderFloat(this->m_pData->m_strImGuiName.c_str(), &m_fValue, m_fMin, m_fMax);
+	ImGui::SliderFloat(this->m_pData->m_strImGuiName.c_str(), &this->m_psSliderData->m_fValue, m_psSliderData->m_fMin, m_psSliderData->m_fMax);
 	ImGui::PopItemWidth();
 }
 
 void cMyGuiSliderInteger::InternalRender()
 {
 	ImGui::PushItemWidth(m_pData->m_vSize.x);
-	ImGui::SliderInt(this->m_pData->m_strImGuiName.c_str(), &m_iValue, m_iMin, m_iMax);
+	ImGui::SliderInt(this->m_pData->m_strImGuiName.c_str(), &this->m_psSliderData->m_iValue, this->m_psSliderData->m_iMin, this->m_psSliderData->m_iMax);
 	ImGui::PopItemWidth();
 }
 
 cMyGuiSliderInteger::cMyGuiSliderInteger()
 {
-	this->m_pData->m_vSize.x = 100.f;
-	m_iMax = 100;
-	m_iMin = 0;
-	m_iValue = 50;
-	this->m_pData->m_strImGuiName = "SliderIntger";
 }
 
 cMyGuiSliderInteger::~cMyGuiSliderInteger()
@@ -861,15 +842,6 @@ cMyGuiSliderInteger::~cMyGuiSliderInteger()
 
 cMyGuiEditBox::cMyGuiEditBox()
 {
-}
-
-void cMyGuiEditBox::CreateImguiDataData()
-{
-	m_pData = std::make_shared<sImguiEditBoxData>();
-	m_EditBoxData = std::dynamic_pointer_cast<sImguiEditBoxData>(m_pData);
-	m_EditBoxData->m_bMultiLines = false;
-	m_EditBoxData->m_vSize.x = 200;
-	m_EditBoxData->m_strHint = "please input...";
 }
 
 //bool cMyGuiEditBox::InternalSerialize(const nlohmann::json& e_Json)
