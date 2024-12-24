@@ -6,6 +6,7 @@
 
 #include "GUIForFileTransfer.h"
 #include "../imgui/MyGui/MyImGuiUIEditor.h"
+#include "CURLUI.h"
 
 cMyImGuiUIEditor* g_pMyImGuiUIEditor = nullptr;
 cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) :cGameApp(e_Hwnd, e_vGameResolution, e_vViewportSize)
@@ -16,24 +17,29 @@ cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) 
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
-	g_pMyImGuiUIEditor = new cMyImGuiUIEditor();
 	m_p2DCamera = new cOrthogonalCamera();
-	if (!g_pMyImGuiUIEditor)
+	m_pCURLUI = new cCURLUI();
+	if (!m_pCURLUI)
 	{
-		m_pGUIForFileTransfer = new cGUIForFileTransfer();
-	}
-	if (g_pMyImGuiUIEditor)
-	{
-		g_pMyImGuiUIEditor->m_p2DCamera = m_p2DCamera;
-	}
-	if (m_pGUIForFileTransfer)
-	{
-		m_pGUIForFileTransfer->m_p2DCamera = m_p2DCamera;
+		g_pMyImGuiUIEditor = new cMyImGuiUIEditor();
+		if (!g_pMyImGuiUIEditor)
+		{
+			m_pGUIForFileTransfer = new cGUIForFileTransfer();
+		}
+		if (g_pMyImGuiUIEditor)
+		{
+			g_pMyImGuiUIEditor->m_p2DCamera = m_p2DCamera;
+		}
+		if (m_pGUIForFileTransfer)
+		{
+			m_pGUIForFileTransfer->m_p2DCamera = m_p2DCamera;
+		}
 	}
 }
 
 cMyApp::~cMyApp()
 {
+	SAFE_DELETE(m_pCURLUI);
 	SAFE_DELETE(m_p2DCamera);
 	SAFE_DELETE(m_pGUIForFileTransfer);
 	SAFE_DELETE(g_pMyImGuiUIEditor);
@@ -52,6 +58,10 @@ void	cMyApp::Init()
 	if (g_pMyImGuiUIEditor)
 	{
 		g_pMyImGuiUIEditor->Init();
+	}
+	if (m_pCURLUI)
+	{
+		m_pCURLUI->Init();
 	}
 	if (m_p2DCamera)
 	{
@@ -106,6 +116,10 @@ void	cMyApp::Update(float e_fElpaseTime)
 	{
 		g_pMyImGuiUIEditor->Update(e_fElpaseTime);
 	}
+	if (m_pCURLUI)
+	{
+		m_pCURLUI->Update(e_fElpaseTime);
+	}
 }
 
 void	cMyApp::Render()
@@ -123,6 +137,10 @@ void	cMyApp::Render()
 	if (g_pMyImGuiUIEditor)
 	{
 		g_pMyImGuiUIEditor->Render();
+	}
+	if (m_pCURLUI)
+	{
+		m_pCURLUI->Render();
 	}
 	if (m_pGUIForFileTransfer)
 	{

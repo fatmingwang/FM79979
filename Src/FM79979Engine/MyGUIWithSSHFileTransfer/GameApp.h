@@ -5,6 +5,7 @@
 	{
 		cOrthogonalCamera* m_p2DCamera;
 		class cGUIForFileTransfer* m_pGUIForFileTransfer = nullptr;
+		class cCURLUI* m_pCURLUI = nullptr;
 	protected:
 		void	Update(float e_fElpaseTime);
 		void	Render();

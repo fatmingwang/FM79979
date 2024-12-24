@@ -534,6 +534,11 @@ void	cMyGuiBasicObj::GetRenderRect()
 	m_RenderRect = Vector4(l_MinRect.x, l_MinRect.y, l_MaxRect.x, l_MaxRect.y);
 }
 
+std::string cMyGuiBasicObj::GetIDString()
+{
+	return ValueToString(this->m_pData->m_iID);
+}
+
 void cMyGuiBasicObj::RenderProperty()
 {
 }
@@ -822,7 +827,8 @@ void cMyGuiEditBox::InternalRender()
 		if (this->m_pEditBoxData->m_strHint.length())
 		{
 			const char* hint = "Enter your text here..."; // Hint text
-			if (ImGui::InputTextWithHint("##hint", hint, &this->m_pData->m_strText))
+			auto l_strID = this->m_pData->m_strImGuiName;
+			if (ImGui::InputTextWithHint(l_strID.c_str(), hint, &this->m_pData->m_strText))
 			{
 			}
 		}

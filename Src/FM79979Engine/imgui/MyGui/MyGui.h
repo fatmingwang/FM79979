@@ -245,6 +245,7 @@ protected:
 	virtual	void					InternalRender(){}
 	virtual void					RenderBaseProperty();
 	virtual	void					GetRenderRect()override;
+	std::string						GetIDString();
 public:
 	cMyGuiBasicObj();
 	virtual ~cMyGuiBasicObj();
