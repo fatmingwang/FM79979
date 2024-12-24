@@ -16,6 +16,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{be06e294-40fb-4091-a0a9-3506bd3ab915}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\CURL">
+      <UniqueIdentifier>{77ff9ead-2e14-4e1f-bdd9-60f633cc99e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -33,8 +36,11 @@
     <ClCompile Include="SFTPTransfer.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="CURLForGameData.cpp">
+      <Filter>Game\CURL</Filter>
+    </ClCompile>
     <ClCompile Include="CURLUI.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\CURL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,8 +59,11 @@
     <ClInclude Include="SFTPTransfer.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="CURLForGameData.h">
+      <Filter>Game\CURL</Filter>
+    </ClInclude>
     <ClInclude Include="CURLUI.h">
-      <Filter>Game</Filter>
+      <Filter>Game\CURL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

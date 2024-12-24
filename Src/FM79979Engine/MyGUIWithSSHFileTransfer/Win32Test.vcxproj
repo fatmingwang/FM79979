@@ -245,6 +245,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CURLForGameData.cpp" />
     <ClCompile Include="CURLUI.cpp" />
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="GUIForFileTransfer.cpp" />
@@ -258,6 +259,7 @@
     <ClCompile Include="Win32Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CURLForGameData.h" />
     <ClInclude Include="CURLUI.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="GUIForFileTransfer.h" />

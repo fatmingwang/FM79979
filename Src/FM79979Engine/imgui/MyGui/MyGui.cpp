@@ -34,6 +34,8 @@ TYPDE_DEFINE_MARCO(cMyGuiScroller);
 TYPDE_DEFINE_MARCO(cMyGuiRootNode);
 TYPDE_DEFINE_MARCO(cMyGuiDatePicker);
 
+std::function<void(cImGuiNode*)>	cImGuiNode::m_sfParseFunction = nullptr;
+
 std::map<std::wstring, eMyImGuiType> g_ImguiTypeNameAndType =
 {
 	{cImGuiNode::TypeID,eMyImGuiType::eMIGT_NODE},
@@ -54,8 +56,12 @@ std::map<std::wstring, eMyImGuiType> g_ImguiTypeNameAndType =
 	{cMyGuiDatePicker::TypeID,eMyImGuiType::eMIGT_DATA_PICKER}
 };
 
+using json = nlohmann::json;
+
 cImGuiNode::cImGuiNode()
 {
+	//from_json(old_json, data); // This will ignore missing keys and use default values
+
 	//JsonTesting();
 	m_pParent = nullptr;
 	m_bEnable = true;
@@ -395,6 +401,7 @@ void cImGuiNode::DoSerialize(nlohmann::json& e_JSON)
 bool cImGuiNode::InternalSerialize(const nlohmann::json& e_Json)
 {
 	m_pData = std::make_shared<sImguiData>();
+	//from_json(e_Json, *m_pData);
 	*m_pData = e_Json;
 	return true;
 }
@@ -452,6 +459,10 @@ cImGuiNode*cImGuiNode::DoUnSerialize(const nlohmann::json& e_Json)
 	if (l_ImguiNode)
 	{
 		l_ImguiNode->UnSerialize(e_Json);
+		if (m_sfParseFunction)
+		{
+			m_sfParseFunction(l_ImguiNode);
+		}
 		return l_ImguiNode;
 	}
 	return l_ImguiNode;
@@ -704,9 +715,15 @@ cMyGuiToogle::~cMyGuiToogle()
 
 void cMyGuiToogle::InternalRender()
 {
+	bool l_bPrevious = m_bChecked;
 	ImGui::Text(this->m_pData->m_strText.c_str());
 	ImGui::SameLine();
 	ImGui::ToggleButton(this->m_pData->m_strText.c_str(), &m_bChecked);
+
+	if (l_bPrevious != m_bChecked && m_fToogleChangedFunction)
+	{
+		m_fToogleChangedFunction(m_bChecked);
+	}
 }
 
 void cMyGuiToogle::RenderProperty()
@@ -828,8 +845,9 @@ void cMyGuiEditBox::InternalRender()
 		{
 			const char* hint = "Enter your text here..."; // Hint text
 			auto l_strID = this->m_pData->m_strImGuiName;
-			if (ImGui::InputTextWithHint(l_strID.c_str(), hint, &this->m_pData->m_strText))
+			if (ImGui::InputTextWithHint(l_strID.c_str(), hint, &this->m_pData->m_strText, this->m_pEditBoxData->m_RenderFlag))
 			{
+				m_bTextChanged = true;
 			}
 		}
 		else
@@ -837,8 +855,9 @@ void cMyGuiEditBox::InternalRender()
 
 	//InputText(const char* label, std::string * str, ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = nullptr, void* user_data = nullptr);
 			//ImGui::InputText(const char* label, std::string * str, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback, void* user_data)
-			if (ImGui::InputText("Input", &this->m_pData->m_strText, ImGuiInputTextFlags_CallbackAlways, InputCallback, nullptr))
+			if (ImGui::InputText("Input", &this->m_pData->m_strText, this->m_pEditBoxData->m_RenderFlag, InputCallback, nullptr))
 			{
+				m_bTextChanged = true;
 			}
 		}
 	}
@@ -872,6 +891,11 @@ void cMyGuiEditBox::InternalRender()
 	{
 		ImGui::PopItemWidth();
 	}
+	if (m_bTextChanged && m_fContentChangedFunction)
+	{
+		m_fContentChangedFunction(this->m_pData->m_strText);
+	}
+	m_bTextChanged = false;
 }
 
 void cMyGuiEditBox::RenderMultiLine()
@@ -891,13 +915,14 @@ void cMyGuiEditBox::RenderMultiLine()
 	//	}
 	//}
 	// Render the multi-line input text box
-	if (ImGui::InputTextMultiline("##multiline", &this->m_pData->m_strText, this->m_pData->m_vSize, ImGuiInputTextFlags_AllowTabInput))
+	if (ImGui::InputTextMultiline("##multiline", &this->m_pData->m_strText, this->m_pData->m_vSize, this->m_pEditBoxData->m_RenderFlag))
 	{
 		//if (l_iLength*2 >= l_iCapacity)
 		//{
 		//	m_strText.reserve(l_iCapacity * 2); // Double the buffer size
 		//	m_strText.resize(strlen(m_strText.c_str()));
 		//}
+		m_bTextChanged = true;
 	}
 
 
@@ -1137,7 +1162,12 @@ void cMyGuiComboBox::InternalRender()
 	{
 		if (m_fOnSelectFunction)
 		{
-			m_fOnSelectFunction(m_pImguiComboxData->m_iSelectedIndex);
+			std::string l_strSelectedItem;
+			if (m_pImguiComboxData->m_iSelectedIndex != -1)
+			{
+				l_strSelectedItem = m_pImguiComboxData->m_ItemList[m_pImguiComboxData->m_iSelectedIndex];
+			}
+			m_fOnSelectFunction(m_pImguiComboxData->m_iSelectedIndex, l_strSelectedItem);
 		}
 		
 	}
@@ -1235,7 +1265,12 @@ void cMyGuiListBox::InternalRender()
 	{
 		if (m_fOnSelectFunction)
 		{
-			m_fOnSelectFunction(m_pImguiComboxData->m_iSelectedIndex);
+			std::string l_strSelectedItem;
+			if (m_pImguiComboxData->m_iSelectedIndex != -1)
+			{
+				l_strSelectedItem = m_pImguiComboxData->m_ItemList[m_pImguiComboxData->m_iSelectedIndex];
+			}
+			m_fOnSelectFunction(m_pImguiComboxData->m_iSelectedIndex, l_strSelectedItem);
 		}
 	}
 	if (this->m_pData->m_vSize.x > 0)
@@ -1686,14 +1721,24 @@ const char* GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType)
 void cMyGuiDatePicker::InternalRender()
 {
 	ImGui::PushItemWidth(m_pData->m_vSize.x);
+	bool l_bDataChanged = false;
 	if(DatePicker(this->m_pImguiDatePickerData->m_strText.c_str(), this->m_pImguiDatePickerData->m_iYear, this->m_pImguiDatePickerData->m_iMonth, this->m_pImguiDatePickerData->m_iDay))
 	{
-
+		l_bDataChanged = true;
 	}
 	ImVec2 l_vWorldPos = this->GetWorldPosition();
 	const int l_ciMagixValue = 4;
 	m_RenderRect = Vector4(l_vWorldPos.x, l_vWorldPos.y, l_vWorldPos.x + this->m_pData->m_vSize.x* l_ciMagixValue, l_vWorldPos.y + this->m_pData->m_vSize.y);
 	ImGui::PopItemWidth();
+	if (m_strDate.length() == 0 || l_bDataChanged)
+	{
+		//year month day
+		m_strDate = ValueToString(m_pImguiDatePickerData->m_iYear) + "-" + ValueToString(m_pImguiDatePickerData->m_iMonth) + "-" + ValueToString(m_pImguiDatePickerData->m_iDay);
+		if (m_fDateChangedFunction)
+		{
+			m_fDateChangedFunction(m_strDate);
+		}
+	}
 }
 
 void cMyGuiDatePicker::GetRenderRect()
@@ -1711,4 +1756,9 @@ cMyGuiDatePicker::cMyGuiDatePicker()
 
 cMyGuiDatePicker::~cMyGuiDatePicker()
 {
+}
+
+std::string cMyGuiDatePicker::GetDateString()
+{
+	return std::string();
 }

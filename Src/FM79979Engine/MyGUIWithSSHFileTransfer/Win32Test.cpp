@@ -32,6 +32,8 @@
 #pragma comment(lib, "wsock32.lib")
 #pragma comment(lib, "iphlpapi.lib")
 #pragma comment(lib, "Urlmon.lib")
+#pragma comment(lib, "libcurl.lib")
+
 
 #ifdef _DEBUG
 #pragma comment(lib, "../../lib/Debug/Bullet.lib")

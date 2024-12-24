@@ -221,7 +221,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	}
 	m_pSourceEnvComboBox->SetItemList(l_strEnvNameVector);
 	m_pSourceEnvComboBox->m_fOnSelectFunction =
-	[](int e_iIndex)
+	[](int e_iIndex,std::string e_str)
 	{
 			int a = 0;
 	};
@@ -229,7 +229,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pTargetEnvListBox->SetItemList(l_strEnvNameVector);
 	m_pTargetEnvListBox->SetMiltiSelecteable(false);
 	m_pTargetEnvListBox->m_fOnSelectFunction =
-	[](int e_iIndex)
+	[](int e_iIndex,std::string e_str)
 	{
 		int a = 0;
 	};
