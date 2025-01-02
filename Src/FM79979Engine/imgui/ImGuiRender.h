@@ -29,9 +29,9 @@ void		ImGui_EndFrame(float*e_pfMatrix = nullptr, float* e_pGameResolutionSize = 
 bool		ImGui_ImplOpenGL3_Init(void* hwnd,const char* glsl_version = nullptr,int e_iNumContext = 1);
 #elif defined(WASM)
 #ifdef USE_SDL2
-bool		ImGui_ImplSDL2_Init(struct SDL_Window* window);
+bool		ImGui_ImplSDL2_Init(struct SDL_Window* window, int e_iNumContext = 0);
 #else
-bool		ImGui_ImplSDL2_Init();
+bool		ImGui_ImplSDL2_Init(int e_iNumContext = 0);
 #endif
 bool		ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
 #else

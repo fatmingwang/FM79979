@@ -21,7 +21,7 @@ EM_JS(void, ImGui_ImplSDL2_EmscriptenOpenURL, (char const* url), { url = url ? U
 void    ImGui_ImplWin32_Shutdown();
 void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize);
 #elif defined(WASM)
-void	ImGui_ImplSDL2_NewFrame();
+void	ImGui_ImplSDL2_NewFrame(float* e_pGameResolutionSize);
 #endif
 bool g_bUseMyViewPort = true;
 //==========================================================================
@@ -268,7 +268,7 @@ bool ImGui_ImplWin32_InitEx(void* hwnd, bool platform_has_own_dc);
 // Functions
 bool    ImGui_ImplOpenGL3_Init(void* hwnd, const char* glsl_version, int e_iNumContext)
 #else
-bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
+bool    ImGui_ImplOpenGL3_Init(const char* glsl_version, int e_iNumContext)
 #endif
 {
     g_iNumImGuiContext = e_iNumContext;
@@ -674,7 +674,7 @@ void ImGui_StartFrame(float* e_pGameResolutionSize,int e_iContextIndex)
 #if defined(WIN32)
     ImGui_ImplWin32_NewFrame(e_pGameResolutionSize);
 #elif defined(WASM)
-    ImGui_ImplSDL2_NewFrame();
+    ImGui_ImplSDL2_NewFrame(e_pGameResolutionSize);
 #endif
     ImGui::NewFrame();
 }
@@ -1647,140 +1647,117 @@ void ImGui_ImplSDL2_PlatformSetImeData(ImGuiContext*, ImGuiViewport*, ImGuiPlatf
         SDL_SetTextInputRect(&r);
     }
 }
+
 #ifdef USE_SDL2
-bool ImGui_ImplSDL2_Init(SDL_Window* window)
+bool ImGui_ImplSDL2_Init(SDL_Window* window, int e_iNumContext)
 #else
-bool ImGui_ImplSDL2_Init()
+bool ImGui_ImplSDL2_Init(int e_iNumContext)
 #endif
 {
     IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    FMLOG("ImGui_ImplSDL2_Init called");
-    ImGuiIO& io = ImGui::GetIO();
-    IM_ASSERT(io.BackendPlatformUserData == nullptr && "Already initialized a platform backend!");
+    g_iNumImGuiContext = e_iNumContext;
+    for (int i = 0; i < g_iNumImGuiContext; ++i)
+    {
+        if (g_pImGuiContextVector)
+        {
+            ImGui::SetCurrentContext((*g_pImGuiContextVector)[i]);
+            g_ContextIndexAndMouseEventEnableMap[i] = true;
+        }
+        ImGuiIO& io = ImGui::GetIO();
+        IM_ASSERT(io.BackendPlatformUserData == nullptr && "Already initialized a platform backend!");
 
-    // Check and store if we are on a SDL backend that supports global mouse position
-    // ("wayland" and "rpi" don't support it, but we chose to use a white-list instead of a black-list)
-    bool mouse_can_use_global_state = false;
+        // Check and store if we are on a SDL backend that supports global mouse position
+        // ("wayland" and "rpi" don't support it, but we chose to use a white-list instead of a black-list)
+        bool mouse_can_use_global_state = false;
 #if SDL_HAS_CAPTURE_AND_GLOBAL_MOUSE
-    const char* sdl_backend = SDL_GetCurrentVideoDriver();
-    const char* global_mouse_whitelist[] = { "windows", "cocoa", "x11", "DIVE", "VMAN" };
-    for (int n = 0; n < IM_ARRAYSIZE(global_mouse_whitelist); n++)
-        if (strncmp(sdl_backend, global_mouse_whitelist[n], strlen(global_mouse_whitelist[n])) == 0)
-            mouse_can_use_global_state = true;
+        const char* sdl_backend = SDL_GetCurrentVideoDriver();
+        const char* global_mouse_whitelist[] = { "windows", "cocoa", "x11", "DIVE", "VMAN" };
+        for (int n = 0; n < IM_ARRAYSIZE(global_mouse_whitelist); n++)
+            if (strncmp(sdl_backend, global_mouse_whitelist[n], strlen(global_mouse_whitelist[n])) == 0)
+                mouse_can_use_global_state = true;
 #endif
-
-    // Setup backend capabilities flags
-    ImGui_ImplOpenGL3_Data* bd = IM_NEW(ImGui_ImplOpenGL3_Data)();
-    io.BackendPlatformUserData = (void*)bd;
-    io.BackendPlatformName = "imgui_impl_sdl2";
-    io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;       // We can honor GetMouseCursor() values (optional)
-    io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;        // We can honor io.WantSetMousePos requests (optional, rarely used)
+        // Setup backend capabilities flags
+        ImGui_ImplOpenGL3_Data* bd = IM_NEW(ImGui_ImplOpenGL3_Data)();
+        io.BackendPlatformUserData = (void*)bd;
+        io.BackendPlatformName = "imgui_impl_sdl2";
+        io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;       // We can honor GetMouseCursor() values (optional)
+        io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;        // We can honor io.WantSetMousePos requests (optional, rarely used)
 #ifdef USE_SDL2
         //bd->Window = window;
         //bd->WindowID = SDL_GetWindowID(window);
 #endif
-    bd->MouseCanUseGlobalState = mouse_can_use_global_state;
+        bd->MouseCanUseGlobalState = mouse_can_use_global_state;
 
-    ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
-    platform_io.Platform_SetClipboardTextFn = ImGui_ImplSDL2_SetClipboardText;
-    platform_io.Platform_GetClipboardTextFn = ImGui_ImplSDL2_GetClipboardText;
-    platform_io.Platform_ClipboardUserData = nullptr;
-    platform_io.Platform_SetImeDataFn = ImGui_ImplSDL2_PlatformSetImeData;
+        ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
+        platform_io.Platform_SetClipboardTextFn = ImGui_ImplSDL2_SetClipboardText;
+        platform_io.Platform_GetClipboardTextFn = ImGui_ImplSDL2_GetClipboardText;
+        platform_io.Platform_ClipboardUserData = nullptr;
+        platform_io.Platform_SetImeDataFn = ImGui_ImplSDL2_PlatformSetImeData;
 #ifdef __EMSCRIPTEN__
-    platform_io.Platform_OpenInShellFn = [](ImGuiContext*, const char* url) { ImGui_ImplSDL2_EmscriptenOpenURL(url); return true; };
+        platform_io.Platform_OpenInShellFn = [](ImGuiContext*, const char* url) { ImGui_ImplSDL2_EmscriptenOpenURL(url); return true; };
 #endif
-
-    // Gamepad handling
-    //bd->GamepadMode = ImGui_ImplSDL2_GamepadMode_AutoFirst;
-    bd->WantUpdateGamepadsList = true;
+        // Gamepad handling
+        //bd->GamepadMode = ImGui_ImplSDL2_GamepadMode_AutoFirst;
+        bd->WantUpdateGamepadsList = true;
 #ifdef USE_SDL2
-    // Load mouse cursors
-    bd->MouseCursors[ImGuiMouseCursor_Arrow] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
-    bd->MouseCursors[ImGuiMouseCursor_TextInput] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_IBEAM);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeAll] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeNS] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENS);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeEW] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEWE);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeNESW] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENESW);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeNWSE] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENWSE);
-    bd->MouseCursors[ImGuiMouseCursor_Hand] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
-    bd->MouseCursors[ImGuiMouseCursor_NotAllowed] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
-    SDL_SysWMinfo info;
-    SDL_VERSION(&info.version);
-    if (SDL_GetWindowWMInfo(window, &info))
-    {
+        // Load mouse cursors
+        bd->MouseCursors[ImGuiMouseCursor_Arrow] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+        bd->MouseCursors[ImGuiMouseCursor_TextInput] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_IBEAM);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeAll] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeNS] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENS);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeEW] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEWE);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeNESW] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENESW);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeNWSE] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENWSE);
+        bd->MouseCursors[ImGuiMouseCursor_Hand] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+        bd->MouseCursors[ImGuiMouseCursor_NotAllowed] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
+        SDL_SysWMinfo info;
+        SDL_VERSION(&info.version);
+        if (SDL_GetWindowWMInfo(window, &info))
+        {
 #if defined(SDL_VIDEO_DRIVER_WINDOWS)
-        main_viewport->PlatformHandleRaw = (void*)info.info.win.window;
+            main_viewport->PlatformHandleRaw = (void*)info.info.win.window;
 #elif defined(__APPLE__) && defined(SDL_VIDEO_DRIVER_COCOA)
-        main_viewport->PlatformHandleRaw = (void*)info.info.cocoa.window;
+            main_viewport->PlatformHandleRaw = (void*)info.info.cocoa.window;
+#endif
+        }
+#else
+        bd->MouseCursors[ImGuiMouseCursor_Arrow] = 0;// SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
+        bd->MouseCursors[ImGuiMouseCursor_TextInput] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_IBEAM);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeAll] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeNS] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENS);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeEW] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEWE);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeNESW] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENESW);
+        bd->MouseCursors[ImGuiMouseCursor_ResizeNWSE] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENWSE);
+        bd->MouseCursors[ImGuiMouseCursor_Hand] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
+        bd->MouseCursors[ImGuiMouseCursor_NotAllowed] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
+#endif
+        // Set platform dependent data in viewport
+        // Our mouse update function expect PlatformHandle to be filled for the main viewport
+        ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+        main_viewport->PlatformHandle = (void*)(intptr_t)bd->WindowID;
+        main_viewport->PlatformHandleRaw = nullptr;
+
+        // From 2.0.5: Set SDL hint to receive mouse click events on window focus, otherwise SDL doesn't emit the event.
+        // Without this, when clicking to gain focus, our widgets wouldn't activate even though they showed as hovered.
+        // (This is unfortunately a global SDL setting, so enabling it might have a side-effect on your application.
+        // It is unlikely to make a difference, but if your app absolutely needs to ignore the initial on-focus click:
+        // you can ignore SDL_MOUSEBUTTONDOWN events coming right after a SDL_WINDOWEVENT_FOCUS_GAINED)
+#ifdef SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH
+        SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
+#endif
+        // From 2.0.18: Enable native IME.
+        // IMPORTANT: This is used at the time of SDL_CreateWindow() so this will only affects secondary windows, if any.
+        // For the main window to be affected, your application needs to call this manually before calling SDL_CreateWindow().
+#ifdef SDL_HINT_IME_SHOW_UI
+        SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
+#endif
+        // From 2.0.22: Disable auto-capture, this is preventing drag and drop across multiple windows (see #5710)
+#ifdef SDL_HINT_MOUSE_AUTO_CAPTURE
+        SDL_SetHint(SDL_HINT_MOUSE_AUTO_CAPTURE, "0");
 #endif
     }
-#else
-    bd->MouseCursors[ImGuiMouseCursor_Arrow] = 0;// SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
-    bd->MouseCursors[ImGuiMouseCursor_TextInput] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_IBEAM);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeAll] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEALL);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeNS] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENS);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeEW] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZEWE);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeNESW] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENESW);
-    bd->MouseCursors[ImGuiMouseCursor_ResizeNWSE] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENWSE);
-    bd->MouseCursors[ImGuiMouseCursor_Hand] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
-    bd->MouseCursors[ImGuiMouseCursor_NotAllowed] = 0;//SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_NO);
-#endif
-    // Set platform dependent data in viewport
-    // Our mouse update function expect PlatformHandle to be filled for the main viewport
-    ImGuiViewport* main_viewport = ImGui::GetMainViewport();
-    main_viewport->PlatformHandle = (void*)(intptr_t)bd->WindowID;
-    main_viewport->PlatformHandleRaw = nullptr;    
-
-    // From 2.0.5: Set SDL hint to receive mouse click events on window focus, otherwise SDL doesn't emit the event.
-    // Without this, when clicking to gain focus, our widgets wouldn't activate even though they showed as hovered.
-    // (This is unfortunately a global SDL setting, so enabling it might have a side-effect on your application.
-    // It is unlikely to make a difference, but if your app absolutely needs to ignore the initial on-focus click:
-    // you can ignore SDL_MOUSEBUTTONDOWN events coming right after a SDL_WINDOWEVENT_FOCUS_GAINED)
-#ifdef SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH
-    SDL_SetHint(SDL_HINT_MOUSE_FOCUS_CLICKTHROUGH, "1");
-#endif
-
-    // From 2.0.18: Enable native IME.
-    // IMPORTANT: This is used at the time of SDL_CreateWindow() so this will only affects secondary windows, if any.
-    // For the main window to be affected, your application needs to call this manually before calling SDL_CreateWindow().
-#ifdef SDL_HINT_IME_SHOW_UI
-    SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
-#endif
-
-    // From 2.0.22: Disable auto-capture, this is preventing drag and drop across multiple windows (see #5710)
-#ifdef SDL_HINT_MOUSE_AUTO_CAPTURE
-    SDL_SetHint(SDL_HINT_MOUSE_AUTO_CAPTURE, "0");
-#endif
     return true;
 }
-
-//void ImGui_ImplSDL2_CloseGamepads()
-//{
-//    ImGui_ImplSDL2_Data* bd = ImGui_ImplSDL2_GetBackendData();
-//    if (bd->GamepadMode != ImGui_ImplSDL2_GamepadMode_Manual)
-//        for (SDL_GameController* gamepad : bd->Gamepads)
-//            SDL_GameControllerClose(gamepad);
-//    bd->Gamepads.resize(0);
-//}
-//
-//void ImGui_ImplSDL2_SetGamepadMode(ImGui_ImplSDL2_GamepadMode mode, struct _SDL_GameController** manual_gamepads_array, int manual_gamepads_count)
-//{
-//    ImGui_ImplSDL2_Data* bd = ImGui_ImplSDL2_GetBackendData();
-//    ImGui_ImplSDL2_CloseGamepads();
-//    if (mode == ImGui_ImplSDL2_GamepadMode_Manual)
-//    {
-//        IM_ASSERT(manual_gamepads_array != nullptr && manual_gamepads_count > 0);
-//        for (int n = 0; n < manual_gamepads_count; n++)
-//            bd->Gamepads.push_back(manual_gamepads_array[n]);
-//    }
-//    else
-//    {
-//        IM_ASSERT(manual_gamepads_array == nullptr && manual_gamepads_count <= 0);
-//        bd->WantUpdateGamepadsList = true;
-//    }
-//    bd->GamepadMode = mode;
-//}
 
 ImGuiViewport* ImGui_ImplSDL2_GetViewportForWindowID(Uint32 window_id)
 {
@@ -2121,7 +2098,7 @@ void ImGui_ImplSDL2_UpdateMouseCursor()
     }
 }
 
-void ImGui_ImplSDL2_NewFrame()
+void ImGui_ImplSDL2_NewFrame(float* e_pGameResolutionSize)
 {
     ImGui_ImplOpenGL3_Data* bd = ImGui_ImplOpenGL3_GetBackendData();
     IM_ASSERT(bd != nullptr && "Context or backend not initialized! Did you call ImGui_ImplSDL2_Init()?");
@@ -2169,7 +2146,21 @@ void ImGui_ImplSDL2_NewFrame()
     }
 
     io.DisplaySize = ImVec2(w, h);
-
+    if (g_bUseMyViewPort)
+    {
+        if (e_pGameResolutionSize)
+        {
+            io.DisplaySize = ImVec2(e_pGameResolutionSize[0], e_pGameResolutionSize[1]);
+        }
+        else
+        {
+            io.DisplaySize = ImVec2(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+        }
+    }
+    else
+    {
+        io.DisplaySize = ImVec2((float)(l_iViewportWidth), (float)(l_iViewportHeight));
+    }
     // Setup time step (we don't use SDL_GetTicks() because it is using millisecond resolution)
     // (Accept SDL_GetPerformanceCounter() not returning a monotonically increasing value. Happens in VMs and Emscripten, see #6189, #6114, #3644)
 #ifdef USE_SDL2

@@ -48,7 +48,7 @@ void	myglViewPort(GLint x, GLint y, GLsizei width, GLsizei height);
 #define	myGlColorPointer(Stride,pData)										glVertexAttribPointer(g_uiAttribArray[FVF_DIFFUSE], Stride, GL_FLOAT, 0, 0, pData)
 #define	myGlNormalPointer(Stride,pData)										glVertexAttribPointer(g_uiAttribArray[FVF_NORMAL], Stride, GL_FLOAT, 0, 0, pData);
 #define	myVertexAttribPointer(index,size,type,normalized,stride,pointer)	glVertexAttribPointer(index,size,type,normalized,stride,pointer);
-#define	MyglViewPort(GLint x, GLint y, GLsizei width, GLsizei height)		glViewport(x,y,width,height);
+#define	myglViewPort(x,y,width,height)										glViewport(x,y,width,height);
 
 #endif
 #ifndef DEBUG

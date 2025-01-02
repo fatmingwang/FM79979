@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'" Label="Configuration">
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>HTMLPage</ConfigurationType>
-    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <EmscriptenDir>D:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <PlatformToolset>emcc</PlatformToolset>
@@ -126,7 +126,7 @@
     <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'">
-    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
@@ -227,7 +227,7 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-3.19.4;../EngineTest;..\..\..\..\..\ProtoBuffer\protobuf-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
