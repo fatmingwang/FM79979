@@ -156,6 +156,22 @@ EM_JS
 	}
 );
 
+EM_JS
+(//for portrait not landscape
+ int, WASM_GetViewportWidthWithDevicePixelRatio,(),
+ {
+	 return canvas.width * window.devicePixelRatio;
+ }
+);
+
+EM_JS
+(//for portrait not landscape
+ int, WASM_GetViewportHeightWithDevicePixelRatio, (),
+ {
+	 return canvas.height* window.devicePixelRatio;
+ }
+);
+
 //https://www.sitepoint.com/get-url-parameters-with-javascript/
 EM_JS
 (char*, WASM_GetURLParameters, (),
@@ -233,6 +249,16 @@ namespace EMSDK
 
 	int		EMSDK_GetViewportWidth() { return WASM_GetViewportWidth(); }
 	int		EMSDK_GetViewportHeight() { return WASM_GetViewportHeight(); }
+
+	int EMSDK_GetViewportWidthWithDevicePixelRatio()
+	{
+		return WASM_GetViewportWidthWithDevicePixelRatio();
+	}
+
+	int EMSDK_GetViewportHeightWithDevicePixelRatio()
+	{
+		return WASM_GetViewportHeightWithDevicePixelRatio();
+	}
 
 	bool	EMSDK_IsPC() { return WASM_IsPC(); }
 	int		EMSDK_GetCanvasPosX() { return WASM_get_CanvasPosX(); }

@@ -283,6 +283,51 @@ namespace FATMING_CORE
 		SystemErrorCheck();
 	}
 
+	POINT	cOpenGLRender::GetSDLMouseConvertCoordinate(int e_iPosX, int e_iPosY, POINT e_ViewPort2)
+	{
+		auto l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
+		auto l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
+		auto l_CanvansWidth = m_vDeviceViewPortSize.Width();
+		auto l_CanvansHeight = m_vDeviceViewPortSize.Height();
+		//Vector2		l_vScale = Vector2(l_iViewportWidth/l_CanvansWidth  , l_iViewportHeight/ l_CanvansHeight);
+		Vector2		l_vScale = Vector2(l_CanvansWidth/ l_iViewportWidth, l_CanvansHeight/ l_iViewportHeight);
+		Vector4		l_vConvertViewport = m_vViewPortSize;
+		l_vConvertViewport.x *= l_vScale.x;
+		l_vConvertViewport.z *= l_vScale.x;
+		l_vConvertViewport.y *= l_vScale.y;
+		l_vConvertViewport.w *= l_vScale.y;
+		//Vector2		l_vScale = Vector2(1,1);
+		POINT	l_Pos = { e_iPosX,e_iPosY };
+		switch (m_eDeviceDirection)
+		{
+			case eDD_PORTRAIT://do nothing
+			l_Pos.x = e_iPosX;
+			l_Pos.y = e_iPosY;
+			break;
+			case eDD_UPSIDE_DOWN:
+			l_Pos.x = l_vConvertViewport.x - e_iPosX;
+			l_Pos.y = l_vConvertViewport.y - e_iPosY;
+			break;
+			//windows and iOS is not same?
+			case eDD_LANDSCAPE_LEFT://ensure view port is right,x and y swap
+			l_Pos.x = l_vConvertViewport.y - e_iPosY;
+			l_Pos.y = e_iPosX;
+			break;//ensure view port is right,x and y swap
+			case eDD_LANDSCAPE_RIGHT:
+			l_Pos.x = e_iPosY;
+			l_Pos.y = l_vConvertViewport.x - e_iPosX;
+			break;
+			default:
+			assert(0 && "cOpenGLRender::ConvertCoordinate switch not in range");
+			break;
+		}
+		l_Pos.x = (int)(l_Pos.x - l_vConvertViewport.x);
+		l_Pos.y = (int)(l_Pos.y - l_vConvertViewport.y);
+		l_vScale = Vector2(m_vGameResolution.x / l_vConvertViewport.Width(), m_vGameResolution.y / l_vConvertViewport.Height());
+		l_Pos.x = (int)(l_Pos.x * l_vScale.x);
+		l_Pos.y = (int)(l_Pos.y * l_vScale.y);
+		return l_Pos;
+	}
 	POINT	cOpenGLRender::ConvertCoordinate(int e_iPosX, int e_iPosY, POINT e_ViewPort)
 	{
 		Vector2		l_vScale = cOpenGLRender::GetViewPortAndGameResolutionScale();
@@ -332,7 +377,7 @@ namespace FATMING_CORE
 			break;
 		}
 		return Vector2(1, 1);
-	}
+	}	
 
 	bool cOpenGLRender::IsCompressedFormatSupport(int e_iFormat)
 	{

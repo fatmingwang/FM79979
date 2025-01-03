@@ -404,8 +404,8 @@ int main()
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 	FMLog::Init();
-	int CANVANS_WIDTH = 1280;// EMSDK::EMSDK_GetBrowserWidth();
-	int CANVANS_HEIGHT = 720;// EMSDK::EMSDK_GetBrowserHeight();
+	int CANVANS_WIDTH = 1920;// EMSDK::EMSDK_GetBrowserWidth();
+	int CANVANS_HEIGHT= 1080;// EMSDK::EMSDK_GetBrowserHeight();
 	cGameApp::CreateDefaultOpenGLRender();
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
@@ -477,10 +477,10 @@ int main()
 
 	if (l_bSDLInitOk)
 	{
+		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1920;
+		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1080;
 		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		g_pGameApp->Init();
-		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1280;
-		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 720;
 		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(CANVANS_HEIGHT, CANVANS_WIDTH, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		//if (emscripten_websocket_is_supported()) 
 		//{

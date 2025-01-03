@@ -21,6 +21,7 @@ using namespace UT;
 #endif
 #ifdef WASM
 #include "locale.h"
+#include "../../Emscripten/JSBindCode.h"
 #endif
 namespace	FATMING_CORE
 {
@@ -339,36 +340,37 @@ namespace	FATMING_CORE
 		}
 		cGameApp::m_sMouseWhellDelta = 0;
 	}
-
+	void	InnerApplyMousePosition(int e_iMousePosX, int e_iMousePosY)
+	{
+		cGameApp::m_sScreenMousePosition.x = e_iMousePosX;
+		cGameApp::m_sScreenMousePosition.y = e_iMousePosY;
+		POINT	l_Viewport = { (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height() };
+#ifdef WASM
+		cGameApp::m_sMousePosition = cGameApp::m_spOpenGLRender->GetSDLMouseConvertCoordinate(e_iMousePosX, e_iMousePosY, l_Viewport);
+#else
+		cGameApp::m_sMousePosition = cGameApp::m_spOpenGLRender->ConvertCoordinate(e_iMousePosX, e_iMousePosY, l_Viewport);
+#endif
+	}
 	void	cGameApp::MouseDown(int e_iPosX, int e_iPosY)
 	{
-		m_sScreenMousePosition.x = e_iPosX;
-		m_sScreenMousePosition.y = e_iPosY;
 		//if( !m_sbEnableMouseSingnal )
 		//	return;
-		POINT	l_Viewport = { (int)m_spOpenGLRender->m_vViewPortSize.Width(),(int)m_spOpenGLRender->m_vViewPortSize.Height() };
-		m_sMousePosition = this->m_spOpenGLRender->ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
+		InnerApplyMousePosition(e_iPosX, e_iPosY);
 		m_sbTouched = true;
 	}
 
 	void	cGameApp::MouseMove(int e_iPosX, int e_iPosY)
 	{
-		m_sScreenMousePosition.x = e_iPosX;
-		m_sScreenMousePosition.y = e_iPosY;
 		//if( !m_sbEnableMouseSingnal )
 		//	return;
-		POINT	l_Viewport = { (int)m_spOpenGLRender->m_vViewPortSize.Width(),(int)m_spOpenGLRender->m_vViewPortSize.Height() };
-		m_sMousePosition = this->m_spOpenGLRender->ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
+		InnerApplyMousePosition(e_iPosX, e_iPosY);
 	}
 
 	void	cGameApp::MouseUp(int e_iPosX, int e_iPosY)
 	{
-		m_sScreenMousePosition.x = e_iPosX;
-		m_sScreenMousePosition.y = e_iPosY;
 		//if( !m_sbEnableMouseSingnal )
 		//	return;
-		POINT	l_Viewport = { (int)m_spOpenGLRender->m_vViewPortSize.Width(),(int)m_spOpenGLRender->m_vViewPortSize.Height() };
-		m_sMousePosition = this->m_spOpenGLRender->ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
+		InnerApplyMousePosition(e_iPosX, e_iPosY);
 		m_sbTouched = false;
 	}
 

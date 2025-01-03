@@ -59,7 +59,8 @@ void cLazyGUIParser::Render(float* e_pfMatrix, float* e_pfGameResolutoinSize)
 		m_pMainUIRoot->Render();
 	}
 	ImGui_EndFrame(e_pfMatrix, e_pfGameResolutoinSize);
-	GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
+	//GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
+	GLRender::RenderRectangle(Vector2(0,0),l_fTargetGameResolution[0], l_fTargetGameResolution[1],Vector4::Red);
 }
 //
 //// Draw a 9-sliced texture

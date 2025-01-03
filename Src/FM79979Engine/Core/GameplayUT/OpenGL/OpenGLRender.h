@@ -34,6 +34,7 @@ namespace FATMING_CORE
 		Vector2														m_vGameResolution;
 		//if you are using camera please set this too.
 		Vector4														m_vViewPortSize;
+		//in SDL2 it seems same as SDL_SetVideoMode
 		Vector4														m_vDeviceViewPortSize;
 		Vector4														m_vBGColor;
 		eDeviceDirection											m_eDeviceDirection;
@@ -41,6 +42,7 @@ namespace FATMING_CORE
 		void														Update(float e_fElpaseTime);
 		void														Render();
 		POINT														ConvertCoordinate(int e_iPosX, int e_iPosY, POINT e_ViewPort);
+		POINT														GetSDLMouseConvertCoordinate(int e_iPosX, int e_iPosY, POINT e_ViewPort);
 		Vector2														GetViewPortAndGameResolutionScale();
 		void														SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth, int e_iDeviceViewportHeight, int e_iTargetResolutionWidth, int e_iTargetResolutionHeight);
 		//

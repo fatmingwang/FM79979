@@ -12,6 +12,9 @@ namespace EMSDK
 	int		EMSDK_GetViewportWidth();
 	int		EMSDK_GetViewportHeight();
 
+	int		EMSDK_GetViewportWidthWithDevicePixelRatio();
+	int		EMSDK_GetViewportHeightWithDevicePixelRatio();
+
 	bool	EMSDK_IsPC();
 	int		EMSDK_GetCanvasPosX();
 	int		EMSDK_GetCanvasPosY();
