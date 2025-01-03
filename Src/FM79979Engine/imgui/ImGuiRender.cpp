@@ -20,6 +20,7 @@ EM_JS(void, ImGui_ImplSDL2_EmscriptenOpenURL, (char const* url), { url = url ? U
 #ifdef WIN32
 void    ImGui_ImplWin32_Shutdown();
 void    ImGui_ImplWin32_NewFrame(float* e_pGameResolutionSize);
+bool    ImGui_ImplWin32_InitExInner(void* hwnd, bool platform_has_own_dc);
 #elif defined(WASM)
 void	ImGui_ImplSDL2_NewFrame(float* e_pGameResolutionSize);
 //bool    ImGui_ImplSDL2_Init();
@@ -1467,7 +1468,7 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
     {
         for (size_t i = 0; i < g_pImGuiContextVector->size(); ++i)
         {
-            auto l_IT2 = g_ContextIndexAndMouseEventEnableMap.find(i);
+            auto l_IT2 = g_ContextIndexAndMouseEventEnableMap.find((int)i);
             if (l_IT2 != g_ContextIndexAndMouseEventEnableMap.end())
             {
                 if (!l_IT2->second)
