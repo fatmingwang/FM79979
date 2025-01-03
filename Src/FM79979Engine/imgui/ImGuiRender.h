@@ -3,14 +3,14 @@
 #include <functional>
 #include <string>
 #ifdef WASM
-//#define USE_SDL2
+#define USE_SDL2
 #ifdef USE_SDL2
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_syswm.h>
 #include <SDL2/SDL_mouse.h>
 #else
-#include <SDL/SDL.h>
-#include <SDL/SDL_events.h>
+//#include <SDL/SDL.h>
+//#include <SDL/SDL_events.h>
 #endif
 #endif
 
@@ -25,17 +25,10 @@ void		ImGui_ImplOpenGL3_Shutdown();
 void		ImGui_ImplOpenGL3_RenderDrawData(struct ImDrawData* draw_data,float*e_pCameraMatrix = nullptr);
 void		ImGui_StartFrame(float*e_pGameResolutionSize = nullptr,int e_iContextIndex = 0);
 void		ImGui_EndFrame(float*e_pfMatrix = nullptr, float* e_pGameResolutionSize = nullptr);
-#ifdef WIN32
+
 bool		ImGui_ImplOpenGL3_Init(void* hwnd,const char* glsl_version = nullptr,int e_iNumContext = 1);
-#elif defined(WASM)
-#ifdef USE_SDL2
-bool		ImGui_ImplSDL2_Init(struct SDL_Window* window, int e_iNumContext = 0);
-#else
-bool		ImGui_ImplSDL2_Init(int e_iNumContext = 0);
-#endif
+#ifdef WASM
 bool		ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
-#else
-bool		ImGui_ImplOpenGL3_Init(const char* glsl_version = nullptr);
 #endif
 
 struct ImFont*	GetImFont(const char* e_strFileNme);

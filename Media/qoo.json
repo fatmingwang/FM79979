@@ -66,11 +66,11 @@
                         },
                         {
                             "cMyGuiComboBox": {
-                              "m_ItemList": [
-                                "Line",
-                                "Line",
-                                "Line"
-                              ],
+                                "m_ItemList": [
+                                    "Line",
+                                    "Line",
+                                    "Line"
+                                ],
                                 "m_iID": 19,
                                 "m_iSelectedIndex": 0,
                                 "m_strImGuiName": "cMyGuiComboBox",
@@ -190,11 +190,11 @@
                         },
                         {
                             "cMyGuiComboBox": {
-                              "m_ItemList": [
-                                "1(slot)",
-                                "2(mini)",
-                                "3(og)"
-                              ],
+                                "m_ItemList": [
+                                    "1(slot)",
+                                    "2(mini)",
+                                    "3(og)"
+                                ],
                                 "m_iID": 26,
                                 "m_iSelectedIndex": 0,
                                 "m_strImGuiName": "game type",
@@ -231,6 +231,27 @@
                                 "m_vWorldPos": {
                                     "x": 27.0999755859375,
                                     "y": 641.3499755859375
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiEditBox": {
+                                "m_bMultiLines": true,
+                                "m_iID": 52,
+                                "m_strHint": "please input...",
+                                "m_strImGuiName": "cMyGuiEditBox",
+                                "m_strText": "JsonResult",
+                                "m_vLocalPos": {
+                                    "x": 500.0,
+                                    "y": 50.0
+                                },
+                                "m_vSize": {
+                                    "x": 600.0,
+                                    "y": 1000.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 499.0,
+                                    "y": 278.0
                                 }
                             }
                         }

@@ -2,35 +2,41 @@
 #include "MyImGui.h"
 #include "../../imgui/imgui.h"
 #include "../../imgui/ImGuiRender.h"
-#include "../../imgui/MyGui/MyImGuiUIEditor.h"
 
-cMyImGuiUIEditor* g_pMyImGuiUIEditor = nullptr;
+#include "../../imgui/MyGui/LazyGUIParser.h"
+
+cLazyGUIParser* g_pLazyGUIParser = nullptr;
 bool g_bUseIMGUI = true;
 void cMyImGuiTesting::Init()
 {
-	//IMGUI_CHECKVERSION();
-	//ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
-	g_pMyImGuiUIEditor = new cMyImGuiUIEditor();
+	
+	FMLOG("new cLazyGUIParser");
+	g_pLazyGUIParser = new cLazyGUIParser();
+	FMLOG("g_pLazyGUIParser->Init");
+	g_pLazyGUIParser->Init();
+	FMLOG("g_pLazyGUIParser->ParseUIFile");
+	g_pLazyGUIParser->ParseUIFile("CURLUI.json");
 	//m_pMyImGuiUIEditor = new cMyImGuiUIEditor();
 	//class cMyImGuiUIEditor* m_pMyImGuiUIEditor;
 }
 
 void cMyImGuiTesting::Update(float e_fElpaseTime)
 {
+	if (g_pLazyGUIParser)
+	{
+		g_pLazyGUIParser->Update(e_fElpaseTime);
+	}
 }
 
 void cMyImGuiTesting::Render()
 {
-	if (g_pMyImGuiUIEditor)
+	if (g_pLazyGUIParser)
 	{
-		g_pMyImGuiUIEditor->Render();
+		g_pLazyGUIParser->Render();
 	}
 }
 
 void cMyImGuiTesting::Destory()
 {
-	SAFE_DELETE(g_pMyImGuiUIEditor);
+	SAFE_DELETE(g_pLazyGUIParser);
 }

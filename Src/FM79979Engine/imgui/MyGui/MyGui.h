@@ -8,7 +8,7 @@
 #include <functional>
 #include "../../../include/json.hpp"
 
-#define	MYGUI_DEFAULT_IMPLEMENT()	DEFINE_TYPE_INFO();virtual std::wstring GetTypeName(){return this->Type();}
+#define	MYGUI_DEFAULT_IMPLEMENT()	DEFINE_TYPE_INFO();virtual std::wstring GetTypeName()override{return this->Type();}
 
 #define	MY_IMGUI_BASE_DATA m_vSize, m_iID, m_strImGuiName, m_strText, m_vLocalPos, m_vWorldPos
 
@@ -242,8 +242,8 @@ protected:
 	bool							m_bNameOnTop = true;
 	void							RenderNameOnTop();
 	virtual void					ApplyPosition()override;
-	virtual	void					EndRender(){}
-	virtual	void					InternalRender(){}
+	virtual	void					EndRender()override{}
+	virtual	void					InternalRender()override{}
 	virtual void					RenderBaseProperty();
 	virtual	void					GetRenderRect()override;
 	std::string						GetIDString();
@@ -278,7 +278,7 @@ class cMyGuiRootNode :public cMyGuiBasicObj
 	static void			CallFullScreenBlackText(const char* e_strContent);
 	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
-	virtual	void		EndRender();
+	virtual	void		EndRender()override;
 	bool				m_bShowYesNoDialog = false;
 	bool				m_bShowConfirmDialog = false;
 	bool				m_bShowFullScreenBlackText = false;
@@ -528,7 +528,7 @@ public:
 	virtual ~cMyGuiListBox();
 	MYGUI_DEFAULT_IMPLEMENT();
 	virtual void		RenderProperty()override;
-	virtual void		SetItemList(std::vector<std::string>e_ItemList);
+	virtual void		SetItemList(std::vector<std::string>e_ItemList)override;
 };
 
 class cMyGuiScroller :public cMyGuiComboBox

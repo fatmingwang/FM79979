@@ -1547,7 +1547,8 @@ void cMyTreeView::Render()
 	//ImVec2 minSize(400, 300);
 	//ImVec2 maxSize(9999, 9999); // No maximum size constraint
 	//ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
-	if (ImGui::Begin("Tree View Window"), nullptr, m_iRenderFlag)
+	//if (ImGui::Begin("Tree View Window"), nullptr, m_iRenderFlag)
+	if (ImGui::Begin("Tree View Window"))
 	{
 
 		// Set the size of the tree view region
@@ -1655,6 +1656,9 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 		break;
 		case eMIGT_DATA_PICKER:
 		l_pObject = new cMyGuiDatePicker();
+		break;
+		default:
+		//e_eMyImGuiType
 		break;
 	}
 	//e_pParent->add

@@ -3,6 +3,8 @@
 #include "Glh.h"
 #ifdef WIN32
 #include "windows.h"
+#elif defined(WASM)
+#include <SDL2/SDL_video.h>
 #endif
 namespace FATMING_CORE
 {
@@ -20,6 +22,8 @@ namespace FATMING_CORE
 		HANDLE														m_Handle;
 		HGLRC														m_HGLRC;
 		cOpenGLRender();
+#elif defined(WASM)
+		SDL_Window*													m_Handle;
 #endif
 		cOpenGLRender(Vector2 e_vGameResolution = Vector2(1920.f, 1080.f), Vector2 e_vViewportSize = Vector2(1920.f, 1080.f));
 		virtual ~cOpenGLRender();

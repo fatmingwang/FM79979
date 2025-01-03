@@ -44,8 +44,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 
 cEngineTestApp::~cEngineTestApp()
 {
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui::DestroyContext();
+	cMyImGuiTesting::Destory();
 	SAFE_DELETE(m_pPhaseManager);
 	SAFE_DELETE(g_pNetworkSample);
 	DestorySampleObject();
@@ -86,7 +85,7 @@ void	cEngineTestApp::Update(float e_fElpaseTime)
 
 void	cEngineTestApp::Render()
 {
-	this->m_spOpenGLRender->m_vGameResolution = Vector2(1280, 720);
+	this->m_spOpenGLRender->m_vGameResolution = Vector2(1920, 1080);
 	this->m_spOpenGLRender->m_vBGColor = Vector4(0.5, 0.5, 0.5, 1);
 	//glEnable(GL_ALPHA_TEST);
 	MyGLEnable(GL_BLEND);

@@ -67,9 +67,9 @@
                         {
                             "cMyGuiComboBox": {
                                 "m_ItemList": [
-                                    "Line",
-                                    "Line",
-                                    "Line"
+                                    "Scatter Pays",
+                                    "Line Game",
+                                    "Way Game"
                                 ],
                                 "m_iID": 19,
                                 "m_iSelectedIndex": 0,
@@ -148,6 +148,7 @@
                         },
                         {
                             "cMyGuiEditBox": {
+                                "m_RenderFlag": 1,
                                 "m_bMultiLines": false,
                                 "m_iID": 24,
                                 "m_strHint": "please input...",
@@ -169,6 +170,7 @@
                         },
                         {
                             "cMyGuiEditBox": {
+                                "m_RenderFlag": 0,
                                 "m_bMultiLines": false,
                                 "m_iID": 25,
                                 "m_strHint": "please input...",
@@ -197,7 +199,7 @@
                                 ],
                                 "m_iID": 26,
                                 "m_iSelectedIndex": 0,
-                                "m_strImGuiName": "game type",
+                                "m_strImGuiName": "Game Type",
                                 "m_strText": "Game Type",
                                 "m_vLocalPos": {
                                     "x": 35.28997802734375,
@@ -214,44 +216,65 @@
                             }
                         },
                         {
-                          "cMyGuiEditBox": {
-                            "m_bMultiLines": false,
-                            "m_iID": 27,
-                            "m_strHint": "please input...",
-                            "m_strImGuiName": "SpecialPlatformRtp",
-                            "m_strText": "",
-                            "m_vLocalPos": {
-                              "x": 27.0999755859375,
-                              "y": 641.3499755859375
-                            },
-                            "m_vSize": {
-                              "x": 300.0,
-                              "y": 100.0
-                            },
-                            "m_vWorldPos": {
-                              "x": 27.0999755859375,
-                              "y": 641.3499755859375
+                            "cMyGuiEditBox": {
+                                "m_RenderFlag": 0,
+                                "m_bMultiLines": false,
+                                "m_iID": 27,
+                                "m_strHint": "please input...",
+                                "m_strImGuiName": "SpecialPlatformRtp",
+                                "m_strText": "",
+                                "m_vLocalPos": {
+                                    "x": 27.0999755859375,
+                                    "y": 641.3499755859375
+                                },
+                                "m_vSize": {
+                                    "x": 300.0,
+                                    "y": 100.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 27.0999755859375,
+                                    "y": 641.3499755859375
+                                }
                             }
-                          }
                         },
                         {
                             "cMyGuiEditBox": {
+                                "m_RenderFlag": 0,
                                 "m_bMultiLines": true,
                                 "m_iID": 52,
                                 "m_strHint": "please input...",
-                                "m_strImGuiName": "cMyGuiEditBox",
+                                "m_strImGuiName": "JsonResultEditobx",
                                 "m_strText": "JsonResult",
                                 "m_vLocalPos": {
                                     "x": 600.0,
                                     "y": 50.0
                                 },
                                 "m_vSize": {
-                                    "x": 600.0,
+                                    "x": 700.0,
                                     "y": 1000.0
                                 },
                                 "m_vWorldPos": {
                                     "x": 600.0,
-                                    "y": 278.0
+                                    "y": 50.0
+                                }
+                            }
+                        },
+                        {
+                            "cMyGuiButton": {
+                                "m_iID": 68,
+                                "m_strImGuiName": "cMyGuiButton",
+                                "m_strText": "Upload to Server",
+                                "m_vLocalPos": {
+                                    "x": 190.0,
+                                    "y": 736.0
+                                },
+                                "m_vSize": {
+                                    "x": 0.0,
+                                    "y": 0.0
+                                },
+                                "m_vWorldPos": {
+                                    "x": 190.0,
+                                    "y": 736.0
                                 }
                             }
                         }

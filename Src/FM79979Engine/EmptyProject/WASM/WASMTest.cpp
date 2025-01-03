@@ -1,14 +1,14 @@
 #include <emscripten.h>
 #include <emscripten/html5.h>
 
-//#define USE_SDL2
+#define USE_SDL2
 //add to linker -sUSE_SDL=2 
 #ifdef USE_SDL2
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #else
-#include <SDL/SDL.h>
-#include <SDL/SDL_events.h>
+//#include <SDL/SDL.h>
+//#include <SDL/SDL_events.h>
 #endif
 
 
@@ -236,7 +236,7 @@ void process_events(void)
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
-			if (g_bUseIMGUI)
+			//if (g_bUseIMGUI)
 			{
 				ImGui_ImplSDL2_ProcessEvent(&event);
 			}
@@ -413,11 +413,12 @@ int main()
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
 	cGameApp::m_sbDebugFunctionWorking = true;
 	printf("do SDL_Init(SDL_INIT_EVERYTHING2)\n");
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
+	//if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
+	if (SDL_Init(SDL_INIT_VIDEO) == -1)
 	{
 		printf("device no touch\n");
 #ifdef USE_SDL2
-		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_AUDIO) == -1)
+		if (SDL_Init(SDL_INIT_VIDEO) == -1)
 #endif
 		{
 			std::cout << "Failed to initialize SDL: " << SDL_GetError() << std::endl;
@@ -442,6 +443,7 @@ int main()
 		SDL_WINDOWPOS_CENTERED,
 		CANVANS_WIDTH, CANVANS_HEIGHT,
 		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+	cGameApp::m_spOpenGLRender->m_Handle = g_pSDL2Window;
 	//if ((l_pSurf_Display = SDL_CreateWindow(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL)) == NULL)
 	if (!g_pSDL2Window)
 	{
@@ -458,6 +460,7 @@ int main()
 		SDL_Quit();
 		return -1;
 	}
+	SDL_GL_MakeCurrent(g_pSDL2Window, g_glContext);
 #else
 	SDL_Surface* l_pSurf_Display = nullptr;
 	FMLog::Log("SDL_SetVideoMode \n", false);
@@ -475,15 +478,6 @@ int main()
 	if (l_bSDLInitOk)
 	{
 		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
-		if (g_bUseIMGUI)
-		{
-#ifdef USE_SDL2
-			ImGui_ImplSDL2_Init(g_pSDL2Window);
-#else
-			ImGui_ImplSDL2_Init();
-#endif
-		}
-		ImGui_ImplOpenGL3_Init();
 		g_pGameApp->Init();
 		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1280;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 720;

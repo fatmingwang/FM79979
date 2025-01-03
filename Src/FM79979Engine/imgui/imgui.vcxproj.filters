@@ -78,6 +78,9 @@
     <ClInclude Include="MyGui\MyGUIUtilities.h">
       <Filter>MyGui</Filter>
     </ClInclude>
+    <ClInclude Include="MyGui\LazyGUIParser.h">
+      <Filter>MyGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui_widgets.cpp">
@@ -117,6 +120,9 @@
       <Filter>miscu</Filter>
     </ClCompile>
     <ClCompile Include="MyGui\MyGUIUtilities.cpp">
+      <Filter>MyGui</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGui\LazyGUIParser.cpp">
       <Filter>MyGui</Filter>
     </ClCompile>
   </ItemGroup>

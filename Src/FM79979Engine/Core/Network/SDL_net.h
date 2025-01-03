@@ -22,21 +22,21 @@
 
 /* $Id$ */
 
-#ifndef _SDL_NET_H
-#define _SDL_NET_H
+#pragma once
 
 #define WITHOUT_SDL
 
 #ifdef WITHOUT_SDL
 #include <stdint.h>
 #ifdef WASM
+#include <emscripten/emscripten.h>
 //#define USE_SDL2
-#ifdef USE_SDL2
+//#ifdef USE_SDL2
+//#include <SDL2/SDL_endian.h>
+//#else
+//#include <SDL/SDL_endian.h>
+//#endif
 #include <SDL2/SDL_endian.h>
-#else
-#include <SDL/SDL_endian.h>
-#endif
-
 #else
 #include "SDL_endian.h"
 #endif
@@ -485,5 +485,3 @@ inline Uint32 _SDLNet_Read32(const void *areap)
 
 #endif /* !defined(WITHOUT_SDL) && !SDL_DATA_ALIGNED */
 //#include "close_code.h"
-
-#endif /* _SDL_NET_H */

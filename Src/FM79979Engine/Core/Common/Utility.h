@@ -5,6 +5,7 @@
 //#include "../Math/Collision.h"
 #include "TimeUT.h"
 #include "../Android/nv_file.h"
+#include "../../../include/json.hpp"
 #include "TimeUT.h"
 #if defined(WIN32)
 	#pragma warning( disable : 4996 )
@@ -67,6 +68,7 @@ namespace UT
 	//"w+"	//Create an empty file for both reading and writing. If a file with the same name already exists its content is erased and the file is treated as a new empty file. 
 	//"a+"	//Open a file for reading and appending. All writing operations are performed at the end of the file, protecting the previous content to be overwritten. You can reposition the internal pointer to anywhere in the file for reading, but writing operations will move it back to the end of file. The file is created if it does not exist. 
 	NvFile*					MyFileOpen( const char* FileName,const char*e_strMode  );
+	bool					GetJsonFromFile(const char* e_StrFileName,nlohmann::json& e_JsonData);
 	bool					MyFileCopy( const char* e_strSrcFileName,const char* e_strDestFileName);
 	std::string				GetTxtFileContent(const char* e_strFileName);
 	//please delete received data(delete[] data)

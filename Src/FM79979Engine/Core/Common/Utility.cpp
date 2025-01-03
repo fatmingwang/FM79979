@@ -1008,6 +1008,50 @@ namespace UT
 		return l_pFile;
 	}
 
+	bool GetJsonFromFile(const char* e_strFileName, nlohmann::json& e_JsonData)
+	{
+		int l_iFileLength = 0;
+		auto l_strFileContent = GetFileContent(e_strFileName, l_iFileLength, "r");
+		if (l_strFileContent)
+		{
+			try
+			{
+				e_JsonData = nlohmann::json::parse(l_strFileContent);
+			}
+			catch (const nlohmann::json::parse_error& e)
+			{
+				delete l_strFileContent;
+				FMLOG(e.what());
+				return false;
+			}
+			delete l_strFileContent;
+			return true;
+		}
+		return false;
+		//MyFileOpen(e_strFileName, "r");
+		// Open file stream
+		std::ifstream l_JsonStream(e_strFileName);
+		if (!l_JsonStream.is_open())
+		{
+			FMLOG("Failed to open file:%s ", e_strFileName);
+			return false;
+		}
+		// Parse JSON data
+		try
+		{
+			l_JsonStream >> e_JsonData;
+		}
+		catch (const nlohmann::json::parse_error& e)
+		{
+			FMLOG(e.what());
+			return false;
+		}
+
+		// Close the stream
+		l_JsonStream.close();
+		return true;
+	}
+
 
 	bool		MyFileCopy( const char* e_strSrcFileName,const char* e_strDestFileName)
 	{

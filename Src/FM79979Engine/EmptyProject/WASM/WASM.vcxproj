@@ -276,7 +276,7 @@
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
       <AdditionalDependencies>websocket.js</AdditionalDependencies>
-      <AdditionalOptions>-lidbfs.js --bind -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1  --profiling -s DEMANGLE_SUPPORT=1 -g4 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-lidbfs.js --bind -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1  --profiling -s DEMANGLE_SUPPORT=1 -g4 -sUSE_SDL=2 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLinkDirectories>
       </AdditionalLinkDirectories>
     </Link>
