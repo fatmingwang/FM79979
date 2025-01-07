@@ -390,8 +390,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			int width = clientRect.right - clientRect.left;
 			int height = clientRect.bottom - clientRect.top;
-			cGameApp::m_spOpenGLRender->m_vGameResolution.x = width;
-			cGameApp::m_spOpenGLRender->m_vGameResolution.y = height;
+			//cGameApp::m_spOpenGLRender->m_vGameResolution.x = width;
+			//cGameApp::m_spOpenGLRender->m_vGameResolution.y = height;
 			cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0;
 			cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0;
 			cGameApp::m_spOpenGLRender->m_vViewPortSize.z = width;
@@ -404,7 +404,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			//std::cerr << "Failed to get client area." << std::endl;
 		}
-		//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		//cGameApp::m_spOpenGLRender->m_vGameResolution.x = g_WindowSize.x;
 		//cGameApp::m_spOpenGLRender->m_vGameResolution.y = g_WindowSize.y;
 		break;

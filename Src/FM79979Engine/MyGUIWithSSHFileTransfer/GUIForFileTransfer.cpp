@@ -87,15 +87,21 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pMyGuiForm->SetSize(l_vSize);
 	m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
 
-	cMyGuiBasicObj*l_pMyGuiBasicObj = GetMyGuiObjWithType<cMyGuiBasicObj>();
-	l_pMyGuiBasicObj->SetExtraRenderFunction([this]
-	(cImGuiNode* e_pNode)
-	{
-		NumericUpDown("Numeric Up/Down", &m_iAllGameSharedCodeVersion, 0,100,1);
-		//ImGui::DragInt("Drag Int", &value, 1.0f, -100, 100);
-	});
+	//cMyGuiBasicObj*l_pMyGuiBasicObj = GetMyGuiObjWithType<cMyGuiBasicObj>();
+	//l_pMyGuiBasicObj->SetExtraRenderFunction([this]
+	//(cImGuiNode* e_pNode)
+	//{
+	//	NumericUpDown("Numeric Up/Down", &m_iAllGameSharedCodeVersion, 0,100,1);
+	//	//ImGui::DragInt("Drag Int", &value, 1.0f, -100, 100);
+	//});
 	auto l_pJsonContentCheckButton = GetMyGuiObjWithType<cMyGuiButton>();
 	l_pJsonContentCheckButton->SetText("Check Json Content");
+	auto l_pHelpButton = GetMyGuiObjWithType<cMyGuiButton>();
+	l_pHelpButton->SetText("Help!");
+	l_pHelpButton->SetExtraRenderFunction([](cImGuiNode* e_pNode)
+	{
+		RenderHintLabel("1.Select Source combobox environment \n2.Click Fetch Rule.json button\n3.modify EdiboxContent\n4.Choice Upload env with TargetEnv Listbox\n5.Click Upload");
+	});
 	m_pUploadRuleFileButton = GetMyGuiObjWithType<cMyGuiButton>();
 	m_pTargetEnvListBox = GetMyGuiObjWithType<cMyGuiListBox>();
 	m_pVersionListBox = GetMyGuiObjWithType<cMyGuiListBox>();
@@ -103,6 +109,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pFetchRuleFileButton = GetMyGuiObjWithType<cMyGuiButton>();
 	m_pFetchRuleFileButton->SetText("Fetch \nRule.json");
 	m_pUploadRuleFileButton->SetText("Upload");
+	m_pVersionListBox->SetText("Target enviorment version list");
 	m_pRuleJsonContentEditbox = GetMyGuiObjWithType<cMyGuiEditBox>();
 	m_pRuleJsonContentEditbox->SetMultiLines(true);
 	m_pRuleJsonContentEditbox->SetHint("");
@@ -219,7 +226,9 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 		l_strEnvNameVector.push_back(GetEnvName((eEnv)i));
 		
 	}
+	m_pSourceEnvComboBox->SetText("Source");
 	m_pSourceEnvComboBox->SetItemList(l_strEnvNameVector);
+	m_pSourceEnvComboBox->SetSelectedIndex(0);
 	m_pSourceEnvComboBox->m_fOnSelectFunction =
 	[](int e_iIndex,std::string e_str)
 	{
@@ -227,6 +236,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	};
 
 	m_pTargetEnvListBox->SetItemList(l_strEnvNameVector);
+	m_pTargetEnvListBox->SetText("TargetEnv");
 	m_pTargetEnvListBox->SetMiltiSelecteable(false);
 	m_pTargetEnvListBox->m_fOnSelectFunction =
 	[](int e_iIndex,std::string e_str)
@@ -250,8 +260,10 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pMyGuiForm->AddChild(m_pRuleJsonContentEditbox);
 	m_pMyGuiForm->AddChild(m_pVersionListBox);
 	m_pMyGuiForm->AddChild(m_pUploadRuleFileButton);
-	m_pMyGuiForm->AddChild(l_pMyGuiBasicObj);
+	//m_pMyGuiForm->AddChild(l_pMyGuiBasicObj);
 	m_pMyGuiForm->AddChild(l_pJsonContentCheckButton);
+	m_pMyGuiForm->AddChild(l_pHelpButton);
+	
 	
 	l_pJsonContentCheckButton->SetLocalPosition(ImVec2(1400, 400));
 	m_pFetchRuleFileButton->SetLocalPosition(ImVec2(100, 200));
@@ -260,7 +272,7 @@ cGUIForFileTransfer::cGUIForFileTransfer()
 	m_pVersionListBox->SetLocalPosition(ImVec2(500, 100));
 	m_pRuleJsonContentEditbox->SetLocalPosition(350, 400);
 	m_pUploadRuleFileButton->SetLocalPosition(100, 600);
-	l_pMyGuiBasicObj->SetLocalPosition(300, 20);
+	//l_pMyGuiBasicObj->SetLocalPosition(300, 20);
 	
 }
 
@@ -394,7 +406,7 @@ void cGUIForFileTransfer::DownloadRuleFileAndGetDirectoryList()
 					if (l_pLIBSSH2SocketData->DoListRemoteDirectory(l_strRemotDir, l_FilesVector, l_DirectoriesVector))
 					{
 						m_pUploadRuleFileButton->SetEnable(true);
-						m_pMainUIRoot->ShowConfirmDialog("data updated");
+						m_pMainUIRoot->ShowConfirmDialog("file downloaded");
 
 						std::vector<std::string>l_strNumberVector;
 						std::vector<int>l_NumberVector;
@@ -488,14 +500,15 @@ void cGUIForFileTransfer::Update(float e_fElpaseTime)
 
 void cGUIForFileTransfer::Render(float* e_pfMatrix, float* e_pfGameResolutoinSize)
 {
-	float l_fTargetGameResolution[2] = { 1920.f, 1080.f };
-	ImGui_StartFrame(e_pfGameResolutoinSize);
+	//float l_fTargetGameResolution[2] = { 1920.f, 1080.f };
+	//ImGui_StartFrame(e_pfGameResolutoinSize);
+	ImGui_StartFrame();
 	if (this->m_pMainUIRoot)
 	{
 		m_pMainUIRoot->Render();
 	}
-	ImGui_EndFrame(e_pfMatrix, e_pfGameResolutoinSize);
-	GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
+	ImGui_EndFrame();
+	//GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
 }
 
 // Draw a 9-sliced texture

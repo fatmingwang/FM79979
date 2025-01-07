@@ -93,8 +93,8 @@ void	cEngineTestApp::Render()
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
 	cMyImGuiTesting::Render();
-	auto l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
-	auto l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
+	//auto l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
+	//auto l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
 	//cGameApp::RenderFont(100, 100, UT::ComposeMsgByFormat(L"CurrentCanvans:%d,%d", l_iViewportWidth, l_iViewportHeight).c_str());
 	//cGameApp::RenderFont(100, 200, UT::ComposeMsgByFormat(L"ViewportRect:%s", ValueToString(m_spOpenGLRender->m_vViewPortSize).c_str()));
 	//cGameApp::RenderFont(100, 300, UT::ComposeMsgByFormat(L"ViewSize:%d,%d", (int)this->m_spOpenGLRender->m_vViewPortSize.Width(), (int)this->m_spOpenGLRender->m_vViewPortSize.Height()));

@@ -404,8 +404,8 @@ int main()
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 	FMLog::Init();
-	int CANVANS_WIDTH = 1920;// EMSDK::EMSDK_GetBrowserWidth();
-	int CANVANS_HEIGHT= 1080;// EMSDK::EMSDK_GetBrowserHeight();
+	int CANVANS_WIDTH = 1280;// EMSDK::EMSDK_GetBrowserWidth();
+	int CANVANS_HEIGHT= 720;// EMSDK::EMSDK_GetBrowserHeight();
 	cGameApp::CreateDefaultOpenGLRender();
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;

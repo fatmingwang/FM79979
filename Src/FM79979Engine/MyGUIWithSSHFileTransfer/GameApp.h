@@ -3,7 +3,7 @@
 
 	class	cMyApp:public cGameApp
 	{
-		cOrthogonalCamera* m_p2DCamera;
+		cOrthogonalCamera* m_p2DCamera = nullptr;
 		class cGUIForFileTransfer* m_pGUIForFileTransfer = nullptr;
 		class cCURLUI* m_pCURLUI = nullptr;
 	protected:

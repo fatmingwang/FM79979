@@ -553,13 +553,75 @@ bool	sLIBSSH2SocketData::DoDownloadDirectory(const std::string& e_strRemotePath,
 	return download_directory(m_pSFTPSession, l_strDiectory, local_dir);
 }
 
-bool		sLIBSSH2SocketData::DoConnect()
+//bool		sLIBSSH2SocketData::DoConnect()
+//{
+//	m_bConnectedOk = false;
+//	//int sock;
+//	//struct sockaddr_in server_addr;
+//	// Create socket
+//	m_iSock = (int)socket(AF_INET, SOCK_STREAM, 0);
+//	if (m_iSock < 0)
+//	{
+//		perror("Socket creation failed");
+//		return false;
+//	}
+//
+//	m_ServerAddr.sin_family = AF_INET;
+//	m_ServerAddr.sin_port = htons(this->m_EnvData.m_iPort);
+//	//#pragma comment(lib, "Ws2_32.lib")
+//	inet_pton(AF_INET, this->m_EnvData.m_strTargetIP.c_str(), &m_ServerAddr.sin_addr);
+//
+//	// Connect to the SSH server
+//	if (connect(m_iSock, (struct sockaddr*)&m_ServerAddr, sizeof(m_ServerAddr)) < 0)
+//	{
+//		perror("Connection to SSH server failed");
+//		return false;
+//	}
+//
+//	// Create SSH session
+//	m_pSession = libssh2_session_init();
+//	if (!m_pSession)
+//	{
+//		std::cerr << "Unable to create SSH session" << std::endl;
+//		return false;
+//	}
+//
+//	// Establish the SSH connection
+//	if (libssh2_session_handshake(m_pSession, m_iSock))
+//	{
+//		std::cerr << "Failed SSH handshake" << std::endl;
+//		libssh2_session_free(m_pSession);
+//		return false;
+//	}
+//
+//	// Authenticate via username and password
+//	if (libssh2_userauth_password(m_pSession, this->m_EnvData.m_strRemoteUserName.c_str(), this->m_EnvData.m_strRemotePassword.c_str()))
+//	{
+//		std::cerr << "Authentication failed" << std::endl;
+//		libssh2_session_disconnect(m_pSession, "Normal Shutdown");
+//		libssh2_session_free(m_pSession);
+//		return false;
+//	}
+//
+//	// Initialize SFTP session
+//	m_pSFTPSession = libssh2_sftp_init(m_pSession);
+//	if (!m_pSFTPSession)
+//	{
+//		std::cerr << "Unable to start SFTP session" << std::endl;
+//		libssh2_session_disconnect(m_pSession, "Normal Shutdown");
+//		libssh2_session_free(m_pSession);
+//		return false;
+//	}
+//	m_bConnectedOk = true;
+//	return true;
+//}
+
+bool sLIBSSH2SocketData::DoConnect()
 {
 	m_bConnectedOk = false;
-	//int sock;
-	//struct sockaddr_in server_addr;
+
 	// Create socket
-	m_iSock = (int)socket(AF_INET, SOCK_STREAM, 0);
+	m_iSock = static_cast<int>(socket(AF_INET, SOCK_STREAM, 0));
 	if (m_iSock < 0)
 	{
 		perror("Socket creation failed");
@@ -568,11 +630,28 @@ bool		sLIBSSH2SocketData::DoConnect()
 
 	m_ServerAddr.sin_family = AF_INET;
 	m_ServerAddr.sin_port = htons(this->m_EnvData.m_iPort);
-	//#pragma comment(lib, "Ws2_32.lib")
-	inet_pton(AF_INET, this->m_EnvData.m_strTargetIP.c_str(), &m_ServerAddr.sin_addr);
+
+	// Resolve domain or IP
+	if (inet_pton(AF_INET, this->m_EnvData.m_strTargetIP.c_str(), &m_ServerAddr.sin_addr) <= 0)
+	{
+		struct addrinfo hints, * res;
+		memset(&hints, 0, sizeof(hints));
+		hints.ai_family = AF_INET;
+		hints.ai_socktype = SOCK_STREAM;
+
+		if (getaddrinfo(this->m_EnvData.m_strTargetIP.c_str(), nullptr, &hints, &res) != 0)
+		{
+			perror("Failed to resolve domain");
+			return false;
+		}
+
+		struct sockaddr_in* ipv4 = reinterpret_cast<struct sockaddr_in*>(res->ai_addr);
+		m_ServerAddr.sin_addr = ipv4->sin_addr;
+		freeaddrinfo(res);
+	}
 
 	// Connect to the SSH server
-	if (connect(m_iSock, (struct sockaddr*)&m_ServerAddr, sizeof(m_ServerAddr)) < 0)
+	if (connect(m_iSock, reinterpret_cast<struct sockaddr*>(&m_ServerAddr), sizeof(m_ServerAddr)) < 0)
 	{
 		perror("Connection to SSH server failed");
 		return false;
@@ -612,9 +691,11 @@ bool		sLIBSSH2SocketData::DoConnect()
 		libssh2_session_free(m_pSession);
 		return false;
 	}
+
 	m_bConnectedOk = true;
 	return true;
 }
+
 
 sLIBSSH2SocketData* sLIBSSH2SocketData::GetDataByEnv(eEnv e_eEnv)
 {

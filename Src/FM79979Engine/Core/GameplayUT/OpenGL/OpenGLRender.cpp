@@ -285,8 +285,13 @@ namespace FATMING_CORE
 
 	POINT	cOpenGLRender::GetSDLMouseConvertCoordinate(int e_iPosX, int e_iPosY, POINT e_ViewPort2)
 	{
+#ifdef WASM
 		auto l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
 		auto l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
+#else
+		auto l_iViewportWidth = 1920;
+		auto l_iViewportHeight = 1080;
+#endif
 		auto l_CanvansWidth = m_vDeviceViewPortSize.Width();
 		auto l_CanvansHeight = m_vDeviceViewPortSize.Height();
 		//Vector2		l_vScale = Vector2(l_iViewportWidth/l_CanvansWidth  , l_iViewportHeight/ l_CanvansHeight);
@@ -305,17 +310,17 @@ namespace FATMING_CORE
 			l_Pos.y = e_iPosY;
 			break;
 			case eDD_UPSIDE_DOWN:
-			l_Pos.x = l_vConvertViewport.x - e_iPosX;
-			l_Pos.y = l_vConvertViewport.y - e_iPosY;
+			l_Pos.x = (long)(l_vConvertViewport.x - e_iPosX);
+			l_Pos.y = (long)(l_vConvertViewport.y - e_iPosY);
 			break;
 			//windows and iOS is not same?
 			case eDD_LANDSCAPE_LEFT://ensure view port is right,x and y swap
-			l_Pos.x = l_vConvertViewport.y - e_iPosY;
+			l_Pos.x = (long)(l_vConvertViewport.y - e_iPosY);
 			l_Pos.y = e_iPosX;
 			break;//ensure view port is right,x and y swap
 			case eDD_LANDSCAPE_RIGHT:
 			l_Pos.x = e_iPosY;
-			l_Pos.y = l_vConvertViewport.x - e_iPosX;
+			l_Pos.y = (long)(l_vConvertViewport.x - e_iPosX);
 			break;
 			default:
 			assert(0 && "cOpenGLRender::ConvertCoordinate switch not in range");
