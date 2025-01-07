@@ -44,13 +44,13 @@
 #ifdef USE_MU_PARSER
 #pragma comment(lib, "../../../lib/Release/MathParser.lib")
 #endif
-#pragma comment(lib, "../../../lib/Release/Bullet.lib")
+//#pragma comment(lib, "../../../lib/Release/Bullet.lib")
 #ifndef UWP
-#pragma comment(lib, "../../../lib/Release/Core.lib")
+//#pragma comment(lib, "../../../lib/Release/Core.lib")
 #endif
-#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")
-#pragma comment(lib, "../../../lib/Release/ogg.lib")
-#pragma comment(lib, "../../../lib/Release/Freetype.lib")
+//#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")
+//#pragma comment(lib, "../../../lib/Release/ogg.lib")
+//#pragma comment(lib, "../../lib/Release/Freetype.lib")
 #endif
 
 #pragma comment(lib, "./openssl/lib/libcrypto.lib")
