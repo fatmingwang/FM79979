@@ -17,11 +17,11 @@ cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) 
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
-	//m_p2DCamera = new cOrthogonalCamera();
+	m_p2DCamera = new cOrthogonalCamera();
 	//m_pCURLUI = new cCURLUI();
 	if (!m_pCURLUI)
 	{
-		//g_pMyImGuiUIEditor = new cMyImGuiUIEditor();
+		g_pMyImGuiUIEditor = new cMyImGuiUIEditor();
 		if (!g_pMyImGuiUIEditor)
 		{
 			m_pGUIForFileTransfer = new cGUIForFileTransfer();
@@ -29,10 +29,6 @@ cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) 
 		if (g_pMyImGuiUIEditor)
 		{
 			g_pMyImGuiUIEditor->m_p2DCamera = m_p2DCamera;
-		}
-		if (m_pGUIForFileTransfer)
-		{
-			m_pGUIForFileTransfer->m_p2DCamera = m_p2DCamera;
 		}
 	}
 }

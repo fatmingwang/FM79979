@@ -329,8 +329,12 @@ void cMyImGuiUIEditor::Render()
 	{
 		return;
 	}
-	Vector2 l_vSize = m_p2DCamera->GetScreenViewPortSize();
+	Vector2 l_vSize = m_p2DCamera->GetScreenViewPortSize();	
 	float l_fTargetGameResolution[2] = { 1920.f, 1080.f };
+
+	cGameApp::m_spOpenGLRender->m_vGameResolution.x = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+	cGameApp::m_spOpenGLRender->m_vGameResolution.y = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+
 	ImGui_StartFrame(l_fTargetGameResolution, m_iRootNodeRenderContextIndex);
 	RenderMainUI();
 	ImGui_EndFrame(m_p2DCamera->GetProjectionMatrix(), l_vSize);
@@ -543,15 +547,22 @@ void cMyImGuiUIEditor::RenderToolBox()
 
 	if (l_bDoOnce)
 	{
-		ImGui::SetNextWindowPos(ImVec2(1680, 0));
-		//ImGui::SetNextWindowSize(ImVec2(l_iWidth, 500));
-		ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth + 50, 900), ImVec2(FLT_MAX, 1080));
+		//ImGui::SetNextWindowPos(ImVec2(1680, 0));
+		////ImGui::SetNextWindowSize(ImVec2(l_iWidth, 500));
+		//ImGui::SetNextWindowSizeConstraints(ImVec2(l_iWidth + 50, 900), ImVec2(FLT_MAX, 1080));
 		l_bDoOnce = false;
+		m_pTreeView->m_vPosition = ImVec2(0, 540);
+		m_pTreeView->m_vSize = ImVec2(350, 450);
 	}
 	int l_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
 	//ShowTreeViewWindow(this->m_pMainUIRoot->GetChildNodeVector()[0], l_iRenderFlag);
 	m_pTreeView->m_pRoot = this->m_pMainUIRoot->GetChildNodeVector()[0];
 	m_pTreeView->Render();
+	cMyGuiBasicObj*l_pSelectedNode = (cMyGuiBasicObj*)m_pTreeView->GetSelectedNode();
+	if (l_pSelectedNode)
+	{
+		l_pSelectedNode->RenderBaseProperty();
+	}
 	ImGui::End();
 	ImGui::PopStyleVar(1);
 }

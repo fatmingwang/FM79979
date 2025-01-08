@@ -45,5 +45,4 @@ public:
 	void	Init();
 	void	Update(float e_fElpaseTime);
 	void	Render(float*e_pfMatrix = nullptr,float*e_pfGameResolutoinSize = nullptr);
-	cOrthogonalCamera* m_p2DCamera = nullptr;
 };

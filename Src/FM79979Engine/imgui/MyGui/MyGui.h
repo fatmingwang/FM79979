@@ -244,7 +244,6 @@ protected:
 	virtual void					ApplyPosition()override;
 	virtual	void					EndRender()override{}
 	virtual	void					InternalRender()override{}
-	virtual void					RenderBaseProperty();
 	virtual	void					GetRenderRect()override;
 	std::string						GetIDString();
 public:
@@ -255,6 +254,7 @@ public:
 		return L"cMyGuiBasicObj";
 	}
 	ImVec2							m_vSizeObj = {0,0 };
+	virtual void					RenderBaseProperty();
 	virtual void					RenderProperty();
 	virtual void					CreateImguiDataData()override;
 };
@@ -593,8 +593,9 @@ public:
 	ImVec2		m_vPosition = ImVec2(1600,0);
 	cMyTreeView();
 	virtual ~cMyTreeView();
-	void		Render();
-	bool		IsCollided(int e_iPosX, int e_iPosY);
+	void			Render();
+	bool			IsCollided(int e_iPosX, int e_iPosY);
+	cImGuiNode*		GetSelectedNode(){ return m_pSelectedNode; }
 };
 
 

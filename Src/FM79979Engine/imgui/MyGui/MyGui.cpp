@@ -504,7 +504,7 @@ void cMyGuiBasicObj::ApplyPosition()
 
 void cMyGuiBasicObj::RenderBaseProperty()
 {
-	ImGui::SetNextWindowPos({ 0, (float)500 });
+	ImGui::SetNextWindowPos({ 1400, (float)10 });
 	ImGui::SetNextWindowSize({ 300, 700 - 100 });
 	ImGui::Begin("property", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus);
 		bool l_my_forms_active = ImGui::IsWindowFocused();

@@ -479,18 +479,6 @@ void cGUIForFileTransfer::Init()
 	ImGui::GetIO().IniFilename = nullptr;
 	ImGui::GetIO().LogFilename = nullptr;
 	ImGui::GetIO().FontGlobalScale = 1.5f;
-	if (m_p2DCamera)
-	{
-		auto l_ImGuiCameraPositionConvertFunction = std::bind(&cOrthogonalCamera::GetGLSciccorRect, m_p2DCamera, std::placeholders::_1);
-		auto l_ImGuiGetCameraCursorPosition = [this](long& e_PosX, long& e_PosY)
-		{
-			auto l_vPos = m_p2DCamera->GetMouseWorldPos();
-			e_PosX = (long)l_vPos.x;
-			e_PosY = (long)l_vPos.y;
-		};
-		SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, 0);
-		SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction, 0);
-	}
 }
 
 void cGUIForFileTransfer::Update(float e_fElpaseTime)
