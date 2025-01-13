@@ -126,7 +126,7 @@ cMyImGuiUIEditor::cMyImGuiUIEditor()
 	m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
 	ImVec2 l_vSize(1920, 1080);
 	m_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
-	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar| ImGuiWindowFlags_NoMove);
+	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoTitleBar| ImGuiWindowFlags_NoCollapse);
 	m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
 	m_pMainUIRoot->AddChild(m_pMyGuiForm);
 	m_pMyGuiForm->SetSize(l_vSize);
@@ -561,7 +561,7 @@ void cMyImGuiUIEditor::RenderToolBox()
 	cMyGuiBasicObj*l_pSelectedNode = (cMyGuiBasicObj*)m_pTreeView->GetSelectedNode();
 	if (l_pSelectedNode)
 	{
-		l_pSelectedNode->RenderBaseProperty();
+		l_pSelectedNode->RenderProperty();
 	}
 	ImGui::End();
 	ImGui::PopStyleVar(1);

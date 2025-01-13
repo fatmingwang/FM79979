@@ -502,40 +502,35 @@ void cMyGuiBasicObj::ApplyPosition()
 	//ImGui::SetCursorPos(this->m_vLocalPos);
 }
 
-void cMyGuiBasicObj::RenderBaseProperty()
+void cMyGuiBasicObj::InnerRenderProperty()
 {
-	ImGui::SetNextWindowPos({ 1400, (float)10 });
-	ImGui::SetNextWindowSize({ 300, 700 - 100 });
-	ImGui::Begin("property", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus);
-		bool l_my_forms_active = ImGui::IsWindowFocused();
-		std::string l_strName = this->m_pData->m_strImGuiName;
-		ImGui::InputTextEx("Name form", &l_strName, 0);
-		//ImGui::InputText("name form", name, 255);
-		if (ImGui::Button("Apply name"))
+	bool l_my_forms_active = ImGui::IsWindowFocused();
+	if (this->m_pData->m_bOnlyDoFirstAssignData)
+	{
+		this->m_pData->m_bOnlyDoFirstAssignData = false;
+		this->m_pData->m_strTempText = this->m_pData->m_strText;
+	}
+	ImGui::InputTextEx("NewText", &this->m_pData->m_strTempText, 0);
+	//ImGui::InputText("name form", name, 255);
+	if (ImGui::Button("Apply Text"))
+	{
+		//if (!this->m_pData->m_strImGuiName.empty())
 		{
-			if (!this->m_pData->m_strImGuiName.empty())
-			{
-				this->m_pData->m_strImGuiName = l_strName;
-			}
+			this->m_pData->m_strText = this->m_pData->m_strTempText;
 		}
-		//ImVec2		l_vSize = m_vSize;
-		ImVec2		l_vPos = GetLocalPosition();
-		//ImVec2		l_vSizeObj = m_vSizeObj;
-		ImGui::InputFloat("SizeX", &m_pData->m_vSize.x, 1);
-		ImGui::InputFloat("SizeY", &m_pData->m_vSize.y, 1);
-		ImGui::InputFloat("PosX", &l_vPos.x, 1);
-		ImGui::InputFloat("PosY", &l_vPos.y, 1);
-		if (m_pData->m_vLocalPos.x!= l_vPos.x || m_pData->m_vLocalPos.y != l_vPos.y)
-		{
-			this->SetLocalPosition(l_vPos);
-		}
-		bool l_bBorder = false;;
-		bool l_bLock = false;;
-		ImGui::Checkbox("Border", &l_bBorder);
-		ImGui::SameLine();
-		ImGui::Checkbox("Lock", &l_bLock);
-	ImGui::End();
-
+	}
+	//ImVec2		l_vSize = m_vSize;
+	ImVec2		l_vPos = GetLocalPosition();
+	//ImVec2		l_vSizeObj = m_vSizeObj;
+	RenderHintLabel("0 is auto");
+	ImGui::InputFloat("Width", &m_pData->m_vSize.x, 1);
+	ImGui::InputFloat("Height", &m_pData->m_vSize.y, 1);
+	ImGui::InputFloat("PosX", &l_vPos.x, 1);
+	ImGui::InputFloat("PosY", &l_vPos.y, 1);
+	if (m_pData->m_vLocalPos.x!= l_vPos.x || m_pData->m_vLocalPos.y != l_vPos.y)
+	{
+		this->SetLocalPosition(l_vPos);
+	}
 }
 
 void	cMyGuiBasicObj::GetRenderRect()
@@ -552,6 +547,12 @@ std::string cMyGuiBasicObj::GetIDString()
 
 void cMyGuiBasicObj::RenderProperty()
 {
+	ImGui::SetNextWindowPos(m_vPropertyPos);
+	ImGui::SetNextWindowSize(m_vPropertySize);
+	ImGui::Begin("property", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus);
+	InnerRenderProperty();
+	ImGui::End();
+
 }
 
 void cMyGuiBasicObj::CreateImguiDataData()
@@ -629,8 +630,27 @@ void cMyGuiPanel::EndRender()
 	ImGui::EndChild();
 }
 
-void cMyGuiPanel::RenderProperty()
+void cMyGuiPanel::InnerRenderProperty()
 {
+}
+
+cMyGuiForm::cMyGuiForm()
+{
+	m_bShowCloseCutton = false;
+	this->m_bThisUseContainerPositionDontApplyParentPositionToChild = true;
+}
+
+cMyGuiForm::~cMyGuiForm()
+{
+}
+void cMyGuiForm::InnerRenderProperty()
+{
+	cMyGuiBasicObj::InnerRenderProperty();
+	bool l_bBorder = false;;
+	bool l_bLock = false;;
+	ImGui::Checkbox("Border", &l_bBorder);
+	ImGui::SameLine();
+	ImGui::Checkbox("Lock", &l_bLock);
 }
 
 void cMyGuiForm::ApplyPosition()
@@ -690,20 +710,6 @@ void cMyGuiForm::EndRender()
 	ImGui::End();
 }
 
-cMyGuiForm::cMyGuiForm()
-{
-	m_bShowCloseCutton = false;
-	this->m_bThisUseContainerPositionDontApplyParentPositionToChild = true;
-}
-
-cMyGuiForm::~cMyGuiForm()
-{
-}
-
-void cMyGuiForm::RenderProperty()
-{
-}
-
 cMyGuiToogle::cMyGuiToogle()
 {
 	m_bChecked = false;
@@ -726,7 +732,7 @@ void cMyGuiToogle::InternalRender()
 	}
 }
 
-void cMyGuiToogle::RenderProperty()
+void cMyGuiToogle::InnerRenderProperty()
 {
 }
 
@@ -1191,7 +1197,7 @@ void cMyGuiComboBox::SetItemList(std::vector<std::string> e_ItemList)
 	}
 }
 
-void cMyGuiComboBox::RenderProperty()
+void cMyGuiComboBox::InnerRenderProperty()
 {
 }
 
@@ -1204,7 +1210,7 @@ cMyGuiListBox::~cMyGuiListBox()
 {
 }
 
-void cMyGuiListBox::RenderProperty()
+void cMyGuiListBox::InnerRenderProperty()
 {
 }
 
@@ -1339,7 +1345,7 @@ void cMyGuiScroller::GetRenderRect()
 {
 }
 
-void cMyGuiScroller::RenderProperty()
+void cMyGuiScroller::InnerRenderProperty()
 {
 }
 
@@ -1499,6 +1505,7 @@ void cMyTreeView::RenderTreeivewPopupMenuContext()
 {
 	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
 	{
+		m_pCopyNode = nullptr;
 		if (ImGui::MenuItem("Copy"))
 		{
 			m_pCopyNode = this->m_pSelectedNode;
@@ -1750,7 +1757,7 @@ void cMyGuiDatePicker::GetRenderRect()
 
 }
 
-void cMyGuiDatePicker::RenderProperty()
+void cMyGuiDatePicker::InnerRenderProperty()
 {
 }
 

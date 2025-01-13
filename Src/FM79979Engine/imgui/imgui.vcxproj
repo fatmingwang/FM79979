@@ -37,6 +37,7 @@
     <ClInclude Include="misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="MyGui\LazyGUIParser.h" />
     <ClInclude Include="MyGui\MyGui.h" />
+    <ClInclude Include="MyGui\MyGuiTreeView.h" />
     <ClInclude Include="MyGui\MyGUIUtilities.h" />
     <ClInclude Include="MyGui\MyImGuiUIEditor.h" />
     <ClInclude Include="ThirtyParty\FileDialog\dirent\dirent.h" />

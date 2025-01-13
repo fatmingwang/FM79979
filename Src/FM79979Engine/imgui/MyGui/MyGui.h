@@ -179,6 +179,8 @@ protected:
 		int							m_iID = 0;
 		std::string					m_strImGuiName = "Node";
 		std::string					m_strText;
+		std::string					m_strTempText;
+		bool						m_bOnlyDoFirstAssignData = true;
 		ImVec2						m_vLocalPos = { 0, 0 };
 		ImVec2						m_vWorldPos = { 0, 0 };
 		sImguiData();
@@ -239,6 +241,8 @@ public:
 class cMyGuiBasicObj:public cImGuiNode//,public cMyGuiMouseMovingData
 {
 protected:
+	ImVec2							m_vPropertyPos = ImVec2(1400, 10);
+	ImVec2							m_vPropertySize = ImVec2(300, 600);
 	bool							m_bNameOnTop = true;
 	void							RenderNameOnTop();
 	virtual void					ApplyPosition()override;
@@ -246,6 +250,7 @@ protected:
 	virtual	void					InternalRender()override{}
 	virtual	void					GetRenderRect()override;
 	std::string						GetIDString();
+	virtual void					InnerRenderProperty();
 public:
 	cMyGuiBasicObj();
 	virtual ~cMyGuiBasicObj();
@@ -254,7 +259,6 @@ public:
 		return L"cMyGuiBasicObj";
 	}
 	ImVec2							m_vSizeObj = {0,0 };
-	virtual void					RenderBaseProperty();
 	virtual void					RenderProperty();
 	virtual void					CreateImguiDataData()override;
 };
@@ -290,7 +294,7 @@ class cMyGuiRootNode :public cMyGuiBasicObj
 
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
-	//virtual void		RenderProperty()override;
+	//virtual void		InnerRenderProperty()override;
 	//for yes no dialog something
 	//f_MyImGuiExtraRenderFunction	m_ExtraLastRenderFunction = nullptr;
 	void				ShowYesNoDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strYesButtonText = "Yes", const char* e_strNoButtonText = "No");
@@ -306,7 +310,7 @@ public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiButton();
 	virtual ~cMyGuiButton();
-	//virtual void		RenderProperty()override;
+	//virtual void		InnerRenderProperty()override;
 	std::function<void(cMyGuiButton*)>	m_fOnClickFunction;
 
 };
@@ -318,7 +322,7 @@ public:
 	cMyGuiLabel();
 	virtual ~cMyGuiLabel();
 	MYGUI_DEFAULT_IMPLEMENT();
-	//virtual void		RenderProperty()override;
+	//virtual void		InnerRenderProperty()override;
 };
 
 class cMyGuiEditBox :public cMyGuiBasicObj
@@ -348,7 +352,7 @@ public:
 	std::function<void(std::string)>	m_fContentChangedFunction;
 	GET_SET(std::string, m_pEditBoxData->m_strHint, GetHint, SetHint);
 	GET_SET(bool, m_pEditBoxData->m_bMultiLines, IsMultiLines, SetMultiLines);
-	//virtual void		RenderProperty()override;
+	//virtual void		InnerRenderProperty()override;
 };
 
 class cMyGuiSliderInteger :public cMyGuiBasicObj
@@ -372,7 +376,7 @@ public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	GET_SET(int, m_psSliderData->m_iMax, GetMax, SetMax);
 	GET_SET(int, m_psSliderData->m_iMin, GetMin, SetMin);
-	//virtual void		RenderProperty()override;
+	//virtual void		InnerRenderProperty()override;
 
 };
 
@@ -397,7 +401,7 @@ public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	GET_SET(float, m_psSliderData->m_fMax, GetMax, SetMax);
 	GET_SET(float, m_psSliderData->m_fMin, GetMin, SetMin);
-	//virtual void		RenderProperty()override;
+	//virtual void		InnerRenderProperty()override;
 };
 
 class cMyGuiCheckBox :public cMyGuiBasicObj
@@ -408,7 +412,7 @@ public:
 	cMyGuiCheckBox();
 	virtual ~cMyGuiCheckBox();
 	MYGUI_DEFAULT_IMPLEMENT();
-	//virtual void		RenderProperty()override;
+	//virtual void		InnerRenderProperty()override;
 };
 
 class cMyGuiRadio :public cMyGuiBasicObj
@@ -419,7 +423,7 @@ public:
 	cMyGuiRadio();
 	virtual ~cMyGuiRadio();
 	MYGUI_DEFAULT_IMPLEMENT();
-	//virtual void		RenderProperty()override;
+	//virtual void		InnerRenderProperty()override;
 };
 
 class cMyGuiToogle:public cMyGuiBasicObj
@@ -430,7 +434,7 @@ public:
 	cMyGuiToogle();
 	virtual ~cMyGuiToogle();
 	MYGUI_DEFAULT_IMPLEMENT();
-	virtual void		RenderProperty()override;
+	virtual void		InnerRenderProperty()override;
 	std::function<void(bool)>	m_fToogleChangedFunction;
 
 };
@@ -454,7 +458,7 @@ public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiForm();
 	virtual ~cMyGuiForm();
-	virtual void		RenderProperty()override;
+	virtual void		InnerRenderProperty()override;
 	std::function<void(cMyGuiForm*)>		m_fFormCloseFunction;
 };
 
@@ -480,7 +484,7 @@ public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiPanel();
 	virtual ~cMyGuiPanel();
-	virtual void		RenderProperty()override;
+	virtual void		InnerRenderProperty()override;
 	GET_SET(bool, m_pPanelData->m_bShowBorder, GetShowBorder, SetBorder);
 	GET_SET(ImGuiWindowFlags, m_pPanelData->m_iFormFlag, GetFormFlag, SetFormFlag);
 };
@@ -509,7 +513,7 @@ public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiComboBox();
 	GET_SET(int, m_pImguiComboxData->m_iSelectedIndex, GetSelectedIndex, SetSelectedIndex);
-	virtual void				RenderProperty()override;
+	virtual void				InnerRenderProperty()override;
 	std::vector<std::string>	GetItemList(){return m_pImguiComboxData->m_ItemList;}
 	virtual void	SetItemList(std::vector<std::string>e_ItemList);
 	std::function<void(int,std::string)>	m_fOnSelectFunction;
@@ -527,7 +531,7 @@ public:
 	cMyGuiListBox();
 	virtual ~cMyGuiListBox();
 	MYGUI_DEFAULT_IMPLEMENT();
-	virtual void		RenderProperty()override;
+	virtual void		InnerRenderProperty()override;
 	virtual void		SetItemList(std::vector<std::string>e_ItemList)override;
 };
 
@@ -538,7 +542,7 @@ class cMyGuiScroller :public cMyGuiComboBox
 	virtual	void		GetRenderRect()override;
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
-	virtual void		RenderProperty()override;
+	virtual void		InnerRenderProperty()override;
 	cMyGuiScroller();
 	virtual ~cMyGuiScroller();
 };
@@ -564,7 +568,7 @@ class cMyGuiDatePicker :public cMyGuiBasicObj
 	std::string			m_strDate;
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
-	virtual void		RenderProperty()override;
+	virtual void		InnerRenderProperty()override;
 	cMyGuiDatePicker();
 	virtual ~cMyGuiDatePicker();
 	std::function<void(std::string)>m_fDateChangedFunction;
