@@ -56,6 +56,7 @@
     <ClCompile Include="misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="MyGui\LazyGUIParser.cpp" />
     <ClCompile Include="MyGui\MyGui.cpp" />
+    <ClCompile Include="MyGui\MyGuiTreeView.cpp" />
     <ClCompile Include="MyGui\MyGUIUtilities.cpp" />
     <ClCompile Include="MyGui\MyImGuiUIEditor.cpp" />
     <ClCompile Include="ThirtyParty\FileDialog\ImGuiFileDialog.cpp" />

@@ -119,6 +119,22 @@ void cMyImGuiUIEditor::RenderFileDoalog()
 	}
 }
 
+void cMyImGuiUIEditor::OpenSaveFileDialog()
+{
+	IGFD::FileDialogConfig config;
+	config.path = ".";
+	ImGuiFileDialog::Instance()->OpenDialog("SaveFile", "Choose File", ".json", config);
+	EditboxFocusChangedChangeMouseEnable(true);
+}
+
+void cMyImGuiUIEditor::OpenOpenFileDialog()
+{
+	IGFD::FileDialogConfig config;
+	config.path = ".";
+	ImGuiFileDialog::Instance()->OpenDialog("OpenFile", "Choose File", ".json", config);
+	EditboxFocusChangedChangeMouseEnable(true);
+}
+
 cMyImGuiUIEditor::cMyImGuiUIEditor()
 {
 	m_pToolBoxRoot = nullptr;
@@ -182,14 +198,12 @@ void cMyImGuiUIEditor::RenderMenu()
 		{
 			if (ImGui::MenuItem("Save"))
 			{
-				//saveTreeToFile(this->m_pMainUIRoot, "qoo.json");
-				//this->SaveToFile("qoo.json");
-				//ImGuiFileDialog::Instance()->OpenDialog("SaveProjectFileDlgKey", "Save File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
+				OpenSaveFileDialog();
 			}
 
 			if (ImGui::MenuItem("Open"))
 			{
-				//ImGuiFileDialog::Instance()->OpenDialog("OpenProjectFileDlgKey", "Open File", ".builder", RegeditGetPath("ImGuiBuilderPath"), "project");
+				OpenOpenFileDialog();
 			}
 
 			if (ImGui::MenuItem("Generate Code"))
@@ -558,10 +572,18 @@ void cMyImGuiUIEditor::RenderToolBox()
 	//ShowTreeViewWindow(this->m_pMainUIRoot->GetChildNodeVector()[0], l_iRenderFlag);
 	m_pTreeView->m_pRoot = this->m_pMainUIRoot->GetChildNodeVector()[0];
 	m_pTreeView->Render();
-	cMyGuiBasicObj*l_pSelectedNode = (cMyGuiBasicObj*)m_pTreeView->GetSelectedNode();
-	if (l_pSelectedNode)
+	if (m_pCollidedItem)
 	{
-		l_pSelectedNode->RenderProperty();
+		((cMyGuiBasicObj*)m_pCollidedItem)->RenderProperty();
+		m_pTreeView->SetSelectedNodeNull();
+	}
+	else
+	{
+		cMyGuiBasicObj* l_pSelectedNode = (cMyGuiBasicObj*)m_pTreeView->GetSelectedNode();
+		if (l_pSelectedNode)
+		{
+			l_pSelectedNode->RenderProperty();
+		}
 	}
 	ImGui::End();
 	ImGui::PopStyleVar(1);
@@ -649,18 +671,11 @@ void cMyImGuiUIEditor::RenderPopupMenuContext()
 		}
 		if (ImGui::MenuItem("Save"))
 		{
-			//this->SaveToFile("qoo.json");
-			IGFD::FileDialogConfig config;
-			config.path = ".";
-			ImGuiFileDialog::Instance()->OpenDialog("SaveFile", "Choose File", ".json", config);
-			EditboxFocusChangedChangeMouseEnable(true);
+			OpenSaveFileDialog();
 		}
 		if (ImGui::MenuItem("Open"))
 		{
-			IGFD::FileDialogConfig config;
-			config.path = ".";
-			ImGuiFileDialog::Instance()->OpenDialog("OpenFile", "Choose File", ".json", config);
-			EditboxFocusChangedChangeMouseEnable(true);
+			OpenOpenFileDialog();
 		}
 		ImGui::EndPopup();
 	}

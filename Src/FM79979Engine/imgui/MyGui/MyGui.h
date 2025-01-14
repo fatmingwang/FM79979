@@ -335,16 +335,18 @@ class cMyGuiEditBox :public cMyGuiBasicObj
 	struct sImguiEditBoxData:public sImguiData
 	{
 		std::string m_strHint = "please input...";
+		std::string m_strTempHint = "please input...";
+		std::string m_strLabel = "cMyGuiEditBox";
+		std::string m_strTempLabel = "cMyGuiEditBox";
 		bool		m_bMultiLines = false;
 		int			m_RenderFlag = 0;// ImGuiInputTextFlags_CharsDecimal;
 		sImguiEditBoxData()
 		{
 			this->m_vSize = ImVec2(300, 100);
 		}
-		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiEditBoxData, MY_IMGUI_BASE_DATA, m_strHint, m_bMultiLines, m_RenderFlag);
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiEditBoxData, MY_IMGUI_BASE_DATA, m_strHint, m_strLabel,m_bMultiLines, m_RenderFlag);
 	};
 	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiEditBoxData, m_pEditBoxData)
-	//virtual bool				InternalSerialize(const nlohmann::json& e_Json);
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiEditBox();
@@ -352,7 +354,7 @@ public:
 	std::function<void(std::string)>	m_fContentChangedFunction;
 	GET_SET(std::string, m_pEditBoxData->m_strHint, GetHint, SetHint);
 	GET_SET(bool, m_pEditBoxData->m_bMultiLines, IsMultiLines, SetMultiLines);
-	//virtual void		InnerRenderProperty()override;
+	virtual void		InnerRenderProperty()override;
 };
 
 class cMyGuiSliderInteger :public cMyGuiBasicObj
@@ -363,6 +365,8 @@ class cMyGuiSliderInteger :public cMyGuiBasicObj
 		int m_iMax = 100;
 		int m_iMin = 0;
 		int m_iValue = 50;
+		std::string m_strMax = "100";
+		std::string m_strMin = "10";
 		sImguiSliderData()
 		{
 			this->m_vSize.x = 200.f;
@@ -370,13 +374,13 @@ class cMyGuiSliderInteger :public cMyGuiBasicObj
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiSliderData, MY_IMGUI_BASE_DATA, m_iMax, m_iMin, m_iValue);
 	};
 	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiSliderData, m_psSliderData);
+	virtual void		InnerRenderProperty()override;
 public:
 	cMyGuiSliderInteger();
 	virtual ~cMyGuiSliderInteger();
 	MYGUI_DEFAULT_IMPLEMENT();
 	GET_SET(int, m_psSliderData->m_iMax, GetMax, SetMax);
 	GET_SET(int, m_psSliderData->m_iMin, GetMin, SetMin);
-	//virtual void		InnerRenderProperty()override;
 
 };
 
@@ -434,7 +438,6 @@ public:
 	cMyGuiToogle();
 	virtual ~cMyGuiToogle();
 	MYGUI_DEFAULT_IMPLEMENT();
-	virtual void		InnerRenderProperty()override;
 	std::function<void(bool)>	m_fToogleChangedFunction;
 
 };
@@ -484,7 +487,6 @@ public:
 	MYGUI_DEFAULT_IMPLEMENT();
 	cMyGuiPanel();
 	virtual ~cMyGuiPanel();
-	virtual void		InnerRenderProperty()override;
 	GET_SET(bool, m_pPanelData->m_bShowBorder, GetShowBorder, SetBorder);
 	GET_SET(ImGuiWindowFlags, m_pPanelData->m_iFormFlag, GetFormFlag, SetFormFlag);
 };
@@ -573,33 +575,6 @@ public:
 	virtual ~cMyGuiDatePicker();
 	std::function<void(std::string)>m_fDateChangedFunction;
 	std::string			GetDateString();
-};
-
-
-class cMyTreeView :public NamedTypedObject
-{
-	cImGuiNode* m_pCopyNode = nullptr;
-	cImGuiNode* m_pDragNode = nullptr;
-	cImGuiNode* m_pDropParent = nullptr;
-	cImGuiNode* m_pSelectedNode = nullptr;
-
-	ImVec2		m_pSelectedNodeRect[2];
-	bool		m_bDoRename = false;
-	int			m_iDropIndex = -1;
-	void		RenderTreeivewPopupMenuContext();
-	void		DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox);
-	bool		m_bAssignStartData = true;
-	bool		m_bCollided = false;
-public:
-	int m_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
-	cImGuiNode* m_pRoot = nullptr;
-	ImVec2		m_vSize = ImVec2(350,1000);
-	ImVec2		m_vPosition = ImVec2(1600,0);
-	cMyTreeView();
-	virtual ~cMyTreeView();
-	void			Render();
-	bool			IsCollided(int e_iPosX, int e_iPosY);
-	cImGuiNode*		GetSelectedNode(){ return m_pSelectedNode; }
 };
 
 

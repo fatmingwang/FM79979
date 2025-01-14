@@ -128,5 +128,8 @@
     <ClCompile Include="MyGui\LazyGUIParser.cpp">
       <Filter>MyGui</Filter>
     </ClCompile>
+    <ClCompile Include="MyGui\MyGuiTreeView.cpp">
+      <Filter>MyGui</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

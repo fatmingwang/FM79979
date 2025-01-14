@@ -1,6 +1,7 @@
 #pragma once
 #ifdef WIN32
 #include "./MyGui.h"
+#include "MyGuiTreeView.h"
 #include "../../../include/json.hpp"
 
 struct sMouseCursor;
@@ -59,6 +60,8 @@ class cMyImGuiUIEditor
 	cImGuiNode*				m_pCollidedItem = nullptr;
 	Vector2					m_vMouseClickPos;
 	ImVec2					m_vObjectLocalPosition;
+	void					OpenSaveFileDialog();
+	void					OpenOpenFileDialog();
 public:
 	cMyImGuiUIEditor();
 	virtual ~cMyImGuiUIEditor();
