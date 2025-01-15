@@ -3,10 +3,28 @@
 
 class cMyTreeView :public NamedTypedObject
 {
+public:
+	enum eTreeViewMenu
+	{
+		eTVM_COPY = 0,
+		eTVM_PASTE,
+		eTVM_CUT,
+		eTVM_DELETE,
+		eTVM_MAX
+	};
+	const char* m_strTreeViewMenuNameArray[eTreeViewMenu::eTVM_MAX] = 
+	{
+		"Copy",
+		"Paste",
+		"Cut",
+		"Delete",
+	};
+protected:
 	cImGuiNode* m_pCopyNode = nullptr;
 	cImGuiNode* m_pDragNode = nullptr;
 	cImGuiNode* m_pDropParent = nullptr;
 	cImGuiNode* m_pSelectedNode = nullptr;
+	cImGuiNode* m_pFocusNode = nullptr;
 
 	ImVec2		m_pSelectedNodeRect[2];
 	bool		m_bDoRename = false;
@@ -32,4 +50,6 @@ class cMyTreeView :public NamedTypedObject
 	{
 		m_pSelectedNode = nullptr;
 	}
+	void	SetFocusNode(cImGuiNode* e_pNode);
+	std::function<void(cImGuiNode*, const char*)>m_fMenuCallbackFunction;
 };

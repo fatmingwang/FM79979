@@ -59,6 +59,22 @@ namespace nlohmann
 			j.at("y").get_to(v.y);
 		}
 	};
+	template <>
+	struct adl_serializer<ImVec4>
+	{
+		static void to_json(json& j, const ImVec4& v)
+		{
+			j = json{ {"x", v.x}, {"y", v.y}, {"z", v.z}, {"w", v.w} };
+		}
+
+		static void from_json(const json& j, ImVec4& v)
+		{
+			j.at("x").get_to(v.x);
+			j.at("y").get_to(v.y);
+			j.at("z").get_to(v.z);
+			j.at("w").get_to(v.w);
+		}
+	};
 }
 
 
@@ -179,13 +195,14 @@ protected:
 		int							m_iID = 0;
 		std::string					m_strImGuiName = "Node";
 		std::string					m_strText;
-		std::string					m_strTempText;
 		bool						m_bOnlyDoFirstAssignData = true;
 		ImVec2						m_vLocalPos = { 0, 0 };
 		ImVec2						m_vWorldPos = { 0, 0 };
+		ImVec4						m_vColor = {0,0,0,0};
+		int							m_ImguiStyleColorType = 0;
 		sImguiData();
 		virtual ~sImguiData() = default;
-		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiData, m_vSize, m_iID, m_strImGuiName, m_strText, m_vLocalPos, m_vWorldPos);
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiData, m_vSize, m_iID, m_strImGuiName, m_strText, m_vLocalPos, m_vWorldPos, m_vColor);
 	};
 	std::shared_ptr<sImguiData>		m_pData;
 	
@@ -226,6 +243,11 @@ public:
 	static std::function<void(cImGuiNode*)>	m_sfParseFunction;
 	static	void				DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode);
 	virtual nlohmann::json		GetJson();
+
+
+	// Function to find a node by name (recursive)
+	cImGuiNode* FindNodeByUID(int e_iID);
+
 };
 
 
@@ -250,6 +272,7 @@ protected:
 	virtual	void					InternalRender()override{}
 	virtual	void					GetRenderRect()override;
 	std::string						GetIDString();
+	void							LazyColorSlider(const char*e_strLabel,ImVec4&e_vColor);
 	virtual void					InnerRenderProperty();
 public:
 	cMyGuiBasicObj();
@@ -335,9 +358,7 @@ class cMyGuiEditBox :public cMyGuiBasicObj
 	struct sImguiEditBoxData:public sImguiData
 	{
 		std::string m_strHint = "please input...";
-		std::string m_strTempHint = "please input...";
 		std::string m_strLabel = "cMyGuiEditBox";
-		std::string m_strTempLabel = "cMyGuiEditBox";
 		bool		m_bMultiLines = false;
 		int			m_RenderFlag = 0;// ImGuiInputTextFlags_CharsDecimal;
 		sImguiEditBoxData()
@@ -365,22 +386,20 @@ class cMyGuiSliderInteger :public cMyGuiBasicObj
 		int m_iMax = 100;
 		int m_iMin = 0;
 		int m_iValue = 50;
-		std::string m_strMax = "100";
-		std::string m_strMin = "10";
 		sImguiSliderData()
 		{
 			this->m_vSize.x = 200.f;
 		}
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiSliderData, MY_IMGUI_BASE_DATA, m_iMax, m_iMin, m_iValue);
 	};
-	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiSliderData, m_psSliderData);
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiSliderData, m_pSliderData);
 	virtual void		InnerRenderProperty()override;
 public:
 	cMyGuiSliderInteger();
 	virtual ~cMyGuiSliderInteger();
 	MYGUI_DEFAULT_IMPLEMENT();
-	GET_SET(int, m_psSliderData->m_iMax, GetMax, SetMax);
-	GET_SET(int, m_psSliderData->m_iMin, GetMin, SetMin);
+	GET_SET(int, m_pSliderData->m_iMax, GetMax, SetMax);
+	GET_SET(int, m_pSliderData->m_iMin, GetMin, SetMin);
 
 };
 
@@ -398,36 +417,57 @@ class cMyGuiSliderFloatValue :public cMyGuiBasicObj
 		}
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiSliderData, MY_IMGUI_BASE_DATA, m_fMax, m_fMin, m_fValue);
 	};
-	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiSliderData, m_psSliderData);
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiSliderData, m_pSliderData);
 public:
 	cMyGuiSliderFloatValue();
 	virtual ~cMyGuiSliderFloatValue();
 	MYGUI_DEFAULT_IMPLEMENT();
-	GET_SET(float, m_psSliderData->m_fMax, GetMax, SetMax);
-	GET_SET(float, m_psSliderData->m_fMin, GetMin, SetMin);
-	//virtual void		InnerRenderProperty()override;
+	GET_SET(float, m_pSliderData->m_fMax, GetMax, SetMax);
+	GET_SET(float, m_pSliderData->m_fMin, GetMin, SetMin);
+	virtual void		InnerRenderProperty()override;
 };
 
 class cMyGuiCheckBox :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
-	GET_SET_DEC(bool, m_bChecked, IsChecked, SetChecked);
+
+	struct sImguiCheckBoxData :public sImguiData
+	{
+		bool m_bChecked;
+		sImguiCheckBoxData()
+		{
+			m_bChecked = false;
+		}
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiCheckBoxData, MY_IMGUI_BASE_DATA, m_bChecked);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiCheckBoxData, m_pCheckBoxData);
 public:
 	cMyGuiCheckBox();
 	virtual ~cMyGuiCheckBox();
 	MYGUI_DEFAULT_IMPLEMENT();
-	//virtual void		InnerRenderProperty()override;
+	GET_SET(bool, m_pCheckBoxData->m_bChecked, IsChecked, SetChecked);
+	virtual void		InnerRenderProperty()override;
 };
 
 class cMyGuiRadio :public cMyGuiBasicObj
 {
 	virtual	void		InternalRender()override;
-	GET_SET_DEC(bool, m_bChecked, IsChecked, SetChecked);
+	struct sImguiRadioData :public sImguiData
+	{
+		bool m_bChecked;
+		sImguiRadioData()
+		{
+			m_bChecked = false;
+		}
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiRadioData, MY_IMGUI_BASE_DATA, m_bChecked);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiRadioData, m_pRadioData);
 public:
 	cMyGuiRadio();
 	virtual ~cMyGuiRadio();
 	MYGUI_DEFAULT_IMPLEMENT();
-	//virtual void		InnerRenderProperty()override;
+	GET_SET(bool, m_pRadioData->m_bChecked, IsChecked, SetChecked);
+	virtual void		InnerRenderProperty()override;
 };
 
 class cMyGuiToogle:public cMyGuiBasicObj

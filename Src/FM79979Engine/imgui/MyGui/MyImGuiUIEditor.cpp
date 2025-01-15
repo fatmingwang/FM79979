@@ -420,6 +420,7 @@ void cMyImGuiUIEditor::Update(float e_fElpaeeTime)
 				m_pCollidedItem = this->m_pMainUIRoot->Collided((int)l_vPos.x, (int)l_vPos.y);
 				if (m_pCollidedItem)
 				{
+					this->m_pTreeView->SetFocusNode(m_pCollidedItem);
 					m_vMouseClickPos = l_vPos;
 					m_vObjectLocalPosition = m_pCollidedItem->GetLocalPosition();
 				}

@@ -8,7 +8,6 @@
 #include <filesystem>
 #include "MyGUIUtilities.h"
 
-
 cMyTreeView::cMyTreeView()
 {
 	this->SetName(L"cMyTreeView");
@@ -54,8 +53,8 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox
 	if (m_bDoRename && this->m_pSelectedNode == e_pNode)
 	{
 		l_bNodeOpen = false;
-		char buffer[128];
-		strncpy(buffer, this->m_pSelectedNode->GetRenderText().c_str(), sizeof(buffer));
+		char buffer[2048];
+		strncpy(buffer, this->m_pSelectedNode->GetImGuiName().c_str(), sizeof(buffer));
 		buffer[sizeof(buffer) - 1] = '\0';
 
 		// Render an input text for renaming
@@ -166,20 +165,25 @@ void cMyTreeView::RenderTreeivewPopupMenuContext()
 	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
 	{
 		m_pCopyNode = nullptr;
-		if (ImGui::MenuItem("Copy"))
+		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_COPY]))
 		{
 			m_pCopyNode = this->m_pSelectedNode;
+			if (this->m_fMenuCallbackFunction)
+			{
+				this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_COPY]);
+			}
 		}
-		if (ImGui::MenuItem("Paste"))
+		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_PASTE]))
 		{
-
+			this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_PASTE]);
 		}
-		if (ImGui::MenuItem("Cut"))
+		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_CUT]))
 		{
-
+			this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_CUT]);
 		}
-		if (ImGui::MenuItem("Delete"))
+		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_DELETE]))
 		{
+			this->m_fMenuCallbackFunction(m_pSelectedNode, m_strTreeViewMenuNameArray[eTVM_DELETE]);
 			if (this->m_pSelectedNode)
 			{
 				if (this->m_pSelectedNode->Type() != cMyGuiForm::TypeID)
@@ -269,4 +273,16 @@ bool cMyTreeView::IsCollided(int e_iPosX, int e_iPosY)
 		int a = 0;
 	}
 	return l_bResult;
+}
+
+void cMyTreeView::SetFocusNode(cImGuiNode* e_pNode)
+{
+	if (m_pRoot)
+	{
+		auto l_Node = m_pRoot->FindNodeByUID(e_pNode->m_pData->m_iID);
+		if (l_Node)
+		{
+			int l_iID = l_Node->m_pData->m_iID;
+		}
+	}
 }

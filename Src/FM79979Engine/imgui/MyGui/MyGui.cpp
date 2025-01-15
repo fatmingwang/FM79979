@@ -264,8 +264,16 @@ void cImGuiNode::Render()
 	{
 		ImGui::BeginDisabled();
 	}
+	ImVec4 l_vColor = this->m_pData->m_vColor;
+	if (l_vColor.w != 0)
+	{
+		ImGui::PushStyleColor(this->m_pData->m_ImguiStyleColorType, l_vColor);
+	}
 	this->InternalRender();
-
+	if (l_vColor.w != 0)
+	{
+		ImGui::PopStyleColor();
+	}
 	GetRenderRect();
 
 	if (!m_bEnable)
@@ -328,6 +336,23 @@ void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 nlohmann::json cImGuiNode::GetJson()
 {
 	return *m_pData;
+}
+
+cImGuiNode* cImGuiNode::FindNodeByUID(int e_iID)
+{
+	if (this->m_pData->m_iID == e_iID)
+	{
+		return this;
+	}
+	for (auto l_pChild : m_ChildNodeVector)
+	{
+		auto l_pResult = l_pChild->FindNodeByUID(e_iID);
+		if (l_pResult)
+		{
+			return l_pResult;
+		}
+	}
+	return nullptr; // Not found
 }
 
 cImGuiNode*cImGuiNode::Collided(int e_iPosX, int e_iPosY)
@@ -502,23 +527,27 @@ void cMyGuiBasicObj::ApplyPosition()
 	//ImGui::SetCursorPos(this->m_vLocalPos);
 }
 
+void	cMyGuiBasicObj::LazyColorSlider(const char* e_strLabel, ImVec4& e_vColor)
+{
+	ImGui::TextDisabled(e_strLabel);
+	ImGui::SliderFloat("R", &e_vColor.x, 0, 1);
+	ImGui::SliderFloat("G", &e_vColor.y, 0, 1);
+	ImGui::SliderFloat("B", &e_vColor.z, 0, 1);
+	ImGui::SliderFloat("A", &e_vColor.w, 0, 1);
+}
+
 void cMyGuiBasicObj::InnerRenderProperty()
 {
 	bool l_my_forms_active = ImGui::IsWindowFocused();
-	if (this->m_pData->m_bOnlyDoFirstAssignData)
-	{
-		this->m_pData->m_bOnlyDoFirstAssignData = false;
-		this->m_pData->m_strTempText = this->m_pData->m_strText;
-	}
-	ImGui::InputTextEx("NewText", &this->m_pData->m_strTempText, 0);
-	//ImGui::InputText("name form", name, 255);
-	if (ImGui::Button("Apply Text"))
-	{
-		//if (!this->m_pData->m_strImGuiName.empty())
-		{
-			this->m_pData->m_strText = this->m_pData->m_strTempText;
-		}
-	}
+	ImGui::InputTextEx("NewText", &this->m_pData->m_strText, 0);
+	////ImGui::InputText("name form", name, 255);
+	//if (ImGui::Button("Apply Text"))
+	//{
+	//	//if (!this->m_pData->m_strImGuiName.empty())
+	//	{
+	//		this->m_pData->m_strText = this->m_pData->m_strTempText;
+	//	}
+	//}
 	//ImVec2		l_vSize = m_vSize;
 	ImVec2		l_vPos = GetLocalPosition();
 	//ImVec2		l_vSizeObj = m_vSizeObj;
@@ -531,6 +560,7 @@ void cMyGuiBasicObj::InnerRenderProperty()
 	{
 		this->SetLocalPosition(l_vPos);
 	}
+	LazyColorSlider("Color", m_pData->m_vColor);
 }
 
 void	cMyGuiBasicObj::GetRenderRect()
@@ -731,35 +761,47 @@ void cMyGuiToogle::InternalRender()
 }
 
 
-void cMyGuiRadio::InternalRender()
-{
-	if(ImGui::RadioButton(this->m_pData->m_strText.c_str(), m_bChecked))
-	{
-		m_bChecked = !m_bChecked;
-	}
-}
-
 cMyGuiRadio::cMyGuiRadio()
 {
-	m_bChecked = false;
 }
 
 cMyGuiRadio::~cMyGuiRadio()
 {
 }
 
-void cMyGuiCheckBox::InternalRender()
+void cMyGuiRadio::InnerRenderProperty()
 {
-	ImGui::Checkbox(this->m_pData->m_strText.c_str(), &m_bChecked);
+	cMyGuiBasicObj::InnerRenderProperty();
+}
+
+void cMyGuiRadio::InternalRender()
+{
+	if (ImGui::RadioButton(this->m_pData->m_strText.c_str(), m_pRadioData->m_bChecked))
+	{
+		m_pRadioData->m_bChecked = !m_pRadioData->m_bChecked;
+	}
 }
 
 cMyGuiCheckBox::cMyGuiCheckBox()
 {
-	m_bChecked = false;
+
 }
 
 cMyGuiCheckBox::~cMyGuiCheckBox()
 {
+}
+
+void cMyGuiCheckBox::InternalRender()
+{
+	ImGui::Checkbox(this->m_pData->m_strText.c_str(), &m_pCheckBoxData->m_bChecked);
+}
+
+void cMyGuiCheckBox::InnerRenderProperty()
+{
+	cMyGuiBasicObj::InnerRenderProperty();
+	ImGui::Text("DefaultStatus");
+	ImGui::SameLine();
+	ImGui::ToggleButton("Default", &m_pCheckBoxData->m_bChecked);
 }
 
 cMyGuiSliderFloatValue::cMyGuiSliderFloatValue()
@@ -770,10 +812,18 @@ cMyGuiSliderFloatValue::~cMyGuiSliderFloatValue()
 {
 }
 
+void cMyGuiSliderFloatValue::InnerRenderProperty()
+{
+	cMyGuiBasicObj::InnerRenderProperty();
+	ImGui::InputFloat("Min", &this->m_pSliderData->m_fMin, 1);
+	ImGui::InputFloat("Max", &this->m_pSliderData->m_fMax, 1);
+	ImGui::InputFloat("Value", &this->m_pSliderData->m_fValue, 1);
+}
+
 void cMyGuiSliderFloatValue::InternalRender()
 {
 	ImGui::PushItemWidth(m_pData->m_vSize.x);
-	ImGui::SliderFloat(this->m_pData->m_strImGuiName.c_str(), &this->m_psSliderData->m_fValue, m_psSliderData->m_fMin, m_psSliderData->m_fMax);
+	ImGui::SliderFloat(this->m_pData->m_strImGuiName.c_str(), &this->m_pSliderData->m_fValue, m_pSliderData->m_fMin, m_pSliderData->m_fMax);
 	ImGui::PopItemWidth();
 }
 
@@ -789,24 +839,16 @@ cMyGuiSliderInteger::~cMyGuiSliderInteger()
 void cMyGuiSliderInteger::InnerRenderProperty()
 {
 	cMyGuiBasicObj::InnerRenderProperty();
-
-	ImGui::InputTextEx("Min", &this->m_psSliderData->m_strMin, ImGuiInputTextFlags_CharsDecimal);
-	if (ImGui::Button("Apply Min"))
-	{
-		this->m_psSliderData->m_iMin = GetInt(this->m_psSliderData->m_strMin);
-	}
-
-	ImGui::InputTextEx("Max", &this->m_psSliderData->m_strMax, ImGuiInputTextFlags_CharsDecimal);
-	if (ImGui::Button("Apply Max"))
-	{
-		this->m_psSliderData->m_iMax = GetInt(this->m_psSliderData->m_strMax);
-	}
+	ImGui::InputInt("Min", &this->m_pSliderData->m_iMin, 1);
+	ImGui::InputInt("Max", &this->m_pSliderData->m_iMax, 1);
+	ImGui::InputInt("Value", &this->m_pSliderData->m_iValue, 1);
+	
 }
 
 void cMyGuiSliderInteger::InternalRender()
 {
 	ImGui::PushItemWidth(m_pData->m_vSize.x);
-	ImGui::SliderInt(this->m_pData->m_strImGuiName.c_str(), &this->m_psSliderData->m_iValue, this->m_psSliderData->m_iMin, this->m_psSliderData->m_iMax);
+	ImGui::SliderInt(this->m_pData->m_strImGuiName.c_str(), &this->m_pSliderData->m_iValue, this->m_pSliderData->m_iMin, this->m_pSliderData->m_iMax);
 	ImGui::PopItemWidth();
 }
 
@@ -817,25 +859,8 @@ cMyGuiEditBox::cMyGuiEditBox()
 void cMyGuiEditBox::InnerRenderProperty()
 {
 	cMyGuiBasicObj::InnerRenderProperty();
-	ImGui::InputTextEx("Hint Text", &this->m_pEditBoxData->m_strTempHint, 0);
-	//ImGui::InputText("name form", name, 255);
-	if (ImGui::Button("Apply HintText"))
-	{
-		//if (!this->m_pData->m_strImGuiName.empty())
-		{
-			this->m_pEditBoxData->m_strHint = this->m_pEditBoxData->m_strTempHint;
-		}
-	}
-
-	ImGui::InputTextEx("Label", &this->m_pEditBoxData->m_strTempLabel, 0);
-	//ImGui::InputText("name form", name, 255);
-	if (ImGui::Button("Apply Label"))
-	{
-		//if (!this->m_pData->m_strImGuiName.empty())
-		{
-			this->m_pEditBoxData->m_strLabel = this->m_pEditBoxData->m_strTempLabel;
-		}
-	}
+	ImGui::InputTextEx("Hint Text", &this->m_pEditBoxData->m_strHint, 0);
+	ImGui::InputTextEx("Label", &this->m_pEditBoxData->m_strLabel, 0);
 }
 
 int InputCallback(ImGuiInputTextCallbackData* data)
@@ -1006,6 +1031,7 @@ cMyGuiButton::~cMyGuiButton()
 
 void cMyGuiButton::InternalRender()
 {
+	//ImVec4 l_vColor = ImGui::GetStyleColorVec4(ImGuiCol_Button);
 	if (ImGui::Button(this->m_pData->m_strText.c_str(), this->m_pData->m_vSize))
 	{
 		if (m_fOnClickFunction)
@@ -1013,7 +1039,6 @@ void cMyGuiButton::InternalRender()
 			m_fOnClickFunction(this);
 		}
 	}
-	//ImGui::Button(obj.name.c_str(), obj.size);
 }
 void cMyGuiRootNode::CallConfirmDialog(std::function<void(bool)>e_CompleteFunction, const char* e_strContent, const char* e_strConfirmButtonText, const char* e_strTitle)
 {
@@ -1392,30 +1417,40 @@ void cMyGuiScroller::InnerRenderProperty()
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 {
 	cMyGuiBasicObj* l_pObject = nullptr;
+	ImVec4 l_vColor = { 0,0,0,0 };
+	const int l_ciFailedType = -1;
+	int l_iStyleType = l_ciFailedType;
 	switch (e_eMyImGuiType)
 	{
 		//case	eMIGT_NODE:
 		//	l_pObject = new cMyGuiRootNode();
 		//	break;
 		case	eMIGT_BUTTON:
+		l_iStyleType = ImGuiCol_Button;
 		l_pObject = new cMyGuiButton();
 		break;
 		case	eMIGT_LABEL:
+		l_iStyleType = ImGuiCol_Text;
 		l_pObject = new cMyGuiLabel();
 		break;
 		case	eMIGT_EDIT_BOX:
+		l_iStyleType = ImGuiCol_Text;
 		l_pObject = new cMyGuiEditBox();
 		break;
 		case	eMIGT_SLIDER_I:
+		l_iStyleType = ImGuiCol_SliderGrab;
 		l_pObject = new cMyGuiSliderInteger();
 		break;
 		case	eMIGT_SLIDER_F:
+		l_iStyleType = ImGuiCol_SliderGrab;
 		l_pObject = new cMyGuiSliderFloatValue();
 		break;
 		case	eMIGT_CHECKBOX:
+		l_iStyleType = ImGuiCol_CheckMark;
 		l_pObject = new cMyGuiCheckBox();
 		break;
 		case	eMIGT_RADIO:
+		l_iStyleType = ImGuiCol_CheckMark;
 		l_pObject = new cMyGuiRadio();
 		break;
 		case	eMIGT_TOOGLE:
@@ -1428,15 +1463,18 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 		l_pObject = new cMyGuiPanel();
 		break;
 		case	eMIGT_COMBO_BOX:
+		l_iStyleType = ImGuiCol_FrameBg;
 		l_pObject = new cMyGuiComboBox();
 		break;
 		case	eMIGT_LIST_BOX:
 		l_pObject = new cMyGuiListBox();
 		break;
 		case	eMIGT_ROOT_NODE:
+
 		l_pObject = new cMyGuiRootNode();
 		break;
 		case	eMIGT_SCROLLER:
+		l_iStyleType = ImGuiCol_ScrollbarBg;
 		l_pObject = new cMyGuiScroller();
 		break;
 		case eMIGT_DATA_PICKER:
@@ -1446,10 +1484,17 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 		//e_eMyImGuiType
 		break;
 	}
+	if (l_iStyleType != l_ciFailedType)
+	{
+		l_vColor = ImGui::GetStyleColorVec4(l_iStyleType);
+	}
+	
 	//e_pParent->add
 	if (l_pObject)
 	{
 		l_pObject->CreateImguiDataData();
+		l_pObject->m_pData->m_vColor = l_vColor;
+		l_pObject->m_pData->m_ImguiStyleColorType = l_iStyleType;
 		l_pObject->SetName(l_pObject->Type());
 		l_pObject->SetImGuiName(l_pObject->Type());
 	}
