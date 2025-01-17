@@ -34,6 +34,10 @@ TYPDE_DEFINE_MARCO(cMyGuiScroller);
 TYPDE_DEFINE_MARCO(cMyGuiRootNode);
 TYPDE_DEFINE_MARCO(cMyGuiDatePicker);
 
+ImVec2					cMyGuiBasicObj::m_vPropertyPos = ImVec2(1400, 10);
+ImVec2					cMyGuiBasicObj::m_vPropertySize = ImVec2(300, 600);
+bool					cMyGuiBasicObj::m_bFirstUpdate = true;
+
 std::function<void(cImGuiNode*)>	cImGuiNode::m_sfParseFunction = nullptr;
 
 std::map<std::wstring, eMyImGuiType> g_ImguiTypeNameAndType =
@@ -442,6 +446,7 @@ bool cImGuiNode::UnSerialize(const nlohmann::json& e_Json)
 
 	auto l_Object = e_Json[l_strType];
 	InternalSerialize(l_Object);
+	this->m_pData->AfterSerialize();
 	int l_iID = l_Object["m_iID"];
 	if (l_iID > g_siMyHuiUID)
 	{
@@ -529,11 +534,15 @@ void cMyGuiBasicObj::ApplyPosition()
 
 void	cMyGuiBasicObj::LazyColorSlider(const char* e_strLabel, ImVec4& e_vColor)
 {
+	//IMGUI_API bool          ColorEdit4(const char* label, float col[4], ImGuiColorEditFlags flags = 0);
+	//IMGUI_API bool          ColorPicker3(const char* label, float col[3], ImGuiColorEditFlags flags = 0);
 	ImGui::TextDisabled(e_strLabel);
-	ImGui::SliderFloat("R", &e_vColor.x, 0, 1);
-	ImGui::SliderFloat("G", &e_vColor.y, 0, 1);
-	ImGui::SliderFloat("B", &e_vColor.z, 0, 1);
-	ImGui::SliderFloat("A", &e_vColor.w, 0, 1);
+	ImGui::ColorEdit4(e_strLabel,(float*)&e_vColor);
+	//ImGui::ColorPicker4(e_strLabel, (float*)&e_vColor);
+	//ImGui::SliderFloat("R", &e_vColor.x, 0, 1);
+	//ImGui::SliderFloat("G", &e_vColor.y, 0, 1);
+	//ImGui::SliderFloat("B", &e_vColor.z, 0, 1);
+	//ImGui::SliderFloat("A", &e_vColor.w, 0, 1);
 }
 
 void cMyGuiBasicObj::InnerRenderProperty()
@@ -551,7 +560,7 @@ void cMyGuiBasicObj::InnerRenderProperty()
 	//ImVec2		l_vSize = m_vSize;
 	ImVec2		l_vPos = GetLocalPosition();
 	//ImVec2		l_vSizeObj = m_vSizeObj;
-	RenderHintLabel("0 is auto");
+	RenderHintLabel("0 is auto","Position & Size(?)");
 	ImGui::InputFloat("Width", &m_pData->m_vSize.x, 1);
 	ImGui::InputFloat("Height", &m_pData->m_vSize.y, 1);
 	ImGui::InputFloat("PosX", &l_vPos.x, 1);
@@ -577,8 +586,12 @@ std::string cMyGuiBasicObj::GetIDString()
 
 void cMyGuiBasicObj::RenderProperty()
 {
-	ImGui::SetNextWindowPos(m_vPropertyPos);
-	ImGui::SetNextWindowSize(m_vPropertySize);
+	if (m_bFirstUpdate)
+	{
+		m_bFirstUpdate = false;
+		ImGui::SetNextWindowPos(m_vPropertyPos);
+		ImGui::SetNextWindowSize(m_vPropertySize);
+	}
 	ImGui::Begin("property", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus);
 	InnerRenderProperty();
 	ImGui::End();
@@ -1264,6 +1277,96 @@ void cMyGuiComboBox::SetItemList(std::vector<std::string> e_ItemList)
 
 void cMyGuiComboBox::InnerRenderProperty()
 {
+	cMyGuiBasicObj::InnerRenderProperty();
+
+	ImGui::TextDisabled("ItemList");
+	// Example string array
+	std::vector<std::string>& stringArray = m_pImguiComboxData->m_ItemList;
+
+	// ImGui expects a const char* array, so create one
+	if (m_pImguiComboxData->m_ItemListTemplate.size() != stringArray.size())
+	{
+		m_pImguiComboxData->m_ItemListTemplate.clear();
+		for (const auto& str : stringArray)
+		{
+			m_pImguiComboxData->m_ItemListTemplate.push_back(str.c_str());
+		}
+	}
+
+	ImGui::InputInt("Set Array Count", &m_pImguiComboxData->newCount);
+
+	if (m_pImguiComboxData->newCount < 1) m_pImguiComboxData->newCount = 1; // Prevent negative sizes
+
+	if (ImGui::Button("Apply New Count"))
+	{
+		m_pImguiComboxData->renaming = false;
+		m_pImguiComboxData->currentIndex = 0;
+		if (m_pImguiComboxData->newCount != stringArray.size())
+		{
+			stringArray.resize(m_pImguiComboxData->newCount);
+			for (int i = 0; i < m_pImguiComboxData->newCount; ++i)
+			{
+				if (stringArray[i].empty())
+				{
+					stringArray[i] = "New Item " + std::to_string(i + 1);
+				}
+			}
+			m_pImguiComboxData->m_ItemListTemplate.clear();
+			for (const auto& str : stringArray)
+			{
+				m_pImguiComboxData->m_ItemListTemplate.push_back(str.c_str());
+			}
+		}
+	}
+
+	// ListBox for items
+	if (ImGui::ListBox("Items", &m_pImguiComboxData->currentIndex, m_pImguiComboxData->m_ItemListTemplate.data(), (int)m_pImguiComboxData->m_ItemListTemplate.size()))
+	{
+		// Handle selection change
+		printf("ListBox Selected: %s\n", stringArray[m_pImguiComboxData->currentIndex].c_str());
+	}
+
+	// Display currently selected item
+	ImGui::Text("Selected Item: %s", stringArray[m_pImguiComboxData->currentIndex].c_str());
+
+	bool l_bFocus = false;
+	if (ImGui::IsKeyPressed(ImGuiKey_F2) && m_pImguiComboxData->currentIndex >= 0 && m_pImguiComboxData->currentIndex < stringArray.size())
+	{
+		l_bFocus = true;
+		m_pImguiComboxData->renaming = true;
+		snprintf(m_pImguiComboxData->renameBuffer, sizeof(m_pImguiComboxData->renameBuffer), "%s", stringArray[m_pImguiComboxData->currentIndex].c_str());
+	}
+
+	if (m_pImguiComboxData->renaming && m_pImguiComboxData->currentIndex >= 0 && m_pImguiComboxData->currentIndex < stringArray.size())
+	{
+		if (ImGui::InputText("Rename Selected", m_pImguiComboxData->renameBuffer, sizeof(m_pImguiComboxData->renameBuffer), ImGuiInputTextFlags_EnterReturnsTrue))
+		{
+			stringArray[m_pImguiComboxData->currentIndex] = m_pImguiComboxData->renameBuffer;
+			m_pImguiComboxData->m_ItemListTemplate[m_pImguiComboxData->currentIndex] = stringArray[m_pImguiComboxData->currentIndex].c_str();
+			m_pImguiComboxData->renaming = false;
+		}
+	}
+	// Automatically focus the input field when renaming starts
+	if (ImGui::IsItemActive() == false && l_bFocus)
+	{
+		ImGui::SetKeyboardFocusHere(-1);
+	}
+
+	// Delete functionality on Delete key
+	if (ImGui::IsKeyPressed(ImGuiKey_Delete) && m_pImguiComboxData->currentIndex >= 0 && m_pImguiComboxData->currentIndex < stringArray.size())
+	{
+		m_pImguiComboxData->renaming = false;
+		stringArray.erase(stringArray.begin() + m_pImguiComboxData->currentIndex);
+		m_pImguiComboxData->m_ItemListTemplate.clear();
+		for (const auto& str : stringArray)
+		{
+			m_pImguiComboxData->m_ItemListTemplate.push_back(str.c_str());
+		}
+		if (m_pImguiComboxData->currentIndex >= stringArray.size())
+		{
+			m_pImguiComboxData->currentIndex = (int)stringArray.size() - 1; // Adjust index if necessary
+		}
+	}
 }
 
 cMyGuiListBox::cMyGuiListBox()
@@ -1277,6 +1380,7 @@ cMyGuiListBox::~cMyGuiListBox()
 
 void cMyGuiListBox::InnerRenderProperty()
 {
+	cMyGuiComboBox::InnerRenderProperty();
 }
 
 void cMyGuiListBox::SetItemList(std::vector<std::string> e_ItemList)
@@ -1361,13 +1465,15 @@ cMyGuiScroller::~cMyGuiScroller()
 
 void cMyGuiScroller::InternalRender()
 {
-	static float scroll_y = 0.0f; // Current scroll position
 	int l_iSelectedIndex = m_iSelectedIndex;
 	if (ImGui::BeginChild("ScrollingRegion", this->m_pData->m_vSize, true, ImGuiWindowFlags_AlwaysVerticalScrollbar))
 	{
 		ImVec2 childPos = ImGui::GetWindowPos();
 		m_RenderRect = Vector4(childPos.x,childPos.y, childPos.x+ this->m_pData->m_vSize.x, childPos.y+ this->m_pData->m_vSize.y);
-		ImGui::Text(this->m_pData->m_strText.c_str());
+		//ImGui::Text(this->m_pData->m_strText.c_str());
+		//ImGui::TextDisabled(this->m_pData->m_strText.c_str());
+		ImGui::TextColored(ImVec4(1,1,0,1), this->m_pData->m_strText.c_str());
+		
 		if (m_ItemTempList.size() != m_pImguiComboxData->m_ItemList.size())
 		{
 			SetItemList(m_pImguiComboxData->m_ItemList);
@@ -1396,13 +1502,13 @@ void cMyGuiScroller::InternalRender()
 		}
 
 		// Track scrolling position
-		scroll_y = ImGui::GetScrollY();
+		m_fScrollY = ImGui::GetScrollY();
 		ImGui::EndChild();
 	}
 
 	// Display current scroll position
 #ifdef DEBUG
-	ImGui::Text("Scroll Y: %.2f", scroll_y);
+	ImGui::Text("Scroll Y: %.2f", m_fScrollY);
 #endif
 }
 
@@ -1412,7 +1518,7 @@ void cMyGuiScroller::GetRenderRect()
 
 void cMyGuiScroller::InnerRenderProperty()
 {
-	cMyGuiBasicObj::InnerRenderProperty();
+	cMyGuiComboBox::InnerRenderProperty();
 }
 cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 {
@@ -1457,9 +1563,11 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 		l_pObject = new cMyGuiToogle();
 		break;
 		case	eMIGT_FORM:
+		l_iStyleType = ImGuiCol_WindowBg;
 		l_pObject = new cMyGuiForm();
 		break;//9
 		case	eMIGT_PANEL:
+		l_iStyleType = ImGuiCol_ChildBg;
 		l_pObject = new cMyGuiPanel();
 		break;
 		case	eMIGT_COMBO_BOX:

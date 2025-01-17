@@ -7,118 +7,6 @@
 #include "../../../include/json.hpp"
 #include "MyGUIUtilities.h"
 
-//cursor
-struct sMouseCursor
-{
-	HCURSOR m_arrow_all = nullptr;
-	HCURSOR m_arrow_top_or_bottom = nullptr;
-	HCURSOR m_arrow_left_or_right = nullptr;
-	HCURSOR m_arrow_northwest_and_southeast = nullptr;
-	HCURSOR m_arrow_northeast_and_southwest = nullptr;
-	HCURSOR m_current_icon = nullptr;
-};
-
-void cMyImGuiUIEditor::RenderFileDoalog()
-{
-	static std::vector<std::string> dialogs_keys = {
-		"SaveProjectFileDlgKey",
-		"OpenProjectFileDlgKey",
-		"GenCodeProjectFileDlgKey",
-		"SaveColorsDlgKey",
-		"OpenColorsDlgKey",
-		"SaveFlagsDlgKey",
-		"OpenFlagsDlgKey"
-	};
-
-	auto DeleteKey = [&](const std::string& keyname) -> void {
-		HKEY hKey;
-		RegOpenKeyExA(HKEY_CURRENT_USER, NULL, 0, KEY_SET_VALUE, &hKey);
-
-		RegDeleteKeyExA(hKey, keyname.c_str(), KEY_WOW64_64KEY, NULL);
-
-		RegCloseKey(hKey);
-		};
-
-	auto SetValue = [&](const std::string& keyname, const std::string& value) -> void {
-		DeleteKey(keyname);
-
-		HKEY hKey;
-		RegOpenKeyExA(HKEY_CURRENT_USER, NULL, 0, KEY_SET_VALUE, &hKey);
-
-		auto status = RegSetValueExA(hKey, keyname.c_str(), NULL, REG_SZ, (LPBYTE)value.c_str(), (DWORD)value.size() + 1);
-
-		printf_s("RegSetValueEx: %d\n", status);
-
-		RegCloseKey(hKey);
-		};
-
-	auto i = 0;
-	for (auto key : dialogs_keys)
-	{
-		if (ImGuiFileDialog::Instance()->Display(key.c_str(), 32, { 350.f, 300.f }))
-		{
-			if (ImGuiFileDialog::Instance()->IsOk())
-			{
-				std::string file_full_path = ImGuiFileDialog::Instance()->GetFilePathName();
-				std::string full_path = ImGuiFileDialog::Instance()->GetCurrentPath();
-
-				SetValue("ImGuiBuilderPath", full_path);
-
-				switch (i)
-				{
-				case eFILE_DIALOG_RESULT::eFDR_UI_LAYOUT_SAVE:
-				{
-//					if (im_config::controls::save(file_full_path, m_forms, m_objs))
-						MessageBoxA(nullptr, "Project saved!", "ImGui Builder", MB_OK | MB_ICONINFORMATION);
-					break;
-				}
-				case eFILE_DIALOG_RESULT::eFDR_UI_LAYOUT_OPEN:
-				{
-					//m_uiID = 0;
-					//if (im_config::controls::load(file_full_path, m_forms, m_objs, &l_iID))
-						MessageBoxA(nullptr, "Project loaded!", "ImGui Builder", MB_OK | MB_ICONINFORMATION);
-					break;
-				}
-				case eFDR_GENERATE_CODE:
-				{
-					//if (im_config::controls::create_code(file_full_path, m_forms, m_objs))
-						MessageBoxA(nullptr, "Code been generated!", "ImGui Builder", MB_OK | MB_ICONINFORMATION);
-					break;
-				}
-				case eFDR_COLOR_SAVE:
-				{
-					//if (im_config::color::save(file_full_path, m_custom_gui_style))
-						MessageBoxA(nullptr, "Colors saved!", "ImGui Builder", MB_OK | MB_ICONINFORMATION);
-					break;
-				}
-				case eFDR_COLOR_OPEN:
-				{
-					//if (im_config::color::load(file_full_path, m_custom_gui_style))
-						MessageBoxA(nullptr, "Colors loaded!", "ImGui Builder", MB_OK | MB_ICONINFORMATION);
-					break;
-				}
-				case eFDR_FLAG_SAVE:
-				{
-					//if (im_config::window_flags::save(file_full_path, m_custom_gui_style))
-						MessageBoxA(nullptr, "Flags saved!", "ImGui Builder", MB_OK | MB_ICONINFORMATION);
-					break;
-				}
-				case eFDR_FLAG_OPEN:
-				{
-					//if (im_config::window_flags::load(file_full_path, m_custom_gui_style))
-						MessageBoxA(nullptr, "Flags loaded!", "ImGui Builder", MB_OK | MB_ICONINFORMATION);
-					break;
-				}
-				default:
-					break;
-				}
-			}
-			ImGuiFileDialog::Instance()->Close();
-		}
-		++i;
-	}
-}
-
 void cMyImGuiUIEditor::OpenSaveFileDialog()
 {
 	IGFD::FileDialogConfig config;
@@ -138,21 +26,6 @@ void cMyImGuiUIEditor::OpenOpenFileDialog()
 cMyImGuiUIEditor::cMyImGuiUIEditor()
 {
 	m_pToolBoxRoot = nullptr;
-	m_pTreeView = new cMyTreeView();
-	m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
-	ImVec2 l_vSize(1920, 1080);
-	m_pMyGuiForm = GetMyGuiObjWithType<cMyGuiForm>();
-	m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoTitleBar| ImGuiWindowFlags_NoCollapse);
-	m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
-	m_pMainUIRoot->AddChild(m_pMyGuiForm);
-	m_pMyGuiForm->SetSize(l_vSize);
-	m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
-	GenerateToolBox();
-	ImGui::StyleColorsDark(&m_dark_style);
-	for (auto i = 0; i < ImGuiCol_COUNT; i++)
-	{
-		m_custom_gui_style.Colors[i] = m_dark_style.Colors[i];
-	}
 }
 
 cMyImGuiUIEditor::~cMyImGuiUIEditor()
@@ -183,6 +56,26 @@ void cMyImGuiUIEditor::Init()
 			};
 		SetImGuiGetCameraCursorPosition(l_ImGuiGetCameraCursorPosition, m_iRootNodeRenderContextIndex);
 		SetImGuiCameraPositionConvertFunction(l_ImGuiCameraPositionConvertFunction, m_iRootNodeRenderContextIndex);
+	}
+	if (!m_pTreeView)
+	{
+		m_pTreeView = new cMyTreeView();
+		m_pMainUIRoot = GetMyGuiObjWithType<cMyGuiRootNode>();
+		ImVec2 l_vSize(1920, 1080);
+		m_pMyGuiForm = (cMyGuiForm*)GetMyGuiObj(eMIGT_FORM);
+		m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
+		m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
+		m_pMainUIRoot->AddChild(m_pMyGuiForm);
+		m_pMyGuiForm->SetSize(l_vSize);
+		m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
+		GenerateToolBox();
+		ImGui::StyleColorsDark(&m_dark_style);
+		ImGuiStyle* style = &ImGui::GetStyle();
+		*style = m_dark_style;
+		for (auto i = 0; i < ImGuiCol_COUNT; i++)
+		{
+			m_custom_gui_style.Colors[i] = m_dark_style.Colors[i];
+		}
 	}
 }
 

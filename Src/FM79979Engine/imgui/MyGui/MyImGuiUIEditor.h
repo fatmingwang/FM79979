@@ -50,7 +50,6 @@ class cMyImGuiUIEditor
 	bool					m_MovingObj = false;
 	bool					m_ResizeObj = false;
 	sMouseCursor*			m_pMouseCursor;
-	void					RenderFileDoalog();
 	void					RenderMenu();
 	void					RenderDebugInfo();
 	void					Render1ToolBox();

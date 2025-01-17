@@ -202,6 +202,7 @@ protected:
 		int							m_ImguiStyleColorType = 0;
 		sImguiData();
 		virtual ~sImguiData() = default;
+		virtual void AfterSerialize(){ }
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiData, m_vSize, m_iID, m_strImGuiName, m_strText, m_vLocalPos, m_vWorldPos, m_vColor);
 	};
 	std::shared_ptr<sImguiData>		m_pData;
@@ -263,8 +264,9 @@ public:
 class cMyGuiBasicObj:public cImGuiNode//,public cMyGuiMouseMovingData
 {
 protected:
-	ImVec2							m_vPropertyPos = ImVec2(1400, 10);
-	ImVec2							m_vPropertySize = ImVec2(300, 600);
+	static ImVec2					m_vPropertyPos;
+	static ImVec2					m_vPropertySize;
+	static bool						m_bFirstUpdate;
 	bool							m_bNameOnTop = true;
 	void							RenderNameOnTop();
 	virtual void					ApplyPosition()override;
@@ -525,6 +527,7 @@ class cMyGuiPanel :public cMyGuiBasicObj
 	virtual	void		GetRenderRect()override{}
 public:
 	MYGUI_DEFAULT_IMPLEMENT();
+
 	cMyGuiPanel();
 	virtual ~cMyGuiPanel();
 	GET_SET(bool, m_pPanelData->m_bShowBorder, GetShowBorder, SetBorder);
@@ -538,13 +541,25 @@ class cMyGuiComboBox :public cMyGuiBasicObj
 protected:
 	struct sImguiComboxData :public sImguiData
 	{
+		// Rename functionality on F2 press
+		char renameBuffer[128] = "";
+		bool renaming = false;
+		int currentIndex = 0;
+		int newCount = 0;
+		std::vector<const char*>	m_ItemListTemplate;
 		std::vector<std::string>	m_ItemList;
+
 		int	m_iSelectedIndex;
 		sImguiComboxData()
 		{
 			m_ItemList = { "1","2","3" };
+			newCount = (int)m_ItemList.size();
 			m_vSize.x = 200.f;
 			m_vSize.y = 200.f;
+		}
+		virtual void AfterSerialize()override
+		{
+			newCount = (int)m_ItemList.size();
 		}
 		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiComboxData, MY_IMGUI_BASE_DATA, m_ItemList, m_iSelectedIndex);
 	};
@@ -579,6 +594,7 @@ public:
 
 class cMyGuiScroller :public cMyGuiComboBox
 {
+	float m_fScrollY = 0.0f; // Current scroll position
 	virtual	void		InternalRender()override;
 	GET_SET_DEC(int, m_iSelectedIndex, GetSelectedIndex, SetSelectedIndex);
 	virtual	void		GetRenderRect()override;
@@ -624,5 +640,8 @@ template<class TYPE>TYPE* GetMyGuiObjWithType()
 	l_pTYPE->CreateImguiDataData();
 	l_pTYPE->SetName(TYPE::TypeID);
 	l_pTYPE->SetImGuiName(TYPE::TypeID);
+	//
+	FMLOG("please use GetMyGuiObj");
+	//
 	return l_pTYPE;
 }

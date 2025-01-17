@@ -209,10 +209,10 @@ void NumericUpDown(const char* label, int* value, int minValue, int maxValue, in
 }
 
 
-void RenderHintLabel(const char* e_strContent)
+void RenderHintLabel(const char* e_strContent, const char* e_strLabel)
 {
     ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.92f, 0.92f, 0.92f, 1.00f));
-    ImGui::TextDisabled("(?)");
+    ImGui::TextDisabled(e_strLabel);
     if (ImGui::IsItemHovered())
     {
         ImGui::BeginTooltip();
