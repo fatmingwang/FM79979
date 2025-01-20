@@ -18,6 +18,7 @@ class cImGuiNode;
 
 class cMyImGuiUIEditor
 {
+	class  cOrthogonalCamera* m_p2DCamera = nullptr;
 	int								m_iToolboxRenderContextIndex = 1;
 	int								m_iRootNodeRenderContextIndex = 0;
 	class cMyGuiBasicObj*			m_pToolBoxRoot = nullptr;
@@ -67,8 +68,6 @@ public:
 	void			Init();
 	void			Render();
 	void			Update(float e_fElpaeeTime);
-	class  cOrthogonalCamera* m_p2DCamera = nullptr;
-
 	void			SaveToFile(const char* e_strFileName);
 	void			OpenFile(const char* e_strFileName);
 

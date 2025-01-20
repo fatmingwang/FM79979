@@ -486,17 +486,17 @@ public:
 
 class cMyGuiForm :public cMyGuiBasicObj
 {
+	virtual	void		GetRenderRect()override;
 	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
 	virtual	void		EndRender()override;
 	// ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
-	GET_SET_DEC(ImGuiWindowFlags, m_FormFlag, GetFormFlag, SetFormFlag);
 	GET_SET_DEC(bool,m_bShowCloseCutton, IsShowCloseCutton, SetShowCloseCutton);
 
 	struct sImguiFormData :public sImguiData
 	{
-		int m_FormFlag = 0;
-		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiFormData, MY_IMGUI_BASE_DATA,m_FormFlag);
+		int m_iFormFlag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;;
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiFormData, MY_IMGUI_BASE_DATA,m_iFormFlag);
 	};
 	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiFormData, m_pFormData);
 public:
@@ -505,6 +505,7 @@ public:
 	virtual ~cMyGuiForm();
 	virtual void		InnerRenderProperty()override;
 	std::function<void(cMyGuiForm*)>		m_fFormCloseFunction;
+	GET_SET(ImGuiWindowFlags, m_pFormData->m_iFormFlag, GetFormFlag, SetFormFlag);
 };
 
 class cMyGuiPanel :public cMyGuiBasicObj

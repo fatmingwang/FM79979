@@ -25,11 +25,13 @@ void cMyImGuiUIEditor::OpenOpenFileDialog()
 
 cMyImGuiUIEditor::cMyImGuiUIEditor()
 {
+	m_p2DCamera = new cOrthogonalCamera();
 	m_pToolBoxRoot = nullptr;
 }
 
 cMyImGuiUIEditor::~cMyImGuiUIEditor()
 {
+	SAFE_DELETE(m_p2DCamera);
 	SAFE_DELETE(m_pMainUIRoot);
 	SAFE_DELETE(m_pToolBoxRoot);
 	SAFE_DELETE(m_pTreeView);
@@ -38,6 +40,21 @@ cMyImGuiUIEditor::~cMyImGuiUIEditor()
 
 void cMyImGuiUIEditor::Init()
 {
+	if (m_p2DCamera)
+	{
+		RECT clientRect;
+		if (GetClientRect((HWND)cGameApp::m_spOpenGLRender->m_Handle, &clientRect))
+		{
+
+			m_p2DCamera->SetCameraPos(Vector2(clientRect.right - clientRect.left, clientRect.bottom - clientRect.top) / 2);
+		}
+		else
+		{
+			m_p2DCamera->SetCameraPos(Vector2(960, 544));
+		}
+
+		//m_p2DCamera->SetScale(1.25);
+	}
 	ImGui_ImplOpenGL3_Init(cGameApp::m_spOpenGLRender->m_Handle, nullptr, 2);
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
@@ -64,7 +81,8 @@ void cMyImGuiUIEditor::Init()
 		ImVec2 l_vSize(1920, 1080);
 		m_pMyGuiForm = (cMyGuiForm*)GetMyGuiObj(eMIGT_FORM);
 		m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse);
-		m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
+		//m_pMyGuiForm->SetFormFlag(ImGuiWindowFlags_NoDecoration);
+		//m_pMyGuiForm->SetOnlyApplyPositionOnceForDragMoving(true);
 		m_pMainUIRoot->AddChild(m_pMyGuiForm);
 		m_pMyGuiForm->SetSize(l_vSize);
 		m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
@@ -236,6 +254,13 @@ void cMyImGuiUIEditor::Render()
 	{
 		return;
 	}
+	auto l_ViewPortSize = Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+	if (m_p2DCamera)
+	{
+		m_p2DCamera->SetResolution(l_ViewPortSize);
+		m_p2DCamera->Render();
+		m_p2DCamera->DrawGrid(0.f, 0.f, Vector4(0.5f, 1.f, 0.f, 0.3f), 2.f);
+	}
 	Vector2 l_vSize = m_p2DCamera->GetScreenViewPortSize();	
 	float l_fTargetGameResolution[2] = { 1920.f, 1080.f };
 
@@ -297,6 +322,22 @@ void cMyImGuiUIEditor::Render()
 
 void cMyImGuiUIEditor::Update(float e_fElpaeeTime)
 {
+	if (m_p2DCamera)
+	{
+		if (m_p2DCamera)
+		{
+			float l_fMoveSpeed = 1.f;
+			short l_cMouseWhellDelta = 0;
+			if (cGameApp::m_sucKeyData[17] || cGameApp::m_sucKeyData[229])
+			{
+				l_cMouseWhellDelta = cGameApp::m_sMouseWhellDelta;
+				l_fMoveSpeed = 3.f;
+			}
+			Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+			m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0], cGameApp::m_sbMouseClickStatus[1], l_cMouseWhellDelta, cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, l_vViewPort, l_fMoveSpeed);
+		}
+		m_p2DCamera->Update(e_fElpaeeTime);
+	}
 	if (cGameApp::m_sbMouseClickStatus[0])
 	{
 		auto l_vPos = m_p2DCamera->GetMouseWorldPos();
@@ -347,6 +388,10 @@ void cMyImGuiUIEditor::OpenFile(const char* e_strFileName)
 {
 	if (this->m_pMainUIRoot)
 	{
+		if (m_pTreeView)
+		{
+			m_pTreeView->SetSelectedNodeNull();
+		}
 		using json = nlohmann::json;
 		std::ifstream l_JsonStream(e_strFileName);
 		auto l_JsonData = json::parse(l_JsonStream);

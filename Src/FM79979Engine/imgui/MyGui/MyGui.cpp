@@ -549,25 +549,16 @@ void cMyGuiBasicObj::InnerRenderProperty()
 {
 	bool l_my_forms_active = ImGui::IsWindowFocused();
 	ImGui::InputTextEx("NewText", &this->m_pData->m_strText, 0);
-	////ImGui::InputText("name form", name, 255);
-	//if (ImGui::Button("Apply Text"))
-	//{
-	//	//if (!this->m_pData->m_strImGuiName.empty())
-	//	{
-	//		this->m_pData->m_strText = this->m_pData->m_strTempText;
-	//	}
-	//}
-	//ImVec2		l_vSize = m_vSize;
-	ImVec2		l_vPos = GetLocalPosition();
-	//ImVec2		l_vSizeObj = m_vSizeObj;
 	RenderHintLabel("0 is auto","Position & Size(?)");
 	ImGui::InputFloat("Width", &m_pData->m_vSize.x, 1);
 	ImGui::InputFloat("Height", &m_pData->m_vSize.y, 1);
-	ImGui::InputFloat("PosX", &l_vPos.x, 1);
-	ImGui::InputFloat("PosY", &l_vPos.y, 1);
-	if (m_pData->m_vLocalPos.x!= l_vPos.x || m_pData->m_vLocalPos.y != l_vPos.y)
+	auto l_vOriginalPos = m_pData->m_vLocalPos;
+	ImGui::InputFloat("PosX", &m_pData->m_vLocalPos.x, 1);
+	ImGui::InputFloat("PosY", &m_pData->m_vLocalPos.y, 1);
+	if (l_vOriginalPos.x != m_pData->m_vLocalPos.x || l_vOriginalPos.y != m_pData->m_vLocalPos.y)
 	{
-		this->SetLocalPosition(l_vPos);
+		this->m_bPosDirty = true;
+		ApplyPosition();
 	}
 	LazyColorSlider("Color", m_pData->m_vColor);
 }
@@ -687,11 +678,18 @@ cMyGuiForm::~cMyGuiForm()
 void cMyGuiForm::InnerRenderProperty()
 {
 	cMyGuiBasicObj::InnerRenderProperty();
-	bool l_bBorder = false;;
-	bool l_bLock = false;;
-	ImGui::Checkbox("Border", &l_bBorder);
-	ImGui::SameLine();
-	ImGui::Checkbox("Lock", &l_bLock);
+	//bool l_bBorder = false;;
+	//bool l_bLock = false;;
+	//ImGui::Checkbox("Border", &l_bBorder);
+	//ImGui::SameLine();
+	//ImGui::Checkbox("Lock", &l_bLock);
+}
+
+void cMyGuiForm::GetRenderRect()
+{
+	//auto l_vPos = GetWorldPosition();
+	//m_RenderRect = Vector4(l_vPos.x, l_vPos.y, l_vPos.x + this->m_pData->m_vSize.x, l_vPos.y + this->m_pData->m_vSize.y);
+	m_RenderRect = Vector4::Zero;
 }
 
 void cMyGuiForm::ApplyPosition()
@@ -709,7 +707,7 @@ void cMyGuiForm::InternalRender()
 	//ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(m_pData->m_vSize, ImGuiCond_Always);
 	//ImGui::Begin(this->GetImGuiName().c_str(), &l_bOpen, m_FormFlag);
-	ImGui::Begin(this->GetRenderText().c_str(), m_bShowCloseCutton?&l_bOpen:nullptr, m_FormFlag);// 
+	ImGui::Begin(this->GetRenderText().c_str(), m_bShowCloseCutton?&l_bOpen:nullptr, m_pFormData->m_iFormFlag);// 
 	//ImGui::PushClipRect(ImVec2(-9999, -9999), ImVec2(9999, 9999), true);
 	if (m_pData->m_vSize.x > 0 && m_pData->m_vSize.y > 0)
 	{
@@ -733,7 +731,7 @@ void cMyGuiForm::InternalRender()
 	{
 		ImVec2 l_CurrentFormPos = ImGui::GetWindowPos();
 		//ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar
-		if (m_FormFlag & ImGuiWindowFlags_NoBringToFrontOnFocus)
+		if (m_pFormData->m_iFormFlag & ImGuiWindowFlags_NoBringToFrontOnFocus)
 		{
 			auto l_vFormPos = this->GetWorldPosition();
 			if (l_vFormPos.x != l_CurrentFormPos.x || l_vFormPos.y != l_CurrentFormPos.y)
