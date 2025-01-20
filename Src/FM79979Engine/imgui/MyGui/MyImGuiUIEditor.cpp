@@ -337,6 +337,12 @@ void cMyImGuiUIEditor::Update(float e_fElpaeeTime)
 			m_p2DCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0], cGameApp::m_sbMouseClickStatus[1], l_cMouseWhellDelta, cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, l_vViewPort, l_fMoveSpeed);
 		}
 		m_p2DCamera->Update(e_fElpaeeTime);
+#ifdef WIN32
+		cGameApp::m_spOpenGLRender->m_vViewPortSize = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize;
+#endif
+		cGameApp::m_spOpenGLRender->m_vGameResolution.x = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+		cGameApp::m_spOpenGLRender->m_vGameResolution.y = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	}
 	if (cGameApp::m_sbMouseClickStatus[0])
 	{
