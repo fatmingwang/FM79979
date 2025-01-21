@@ -88,6 +88,11 @@ void cMyImGuiUIEditor::Init()
 		m_pMyGuiForm->SetLocalPosition(ImVec2(0, 0));
 		GenerateToolBox();
 		ImGui::StyleColorsDark(&m_dark_style);
+		//ImGui::SetStyle(m_dark_style);
+		//ImGui::StyleColorsLight(&m_dark_style);
+		//IMGUI_API void          StyleColorsDark(ImGuiStyle * dst = NULL);    // new, recommended style (default)
+		//IMGUI_API void          StyleColorsLight(ImGuiStyle * dst = NULL);   // best used with borders and a custom, thicker font
+		//IMGUI_API void          StyleColorsClassic(ImGuiStyle * dst = NULL); // classic imgui style
 		ImGuiStyle* style = &ImGui::GetStyle();
 		*style = m_dark_style;
 		for (auto i = 0; i < ImGuiCol_COUNT; i++)
@@ -177,76 +182,75 @@ void cMyImGuiUIEditor::RenderDebugInfo()
 		l_iOpenGLViewportX, l_iOpenGLViewportY).c_str());
 }
 
-void cMyImGuiUIEditor::Render1ToolBox()
-{
-	ImGui::PushAllColorsDark(m_dark_style);
-	int l_iBuilderWindowHeight = 250;
-	auto width = 1280;
-	ImGui::SetNextWindowSize({ static_cast<float>(width - 16) + 1600, (float)l_iBuilderWindowHeight });
-	ImGui::SetNextWindowPos({ 0, 0 });
-	ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
-	if (ImGui::Button("New Form"))
-	{
-		//create_form();
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("New Child"))
-	{
-		//create_child();
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("New Button"))
-	{
-		//create_obj(eMyImGuiType::eMIGT_BUTTON);
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("New Label"))
-	{
-		//create_obj(eMyImGuiType::eMIGT_LABEL);
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("New Text"))
-	{
-		//create_obj(eMyImGuiType::eMIGT_EDIT);
-	}
-	ImGui::SameLine();
-
-	if (ImGui::Button("New Slider Int"))
-	{
-		//create_obj(eMyImGuiType::eMIGT_SLIDER_I);
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("New Slider float"))
-	{
-		//create_obj(eMyImGuiType::eMIGT_SLIDER_F);
-	}
-
-	ImGui::SameLine();
-	if (ImGui::Button("New CheckBox"))
-	{
-		//create_obj(eMyImGuiType::eMIGT_CHECKBOX);
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("New radio"))
-	{
-		//create_obj(eMyImGuiType::eMIGT_RADIO);
-	}
-	ImGui::SameLine();
-	if (ImGui::Button("New toggle"))
-	{
-		//create_obj(eMyImGuiType::eMIGT_TOOGLE);
-	}
-	//object_property(l_iBuilderWindowHeight);
-	ImGui::PopAllColorsCustom();
-
-	ImGui::PushAllColorsCustom(m_custom_gui_style);
-
-	//show_form();
-
-	ImGui::PopAllColorsCustom();
-
-	ImGui::End();
-}
+//void cMyImGuiUIEditor::Render1ToolBox()
+//{
+//	int l_iBuilderWindowHeight = 250;
+//	auto width = 1280;
+//	ImGui::SetNextWindowSize({ static_cast<float>(width - 16) + 1600, (float)l_iBuilderWindowHeight });
+//	ImGui::SetNextWindowPos({ 0, 0 });
+//	ImGui::Begin("BUILDER", nullptr, ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_MenuBar);
+//	if (ImGui::Button("New Form"))
+//	{
+//		//create_form();
+//	}
+//	ImGui::SameLine();
+//	if (ImGui::Button("New Child"))
+//	{
+//		//create_child();
+//	}
+//	ImGui::SameLine();
+//	if (ImGui::Button("New Button"))
+//	{
+//		//create_obj(eMyImGuiType::eMIGT_BUTTON);
+//	}
+//	ImGui::SameLine();
+//	if (ImGui::Button("New Label"))
+//	{
+//		//create_obj(eMyImGuiType::eMIGT_LABEL);
+//	}
+//	ImGui::SameLine();
+//	if (ImGui::Button("New Text"))
+//	{
+//		//create_obj(eMyImGuiType::eMIGT_EDIT);
+//	}
+//	ImGui::SameLine();
+//
+//	if (ImGui::Button("New Slider Int"))
+//	{
+//		//create_obj(eMyImGuiType::eMIGT_SLIDER_I);
+//	}
+//	ImGui::SameLine();
+//	if (ImGui::Button("New Slider float"))
+//	{
+//		//create_obj(eMyImGuiType::eMIGT_SLIDER_F);
+//	}
+//
+//	ImGui::SameLine();
+//	if (ImGui::Button("New CheckBox"))
+//	{
+//		//create_obj(eMyImGuiType::eMIGT_CHECKBOX);
+//	}
+//	ImGui::SameLine();
+//	if (ImGui::Button("New radio"))
+//	{
+//		//create_obj(eMyImGuiType::eMIGT_RADIO);
+//	}
+//	ImGui::SameLine();
+//	if (ImGui::Button("New toggle"))
+//	{
+//		//create_obj(eMyImGuiType::eMIGT_TOOGLE);
+//	}
+//	//object_property(l_iBuilderWindowHeight);
+//	ImGui::PopAllColorsCustom();
+//
+//	ImGui::SetStyle(m_custom_gui_style);
+//
+//	//show_form();
+//
+//	ImGui::PopAllColorsCustom();
+//
+//	ImGui::End();
+//}
 
 void cMyImGuiUIEditor::Render()
 {
@@ -268,6 +272,7 @@ void cMyImGuiUIEditor::Render()
 	cGameApp::m_spOpenGLRender->m_vGameResolution.y = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
 
 	ImGui_StartFrame(l_fTargetGameResolution, m_iRootNodeRenderContextIndex);
+	//ImGui::GetStyle() = m_dark_style;
 	RenderMainUI();
 	ImGui_EndFrame(m_p2DCamera->GetProjectionMatrix(), l_vSize);
 	GLRender::RenderRectangle(l_fTargetGameResolution[0], l_fTargetGameResolution[1], cMatrix44::Identity, Vector4::Red);
@@ -289,6 +294,7 @@ void cMyImGuiUIEditor::Render()
 		cGameApp::RenderFont(l_vPos, l_strExtraInfo.c_str());
 	}
 	ImGui_StartFrame(l_fTargetGameResolution, m_iToolboxRenderContextIndex);
+	//ImGui::GetStyle() = m_dark_style;
 	RenderToolBox();
 	if (ImGuiFileDialog::Instance()->Display("OpenFile", 0, ImVec2(800, 800), ImVec2(1850, 1000)))
 	{
@@ -654,39 +660,6 @@ void cMyImGuiUIEditor::RenderTreeivewPopupMenuContext()
 	}
 }
 
-//int cMyImGuiUIEditor::GetUniqueID()
-//{
-//	return ++m_uiUniqueID;
-//}
-void cMyImGuiUIEditor::move_item(ImVec2& obj_pos, bool& continue_edt)
-{
-	static ImVec2 old_pos{ };
-	if (!HoldingKey(VK_LBUTTON) || !continue_edt)
-	{
-		old_pos = { 0, 0 };
-		m_MovingObj = false;
-		continue_edt = false;
-		g_tick_move = 0;
-		return;
-	}
-	auto tick_now = GetTickCount64();
-	auto current_pos = cGameApp::m_sMousePosition;
-	if (g_tick_move == 0)
-	{
-		old_pos = { current_pos.x - obj_pos.x, current_pos.y - obj_pos.y };
-		g_tick_move = tick_now + 50;
-		return;
-	}
-	auto current_win_pos = ImGui::GetWindowPos();
-	if (tick_now > g_tick_move)
-	{
-		m_MovingObj = true;
-		const auto x_pos = current_pos.x - old_pos.x;
-		const auto y_pos = current_pos.y - old_pos.y;
-		obj_pos.x = x_pos;
-		obj_pos.y = y_pos;
-	}
-}
 
 resize_opt GetResizeOptWithObjectSizeAndPos(ImVec2 obj_pos, ImVec2 obj_size, float thickness)
 {

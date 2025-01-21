@@ -7,8 +7,7 @@ class cMyGuiBasicObj;
 namespace ImGui
 {
 	void ToggleButton( const char* str_id, bool* v );
-	void PushAllColorsDark( ImGuiStyle dark );
-	void PushAllColorsCustom( ImGuiStyle custom_gui_style );
+	void SetStyle( ImGuiStyle e_Style );
 	void PopAllColorsCustom( );
 	bool InputTextEx( const char* label, std::string* str, ImGuiInputTextFlags flags );
 	//draw selected border

@@ -43,8 +43,7 @@ void ImGui::ToggleButton( const char* str_id, bool* v )
 		IM_COL32( 255, 255, 255, 255 ) );
 }
 
-
-void ImGui::PushAllColorsDark( ImGuiStyle dark )
+void ImGui::SetStyle( ImGuiStyle dark )
 {
 	auto& style = ImGui::GetStyle( );
 
@@ -89,51 +88,6 @@ void ImGui::PushAllColorsDark( ImGuiStyle dark )
 	style.DisplaySafeAreaPadding = dark.DisplaySafeAreaPadding;
 }
 
-void ImGui::PushAllColorsCustom( ImGuiStyle custom_gui_style )
-{
-	auto& style = ImGui::GetStyle( );
-	//style.Colors = custom_gui_style.Colors;
-
-	for ( auto i = 0; i < ImGuiCol_COUNT; i++ )
-	{
-		ImGui::PushStyleColor( static_cast<ImGuiCol_>( i ), custom_gui_style.Colors[ i ] );
-	}
-	//Padding
-	style.WindowPadding = custom_gui_style.WindowPadding;
-	style.FramePadding = custom_gui_style.FramePadding;
-	style.CellPadding = custom_gui_style.CellPadding;
-	style.ItemSpacing = custom_gui_style.ItemSpacing;
-	style.ItemInnerSpacing = custom_gui_style.ItemInnerSpacing;
-	style.TouchExtraPadding = custom_gui_style.TouchExtraPadding;
-	style.IndentSpacing = custom_gui_style.IndentSpacing;
-	style.ScrollbarSize = custom_gui_style.ScrollbarSize;
-	style.GrabMinSize = custom_gui_style.GrabMinSize;
-	style.WindowBorderSize = custom_gui_style.WindowBorderSize;
-	style.ChildBorderSize = custom_gui_style.ChildBorderSize;
-	style.PopupBorderSize = custom_gui_style.PopupBorderSize;
-	style.FrameBorderSize = custom_gui_style.FrameBorderSize;
-	style.TabBorderSize = custom_gui_style.TabBorderSize;
-
-	//Rounding
-	style.WindowRounding = custom_gui_style.WindowRounding;
-	style.ChildRounding = custom_gui_style.ChildRounding;
-	style.FrameRounding = custom_gui_style.FrameRounding;
-	style.PopupRounding = custom_gui_style.PopupRounding;
-	style.ScrollbarRounding = custom_gui_style.ScrollbarRounding;
-	style.GrabRounding = custom_gui_style.GrabRounding;
-	style.LogSliderDeadzone = custom_gui_style.LogSliderDeadzone;
-	style.TabRounding = custom_gui_style.TabRounding;
-
-	//Position
-	style.WindowTitleAlign = custom_gui_style.WindowTitleAlign;
-	style.WindowMenuButtonPosition = custom_gui_style.WindowMenuButtonPosition;
-	style.ColorButtonPosition = custom_gui_style.ColorButtonPosition;
-	style.ButtonTextAlign = custom_gui_style.ButtonTextAlign;
-	style.SelectableTextAlign = custom_gui_style.SelectableTextAlign;
-
-	//NANI???
-	style.DisplaySafeAreaPadding = custom_gui_style.DisplaySafeAreaPadding;
-}
 
 void ImGui::PopAllColorsCustom( )
 {

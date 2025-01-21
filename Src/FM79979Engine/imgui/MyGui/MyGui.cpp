@@ -271,12 +271,12 @@ void cImGuiNode::Render()
 	ImVec4 l_vColor = this->m_pData->m_vColor;
 	if (l_vColor.w != 0)
 	{
-		ImGui::PushStyleColor(this->m_pData->m_ImguiStyleColorType, l_vColor);
+		//ImGui::PushStyleColor(this->m_pData->m_ImguiStyleColorType, l_vColor);
 	}
 	this->InternalRender();
 	if (l_vColor.w != 0)
 	{
-		ImGui::PopStyleColor();
+		//ImGui::PopStyleColor();
 	}
 	GetRenderRect();
 
@@ -675,9 +675,74 @@ cMyGuiForm::cMyGuiForm()
 cMyGuiForm::~cMyGuiForm()
 {
 }
+
+void cMyGuiForm::ShowStyleEditorUI()
+{
+	//ImGui::Begin("Style Editor");
+
+	// Allow the user to adjust ImGuiStyle parameters
+	ImGuiStyle& style = m_pFormData->m_ImGuiStyle;
+
+	ImGui::SliderFloat("Alpha", &style.Alpha, 0.0f, 1.0f, "%.2f");
+	ImGui::SliderFloat("Disabled Alpha", &style.DisabledAlpha, 0.0f, 1.0f, "%.2f");
+
+	ImGui::DragFloat2("Window Padding", (float*)&style.WindowPadding, 1.0f);
+	ImGui::SliderFloat("Window Rounding", &style.WindowRounding, 0.0f, 12.0f, "%.1f");
+	ImGui::SliderFloat("Window Border Size", &style.WindowBorderSize, 0.0f, 1.0f, "%.1f");
+	ImGui::DragFloat2("Window Min Size", (float*)&style.WindowMinSize, 1.0f);
+	ImGui::DragFloat2("Window Title Align", (float*)&style.WindowTitleAlign, 0.0f, 1.0f);
+
+	ImGui::SliderFloat("Child Rounding", &style.ChildRounding, 0.0f, 12.0f, "%.1f");
+	ImGui::SliderFloat("Child Border Size", &style.ChildBorderSize, 0.0f, 1.0f, "%.1f");
+
+	ImGui::SliderFloat("Popup Rounding", &style.PopupRounding, 0.0f, 12.0f, "%.1f");
+	ImGui::SliderFloat("Popup Border Size", &style.PopupBorderSize, 0.0f, 1.0f, "%.1f");
+
+	ImGui::DragFloat2("Frame Padding", (float*)&style.FramePadding, 1.0f);
+	ImGui::SliderFloat("Frame Rounding", &style.FrameRounding, 0.0f, 12.0f, "%.1f");
+	ImGui::SliderFloat("Frame Border Size", &style.FrameBorderSize, 0.0f, 1.0f, "%.1f");
+
+	ImGui::DragFloat2("Item Spacing", (float*)&style.ItemSpacing, 1.0f);
+	ImGui::DragFloat2("Item Inner Spacing", (float*)&style.ItemInnerSpacing, 1.0f);
+	ImGui::SliderFloat("Indent Spacing", &style.IndentSpacing, 0.0f, 50.0f, "%.1f");
+
+	ImGui::SliderFloat("Columns Min Spacing", &style.ColumnsMinSpacing, 0.0f, 50.0f, "%.1f");
+	ImGui::SliderFloat("Scrollbar Size", &style.ScrollbarSize, 1.0f, 20.0f, "%.1f");
+	ImGui::SliderFloat("Scrollbar Rounding", &style.ScrollbarRounding, 0.0f, 12.0f, "%.1f");
+
+	ImGui::SliderFloat("Grab Min Size", &style.GrabMinSize, 1.0f, 20.0f, "%.1f");
+	ImGui::SliderFloat("Grab Rounding", &style.GrabRounding, 0.0f, 12.0f, "%.1f");
+
+	ImGui::SliderFloat("Tab Rounding", &style.TabRounding, 0.0f, 12.0f, "%.1f");
+	ImGui::SliderFloat("Tab Border Size", &style.TabBorderSize, 0.0f, 1.0f, "%.1f");
+	ImGui::SliderFloat("Tab Min Width for Close Button", &style.TabMinWidthForCloseButton, 0.0f, 20.0f, "%.1f");
+
+	ImGui::DragFloat2("Display Window Padding", (float*)&style.DisplayWindowPadding, 1.0f);
+	ImGui::DragFloat2("Display Safe Area Padding", (float*)&style.DisplaySafeAreaPadding, 1.0f);
+	ImGui::SliderFloat("Mouse Cursor Scale", &style.MouseCursorScale, 0.5f, 2.5f, "%.2f");
+
+	ImGui::Checkbox("Anti-Aliased Lines", &style.AntiAliasedLines);
+	ImGui::Checkbox("Anti-Aliased Lines Use Tex", &style.AntiAliasedLinesUseTex);
+	ImGui::Checkbox("Anti-Aliased Fill", &style.AntiAliasedFill);
+
+	ImGui::SliderFloat("Curve Tessellation Tol", &style.CurveTessellationTol, 0.0f, 10.0f, "%.2f");
+	ImGui::SliderFloat("Circle Tessellation Max Error", &style.CircleTessellationMaxError, 0.0f, 10.0f, "%.2f");
+
+	if (ImGui::TreeNode("Colors"))
+	{
+		for (int i = 0; i < ImGuiCol_COUNT; ++i)
+		{
+			ImGui::ColorEdit4(ImGui::GetStyleColorName(i), (float*)&style.Colors[i]);
+		}
+		ImGui::TreePop();
+	}
+
+	//ImGui::End();
+}
 void cMyGuiForm::InnerRenderProperty()
 {
 	cMyGuiBasicObj::InnerRenderProperty();
+	ShowStyleEditorUI();
 	//bool l_bBorder = false;;
 	//bool l_bLock = false;;
 	//ImGui::Checkbox("Border", &l_bBorder);
@@ -709,6 +774,7 @@ void cMyGuiForm::InternalRender()
 	//ImGui::Begin(this->GetImGuiName().c_str(), &l_bOpen, m_FormFlag);
 	ImGui::Begin(this->GetRenderText().c_str(), m_bShowCloseCutton?&l_bOpen:nullptr, m_pFormData->m_iFormFlag);// 
 	//ImGui::PushClipRect(ImVec2(-9999, -9999), ImVec2(9999, 9999), true);
+	ImGui::SetStyle(m_pFormData->m_ImGuiStyle);
 	if (m_pData->m_vSize.x > 0 && m_pData->m_vSize.y > 0)
 	{
 		ImGui::SetWindowSize(m_pData->m_vSize);
@@ -746,6 +812,7 @@ void cMyGuiForm::InternalRender()
 void cMyGuiForm::EndRender()
 {
 	//ImGui::PopClipRect();
+	ImGui::PopAllColorsCustom();
 	ImGui::End();
 }
 

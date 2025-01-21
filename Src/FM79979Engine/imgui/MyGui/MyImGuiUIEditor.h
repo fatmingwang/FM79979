@@ -46,14 +46,13 @@ class cMyImGuiUIEditor
 		eFDR_FLAG_OPEN,
 		eFDR_MAX
 	};
-	void move_item(ImVec2& obj_pos, bool& continue_edt);
 	//
 	bool					m_MovingObj = false;
 	bool					m_ResizeObj = false;
 	sMouseCursor*			m_pMouseCursor;
 	void					RenderMenu();
 	void					RenderDebugInfo();
-	void					Render1ToolBox();
+	//void					Render1ToolBox();
 	ImGuiStyle				m_dark_style = { };
 	ImGuiStyle				m_custom_gui_style = { };
 	//

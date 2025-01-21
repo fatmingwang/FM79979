@@ -175,15 +175,24 @@ void cMyTreeView::RenderTreeivewPopupMenuContext()
 		}
 		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_PASTE]))
 		{
-			this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_PASTE]);
+			if (this->m_fMenuCallbackFunction)
+			{
+				this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_PASTE]);
+			}
 		}
 		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_CUT]))
 		{
-			this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_CUT]);
+			if (this->m_fMenuCallbackFunction)
+			{
+				this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_CUT]);
+			}
 		}
 		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_DELETE]))
 		{
-			this->m_fMenuCallbackFunction(m_pSelectedNode, m_strTreeViewMenuNameArray[eTVM_DELETE]);
+			if (this->m_fMenuCallbackFunction)
+			{
+				this->m_fMenuCallbackFunction(m_pSelectedNode, m_strTreeViewMenuNameArray[eTVM_DELETE]);
+			}
 			if (this->m_pSelectedNode)
 			{
 				if (this->m_pSelectedNode->Type() != cMyGuiForm::TypeID)
@@ -282,6 +291,7 @@ void cMyTreeView::SetFocusNode(cImGuiNode* e_pNode)
 		auto l_Node = m_pRoot->FindNodeByUID(e_pNode->m_pData->m_iID);
 		if (l_Node)
 		{
+			m_pSelectedNode = e_pNode;
 			int l_iID = l_Node->m_pData->m_iID;
 		}
 	}

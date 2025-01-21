@@ -84,6 +84,9 @@
     <ClInclude Include="MyGui\MyGuiTreeView.h">
       <Filter>MyGui</Filter>
     </ClInclude>
+    <ClInclude Include="MyGui\JSONConverter.h">
+      <Filter>MyGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui_widgets.cpp">

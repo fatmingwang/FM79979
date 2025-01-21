@@ -2,6 +2,7 @@
 
 #include "../../Core/AllCommonInclude.h"
 #include "../imgui.h"
+#include "JSONConverter.h"
 #include <vector>
 #include <string>
 
@@ -41,41 +42,6 @@ virtual void				CreateImguiDataData()override					\
 }																			\
 protected:
 
-
-
-namespace nlohmann
-{
-	template <>
-	struct adl_serializer<ImVec2>
-	{
-		static void to_json(json& j, const ImVec2& v)
-		{
-			j = json{ {"x", v.x}, {"y", v.y} };
-		}
-
-		static void from_json(const json& j, ImVec2& v)
-		{
-			j.at("x").get_to(v.x);
-			j.at("y").get_to(v.y);
-		}
-	};
-	template <>
-	struct adl_serializer<ImVec4>
-	{
-		static void to_json(json& j, const ImVec4& v)
-		{
-			j = json{ {"x", v.x}, {"y", v.y}, {"z", v.z}, {"w", v.w} };
-		}
-
-		static void from_json(const json& j, ImVec4& v)
-		{
-			j.at("x").get_to(v.x);
-			j.at("y").get_to(v.y);
-			j.at("z").get_to(v.z);
-			j.at("w").get_to(v.w);
-		}
-	};
-}
 
 
 template <typename T>
@@ -486,6 +452,14 @@ public:
 
 class cMyGuiForm :public cMyGuiBasicObj
 {
+	void				ShowStyleEditorUI();
+	//ImVec4 m_Colors[4] = 
+	//{
+	//	ImVec4(1.0f, 1.0f, 1.0f, 1.0f), // Text color (white)
+	//	ImVec4(0.2f, 0.2f, 0.2f, 1.0f), // Frame background color (dark gray)
+	//	ImVec4(0.4f, 0.4f, 0.8f, 1.0f), // Button color (blue-ish)
+	//	ImVec4(0.1f, 0.1f, 0.1f, 1.0f)  // Window background color (almost black)
+	//};
 	virtual	void		GetRenderRect()override;
 	virtual void		ApplyPosition()override;
 	virtual	void		InternalRender()override;
@@ -496,7 +470,12 @@ class cMyGuiForm :public cMyGuiBasicObj
 	struct sImguiFormData :public sImguiData
 	{
 		int m_iFormFlag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;;
-		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiFormData, MY_IMGUI_BASE_DATA,m_iFormFlag);
+		ImGuiStyle	m_ImGuiStyle;
+		sImguiFormData()
+		{
+			ImGui::StyleColorsDark(&m_ImGuiStyle);
+		}
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiFormData, MY_IMGUI_BASE_DATA,m_iFormFlag, m_ImGuiStyle);
 	};
 	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiFormData, m_pFormData);
 public:
