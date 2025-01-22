@@ -213,7 +213,7 @@ public:
 
 
 	// Function to find a node by name (recursive)
-	cImGuiNode* FindNodeByUID(int e_iID);
+	cImGuiNode* FindNodeByUID(int e_iID, std::vector<cImGuiNode*>*e_pRelatedNodeVector = nullptr);
 
 };
 

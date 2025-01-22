@@ -342,7 +342,7 @@ nlohmann::json cImGuiNode::GetJson()
 	return *m_pData;
 }
 
-cImGuiNode* cImGuiNode::FindNodeByUID(int e_iID)
+cImGuiNode* cImGuiNode::FindNodeByUID(int e_iID, std::vector<cImGuiNode*>* e_pRelatedNodeVector)
 {
 	if (this->m_pData->m_iID == e_iID)
 	{
@@ -350,9 +350,13 @@ cImGuiNode* cImGuiNode::FindNodeByUID(int e_iID)
 	}
 	for (auto l_pChild : m_ChildNodeVector)
 	{
-		auto l_pResult = l_pChild->FindNodeByUID(e_iID);
+		auto l_pResult = l_pChild->FindNodeByUID(e_iID, e_pRelatedNodeVector);
 		if (l_pResult)
 		{
+			if (e_pRelatedNodeVector)
+			{
+				e_pRelatedNodeVector->push_back(l_pChild);
+			}
 			return l_pResult;
 		}
 	}
@@ -1568,8 +1572,8 @@ void cMyGuiScroller::InternalRender()
 
 		// Track scrolling position
 		m_fScrollY = ImGui::GetScrollY();
-		ImGui::EndChild();
 	}
+	ImGui::EndChild();
 
 	// Display current scroll position
 #ifdef DEBUG

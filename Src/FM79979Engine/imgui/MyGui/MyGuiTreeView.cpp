@@ -18,7 +18,7 @@ cMyTreeView::~cMyTreeView()
 {
 }
 
-void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox)
+void cMyTreeView::DisplayTree(cImGuiNode* e_pNode)
 {
 	if (!e_pNode)
 	{
@@ -47,6 +47,20 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox
 	if (m_pSelectedNode == e_pNode)
 	{
 		nodeFlags |= ImGuiTreeNodeFlags_Selected;
+	}
+	if (m_SelectedRelatedNodeVector.size() && std::find(m_SelectedRelatedNodeVector.begin(), m_SelectedRelatedNodeVector.end(), e_pNode) != m_SelectedRelatedNodeVector.end())
+	{
+		if (m_pFocusNode == e_pNode)
+		{
+			nodeFlags |= ImGuiTreeNodeFlags_Selected;
+			ImGui::SetScrollHereY();
+			m_SelectedRelatedNodeVector.clear();
+		}
+		else
+		{
+			//nodeFlags |= ImGuiTreeNodeFlags_DefaultOpen;
+			ImGui::SetNextItemOpen(true);
+		}
 	}
 	bool l_bNodeOpen = false;
 	const char* l_strDragDropSourceID = "TREE_NODE";
@@ -89,6 +103,7 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox
 				m_pSelectedNodeRect[0] = ImGui::GetItemRectMin();
 				m_pSelectedNodeRect[1] = ImGui::GetItemRectMax();
 				m_pSelectedNode = e_pNode;
+				m_SelectedRelatedNodeVector.clear();
 			}
 			// Handle drag-and-drop source
 			if (ImGui::BeginDragDropSource())
@@ -151,14 +166,13 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox
 			// Render the child node
 			if (i < l_ChildrenVector.size())
 			{
-				DisplayTree(l_ChildrenVector[i], e_bRenderVisibleCheckBox);
+				DisplayTree(l_ChildrenVector[i]);
 			}
 		}
 
 		ImGui::TreePop();
 	}
 }
-
 
 void cMyTreeView::RenderTreeivewPopupMenuContext()
 {
@@ -243,7 +257,15 @@ void cMyTreeView::Render()
 		// Display the tree starting from the root node
 		if (m_pRoot)
 		{
-			this->DisplayTree(m_pRoot, true);
+			//if (this->m_SelectedRelatedNodeVector.size())
+			//{
+			//	this->DisplayTreeWithFocus(m_pRoot);
+			//}
+			//else
+			{
+				this->DisplayTree(m_pRoot);
+			}
+			
 		}
 		this->RenderTreeivewPopupMenuContext();
 		// End the child region
@@ -288,10 +310,15 @@ void cMyTreeView::SetFocusNode(cImGuiNode* e_pNode)
 {
 	if (m_pRoot)
 	{
-		auto l_Node = m_pRoot->FindNodeByUID(e_pNode->m_pData->m_iID);
+		m_pSelectedNode = nullptr;
+		m_pFocusNode = nullptr;
+		m_SelectedRelatedNodeVector.clear();
+		auto l_Node = m_pRoot->FindNodeByUID(e_pNode->m_pData->m_iID,&m_SelectedRelatedNodeVector);
 		if (l_Node)
 		{
-			m_pSelectedNode = e_pNode;
+			m_SelectedRelatedNodeVector.push_back(m_pRoot);
+			std::reverse(m_SelectedRelatedNodeVector.begin(), m_SelectedRelatedNodeVector.end());
+			m_pFocusNode = e_pNode;
 			int l_iID = l_Node->m_pData->m_iID;
 		}
 	}

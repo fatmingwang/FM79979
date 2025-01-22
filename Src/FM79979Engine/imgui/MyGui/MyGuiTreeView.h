@@ -3,6 +3,7 @@
 
 class cMyTreeView :public NamedTypedObject
 {
+	std::vector<cImGuiNode*>m_SelectedRelatedNodeVector;
 public:
 	enum eTreeViewMenu
 	{
@@ -30,7 +31,7 @@ protected:
 	bool		m_bDoRename = false;
 	int			m_iDropIndex = -1;
 	void		RenderTreeivewPopupMenuContext();
-	void		DisplayTree(cImGuiNode* e_pNode, bool e_bRenderVisibleCheckBox);
+	void		DisplayTree(cImGuiNode* e_pNode);
 	bool		m_bAssignStartData = true;
 	bool		m_bCollided = false;
 	public:
