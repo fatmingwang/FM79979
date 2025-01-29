@@ -9,6 +9,26 @@
 #include <unordered_map>
 #include <fstream>
 #include <sstream>
+
+// Helper function to load a texture
+GLuint loadTexture(const tinygltf::Image& image)
+{
+    GLuint texture;
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.image.data());
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    return texture;
+}
+
+
 //#include <glm/glm.hpp>
 //#include <glm/gtc/matrix_transform.hpp>
 //#include <glm/gtc/type_ptr.hpp>
@@ -269,16 +289,16 @@ void DrawModel(const tinygltf::Model& model, GLuint shaderProgram)
 tinygltf::Model model;
 GLuint shaderProgram;
 
-int glTFInit()
-{
-    shaderProgram = CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
-    LoadModel(model, "glTFModel/Duck.gltf");
-    InitBuffers(model);
-    return 1;
-}
-
-void GlTFRender()
-{
-    DrawModel(model, shaderProgram);
-}
-
+//int glTFInit()
+//{
+//    shaderProgram = CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
+//    LoadModel(model, "glTFModel/Duck.gltf");
+//    InitBuffers(model);
+//    return 1;
+//}
+//
+//void GlTFRender()
+//{
+//    DrawModel(model, shaderProgram);
+//}
+//

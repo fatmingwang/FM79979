@@ -21,6 +21,9 @@ extern void	SampleMouseMove(int e_iPosX,int e_iPosY);
 extern void	SampleMouseUp(int e_iPosX,int e_iPosY);
 extern void	SampleKeyup(char e_cKey);
 
+extern int		glTFInit();
+extern void		GlTFRender();
+
 #if defined(ANDROID)
 cEngineTestApp::cEngineTestApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil ):cGameApp(e_pActivity,e_pThreadEnv,e_pAppThreadThis,e_vGameResolution,e_vViewportSize,e_pNvEGLUtil)
 #elif defined(WIN32)
@@ -59,6 +62,7 @@ void	cEngineTestApp::Init()
 		g_pNetworkSample->Init();
 	}
 	cMyImGuiTesting::Init();
+	glTFInit();
 	//LoadSample();
 
 	//cGamePhase*l_pGamePhase = new cGamePhase();
@@ -92,7 +96,8 @@ void	cEngineTestApp::Render()
 	MyGLEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
-	cMyImGuiTesting::Render();
+	//cMyImGuiTesting::Render();
+	GlTFRender();
 	//auto l_iViewportWidth = EMSDK::EMSDK_GetViewportWidth();
 	//auto l_iViewportHeight = EMSDK::EMSDK_GetViewportHeight();
 	//cGameApp::RenderFont(100, 100, UT::ComposeMsgByFormat(L"CurrentCanvans:%d,%d", l_iViewportWidth, l_iViewportHeight).c_str());

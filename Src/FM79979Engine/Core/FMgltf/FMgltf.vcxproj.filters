@@ -30,6 +30,12 @@
     <ClInclude Include="glTF.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="glTFMesh.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFScene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -43,6 +49,12 @@
     </ClCompile>
     <ClCompile Include="glTF.cpp">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFScene.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
