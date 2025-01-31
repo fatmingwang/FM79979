@@ -120,6 +120,24 @@ namespace FATMING_CORE
 
 		float	l_fResolutionWidth = m_vViewRect.z-m_vViewRect.x;
 		float	l_fResolutionHeight = m_vViewRect.w-m_vViewRect.y;
+		if (l_fResolutionWidth <= 250)
+		{
+			m_fGridHeight = m_fGridWidth = 10;
+		}
+		else
+		if (l_fResolutionWidth <= 500)
+		{
+			m_fGridHeight = m_fGridWidth = 25;
+		}
+		else
+		if (l_fResolutionWidth <= 1000)
+		{
+			m_fGridHeight = m_fGridWidth = 50;
+		}
+		else
+		{
+			m_fGridHeight = m_fGridWidth = 100;
+		}
 		float	l_fColumn = l_fResolutionWidth/m_fGridWidth;
 		float	l_fRow = l_fResolutionHeight/m_fGridHeight;
 		int	l_iRow = (int)l_fRow;
@@ -218,6 +236,10 @@ namespace FATMING_CORE
 		}
 		else
 		{
+			if (l_fRow < 20)
+			{
+				cGameApp::m_spGlyphFontRender->SetScale(l_fRow/20+0.2);
+			}
 			for (int i = 0; i < l_iRow+2; ++i)
 			{
 				int l_iValue = (int)(l_fStartY + (i * m_fGridHeight));
@@ -249,6 +271,18 @@ namespace FATMING_CORE
 				//}
 				cGameApp::RenderFont(l_fEndX + l_vRenderPos.x, (float)l_iValue- l_fYOffset, ValueToStringW(l_iRenderValue).c_str());
 			}
+			if (l_fColumn < 30)
+			{
+				if (l_fColumn > 18)
+				{
+					cGameApp::m_spGlyphFontRender->SetScale(l_fColumn / 30);
+				}
+				else
+				{
+					cGameApp::m_spGlyphFontRender->SetScale(l_fColumn / 40);
+				}
+				
+			}
 			for (int i = 0; i < l_iColumn+2; ++i)
 			{
 				int l_iValue = (int)(l_fStartX + (i * m_fGridWidth));
@@ -279,6 +313,7 @@ namespace FATMING_CORE
 				//}
 				cGameApp::RenderFont((float)l_iValue- l_fXOffset, l_fEndY + l_vRenderPos.y, ValueToStringW(l_iRenderValue).c_str());
 			}
+			cGameApp::m_spGlyphFontRender->SetScale(1.f);
 		}
 	}
 

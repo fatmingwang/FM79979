@@ -10,79 +10,113 @@
 
 
 // Constructor
-cMesh::cMesh() : VAO(0), VBO(0), EBO(0), vertexStride(0), fvfFlags(0)
+cMesh::cMesh() : m_uiVAO(0), m_uiVBO(0), m_uiEBO(0), m_uiVertexStride(0), m_uiFVFFlags(0)
 {
 }
 
 // Destructor
 cMesh::~cMesh()
 {
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
-    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &m_uiVBO);
+    glDeleteBuffers(1, &m_uiEBO);
+    glDeleteVertexArrays(1, &m_uiVAO);
 }
 
 void cMesh::InitBuffer()
 {
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    glGenVertexArrays(1, &m_uiVAO);
+    glGenBuffers(1, &m_uiVBO);
+    glGenBuffers(1, &m_uiEBO);
 
-    glBindVertexArray(VAO);
+    glBindVertexArray(m_uiVAO);
 
     // Upload vertex data
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, interleavedData.size() * sizeof(float), interleavedData.data(), GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, m_uiVBO);
+    glBufferData(GL_ARRAY_BUFFER, m_VertexBufferVector.size() * sizeof(float), m_VertexBufferVector.data(), GL_STATIC_DRAW);
 
     // Upload index data (detect type dynamically)
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    GLenum indexType = (indices.size() > 0 && sizeof(indices[0]) == 4) ? GL_UNSIGNED_INT : GL_UNSIGNED_SHORT;
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(indices[0]), indices.data(), GL_STATIC_DRAW);
-
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_uiEBO);
+    GLenum indexType = m_DrawIndexType;
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_IDrawndicesBufferVector.size() * sizeof(m_IDrawndicesBufferVector[0]), m_IDrawndicesBufferVector.data(), GL_STATIC_DRAW);
 
     // Define vertex attribute pointers dynamically based on FVF flags
     size_t offset = 0;
 
-    if (fvfFlags & FVF_POSITION1)
+    if (m_uiFVFFlags & FVF_POSITION1)
     {
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertexStride * sizeof(float), (void*)offset);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
         glEnableVertexAttribArray(0);
         offset += 3 * sizeof(float);
     }
-    if (fvfFlags & FVF_NORMAL2)
+    if (m_uiFVFFlags & FVF_NORMAL2)
     {
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, vertexStride * sizeof(float), (void*)offset);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
         glEnableVertexAttribArray(1);
         offset += 3 * sizeof(float);
     }
-    if (fvfFlags & FVF_TEXCOORD4)
+    if (m_uiFVFFlags & FVF_TEXCOORD4)
     {
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, vertexStride * sizeof(float), (void*)offset);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
         glEnableVertexAttribArray(2);
         offset += 2 * sizeof(float);
     }
-    if (fvfFlags & FVF_COLOR3)
+    if (m_uiFVFFlags & FVF_COLOR3)
     {
-        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, vertexStride * sizeof(float), (void*)offset);
+        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
         glEnableVertexAttribArray(3);
         offset += 4 * sizeof(float);
     }
-    if (fvfFlags & FVF_BINORMAL5)
+    if (m_uiFVFFlags & FVF_BINORMAL6)
     {
-        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, vertexStride * sizeof(float), (void*)offset);
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
         glEnableVertexAttribArray(4);
         offset += 3 * sizeof(float);
     }
+
+    // Additional attributes can be added here in the future if needed
 
     glBindVertexArray(0);
 }
 
 
-// Draw the mesh
+
 void cMesh::Draw()
 {
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_SHORT, 0);
+    cBaseShader*l_pDhader = GetCurrentShader();
+	l_pDhader->Unuse();
+    UseShaderProgram(L"qoo79979");
+    glUseProgram(m_uiShaderProgram);
+
+    // Set model, view, projection matrices
+    GLuint modelLoc = glGetUniformLocation(m_uiShaderProgram, "model");
+    GLuint viewLoc = glGetUniformLocation(m_uiShaderProgram, "view");
+    GLuint projLoc = glGetUniformLocation(m_uiShaderProgram, "projection");
+
+    // Assuming you have these matrices defined somewhere
+    cMatrix44 modelMatrix = cMatrix44::Identity;
+    cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, 0, 30), Vector3(0, 0, 0), Vector3(0, 1, 0));
+    Projection projectionMatrix;
+    projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 100.0f);
+
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
+
+    // Set any other uniforms (e.g., light position, etc.)
+    GLuint lightPosLoc = glGetUniformLocation(m_uiShaderProgram, "lightPos");
+    Vector3 lightPos(10.0f, 10.0f, 10.0f);
+    glUniform3fv(lightPosLoc, 1, lightPos);
+
+    // Bind textures
+    for (size_t i = 0; i < m_uiTextureIDVector.size(); ++i)
+    {
+        glActiveTexture(GL_TEXTURE0 + i);
+        glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
+    }
+
+    // Bind the vertex array and draw the mesh
+    glBindVertexArray(m_uiVAO);
+    glDrawElements(GL_TRIANGLES, m_IDrawndicesBufferVector.size(), m_DrawIndexType, 0);
     glBindVertexArray(0);
 }
 
@@ -94,9 +128,9 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
         return;
     }
 
-    interleavedData.clear();
-    indices.clear();
-    fvfFlags = 0;
+    m_VertexBufferVector.clear();
+    m_IDrawndicesBufferVector.clear();
+    m_uiFVFFlags = 0;
 
     const tinygltf::Accessor& indexAccessor = model.accessors[primitive.indices];
     const tinygltf::BufferView& bufferView = model.bufferViews[indexAccessor.bufferView];
@@ -104,17 +138,18 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
 
     const unsigned char* dataPtr = buffer.data.data() + bufferView.byteOffset + indexAccessor.byteOffset;
 
-    indices.clear();
+    m_IDrawndicesBufferVector.clear();
 
     if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_SHORT)
     {
+        m_DrawIndexType = GL_UNSIGNED_SHORT;
         const uint16_t* shortIndices = reinterpret_cast<const uint16_t*>(dataPtr);
 
         // Reserve space to avoid reallocation
-        indices.resize(indexAccessor.count);
+        m_IDrawndicesBufferVector.resize(indexAccessor.count);
 
         // Use std::copy to convert uint16_t to uint32_t in bulk
-        std::transform(shortIndices, shortIndices + indexAccessor.count, indices.begin(),
+        std::transform(shortIndices, shortIndices + indexAccessor.count, m_IDrawndicesBufferVector.begin(),
                        [](uint16_t val)
                        {
                            return static_cast<uint32_t>(val);
@@ -123,30 +158,33 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     else if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_INT)
     {
         // Use uint32_t for indices
+        m_DrawIndexType = GL_UNSIGNED_INT;
         std::vector<uint32_t> tempIndices(indexAccessor.count);
         memcpy(tempIndices.data(), dataPtr, indexAccessor.count * sizeof(uint32_t));
 
         // Convert from uint32_t to uint16_t if needed (you may want to keep 32-bit indices if the mesh is large)
-        indices.assign(tempIndices.begin(), tempIndices.end());
+        m_IDrawndicesBufferVector.assign(tempIndices.begin(), tempIndices.end());
     }
     else
     {
         std::cerr << "Unsupported index component type: " << indexAccessor.componentType << std::endl;
         return;
     }
+
     // Determine available attributes
     bool hasPosition = primitive.attributes.find("POSITION") != primitive.attributes.end();
     bool hasNormal = primitive.attributes.find("NORMAL") != primitive.attributes.end();
     bool hasTexCoord = primitive.attributes.find("TEXCOORD_0") != primitive.attributes.end();
     bool hasTangent = primitive.attributes.find("TANGENT") != primitive.attributes.end();
     bool hasColor = primitive.attributes.find("COLOR_0") != primitive.attributes.end();
+    bool hasNormalMap = primitive.attributes.find("NORMAL_MAP") != primitive.attributes.end();
 
     // Calculate binormal only if requested and data exists
     bool hasBinormal = calculateBinormal && hasPosition && hasNormal && hasTexCoord;
 
     // Calculate vertex stride
-    vertexStride = 3 + (hasNormal ? 3 : 0) + (hasTexCoord ? 2 : 0) + (hasTangent ? 3 : 0) + (hasColor ? 4 : 0) + (hasBinormal ? 3 : 0);
-    interleavedData.reserve(indexAccessor.count * vertexStride); // Reserve space to avoid multiple allocations
+    m_uiVertexStride = 3 + (hasNormal ? 3 : 0) + (hasTexCoord ? 2 : 0) + (hasTangent ? 3 : 0) + (hasColor ? 4 : 0) + (hasBinormal ? 3 : 0);
+    m_VertexBufferVector.reserve(indexAccessor.count * m_uiVertexStride); // Reserve space to avoid multiple allocations
 
     // Lambda function to load an attribute
     auto LoadAttribute = [&](const std::string& name) -> const float*
@@ -163,27 +201,29 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     const float* texCoordData = LoadAttribute("TEXCOORD_0");
     const float* tangentData = LoadAttribute("TANGENT");
     const float* colorData = LoadAttribute("COLOR_0");
+    const float* normalMapData = LoadAttribute("NORMAL_MAP");
 
     // Insert data directly into interleavedData
-    if (positionData) interleavedData.insert(interleavedData.end(), positionData, positionData + indexAccessor.count * 3);
-    if (normalData) interleavedData.insert(interleavedData.end(), normalData, normalData + indexAccessor.count * 3);
-    if (texCoordData) interleavedData.insert(interleavedData.end(), texCoordData, texCoordData + indexAccessor.count * 2);
-    if (tangentData) interleavedData.insert(interleavedData.end(), tangentData, tangentData + indexAccessor.count * 3);
-    if (colorData) interleavedData.insert(interleavedData.end(), colorData, colorData + indexAccessor.count * 4);
+    if (positionData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), positionData, positionData + indexAccessor.count * 3);
+    if (normalData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), normalData, normalData + indexAccessor.count * 3);
+    if (texCoordData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), texCoordData, texCoordData + indexAccessor.count * 2);
+    if (tangentData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), tangentData, tangentData + indexAccessor.count * 3);
+    if (colorData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), colorData, colorData + indexAccessor.count * 4);
+    if (normalMapData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), normalMapData, normalMapData + indexAccessor.count * 3);
 
     // Compute and insert binormals if required
     if (hasBinormal)
     {
-        std::vector<float> binormalData(indices.size() * 3); // Allocate based on triangle count
+        std::vector<float> binormalData(m_IDrawndicesBufferVector.size() * 3); // Allocate based on triangle count
 
-        for (size_t i = 0; i < indices.size(); i += 3) // Iterate per triangle
+        for (size_t i = 0; i < m_IDrawndicesBufferVector.size(); i += 3) // Iterate per triangle
         {
             Vector3 pos0, pos1, pos2;
             Vector2 uv0, uv1, uv2;
 
-            int i0 = indices[i];
-            int i1 = indices[i + 1];
-            int i2 = indices[i + 2];
+            int i0 = m_IDrawndicesBufferVector[i];
+            int i1 = m_IDrawndicesBufferVector[i + 1];
+            int i2 = m_IDrawndicesBufferVector[i + 2];
 
             memcpy(&pos0, positionData + i0 * 3, sizeof(Vector3));
             memcpy(&pos1, positionData + i1 * 3, sizeof(Vector3));
@@ -215,17 +255,17 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
             binormalData[i * 3 + 8] = binormal.z;
         }
 
-        interleavedData.insert(interleavedData.end(), binormalData.begin(), binormalData.end());
+        m_VertexBufferVector.insert(m_VertexBufferVector.end(), binormalData.begin(), binormalData.end());
     }
 
-
     // Set FVF Flags
-    if (hasPosition) fvfFlags |= FVF_POSITION1;
-    if (hasNormal) fvfFlags |= FVF_NORMAL2;
-    if (hasTexCoord) fvfFlags |= FVF_TEXCOORD4;
-    if (hasTangent) fvfFlags |= FVF_COLOR3;
-    if (hasColor) fvfFlags |= FVF_COLOR3;
-    if (hasBinormal) fvfFlags |= FVF_BINORMAL5;
+    if (hasPosition) m_uiFVFFlags |= FVF_POSITION1;
+    if (hasNormal) m_uiFVFFlags |= FVF_NORMAL2;
+    if (hasTexCoord) m_uiFVFFlags |= FVF_TEXCOORD4;
+    if (hasTangent) m_uiFVFFlags |= FVF_TANGENT5;
+    if (hasColor) m_uiFVFFlags |= FVF_COLOR3;
+    if (hasBinormal) m_uiFVFFlags |= FVF_BINORMAL6;
+    if (hasNormalMap) m_uiFVFFlags |= FVF_NORMAL_MAP;
     logFVFFlags();
 }
 
@@ -259,7 +299,7 @@ void cMesh::LoadTextures(const tinygltf::Model& model, const tinygltf::Material&
 
         glGenerateMipmap(GL_TEXTURE_2D);
 
-        textures.push_back(textureID);
+        m_uiTextureIDVector.push_back(textureID);
     }
 
     // Load normal map texture (if available)
@@ -288,7 +328,7 @@ void cMesh::LoadTextures(const tinygltf::Model& model, const tinygltf::Material&
 
         glGenerateMipmap(GL_TEXTURE_2D);
 
-        normalTextures.push_back(textureID);
+        m_uiNormalTextureIDVector.push_back(textureID);
     }
 
     // Load occlusion map texture (if available)
@@ -317,17 +357,24 @@ void cMesh::LoadTextures(const tinygltf::Model& model, const tinygltf::Material&
 
         glGenerateMipmap(GL_TEXTURE_2D);
 
-        occlusionTextures.push_back(textureID);
+        m_uiOocclusionTextureIDVector.push_back(textureID);
     }
 }
 
-// Log FVF Flags
 void cMesh::logFVFFlags()
 {
     std::cout << "FVF Flags: " << std::endl;
-    if (fvfFlags & FVF_POSITION1) std::cout << "Position is present." << std::endl;
-    if (fvfFlags & FVF_NORMAL2) std::cout << "Normal is present." << std::endl;
-    if (fvfFlags & FVF_COLOR3) std::cout << "Color is present." << std::endl;
-    if (fvfFlags & FVF_TEXCOORD4) std::cout << "Texture coordinates are present." << std::endl;
-    if (fvfFlags & FVF_BINORMAL5) std::cout << "Binormal is present." << std::endl;
+    if (m_uiFVFFlags & FVF_POSITION1) std::cout << "Position is present." << std::endl;
+    if (m_uiFVFFlags & FVF_NORMAL2) std::cout << "Normal is present." << std::endl;
+    if (m_uiFVFFlags & FVF_COLOR3) std::cout << "Color is present." << std::endl;
+    if (m_uiFVFFlags & FVF_TEXCOORD4) std::cout << "Texture coordinates are present." << std::endl;
+    if (m_uiFVFFlags & FVF_TANGENT5) std::cout << "Tangent is present." << std::endl;
+    if (m_uiFVFFlags & FVF_BINORMAL6) std::cout << "Binormal is present." << std::endl;
+    if (m_uiFVFFlags & FVF_NORMAL_MAP) std::cout << "Normal map is present." << std::endl;
+    if (m_uiFVFFlags & FVF_METALLIC) std::cout << "Metallic map is present." << std::endl;
+    if (m_uiFVFFlags & FVF_ROUGHNESS) std::cout << "Roughness map is present." << std::endl;
+    if (m_uiFVFFlags & FVF_EMISSIVE) std::cout << "Emissive map is present." << std::endl;
+    if (m_uiFVFFlags & FVF_OCCLUSION) std::cout << "Occlusion map is present." << std::endl;
+    if (m_uiFVFFlags & FVF_BASE_COLOR) std::cout << "Base color map is present." << std::endl;
+    if (m_uiFVFFlags & FVF_PBR) std::cout << "PBR attributes (metallic, roughness, etc.) are present." << std::endl;
 }
