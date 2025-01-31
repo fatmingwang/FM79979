@@ -5,8 +5,6 @@ VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FatmingCollada", "..\Core\FatmingCollada\FatmingCollada.vcxproj", "{27C4A269-2E08-4644-B3C9-F5090703FA1D}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg", "..\Core\Sound\ogg\ogg.vcxproj", "{D07C6FC2-02D7-41AE-8498-35186CD57B5A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WASM", "WASM\WASM.vcxproj", "{6D394C49-B2DD-4475-BFD3-12B01C1930D7}"
@@ -26,7 +24,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "..\Core\zlib\zlib.v
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libprotobuf", "..\ProtoBuffer\VSProject\libprotobuf.vcxproj", "{AA2F9274-A914-3C9D-8FE7-9ED3303EC581}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "imgui", "..\imgui\imgui.vcxproj", "{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Myimgui", "..\imgui\imgui.vcxproj", "{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -118,62 +116,6 @@ Global
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.RelWithDebInfo|x86.ActiveCfg = Release_NoPthread|x64
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.RelWithDebInfo|x86.Build.0 = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|ARM.ActiveCfg = Debug_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|ARM.Build.0 = Debug_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|ARM64.ActiveCfg = Debug_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|ARM64.Build.0 = Debug_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|Emscripten.ActiveCfg = Debug_NoPthread|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|Emscripten.Build.0 = Debug_NoPthread|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|x64.ActiveCfg = Debug_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|x64.Build.0 = Debug_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|x86.ActiveCfg = Debug_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug_NoPthread|x86.Build.0 = Debug_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|ARM.ActiveCfg = Debug|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|ARM64.ActiveCfg = Debug|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|Emscripten.Build.0 = Debug|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|x64.ActiveCfg = Debug|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|x64.Build.0 = Debug|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|x86.ActiveCfg = Debug|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|x86.Build.0 = Debug|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|ARM.ActiveCfg = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|ARM.Build.0 = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|ARM64.ActiveCfg = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|ARM64.Build.0 = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|Emscripten.ActiveCfg = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|Emscripten.Build.0 = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|x64.ActiveCfg = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|x64.Build.0 = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|x86.ActiveCfg = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.MinSizeRel|x86.Build.0 = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|ARM.ActiveCfg = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|ARM.Build.0 = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|ARM64.ActiveCfg = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|ARM64.Build.0 = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|Emscripten.ActiveCfg = Release_NoPthread|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|Emscripten.Build.0 = Release_NoPthread|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|x64.ActiveCfg = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|x64.Build.0 = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|x86.ActiveCfg = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release_NoPthread|x86.Build.0 = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|ARM.ActiveCfg = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|ARM64.ActiveCfg = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|Emscripten.ActiveCfg = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|Emscripten.Build.0 = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|x64.ActiveCfg = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|x64.Build.0 = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|x86.ActiveCfg = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|x86.Build.0 = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|ARM.ActiveCfg = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|ARM.Build.0 = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|ARM64.ActiveCfg = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|ARM64.Build.0 = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|Emscripten.ActiveCfg = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|Emscripten.Build.0 = Release|Emscripten
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|x64.ActiveCfg = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|x64.Build.0 = Release|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|x86.ActiveCfg = Release_NoPthread|x64
-		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.RelWithDebInfo|x86.Build.0 = Release_NoPthread|x64
 		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Debug_NoPthread|ARM.ActiveCfg = Debug_NoPthread|x64
 		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Debug_NoPthread|ARM.Build.0 = Debug_NoPthread|x64
 		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Debug_NoPthread|ARM64.ActiveCfg = Debug_NoPthread|x64

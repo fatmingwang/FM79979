@@ -267,6 +267,6 @@ int glTFInit()
 void GlTFRender()
 {
     //    DrawModel(model, shaderProgram);
-    g_cScene.Draw();
+    //g_cScene.Draw();
 }
 

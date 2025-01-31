@@ -27,7 +27,6 @@ cMultiPathDynamicImage*		g_pMultiPathDynamicImage = 0;
 cMultiPathDynamicImage*		g_pMultiPathDynamicImageClone = 0;
 cCurveWithTime*				g_pTestCurveWithTime = nullptr;;
 c2DImageCollisionData*		g_pCollisionData = nullptr;
-cColladaParser*				g_pColladaParser = 0;
 //cAnimationMesh*				g_pAnimationMesh = 0;
 cCurveWithTime*				g_pCurve = 0;
 cMPDINode*					g_pMPDINode = 0;
@@ -327,25 +326,6 @@ void	LoadSample()
 		g_pPrtEmitter->SetPos(Vector3(1000,540,0));
 	}
 
-	g_pColladaParser = new cColladaParser();
-	if( g_pColladaParser )
-	{
-		if(g_pColladaParser->ParseDataIntoXMLNode("3DFish_test/test.DAE"))
-		{
-			FATMING_CORE::CreateShader(g_bMyMeshVSClientState,g_strMyMeshVS,g_strMyMeshFS,STATIC_MESH_SHADER);
-			FATMING_CORE::CreateShader(g_bMySkinningMeshVSClientState,g_strMySkinningMeshVS,g_strMySkinningMeshFS,SKINNING_MESH_SHADER);
-			g_pCurve = new cCurveWithTime();
-			if (g_pCurve)
-			{
-				g_pCurve->AddPoint(Vector3(0, 300, 0), 0);
-				g_pCurve->AddPoint(Vector3(300, 300, 0), 2.f);
-				g_pCurve->AddPoint(Vector3(720, 300, 0), 4.5);
-				g_pCurve->AddPoint(Vector3(0, 300, 0), 9);
-				g_pCurve->SetCurveLoop(true);
-				g_pCurve->Init();
-			}
-		}
-	}
 	g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_spOpenGLRender->m_vGameResolution);
 	//
 	//g_pTestCurveWithTime = new cCurveWithTime();
@@ -388,8 +368,7 @@ void	DestorySampleObject()
 	//cGameApp::m_pAnimationParser->RemoveObject(L"fmbook_mpdi");
 	SAFE_DELETE(g_pFrameCamera);
 	SAFE_DELETE(g_pBGImage);
-	SAFE_DELETE(g_pOrthogonalCamera);
-	SAFE_DELETE(g_pColladaParser);
+	SAFE_DELETE(g_pOrthogonalCamera);	
 	SAFE_DELETE(g_pCurve);
 	SAFE_DELETE(g_pMPDINode);
 	SAFE_DELETE(g_pToneMappingShader);
@@ -477,29 +456,6 @@ void	SampleUpdate(float e_fElpaseTime)
 	Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 	//if(g_pOrthogonalCamera)
 		//g_pOrthogonalCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1],cGameApp::m_sMouseWhellDelta,cGameApp::m_sScreenMousePosition.x,cGameApp::m_sScreenMousePosition.y,l_vViewPort);
-	if( g_pColladaParser && g_pColladaParser->m_pAllAnimationMesh )
-	{
-		if (g_pCurve)
-		{
-			g_pCurve->Update(e_fElpaseTime);
-		}
-		int	l_iCount = g_pColladaParser->m_pAllAnimationMesh->Count();
-		for( int i=0;i<l_iCount;++i )
-		{
-			g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->Update(e_fElpaseTime);
-			if( i==0 )
-			{
-				if (g_pMPDINode)
-				{
-					g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalTransform(g_pMPDINode->GetWorldTransform());
-				}
-				else
-				{
-					g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalTransform(cMatrix44::TranslationMatrix(Vector3(400,500,0)));
-				}
-			}
-		}
-	}
 	MyGlErrorTest("SampleUpdate end");
 }
 
@@ -632,33 +588,6 @@ void	SampleRender()
 		g_pPrtEmitter->Render();
 	if( g_pParticleEmitterGroup )
 		g_pParticleEmitterGroup->Render();
-	if( g_pColladaParser && g_pColladaParser->m_pAllAnimationMesh )
-	{
-		FATMING_CORE::UseShaderProgram(SKINNING_MESH_SHADER);
-		if (g_pOrthogonalCamera)
-		{
-			g_pOrthogonalCamera->Render();
-		}
-		int	l_iCount = g_pColladaParser->m_pAllAnimationMesh->Count();
-		for( int i=0;i<l_iCount;++i )
-		{
-			float	l_fAngle = -90;
-			if( g_pCurve && g_pCurve->GetCurrentTime() > 4.5 )
-			{
-				l_fAngle = 90;
-				g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalTransform(cMatrix44::TranslationMatrix(g_pCurve->GetCurrentPosition())*cMatrix44::RotationMatrix(Vector3(0,l_fAngle,0)));
-			}
-			if( g_pMPDINode )
-			{
-				g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalPosition(g_pMPDINode->GetWorldTransform().GetTranslation());
-			}
-			if (g_pCurve)
-			{
-				g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalPosition(g_pCurve->GetCurrentPosition());
-			}
-			g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->Render();
-		}
-	}
 
 	if (g_pFMMorphingAnimationVector)
 	{

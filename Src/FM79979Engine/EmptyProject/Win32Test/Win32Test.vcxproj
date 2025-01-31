@@ -301,9 +301,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\FatmingCollada\FatmingCollada.vcxproj">
-      <Project>{27c4a269-2e08-4644-b3c9-f5090703fa1d}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\FMgltf\FMgltf.vcxproj">
       <Project>{c8cbf889-95a8-44fa-99fb-feb27989dd7a}</Project>
     </ProjectReference>
