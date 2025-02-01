@@ -42,38 +42,43 @@
 //unsigned int fvfFlags = FVF_POSITION1 | FVF_NORMAL | FVF_TEX0 | FVF_NORMAL_MAP;
 //This tells the system to only use position, normal, texture coordinates, and normal map in the shader, and the shaders would be generated accordingly.
 
-class cMesh
+#pragma once
+
+#include <vector>
+#include <string>
+#include <map>
+
+#include "../AllCoreInclude.h"
+
+class cMesh:public FATMING_CORE::Frame
 {
-    // Existing members...
+    friend class cScene;
+public:
+    struct SubMesh
+    {
+        unsigned int fvfFlags;
+        GLuint shaderProgram;
+        unsigned int indexOffset;
+        unsigned int indexCount;
+        int m_uiVertexStride;
+        std::vector<float> vertexBuffer;
+        std::vector<uint32_t> indexBuffer;
+        GLuint vao;
+        GLuint vbo;
+        GLuint ebo;
+        Vector3 m_vMinBounds;
+        Vector3 m_vMaxBounds;
+        void GetProperCameraPosition(cMatrix44& e_CameraMatrix);
+    };
     Vector3 m_vMinBounds;
     Vector3 m_vMaxBounds;
-
-public:
-    void GetProperCameraPosition(cMatrix44& e_CameraMatrix);
-    //
-    friend class cScene;
-    //no sub mesh because I am lazy to do different FVF fuck.
-    //struct SubMesh
-    //{
-    //    unsigned int fvfFlags;
-    //    GLuint shaderProgram;
-    //    unsigned int indexOffset;
-    //    unsigned int indexCount;
-    //};
-    //std::vector<SubMesh> subMeshes;  // Store different primitives
 private:
-    GLuint m_uiVAO;
-    GLuint m_uiVBO;
-    GLuint m_uiEBO;
-    std::vector<float>      m_VertexBufferVector;  // All vertex data in one buffer
-    std::vector<GLuint>     m_uiTextureIDVector;        // Base color textures (and other types if necessary)
-    std::vector<GLuint>     m_uiNormalTextureIDVector;  // Normal maps
-    std::vector<GLuint>     m_uiOocclusionTextureIDVector;  // Occlusion maps
-    std::vector<GLuint>     m_uiEmissiveTextureIDVector; // Emissive maps (if needed)
-    std::vector<uint32_t>   m_IDrawndicesBufferVector;      // Index data for rendering
-    unsigned int m_uiVertexStride;          // Total stride for vertices
-    unsigned int m_uiFVFFlags;              // Flexible Vertex Format flags
-	unsigned int m_uiShaderProgram;         // Shader program for this mesh
+    std::vector<SubMesh> subMeshes;  // Store different primitives
+    std::vector<GLuint> m_uiTextureIDVector;        // Base color textures (and other types if necessary)
+    std::vector<GLuint> m_uiNormalTextureIDVector;  // Normal maps
+    std::vector<GLuint> m_uiOocclusionTextureIDVector;  // Occlusion maps
+    std::vector<GLuint> m_uiEmissiveTextureIDVector; // Emissive maps (if needed)
+
 public:
     cMesh();
     ~cMesh();
@@ -86,4 +91,5 @@ public:
     void LoadTextures(const tinygltf::Model& model, const tinygltf::Material& material);
     void logFVFFlags();
 };
+
 

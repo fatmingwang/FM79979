@@ -248,6 +248,43 @@ GLuint cScene::GetShaderProgram(unsigned int fvfFlags)
     shaderPrograms[fvfFlags] = shaderProgram;  // Store in the map
     return shaderProgram;
 }
+
+
+cMatrix44 GetNodeMatrix(const tinygltf::Node& node)
+{
+    cMatrix44 matrix = cMatrix44::Identity;
+
+    // Apply translation
+    if (node.translation.size() == 3)
+    {
+        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+        matrix = cMatrix44::TranslationMatrix(translation);
+    }
+
+    // Apply rotation
+    if (node.rotation.size() == 4)
+    {
+        
+        Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
+        matrix *= rotation.ToMatrix();
+    }
+
+    // Apply scale
+    if (node.scale.size() == 3)
+    {
+        Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+        matrix *= cMatrix44::ScaleMatrix(scale);
+    }
+
+    // Apply matrix if present
+    if (node.matrix.size() == 16)
+    {
+        cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
+        matrix *= nodeMatrix;
+    }
+
+    return matrix;
+}
 // Load the scene from a GLTF file
 bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal)
 {
@@ -271,7 +308,7 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
 
     for (const auto& meshPair : model.meshes)
     {
-        assert(meshPair.primitives.size()==1 && "no sub mesh because I am lazy to do different FVF fuck.");
+        //assert(meshPair.primitives.size()==1 && "no sub mesh because I am lazy to do different FVF fuck.");
         cMesh mesh;
         for (const auto& primitive : meshPair.primitives)
         {
@@ -282,9 +319,24 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
             {
                 mesh.LoadTextures(model, model.materials[primitive.material]);
             }
+            // Get or create the appropriate shader program for the sub-mesh
+            for (auto& subMesh : mesh.subMeshes)
+            {
+                subMesh.shaderProgram = GetShaderProgram(subMesh.fvfFlags);
+            }
+            // Apply the node transformation to the mesh
+            for (const auto& node : model.nodes)
+            {
+                if (node.mesh == std::distance(model.meshes.begin(), std::find(model.meshes.begin(), model.meshes.end(), meshPair)))
+                {
+                    cMatrix44 nodeMatrix = GetNodeMatrix(node);
+                    // Assuming nodeMatrix is constructed from node's transformation data
+                    // You may need to convert node's translation, rotation, and scale to a matrix
+                    mesh.SetLocalTransform(nodeMatrix);
+                    break;
+                }
+            }
         }
-        // Get or create the appropriate shader program
-        mesh.m_uiShaderProgram = GetShaderProgram(mesh.m_uiFVFFlags);
         meshes[meshPair.name] = mesh;
     }
 
@@ -305,18 +357,19 @@ void cScene::Draw()
 {
     for (auto& meshPair : meshes)
     {
+        //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
         meshPair.second.Draw();
-        return;
     }
 }
 
 cScene g_cScene;
+
 int glTFInit()
 {
     //g_cScene.LoadFromGLTF("glTFModel/Duck.gltf",false);
-    g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
+    //g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
-    //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+    g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     
     g_cScene.InitBuffers();
