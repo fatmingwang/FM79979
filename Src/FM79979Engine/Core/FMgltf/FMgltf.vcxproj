@@ -144,6 +144,7 @@
     <ClInclude Include="FileUtility.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="glTF.h" />
+    <ClInclude Include="glTFAnimationMesh.h" />
     <ClInclude Include="glTFMesh.h" />
     <ClInclude Include="glTFScene.h" />
     <ClInclude Include="pch.h" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="FileUtility.cpp" />
     <ClCompile Include="glTF.cpp" />
+    <ClCompile Include="glTFAnimationMesh.cpp" />
     <ClCompile Include="glTFMesh.cpp" />
     <ClCompile Include="glTFRenderTest.cpp" />
     <ClCompile Include="glTFScene.cpp" />

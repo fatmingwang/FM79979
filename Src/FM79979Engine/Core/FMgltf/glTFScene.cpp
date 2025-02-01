@@ -8,6 +8,7 @@
 #include <sstream>
 #include "glTFScene.h"
 
+
 std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
 {
     std::string shaderCode = R"(
@@ -31,6 +32,17 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
     if (fvfFlags & FVF_BITAGENT_FLAG)
     {
         shaderCode += "layout(location = 4) in vec3 aBinormal;\n";
+    }
+
+    // Adding joint indices and weights if necessary
+    if (fvfFlags & FVF_SKINNING_WEIGHT_FLAG)
+    {
+        shaderCode += "layout(location = 5) in vec4 aWeights;\n";
+    }
+
+    if (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG)
+    {
+        shaderCode += "layout(location = 6) in ivec4 aJoints;\n";
     }
 
     // Normalizing the vectors and transforming to view space
@@ -57,10 +69,30 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
     }
 
     shaderCode += R"(
+        const int MAX_BONES = 100;
+        uniform mat4 uBoneTransforms[MAX_BONES];
+    )";
+
+    shaderCode += R"(
         void main() {
             vec4 worldPosition = inMat4Model * vec4(aPosition, 1.0);
             toFSVec3FragPos = worldPosition.xyz;
 
+            // Skinning transformation
+    )";
+
+    if ((fvfFlags & FVF_SKINNING_WEIGHT_FLAG) && (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG))
+    {
+        shaderCode += R"(
+            mat4 skinMatrix = aWeights.x * uBoneTransforms[aJoints.x] +
+                              aWeights.y * uBoneTransforms[aJoints.y] +
+                              aWeights.z * uBoneTransforms[aJoints.z] +
+                              aWeights.w * uBoneTransforms[aJoints.w];
+            worldPosition = skinMatrix * vec4(aPosition, 1.0);
+        )";
+    }
+
+    shaderCode += R"(
             // Passing light direction to fragment shader
             toFSVec3LightDir = normalize(inVec3LightPosition - toFSVec3FragPos);
 
@@ -94,6 +126,8 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
 
     return shaderCode;
 }
+
+
 
 
 std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)

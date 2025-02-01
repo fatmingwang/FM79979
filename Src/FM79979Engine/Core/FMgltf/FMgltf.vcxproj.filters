@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Mesh">
+      <UniqueIdentifier>{54c82dfe-38ca-49ab-a1d0-c4f504a6198b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -30,11 +33,14 @@
     <ClInclude Include="glTF.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="glTFMesh.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="glTFScene.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFMesh.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFAnimationMesh.h">
+      <Filter>Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -50,11 +56,14 @@
     <ClCompile Include="glTF.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="glTFMesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="glTFScene.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFAnimationMesh.cpp">
+      <Filter>Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

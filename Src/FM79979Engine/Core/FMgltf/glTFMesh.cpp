@@ -222,7 +222,8 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     bool hasTexCoord = primitive.attributes.find("TEXCOORD_0") != primitive.attributes.end();
     bool hasTangent = primitive.attributes.find("TANGENT") != primitive.attributes.end();
     bool hasColor = primitive.attributes.find("COLOR_0") != primitive.attributes.end();
-    bool hasNormalMap = primitive.attributes.find("NORMAL_MAP") != primitive.attributes.end();
+    bool hasWeights = primitive.attributes.find("WEIGHTS_0") != primitive.attributes.end();
+    bool hasJoints = primitive.attributes.find("JOINTS_0") != primitive.attributes.end();
     bool hasBinormal = calculateBinormal && hasPosition && hasNormal && hasTexCoord;
 
     size_t vertexCount = 0;
@@ -231,7 +232,7 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
         const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
         vertexCount = positionAccessor.count;
     }
-    subMesh.m_uiVertexStride = 3 + (hasNormal ? 3 : 0) + (hasTexCoord ? 2 : 0) + (hasTangent ? 3 : 0) + (hasColor ? 4 : 0) + (hasBinormal ? 3 : 0);
+    subMesh.m_uiVertexStride = 3 + (hasNormal ? 3 : 0) + (hasTexCoord ? 2 : 0) + (hasTangent ? 3 : 0) + (hasColor ? 4 : 0) + (hasWeights ? 4 : 0) + (hasJoints ? 4 : 0) + (hasBinormal ? 3 : 0);
     subMesh.vertexBuffer.resize(vertexCount * subMesh.m_uiVertexStride);
 
     auto LoadAttribute = [&](const std::string& name) -> const float*
@@ -273,6 +274,8 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     const float* texCoordData = LoadAttribute("TEXCOORD_0");
     const float* tangentData = LoadAttribute("TANGENT");
     const float* colorData = LoadAttribute("COLOR_0");
+    const float* weightsData = LoadAttribute("WEIGHTS_0");
+    const float* jointsData = LoadAttribute("JOINTS_0");
 
     for (size_t i = 0; i < vertexCount; ++i)
     {
@@ -306,7 +309,19 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
         }
         if (hasBinormal)
         {
-            l_iArrtibuteIndex = FVF_TANGENT;
+            l_iArrtibuteIndex = FVF_BITAGENT;
+            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+        }
+        if (weightsData)
+        {
+            l_iArrtibuteIndex = FVF_SKINNING_WEIGHT_FLAG;
+            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+        }
+        if (jointsData)
+        {
+            l_iArrtibuteIndex = FVF_SKINNING_BONE_INDEX_FLAG;
+            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], jointsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
         }
         if (texCoordData)
@@ -324,8 +339,9 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     if (hasTexCoord) subMesh.fvfFlags |= FVF_TEX0_FLAG;
     if (hasTangent) subMesh.fvfFlags |= FVF_TANGENT_FLAG;
     if (hasColor) subMesh.fvfFlags |= FVF_DIFFUSE_FLAG;
+    if (hasWeights) subMesh.fvfFlags |= FVF_SKINNING_WEIGHT_FLAG;
+    if (hasJoints) subMesh.fvfFlags |= FVF_SKINNING_BONE_INDEX_FLAG;
     if (hasBinormal) subMesh.fvfFlags |= FVF_BITAGENT_FLAG;
-    if (hasNormalMap) subMesh.fvfFlags |= FVF_NORMAL_MAP_TEXTURE_FLAG;
 
     subMeshes.push_back(subMesh);
     logFVFFlags();

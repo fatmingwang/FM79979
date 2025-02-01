@@ -152,6 +152,10 @@ public:
 		return 0;	
 	}
 	inline T*	operator [](const wchar_t*e_pString){return GetObject(e_pString);}
+	inline T* operator [](const char* e_pString)
+	{
+		return GetObject(e_pString);
+	}
 
 	inline T*	operator [](int e_iIndex){return GetObject(e_iIndex);}
 
