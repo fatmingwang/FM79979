@@ -29,7 +29,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cOpenGLRender)
 	extern cBaseShader*			g_pCurrentShader;
 	bool						cOpenGLRender::m_sbVBOSupported = true;
-	bool						cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = true;
+	//bool						cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = true;
 	std::vector<int>*			cOpenGLRender::m_piSupportCompressedFormatVector = nullptr;
 	cBatchDataMultiTexture*		cOpenGLRender::m_spBatchDataMultiTexture = nullptr;
 	int							cOpenGLRender::m_siOpenGLVersion			= 40;
@@ -200,8 +200,9 @@ namespace FATMING_CORE
 		MyGLGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &l_iValue);		l_str = L"GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS:";	l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		//MyGLGetIntegerv(GL_MAX_VIEWPORT_DIMS,&l_iValue);					l_str = L"GL_MAX_VIEWPORT_DIMS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 #if defined(WIN32) && !defined(UWP)
-		MyGLGetIntegerv(GL_ARB_texture_non_power_of_two, &l_iValue);
-		cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = l_iValue ? true : false;
+		//auto l_strExternsion = glGetString(GL_EXTENSIONS);
+		//MyGLGetIntegerv(GL_ARB_texture_non_power_of_two, &l_iValue);
+		//cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = l_iValue ? true : false;
 #endif
 		//http://www.informit.com/articles/article.aspx?p=770639&seqNum=3
 		//GLfloat l_fGL_TEXTURE_COMPRESSED;

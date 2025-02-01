@@ -25,26 +25,29 @@
 //are used to describe the contents of vertices interleaved in a single data
 //stream that will be processed by the fixed-function pipeline.
 //
-#define	FVF_POS					0//xyz  3float
-#define	FVF_NORMAL				1//xyz  3float
-#define	FVF_DIFFUSE				2//RGBA 4float
-#define	FVF_TAGENT				3//xyz  3float
-#define	FVF_BITAGENT			4//xyz  3float
-#define	FVF_SKINNING_WEIGHT		5//4 inlunce bones 4float
-#define	FVF_SKINNING_BONE_INDEX	6//the data for bone id usually is 4 unsigned byte to become 1 float.if the bone ID is bigger than 512,u have to ensure data swap problem
-								 //1*4 byte one float
-#define	FVF_TEX0				7//UV	2float
-#define	FVF_TEX1				8//UV	2float
+#define	FVF_POS							0//xyz  3float
+#define	FVF_NORMAL						1//xyz  3float
+#define	FVF_DIFFUSE						2//RGBA 4float
+#define	FVF_TANGENT						3//xyz  3float
+#define	FVF_BITAGENT					4//xyz  3float
+#define	FVF_SKINNING_WEIGHT				5//4 inlunce bones 4float
+#define	FVF_SKINNING_BONE_INDEX			6//the data for bone id usually is 4 unsigned byte to become 1 float.if the bone ID is bigger than 512,u have to ensure data swap problem
+										 //1*4 byte one float
+#define	FVF_TEX0						7//UV	2float
+#define	FVF_TEX1						8//UV	2float
+
+#define	FVF_HAS_NORMAL_MAP_TEXTURE		9//just a flag to tell shader to use normal map texture
 
 #define	FVF_POS_FLAG					1<<FVF_POS
 #define	FVF_NORMAL_FLAG					1<<FVF_NORMAL
 #define	FVF_DIFFUSE_FLAG				1<<FVF_DIFFUSE
-#define	FVF_TAGENT_FLAG					1<<FVF_TAGENT
+#define	FVF_TANGENT_FLAG				1<<FVF_TANGENT
 #define	FVF_BITAGENT_FLAG				1<<FVF_BITAGENT
 #define	FVF_SKINNING_WEIGHT_FLAG		1<<FVF_SKINNING_WEIGHT
 #define	FVF_SKINNING_BONE_INDEX_FLAG	1<<FVF_SKINNING_BONE_INDEX
 #define	FVF_TEX0_FLAG					1<<FVF_TEX0
 #define	FVF_TEX1_FLAG					1<<FVF_TEX1
+#define	FVF_NORMAL_MAP_TEXTURE_FLAG		1<<FVF_HAS_NORMAL_MAP_TEXTURE
 
 #define	COMMON_MESH_FVF_FLAG			(FVF_POS_FLAG|FVF_NORMAL_FLAG|FVF_TEX0_FLAG)
 #define	COMMON_2D_IMAGE_FVF_FLAG		(FVF_POS_FLAG|FVF_TEX0_FLAG)

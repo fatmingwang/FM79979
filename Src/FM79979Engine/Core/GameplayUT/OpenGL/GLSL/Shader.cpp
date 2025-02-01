@@ -283,8 +283,10 @@ namespace FATMING_CORE
 
 	void	cBaseShader::Use(bool e_bUseLastWVPMatrix)
 	{
+		CHECK_GL_ERROR("cBaseShader::Use before glUseProgram");
 		g_pCurrentShader = this;
 		glUseProgram( m_uiProgram );
+		CHECK_GL_ERROR("cBaseShader::Use after glUseProgram");
 #if defined(WASM) || defined(UWP)
 		m_uiTexLoacation = GetUniFormLocationByName("texSample");
 		m_uiColorLoacation = GetUniFormLocationByName("Color");

@@ -42,34 +42,34 @@ void cMesh::InitBuffer()
     // Define vertex attribute pointers dynamically based on FVF flags
     size_t offset = 0;
 
-    if (m_uiFVFFlags & FVF_POSITION1)
+    if (m_uiFVFFlags & FVF_POS_FLAG)
     {
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(FVF_POS, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
+        glEnableVertexAttribArray(FVF_POS);
         offset += 3 * sizeof(float);
     }
-    if (m_uiFVFFlags & FVF_NORMAL2)
+    if (m_uiFVFFlags & FVF_NORMAL_FLAG)
     {
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(FVF_NORMAL, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
+        glEnableVertexAttribArray(FVF_NORMAL);
         offset += 3 * sizeof(float);
     }
-    if (m_uiFVFFlags & FVF_TEXCOORD4)
+    if (m_uiFVFFlags & FVF_TEX0_FLAG)
     {
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(FVF_TEX0, 2, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
+        glEnableVertexAttribArray(FVF_TEX0);
         offset += 2 * sizeof(float);
     }
-    if (m_uiFVFFlags & FVF_COLOR3)
+    if (m_uiFVFFlags & FVF_DIFFUSE_FLAG)
     {
-        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(FVF_DIFFUSE, 4, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
+        glEnableVertexAttribArray(FVF_DIFFUSE);
         offset += 4 * sizeof(float);
     }
-    if (m_uiFVFFlags & FVF_BINORMAL6)
+    if (m_uiFVFFlags & FVF_BITAGENT_FLAG)
     {
-        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(FVF_BITAGENT, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
+        glEnableVertexAttribArray(FVF_BITAGENT);
         offset += 3 * sizeof(float);
     }
 
@@ -79,46 +79,149 @@ void cMesh::InitBuffer()
 }
 
 
+void EnableVertexAttributes(unsigned int fvfFlags)
+{
+    const std::pair<unsigned int, GLuint> attributes[] = {
+        {FVF_POS_FLAG, FVF_POS},
+        {FVF_NORMAL_FLAG, FVF_NORMAL},
+        {FVF_TEX0_FLAG, FVF_TEX0},
+        {FVF_DIFFUSE_FLAG, FVF_DIFFUSE},
+        {FVF_BITAGENT_FLAG, FVF_BITAGENT}
+    };
+
+    for (const auto& attribute : attributes)
+    {
+        if (fvfFlags & attribute.first)
+        {
+            glEnableVertexAttribArray(attribute.second);
+        }
+    }
+}
 
 void cMesh::Draw()
 {
-    cBaseShader*l_pDhader = GetCurrentShader();
-	l_pDhader->Unuse();
+    static float angle = 0.0f;
+    static float lightAngle = 0.0f;
+    static float l_fCameraZPosition = 0.0f;
+    l_fCameraZPosition += 1;
+	if (l_fCameraZPosition > 100)
+	{
+		l_fCameraZPosition = -100;
+	}
+
+    cBaseShader* l_pShader = GetCurrentShader();
+    if (l_pShader)
+    {
+        l_pShader->Unuse();
+    }
     UseShaderProgram(L"qoo79979");
-    glUseProgram(m_uiShaderProgram);
+    LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUseProgram(m_uiShaderProgram));
 
     // Set model, view, projection matrices
-    GLuint modelLoc = glGetUniformLocation(m_uiShaderProgram, "model");
-    GLuint viewLoc = glGetUniformLocation(m_uiShaderProgram, "view");
-    GLuint projLoc = glGetUniformLocation(m_uiShaderProgram, "projection");
-
+    GLuint modelLoc = glGetUniformLocation(m_uiShaderProgram, "inMat4Model");
+    GLuint viewLoc = glGetUniformLocation(m_uiShaderProgram, "inMat4View");
+    GLuint projLoc = glGetUniformLocation(m_uiShaderProgram, "inMat4Projection");
     // Assuming you have these matrices defined somewhere
     cMatrix44 modelMatrix = cMatrix44::Identity;
-    cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, 0, 30), Vector3(0, 0, 0), Vector3(0, 1, 0));
+    cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, 0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
+    //GetProperCameraPosition(viewMatrix);
     Projection projectionMatrix;
     projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 100.0f);
+
+    // Define the conversion matrix to flip the Z-axis
+    cMatrix44 conversionMatrix = cMatrix44::Identity;
+    conversionMatrix.m[2][2] = -1.0f;
+
+    // Apply the conversion matrix to the model and view matrices
+    modelMatrix = conversionMatrix * modelMatrix;
+    //viewMatrix = conversionMatrix * viewMatrix;
+
+    // Rotate the model dynamically
+    cMatrix44 rotationMatrix = cMatrix44::YAxisRotationMatrix(angle);
+    modelMatrix = rotationMatrix * modelMatrix;
+
+    // Convert matrices to OpenGL format
+    //float modelMatrixGL[16];
+    //float viewMatrixGL[16];
+    //float projMatrixGL[16];
+    //modelMatrix.glTFToOpenGLMatrix(modelMatrixGL);
+    //float *viewMatrixGL = viewMatrix;
+    //float* projMatrixGL = projectionMatrix.GetMatrix();
 
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
 
-    // Set any other uniforms (e.g., light position, etc.)
-    GLuint lightPosLoc = glGetUniformLocation(m_uiShaderProgram, "lightPos");
-    Vector3 lightPos(10.0f, 10.0f, 10.0f);
+    // Set light and view position uniforms
+    GLuint lightColorLoc = glGetUniformLocation(m_uiShaderProgram, "inVec3LightColor");
+    GLuint lightPosLoc = glGetUniformLocation(m_uiShaderProgram, "inVec3LightPosition");
+    GLuint viewPosLoc = glGetUniformLocation(m_uiShaderProgram, "inVec3ViewPosition");
+
+    Vector3 lightColor(1.0f, 1.0f, 1.0f); // White light
+    Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
+    Vector3 viewPos(0.0f, 0.0f, 30.0f); // Camera position
+
+    glUniform3fv(lightColorLoc, 1, lightColor);
     glUniform3fv(lightPosLoc, 1, lightPos);
+    glUniform3fv(viewPosLoc, 1, viewPos);
+
+    lightAngle += 0.01f;
+    angle += 0.01f;
 
     // Bind textures
     for (size_t i = 0; i < m_uiTextureIDVector.size(); ++i)
     {
-        glActiveTexture(GL_TEXTURE0 + i);
+        glActiveTexture(GL_TEXTURE0 + (GLenum)i);
         glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
     }
 
     // Bind the vertex array and draw the mesh
     glBindVertexArray(m_uiVAO);
-    glDrawElements(GL_TRIANGLES, m_IDrawndicesBufferVector.size(), m_DrawIndexType, 0);
+    // Usage
+    EnableVertexAttributes(m_uiFVFFlags);
+    glDrawElements(GL_TRIANGLES, (GLsizei)m_IDrawndicesBufferVector.size(), m_DrawIndexType, 0);
     glBindVertexArray(0);
 }
+
+
+
+void cMesh::CalculateBoundingBox()
+{
+    if (m_VertexBufferVector.empty())
+    {
+        return;
+    }
+
+    m_vMinBounds = Vector3(FLT_MAX, FLT_MAX, FLT_MAX);
+    m_vMaxBounds = Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+
+    for (size_t i = 0; i < m_VertexBufferVector.size(); i += m_uiVertexStride)
+    {
+        Vector3 vertex(m_VertexBufferVector[i], m_VertexBufferVector[i + 1], m_VertexBufferVector[i + 2]);
+
+        m_vMinBounds.x = min(m_vMinBounds.x, vertex.x);
+        m_vMinBounds.y = min(m_vMinBounds.y, vertex.y);
+        m_vMinBounds.z = min(m_vMinBounds.z, vertex.z);
+
+        m_vMaxBounds.x = max(m_vMaxBounds.x, vertex.x);
+        m_vMaxBounds.y = max(m_vMaxBounds.y, vertex.y);
+        m_vMaxBounds.z = max(m_vMaxBounds.z, vertex.z);
+    }
+}
+
+void cMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
+{
+    Vector3 center = (m_vMinBounds + m_vMaxBounds) * 0.5f;
+    Vector3 size = m_vMaxBounds - m_vMinBounds;
+    float radius = size.Length() * 0.5f;
+
+    // Set the camera position to be a bit further away from the center of the mesh
+    Vector3 cameraPosition = center + Vector3(0, 0, radius * 2.0f);
+
+    // Assuming you have a function to set the view matrix in the projectionMatrix
+    e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
+}
+
 
 void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal)
 {
@@ -182,9 +285,17 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     // Calculate binormal only if requested and data exists
     bool hasBinormal = calculateBinormal && hasPosition && hasNormal && hasTexCoord;
 
+    // Get the vertex count from the "POSITION" attribute
+    size_t vertexCount = 0;
+    if (hasPosition)
+    {
+        const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
+        vertexCount = positionAccessor.count;
+    }
+
     // Calculate vertex stride
     m_uiVertexStride = 3 + (hasNormal ? 3 : 0) + (hasTexCoord ? 2 : 0) + (hasTangent ? 3 : 0) + (hasColor ? 4 : 0) + (hasBinormal ? 3 : 0);
-    m_VertexBufferVector.reserve(indexAccessor.count * m_uiVertexStride); // Reserve space to avoid multiple allocations
+    m_VertexBufferVector.reserve(vertexCount * m_uiVertexStride); // Reserve space to avoid multiple allocations
 
     // Lambda function to load an attribute
     auto LoadAttribute = [&](const std::string& name) -> const float*
@@ -204,12 +315,12 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     const float* normalMapData = LoadAttribute("NORMAL_MAP");
 
     // Insert data directly into interleavedData
-    if (positionData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), positionData, positionData + indexAccessor.count * 3);
-    if (normalData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), normalData, normalData + indexAccessor.count * 3);
-    if (texCoordData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), texCoordData, texCoordData + indexAccessor.count * 2);
-    if (tangentData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), tangentData, tangentData + indexAccessor.count * 3);
-    if (colorData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), colorData, colorData + indexAccessor.count * 4);
-    if (normalMapData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), normalMapData, normalMapData + indexAccessor.count * 3);
+    if (positionData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), positionData, positionData + vertexCount * 3);
+    if (normalData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), normalData, normalData + vertexCount * 3);
+    if (texCoordData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), texCoordData, texCoordData + vertexCount * 2);
+    if (tangentData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), tangentData, tangentData + vertexCount * 3);
+    if (colorData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), colorData, colorData + vertexCount * 4);
+    if (normalMapData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), normalMapData, normalMapData + vertexCount * 3);
 
     // Compute and insert binormals if required
     if (hasBinormal)
@@ -259,16 +370,18 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     }
 
     // Set FVF Flags
-    if (hasPosition) m_uiFVFFlags |= FVF_POSITION1;
-    if (hasNormal) m_uiFVFFlags |= FVF_NORMAL2;
-    if (hasTexCoord) m_uiFVFFlags |= FVF_TEXCOORD4;
-    if (hasTangent) m_uiFVFFlags |= FVF_TANGENT5;
-    if (hasColor) m_uiFVFFlags |= FVF_COLOR3;
-    if (hasBinormal) m_uiFVFFlags |= FVF_BINORMAL6;
-    if (hasNormalMap) m_uiFVFFlags |= FVF_NORMAL_MAP;
+    if (hasPosition) m_uiFVFFlags |= FVF_POS_FLAG;
+    if (hasNormal) m_uiFVFFlags |= FVF_NORMAL_FLAG;
+    if (hasTexCoord) m_uiFVFFlags |= FVF_TEX0_FLAG;
+    if (hasTangent) m_uiFVFFlags |= FVF_TANGENT_FLAG;
+    if (hasColor) m_uiFVFFlags |= FVF_DIFFUSE_FLAG;
+    if (hasBinormal) m_uiFVFFlags |= FVF_BITAGENT_FLAG;
+    if (hasNormalMap) m_uiFVFFlags |= FVF_NORMAL_MAP_TEXTURE_FLAG;
     logFVFFlags();
-}
 
+    // Calculate the bounding box after loading the vertex data
+    CalculateBoundingBox();
+}
 
 
 void cMesh::LoadTextures(const tinygltf::Model& model, const tinygltf::Material& material)
@@ -364,17 +477,17 @@ void cMesh::LoadTextures(const tinygltf::Model& model, const tinygltf::Material&
 void cMesh::logFVFFlags()
 {
     std::cout << "FVF Flags: " << std::endl;
-    if (m_uiFVFFlags & FVF_POSITION1) std::cout << "Position is present." << std::endl;
-    if (m_uiFVFFlags & FVF_NORMAL2) std::cout << "Normal is present." << std::endl;
-    if (m_uiFVFFlags & FVF_COLOR3) std::cout << "Color is present." << std::endl;
-    if (m_uiFVFFlags & FVF_TEXCOORD4) std::cout << "Texture coordinates are present." << std::endl;
-    if (m_uiFVFFlags & FVF_TANGENT5) std::cout << "Tangent is present." << std::endl;
-    if (m_uiFVFFlags & FVF_BINORMAL6) std::cout << "Binormal is present." << std::endl;
-    if (m_uiFVFFlags & FVF_NORMAL_MAP) std::cout << "Normal map is present." << std::endl;
-    if (m_uiFVFFlags & FVF_METALLIC) std::cout << "Metallic map is present." << std::endl;
-    if (m_uiFVFFlags & FVF_ROUGHNESS) std::cout << "Roughness map is present." << std::endl;
-    if (m_uiFVFFlags & FVF_EMISSIVE) std::cout << "Emissive map is present." << std::endl;
-    if (m_uiFVFFlags & FVF_OCCLUSION) std::cout << "Occlusion map is present." << std::endl;
-    if (m_uiFVFFlags & FVF_BASE_COLOR) std::cout << "Base color map is present." << std::endl;
-    if (m_uiFVFFlags & FVF_PBR) std::cout << "PBR attributes (metallic, roughness, etc.) are present." << std::endl;
+    if (m_uiFVFFlags & FVF_POS_FLAG) std::cout << "Position is present." << std::endl;
+    if (m_uiFVFFlags & FVF_NORMAL_FLAG) std::cout << "Normal is present." << std::endl;
+    if (m_uiFVFFlags & FVF_DIFFUSE_FLAG) std::cout << "Color is present." << std::endl;
+    if (m_uiFVFFlags & FVF_TEX0_FLAG) std::cout << "Texture coordinates are present." << std::endl;
+    if (m_uiFVFFlags & FVF_TANGENT_FLAG) std::cout << "Tangent is present." << std::endl;
+    if (m_uiFVFFlags & FVF_BITAGENT_FLAG) std::cout << "Binormal is present." << std::endl;
+    if (m_uiFVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG) std::cout << "Normal map is present." << std::endl;
+    //if (m_uiFVFFlags & FVF_METALLIC) std::cout << "Metallic map is present." << std::endl;
+    //if (m_uiFVFFlags & FVF_ROUGHNESS) std::cout << "Roughness map is present." << std::endl;
+    //if (m_uiFVFFlags & FVF_EMISSIVE) std::cout << "Emissive map is present." << std::endl;
+    //if (m_uiFVFFlags & FVF_OCCLUSION) std::cout << "Occlusion map is present." << std::endl;
+    //if (m_uiFVFFlags & FVF_BASE_COLOR) std::cout << "Base color map is present." << std::endl;
+    //if (m_uiFVFFlags & FVF_PBR) std::cout << "PBR attributes (metallic, roughness, etc.) are present." << std::endl;
 }

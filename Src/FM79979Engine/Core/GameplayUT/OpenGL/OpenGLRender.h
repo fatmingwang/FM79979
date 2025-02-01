@@ -51,7 +51,7 @@ namespace FATMING_CORE
 		static  class cBatchDataMultiTexture*						m_spBatchDataMultiTexture;
 		//
 		static	std::vector<int>*									m_piSupportCompressedFormatVector;
-		static  bool												m_sbSupportNonPowerOfTwoTexture;//old name g_bSupportNonPowerOfTwoTexture
+		//static  bool												m_sbSupportNonPowerOfTwoTexture;//old name g_bSupportNonPowerOfTwoTexture
 		static	bool												m_sbVBOSupported;
 		//because float problem...so type is int
 		static	int													m_siOpenGLVersion;

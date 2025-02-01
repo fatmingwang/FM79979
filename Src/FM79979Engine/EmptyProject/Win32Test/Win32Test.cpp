@@ -48,7 +48,7 @@ cGameApp*g_pGameApp = nullptr;
 extern LRESULT  ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 //#define offsetof(s,m) ((::size_t)&reinterpret_cast<char const volatile&>((((s*)0)->m)))
 
-
+bool g_bInitFinished = false;
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -63,21 +63,21 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	//auto l_Value3 = offsetof(ImDrawVert, col);
 	//glTF::Asset l_Asset;
 	//l_Asset.Parse(L"C:/Users/Fatming/Desktop/DirectX-Graphics-Samples-master/DirectX-Graphics-Samples-master/Samples/Desktop/D3D12Raytracing/src/D3D12RaytracingMiniEngineSample/Sponza/pbr/sponza2.gltf");
-	for (int i = 0; i < 100; ++i)
-	{
-		int gl_VertexID = i;
-		int particleID = gl_VertexID >> 2; // 4 vertices per particle
-		//vec4 particlePos = pos[particleID];
+	//for (int i = 0; i < 100; ++i)
+	//{
+	//	int gl_VertexID = i;
+	//	int particleID = gl_VertexID >> 2; // 4 vertices per particle
+	//	//vec4 particlePos = pos[particleID];
 
-		//Out.color = vec4(0.5, 0.2, 0.1, 1.0);
+	//	//Out.color = vec4(0.5, 0.2, 0.1, 1.0);
 
-		//map vertex ID to quad vertex
-		POINT quadPos = { (((gl_VertexID - 1) & 2), (gl_VertexID & 2)) };
-		quadPos.x = quadPos.x >> 1;
-		quadPos.y = quadPos.y >> 1;
-		int a = 0;
+	//	//map vertex ID to quad vertex
+	//	POINT quadPos = { (((gl_VertexID - 1) & 2), (gl_VertexID & 2)) };
+	//	quadPos.x = quadPos.x >> 1;
+	//	quadPos.y = quadPos.y >> 1;
+	//	int a = 0;
 
-	}
+	//}
 	_CrtMemState s1;
 	_CrtMemCheckpoint(&s1);
 
@@ -108,6 +108,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)g_WindowSize.x, (int)g_WindowSize.y, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	}
 	SetTimer (g_hWnd, 0, 0, NULL) ;
+	g_bInitFinished = true;
 
 
     //MouseHook = SetWindowsHookEx(WH_MOUSE_LL,MouseHookProc,hInstance,0);
@@ -231,6 +232,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 POINT g_MousePosition;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	if (!g_bInitFinished)
+	{
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
 	{
 		return true;
