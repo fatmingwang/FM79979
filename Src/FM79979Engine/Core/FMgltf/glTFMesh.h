@@ -49,8 +49,6 @@ class cMesh
     Vector3 m_vMaxBounds;
 
 public:
-    // Existing methods...
-    void CalculateBoundingBox();
     void GetProperCameraPosition(cMatrix44& e_CameraMatrix);
     //
     friend class cScene;
@@ -67,7 +65,6 @@ private:
     GLuint m_uiVAO;
     GLuint m_uiVBO;
     GLuint m_uiEBO;
-    GLenum                  m_DrawIndexType = GL_UNSIGNED_INT;
     std::vector<float>      m_VertexBufferVector;  // All vertex data in one buffer
     std::vector<GLuint>     m_uiTextureIDVector;        // Base color textures (and other types if necessary)
     std::vector<GLuint>     m_uiNormalTextureIDVector;  // Normal maps

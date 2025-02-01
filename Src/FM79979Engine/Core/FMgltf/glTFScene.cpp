@@ -204,7 +204,8 @@ GLuint cScene::CreateShader(unsigned int fvfFlags)
 {
     std::string vertexCode = GenerateVertexShader(fvfFlags);
     std::string fragmentCode = GenerateFragmentShader(fvfFlags);
-
+    FMLOG(vertexCode.c_str());
+    FMLOG(fragmentCode.c_str());
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     const char* vShaderCode = vertexCode.c_str();
     glShaderSource(vertexShader, 1, &vShaderCode, nullptr);
@@ -305,13 +306,19 @@ void cScene::Draw()
     for (auto& meshPair : meshes)
     {
         meshPair.second.Draw();
+        return;
     }
 }
 
 cScene g_cScene;
 int glTFInit()
 {
-    g_cScene.LoadFromGLTF("glTFModel/Duck.gltf",true);
+    //g_cScene.LoadFromGLTF("glTFModel/Duck.gltf",false);
+    g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
+    // 
+    //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
+    
     g_cScene.InitBuffers();
     return 1;
 }

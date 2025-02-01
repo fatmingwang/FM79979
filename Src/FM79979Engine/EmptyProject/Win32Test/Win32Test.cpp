@@ -105,7 +105,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		g_pGameApp = new cEngineTestApp(g_hWnd, cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		g_pGameApp->Init();
-		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)g_WindowSize.x, (int)g_WindowSize.y, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	}
 	SetTimer (g_hWnd, 0, 0, NULL) ;
 	g_bInitFinished = true;

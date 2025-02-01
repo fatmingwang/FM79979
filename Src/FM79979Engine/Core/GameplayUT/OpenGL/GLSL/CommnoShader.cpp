@@ -41,7 +41,7 @@
 int	g_iFVF_DataStride[TOTAL_FVF] = {
 									3,			//pos,0
 									3,			//normal,1
-									4,			//diffuse,2
+									4,			//diffuse(vertex color),2
 									3,			//tagent,3
 									3,			//bitagent,4
 									4,			//influnce skinning weight,5
@@ -52,7 +52,7 @@ int	g_iFVF_DataStride[TOTAL_FVF] = {
 GLenum	g_iFVF_DataType[TOTAL_FVF] = {	
 									GL_FLOAT,			//pos
 									GL_FLOAT,			//normal
-									GL_FLOAT,			//diffuse
+									GL_FLOAT,			//diffuse(vertex color)
 									GL_FLOAT,			//tagent
 									GL_FLOAT,			//bitagent
 									GL_FLOAT,			//influnce skinning weight
@@ -118,7 +118,7 @@ int	GetStrideByFVF(int64 e_iFVF)
 //Lines can range in width from 1.0 to 16.0 pixels.
 namespace FATMING_CORE
 {
-	//														pos, normal,diffuse,tangent,bitangent,  wight,bone,tex0, tex1
+	//														pos, normal,diffuse(vertex color),tangent,bitangent,  wight,bone,tex0, tex1
 	bool	g_bCommonVSClientState[TOTAL_FVF]			=	{true,false, true,   false,  false,    false,false,true, false};
 	bool	g_bCommonVSNoTextureClientState[TOTAL_FVF]	=	{true,false, false,  false,  false,    false,false,false,false};
 	bool	g_bMyMeshVSClientState[TOTAL_FVF]			=	{true,true , false,  false,  false,    false,false,true, false};

@@ -24,6 +24,10 @@ cMesh::~cMesh()
 
 void cMesh::InitBuffer()
 {
+    if (m_uiFVFFlags == 0)
+    {
+        return;
+    }
     glGenVertexArrays(1, &m_uiVAO);
     glGenBuffers(1, &m_uiVBO);
     glGenBuffers(1, &m_uiEBO);
@@ -34,79 +38,66 @@ void cMesh::InitBuffer()
     glBindBuffer(GL_ARRAY_BUFFER, m_uiVBO);
     glBufferData(GL_ARRAY_BUFFER, m_VertexBufferVector.size() * sizeof(float), m_VertexBufferVector.data(), GL_STATIC_DRAW);
 
-    // Upload index data (detect type dynamically)
+    // Upload index data
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_uiEBO);
-    GLenum indexType = m_DrawIndexType;
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_IDrawndicesBufferVector.size() * sizeof(m_IDrawndicesBufferVector[0]), m_IDrawndicesBufferVector.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_IDrawndicesBufferVector.size() * sizeof(uint32_t), m_IDrawndicesBufferVector.data(), GL_STATIC_DRAW);
 
     // Define vertex attribute pointers dynamically based on FVF flags
+    auto l_StrideWithSize = m_uiVertexStride * sizeof(float);
     size_t offset = 0;
-
-    if (m_uiFVFFlags & FVF_POS_FLAG)
-    {
-        glVertexAttribPointer(FVF_POS, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(FVF_POS);
-        offset += 3 * sizeof(float);
-    }
-    if (m_uiFVFFlags & FVF_NORMAL_FLAG)
-    {
-        glVertexAttribPointer(FVF_NORMAL, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(FVF_NORMAL);
-        offset += 3 * sizeof(float);
-    }
-    if (m_uiFVFFlags & FVF_TEX0_FLAG)
-    {
-        glVertexAttribPointer(FVF_TEX0, 2, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(FVF_TEX0);
-        offset += 2 * sizeof(float);
-    }
-    if (m_uiFVFFlags & FVF_DIFFUSE_FLAG)
-    {
-        glVertexAttribPointer(FVF_DIFFUSE, 4, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(FVF_DIFFUSE);
-        offset += 4 * sizeof(float);
-    }
-    if (m_uiFVFFlags & FVF_BITAGENT_FLAG)
-    {
-        glVertexAttribPointer(FVF_BITAGENT, 3, GL_FLOAT, GL_FALSE, m_uiVertexStride * sizeof(float), (void*)offset);
-        glEnableVertexAttribArray(FVF_BITAGENT);
-        offset += 3 * sizeof(float);
-    }
-
-    // Additional attributes can be added here in the future if needed
-
+	for (int i = 0; i < TOTAL_FVF;++i)
+	{
+		if (m_uiFVFFlags & (1 << i))
+		{ 
+            glEnableVertexAttribArray(i);
+            myVertexAttribPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], GL_FALSE, (GLsizei)l_StrideWithSize, (void*)offset);
+            offset += g_iFVF_DataSize[i];
+		}
+	}
     glBindVertexArray(0);
 }
 
 
+
 void EnableVertexAttributes(unsigned int fvfFlags)
 {
-    const std::pair<unsigned int, GLuint> attributes[] = {
-        {FVF_POS_FLAG, FVF_POS},
-        {FVF_NORMAL_FLAG, FVF_NORMAL},
-        {FVF_TEX0_FLAG, FVF_TEX0},
-        {FVF_DIFFUSE_FLAG, FVF_DIFFUSE},
-        {FVF_BITAGENT_FLAG, FVF_BITAGENT}
-    };
-
-    for (const auto& attribute : attributes)
+    for (int i = 0; i < TOTAL_FVF; ++i)
     {
-        if (fvfFlags & attribute.first)
+        if (fvfFlags & (1 << i))
         {
-            glEnableVertexAttribArray(attribute.second);
+            glEnableVertexAttribArray(i);
         }
     }
 }
 
+void cMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
+{
+    Vector3 center = (m_vMinBounds + m_vMaxBounds) * 0.5f;
+    Vector3 size = m_vMaxBounds - m_vMinBounds;
+    float radius = size.Length() * 0.5f;
+    center.y *= -1;
+    // Set the camera position to be a bit further away from the center of the mesh
+    Vector3 cameraPosition = center + Vector3(0, 0, radius * 2.0f);
+
+    // Assuming you have a function to set the view matrix in the projectionMatrix
+    e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
+}
+
+
 void cMesh::Draw()
 {
+    if (m_uiFVFFlags == 0)
+    {
+        return;
+    }
     static float angle = 0.0f;
     static float lightAngle = 0.0f;
-    static float l_fCameraZPosition = 0.0f;
-    l_fCameraZPosition += 1;
+    //static float l_fCameraZPosition = -200;
+    static float l_fCameraZPosition = -6;
+    //l_fCameraZPosition += 1;
 	if (l_fCameraZPosition > 100)
 	{
-		l_fCameraZPosition = -100;
+		//l_fCameraZPosition = -300;
 	}
 
     cBaseShader* l_pShader = GetCurrentShader();
@@ -116,6 +107,9 @@ void cMesh::Draw()
     }
     UseShaderProgram(L"qoo79979");
     LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUseProgram(m_uiShaderProgram));
+    // Enable backface culling
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 
     // Set model, view, projection matrices
     GLuint modelLoc = glGetUniformLocation(m_uiShaderProgram, "inMat4Model");
@@ -123,10 +117,13 @@ void cMesh::Draw()
     GLuint projLoc = glGetUniformLocation(m_uiShaderProgram, "inMat4Projection");
     // Assuming you have these matrices defined somewhere
     cMatrix44 modelMatrix = cMatrix44::Identity;
-    cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, 0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
-    //GetProperCameraPosition(viewMatrix);
+    cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
+    //cMatrix44 viewMatrix;
+    GetProperCameraPosition(viewMatrix);
+
+    viewMatrix.GetTranslation().z *= -1;
     Projection projectionMatrix;
-    projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 100.0f);
+    projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
 
     // Define the conversion matrix to flip the Z-axis
     cMatrix44 conversionMatrix = cMatrix44::Identity;
@@ -134,19 +131,11 @@ void cMesh::Draw()
 
     // Apply the conversion matrix to the model and view matrices
     modelMatrix = conversionMatrix * modelMatrix;
-    //viewMatrix = conversionMatrix * viewMatrix;
 
     // Rotate the model dynamically
     cMatrix44 rotationMatrix = cMatrix44::YAxisRotationMatrix(angle);
     modelMatrix = rotationMatrix * modelMatrix;
 
-    // Convert matrices to OpenGL format
-    //float modelMatrixGL[16];
-    //float viewMatrixGL[16];
-    //float projMatrixGL[16];
-    //modelMatrix.glTFToOpenGLMatrix(modelMatrixGL);
-    //float *viewMatrixGL = viewMatrix;
-    //float* projMatrixGL = projectionMatrix.GetMatrix();
 
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
@@ -174,52 +163,59 @@ void cMesh::Draw()
         glActiveTexture(GL_TEXTURE0 + (GLenum)i);
         glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
     }
-
+    GLuint texture1Loc = glGetUniformLocation(m_uiShaderProgram, "texture1");
+    glUniform1i(texture1Loc, 0);
+    
+    // Bind normal map texture if available
+    if (!m_uiNormalTextureIDVector.empty())
+    {
+        glActiveTexture(GL_TEXTURE0 + (GLenum)m_uiTextureIDVector.size());
+        glBindTexture(GL_TEXTURE_2D, m_uiNormalTextureIDVector[0]);
+        GLuint normalMapLoc = glGetUniformLocation(m_uiShaderProgram, "normalMap");
+        glUniform1i(normalMapLoc, (GLint)m_uiTextureIDVector.size());
+    }
     // Bind the vertex array and draw the mesh
     glBindVertexArray(m_uiVAO);
     // Usage
     EnableVertexAttributes(m_uiFVFFlags);
-    glDrawElements(GL_TRIANGLES, (GLsizei)m_IDrawndicesBufferVector.size(), m_DrawIndexType, 0);
+    MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)m_IDrawndicesBufferVector.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+    glDisable(GL_CULL_FACE);
+    glUseProgram(m_uiShaderProgram);
 }
 
 
-
-void cMesh::CalculateBoundingBox()
+void LoadTextureUVs(const tinygltf::Model& model, const tinygltf::Primitive& primitive, std::vector<float>& uvs)
 {
-    if (m_VertexBufferVector.empty())
+    auto it = primitive.attributes.find("TEXCOORD_0");
+    if (it == primitive.attributes.end())
     {
+        std::cerr << "No TEXCOORD_0 found in primitive." << std::endl;
         return;
     }
 
-    m_vMinBounds = Vector3(FLT_MAX, FLT_MAX, FLT_MAX);
-    m_vMaxBounds = Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX);
+    int accessorIndex = it->second;
+    const tinygltf::Accessor& accessor = model.accessors[accessorIndex];
+    const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+    const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
 
-    for (size_t i = 0; i < m_VertexBufferVector.size(); i += m_uiVertexStride)
+    size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
+    size_t count = accessor.count;
+    size_t stride = accessor.ByteStride(bufferView);
+
+    if (stride == 0) stride = sizeof(float) * 2; // Default for vec2
+
+    uvs.resize(count * 2);
+
+    const unsigned char* dataPtr = buffer.data.data() + byteOffset;
+
+    for (size_t i = 0; i < count; i++)
     {
-        Vector3 vertex(m_VertexBufferVector[i], m_VertexBufferVector[i + 1], m_VertexBufferVector[i + 2]);
-
-        m_vMinBounds.x = min(m_vMinBounds.x, vertex.x);
-        m_vMinBounds.y = min(m_vMinBounds.y, vertex.y);
-        m_vMinBounds.z = min(m_vMinBounds.z, vertex.z);
-
-        m_vMaxBounds.x = max(m_vMaxBounds.x, vertex.x);
-        m_vMaxBounds.y = max(m_vMaxBounds.y, vertex.y);
-        m_vMaxBounds.z = max(m_vMaxBounds.z, vertex.z);
+        float u = *reinterpret_cast<const float*>(dataPtr + i * stride);
+        float v = *reinterpret_cast<const float*>(dataPtr + i * stride + sizeof(float));
+        uvs[i * 2] = u;
+        uvs[i * 2 + 1] = v;
     }
-}
-
-void cMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
-{
-    Vector3 center = (m_vMinBounds + m_vMaxBounds) * 0.5f;
-    Vector3 size = m_vMaxBounds - m_vMinBounds;
-    float radius = size.Length() * 0.5f;
-
-    // Set the camera position to be a bit further away from the center of the mesh
-    Vector3 cameraPosition = center + Vector3(0, 0, radius * 2.0f);
-
-    // Assuming you have a function to set the view matrix in the projectionMatrix
-    e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
 }
 
 
@@ -228,6 +224,7 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     // Ensure primitive has indices
     if (primitive.indices < 0)
     {
+        FMLOG("primitive.indices < 0");
         return;
     }
 
@@ -236,6 +233,11 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     m_uiFVFFlags = 0;
 
     const tinygltf::Accessor& indexAccessor = model.accessors[primitive.indices];
+    if (indexAccessor.bufferView == -1)
+    {
+        FMLOG("indexAccessor.bufferView == -1");
+        return;
+    }
     const tinygltf::BufferView& bufferView = model.bufferViews[indexAccessor.bufferView];
     const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
 
@@ -245,7 +247,6 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
 
     if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_SHORT)
     {
-        m_DrawIndexType = GL_UNSIGNED_SHORT;
         const uint16_t* shortIndices = reinterpret_cast<const uint16_t*>(dataPtr);
 
         // Reserve space to avoid reallocation
@@ -261,7 +262,6 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     else if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_INT)
     {
         // Use uint32_t for indices
-        m_DrawIndexType = GL_UNSIGNED_INT;
         std::vector<uint32_t> tempIndices(indexAccessor.count);
         memcpy(tempIndices.data(), dataPtr, indexAccessor.count * sizeof(uint32_t));
 
@@ -295,15 +295,45 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
 
     // Calculate vertex stride
     m_uiVertexStride = 3 + (hasNormal ? 3 : 0) + (hasTexCoord ? 2 : 0) + (hasTangent ? 3 : 0) + (hasColor ? 4 : 0) + (hasBinormal ? 3 : 0);
-    m_VertexBufferVector.reserve(vertexCount * m_uiVertexStride); // Reserve space to avoid multiple allocations
+    m_VertexBufferVector.resize(vertexCount * m_uiVertexStride); // Resize to the required size
+
+    // Initialize bounding box
+    m_vMinBounds = Vector3(FLT_MAX, FLT_MAX, FLT_MAX);
+    m_vMaxBounds = Vector3(-FLT_MAX, -FLT_MAX, -FLT_MAX);
 
     // Lambda function to load an attribute
     auto LoadAttribute = [&](const std::string& name) -> const float*
         {
-            if (primitive.attributes.find(name) == primitive.attributes.end()) return nullptr;
-            const tinygltf::Accessor& accessor = model.accessors[primitive.attributes.at(name)];
+            auto it = primitive.attributes.find(name);
+            if (it == primitive.attributes.end())
+            {
+                FMLOG("%s can't find data",name.c_str());
+                return nullptr;
+            }
+            const tinygltf::Accessor& accessor = model.accessors[it->second];
             const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
-            return reinterpret_cast<const float*>(&model.buffers[bufferView.buffer].data[accessor.byteOffset]);
+            const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+            size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
+            size_t count = accessor.count;
+            size_t stride = accessor.ByteStride(bufferView);      
+            const unsigned char* dataPtr = buffer.data.data() + byteOffset;      
+            if (name == "POSITION")
+            {
+				m_vMinBounds = Vector3((float)accessor.minValues[0], (float)accessor.minValues[1], (float)accessor.minValues[2]);
+                m_vMaxBounds = Vector3((float)accessor.maxValues[0], (float)accessor.maxValues[1], (float)accessor.maxValues[2]);
+            }
+#ifdef DEBUG
+            accessor.maxValues;
+            accessor.minValues;
+            if (accessor.componentType != 5126)
+            {
+                //5126 GL_FLOAT(No conversion needed)
+                //5123 GL_UNSIGNED_SHORT(Divide by 65535)
+                //5121 GL_UNSIGNED_BYTE(Divide by 255)
+                int a = 0;
+            }
+#endif
+            return reinterpret_cast<const float*>(dataPtr);
         };
 
     // Load raw pointers
@@ -312,20 +342,68 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     const float* texCoordData = LoadAttribute("TEXCOORD_0");
     const float* tangentData = LoadAttribute("TANGENT");
     const float* colorData = LoadAttribute("COLOR_0");
-    const float* normalMapData = LoadAttribute("NORMAL_MAP");
 
-    // Insert data directly into interleavedData
-    if (positionData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), positionData, positionData + vertexCount * 3);
-    if (normalData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), normalData, normalData + vertexCount * 3);
-    if (texCoordData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), texCoordData, texCoordData + vertexCount * 2);
-    if (tangentData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), tangentData, tangentData + vertexCount * 3);
-    if (colorData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), colorData, colorData + vertexCount * 4);
-    if (normalMapData) m_VertexBufferVector.insert(m_VertexBufferVector.end(), normalMapData, normalMapData + vertexCount * 3);
+    // Insert data directly into interleavedData and calculate bounding box
+    for (size_t i = 0; i < vertexCount; ++i)
+    {
+        size_t offset = 0;
+		int l_iArrtibuteIndex = 0;
+        auto l_iCurrentVertexIndex = i * m_uiVertexStride;
+        if (positionData)
+        {
+            l_iArrtibuteIndex = FVF_POS;
+            Vector3 vertex(positionData[i * 3], positionData[i * 3 + 1], positionData[i * 3 + 2]);
+            memcpy(&m_VertexBufferVector[l_iCurrentVertexIndex + offset], positionData + i * 3, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
 
+            //// Update bounding box
+            //m_vMinBounds.x = min(m_vMinBounds.x, vertex.x);
+            //m_vMinBounds.y = min(m_vMinBounds.y, vertex.y);
+            //m_vMinBounds.z = min(m_vMinBounds.z, vertex.z);
+
+            //m_vMaxBounds.x = max(m_vMaxBounds.x, vertex.x);
+            //m_vMaxBounds.y = max(m_vMaxBounds.y, vertex.y);
+            //m_vMaxBounds.z = max(m_vMaxBounds.z, vertex.z);
+        }
+        if (normalData)
+        {
+            l_iArrtibuteIndex = FVF_NORMAL;
+            memcpy(&m_VertexBufferVector[l_iCurrentVertexIndex + offset], normalData + i * 3, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+        }
+        if (colorData)
+        {
+            l_iArrtibuteIndex = FVF_DIFFUSE;
+            memcpy(&m_VertexBufferVector[l_iCurrentVertexIndex + offset], colorData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+        }
+        if (tangentData)
+        {
+            l_iArrtibuteIndex = FVF_TANGENT;
+            memcpy(&m_VertexBufferVector[l_iCurrentVertexIndex + offset], tangentData + i * 3, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+        }
+        if (hasBinormal)
+        {
+            l_iArrtibuteIndex = FVF_TANGENT;
+            // Binormal data will be calculated later
+            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+        }
+        if (texCoordData)
+        {
+            l_iArrtibuteIndex = FVF_TEX0;
+            const float* l_fpUVData = texCoordData + i * 2;
+            //Vector2 l_vUV(l_fpUVData[0], 1 - l_fpUVData[1]);
+            Vector2 l_vUV(l_fpUVData[0], l_fpUVData[1]);
+            memcpy(&m_VertexBufferVector[l_iCurrentVertexIndex + offset], &l_vUV, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+        }
+    }
+    size_t offset = 3 + (hasNormal ? 3 : 0) + (hasColor ? 4 : 0) + (hasTangent ? 3 : 0);
     // Compute and insert binormals if required
     if (hasBinormal)
     {
-        std::vector<float> binormalData(m_IDrawndicesBufferVector.size() * 3); // Allocate based on triangle count
+        std::vector<float> binormalData(vertexCount * 3); // Allocate based on vertex count
 
         for (size_t i = 0; i < m_IDrawndicesBufferVector.size(); i += 3) // Iterate per triangle
         {
@@ -351,22 +429,27 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
 
             float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
             Vector3 binormal = f * (-deltaUV2.x * edge1 + deltaUV1.x * edge2);
+            binormal.NormalizeIt();
+            // Store binormal per vertex
+            binormalData[i0 * 3 + 0] = binormal.x;
+            binormalData[i0 * 3 + 1] = binormal.y;
+            binormalData[i0 * 3 + 2] = binormal.z;
 
-            // Store binormal per triangle vertex
-            binormalData[i * 3 + 0] = binormal.x;
-            binormalData[i * 3 + 1] = binormal.y;
-            binormalData[i * 3 + 2] = binormal.z;
+            binormalData[i1 * 3 + 0] = binormal.x;
+            binormalData[i1 * 3 + 1] = binormal.y;
+            binormalData[i1 * 3 + 2] = binormal.z;
 
-            binormalData[i * 3 + 3] = binormal.x;
-            binormalData[i * 3 + 4] = binormal.y;
-            binormalData[i * 3 + 5] = binormal.z;
-
-            binormalData[i * 3 + 6] = binormal.x;
-            binormalData[i * 3 + 7] = binormal.y;
-            binormalData[i * 3 + 8] = binormal.z;
+            binormalData[i2 * 3 + 0] = binormal.x;
+            binormalData[i2 * 3 + 1] = binormal.y;
+            binormalData[i2 * 3 + 2] = binormal.z;
         }
 
-        m_VertexBufferVector.insert(m_VertexBufferVector.end(), binormalData.begin(), binormalData.end());
+        // Interleave binormal data with other vertex attributes
+        for (size_t i = 0; i < vertexCount; ++i)
+        {
+            auto l_iCurrentVertexIndex = i * m_uiVertexStride;;
+            memcpy(&m_VertexBufferVector[l_iCurrentVertexIndex + offset], &binormalData[i * 3], g_iFVF_DataSize[FVF_BITAGENT]);
+        }
     }
 
     // Set FVF Flags
@@ -378,10 +461,11 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     if (hasBinormal) m_uiFVFFlags |= FVF_BITAGENT_FLAG;
     if (hasNormalMap) m_uiFVFFlags |= FVF_NORMAL_MAP_TEXTURE_FLAG;
     logFVFFlags();
-
-    // Calculate the bounding box after loading the vertex data
-    CalculateBoundingBox();
 }
+
+
+
+
 
 
 void cMesh::LoadTextures(const tinygltf::Model& model, const tinygltf::Material& material)
