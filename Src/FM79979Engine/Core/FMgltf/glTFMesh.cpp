@@ -24,8 +24,10 @@ cMesh::~cMesh()
 
 void cMesh::InitBuffer()
 {
+    size_t offset = 0;
     for (auto& subMesh : subMeshes)
     {
+        offset = 0;
         glGenVertexArrays(1, &subMesh.vao);
         glGenBuffers(1, &subMesh.vbo);
         glGenBuffers(1, &subMesh.ebo);
@@ -42,7 +44,6 @@ void cMesh::InitBuffer()
 
         // Define vertex attribute pointers dynamically based on FVF flags
         auto l_StrideWithSize = subMesh.m_uiVertexStride * sizeof(float);
-        size_t offset = 0;
         for (int i = 0; i < TOTAL_FVF; ++i)
         {
             if (subMesh.fvfFlags & (1 << i))
@@ -101,15 +102,7 @@ void cMesh::Draw()
     static float l_fCameraZPosition = -6;
     lightAngle += 0.01f;
     angle += 0.01f;
-    cBaseShader* l_pShader = GetCurrentShader();
-    if (l_pShader)
-    {
-        l_pShader->Unuse();
-    }
-    UseShaderProgram(L"qoo79979");
-    // Enable backface culling
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+
     auto l_vPos = this->GetLocalPosition();
     for (auto& subMesh : subMeshes)
     {
@@ -157,8 +150,8 @@ void cMesh::Draw()
         GLuint dirLightDirLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightDirection");
         GLuint dirLightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightColor");
 
-        Vector3 dirLightDirection(-0.2f, -0.2f, 1.f);
-        Vector3 dirLightColor(0.5f, 0.5f, 0.5f);
+        Vector3 dirLightDirection(-0.f, -0.f, -1.f);
+        Vector3 dirLightColor(1.f, 0.f, 0.f);
 
         glUniform3fv(dirLightDirLoc, 1, dirLightDirection);
         glUniform3fv(dirLightColorLoc, 1, dirLightColor);
@@ -185,11 +178,7 @@ void cMesh::Draw()
         glBindVertexArray(subMesh.vao);
         EnableVertexAttributes(subMesh.fvfFlags);
         MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)subMesh.indexBuffer.size(), GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
     }
-
-    glDisable(GL_CULL_FACE);
-    glUseProgram(0);
 }
 
 
@@ -198,6 +187,54 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
 {
     SubMesh subMesh;
     subMesh.fvfFlags = 0;
+    int     l_iJointsDataConvertStride = 0;
+    auto LoadAttribute = [&](const std::string& name) -> const float*
+        {
+            auto it = primitive.attributes.find(name);
+            if (it == primitive.attributes.end())
+            {
+                FMLOG("%s can't find data", name.c_str());
+                return nullptr;
+            }
+            const tinygltf::Accessor& accessor = model.accessors[it->second];
+            const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+            const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+            size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
+            size_t count = accessor.count;
+            size_t stride = accessor.ByteStride(bufferView);
+            const unsigned char* dataPtr = buffer.data.data() + byteOffset;
+            if (name == "POSITION")
+            {
+                subMesh.m_vMinBounds = Vector3((float)accessor.minValues[0], (float)accessor.minValues[1], (float)accessor.minValues[2]);
+                subMesh.m_vMaxBounds = Vector3((float)accessor.maxValues[0], (float)accessor.maxValues[1], (float)accessor.maxValues[2]);
+            }
+            if (name == "JOINTS_0")
+            {
+                if (accessor.componentType == GL_UNSIGNED_SHORT)
+                {
+                    l_iJointsDataConvertStride = 2;//4 unsigned short 2 float
+                }
+                else
+                if (accessor.componentType == GL_UNSIGNED_BYTE)
+                {
+                    l_iJointsDataConvertStride = 1;//4 byte one float
+                }
+                g_iFVF_DataSize[FVF_SKINNING_BONE_INDEX] = l_iJointsDataConvertStride*sizeof(float);
+                g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX] = l_iJointsDataConvertStride;
+            }
+#ifdef DEBUG
+            accessor.maxValues;
+            accessor.minValues;
+            if (accessor.componentType != 5126)
+            {
+                //5126 GL_FLOAT(No conversion needed)
+                //5123 GL_UNSIGNED_SHORT(Divide by 65535)
+                //5121 GL_UNSIGNED_BYTE(Divide by 255)
+                int a = 0;
+            }
+#endif
+            return reinterpret_cast<const float*>(dataPtr);
+        };
     if (primitive.indices == -1)
     {
         const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
@@ -243,50 +280,21 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     bool hasWeights = primitive.attributes.find("WEIGHTS_0") != primitive.attributes.end();
     bool hasJoints = primitive.attributes.find("JOINTS_0") != primitive.attributes.end();
     bool hasBinormal = calculateBinormal && hasPosition && hasNormal && hasTexCoord;
-
+    //hasJoints = false;
+    //hasWeights = false;
     size_t vertexCount = 0;
     if (hasPosition)
     {
         const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
         vertexCount = positionAccessor.count;
     }
-    subMesh.m_uiVertexStride = 3 + (hasNormal ? 3 : 0) + (hasTexCoord ? 2 : 0) + (hasTangent ? 3 : 0) + (hasColor ? 4 : 0) + (hasWeights ? 4 : 0) + (hasJoints ? 4 : 0) + (hasBinormal ? 3 : 0);
+    subMesh.m_uiVertexStride = 3 + (hasNormal ? 3 : 0) + (hasTexCoord ? 2 : 0) + (hasTangent ? 3 : 0) + (hasColor ? 4 : 0) + (hasWeights ? 4 : 0) + (hasBinormal ? 3 : 0);
+    if (hasJoints)
+    {
+        LoadAttribute("JOINTS_0");
+        subMesh.m_uiVertexStride += l_iJointsDataConvertStride;
+    }
     subMesh.vertexBuffer.resize(vertexCount * subMesh.m_uiVertexStride);
-
-    auto LoadAttribute = [&](const std::string& name) -> const float*
-        {
-            auto it = primitive.attributes.find(name);
-            if (it == primitive.attributes.end())
-            {
-                FMLOG("%s can't find data", name.c_str());
-                return nullptr;
-            }
-            const tinygltf::Accessor& accessor = model.accessors[it->second];
-            const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
-            const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
-            size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
-            size_t count = accessor.count;
-            size_t stride = accessor.ByteStride(bufferView);
-            const unsigned char* dataPtr = buffer.data.data() + byteOffset;
-            if (name == "POSITION")
-            {
-                subMesh.m_vMinBounds = Vector3((float)accessor.minValues[0], (float)accessor.minValues[1], (float)accessor.minValues[2]);
-                subMesh.m_vMaxBounds = Vector3((float)accessor.maxValues[0], (float)accessor.maxValues[1], (float)accessor.maxValues[2]);
-            }
-#ifdef DEBUG
-            accessor.maxValues;
-            accessor.minValues;
-            if (accessor.componentType != 5126)
-            {
-                //5126 GL_FLOAT(No conversion needed)
-                //5123 GL_UNSIGNED_SHORT(Divide by 65535)
-                //5121 GL_UNSIGNED_BYTE(Divide by 255)
-                int a = 0;
-            }
-#endif
-            return reinterpret_cast<const float*>(dataPtr);
-        };
-
     const float* positionData = LoadAttribute("POSITION");
     const float* normalData = LoadAttribute("NORMAL");
     const float* texCoordData = LoadAttribute("TEXCOORD_0");
@@ -294,7 +302,8 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     const float* colorData = LoadAttribute("COLOR_0");
     const float* weightsData = LoadAttribute("WEIGHTS_0");
     const float* jointsData = LoadAttribute("JOINTS_0");
-
+    //weightsData = nullptr;
+    //jointsData = nullptr;
     for (size_t i = 0; i < vertexCount; ++i)
     {
         size_t offset = 0;
@@ -339,7 +348,9 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
         if (jointsData)
         {
             l_iArrtibuteIndex = FVF_SKINNING_BONE_INDEX;
-            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], jointsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            char* l_pJointData = (char*)jointsData;
+            l_pJointData += (i * g_iFVF_DataSize[l_iArrtibuteIndex]);
+            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
         }
         if (texCoordData)

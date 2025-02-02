@@ -1,7 +1,7 @@
 
 #include "tiny_gltf.h"
 #include "glTFBone.h"
-cBone::cBone(const WCHAR* e_strName)
+cBone::cBone(const WCHAR* e_strName):m_matInvBindPose(cMatrix44::Identity)
 {
     SetName(e_strName);
     m_fMinKeyTime = 0;

@@ -407,7 +407,6 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
         {
             meshes[meshPair.name] = mesh;
         }
-        //delete mesh;
     }
     return true;
 }
@@ -428,6 +427,19 @@ void cScene::InitBuffers()
 // Draw the scene
 void cScene::Draw()
 {
+    cBaseShader* l_pShader = GetCurrentShader();
+    if (l_pShader)
+    {
+        l_pShader->Unuse();
+    }
+    UseShaderProgram(L"qoo79979");
+    // Enable backface culling
+    glEnable(GL_CULL_FACE);
+    //glCullFace(GL_BACK);
+    glCullFace(GL_FRONT);
+    // Enable depth testing
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
     for (auto& meshPair : meshes)
     {
         //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
@@ -436,8 +448,13 @@ void cScene::Draw()
     for (auto& meshPair : m_AnimationMeshMap)
     {
         //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
-        meshPair.second->Draw();
+        //meshPair.second->Draw();
+        meshPair.second->RenderBindPose();
     }
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    glUseProgram(0);
+    glBindVertexArray(0);
     
 }
 

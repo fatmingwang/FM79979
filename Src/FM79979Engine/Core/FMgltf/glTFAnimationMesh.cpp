@@ -97,6 +97,14 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
         }
     }
 
+    l_iRootIndex = FindRootNode(model, model.animations[0]);
+
+    // Ensure the root node is part of the skinning joints
+    if (l_iRootIndex >= 0 && skinningJoints.find(l_iRootIndex) == skinningJoints.end())
+    {
+        skinningJoints.insert(l_iRootIndex);
+    }
+
     // Create bones and set their names for nodes that are part of the skinning joints
     for (size_t i = 0; i < model.nodes.size(); ++i)
     {
@@ -115,8 +123,24 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
         nodeToBoneMap[i] = bone;
         m_SkinningBoneVector.AddObject(bone);
     }
+    // Assign inverse bind pose matrices
+    for (const auto& skin : model.skins)
+    {
+        const auto& accessor = model.accessors[skin.inverseBindMatrices];
+        const auto& bufferView = model.bufferViews[accessor.bufferView];
+        const auto& buffer = model.buffers[bufferView.buffer];
+        const float* data = reinterpret_cast<const float*>(buffer.data.data() + bufferView.byteOffset + accessor.byteOffset);
 
-    l_iRootIndex = FindRootNode(model, model.animations[0]);
+        for (size_t i = 0; i < skin.joints.size(); ++i)
+        {
+            int jointIndex = skin.joints[i];
+            if (nodeToBoneMap.find(jointIndex) != nodeToBoneMap.end())
+            {
+                cBone* bone = nodeToBoneMap[jointIndex];
+                bone->m_matInvBindPose = cMatrix44(data + i * 16);
+            }
+        }
+    }
 
     // Set parent-child relationships and local transforms
     for (size_t i = 0; i < model.nodes.size(); ++i)
@@ -245,8 +269,8 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
             // Update min and max key times
             if (!keyframes.empty())
             {
-                animationData.m_fMinKeyTime = (animationData.m_fMinKeyTime, keyframes.begin()->first);
-                animationData.m_fMaxKeyTime = (animationData.m_fMaxKeyTime, keyframes.rbegin()->first);
+                animationData.m_fMinKeyTime = min(animationData.m_fMinKeyTime, keyframes.begin()->first);
+                animationData.m_fMaxKeyTime = max(animationData.m_fMaxKeyTime, keyframes.rbegin()->first);
             }
         }
 
@@ -254,7 +278,12 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
     }
 
     RefreshAnimationData();
+    if (this->m_pMainRootBone)
+    {
+        this->m_pMainRootBone->DumpDebugInfo(false,true);
+    }
 }
+
 
 void cAnimationMesh::SetCurrentAnimation(const std::string& animationName)
 {
@@ -338,24 +367,16 @@ void cAnimationMesh::Draw()
     // Ensure the current animation data is valid
     if (!m_pCurrentAnimationData)
     {
+        this->SetCurrentAnimation(m_NameAndAnimationMap.begin()->first);
         return;
     }
     static float angle = 0.0f;
     static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
     lightAngle += 0.01f;
-    angle += 0.01f;
-    cBaseShader* l_pShader = GetCurrentShader();
-    if (l_pShader)
-    {
-        l_pShader->Unuse();
-    }
-    UseShaderProgram(L"qoo79979");
-    // Enable backface culling
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+    angle += 0.01f;    
     // Update the animation to the current time
-    UpdateAnimation(m_pCurrentAnimationData->m_fCurrentTime);
+    UpdateAnimation(0.016f);
 
     // Update the bone matrices for skinning
     int boneCount = m_SkinningBoneVector.Count();
@@ -446,11 +467,95 @@ void cAnimationMesh::Draw()
         glBindVertexArray(subMesh.vao);
         EnableVertexAttributes(subMesh.fvfFlags);
         MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)subMesh.indexBuffer.size(), GL_UNSIGNED_INT, 0);
+    }
+}
+
+void cAnimationMesh::RenderBindPose()
+{
+    cMesh::Draw();
+    return;
+    static float angle = 0.0f;
+    static float lightAngle = 0.0f;
+    static float l_fCameraZPosition = -6;
+    lightAngle += 0.01f;
+    angle += 0.01f;
+    auto l_vPos = this->GetLocalPosition();
+    for (auto& subMesh : subMeshes)
+    {
+        // Use the shader program specific to this sub-mesh
+        glUseProgram(subMesh.shaderProgram);
+
+        // Set model, view, projection matrices
+        GLuint modelLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4Model");
+        GLuint viewLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4View");
+        GLuint projLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4Projection");
+
+        cMatrix44 modelMatrix = cMatrix44::TranslationMatrix(l_vPos);
+        cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
+        subMesh.GetProperCameraPosition(viewMatrix);
+
+        viewMatrix.GetTranslation().z *= -1;
+        Projection projectionMatrix;
+        projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
+
+        cMatrix44 conversionMatrix = cMatrix44::Identity;
+        conversionMatrix.m[2][2] = -1.0f;
+
+        modelMatrix = conversionMatrix * modelMatrix;
+        cMatrix44 rotationMatrix = cMatrix44::YAxisRotationMatrix(angle);
+        modelMatrix = rotationMatrix * modelMatrix;
+
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
+
+        // Set light and view position uniforms
+        GLuint lightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3LightColor");
+        GLuint lightPosLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3LightPosition");
+        GLuint viewPosLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3ViewPosition");
+
+        Vector3 lightColor(1.0f, 1.0f, 1.0f);
+        Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
+        Vector3 viewPos(0.0f, 0.0f, 30.0f);
+
+        glUniform3fv(lightColorLoc, 1, lightColor);
+        glUniform3fv(lightPosLoc, 1, lightPos);
+        glUniform3fv(viewPosLoc, 1, viewPos);
+
+        // Set directional light uniforms
+        GLuint dirLightDirLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightDirection");
+        GLuint dirLightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightColor");
+
+        Vector3 dirLightDirection(-0.2f, -0.2f, 1.f);
+        Vector3 dirLightColor(0.5f, 0.5f, 0.5f);
+
+        glUniform3fv(dirLightDirLoc, 1, dirLightDirection);
+        glUniform3fv(dirLightColorLoc, 1, dirLightColor);
+
+        // Bind textures
+        for (size_t i = 0; i < m_uiTextureIDVector.size(); ++i)
+        {
+            glActiveTexture(GL_TEXTURE0 + (GLenum)i);
+            glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
+        }
+        GLuint texture1Loc = glGetUniformLocation(subMesh.shaderProgram, "texture1");
+        glUniform1i(texture1Loc, 0);
+
+        // Bind normal map texture if available
+        if (!m_uiNormalTextureIDVector.empty())
+        {
+            glActiveTexture(GL_TEXTURE0 + (GLenum)m_uiTextureIDVector.size());
+            glBindTexture(GL_TEXTURE_2D, m_uiNormalTextureIDVector[0]);
+            GLuint normalMapLoc = glGetUniformLocation(subMesh.shaderProgram, "normalMap");
+            glUniform1i(normalMapLoc, (GLint)m_uiTextureIDVector.size());
+        }
+
+        // Bind the vertex array and draw the sub-mesh
+        glBindVertexArray(subMesh.vao);
+        EnableVertexAttributes(subMesh.fvfFlags);
+        MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)subMesh.indexBuffer.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
-
-    // Unbind the shader
-    glUseProgram(0);
 }
 
 

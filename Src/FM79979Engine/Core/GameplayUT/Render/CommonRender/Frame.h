@@ -96,7 +96,7 @@ namespace FATMING_CORE
 		//virtual	void				AllUpdate(float e_fElpaseTime);
 		//virtual	void				AllRender();
 
-		void						DumpDebugInfo(bool e_bDoNextSibling = false);
+		void						DumpDebugInfo(bool e_bDoNextSibling = false,bool e_bRoot = false);
 		GET_SET(bool, m_bIgnoreChildrenUpdate, IsIgnoreChildrenUpdate, SetIgnoreChildrenUpdate);
 		GET_SET(bool, m_bIgnoreChildrenRender, IsIgnoreChildrenRender, SetIgnoreChildrenRender);
 		GET_SET_DEC(bool, m_bVisible, IsVisible, SetVisible);

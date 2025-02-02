@@ -2,6 +2,7 @@
 #include "../../../Math/Bound.h"
 #include "assert.h"
 #include "../../../Common/Log/FMLog.h"
+#include "../../../Common/Utility.h"
 //#include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
@@ -593,17 +594,17 @@ namespace FATMING_CORE
 	//	}
 	//}
 
-	void	Frame::DumpDebugInfo(bool e_bDoNextSibling)
+	void	Frame::DumpDebugInfo(bool e_bDoNextSibling,bool e_bRoot)
 	{
 		Frame*l_pParentNode = GetParent();
-		int	l_iLevel = 0;
+		static int	l_siCount = 0;
+		++l_siCount;
 		std::wstring l_strDebugInfo;
 		while (l_pParentNode)
 		{
 			l_strDebugInfo += L"-----";
 			//FMLog::LogWithFlag(L"-----",false,false);
 			l_pParentNode = l_pParentNode->GetParent();
-			l_iLevel++;
 		}
 		//WCHAR	l_str[MAX_PATH];
 		//swprintf(l_str,MAX_PATH,L"Name:%ls\n",GetName());
@@ -614,13 +615,18 @@ namespace FATMING_CORE
 			FMLog::Log(l_strDebugInfo.c_str(), false);
 			if (GetFirstChild())
 			{
-				GetFirstChild()->DumpDebugInfo(true);
+				GetFirstChild()->DumpDebugInfo(true,false);
 			}
 		}
 
 		if (e_bDoNextSibling && GetNextSibling())
 		{
-			GetNextSibling()->DumpDebugInfo(e_bDoNextSibling);
+			GetNextSibling()->DumpDebugInfo(e_bDoNextSibling, false);
+		}
+		if (e_bRoot)
+		{
+			FMLOG("Total count:%d", l_siCount);
+			l_siCount = 0;
 		}
 	}
 

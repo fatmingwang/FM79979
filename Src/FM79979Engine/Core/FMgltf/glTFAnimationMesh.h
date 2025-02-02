@@ -37,6 +37,7 @@ class cAnimationMesh : public cMesh
     void RefreshAnimationData();
     virtual void Update(float elapsedTime) override;
     virtual void Draw() override;
+    virtual void RenderBindPose();
     void JointUpdate(float elapsedTime);
     void SetCurrentAnimationTime(float e_fCurrentTime);
     //virtual void RenderSkeleton();
