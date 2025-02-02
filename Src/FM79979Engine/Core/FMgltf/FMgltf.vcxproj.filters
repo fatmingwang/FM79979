@@ -42,6 +42,9 @@
     <ClInclude Include="glTFAnimationMesh.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="glTFBone.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -63,6 +66,9 @@
       <Filter>Mesh</Filter>
     </ClCompile>
     <ClCompile Include="glTFAnimationMesh.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFBone.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
   </ItemGroup>
