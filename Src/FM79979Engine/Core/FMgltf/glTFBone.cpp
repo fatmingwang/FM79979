@@ -82,7 +82,7 @@ void cBone::EvaluateLocalXForm(float timeValue, bool e_bSetChildBonesDirty)
 
     if ((prevKey == nextKey) || (nextKey == m_FormKeyFrames.end()))
     {
-        this->SetLocalTransform(prevKey->second);
+        this->SetLocalTransform(prevKey->second.Transposed());
         return;
     }
 
@@ -150,5 +150,5 @@ void cBone::EvaluateLocalXForm(float timeValue, bool e_bSetChildBonesDirty)
         Vector3 tNew = t0 + l_fTimeDis * (t1 - t0);
         mNew.SetTranslation(tNew);
     }
-    this->SetLocalTransform(mNew, e_bSetChildBonesDirty);
+    this->SetLocalTransform(mNew.Transposed(), e_bSetChildBonesDirty);
 }

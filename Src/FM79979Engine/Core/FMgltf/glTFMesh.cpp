@@ -24,6 +24,7 @@ cMesh::~cMesh()
 
 void cMesh::InitBuffer()
 {
+    g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX] = 4;
     size_t offset = 0;
     for (auto& subMesh : subMeshes)
     {
@@ -213,14 +214,17 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
                 if (accessor.componentType == GL_UNSIGNED_SHORT)
                 {
                     l_iJointsDataConvertStride = 2;//4 unsigned short 2 float
+                    g_iFVF_DataType[FVF_SKINNING_BONE_INDEX] = GL_UNSIGNED_SHORT;
                 }
                 else
                 if (accessor.componentType == GL_UNSIGNED_BYTE)
                 {
                     l_iJointsDataConvertStride = 1;//4 byte one float
+                    g_iFVF_DataType[FVF_SKINNING_BONE_INDEX] = GL_UNSIGNED_BYTE;
                 }
                 g_iFVF_DataSize[FVF_SKINNING_BONE_INDEX] = l_iJointsDataConvertStride*sizeof(float);
                 g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX] = l_iJointsDataConvertStride;
+                
             }
 #ifdef DEBUG
             accessor.maxValues;
@@ -292,7 +296,7 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     if (hasJoints)
     {
         LoadAttribute("JOINTS_0");
-        subMesh.m_uiVertexStride += g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX];
+        subMesh.m_uiVertexStride += g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX];;
     }
     subMesh.vertexBuffer.resize(vertexCount * subMesh.m_uiVertexStride);
     const float* positionData = LoadAttribute("POSITION");
@@ -347,10 +351,20 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
 #ifdef DEBUG
             float l_fZero[4] = { 0,0,0,0 };
             memcpy(l_fZero, weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            float l_fWeight = 0;
+            for (int i = 0; i < 4; ++i)
+            {
+                l_fWeight += l_fZero[i];
+                if (l_fWeight > 1 || l_fWeight < 0)
+                {
+                    int a = 0;
+                }
+            }
 #endif
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
             //memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], l_fZero, g_iFVF_DataSize[l_iArrtibuteIndex]);
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+
         }
         if (jointsData)
         {
@@ -363,6 +377,13 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
             memcpy(l_JointsID, l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
             unsigned short l_JointsID2[4];
             memcpy(l_JointsID2, &subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], g_iFVF_DataSize[l_iArrtibuteIndex]);
+            for (int i = 0; i < 4; ++i)
+            {
+                if (l_JointsID[i] >= 24)
+                {
+                    int a = 0;
+                }
+            }
 #endif
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
         }

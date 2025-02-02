@@ -137,8 +137,12 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
             if (nodeToBoneMap.find(jointIndex) != nodeToBoneMap.end())
             {
                 cBone* bone = nodeToBoneMap[jointIndex];
-                //bone->m_matInvBindPose = cMatrix44::ColumnMajorToRowMajor(data + i * 16);
-                bone->m_matInvBindPose = cMatrix44(data + i * 16);
+                bone->m_matInvBindPose = cMatrix44::ColumnMajorToRowMajor(data + i * 16);
+                //bone->m_matInvBindPose = cMatrix44(data + i * 16);
+            }
+            else
+            {
+                int a = 0;
             }
         }
     }
@@ -181,38 +185,38 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
             }
         }
 
-        // Set local transform
-        cMatrix44 localTransform = cMatrix44::Identity;
+        //// Set local transform
+        //cMatrix44 localTransform = cMatrix44::Identity;
 
-        // Apply translation
-        if (node.translation.size() == 3)
-        {
-            Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
-            localTransform = cMatrix44::TranslationMatrix(translation);
-        }
+        //// Apply translation
+        //if (node.translation.size() == 3)
+        //{
+        //    Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+        //    localTransform = cMatrix44::TranslationMatrix(translation);
+        //}
 
-        // Apply rotation
-        if (node.rotation.size() == 4)
-        {
-            Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
-            localTransform *= rotation.ToMatrix();
-        }
+        //// Apply rotation
+        //if (node.rotation.size() == 4)
+        //{
+        //    Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
+        //    localTransform *= rotation.ToMatrix();
+        //}
 
-        // Apply scale
-        if (node.scale.size() == 3)
-        {
-            Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
-            localTransform *= cMatrix44::ScaleMatrix(scale);
-        }
+        //// Apply scale
+        //if (node.scale.size() == 3)
+        //{
+        //    Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+        //    localTransform *= cMatrix44::ScaleMatrix(scale);
+        //}
 
-        // Apply matrix if present
-        if (node.matrix.size() == 16)
-        {
-            cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
-            localTransform *= nodeMatrix;
-        }
+        //// Apply matrix if present
+        //if (node.matrix.size() == 16)
+        //{
+        //    cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
+        //    localTransform *= nodeMatrix;
+        //}
 
-        bone->SetLocalTransform(localTransform);
+        //bone->SetLocalTransform(localTransform);
 
         // Assign the root bone
         if (i == l_iRootIndex)
@@ -361,10 +365,12 @@ void cAnimationMesh::Update(float elapsedTime)
     if (!m_pCurrentAnimationData)
     {
         auto l_Animation = m_NameAndAnimationMap.begin();
-        //++l_Animation;
+        ++l_Animation;
         this->SetCurrentAnimation(l_Animation->first);
     }
+    m_pCurrentAnimationData->m_fCurrentTime += elapsedTime;
     UpdateAnimation(elapsedTime);
+    //UpdateNode(this->m_pMainRootBone, m_pCurrentAnimationData->m_fCurrentTime);
 }
 
 void	cAnimationMesh::UpdateNode(cBone* e_pBone, float e_fTime)
@@ -399,9 +405,9 @@ void cAnimationMesh::Draw()
         if (bone)
         {
             //cMatrix44  l_WorldTransform = l_ppBone[i]->GetWorldTransform() * l_ppBone[i]->GetInvBindPose() * m_matMeshBindShapePose;
-            //m_pAllBonesMatrixForSkinned[i] = bone->GetWorldTransform() * bone->m_matInvBindPose;
+            auto l_mat = bone->GetWorldTransform() * bone->m_matInvBindPose;
+            m_pAllBonesMatrixForSkinned[i] = l_mat;
             //m_pAllBonesMatrixForSkinned[i] = bone->m_matInvBindPose;
-            m_pAllBonesMatrixForSkinned[i] = cMatrix44::Identity;
 #ifdef DEBUG
             auto l_Final = m_pAllBonesMatrixForSkinned[i];
             auto l_FinalTranspose = m_pAllBonesMatrixForSkinned[i].Transposed();
@@ -467,7 +473,8 @@ void cAnimationMesh::Draw()
         glUniform3fv(dirLightColorLoc, 1, dirLightColor);
         // Pass the bone matrices to the shader
         GLuint boneMatricesLocation = glGetUniformLocation(subMesh.shaderProgram, "uBoneTransforms");
-        glUniformMatrix4fv(boneMatricesLocation, boneCount, GL_FALSE, (const GLfloat*)m_pAllBonesMatrixForSkinned);
+        glUniformMatrix4fv(boneMatricesLocation, boneCount, GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
+        //glUniformMatrix4fv(g_iBonesMatrixoacation, e_iCount, GL_FALSE, (float*)e_pBoneMatrices);
 
         // Bind textures
         for (size_t i = 0; i < m_uiTextureIDVector.size(); ++i)

@@ -83,29 +83,13 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
     {
         shaderCode += R"(
             // Skinning transformation
-   //         vec4 l_Position = vec4(0,0,0,0);
-			//vec4 curIndex = aJoints;
-			//vec4 curWeight = aWeights;
-			//for( int i=0;i<4;i++ )
-			//{
-			//		mat4 m44 = uBoneTransforms[int(curIndex.x)];
-   //                 //mat4 m44 = mat4(1.0);
-			//		l_Position += m44 * vec4(aPosition,1) * curWeight.x;
-			//		mat3 m33 = mat3(m44[0].xyz,
-			//						m44[1].xyz,
-			//						m44[2].xyz);
-			//		toFSVec3Normal += m33 * aNormal * curWeight.x;
-			//		curIndex = curIndex.yzwx;
-			//		curWeight = curWeight.yzwx;
-			//}
-			//worldPosition = inMat4Projection * inMat4View *inMat4Model* l_Position;
-
             mat4 skinMatrix = aWeights.x * uBoneTransforms[int(aJoints.x)] +
                               aWeights.y * uBoneTransforms[int(aJoints.y)] +
                               aWeights.z * uBoneTransforms[int(aJoints.z)] +
                               aWeights.w * uBoneTransforms[int(aJoints.w)];
-            vec4 skinnedPosition = skinMatrix * vec4(aPosition, 1.0);
-            worldPosition = inMat4Projection*inMat4View*inMat4Model * skinnedPosition;
+            vec4 skinnedPosition = skinMatrix * vec4(aPosition, 1.0);;
+            worldPosition = inMat4Projection*inMat4View*inMat4Model* skinnedPosition;
+            //worldPosition = inMat4Projection*inMat4View*inMat4Model * vec4(aPosition, 1.0);
 
         )";
     }
