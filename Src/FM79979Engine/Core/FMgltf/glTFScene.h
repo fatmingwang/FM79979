@@ -1,6 +1,7 @@
 #pragma once
 
 #include "glTFMesh.h"
+#include "glTFAnimationMesh.h"
 
 
 class cScene
@@ -11,8 +12,10 @@ class cScene
     GLuint GetShaderProgram(unsigned int fvfFlags);  // Returns shader based on FVF
     GLuint CreateShader(unsigned int fvfFlags);
 public:
-    std::map<std::string, cMesh> meshes;
+    std::map<std::string, cMesh*> meshes;
+    std::map<std::string, cAnimationMesh*> m_AnimationMeshMap;
     bool LoadFromGLTF(const std::string& filename,bool e_bCalculateBiNormal = false);
     void InitBuffers();
     void Draw();
+    void Destory();
 };

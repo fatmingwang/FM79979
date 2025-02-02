@@ -23,6 +23,7 @@ extern void	SampleKeyup(char e_cKey);
 
 extern int		glTFInit();
 extern void		GlTFRender();
+extern void		GlTFDestory();
 
 #if defined(ANDROID)
 cEngineTestApp::cEngineTestApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil ):cGameApp(e_pActivity,e_pThreadEnv,e_pAppThreadThis,e_vGameResolution,e_vViewportSize,e_pNvEGLUtil)
@@ -47,6 +48,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 
 cEngineTestApp::~cEngineTestApp()
 {
+	GlTFDestory();
 	cMyImGuiTesting::Destory();
 	SAFE_DELETE(m_pPhaseManager);
 	SAFE_DELETE(g_pNetworkSample);

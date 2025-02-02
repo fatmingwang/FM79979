@@ -72,7 +72,7 @@ public:
     };
     Vector3 m_vMinBounds;
     Vector3 m_vMaxBounds;
-private:
+protected:
     std::vector<SubMesh> subMeshes;  // Store different primitives
     std::vector<GLuint> m_uiTextureIDVector;        // Base color textures (and other types if necessary)
     std::vector<GLuint> m_uiNormalTextureIDVector;  // Normal maps
@@ -81,15 +81,14 @@ private:
 
 public:
     cMesh();
-    ~cMesh();
+    virtual ~cMesh();
 
     void InitBuffer();  // Initialize and bind buffers
-    void Draw();        // Draw the mesh
+    virtual void Draw();        // Draw the mesh
 
     // Function to load vertex attributes and indices
     void LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
     void LoadTextures(const tinygltf::Model& model, const tinygltf::Material& material);
     void logFVFFlags();
 };
-
-
+void EnableVertexAttributes(unsigned int fvfFlags);

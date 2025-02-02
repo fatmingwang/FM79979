@@ -1,267 +1,324 @@
 #include "tiny_gltf.h"
 #include "glTFAnimationMesh.h"
+#include <set>
+#include <unordered_set>
+#include <map>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cfloat>
 
-
-cBone::cBone(const WCHAR* e_strName)
-{
-    SetName(e_strName);
-    m_fMinKeyTime = 0;
-    m_fMaxKeyTime = 0;
-    m_bAnimation = false;
-}
-
-cBone::cBone(cBone* e_pBone)
-{
-    SetName(e_pBone->GetName());
-    m_bAnimation = e_pBone->m_bAnimation;
-    m_fMinKeyTime = e_pBone->m_fMinKeyTime;
-    m_fMaxKeyTime = e_pBone->m_fMaxKeyTime;
-    m_FormKeyFrames = e_pBone->m_FormKeyFrames;
-    m_matInvBindPose = e_pBone->m_matInvBindPose;
-    this->SetLocalTransform(this->GetLocalTransform());
-}
-
-cBone::~cBone()
-{
-    // Destructor implementation
-}
-
-cBone* cBone::FinChildByName(const wchar_t* e_strBoneName)
-{
-    if (!wcscmp(e_strBoneName, GetName()))
-        return this;
-    if (this->GetNextSibling() != nullptr)
-    {
-        return ((cBone*)(GetNextSibling()))->FinChildByName(e_strBoneName);
-    }
-    if (GetFirstChild() != nullptr)
-    {
-        return ((cBone*)(GetFirstChild()))->FinChildByName(e_strBoneName);
-    }
-    return nullptr;
-}
-
-void cBone::SetFormKeyFrames(FloatTocMatrix44Map e_FormKeyFrames)
-{
-    m_FormKeyFrames = e_FormKeyFrames;
-    size_t l_uiSize = m_FormKeyFrames.size();
-    float l_fMinKeyTime(FLT_MAX), l_fMaxKeyTime(FLT_MIN), l_fKeyTime;
-    for (FloatTocMatrix44Map::iterator l_Iterator = m_FormKeyFrames.begin(); l_Iterator != m_FormKeyFrames.end(); ++l_Iterator)
-    {
-        l_fKeyTime = l_Iterator->first;
-        l_fMinKeyTime = min(l_fMinKeyTime, l_fKeyTime);
-        l_fMaxKeyTime = max(l_fMaxKeyTime, l_fKeyTime);
-    }
-    m_fMaxKeyTime = l_fMaxKeyTime;
-    m_fMinKeyTime = l_fMinKeyTime;
-    if (e_FormKeyFrames.size())
-    {
-        m_bAnimation = true;
-    }
-    else
-    {
-        cGameApp::OutputDebugInfoString(this->GetName());
-        cGameApp::OutputDebugInfoString(L"animation frame is zero");
-    }
-}
-
-void cBone::EvaluateLocalXForm(float timeValue, bool e_bSetChildBonesDirty)
-{
-    if (m_FormKeyFrames.size() == 0)
-        return;
-
-    FloatTocMatrix44Map::iterator prevKey(m_FormKeyFrames.lower_bound(timeValue));
-    FloatTocMatrix44Map::iterator nextKey(prevKey);
-
-    if ((prevKey == m_FormKeyFrames.end()) ||
-        ((prevKey != m_FormKeyFrames.begin()) && (prevKey->first > timeValue)))
-        --prevKey;
-
-    assert(prevKey != m_FormKeyFrames.end());
-
-    if ((prevKey == nextKey) || (nextKey == m_FormKeyFrames.end()))
-    {
-        this->SetLocalTransform(prevKey->second.Transposed());
-        return;
-    }
-
-    float time0 = prevKey->first;
-    float time1 = nextKey->first;
-    float l_fTimeDis = (timeValue - time0) / (time1 - time0);
-
-    const cMatrix44& m0 = prevKey->second;
-    const cMatrix44& m1 = nextKey->second;
-
-    cMatrix44 mNew = m0;
-
-    Vector3 m0x(m0[0]), m0y(m0[1]), m0z(m0[2]);
-    Vector3 m1x(m1[0]), m1y(m1[1]), m1z(m1[2]);
-
-#define SCALE_EPSILON 0.02f
-    if (((m0x.LengthSquared() - 1.0f) > SCALE_EPSILON) || ((m0y.LengthSquared() - 1.0f) > SCALE_EPSILON) ||
-        ((m0z.LengthSquared() - 1.0f) > SCALE_EPSILON) || ((m1x.LengthSquared() - 1.0f) > SCALE_EPSILON) ||
-        ((m1y.LengthSquared() - 1.0f) > SCALE_EPSILON) || ((m1z.LengthSquared() - 1.0f) > SCALE_EPSILON))
-    {
-        // TODO: need to interpolate scaling too
-    }
-    else
-    {
-        Vector3 t0 = m0.GetTranslation();
-        Vector3 t1 = m1.GetTranslation();
-
-        Vector3 dX(m1x - m0x), dY(m1y - m0y), dZ(m1z - m0z);
-        Vector3 axis = (dX ^ dY) + (dY ^ dZ) + (dZ ^ dX);
-
-#define VLENGTH_EPSILON 0.00000001f
-        if (axis.Length() >= VLENGTH_EPSILON)
-        {
-            Vector3 dU = dX;
-            Vector3 U = m0x;
-            if (dU.Length() < VLENGTH_EPSILON)
-            {
-                dU = dY;
-                U = m0y;
-            }
-            double angle;
-            axis.NormalizeIt();
-
-            Vector3 axisCrossU = (axis ^ U);
-
-            if ((axisCrossU * dU) < 0.0)
-                axis = -axis;
-
-            if (axisCrossU.Length() < VLENGTH_EPSILON)
-                angle = 0;
-            else
-            {
-                double a = dU.Length() / (2.0 * axisCrossU.Length());
-                a = (a < -1.0) ? -1.0 : ((a > 1.0) ? 1.0 : a);
-                angle = 2.0 * asin(a);
-            }
-
-            double aNew = l_fTimeDis * angle;
-
-            cMatrix44 mRot(cMatrix44::AxisRotationMatrix(axis, (float)aNew));
-
-            mNew = mRot * m0;
-        }
-
-        Vector3 tNew = t0 + l_fTimeDis * (t1 - t0);
-        mNew.SetTranslation(tNew);
-    }
-
-    mNew = mNew.Transposed();
-    this->SetLocalTransform(mNew, e_bSetChildBonesDirty);
-}
-
-cAnimationMeshFromglTF::cAnimationMeshFromglTF()
-    : m_pMainRootBone(nullptr), m_fMinKeyTime(0.0f), m_fMaxKeyTime(0.0f), m_fCurrentTime(0.0f), m_fStartTime(0.0f), m_fEndTime(0.0f), m_pAllBonesMatrixForSkinned(nullptr)
+cAnimationMesh::cAnimationMesh()
+    : m_pMainRootBone(nullptr), m_pAllBonesMatrixForSkinned(nullptr), m_pCurrentAnimationData(nullptr)
 {
 }
 
-cAnimationMeshFromglTF::~cAnimationMeshFromglTF()
+cAnimationMesh::~cAnimationMesh()
 {
-    m_SkinningBoneVector.SetFromResource(true);
-    int l_iCount = m_AllBoneVector.Count();
+    int l_iCount = m_SkinningBoneVector.Count();
     for (int i = 0; i < l_iCount; i++)
     {
-        auto l_pData = m_AllBoneVector[i];
+        auto l_pData = m_SkinningBoneVector[i];
         if (l_pData)
         {
             l_pData->SetParent(nullptr);
         }
     }
-    m_AllBoneVector.Destroy();
-    SAFE_DELETE(m_pAllBonesMatrixForSkinned);
+    m_SkinningBoneVector.Destroy();
+    SAFE_DELETE_ARRAY(m_pAllBonesMatrixForSkinned);
 }
 
-void cAnimationMeshFromglTF::LoadAnimation(const tinygltf::Model& model, const tinygltf::Animation& animation)
+int FindRootNode(const tinygltf::Model& model, const tinygltf::Animation& animation)
 {
+    std::unordered_set<int> animatedNodes;
+
+    // Step 1: Collect all nodes affected by this animation
     for (const auto& channel : animation.channels)
     {
-        const auto& sampler = animation.samplers[channel.sampler];
-        const auto& targetNode = model.nodes[channel.target_node];
+        if (channel.target_node >= 0)
+        {
+            animatedNodes.insert(channel.target_node);
+        }
+    }
 
-        cBone* bone = m_AllBoneVector[targetNode.name.c_str()];
-        if (!bone)
+    if (animatedNodes.empty())
+    {
+        return -1; // No animated nodes
+    }
+
+    // Step 2: Find the root-most node
+    std::unordered_set<int> allNodes;
+    for (const auto& node : model.nodes)
+    {
+        allNodes.insert(&node - &model.nodes[0]); // Store node indices
+    }
+
+    // Step 3: Traverse up the hierarchy to find the root
+    for (int nodeIndex : animatedNodes)
+    {
+        int parent = nodeIndex;
+        while (true)
+        {
+            bool foundParent = false;
+            for (size_t i = 0; i < model.nodes.size(); ++i)
+            {
+                const auto& node = model.nodes[i];
+                for (int child : node.children)
+                {
+                    if (child == parent)
+                    {
+                        parent = (int)i;
+                        foundParent = true;
+                        break;
+                    }
+                }
+                if (foundParent) break;
+            }
+            if (!foundParent) break; // We found the root
+        }
+        return parent; // Return the root node of the animation
+    }
+
+    return -1; // No valid root found
+}
+
+void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
+{
+    std::map<int, cBone*> nodeToBoneMap;
+    std::unordered_set<int> skinningJoints;
+    int l_iRootIndex = -1;
+
+    // Collect all joints used in skins
+    for (const auto& skin : model.skins)
+    {
+        for (int jointIndex : skin.joints)
+        {
+            skinningJoints.insert(jointIndex);
+        }
+    }
+
+    // Create bones and set their names for nodes that are part of the skinning joints
+    for (size_t i = 0; i < model.nodes.size(); ++i)
+    {
+        if (skinningJoints.find((int)i) == skinningJoints.end())
+        {
+            continue; // Skip nodes that are not part of the skinning joints
+        }
+
+        const auto& node = model.nodes[i];
+        if (node.name.empty())
         {
             continue;
         }
 
-        FloatTocMatrix44Map keyframes;
+        cBone* bone = new cBone(std::wstring(node.name.begin(), node.name.end()).c_str());
+        nodeToBoneMap[i] = bone;
+        m_SkinningBoneVector.AddObject(bone);
+    }
 
-        // Load keyframe times
-        const auto& inputAccessor = model.accessors[sampler.input];
-        const auto& inputBufferView = model.bufferViews[inputAccessor.bufferView];
-        const auto& inputBuffer = model.buffers[inputBufferView.buffer];
-        const float* inputData = reinterpret_cast<const float*>(inputBuffer.data.data() + inputBufferView.byteOffset + inputAccessor.byteOffset);
+    l_iRootIndex = FindRootNode(model, model.animations[0]);
 
-        // Load keyframe transforms
-        const auto& outputAccessor = model.accessors[sampler.output];
-        const auto& outputBufferView = model.bufferViews[outputAccessor.bufferView];
-        const auto& outputBuffer = model.buffers[outputBufferView.buffer];
-        const float* outputData = reinterpret_cast<const float*>(outputBuffer.data.data() + outputBufferView.byteOffset + outputAccessor.byteOffset);
-
-        for (size_t i = 0; i < inputAccessor.count; ++i)
+    // Set parent-child relationships and local transforms
+    for (size_t i = 0; i < model.nodes.size(); ++i)
+    {
+        if (skinningJoints.find((int)i) == skinningJoints.end())
         {
-            cMatrix44 transform;
-            memcpy(&transform, outputData + i * 16, sizeof(cMatrix44));
-            keyframes[inputData[i]] = transform;
+            continue; // Skip nodes that are not part of the skinning joints
         }
 
-        bone->SetFormKeyFrames(keyframes);
+        const auto& node = model.nodes[i];
+        if (node.name.empty())
+        {
+            continue;
+        }
+
+        auto it = nodeToBoneMap.find(i);
+        if (it == nodeToBoneMap.end())
+        {
+            continue;
+        }
+
+        cBone* bone = it->second;
+
+        // Set children
+        for (int childIndex : node.children)
+        {
+            if (skinningJoints.find(childIndex) == skinningJoints.end())
+            {
+                continue; // Skip child nodes that are not part of the skinning joints
+            }
+
+            auto childIt = nodeToBoneMap.find(childIndex);
+            if (childIt != nodeToBoneMap.end())
+            {
+                cBone* childBone = childIt->second;
+                childBone->SetParent(bone);
+            }
+        }
+
+        // Set local transform
+        cMatrix44 localTransform = cMatrix44::Identity;
+
+        // Apply translation
+        if (node.translation.size() == 3)
+        {
+            Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+            localTransform = cMatrix44::TranslationMatrix(translation);
+        }
+
+        // Apply rotation
+        if (node.rotation.size() == 4)
+        {
+            Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
+            localTransform *= rotation.ToMatrix();
+        }
+
+        // Apply scale
+        if (node.scale.size() == 3)
+        {
+            Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+            localTransform *= cMatrix44::ScaleMatrix(scale);
+        }
+
+        // Apply matrix if present
+        if (node.matrix.size() == 16)
+        {
+            cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
+            localTransform *= nodeMatrix;
+        }
+
+        bone->SetLocalTransform(localTransform);
+
+        // Assign the root bone
+        if (i == l_iRootIndex)
+        {
+            m_pMainRootBone = bone;
+        }
     }
+
+    // Load all animations
+    for (const auto& animation : model.animations)
+    {
+        sAnimationData animationData;
+        animationData.m_fMinKeyTime = FLT_MAX;
+        animationData.m_fMaxKeyTime = FLT_MIN;
+        animationData.m_fCurrentTime = 0.0f;
+        animationData.m_fStartTime = 0.0f;
+        animationData.m_fEndTime = 0.0f;
+
+        for (const auto& channel : animation.channels)
+        {
+            const auto& sampler = animation.samplers[channel.sampler];
+            const auto& targetNode = model.nodes[channel.target_node];
+
+            auto it = nodeToBoneMap.find(channel.target_node);
+            if (it == nodeToBoneMap.end())
+            {
+                continue;
+            }
+
+            cBone* bone = it->second;
+            FloatTocMatrix44Map keyframes;
+
+            // Load keyframe times
+            const auto& inputAccessor = model.accessors[sampler.input];
+            const auto& inputBufferView = model.bufferViews[inputAccessor.bufferView];
+            const auto& inputBuffer = model.buffers[inputBufferView.buffer];
+            const float* inputData = reinterpret_cast<const float*>(inputBuffer.data.data() + inputBufferView.byteOffset + inputAccessor.byteOffset);
+
+            // Load keyframe transforms
+            const auto& outputAccessor = model.accessors[sampler.output];
+            const auto& outputBufferView = model.bufferViews[outputAccessor.bufferView];
+            const auto& outputBuffer = model.buffers[outputBufferView.buffer];
+            const float* outputData = reinterpret_cast<const float*>(outputBuffer.data.data() + outputBufferView.byteOffset + outputAccessor.byteOffset);
+
+            for (size_t i = 0; i < inputAccessor.count; ++i)
+            {
+                cMatrix44 transform;
+                memcpy(&transform, outputData + i * 16, sizeof(cMatrix44));
+                keyframes[inputData[i]] = transform;
+            }
+
+            bone->SetFormKeyFrames(keyframes);
+            animationData.m_BoneIDAndAnimationData[channel.target_node] = keyframes;
+
+            // Update min and max key times
+            if (!keyframes.empty())
+            {
+                animationData.m_fMinKeyTime = (animationData.m_fMinKeyTime, keyframes.begin()->first);
+                animationData.m_fMaxKeyTime = (animationData.m_fMaxKeyTime, keyframes.rbegin()->first);
+            }
+        }
+
+        m_NameAndAnimationMap[animation.name] = animationData;
+    }
+
+    RefreshAnimationData();
 }
 
-void cAnimationMeshFromglTF::UpdateAnimation(float deltaTime)
+void cAnimationMesh::SetCurrentAnimation(const std::string& animationName)
 {
-    m_fCurrentTime += deltaTime;
-    auto l_Vector = m_AllBoneVector.GetList();
-    for (auto& bone : *l_Vector)
+    auto it = m_NameAndAnimationMap.find(animationName);
+    if (it != m_NameAndAnimationMap.end())
     {
-        bone->EvaluateLocalXForm(m_fCurrentTime);
+        m_CurrentAnimation = animationName;
+        m_pCurrentAnimationData = &it->second;
+        RefreshAnimationData();
     }
 }
 
-void cAnimationMeshFromglTF::RefreshAnimationData()
+void cAnimationMesh::UpdateAnimation(float deltaTime)
 {
-    cBone** l_ppBone = &(*m_SkinningBoneVector.GetList())[0];
-    m_fMinKeyTime = FLT_MAX;
-    m_fMaxKeyTime = FLT_MIN;
-    int l_iNum = this->m_SkinningBoneVector.Count();
-    for (int i = 0; i < l_iNum; ++i)
+    if (m_pCurrentAnimationData)
     {
-        cBone* l_pBone = l_ppBone[i];
-        m_fMinKeyTime = min(m_fMinKeyTime, l_pBone->m_fMinKeyTime);
-        m_fMaxKeyTime = max(m_fMaxKeyTime, l_pBone->m_fMaxKeyTime);
+        m_pCurrentAnimationData->m_fCurrentTime += deltaTime;
+        auto l_Vector = m_SkinningBoneVector.GetList();
+        for (auto& bone : *l_Vector)
+        {
+            bone->EvaluateLocalXForm(m_pCurrentAnimationData->m_fCurrentTime);
+        }
     }
-    if (m_fMinKeyTime != FLT_MAX)
-    {
-        m_fStartTime = m_fMinKeyTime;
-        m_fEndTime = m_fMaxKeyTime;
-    }
-    else
-    {
-        m_fMinKeyTime = 0;
-        m_fMaxKeyTime = 0;
-    }
-    if (m_fStartTime < 0)
-        m_fStartTime = 0;
-    SAFE_DELETE(m_pAllBonesMatrixForSkinned);
-    m_pAllBonesMatrixForSkinned = new cMatrix44[l_iNum];
 }
 
-void cAnimationMeshFromglTF::UpdateNodes(float e_fTimeValue)
+void cAnimationMesh::RefreshAnimationData()
 {
-    assert((e_fTimeValue >= m_fMinKeyTime) && (e_fTimeValue <= m_fMaxKeyTime));
-    int l_iNum = this->m_SkinningBoneVector.Count();
-    for (int i = 0; i < l_iNum; ++i)
+    if (m_pCurrentAnimationData)
     {
-        m_SkinningBoneVector[i]->EvaluateLocalXForm(e_fTimeValue, i == 0 ? true : false);
+        cBone** l_ppBone = &(*m_SkinningBoneVector.GetList())[0];
+        m_pCurrentAnimationData->m_fMinKeyTime = FLT_MAX;
+        m_pCurrentAnimationData->m_fMaxKeyTime = FLT_MIN;
+        int l_iNum = this->m_SkinningBoneVector.Count();
+        for (int i = 0; i < l_iNum; ++i)
+        {
+            cBone* l_pBone = l_ppBone[i];
+            m_pCurrentAnimationData->m_fMinKeyTime = (m_pCurrentAnimationData->m_fMinKeyTime, l_pBone->m_fMinKeyTime);
+            m_pCurrentAnimationData->m_fMaxKeyTime = (m_pCurrentAnimationData->m_fMaxKeyTime, l_pBone->m_fMaxKeyTime);
+        }
+        if (m_pCurrentAnimationData->m_fMinKeyTime != FLT_MAX)
+        {
+            m_pCurrentAnimationData->m_fStartTime = m_pCurrentAnimationData->m_fMinKeyTime;
+            m_pCurrentAnimationData->m_fEndTime = m_pCurrentAnimationData->m_fMaxKeyTime;
+        }
+        else
+        {
+            m_pCurrentAnimationData->m_fMinKeyTime = 0;
+            m_pCurrentAnimationData->m_fMaxKeyTime = 0;
+        }
+        if (m_pCurrentAnimationData->m_fStartTime < 0)
+            m_pCurrentAnimationData->m_fStartTime = 0;
+        if (!m_pAllBonesMatrixForSkinned)
+        {
+            m_pAllBonesMatrixForSkinned = new cMatrix44[l_iNum];
+        }
     }
 }
 
-void cAnimationMeshFromglTF::UpdateNode(cBone* e_pBone, float e_fTime)
+void cAnimationMesh::Update(float elapsedTime)
+{
+    UpdateAnimation(elapsedTime);
+}
+
+void	cAnimationMesh::UpdateNode(cBone* e_pBone, float e_fTime)
 {
     e_pBone->EvaluateLocalXForm(e_fTime);
     cBone* l_pBone = (cBone*)e_pBone->GetFirstChild();
@@ -276,126 +333,136 @@ void cAnimationMeshFromglTF::UpdateNode(cBone* e_pBone, float e_fTime)
     }
 }
 
-void cAnimationMeshFromglTF::JointUpdate(float elapsedTime)
+void cAnimationMesh::Draw()
 {
-    float newTime(m_fCurrentTime);
-    if ((m_fCurrentTime + elapsedTime) > m_fEndTime)
+    // Ensure the current animation data is valid
+    if (!m_pCurrentAnimationData)
     {
-        float endMinusStart = m_fEndTime - m_fStartTime;
-        if (endMinusStart > 0.001)
+        return;
+    }
+    static float angle = 0.0f;
+    static float lightAngle = 0.0f;
+    static float l_fCameraZPosition = -6;
+    lightAngle += 0.01f;
+    angle += 0.01f;
+    cBaseShader* l_pShader = GetCurrentShader();
+    if (l_pShader)
+    {
+        l_pShader->Unuse();
+    }
+    UseShaderProgram(L"qoo79979");
+    // Enable backface culling
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    // Update the animation to the current time
+    UpdateAnimation(m_pCurrentAnimationData->m_fCurrentTime);
+
+    // Update the bone matrices for skinning
+    int boneCount = m_SkinningBoneVector.Count();
+    for (int i = 0; i < boneCount; ++i)
+    {
+        cBone* bone = m_SkinningBoneVector[i];
+        if (bone)
         {
-            float overTime = (m_fCurrentTime + elapsedTime - m_fEndTime);
-            newTime = m_fStartTime + (float)fmod(overTime, endMinusStart);
-        }
-        else
-        {
-            newTime = m_fCurrentTime;
+            m_pAllBonesMatrixForSkinned[i] = bone->GetWorldTransform() * bone->m_matInvBindPose;
         }
     }
-    else
+    auto l_vPos = this->GetWorldPosition();
+    // Iterate through sub-meshes and draw each one
+    for (auto& subMesh : subMeshes)
     {
-        newTime = m_fCurrentTime + elapsedTime;
+        // Use the shader program specific to this sub-mesh
+        glUseProgram(subMesh.shaderProgram);
+
+        // Set model, view, projection matrices
+        GLuint modelLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4Model");
+        GLuint viewLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4View");
+        GLuint projLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4Projection");
+
+        cMatrix44 modelMatrix = cMatrix44::TranslationMatrix(l_vPos);
+        cMatrix44 viewMatrix;// = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
+        subMesh.GetProperCameraPosition(viewMatrix);
+
+        viewMatrix.GetTranslation().z *= -1;
+        Projection projectionMatrix;
+        projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
+
+        cMatrix44 conversionMatrix = cMatrix44::Identity;
+        conversionMatrix.m[2][2] = -1.0f;
+
+        modelMatrix = conversionMatrix * modelMatrix;
+        cMatrix44 rotationMatrix = cMatrix44::YAxisRotationMatrix(angle);
+        modelMatrix = rotationMatrix * modelMatrix;
+
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
+
+        // Set light and view position uniforms
+        GLuint lightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3LightColor");
+        GLuint lightPosLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3LightPosition");
+        GLuint viewPosLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3ViewPosition");
+
+        Vector3 lightColor(1.0f, 1.0f, 1.0f);
+        Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
+        Vector3 viewPos(0.0f, 0.0f, 30.0f);
+
+        glUniform3fv(lightColorLoc, 1, lightColor);
+        glUniform3fv(lightPosLoc, 1, lightPos);
+        glUniform3fv(viewPosLoc, 1, viewPos);
+
+        // Set directional light uniforms
+        GLuint dirLightDirLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightDirection");
+        GLuint dirLightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightColor");
+
+        Vector3 dirLightDirection(-0.2f, -0.2f, 1.f);
+        Vector3 dirLightColor(0.5f, 0.5f, 0.5f);
+
+        glUniform3fv(dirLightDirLoc, 1, dirLightDirection);
+        glUniform3fv(dirLightColorLoc, 1, dirLightColor);
+        // Pass the bone matrices to the shader
+        GLuint boneMatricesLocation = glGetUniformLocation(subMesh.shaderProgram, "uBoneTransforms");
+        glUniformMatrix4fv(boneMatricesLocation, boneCount, GL_FALSE, (const GLfloat*)m_pAllBonesMatrixForSkinned);
+
+        // Bind textures
+        for (size_t i = 0; i < m_uiTextureIDVector.size(); ++i)
+        {
+            glActiveTexture(GL_TEXTURE0 + (GLenum)i);
+            glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
+        }
+        GLuint texture1Loc = glGetUniformLocation(subMesh.shaderProgram, "texture1");
+        glUniform1i(texture1Loc, 0);
+
+        // Bind normal map texture if available
+        if (!m_uiNormalTextureIDVector.empty())
+        {
+            glActiveTexture(GL_TEXTURE0 + (GLenum)m_uiTextureIDVector.size());
+            glBindTexture(GL_TEXTURE_2D, m_uiNormalTextureIDVector[0]);
+            GLuint normalMapLoc = glGetUniformLocation(subMesh.shaderProgram, "normalMap");
+            glUniform1i(normalMapLoc, (GLint)m_uiTextureIDVector.size());
+        }
+
+        // Bind the vertex array and draw the sub-mesh
+        glBindVertexArray(subMesh.vao);
+        EnableVertexAttributes(subMesh.fvfFlags);
+        MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)subMesh.indexBuffer.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
     }
-    m_fCurrentTime = newTime;
-    assert(this->m_fMinKeyTime <= this->m_fMaxKeyTime);
-    float l_fUpdateTime = 0;
-    cBone* l_pBone = m_SkinningBoneVector[0];
-    if (m_fCurrentTime > m_fMaxKeyTime)
-        UpdateNode(l_pBone, m_fMaxKeyTime);
-    else if (m_fCurrentTime < m_fMinKeyTime)
-        UpdateNode(l_pBone, m_fMinKeyTime);
-    else
-        UpdateNode(l_pBone, m_fCurrentTime);
+
+    // Unbind the shader
+    glUseProgram(0);
 }
 
-void cAnimationMeshFromglTF::Update(float elapsedTime)
+
+void cAnimationMesh::JointUpdate(float elapsedTime)
 {
-    float newTime(m_fCurrentTime);
-    if ((m_fCurrentTime + elapsedTime) > m_fEndTime)
-    {
-        float endMinusStart = m_fEndTime - m_fStartTime;
-        if (endMinusStart > 0.001)
-        {
-            float overTime = (m_fCurrentTime + elapsedTime - m_fEndTime);
-            newTime = m_fStartTime + (float)fmod(overTime, endMinusStart);
-        }
-        else
-        {
-            newTime = m_fCurrentTime;
-        }
-    }
-    else
-    {
-        newTime = m_fCurrentTime + elapsedTime;
-    }
-    m_fCurrentTime = newTime;
-    SetCurrentAnimationTime(m_fCurrentTime);
-    int l_iBoneSize = this->m_SkinningBoneVector.Count();
-    cBone** l_ppBone = &(*m_SkinningBoneVector.GetList())[0];
-    for (int i = 0; i < l_iBoneSize; ++i)
-    {
-        cMatrix44 l_WorldTransform = l_ppBone[i]->GetWorldTransform() * l_ppBone[i]->m_matInvBindPose * m_matMeshBindShapePose;
-        m_pAllBonesMatrixForSkinned[i] = l_WorldTransform;
-    }
+    // Implement the joint update logic here
 }
 
-void cAnimationMeshFromglTF::SetCurrentAnimationTime(float e_fCurrentTime)
+void cAnimationMesh::SetCurrentAnimationTime(float e_fCurrentTime)
 {
-    this->m_fCurrentTime = e_fCurrentTime;
-    if (m_fCurrentTime > m_fEndTime)
-        UpdateNodes(m_fEndTime);
-    else if (m_fCurrentTime < this->m_fStartTime)
-        UpdateNodes(m_fStartTime);
-    else
-        UpdateNodes(m_fCurrentTime);
-}
-
-void cAnimationMeshFromglTF::RenderSkeleton()
-{
-    int l_iNumBone = 0;
-    int l_iBoneSize = this->m_SkinningBoneVector.Count();
-    cBone** l_ppBone = &(*m_SkinningBoneVector.GetList())[0];
-    Vector3 l_vAllVertices[512];
-    cMatrix44 l_mat = cMatrix44::Identity;
-    for (int i = 1; i < l_iBoneSize; ++i)
+    if (m_pCurrentAnimationData)
     {
-        cBone* l_pMe = l_ppBone[i];
-        cBone* l_pParent = (cBone*)l_pMe->GetParent();
-        cMatrix44 l_mat = cMatrix44::Identity;
-        if (l_pParent)
-        {
-            l_mat = (l_pParent->GetWorldTransform()) * this->m_matMeshBindShapePose;
-            l_vAllVertices[l_iNumBone * 2 + 1] = l_mat.GetTranslation();
-            l_mat = (l_pMe->GetWorldTransform()) * this->m_matMeshBindShapePose;
-            l_vAllVertices[l_iNumBone * 2] = l_mat.GetTranslation();
-            ++l_iNumBone;
-        }
+        m_pCurrentAnimationData->m_fCurrentTime = e_fCurrentTime;
     }
-    l_mat = this->GetWorldTransform() * cMatrix44::ZupToYUp;
-    GLRender::RenderLine((float*)&l_vAllVertices[0], l_iBoneSize * 2, Vector4(0.f, 1.f, 0.5f, 1.f), 3, l_mat);
-    GLRender::RenderPoints(l_vAllVertices, l_iBoneSize * 2, 15, Vector4(0.f, 1.f, 1.f, 1.f), l_mat);
-}
-
-void cAnimationMeshFromglTF::RenderSkeletonName(float* e_pfProjection, float* e_pfMatMV, int* e_piViewport)
-{
-    int l_iBoneSize = this->m_SkinningBoneVector.Count();
-    cBone** l_ppBone = &(*m_SkinningBoneVector.GetList())[0];
-    cMatrix44 l_Root = this->GetWorldTransform() * cMatrix44::ZupToYUp;
-    for (int i = 1; i < l_iBoneSize; ++i)
-    {
-        cBone* l_pMe = l_ppBone[i];
-        const WCHAR* l_strName = l_pMe->GetName();
-        Vector3 l_vPos = (l_Root * l_pMe->GetWorldTransform() * this->m_matMeshBindShapePose).GetTranslation();
-        Vector3 l_vPos2 = WorldToScreen(l_vPos.x, l_vPos.y, l_vPos.z, e_pfProjection, e_pfMatMV, e_piViewport);
-        if (cGameApp::m_spGlyphFontRender)
-        {
-            cGameApp::m_spGlyphFontRender->RenderFont(l_vPos2.x, l_vPos2.y, l_strName);
-        }
-    }
-}
-
-void cAnimationMeshFromglTF::DebugRender()
-{
-    Render();
-    RenderSkeleton();
 }

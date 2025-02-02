@@ -94,7 +94,6 @@ void cMesh::SubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
     e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
 }
 
-
 void cMesh::Draw()
 {
     static float angle = 0.0f;
@@ -154,8 +153,16 @@ void cMesh::Draw()
         glUniform3fv(lightPosLoc, 1, lightPos);
         glUniform3fv(viewPosLoc, 1, viewPos);
 
-        //lightAngle += (0.001f/ subMeshes.size());
-        //angle += (0.001f / subMeshes.size());
+        // Set directional light uniforms
+        GLuint dirLightDirLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightDirection");
+        GLuint dirLightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightColor");
+
+        Vector3 dirLightDirection(-0.2f, -0.2f, 1.f);
+        Vector3 dirLightColor(0.5f, 0.5f, 0.5f);
+
+        glUniform3fv(dirLightDirLoc, 1, dirLightDirection);
+        glUniform3fv(dirLightColorLoc, 1, dirLightColor);
+
         // Bind textures
         for (size_t i = 0; i < m_uiTextureIDVector.size(); ++i)
         {
@@ -185,36 +192,47 @@ void cMesh::Draw()
     glUseProgram(0);
 }
 
+
+
 void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal)
 {
     SubMesh subMesh;
     subMesh.fvfFlags = 0;
-
-    const tinygltf::Accessor& indexAccessor = model.accessors[primitive.indices];
-    const tinygltf::BufferView& bufferView = model.bufferViews[indexAccessor.bufferView];
-    const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
-
-    const unsigned char* dataPtr = buffer.data.data() + bufferView.byteOffset + indexAccessor.byteOffset;
-
-    if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_SHORT)
+    if (primitive.indices == -1)
     {
-        const uint16_t* shortIndices = reinterpret_cast<const uint16_t*>(dataPtr);
-        subMesh.indexBuffer.resize(indexAccessor.count);
-        std::transform(shortIndices, shortIndices + indexAccessor.count, subMesh.indexBuffer.begin(),
-                       [](uint16_t val)
-                       {
-                           return static_cast<uint32_t>(val);
-                       });
-    }
-    else if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_INT)
-    {
-        subMesh.indexBuffer.resize(indexAccessor.count);
-        memcpy(subMesh.indexBuffer.data(), dataPtr, indexAccessor.count * sizeof(uint32_t));
+        const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
+        size_t vertexCount = positionAccessor.count;
+        subMesh.indexBuffer.resize(vertexCount);
+        std::iota(subMesh.indexBuffer.begin(), subMesh.indexBuffer.end(), 0);
     }
     else
     {
-        std::cerr << "Unsupported index component type: " << indexAccessor.componentType << std::endl;
-        return;
+        const tinygltf::Accessor& indexAccessor = model.accessors[primitive.indices];
+        const tinygltf::BufferView& bufferView = model.bufferViews[indexAccessor.bufferView];
+        const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+
+        const unsigned char* dataPtr = buffer.data.data() + bufferView.byteOffset + indexAccessor.byteOffset;
+
+        if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_SHORT)
+        {
+            const uint16_t* shortIndices = reinterpret_cast<const uint16_t*>(dataPtr);
+            subMesh.indexBuffer.resize(indexAccessor.count);
+            std::transform(shortIndices, shortIndices + indexAccessor.count, subMesh.indexBuffer.begin(),
+                           [](uint16_t val)
+                           {
+                               return static_cast<uint32_t>(val);
+                           });
+        }
+        else if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_INT)
+        {
+            subMesh.indexBuffer.resize(indexAccessor.count);
+            memcpy(subMesh.indexBuffer.data(), dataPtr, indexAccessor.count * sizeof(uint32_t));
+        }
+        else
+        {
+            std::cerr << "Unsupported index component type: " << indexAccessor.componentType << std::endl;
+            return;
+        }
     }
 
     bool hasPosition = primitive.attributes.find("POSITION") != primitive.attributes.end();
@@ -314,13 +332,13 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
         }
         if (weightsData)
         {
-            l_iArrtibuteIndex = FVF_SKINNING_WEIGHT_FLAG;
+            l_iArrtibuteIndex = FVF_SKINNING_WEIGHT;
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
         }
         if (jointsData)
         {
-            l_iArrtibuteIndex = FVF_SKINNING_BONE_INDEX_FLAG;
+            l_iArrtibuteIndex = FVF_SKINNING_BONE_INDEX;
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], jointsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
         }

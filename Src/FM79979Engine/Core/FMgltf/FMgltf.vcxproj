@@ -24,6 +24,7 @@
     <ProjectGuid>{c8cbf889-95a8-44fa-99fb-feb27989dd7a}</ProjectGuid>
     <RootNamespace>FMgltf</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>FMglTF</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -145,6 +146,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="glTF.h" />
     <ClInclude Include="glTFAnimationMesh.h" />
+    <ClInclude Include="glTFBone.h" />
     <ClInclude Include="glTFMesh.h" />
     <ClInclude Include="glTFScene.h" />
     <ClInclude Include="pch.h" />
@@ -154,6 +156,7 @@
     <ClCompile Include="FileUtility.cpp" />
     <ClCompile Include="glTF.cpp" />
     <ClCompile Include="glTFAnimationMesh.cpp" />
+    <ClCompile Include="glTFBone.cpp" />
     <ClCompile Include="glTFMesh.cpp" />
     <ClCompile Include="glTFRenderTest.cpp" />
     <ClCompile Include="glTFScene.cpp" />

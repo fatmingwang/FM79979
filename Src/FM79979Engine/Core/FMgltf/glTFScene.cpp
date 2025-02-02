@@ -128,8 +128,6 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
 }
 
 
-
-
 std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
 {
     std::string shaderCode = R"(
@@ -163,6 +161,10 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
         uniform vec3 inVec3LightPosition;
         uniform vec3 inVec3ViewPosition;
 
+        // Directional light properties
+        uniform vec3 dirLightDirection;
+        uniform vec3 dirLightColor;
+
         // Phong lighting model
         vec3 ComputeLighting(vec3 normal, vec3 lightDir, vec3 viewDir) {
             vec3 ambient = 0.1 * inVec3LightColor;  // Ambient lighting
@@ -175,6 +177,22 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
             vec3 reflectDir = reflect(-lightDir, normal);
             float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);  // Hardcoded shininess
             vec3 specular = spec * inVec3LightColor;
+
+            return ambient + diffuse + specular;  // Returning the combined light contribution
+        }
+
+        // Directional light calculation
+        vec3 ComputeDirectionalLight(vec3 normal, vec3 viewDir) {
+            vec3 ambient = 0.1 * dirLightColor;  // Ambient lighting
+
+            // Diffuse shading (Lambert's cosine law)
+            float diff = max(dot(normal, -dirLightDirection), 0.0);
+            vec3 diffuse = diff * dirLightColor;
+
+            // Specular reflection (Blinn-Phong)
+            vec3 reflectDir = reflect(dirLightDirection, normal);
+            float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);  // Hardcoded shininess
+            vec3 specular = spec * dirLightColor;
 
             return ambient + diffuse + specular;  // Returning the combined light contribution
         }
@@ -220,14 +238,16 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
             // Calculate lighting
             vec3 lighting = ComputeLighting(normal, toFSVec3LightDir, viewDir);
 
+            // Calculate directional lighting
+            vec3 dirLighting = ComputeDirectionalLight(normal, viewDir);
+
             // Apply texture and lighting effects
-            FragColor = vec4(color * lighting, 1.0);
+            FragColor = vec4(color * (lighting + dirLighting), 1.0);
         }
     )";
 
     return shaderCode;
 }
-
 
 
 
@@ -342,19 +362,27 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
 
     for (const auto& meshPair : model.meshes)
     {
-        //assert(meshPair.primitives.size()==1 && "no sub mesh because I am lazy to do different FVF fuck.");
-        cMesh mesh;
+        cMesh* mesh = nullptr;
+        if (!model.animations.empty())
+        {
+            mesh = new cAnimationMesh();
+        }
+        else
+        {
+            mesh = new cMesh();
+        }
+
         for (const auto& primitive : meshPair.primitives)
         {
-            mesh.LoadAttributes(model, primitive, e_bCalculateBiNormal);
+            mesh->LoadAttributes(model, primitive, e_bCalculateBiNormal);
 
             // Load textures for each material
             if (primitive.material >= 0 && primitive.material < model.materials.size())
             {
-                mesh.LoadTextures(model, model.materials[primitive.material]);
+                mesh->LoadTextures(model, model.materials[primitive.material]);
             }
             // Get or create the appropriate shader program for the sub-mesh
-            for (auto& subMesh : mesh.subMeshes)
+            for (auto& subMesh : mesh->subMeshes)
             {
                 subMesh.shaderProgram = GetShaderProgram(subMesh.fvfFlags);
             }
@@ -364,16 +392,23 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
                 if (node.mesh == std::distance(model.meshes.begin(), std::find(model.meshes.begin(), model.meshes.end(), meshPair)))
                 {
                     cMatrix44 nodeMatrix = GetNodeMatrix(node);
-                    // Assuming nodeMatrix is constructed from node's transformation data
-                    // You may need to convert node's translation, rotation, and scale to a matrix
-                    mesh.SetLocalTransform(nodeMatrix);
+                    mesh->SetLocalTransform(nodeMatrix);
                     break;
                 }
             }
         }
-        meshes[meshPair.name] = mesh;
-    }
 
+        if (cAnimationMesh* animMesh = dynamic_cast<cAnimationMesh*>(mesh))
+        {
+            animMesh->LoadAnimations(model);
+            m_AnimationMeshMap[meshPair.name] = (cAnimationMesh*)mesh;
+        }
+        else
+        {
+            meshes[meshPair.name] = mesh;
+        }
+        //delete mesh;
+    }
     return true;
 }
 
@@ -382,7 +417,11 @@ void cScene::InitBuffers()
 {
     for (auto& meshPair : meshes)
     {
-        meshPair.second.InitBuffer();
+        meshPair.second->InitBuffer();
+    }
+    for (auto& meshPair : m_AnimationMeshMap)
+    {
+        meshPair.second->InitBuffer();
     }
 }
 
@@ -392,9 +431,22 @@ void cScene::Draw()
     for (auto& meshPair : meshes)
     {
         //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
-        meshPair.second.Draw();
+        meshPair.second->Draw();
     }
+    for (auto& meshPair : m_AnimationMeshMap)
+    {
+        //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
+        meshPair.second->Draw();
+    }
+    
 }
+
+void cScene::Destory()
+{
+    DELETE_MAP(meshes);
+    DELETE_MAP(m_AnimationMeshMap);
+}
+
 
 cScene g_cScene;
 
@@ -403,7 +455,8 @@ int glTFInit()
     //g_cScene.LoadFromGLTF("glTFModel/Duck.gltf",false);
     //g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
-    g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+    g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     
     g_cScene.InitBuffers();
@@ -414,5 +467,11 @@ void GlTFRender()
 {
     //    DrawModel(model, shaderProgram);
     g_cScene.Draw();
+}
+
+void GlTFDestory()
+{
+    //    DrawModel(model, shaderProgram);
+    g_cScene.Destory();
 }
 
