@@ -67,7 +67,9 @@ void cBone::SetFormKeyFrames(FloatTocMatrix44Map e_FormKeyFrames)
 void cBone::EvaluateLocalXForm(float timeValue, bool e_bSetChildBonesDirty)
 {
     if (m_FormKeyFrames.size() == 0)
+    {
         return;
+    }
 
     FloatTocMatrix44Map::iterator prevKey(m_FormKeyFrames.lower_bound(timeValue));
     FloatTocMatrix44Map::iterator nextKey(prevKey);
@@ -80,7 +82,7 @@ void cBone::EvaluateLocalXForm(float timeValue, bool e_bSetChildBonesDirty)
 
     if ((prevKey == nextKey) || (nextKey == m_FormKeyFrames.end()))
     {
-        this->SetLocalTransform(prevKey->second.Transposed());
+        this->SetLocalTransform(prevKey->second);
         return;
     }
 
@@ -148,7 +150,5 @@ void cBone::EvaluateLocalXForm(float timeValue, bool e_bSetChildBonesDirty)
         Vector3 tNew = t0 + l_fTimeDis * (t1 - t0);
         mNew.SetTranslation(tNew);
     }
-
-    mNew = mNew.Transposed();
     this->SetLocalTransform(mNew, e_bSetChildBonesDirty);
 }

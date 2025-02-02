@@ -31,14 +31,14 @@ class cAnimationMesh : public cMesh
     cAnimationMesh();
     virtual ~cAnimationMesh();
 
-    void LoadAnimations(const tinygltf::Model& model);
-    void SetCurrentAnimation(const std::string& animationName);
-    void UpdateAnimation(float deltaTime);
-    void RefreshAnimationData();
+    void    LoadAnimations(const tinygltf::Model& model);
+    void    SetCurrentAnimation(const std::string& animationName);
+    void    SetCurrentAnimationTime(float e_fCurrentTime);
+    void    UpdateAnimation(float deltaTime);
+    void    RefreshAnimationData();
     virtual void Update(float elapsedTime) override;
     virtual void Draw() override;
     virtual void RenderBindPose();
     void JointUpdate(float elapsedTime);
-    void SetCurrentAnimationTime(float e_fCurrentTime);
     //virtual void RenderSkeleton();
 };

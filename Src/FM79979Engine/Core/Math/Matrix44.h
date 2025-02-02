@@ -217,6 +217,21 @@ public:
 		return e_mat;
 	}
 
+
+	static cMatrix44 ColumnMajorToRowMajor(const float* e_pfData)
+	{
+		cMatrix44 l_Matrix44;
+		// Transpose GLTF matrix (convert column-major to row-major)
+		for (int i = 0; i < 4; ++i)
+		{
+			for (int j = 0; j < 4; ++j)
+			{
+				l_Matrix44.m[i][j] = e_pfData[j * 4 + i]; // Swap rows & columns
+			}
+		}
+		return l_Matrix44;
+	}
+
 	void glTFToOpenGLMatrix(float* outMatrix)
 	{
 		for (int i = 0; i < 4; ++i)

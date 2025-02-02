@@ -372,7 +372,7 @@ namespace UT
 		std::string	l_str;
 		va_list pArgList;
 		va_start( pArgList, e_strErrMsg1 );
-		char str[2048];
+		char str[20480];
 		vsnprintf( str, sizeof(str), e_strErrMsg1, pArgList );
 		va_end( pArgList );
 		l_str = str;

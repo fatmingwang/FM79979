@@ -187,7 +187,6 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
 {
     SubMesh subMesh;
     subMesh.fvfFlags = 0;
-    int     l_iJointsDataConvertStride = 0;
     auto LoadAttribute = [&](const std::string& name) -> const float*
         {
             auto it = primitive.attributes.find(name);
@@ -210,6 +209,7 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
             }
             if (name == "JOINTS_0")
             {
+                int     l_iJointsDataConvertStride = 0;
                 if (accessor.componentType == GL_UNSIGNED_SHORT)
                 {
                     l_iJointsDataConvertStride = 2;//4 unsigned short 2 float
@@ -288,11 +288,11 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
         const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
         vertexCount = positionAccessor.count;
     }
-    subMesh.m_uiVertexStride = 3 + (hasNormal ? 3 : 0) + (hasTexCoord ? 2 : 0) + (hasTangent ? 3 : 0) + (hasColor ? 4 : 0) + (hasWeights ? 4 : 0) + (hasBinormal ? 3 : 0);
+    subMesh.m_uiVertexStride = g_iFVF_DataStride[FVF_POS] + (hasNormal ? g_iFVF_DataStride[FVF_NORMAL] : 0) + (hasTexCoord ? g_iFVF_DataStride[FVF_TEX0] : 0) + (hasTangent ? g_iFVF_DataStride[FVF_TANGENT] : 0) + (hasColor ? g_iFVF_DataStride[FVF_DIFFUSE] : 0) + (hasWeights ? g_iFVF_DataStride[FVF_SKINNING_WEIGHT] : 0) + (hasBinormal ? g_iFVF_DataStride[FVF_BITAGENT] : 0);
     if (hasJoints)
     {
         LoadAttribute("JOINTS_0");
-        subMesh.m_uiVertexStride += l_iJointsDataConvertStride;
+        subMesh.m_uiVertexStride += g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX];
     }
     subMesh.vertexBuffer.resize(vertexCount * subMesh.m_uiVertexStride);
     const float* positionData = LoadAttribute("POSITION");
@@ -304,9 +304,11 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     const float* jointsData = LoadAttribute("JOINTS_0");
     //weightsData = nullptr;
     //jointsData = nullptr;
+    size_t offset = 0;
+    size_t l_uiLastIndex = 0;
     for (size_t i = 0; i < vertexCount; ++i)
     {
-        size_t offset = 0;
+        offset = 0;
         int l_iArrtibuteIndex = 0;
         auto l_iCurrentVertexIndex = i * subMesh.m_uiVertexStride;
         if (positionData)
@@ -342,7 +344,12 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
         if (weightsData)
         {
             l_iArrtibuteIndex = FVF_SKINNING_WEIGHT;
+#ifdef DEBUG
+            float l_fZero[4] = { 0,0,0,0 };
+            memcpy(l_fZero, weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
+#endif
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            //memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], l_fZero, g_iFVF_DataSize[l_iArrtibuteIndex]);
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
         }
         if (jointsData)
@@ -351,6 +358,12 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
             char* l_pJointData = (char*)jointsData;
             l_pJointData += (i * g_iFVF_DataSize[l_iArrtibuteIndex]);
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
+#ifdef DEBUG
+            unsigned short l_JointsID[4];
+            memcpy(l_JointsID, l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
+            unsigned short l_JointsID2[4];
+            memcpy(l_JointsID2, &subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], g_iFVF_DataSize[l_iArrtibuteIndex]);
+#endif
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
         }
         if (texCoordData)
@@ -360,6 +373,7 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
             Vector2 l_vUV(l_fpUVData[0], l_fpUVData[1]);
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], &l_vUV, g_iFVF_DataSize[l_iArrtibuteIndex]);
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+            l_uiLastIndex = l_iCurrentVertexIndex + offset;
         }
     }
 

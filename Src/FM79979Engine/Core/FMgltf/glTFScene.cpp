@@ -77,28 +77,44 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
         void main() {
             vec4 worldPosition = inMat4Model * vec4(aPosition, 1.0);
             toFSVec3FragPos = worldPosition.xyz;
-
-            // Skinning transformation
     )";
 
     if ((fvfFlags & FVF_SKINNING_WEIGHT_FLAG) && (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG))
     {
         shaderCode += R"(
-            mat4 skinMatrix = aWeights.x * uBoneTransforms[aJoints.x] +
-                              aWeights.y * uBoneTransforms[aJoints.y] +
-                              aWeights.z * uBoneTransforms[aJoints.z] +
-                              aWeights.w * uBoneTransforms[aJoints.w];
-            worldPosition = skinMatrix * vec4(aPosition, 1.0);
+            // Skinning transformation
+   //         vec4 l_Position = vec4(0,0,0,0);
+			//vec4 curIndex = aJoints;
+			//vec4 curWeight = aWeights;
+			//for( int i=0;i<4;i++ )
+			//{
+			//		mat4 m44 = uBoneTransforms[int(curIndex.x)];
+   //                 //mat4 m44 = mat4(1.0);
+			//		l_Position += m44 * vec4(aPosition,1) * curWeight.x;
+			//		mat3 m33 = mat3(m44[0].xyz,
+			//						m44[1].xyz,
+			//						m44[2].xyz);
+			//		toFSVec3Normal += m33 * aNormal * curWeight.x;
+			//		curIndex = curIndex.yzwx;
+			//		curWeight = curWeight.yzwx;
+			//}
+			//worldPosition = inMat4Projection * inMat4View *inMat4Model* l_Position;
+
+            mat4 skinMatrix = aWeights.x * uBoneTransforms[int(aJoints.x)] +
+                              aWeights.y * uBoneTransforms[int(aJoints.y)] +
+                              aWeights.z * uBoneTransforms[int(aJoints.z)] +
+                              aWeights.w * uBoneTransforms[int(aJoints.w)];
+            vec4 skinnedPosition = skinMatrix * vec4(aPosition, 1.0);
+            worldPosition = inMat4Projection*inMat4View*inMat4Model * skinnedPosition;
+
         )";
     }
 
     shaderCode += R"(
             // Passing light direction to fragment shader
             toFSVec3LightDir = normalize(inVec3LightPosition - toFSVec3FragPos);
-
-            // Transform normal to world space and then to view space
-            toFSVec3Normal = mat3(transpose(inverse(inMat4Model))) * aNormal;
     )";
+
 
     if (fvfFlags & FVF_TANGENT_FLAG)
     {
@@ -119,10 +135,20 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
     shaderCode += R"(
             // Pass texture coordinates
             toFSVec2TexCoord = aTexCoord;
+        )";
 
-            gl_Position = inMat4Projection * inMat4View * worldPosition;
-        }
-    )";
+    if ((fvfFlags & FVF_SKINNING_WEIGHT_FLAG) && (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG))
+    {
+        shaderCode += R"(    gl_Position = worldPosition;
+        })";
+    }
+    else
+    {
+        shaderCode += R"(    gl_Position = inMat4Projection * inMat4View * worldPosition;
+                             // Transform normal to world space and then to view space
+                             toFSVec3Normal = mat3(transpose(inverse(inMat4Model))) * aNormal;
+        })";
+    }
 
     return shaderCode;
 }
@@ -448,8 +474,9 @@ void cScene::Draw()
     for (auto& meshPair : m_AnimationMeshMap)
     {
         //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
-        //meshPair.second->Draw();
-        meshPair.second->RenderBindPose();
+        meshPair.second->Update(0.016f);
+        meshPair.second->Draw();
+        //meshPair.second->RenderBindPose();
     }
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
@@ -475,6 +502,8 @@ int glTFInit()
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
+    //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
+    
     
     g_cScene.InitBuffers();
     return 1;

@@ -137,6 +137,7 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
             if (nodeToBoneMap.find(jointIndex) != nodeToBoneMap.end())
             {
                 cBone* bone = nodeToBoneMap[jointIndex];
+                //bone->m_matInvBindPose = cMatrix44::ColumnMajorToRowMajor(data + i * 16);
                 bone->m_matInvBindPose = cMatrix44(data + i * 16);
             }
         }
@@ -258,8 +259,9 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
 
             for (size_t i = 0; i < inputAccessor.count; ++i)
             {
-                cMatrix44 transform;
-                memcpy(&transform, outputData + i * 16, sizeof(cMatrix44));
+                //cMatrix44 transform = cMatrix44::ColumnMajorToRowMajor(outputData + i * 16);
+                cMatrix44 transform = cMatrix44(outputData + i * 16);
+                //memcpy(&transform, outputData + i * 16, sizeof(cMatrix44));
                 keyframes[inputData[i]] = transform;
             }
 
@@ -271,13 +273,18 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
             {
                 animationData.m_fMinKeyTime = min(animationData.m_fMinKeyTime, keyframes.begin()->first);
                 animationData.m_fMaxKeyTime = max(animationData.m_fMaxKeyTime, keyframes.rbegin()->first);
+                animationData.m_fStartTime = animationData.m_fMinKeyTime;
+                animationData.m_fEndTime = animationData.m_fMaxKeyTime;
             }
         }
 
         m_NameAndAnimationMap[animation.name] = animationData;
     }
 
-    RefreshAnimationData();
+    if (!m_pAllBonesMatrixForSkinned)
+    {
+        m_pAllBonesMatrixForSkinned = new cMatrix44[m_SkinningBoneVector.Count()];
+    }
     if (this->m_pMainRootBone)
     {
         this->m_pMainRootBone->DumpDebugInfo(false,true);
@@ -300,11 +307,42 @@ void cAnimationMesh::UpdateAnimation(float deltaTime)
 {
     if (m_pCurrentAnimationData)
     {
-        m_pCurrentAnimationData->m_fCurrentTime += deltaTime;
-        auto l_Vector = m_SkinningBoneVector.GetList();
-        for (auto& bone : *l_Vector)
+        float newTime(m_pCurrentAnimationData->m_fCurrentTime);
+        // Handle time advance based on animation playback options
+        if ((m_pCurrentAnimationData->m_fCurrentTime + deltaTime) > m_pCurrentAnimationData->m_fEndTime)
         {
-            bone->EvaluateLocalXForm(m_pCurrentAnimationData->m_fCurrentTime);
+            float endMinusStart = m_pCurrentAnimationData->m_fEndTime - m_pCurrentAnimationData->m_fStartTime;
+            if (endMinusStart > 0.001)
+            {
+                //switch(m_animEndHandling)
+                //{
+                //case LOOP:
+                //    {
+                float overTime = (m_pCurrentAnimationData->m_fCurrentTime + deltaTime - m_pCurrentAnimationData->m_fEndTime);
+                newTime = m_pCurrentAnimationData->m_fStartTime + (float)fmod(overTime, endMinusStart);
+                //    }
+                //    break;
+                //case BLOCK:
+                //default:
+                //    newTime = m_endTime;
+                //    break;
+                //}
+            }
+            else
+            {
+                newTime = m_pCurrentAnimationData->m_fCurrentTime;
+            }
+        }
+        else
+        {
+            newTime = m_pCurrentAnimationData->m_fCurrentTime + deltaTime;
+        };
+        m_pCurrentAnimationData->m_fCurrentTime = newTime;
+        auto l_Vector = m_SkinningBoneVector.GetList();
+        for(int i=0;i< m_SkinningBoneVector.Count();++i)
+        {
+            cBone* l_pBone = m_SkinningBoneVector[i];
+            l_pBone->EvaluateLocalXForm(m_pCurrentAnimationData->m_fCurrentTime);
         }
     }
 }
@@ -313,37 +351,19 @@ void cAnimationMesh::RefreshAnimationData()
 {
     if (m_pCurrentAnimationData)
     {
-        cBone** l_ppBone = &(*m_SkinningBoneVector.GetList())[0];
-        m_pCurrentAnimationData->m_fMinKeyTime = FLT_MAX;
-        m_pCurrentAnimationData->m_fMaxKeyTime = FLT_MIN;
-        int l_iNum = this->m_SkinningBoneVector.Count();
-        for (int i = 0; i < l_iNum; ++i)
-        {
-            cBone* l_pBone = l_ppBone[i];
-            m_pCurrentAnimationData->m_fMinKeyTime = (m_pCurrentAnimationData->m_fMinKeyTime, l_pBone->m_fMinKeyTime);
-            m_pCurrentAnimationData->m_fMaxKeyTime = (m_pCurrentAnimationData->m_fMaxKeyTime, l_pBone->m_fMaxKeyTime);
-        }
-        if (m_pCurrentAnimationData->m_fMinKeyTime != FLT_MAX)
-        {
-            m_pCurrentAnimationData->m_fStartTime = m_pCurrentAnimationData->m_fMinKeyTime;
-            m_pCurrentAnimationData->m_fEndTime = m_pCurrentAnimationData->m_fMaxKeyTime;
-        }
-        else
-        {
-            m_pCurrentAnimationData->m_fMinKeyTime = 0;
-            m_pCurrentAnimationData->m_fMaxKeyTime = 0;
-        }
-        if (m_pCurrentAnimationData->m_fStartTime < 0)
-            m_pCurrentAnimationData->m_fStartTime = 0;
-        if (!m_pAllBonesMatrixForSkinned)
-        {
-            m_pAllBonesMatrixForSkinned = new cMatrix44[l_iNum];
-        }
+        m_pCurrentAnimationData->m_fCurrentTime = 0;
     }
 }
 
 void cAnimationMesh::Update(float elapsedTime)
 {
+    // Ensure the current animation data is valid
+    if (!m_pCurrentAnimationData)
+    {
+        auto l_Animation = m_NameAndAnimationMap.begin();
+        //++l_Animation;
+        this->SetCurrentAnimation(l_Animation->first);
+    }
     UpdateAnimation(elapsedTime);
 }
 
@@ -364,20 +384,13 @@ void	cAnimationMesh::UpdateNode(cBone* e_pBone, float e_fTime)
 
 void cAnimationMesh::Draw()
 {
-    // Ensure the current animation data is valid
-    if (!m_pCurrentAnimationData)
-    {
-        this->SetCurrentAnimation(m_NameAndAnimationMap.begin()->first);
-        return;
-    }
     static float angle = 0.0f;
     static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
     lightAngle += 0.01f;
     angle += 0.01f;    
-    // Update the animation to the current time
-    UpdateAnimation(0.016f);
-
+    cMatrix44 conversionMatrix = cMatrix44::Identity;
+    conversionMatrix.m[2][2] = -1.0f;
     // Update the bone matrices for skinning
     int boneCount = m_SkinningBoneVector.Count();
     for (int i = 0; i < boneCount; ++i)
@@ -385,10 +398,24 @@ void cAnimationMesh::Draw()
         cBone* bone = m_SkinningBoneVector[i];
         if (bone)
         {
-            m_pAllBonesMatrixForSkinned[i] = bone->GetWorldTransform() * bone->m_matInvBindPose;
+            //cMatrix44  l_WorldTransform = l_ppBone[i]->GetWorldTransform() * l_ppBone[i]->GetInvBindPose() * m_matMeshBindShapePose;
+            //m_pAllBonesMatrixForSkinned[i] = bone->GetWorldTransform() * bone->m_matInvBindPose;
+            //m_pAllBonesMatrixForSkinned[i] = bone->m_matInvBindPose;
+            m_pAllBonesMatrixForSkinned[i] = cMatrix44::Identity;
+#ifdef DEBUG
+            auto l_Final = m_pAllBonesMatrixForSkinned[i];
+            auto l_FinalTranspose = m_pAllBonesMatrixForSkinned[i].Transposed();
+            auto l_matWorld = bone->GetWorldTransform();
+            auto l_matWorldTranspose = bone->GetWorldTransform().Transposed();
+            auto l_matBind = bone->m_matInvBindPose;
+            auto l_matBindTranspose = bone->m_matInvBindPose.Transposed();
+#endif
+            //m_pAllBonesMatrixForSkinned[i] = bone->m_matInvBindPose;
+            int a = 0;
         }
     }
     auto l_vPos = this->GetWorldPosition();
+    //l_vPos.y = 5;
     // Iterate through sub-meshes and draw each one
     for (auto& subMesh : subMeshes)
     {
@@ -407,9 +434,6 @@ void cAnimationMesh::Draw()
         viewMatrix.GetTranslation().z *= -1;
         Projection projectionMatrix;
         projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
-
-        cMatrix44 conversionMatrix = cMatrix44::Identity;
-        conversionMatrix.m[2][2] = -1.0f;
 
         modelMatrix = conversionMatrix * modelMatrix;
         cMatrix44 rotationMatrix = cMatrix44::YAxisRotationMatrix(angle);
@@ -558,16 +582,23 @@ void cAnimationMesh::RenderBindPose()
     }
 }
 
-
-void cAnimationMesh::JointUpdate(float elapsedTime)
-{
-    // Implement the joint update logic here
-}
-
 void cAnimationMesh::SetCurrentAnimationTime(float e_fCurrentTime)
 {
     if (m_pCurrentAnimationData)
     {
         m_pCurrentAnimationData->m_fCurrentTime = e_fCurrentTime;
+        //if (m_pCurrentAnimationData->m_fCurrentTime > m_pCurrentAnimationData->m_fEndTime)
+        //{
+        //    UpdateNodes(m_pCurrentAnimationData->m_fEndTime);
+        //}
+        //else
+        //if (m_pCurrentAnimationData->m_fCurrentTime < m_pCurrentAnimationData->m_fStartTime)
+        //{
+        //    UpdateNodes(m_pCurrentAnimationData->m_fStartTime);
+        //}
+        //else
+        //{
+        //    UpdateNodes(m_pCurrentAnimationData->m_fCurrentTime);
+        //}
     }
 }
