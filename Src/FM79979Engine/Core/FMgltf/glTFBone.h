@@ -7,6 +7,7 @@ typedef std::map<float, cMatrix44> FloatTocMatrix44Map;
 
 struct cBone : public Frame
 {
+    int     m_iJointIndex;
     float m_fMinKeyTime;
     float m_fMaxKeyTime;
     FloatTocMatrix44Map m_FormKeyFrames;
@@ -14,8 +15,7 @@ struct cBone : public Frame
     bool m_bAnimation;
     std::wstring m_strSID;
 
-    cBone(const WCHAR* e_strName);
-    cBone(cBone* e_pBone);
+    cBone(const WCHAR* e_strName,int e_iJointIndex);
     ~cBone();
     cBone* FinChildByName(const wchar_t* e_strBoneName);
     void SetFormKeyFrames(FloatTocMatrix44Map e_FormKeyFrames);

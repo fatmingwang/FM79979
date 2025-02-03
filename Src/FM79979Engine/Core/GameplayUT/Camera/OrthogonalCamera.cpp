@@ -238,7 +238,7 @@ namespace FATMING_CORE
 		{
 			if (l_fRow < 20)
 			{
-				cGameApp::m_spGlyphFontRender->SetScale(l_fRow/20+0.2);
+				cGameApp::m_spGlyphFontRender->SetScale(l_fRow/20.f+0.2f);
 			}
 			for (int i = 0; i < l_iRow+2; ++i)
 			{

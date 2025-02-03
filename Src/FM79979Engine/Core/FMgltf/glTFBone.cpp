@@ -1,23 +1,13 @@
 
 #include "tiny_gltf.h"
 #include "glTFBone.h"
-cBone::cBone(const WCHAR* e_strName):m_matInvBindPose(cMatrix44::Identity)
+cBone::cBone(const WCHAR* e_strName, int e_iJointIndex):m_matInvBindPose(cMatrix44::Identity)
 {
     SetName(e_strName);
+    m_iJointIndex = e_iJointIndex;
     m_fMinKeyTime = 0;
     m_fMaxKeyTime = 0;
     m_bAnimation = false;
-}
-
-cBone::cBone(cBone* e_pBone)
-{
-    SetName(e_pBone->GetName());
-    m_bAnimation = e_pBone->m_bAnimation;
-    m_fMinKeyTime = e_pBone->m_fMinKeyTime;
-    m_fMaxKeyTime = e_pBone->m_fMaxKeyTime;
-    m_FormKeyFrames = e_pBone->m_FormKeyFrames;
-    m_matInvBindPose = e_pBone->m_matInvBindPose;
-    this->SetLocalTransform(this->GetLocalTransform());
 }
 
 cBone::~cBone()

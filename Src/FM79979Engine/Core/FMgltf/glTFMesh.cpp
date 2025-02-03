@@ -7,7 +7,18 @@
 
 #include <algorithm>
 #include <cstring>
+#include <unordered_set>
 
+struct sLazySkinningVertext
+{
+    float           vPos[3];
+    float           fWeight[4];
+    unsigned short  usJoints[4];
+    float           vTextCord[2];
+};
+#ifdef DEBUG
+std::vector<sLazySkinningVertext>   g_sLazySkinningVertextVector;
+#endif
 cMesh::cMesh()
 {
 }
@@ -38,6 +49,8 @@ void cMesh::InitBuffer()
         // Upload vertex data
         glBindBuffer(GL_ARRAY_BUFFER, subMesh.vbo);
         glBufferData(GL_ARRAY_BUFFER, subMesh.vertexBuffer.size() * sizeof(float), subMesh.vertexBuffer.data(), GL_STATIC_DRAW);
+        //glBufferData(GL_ARRAY_BUFFER, subMesh.vertexBuffer.size() * sizeof(float), &g_sLazySkinningVertextVector[0], GL_STATIC_DRAW);
+        
 
         // Upload index data
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, subMesh.ebo);
@@ -49,13 +62,30 @@ void cMesh::InitBuffer()
         {
             if (subMesh.fvfFlags & (1 << i))
             {
+                //glEnableVertexAttribArray(i);
+                //myVertexAttribPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], GL_FALSE, (GLsizei)l_StrideWithSize, (void*)offset);
+                //offset += g_iFVF_DataSize[i];
+
+
+
                 glEnableVertexAttribArray(i);
-                myVertexAttribPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], GL_FALSE, (GLsizei)l_StrideWithSize, (void*)offset);
+                if (i == FVF_SKINNING_BONE_INDEX)
+                {
+                    // Use glVertexAttribIPointer for integer attributes
+                    glVertexAttribIPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], (GLsizei)l_StrideWithSize, (void*)offset);
+                }
+                else
+                {
+                    glVertexAttribPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], GL_FALSE, (GLsizei)l_StrideWithSize, (void*)offset);
+                }
                 offset += g_iFVF_DataSize[i];
+
+
             }
         }
     }
     glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER,0);
 
     // Iterate through each subMesh to update the bounds
     for (const auto& subMesh : subMeshes)
@@ -299,6 +329,9 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
         subMesh.m_uiVertexStride += g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX];;
     }
     subMesh.vertexBuffer.resize(vertexCount * subMesh.m_uiVertexStride);
+#ifdef DEBUG
+    g_sLazySkinningVertextVector.resize(vertexCount);
+#endif
     const float* positionData = LoadAttribute("POSITION");
     const float* normalData = LoadAttribute("NORMAL");
     const float* texCoordData = LoadAttribute("TEXCOORD_0");
@@ -310,17 +343,24 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
     //jointsData = nullptr;
     size_t offset = 0;
     size_t l_uiLastIndex = 0;
+    std::unordered_set<int> skinningJoints;
     for (size_t i = 0; i < vertexCount; ++i)
     {
         offset = 0;
         int l_iArrtibuteIndex = 0;
         auto l_iCurrentVertexIndex = i * subMesh.m_uiVertexStride;
+#ifdef DEBUG
+        sLazySkinningVertext*l_pData = &g_sLazySkinningVertextVector[i];
+#endif
         if (positionData)
         {
             l_iArrtibuteIndex = FVF_POS;
             Vector3 vertex(positionData[i * 3], positionData[i * 3 + 1], positionData[i * 3 + 2]);
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], positionData + i * 3, g_iFVF_DataSize[l_iArrtibuteIndex]);
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
+#ifdef DEBUG
+            memcpy(&l_pData->vPos, positionData + i * 3, g_iFVF_DataSize[l_iArrtibuteIndex]);
+#endif
         }
         if (normalData)
         {
@@ -360,6 +400,7 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
                     int a = 0;
                 }
             }
+            memcpy(&l_pData->fWeight, weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
 #endif
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
             //memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], l_fZero, g_iFVF_DataSize[l_iArrtibuteIndex]);
@@ -373,12 +414,14 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
             l_pJointData += (i * g_iFVF_DataSize[l_iArrtibuteIndex]);
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
 #ifdef DEBUG
+            memcpy(&l_pData->usJoints, l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
             unsigned short l_JointsID[4];
             memcpy(l_JointsID, l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
             unsigned short l_JointsID2[4];
             memcpy(l_JointsID2, &subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], g_iFVF_DataSize[l_iArrtibuteIndex]);
             for (int i = 0; i < 4; ++i)
             {
+                skinningJoints.insert(l_JointsID[i]);
                 if (l_JointsID[i] >= 24)
                 {
                     int a = 0;
@@ -393,10 +436,19 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
             const float* l_fpUVData = texCoordData + i * 2;
             Vector2 l_vUV(l_fpUVData[0], l_fpUVData[1]);
             memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], &l_vUV, g_iFVF_DataSize[l_iArrtibuteIndex]);
+#ifdef DEBUG
+            memcpy(&l_pData->vTextCord, &l_vUV, g_iFVF_DataSize[l_iArrtibuteIndex]);
+#endif
             offset += g_iFVF_DataStride[l_iArrtibuteIndex];
             l_uiLastIndex = l_iCurrentVertexIndex + offset;
         }
     }
+
+    // Copy to a vector
+    std::vector<int> sortedJoints(skinningJoints.begin(), skinningJoints.end());
+
+    // Sort in ascending order
+    std::sort(sortedJoints.begin(), sortedJoints.end());
 
     if (hasPosition) subMesh.fvfFlags |= FVF_POS_FLAG;
     if (hasNormal) subMesh.fvfFlags |= FVF_NORMAL_FLAG;

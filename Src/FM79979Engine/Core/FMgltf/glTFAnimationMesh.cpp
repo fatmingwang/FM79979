@@ -119,7 +119,7 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
             continue;
         }
 
-        cBone* bone = new cBone(std::wstring(node.name.begin(), node.name.end()).c_str());
+        cBone* bone = new cBone(std::wstring(node.name.begin(), node.name.end()).c_str(),i);
         nodeToBoneMap[i] = bone;
         m_SkinningBoneVector.AddObject(bone);
     }
@@ -347,6 +347,7 @@ void cAnimationMesh::UpdateAnimation(float deltaTime)
         {
             cBone* l_pBone = m_SkinningBoneVector[i];
             l_pBone->EvaluateLocalXForm(m_pCurrentAnimationData->m_fCurrentTime);
+            //l_pBone->SetWorldTransform(cMatrix44::Identity);
         }
     }
 }
@@ -399,14 +400,24 @@ void cAnimationMesh::Draw()
     conversionMatrix.m[2][2] = -1.0f;
     // Update the bone matrices for skinning
     int boneCount = m_SkinningBoneVector.Count();
+    std::vector<int> sortedJoints;
     for (int i = 0; i < boneCount; ++i)
     {
         cBone* bone = m_SkinningBoneVector[i];
         if (bone)
         {
-            //cMatrix44  l_WorldTransform = l_ppBone[i]->GetWorldTransform() * l_ppBone[i]->GetInvBindPose() * m_matMeshBindShapePose;
-            auto l_mat = bone->GetWorldTransform() * bone->m_matInvBindPose;
-            m_pAllBonesMatrixForSkinned[i] = l_mat;
+            auto l_mat = bone->GetWorldTransform()*bone->m_matInvBindPose.Transposed();
+            //auto l_mat = bone->m_matInvBindPose;
+            sortedJoints.push_back(bone->m_iJointIndex);
+            if (bone->m_iJointIndex < boneCount)
+            {
+                m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
+            }
+            else
+            {
+                int a = 0;
+            }
+            
             //m_pAllBonesMatrixForSkinned[i] = bone->m_matInvBindPose;
 #ifdef DEBUG
             auto l_Final = m_pAllBonesMatrixForSkinned[i];
@@ -420,6 +431,7 @@ void cAnimationMesh::Draw()
             int a = 0;
         }
     }
+    std::sort(sortedJoints.begin(), sortedJoints.end());
     auto l_vPos = this->GetWorldPosition();
     //l_vPos.y = 5;
     // Iterate through sub-meshes and draw each one

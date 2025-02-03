@@ -372,7 +372,9 @@ namespace FATMING_CORE
 	void	Frame::SetLocalTransform(const cMatrix44& LocalTransform, bool e_bAllChildDirty)
 	{
 		if (e_bAllChildDirty)
+		{
 			SetCachedWorldTransformDirty();
+		}
 		m_LocalTransform = LocalTransform;
 		SetTransformInternalData();
 	}

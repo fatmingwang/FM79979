@@ -432,6 +432,8 @@ void cScene::InitBuffers()
     {
         meshPair.second->InitBuffer();
     }
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 // Draw the scene
@@ -453,7 +455,7 @@ void cScene::Draw()
     for (auto& meshPair : meshes)
     {
         //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
-        meshPair.second->Draw();
+        //meshPair.second->Draw();
     }
     for (auto& meshPair : m_AnimationMeshMap)
     {
@@ -466,6 +468,11 @@ void cScene::Draw()
     glDisable(GL_DEPTH_TEST);
     glUseProgram(0);
     glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    for (auto& meshPair : m_AnimationMeshMap)
+    {
+        //meshPair.second->RenderSkeleton();
+    }
     
 }
 

@@ -93,11 +93,6 @@ void	cEngineTestApp::Render()
 {
 	//this->m_spOpenGLRender->m_vGameResolution = Vector2(1920, 1080);
 	this->m_spOpenGLRender->m_vBGColor = Vector4(0.5, 0.5, 0.5, 1);
-	
-	//glEnable(GL_ALPHA_TEST);
-	MyGLEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	glClear(GL_DEPTH_BUFFER_BIT);
 	cGameApp::Render();
 	//cMyImGuiTesting::Render();
 	GlTFRender();

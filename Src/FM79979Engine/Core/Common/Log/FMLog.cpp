@@ -149,7 +149,7 @@ namespace FMLog
 #if defined(WIN32)
 		std::string l_str = UT::WcharToChar(e_str);		l_str += "\n";
 		printf(l_str.c_str());
-		printf("\n");
+		//printf("\n");
 		OutputDebugString(e_str);;
 		OutputDebugString(L"\n");
 #elif	defined(ANDROID)
