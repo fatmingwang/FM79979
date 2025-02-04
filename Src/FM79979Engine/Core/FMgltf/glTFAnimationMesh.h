@@ -13,14 +13,14 @@ class cAnimationMesh : public cMesh
     cMatrix44* m_pAllBonesMatrixForSkinned;
     struct sAnimationData
     {
-        std::map<int, FloatTocMatrix44Map> m_BoneIDAndAnimationData;
+        std::map<cBone*, FloatToSRTMap> m_BoneIDAndAnimationData;
         float m_fMinKeyTime;
         float m_fMaxKeyTime;
         float m_fCurrentTime;
         float m_fStartTime;
         float m_fEndTime;
     };
-    std::map<std::string, sAnimationData> m_NameAndAnimationMap; // Animation name -> Node index -> Keyframes
+    std::map<std::string, sAnimationData*> m_NameAndAnimationMap; // Animation name -> Node index -> Keyframes
     sAnimationData* m_pCurrentAnimationData;
     std::string m_CurrentAnimation;
 
@@ -43,5 +43,5 @@ class cAnimationMesh : public cMesh
     virtual void Draw() override;
     virtual void RenderBindPose();
     void JointUpdate(float elapsedTime);
-    //virtual void RenderSkeleton();
+    virtual void RenderSkeleton();
 };

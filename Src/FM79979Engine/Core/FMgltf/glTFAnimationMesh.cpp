@@ -206,7 +206,8 @@ void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, 
 {
     for (const auto& animation : model.animations)
     {
-        sAnimationData animationData;
+        sAnimationData* l_pAnimationData = new sAnimationData();
+        sAnimationData& animationData = *l_pAnimationData;
         animationData.m_fMinKeyTime = FLT_MAX;
         animationData.m_fMaxKeyTime = FLT_MIN;
         animationData.m_fCurrentTime = 0.0f;
@@ -225,7 +226,7 @@ void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, 
             }
 
             cBone* bone = it->second;
-            FloatTocMatrix44Map keyframes;
+            FloatToSRTMap& keyframes = animationData.m_BoneIDAndAnimationData[bone];
 
             const auto& inputAccessor = model.accessors[sampler.input];
             const auto& inputBufferView = model.bufferViews[inputAccessor.bufferView];
@@ -239,12 +240,25 @@ void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, 
 
             for (size_t i = 0; i < inputAccessor.count; ++i)
             {
-                cMatrix44 transform = cMatrix44(outputData + i * 16);
-                keyframes[inputData[i]] = transform;
-            }
+                float time = inputData[i];
+                SRT& srt = keyframes[time];
 
-            bone->SetFormKeyFrames(keyframes);
-            animationData.m_BoneIDAndAnimationData[channel.target_node] = keyframes;
+                if (channel.target_path == "translation")
+                {
+                    srt.translation = Vector3(outputData[i * 3], outputData[i * 3 + 1], outputData[i * 3 + 2]);
+                    srt.iSRTFlag |= (1 << 3); // Set translation flag
+                }
+                else if (channel.target_path == "rotation")
+                {
+                    srt.rotation = Quaternion(outputData[i * 4 + 3], outputData[i * 4], outputData[i * 4 + 1], outputData[i * 4 + 2]);
+                    srt.iSRTFlag |= (1 << 2); // Set rotation flag
+                }
+                else if (channel.target_path == "scale")
+                {
+                    srt.scale = Vector3(outputData[i * 3], outputData[i * 3 + 1], outputData[i * 3 + 2]);
+                    srt.iSRTFlag |= (1 << 1); // Set scale flag
+                }
+            }
 
             if (!keyframes.empty())
             {
@@ -255,10 +269,9 @@ void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, 
             }
         }
 
-        m_NameAndAnimationMap[animation.name] = animationData;
+        m_NameAndAnimationMap[animation.name] = l_pAnimationData;
     }
 }
-
 
 
 
@@ -268,7 +281,7 @@ void cAnimationMesh::SetCurrentAnimation(const std::string& animationName)
     if (it != m_NameAndAnimationMap.end())
     {
         m_CurrentAnimation = animationName;
-        m_pCurrentAnimationData = &it->second;
+        m_pCurrentAnimationData = it->second;
         RefreshAnimationData();
     }
 }
@@ -323,6 +336,11 @@ void cAnimationMesh::RefreshAnimationData()
     if (m_pCurrentAnimationData)
     {
         m_pCurrentAnimationData->m_fCurrentTime = 0;
+        for (auto l_IT : m_pCurrentAnimationData->m_BoneIDAndAnimationData)
+        {
+            l_IT.first->SetFormKeyFrames(l_IT.second);
+        }
+
     }
 }
 
@@ -332,7 +350,7 @@ void cAnimationMesh::Update(float elapsedTime)
     if (!m_pCurrentAnimationData)
     {
         auto l_Animation = m_NameAndAnimationMap.begin();
-        ++l_Animation;
+        //++l_Animation;
         this->SetCurrentAnimation(l_Animation->first);
     }
     m_pCurrentAnimationData->m_fCurrentTime += elapsedTime;
@@ -366,18 +384,17 @@ void cAnimationMesh::Draw()
     conversionMatrix.m[2][2] = -1.0f;
     // Update the bone matrices for skinning
     int boneCount = m_SkinningBoneVector.Count();
-    std::vector<int> sortedJoints;
     for (int i = 0; i < boneCount; ++i)
     {
         cBone* bone = m_SkinningBoneVector[i];
         if (bone)
         {
-            auto l_mat = bone->GetWorldTransform(); *bone->m_matInvBindPose;
+            auto l_mat = bone->GetWorldTransform() *bone->m_matInvBindPose;
             //auto l_mat = bone->m_matInvBindPose;
-            sortedJoints.push_back(bone->m_iJointIndex);
             if (bone->m_iJointIndex < boneCount)
             {
-                m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
+                //m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
+                m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;// 
                 //if (bone->GetName() == L"b_LeftFoot02_018")
                 //if( i %2)
                 {
@@ -409,7 +426,6 @@ void cAnimationMesh::Draw()
             int a = 0;
         }
     }
-    std::sort(sortedJoints.begin(), sortedJoints.end());
     auto l_vPos = this->GetWorldPosition();
     //l_vPos.y = 5;
     // Iterate through sub-meshes and draw each one
@@ -599,3 +615,64 @@ void cAnimationMesh::SetCurrentAnimationTime(float e_fCurrentTime)
         //}
     }
 }
+
+void cAnimationMesh::RenderSkeleton()
+{
+    if (!m_pMainRootBone)
+    {
+        return;
+    }
+
+    // Set up OpenGL for line and point rendering
+    glUseProgram(0); // Use fixed-function pipeline
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_LIGHTING);
+    glLineWidth(2.0f);
+    glPointSize(5.0f);
+    glColor3f(1.0f, 0.0f, 0.0f); // Red color for bones
+
+    // Recursive function to render bones
+    std::function<void(cBone*)> renderBone = [&](cBone* bone)
+        {
+            if (!bone)
+            {
+                return;
+            }
+
+            cBone* parentBone = static_cast<cBone*>(bone->GetParent());
+            if (parentBone)
+            {
+                // Draw line from parent to current bone
+                glBegin(GL_LINES);
+                Vector3 parentPos = parentBone->GetWorldTransform().GetTranslation();
+                Vector3 bonePos = bone->GetWorldTransform().GetTranslation();
+                glVertex3f(parentPos.x, parentPos.y, parentPos.z);
+                glVertex3f(bonePos.x, bonePos.y, bonePos.z);
+                glEnd();
+            }
+
+            // Draw point at current bone position
+            glBegin(GL_POINTS);
+            Vector3 bonePos = bone->GetWorldTransform().GetTranslation();
+            glVertex3f(bonePos.x, bonePos.y, bonePos.z);
+            glEnd();
+
+            // Recursively render child bones
+            cBone* childBone = static_cast<cBone*>(bone->GetFirstChild());
+            while (childBone)
+            {
+                renderBone(childBone);
+                childBone = static_cast<cBone*>(childBone->GetNextSibling());
+            }
+        };
+
+    // Start rendering from the root bone
+    renderBone(m_pMainRootBone);
+
+    // Restore OpenGL state
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_LIGHTING);
+    glLineWidth(1.0f);
+    glPointSize(1.0f);
+}
+

@@ -476,7 +476,7 @@ void cScene::Draw()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     for (auto& meshPair : m_AnimationMeshMap)
     {
-        //meshPair.second->RenderSkeleton();
+        meshPair.second->RenderSkeleton();
     }
     
 }

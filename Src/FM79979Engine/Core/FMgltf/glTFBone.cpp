@@ -30,12 +30,16 @@ cBone* cBone::FinChildByName(const wchar_t* e_strBoneName)
     return nullptr;
 }
 
-void cBone::SetFormKeyFrames(FloatTocMatrix44Map e_FormKeyFrames)
+void cBone::SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames)
 {
+    if (m_FormKeyFrames.size() != 0)
+    {
+        int a = 0;
+    }
     m_FormKeyFrames = e_FormKeyFrames;
     size_t l_uiSize = m_FormKeyFrames.size();
     float l_fMinKeyTime(FLT_MAX), l_fMaxKeyTime(FLT_MIN), l_fKeyTime;
-    for (FloatTocMatrix44Map::iterator l_Iterator = m_FormKeyFrames.begin(); l_Iterator != m_FormKeyFrames.end(); ++l_Iterator)
+    for (FloatToSRTMap::iterator l_Iterator = m_FormKeyFrames.begin(); l_Iterator != m_FormKeyFrames.end(); ++l_Iterator)
     {
         l_fKeyTime = l_Iterator->first;
         l_fMinKeyTime = min(l_fMinKeyTime, l_fKeyTime);
@@ -54,91 +58,47 @@ void cBone::SetFormKeyFrames(FloatTocMatrix44Map e_FormKeyFrames)
     }
 }
 
-void cBone::EvaluateLocalXForm(float timeValue, bool e_bSetChildBonesDirty)
+
+void cBone::EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty)
 {
-    if (m_FormKeyFrames.size() == 0)
+    if (m_FormKeyFrames.empty())
     {
         return;
     }
 
-    FloatTocMatrix44Map::iterator prevKey(m_FormKeyFrames.lower_bound(timeValue));
-    FloatTocMatrix44Map::iterator nextKey(prevKey);
-
-    if ((prevKey == m_FormKeyFrames.end()) ||
-        ((prevKey != m_FormKeyFrames.begin()) && (prevKey->first > timeValue)))
-        --prevKey;
-
-    assert(prevKey != m_FormKeyFrames.end());
-
-    if ((prevKey == nextKey) || (nextKey == m_FormKeyFrames.end()))
+    auto it = m_FormKeyFrames.lower_bound(e_fTime);
+    if (it == m_FormKeyFrames.end())
     {
-        this->SetLocalTransform(prevKey->second);
-        return;
+        it = std::prev(m_FormKeyFrames.end());
     }
 
-    float time0 = prevKey->first;
-    float time1 = nextKey->first;
-    float l_fTimeDis = (timeValue - time0) / (time1 - time0);
+    const SRT& srt = it->second;
 
-    const cMatrix44& m0 = prevKey->second;
-    const cMatrix44& m1 = nextKey->second;
+    // Default values for SRT components
+    Vector3 defaultScale(1.0f, 1.0f, 1.0f);
+    Quaternion defaultRotation(1.0f, 0.0f, 0.0f, 0.0f);
+    Vector3 defaultTranslation(0.0f, 0.0f, 0.0f);
 
-    cMatrix44 mNew = m0;
+    // Use provided SRT values or default values if not present
+    Vector3 scale = (srt.iSRTFlag & (1 << 1)) ? srt.scale : defaultScale;
+    Quaternion rotation = (srt.iSRTFlag & (1 << 2)) ? srt.rotation : defaultRotation;
+    Vector3 translation = (srt.iSRTFlag & (1 << 3)) ? srt.translation : defaultTranslation;
 
-    Vector3 m0x(m0[0]), m0y(m0[1]), m0z(m0[2]);
-    Vector3 m1x(m1[0]), m1y(m1[1]), m1z(m1[2]);
+    cMatrix44 localTransform = cMatrix44::Identity;
 
-#define SCALE_EPSILON 0.02f
-    if (((m0x.LengthSquared() - 1.0f) > SCALE_EPSILON) || ((m0y.LengthSquared() - 1.0f) > SCALE_EPSILON) ||
-        ((m0z.LengthSquared() - 1.0f) > SCALE_EPSILON) || ((m1x.LengthSquared() - 1.0f) > SCALE_EPSILON) ||
-        ((m1y.LengthSquared() - 1.0f) > SCALE_EPSILON) || ((m1z.LengthSquared() - 1.0f) > SCALE_EPSILON))
+    // Apply transformations based on the SRT flag
+    if (srt.iSRTFlag & (1 << 1)) // Scale
     {
-        // TODO: need to interpolate scaling too
+        localTransform *= cMatrix44::ScaleMatrix(scale);
     }
-    else
+    if (srt.iSRTFlag & (1 << 2)) // Rotation
     {
-        Vector3 t0 = m0.GetTranslation();
-        Vector3 t1 = m1.GetTranslation();
-
-        Vector3 dX(m1x - m0x), dY(m1y - m0y), dZ(m1z - m0z);
-        Vector3 axis = (dX ^ dY) + (dY ^ dZ) + (dZ ^ dX);
-
-#define VLENGTH_EPSILON 0.00000001f
-        if (axis.Length() >= VLENGTH_EPSILON)
-        {
-            Vector3 dU = dX;
-            Vector3 U = m0x;
-            if (dU.Length() < VLENGTH_EPSILON)
-            {
-                dU = dY;
-                U = m0y;
-            }
-            double angle;
-            axis.NormalizeIt();
-
-            Vector3 axisCrossU = (axis ^ U);
-
-            if ((axisCrossU * dU) < 0.0)
-                axis = -axis;
-
-            if (axisCrossU.Length() < VLENGTH_EPSILON)
-                angle = 0;
-            else
-            {
-                double a = dU.Length() / (2.0 * axisCrossU.Length());
-                a = (a < -1.0) ? -1.0 : ((a > 1.0) ? 1.0 : a);
-                angle = 2.0 * asin(a);
-            }
-
-            double aNew = l_fTimeDis * angle;
-
-            cMatrix44 mRot(cMatrix44::AxisRotationMatrix(axis, (float)aNew));
-
-            mNew = mRot * m0;
-        }
-
-        Vector3 tNew = t0 + l_fTimeDis * (t1 - t0);
-        mNew.SetTranslation(tNew);
+        localTransform *= rotation.ToMatrix();
     }
-    this->SetLocalTransform(mNew, e_bSetChildBonesDirty);
+    if (srt.iSRTFlag & (1 << 3)) // Translation
+    {
+        localTransform *= cMatrix44::TranslationMatrix(translation);
+    }
+
+    SetLocalTransform(localTransform, e_bSetChildBonesDirty);
 }
