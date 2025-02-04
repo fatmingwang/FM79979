@@ -30,6 +30,9 @@ class cAnimationMesh : public cMesh
     public:
     cAnimationMesh();
     virtual ~cAnimationMesh();
+    void    loadSkins(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap);
+    void    loadAnimations(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap);
+    void    loadNode(const tinygltf::Node& node, const tinygltf::Model& model, cBone* parentBone, std::map<int, cBone*>& nodeToBoneMap);
 
     void    LoadAnimations(const tinygltf::Model& model);
     void    SetCurrentAnimation(const std::string& animationName);

@@ -158,6 +158,7 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
         // Define constants for flags, from shader.h
         const uint FVF_TANGENT_FLAG = 1u << 4;
         const uint FVF_BITAGENT_FLAG = 1u << 5;
+        const uint FVF_NORMAL_FLAG = 1u << 1;  // Flag for normal
         const uint FVF_NORMAL_MAP = 1u << 6;  // Flag for normal map
 
         // Add normal map if necessary
@@ -222,24 +223,20 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
         void main() {
             // Fetch base color texture
             vec3 color = texture(texture1, toFSVec2TexCoord).rgb;
+    )";
 
+    if (fvfFlags & FVF_NORMAL_FLAG)
+    {
+        shaderCode += R"(
             // Normal map processing (if flag is set)
             vec3 normal = normalize(toFSVec3Normal);
             if (bool(fvfFlags & FVF_NORMAL_MAP)) {  // Check if FVF_NORMAL_MAP bit is set
                 vec3 normalMapColor = texture(normalMap, toFSVec2TexCoord).rgb;
                 normalMapColor = normalize(normalMapColor * 2.0 - 1.0);  // Convert from [0, 1] to [-1, 1]
-    )";
 
-    if ((fvfFlags & FVF_TANGENT_FLAG) && (fvfFlags & FVF_BITAGENT_FLAG))
-    {
-        shaderCode += R"(
                 // Transform normal from tangent space to world space
                 mat3 TBN = mat3(normalize(toFSVec3Tangent), normalize(toFSVec3Binormal), normalize(toFSVec3Normal));
                 normal = normalize(TBN * normalMapColor);
-        )";
-    }
-
-    shaderCode += R"(
             }
 
             // Calculate the view direction
@@ -253,11 +250,19 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
 
             // Apply texture and lighting effects
             FragColor = vec4(color * (lighting + dirLighting), 1.0);
-        }
-    )";
+        })";
+    }
+    else
+    {
+        shaderCode += R"(
+            // Skip lighting calculations and directly set FragColor
+            FragColor = vec4(color, 1.0);
+        })";
+    }
 
     return shaderCode;
 }
+
 
 
 

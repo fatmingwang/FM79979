@@ -85,147 +85,125 @@ int FindRootNode(const tinygltf::Model& model, const tinygltf::Animation& animat
 void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
 {
     std::map<int, cBone*> nodeToBoneMap;
-    std::unordered_set<int> skinningJoints;
     int l_iRootIndex = -1;
 
-    // Collect all joints used in skins
-    for (const auto& skin : model.skins)
+    // Load nodes
+    const tinygltf::Scene& scene = model.scenes[0];
+    for (size_t i = 0; i < scene.nodes.size(); i++)
     {
-        for (int jointIndex : skin.joints)
-        {
-            skinningJoints.insert(jointIndex);
-        }
+        const tinygltf::Node& node = model.nodes[scene.nodes[i]];
+        loadNode(node, model, nullptr, nodeToBoneMap);
     }
+
+    // Load skins
+    loadSkins(model, nodeToBoneMap);
 
     l_iRootIndex = FindRootNode(model, model.animations[0]);
-
-    // Ensure the root node is part of the skinning joints
-    if (l_iRootIndex >= 0 && skinningJoints.find(l_iRootIndex) == skinningJoints.end())
+    if (l_iRootIndex >= 0 && nodeToBoneMap.find(l_iRootIndex) != nodeToBoneMap.end())
     {
-        skinningJoints.insert(l_iRootIndex);
+        m_pMainRootBone = nodeToBoneMap[l_iRootIndex];
     }
 
-    // Create bones and set their names for nodes that are part of the skinning joints
-    for (size_t i = 0; i < model.nodes.size(); ++i)
+    // Load animations
+    loadAnimations(model, nodeToBoneMap);
+
+    if (!m_pAllBonesMatrixForSkinned)
     {
-        if (skinningJoints.find((int)i) == skinningJoints.end())
-        {
-            continue; // Skip nodes that are not part of the skinning joints
-        }
-
-        const auto& node = model.nodes[i];
-        if (node.name.empty())
-        {
-            continue;
-        }
-
-        cBone* bone = new cBone(std::wstring(node.name.begin(), node.name.end()).c_str(),i);
-        nodeToBoneMap[i] = bone;
-        m_SkinningBoneVector.AddObject(bone);
+        m_pAllBonesMatrixForSkinned = new cMatrix44[m_SkinningBoneVector.Count()];
     }
-    // Assign inverse bind pose matrices
+    if (this->m_pMainRootBone)
+    {
+        this->m_pMainRootBone->DumpDebugInfo(false, true);
+    }
+}
+
+void cAnimationMesh::loadSkins(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap)
+{
     for (const auto& skin : model.skins)
     {
-        const auto& accessor = model.accessors[skin.inverseBindMatrices];
-        const auto& bufferView = model.bufferViews[accessor.bufferView];
-        const auto& buffer = model.buffers[bufferView.buffer];
-        const float* data = reinterpret_cast<const float*>(buffer.data.data() + bufferView.byteOffset + accessor.byteOffset);
-
-        for (size_t i = 0; i < skin.joints.size(); ++i)
+        if (skin.inverseBindMatrices > -1)
         {
-            int jointIndex = skin.joints[i];
-            if (nodeToBoneMap.find(jointIndex) != nodeToBoneMap.end())
+            const auto& accessor = model.accessors[skin.inverseBindMatrices];
+            const auto& bufferView = model.bufferViews[accessor.bufferView];
+            const auto& buffer = model.buffers[bufferView.buffer];
+            const float* data = reinterpret_cast<const float*>(buffer.data.data() + bufferView.byteOffset + accessor.byteOffset);
+
+            for (size_t i = 0; i < skin.joints.size(); ++i)
             {
-                cBone* bone = nodeToBoneMap[jointIndex];
-                bone->m_matInvBindPose = cMatrix44::ColumnMajorToRowMajor(data + i * 16);
-                //bone->m_matInvBindPose = cMatrix44(data + i * 16);
-            }
-            else
-            {
-                int a = 0;
+                int jointIndex = skin.joints[i];
+                auto it = nodeToBoneMap.find(jointIndex);
+                if (it != nodeToBoneMap.end())
+                {
+                    cBone* bone = it->second;
+                    bone->m_matInvBindPose = cMatrix44(data + i * 16);
+                }
+                else
+                {
+                    FMLOG("Error no such joint:%d", i);
+                }
             }
         }
     }
+}
 
-    // Set parent-child relationships and local transforms
-    for (size_t i = 0; i < model.nodes.size(); ++i)
+void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model& model, cBone* parentBone, std::map<int, cBone*>& nodeToBoneMap)
+{
+    cBone* bone = nullptr;
+    int nodeIndex = &node - &model.nodes[0];
+
+    if (nodeToBoneMap.find(nodeIndex) != nodeToBoneMap.end())
     {
-        if (skinningJoints.find((int)i) == skinningJoints.end())
-        {
-            continue; // Skip nodes that are not part of the skinning joints
-        }
-
-        const auto& node = model.nodes[i];
-        if (node.name.empty())
-        {
-            continue;
-        }
-
-        auto it = nodeToBoneMap.find(i);
-        if (it == nodeToBoneMap.end())
-        {
-            continue;
-        }
-
-        cBone* bone = it->second;
-
-        // Set children
-        for (int childIndex : node.children)
-        {
-            if (skinningJoints.find(childIndex) == skinningJoints.end())
-            {
-                continue; // Skip child nodes that are not part of the skinning joints
-            }
-
-            auto childIt = nodeToBoneMap.find(childIndex);
-            if (childIt != nodeToBoneMap.end())
-            {
-                cBone* childBone = childIt->second;
-                childBone->SetParent(bone);
-            }
-        }
-
-        //// Set local transform
-        //cMatrix44 localTransform = cMatrix44::Identity;
-
-        //// Apply translation
-        //if (node.translation.size() == 3)
-        //{
-        //    Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
-        //    localTransform = cMatrix44::TranslationMatrix(translation);
-        //}
-
-        //// Apply rotation
-        //if (node.rotation.size() == 4)
-        //{
-        //    Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
-        //    localTransform *= rotation.ToMatrix();
-        //}
-
-        //// Apply scale
-        //if (node.scale.size() == 3)
-        //{
-        //    Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
-        //    localTransform *= cMatrix44::ScaleMatrix(scale);
-        //}
-
-        //// Apply matrix if present
-        //if (node.matrix.size() == 16)
-        //{
-        //    cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
-        //    localTransform *= nodeMatrix;
-        //}
-
-        //bone->SetLocalTransform(localTransform);
-
-        // Assign the root bone
-        if (i == l_iRootIndex)
-        {
-            m_pMainRootBone = bone;
-        }
+        bone = nodeToBoneMap[nodeIndex];
+    }
+    else
+    {
+        std::wstring boneName = std::wstring(node.name.begin(), node.name.end());
+        bone = new cBone(boneName.c_str(), nodeIndex);
+        nodeToBoneMap[nodeIndex] = bone;
+        m_SkinningBoneVector.AddObject(bone);
     }
 
-    // Load all animations
+    if (parentBone)
+    {
+        bone->SetParent(parentBone);
+    }
+
+    cMatrix44 localTransform = cMatrix44::Identity;
+
+    if (node.translation.size() == 3)
+    {
+        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+        localTransform = cMatrix44::TranslationMatrix(translation);
+    }
+
+    if (node.rotation.size() == 4)
+    {
+        Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
+        localTransform *= rotation.ToMatrix();
+    }
+
+    if (node.scale.size() == 3)
+    {
+        Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+        localTransform *= cMatrix44::ScaleMatrix(scale);
+    }
+
+    if (node.matrix.size() == 16)
+    {
+        cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
+        localTransform *= nodeMatrix;
+    }
+
+    bone->SetLocalTransform(localTransform);
+
+    for (int childIndex : node.children)
+    {
+        loadNode(model.nodes[childIndex], model, bone, nodeToBoneMap);
+    }
+}
+
+void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap)
+{
     for (const auto& animation : model.animations)
     {
         sAnimationData animationData;
@@ -249,13 +227,11 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
             cBone* bone = it->second;
             FloatTocMatrix44Map keyframes;
 
-            // Load keyframe times
             const auto& inputAccessor = model.accessors[sampler.input];
             const auto& inputBufferView = model.bufferViews[inputAccessor.bufferView];
             const auto& inputBuffer = model.buffers[inputBufferView.buffer];
             const float* inputData = reinterpret_cast<const float*>(inputBuffer.data.data() + inputBufferView.byteOffset + inputAccessor.byteOffset);
 
-            // Load keyframe transforms
             const auto& outputAccessor = model.accessors[sampler.output];
             const auto& outputBufferView = model.bufferViews[outputAccessor.bufferView];
             const auto& outputBuffer = model.buffers[outputBufferView.buffer];
@@ -263,16 +239,13 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
 
             for (size_t i = 0; i < inputAccessor.count; ++i)
             {
-                //cMatrix44 transform = cMatrix44::ColumnMajorToRowMajor(outputData + i * 16);
                 cMatrix44 transform = cMatrix44(outputData + i * 16);
-                //memcpy(&transform, outputData + i * 16, sizeof(cMatrix44));
                 keyframes[inputData[i]] = transform;
             }
 
             bone->SetFormKeyFrames(keyframes);
             animationData.m_BoneIDAndAnimationData[channel.target_node] = keyframes;
 
-            // Update min and max key times
             if (!keyframes.empty())
             {
                 animationData.m_fMinKeyTime = min(animationData.m_fMinKeyTime, keyframes.begin()->first);
@@ -284,16 +257,9 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
 
         m_NameAndAnimationMap[animation.name] = animationData;
     }
-
-    if (!m_pAllBonesMatrixForSkinned)
-    {
-        m_pAllBonesMatrixForSkinned = new cMatrix44[m_SkinningBoneVector.Count()];
-    }
-    if (this->m_pMainRootBone)
-    {
-        this->m_pMainRootBone->DumpDebugInfo(false,true);
-    }
 }
+
+
 
 
 void cAnimationMesh::SetCurrentAnimation(const std::string& animationName)
@@ -406,12 +372,24 @@ void cAnimationMesh::Draw()
         cBone* bone = m_SkinningBoneVector[i];
         if (bone)
         {
-            auto l_mat = bone->GetWorldTransform()*bone->m_matInvBindPose.Transposed();
+            auto l_mat = bone->GetWorldTransform(); *bone->m_matInvBindPose;
             //auto l_mat = bone->m_matInvBindPose;
             sortedJoints.push_back(bone->m_iJointIndex);
             if (bone->m_iJointIndex < boneCount)
             {
                 m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
+                //if (bone->GetName() == L"b_LeftFoot02_018")
+                //if( i %2)
+                {
+                    //m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
+                    //m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = cMatrix44::Identity;
+                }
+                //else
+                {
+                    //m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = cMatrix44::TranslationMatrix(Vector3(0,0, angle));
+
+                }
+                
             }
             else
             {
