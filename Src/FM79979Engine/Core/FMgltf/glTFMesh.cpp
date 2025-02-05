@@ -69,12 +69,13 @@ void cMesh::InitBuffer()
 
 
                 glEnableVertexAttribArray(i);
-                if (i == FVF_SKINNING_BONE_INDEX)
-                {
-                    // Use glVertexAttribIPointer for integer attributes
-                    glVertexAttribIPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], (GLsizei)l_StrideWithSize, (void*)offset);
-                }
-                else
+                //make sure shader code jsoints is ivec4
+                //if (i == FVF_SKINNING_BONE_INDEX)
+                //{
+                //    // Use glVertexAttribIPointer for integer attributes
+                //    glVertexAttribIPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], (GLsizei)l_StrideWithSize, (void*)offset);
+                //}
+                //else
                 {
                     glVertexAttribPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], GL_FALSE, (GLsizei)l_StrideWithSize, (void*)offset);
                 }

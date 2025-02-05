@@ -7,8 +7,10 @@
 
 class cAnimationMesh : public cMesh
 {
+    cBone* FindBoneByIndex(int e_iIndex);
     cBone* m_pMainRootBone;
     cNamedTypedObjectVector<cBone> m_SkinningBoneVector;
+    std::vector<int>                m_JointOrderVector;
     cMatrix44 m_matMeshBindShapePose;
     cMatrix44* m_pAllBonesMatrixForSkinned;
     struct sAnimationData

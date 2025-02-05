@@ -42,7 +42,7 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
 
     if (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG)
     {
-        shaderCode += "layout(location = 6) in ivec4 aJoints;\n";
+        shaderCode += "layout(location = 6) in vec4 aJoints;\n";
     }
 
     // Normalizing the vectors and transforming to view space
@@ -89,7 +89,6 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
                               aWeights.w * uBoneTransforms[int(aJoints.w)];
             vec4 skinnedPosition = skinMatrix * vec4(aPosition, 1.0);;
             worldPosition = inMat4Projection*inMat4View*inMat4Model* skinnedPosition;
-            //worldPosition = inMat4Projection*inMat4View*inMat4Model * vec4(aPosition, 1.0);
 
         )";
     }

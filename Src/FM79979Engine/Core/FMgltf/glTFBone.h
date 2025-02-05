@@ -22,7 +22,6 @@ struct cBone : public Frame
     float m_fMaxKeyTime;
     FloatToSRTMap m_FormKeyFrames;
     cMatrix44 m_matInvBindPose;
-    bool m_bAnimation;
     std::wstring m_strSID;
 
     cBone(const WCHAR* e_strName,int e_iJointIndex);

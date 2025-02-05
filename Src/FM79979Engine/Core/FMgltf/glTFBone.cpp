@@ -7,7 +7,6 @@ cBone::cBone(const WCHAR* e_strName, int e_iJointIndex):m_matInvBindPose(cMatrix
     m_iJointIndex = e_iJointIndex;
     m_fMinKeyTime = 0;
     m_fMaxKeyTime = 0;
-    m_bAnimation = false;
 }
 
 cBone::~cBone()
@@ -32,10 +31,6 @@ cBone* cBone::FinChildByName(const wchar_t* e_strBoneName)
 
 void cBone::SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames)
 {
-    if (m_FormKeyFrames.size() != 0)
-    {
-        int a = 0;
-    }
     m_FormKeyFrames = e_FormKeyFrames;
     size_t l_uiSize = m_FormKeyFrames.size();
     float l_fMinKeyTime(FLT_MAX), l_fMaxKeyTime(FLT_MIN), l_fKeyTime;
@@ -47,15 +42,6 @@ void cBone::SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames)
     }
     m_fMaxKeyTime = l_fMaxKeyTime;
     m_fMinKeyTime = l_fMinKeyTime;
-    if (e_FormKeyFrames.size())
-    {
-        m_bAnimation = true;
-    }
-    else
-    {
-        cGameApp::OutputDebugInfoString(this->GetName());
-        cGameApp::OutputDebugInfoString(L"animation frame is zero");
-    }
 }
 
 
