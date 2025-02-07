@@ -34,4 +34,5 @@ struct cBone : public Frame
     void SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames);
     void EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty = true);
     void ApplySRT(const SRT& srt, bool e_bSetChildBonesDirty);
+    cMatrix44 m_StartTransform;
 };

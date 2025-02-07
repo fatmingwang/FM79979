@@ -37,6 +37,7 @@ void cBone::SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames)
     {
         return;
     }
+    m_PreviousSRT = { m_FormKeyFrames.begin()->first,m_FormKeyFrames.begin()->second };
     float l_fMinKeyTime(FLT_MAX), l_fMaxKeyTime(FLT_MIN), l_fKeyTime;
     for (FloatToSRTMap::iterator l_Iterator = m_FormKeyFrames.begin(); l_Iterator != m_FormKeyFrames.end(); ++l_Iterator)
     {
@@ -78,11 +79,11 @@ void cBone::EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty)
     const SRT& prevSRT = m_PreviousSRT.second;
     const SRT& nextSRT = nextIt->second;
     SRT l_CurrentSRT;
-    if (m_PreviousSRT.second.iSRTFlag & SRT_SCALE_FLAG)
+    if (m_PreviousSRT.second.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
     {
-        Vector3 scale = prevSRT.scale * (1.0f - factor) + nextSRT.scale * factor;
-        l_CurrentSRT.scale = scale;
-        l_CurrentSRT.iSRTFlag |= SRT_SCALE_FLAG;
+        Vector3 translation = prevSRT.translation * (1.0f - factor) + nextSRT.translation * factor;
+        l_CurrentSRT.translation = translation;
+        l_CurrentSRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
     }
     if (m_PreviousSRT.second.iSRTFlag & SRT_ROTATION_FLAG)
     {
@@ -95,12 +96,12 @@ void cBone::EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty)
         l_CurrentSRT.rotation = rotation;
         l_CurrentSRT.iSRTFlag |= SRT_ROTATION_FLAG;
     }
-    if (m_PreviousSRT.second.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
+    if (m_PreviousSRT.second.iSRTFlag & SRT_SCALE_FLAG)
     {
-        Vector3 translation = prevSRT.translation * (1.0f - factor) + nextSRT.translation * factor;
-        l_CurrentSRT.translation = translation;
-        l_CurrentSRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
-    }        
+        Vector3 scale = prevSRT.scale * (1.0f - factor) + nextSRT.scale * factor;
+        l_CurrentSRT.scale = scale;
+        l_CurrentSRT.iSRTFlag |= SRT_SCALE_FLAG;
+    }
     m_PreviousSRT = { e_fTime,l_CurrentSRT };
     ApplySRT(m_PreviousSRT.second, e_bSetChildBonesDirty);
 }
@@ -109,17 +110,22 @@ void cBone::ApplySRT(const SRT& srt, bool e_bSetChildBonesDirty)
 {
     cMatrix44 localTransform = cMatrix44::Identity;
     // Apply transformations based on the SRT flag
-    if (srt.iSRTFlag & SRT_SCALE_FLAG) // Scale
+    if (srt.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
     {
-        localTransform = cMatrix44::ScaleMatrix(srt.scale);
+        localTransform = cMatrix44::TranslationMatrix(srt.translation);
     }
     if (srt.iSRTFlag & SRT_ROTATION_FLAG) // Rotation
     {
         localTransform *= srt.rotation.ToMatrix();
     }
-    if (srt.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
+    if (srt.iSRTFlag & SRT_SCALE_FLAG) // Scale
     {
-        localTransform *= cMatrix44::TranslationMatrix(srt.translation);
+        localTransform *= cMatrix44::ScaleMatrix(srt.scale);
     }
+#ifdef DEBUG
+    auto l_mat = this->GetLocalTransform();
+#endif
+    //localTransform = localTransform* m_StartTransform;
+    //localTransform = m_StartTransform;
     SetLocalTransform(localTransform, e_bSetChildBonesDirty);
 }
