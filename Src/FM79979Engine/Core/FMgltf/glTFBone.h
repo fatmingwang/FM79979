@@ -10,6 +10,9 @@ struct SRT
     Vector3 translation;
     int     iSRTFlag = 0;//S 1<<1 R 1<< 2 T 1<<3
 };
+#define SRT_SCALE_FLAG          (1<<1)
+#define SRT_ROTATION_FLAG       (1<<2)
+#define SRT_TRANSLATION_FLAG    (1<<3)
 
 using FloatToSRTMap = std::map<float, SRT>;
 
@@ -17,6 +20,7 @@ typedef std::map<float, cMatrix44> FloatTocMatrix44Map;
 
 struct cBone : public Frame
 {
+    std::pair <float,SRT>     m_PreviousSRT;
     int     m_iJointIndex;
     float m_fMinKeyTime;
     float m_fMaxKeyTime;
@@ -29,4 +33,5 @@ struct cBone : public Frame
     cBone* FinChildByName(const wchar_t* e_strBoneName);
     void SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames);
     void EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty = true);
+    void ApplySRT(const SRT& srt, bool e_bSetChildBonesDirty);
 };

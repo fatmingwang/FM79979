@@ -229,15 +229,22 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
         shaderCode += R"(
             // Normal map processing (if flag is set)
             vec3 normal = normalize(toFSVec3Normal);
-            if (bool(fvfFlags & FVF_NORMAL_MAP)) {  // Check if FVF_NORMAL_MAP bit is set
+            if (bool(fvfFlags & FVF_NORMAL_MAP)) 
+            {  // Check if FVF_NORMAL_MAP bit is set
                 vec3 normalMapColor = texture(normalMap, toFSVec2TexCoord).rgb;
                 normalMapColor = normalize(normalMapColor * 2.0 - 1.0);  // Convert from [0, 1] to [-1, 1]
 
+                        )";
+        if (fvfFlags & FVF_BITAGENT_FLAG)
+        {
+            shaderCode += R"(
                 // Transform normal from tangent space to world space
                 mat3 TBN = mat3(normalize(toFSVec3Tangent), normalize(toFSVec3Binormal), normalize(toFSVec3Normal));
                 normal = normalize(TBN * normalMapColor);
+            )";
+        }
+        shaderCode += R"(
             }
-
             // Calculate the view direction
             vec3 viewDir = normalize(inVec3ViewPosition - toFSVec3FragPos);
 
@@ -256,6 +263,7 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
         shaderCode += R"(
             // Skip lighting calculations and directly set FragColor
             FragColor = vec4(color, 1.0);
+            //FragColor = vec4(1,0,0, 1.0);
         })";
     }
 
@@ -459,7 +467,7 @@ void cScene::Draw()
     for (auto& meshPair : meshes)
     {
         //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
-        //meshPair.second->Draw();
+        meshPair.second->Draw();
     }
     for (auto& meshPair : m_AnimationMeshMap)
     {
@@ -475,7 +483,10 @@ void cScene::Draw()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     for (auto& meshPair : m_AnimationMeshMap)
     {
-        meshPair.second->RenderSkeleton();
+        if (meshPair.second)
+        {
+            meshPair.second->RenderSkeleton();
+        }
     }
     
 }
@@ -496,6 +507,8 @@ int glTFInit()
     // 
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
+    
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
     

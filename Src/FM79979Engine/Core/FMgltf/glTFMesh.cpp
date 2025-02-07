@@ -444,13 +444,13 @@ void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primiti
             l_uiLastIndex = l_iCurrentVertexIndex + offset;
         }
     }
-
+#ifdef DEBUG
     // Copy to a vector
     std::vector<int> sortedJoints(skinningJoints.begin(), skinningJoints.end());
 
     // Sort in ascending order
     std::sort(sortedJoints.begin(), sortedJoints.end());
-
+#endif
     if (hasPosition) subMesh.fvfFlags |= FVF_POS_FLAG;
     if (hasNormal) subMesh.fvfFlags |= FVF_NORMAL_FLAG;
     if (hasTexCoord) subMesh.fvfFlags |= FVF_TEX0_FLAG;

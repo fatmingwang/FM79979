@@ -22,7 +22,7 @@ class cAnimationMesh : public cMesh
         float m_fStartTime;
         float m_fEndTime;
     };
-    std::map<std::string, sAnimationData*> m_NameAndAnimationMap; // Animation name -> Node index -> Keyframes
+    std::map<std::string, sAnimationData*> m_NameAndAnimationMap;
     sAnimationData* m_pCurrentAnimationData;
     std::string m_CurrentAnimation;
 
@@ -34,16 +34,16 @@ class cAnimationMesh : public cMesh
     virtual ~cAnimationMesh();
     void    loadSkins(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap);
     void    loadAnimations(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap);
-    void    loadNode(const tinygltf::Node& node, const tinygltf::Model& model, cBone* parentBone, std::map<int, cBone*>& nodeToBoneMap);
+    void    loadNode(const tinygltf::Node& node, const tinygltf::Model& model, cBone* parentBone, std::map<const tinygltf::Node*, cBone*> e_tinyglTFNodeAndJointIndexMap);
 
     void    LoadAnimations(const tinygltf::Model& model);
     void    SetCurrentAnimation(const std::string& animationName);
     void    SetCurrentAnimationTime(float e_fCurrentTime);
     void    UpdateAnimation(float deltaTime);
     void    RefreshAnimationData();
-    virtual void Update(float elapsedTime) override;
-    virtual void Draw() override;
-    virtual void RenderBindPose();
-    void JointUpdate(float elapsedTime);
-    virtual void RenderSkeleton();
+    void    Update(float elapsedTime) override;
+    void    Draw() override;
+    void    RenderBindPose();
+    void    JointUpdate(float elapsedTime);
+    void    RenderSkeleton();
 };

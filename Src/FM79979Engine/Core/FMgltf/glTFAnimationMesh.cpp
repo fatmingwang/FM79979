@@ -7,6 +7,8 @@
 #include <vector>
 #include <algorithm>
 #include <cfloat>
+#include <iostream>
+#include <sstream>
 
 cAnimationMesh::cAnimationMesh()
     : m_pMainRootBone(nullptr), m_pAllBonesMatrixForSkinned(nullptr), m_pCurrentAnimationData(nullptr)
@@ -38,82 +40,73 @@ cAnimationMesh::~cAnimationMesh()
     }
     m_SkinningBoneVector.Destroy();
     SAFE_DELETE_ARRAY(m_pAllBonesMatrixForSkinned);
+    DELETE_MAP(m_NameAndAnimationMap)
 }
 
-int FindRootNode(const tinygltf::Model& model, const tinygltf::Animation& animation)
+
+void	DumpBoneIndexDebugInfo(cBone*e_pBone,bool e_bDoNextSibling, bool e_bRoot)
 {
-    std::unordered_set<int> animatedNodes;
-
-    // Step 1: Collect all nodes affected by this animation
-    for (const auto& channel : animation.channels)
+    Frame* l_pParentNode = e_pBone->GetParent();
+    static int	l_siCount = 0;
+    ++l_siCount;
+    std::string l_strDebugInfo;
+    while (l_pParentNode)
     {
-        if (channel.target_node >= 0)
-        {
-            animatedNodes.insert(channel.target_node);
-        }
+        l_strDebugInfo += "-----";
+        //FMLog::LogWithFlag(L"-----",false,false);
+        l_pParentNode = l_pParentNode->GetParent();
+    }
+    l_strDebugInfo += ValueToString(e_pBone->m_iJointIndex);
+    //FMLog::LogWithFlag(l_str, CORE_LOG_FLAG);
+    FMLog::Log(l_strDebugInfo.c_str(), false);
+    if (e_pBone->GetFirstChild())
+    {
+        DumpBoneIndexDebugInfo((cBone*)e_pBone->GetFirstChild(), true, false);
     }
 
-    if (animatedNodes.empty())
+    if (e_bDoNextSibling && e_pBone->GetNextSibling())
     {
-        return -1; // No animated nodes
+        DumpBoneIndexDebugInfo((cBone*)e_pBone->GetNextSibling(),e_bDoNextSibling, false);
     }
-
-    // Step 2: Find the root-most node
-    std::unordered_set<int> allNodes;
-    for (const auto& node : model.nodes)
+    if (e_bRoot)
     {
-        allNodes.insert(&node - &model.nodes[0]); // Store node indices
+        FMLOG("Total count:%d", l_siCount);
+        l_siCount = 0;
     }
-
-    // Step 3: Traverse up the hierarchy to find the root
-    for (int nodeIndex : animatedNodes)
-    {
-        int parent = nodeIndex;
-        while (true)
-        {
-            bool foundParent = false;
-            for (size_t i = 0; i < model.nodes.size(); ++i)
-            {
-                const auto& node = model.nodes[i];
-                for (int child : node.children)
-                {
-                    if (child == parent)
-                    {
-                        parent = (int)i;
-                        foundParent = true;
-                        break;
-                    }
-                }
-                if (foundParent) break;
-            }
-            if (!foundParent) break; // We found the root
-        }
-        return parent; // Return the root node of the animation
-    }
-
-    return -1; // No valid root found
 }
 
 void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
 {
-    std::map<int, cBone*> nodeToBoneMap;
-
-    // Load nodes
-    const tinygltf::Scene& scene = model.scenes[0];
-    for (size_t i = 0; i < scene.nodes.size(); i++)
+    std::map<int, cBone*> nodeToBoneMap;    
+    std::map<const tinygltf::Node*, cBone*> l_tinyglTFNodeAndJointIndexMap;
+    //first generate all bones from all nodes
+    for (size_t i = 0; i < model.nodes.size(); i++)
     {
-        const tinygltf::Node& node = model.nodes[scene.nodes[i]];
-        loadNode(node, model, nullptr, nodeToBoneMap);
+        const tinygltf::Node& node = model.nodes[i];
+        std::wstring boneName = std::wstring(node.name.begin(), node.name.end());
+        if (boneName.length() == 0)
+        {
+            boneName = ValueToStringW(i);
+        }
+        cBone*bone = new cBone(boneName.c_str(), i);
+        bool l_bSameName = m_SkinningBoneVector.AddObject(bone);
+        assert(l_bSameName&&"node not allow to has same name!?");
+        l_tinyglTFNodeAndJointIndexMap[&node] = bone;
+        nodeToBoneMap[i] = bone;
+    }
+    //get noe from scene to setup hirerachy and transform.
+    for (auto l_Scene :model.scenes)
+    {
+        for (int i = 0; i < l_Scene.nodes.size(); ++i)
+        {
+            auto l_iNodeID = l_Scene.nodes[i];
+            const tinygltf::Node& node = model.nodes[l_iNodeID];
+            loadNode(node, model, nullptr, l_tinyglTFNodeAndJointIndexMap);
+        }
     }
 
     // Load skins
     loadSkins(model, nodeToBoneMap);
-
-    //int l_iRootIndex = FindRootNode(model, model.animations[0]);
-    //if (l_iRootIndex >= 0 && nodeToBoneMap.find(l_iRootIndex) != nodeToBoneMap.end())
-    //{
-    //    m_pMainRootBone = nodeToBoneMap[l_iRootIndex];
-    //}
 
     // Load animations
     loadAnimations(model, nodeToBoneMap);
@@ -124,7 +117,8 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
     }
     if (this->m_pMainRootBone)
     {
-        this->m_pMainRootBone->DumpDebugInfo(false, true);
+        
+        DumpBoneIndexDebugInfo(this->m_pMainRootBone, false, true);
     }
 }
 
@@ -133,20 +127,11 @@ void cAnimationMesh::loadSkins(const tinygltf::Model& model, std::map<int, cBone
     for (const auto& skin : model.skins)
     {
         m_JointOrderVector = skin.joints;
-        //for (int jointIndex : skin.joints)
-        //{
-        //    int a = 0;
-        //    this->m_pAllBonesMatrixForSkinned;
-        //    m_SkinningBoneVector;
-        //}
-
-        m_pMainRootBone = nodeToBoneMap[skin.skeleton];
-        assert(m_pMainRootBone&&"can't find root");
-        //auto l_iRootIndex = FindRootNode(model, model.animations[0]);
-        //if (l_iRootIndex >= 0 && nodeToBoneMap.find(l_iRootIndex) != nodeToBoneMap.end())
-        //{
-        //    m_pMainRootBone = nodeToBoneMap[l_iRootIndex];
-        //}
+        if (skin.skeleton != -1)
+        {
+            m_pMainRootBone = nodeToBoneMap[skin.skeleton];
+        }
+        //assert(m_pMainRootBone&&"can't find root");
         if (skin.inverseBindMatrices > -1)
         {
             const auto& accessor = model.accessors[skin.inverseBindMatrices];
@@ -157,11 +142,10 @@ void cAnimationMesh::loadSkins(const tinygltf::Model& model, std::map<int, cBone
             for (size_t i = 0; i < skin.joints.size(); ++i)
             {
                 int jointIndex = skin.joints[i];
-                auto it = nodeToBoneMap.find(jointIndex);
-                if (it != nodeToBoneMap.end())
+                auto l_pBone = this->FindBoneByIndex(jointIndex);
+                if(l_pBone)
                 {
-                    cBone* bone = it->second;
-                    bone->m_matInvBindPose = cMatrix44(data + i * 16);
+                    l_pBone->m_matInvBindPose = cMatrix44(data + i * 16);
                 }
                 else
                 {
@@ -172,28 +156,32 @@ void cAnimationMesh::loadSkins(const tinygltf::Model& model, std::map<int, cBone
     }
 }
 
-void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model& model, cBone* parentBone, std::map<int, cBone*>& nodeToBoneMap)
+void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model& model, cBone* parentBone, std::map<const tinygltf::Node*, cBone*> e_tinyglTFNodeAndJointIndexMap)
 {
     cBone* bone = nullptr;
-    
-    //int nodeIndex = &node - &model.nodes[0];
-    int nodeIndex = std::distance(model.nodes.data(), &node);
-
-    if (nodeToBoneMap.find(nodeIndex) != nodeToBoneMap.end())
+    auto l_IT2 = e_tinyglTFNodeAndJointIndexMap.find(&node);
+    if (l_IT2 != e_tinyglTFNodeAndJointIndexMap.end())
     {
-        bone = nodeToBoneMap[nodeIndex];
+        bone = l_IT2->second;
     }
     else
     {
-        std::wstring boneName = std::wstring(node.name.begin(), node.name.end());
-        bone = new cBone(boneName.c_str(), nodeIndex);
-        nodeToBoneMap[nodeIndex] = bone;
-        m_SkinningBoneVector.AddObject(bone);
+        int notfound = 0;
+        assert(0 && "can't find node index by name");
+        return;
     }
 
     if (parentBone)
     {
-        bone->SetParent(parentBone);
+#ifdef DEBUG
+        if (parentBone->m_iJointIndex == 3 &&
+            bone->m_iJointIndex == 4)
+        {
+            //for debug
+            int a = 0;
+        }
+#endif
+        parentBone->AddChildToLast(bone);
     }
 
     cMatrix44 localTransform = cMatrix44::Identity;
@@ -206,7 +194,7 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
 
     if (node.rotation.size() == 4)
     {
-        Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
+        Quaternion rotation((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
         localTransform *= rotation.ToMatrix();
     }
 
@@ -219,14 +207,14 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
     if (node.matrix.size() == 16)
     {
         cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
-        localTransform *= nodeMatrix;
+        localTransform = nodeMatrix;
     }
 
     bone->SetLocalTransform(localTransform);
 
     for (int childIndex : node.children)
     {
-        loadNode(model.nodes[childIndex], model, bone, nodeToBoneMap);
+        loadNode(model.nodes[childIndex], model, bone, e_tinyglTFNodeAndJointIndexMap);
     }
 }
 
@@ -278,7 +266,7 @@ void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, 
                 }
                 else if (channel.target_path == "rotation")
                 {
-                    srt.rotation = Quaternion(outputData[i * 4 + 3], outputData[i * 4], outputData[i * 4 + 1], outputData[i * 4 + 2]);
+                    srt.rotation = Quaternion(outputData[i * 4 ], outputData[i * 4+1], outputData[i * 4 + 2], outputData[i * 4 + 3]);
                     srt.iSRTFlag |= (1 << 2); // Set rotation flag
                 }
                 else if (channel.target_path == "scale")
@@ -357,6 +345,75 @@ void cAnimationMesh::UpdateAnimation(float deltaTime)
             //l_pBone->SetWorldTransform(cMatrix44::Identity);
         }
     }
+    int boneCount = m_SkinningBoneVector.Count();
+    std::vector<cMatrix44> l_AllBonesMatrixForSkinned1;
+    std::vector<cMatrix44> l_AllBonesMatrixForSkinned2;
+    l_AllBonesMatrixForSkinned1.resize(boneCount);
+    l_AllBonesMatrixForSkinned2.resize(boneCount);
+    for (int i = 0; i < boneCount; ++i)
+    {
+        m_pAllBonesMatrixForSkinned[i] = cMatrix44::Identity;
+    }
+    //std::ostringstream oss;
+    boneCount = m_JointOrderVector.size();
+    for (int i = 0; i < boneCount; ++i)
+    {
+        int l_iBoneIndex = m_JointOrderVector[i];
+        cBone* bone = FindBoneByIndex(l_iBoneIndex);
+        if (bone)
+        {
+            if (bone->m_iJointIndex == -1)
+            {
+                continue;
+            }
+            auto l_matWorldTransform = bone->GetWorldTransform();
+            auto l_mat = l_matWorldTransform * bone->m_matInvBindPose;
+            l_mat = bone->m_matInvBindPose*l_matWorldTransform;
+            //l_mat = bone->m_matInvBindPose;
+            //l_mat = l_matWorldTransform;
+            //if (bone->m_iJointIndex < boneCount)
+            {
+                //m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
+                m_pAllBonesMatrixForSkinned[l_iBoneIndex] = l_mat;
+                //l_AllBonesMatrixForSkinned1[bone->m_iJointIndex] = l_mat;
+                //oss << "Bone " << i << " Index: " << bone->m_iJointIndex << "\n";
+                //oss << "Inverse Bind Pose: " << ValueToString(bone->m_matInvBindPose).c_str() << "\n";
+                //oss << "bone animation worldt ransform: " << ValueToString(l_matWorldTransform).c_str() << "\n";
+                //oss << "final Transform to shader code: " << ValueToString(l_mat).c_str() << "\n";
+
+            }
+            //else
+            {
+                //int a = 0;
+            }
+        }
+        else
+        {
+            int a = 0;
+        }
+    }
+    //FMLOG(oss.str().c_str());
+    //for (int i = 0; i < m_JointOrderVector.size(); ++i)
+    //{
+    //    cBone* bone = FindBoneByIndex(m_JointOrderVector[i]);
+    //    if (bone)
+    //    {
+    //        auto l_matWorldTransform = bone->GetWorldTransform();
+    //        auto l_mat = l_matWorldTransform *bone->m_matInvBindPose;
+    //        //auto l_mat = bone->m_matInvBindPose;
+    //        if (bone->m_iJointIndex < boneCount)
+    //        {
+    //            m_pAllBonesMatrixForSkinned[i] = l_mat;// 
+    //            l_AllBonesMatrixForSkinned2[i] = l_mat;
+
+    //        }
+    //        else
+    //        {
+    //            int a = 0;
+    //        }
+    //    }
+    //}
+
 }
 
 void cAnimationMesh::RefreshAnimationData()
@@ -379,11 +436,13 @@ void cAnimationMesh::Update(float elapsedTime)
     {
         auto l_Animation = m_NameAndAnimationMap.begin();
         //++l_Animation;
-        this->SetCurrentAnimation(l_Animation->first);
+        //this->SetCurrentAnimation(l_Animation->first);
     }
-    m_pCurrentAnimationData->m_fCurrentTime += elapsedTime;
+    if (m_pCurrentAnimationData)
+    {
+        m_pCurrentAnimationData->m_fCurrentTime += elapsedTime;
+    }
     UpdateAnimation(elapsedTime);
-    //UpdateNode(this->m_pMainRootBone, m_pCurrentAnimationData->m_fCurrentTime);
 }
 
 void	cAnimationMesh::UpdateNode(cBone* e_pBone, float e_fTime)
@@ -411,56 +470,6 @@ void cAnimationMesh::Draw()
     cMatrix44 conversionMatrix = cMatrix44::Identity;
     conversionMatrix.m[2][2] = -1.0f;
     // Update the bone matrices for skinning
-    int boneCount = m_SkinningBoneVector.Count();
-    std::vector<cMatrix44> l_AllBonesMatrixForSkinned1;
-    std::vector<cMatrix44> l_AllBonesMatrixForSkinned2;
-    l_AllBonesMatrixForSkinned1.resize(boneCount);
-    l_AllBonesMatrixForSkinned2.resize(boneCount);
-    for (int i = 0; i < boneCount; ++i)
-    {
-        m_pAllBonesMatrixForSkinned[i] = cMatrix44::Identity;
-    }
-    for (int i = 0; i < boneCount; ++i)
-    {
-        cBone* bone = m_SkinningBoneVector[i];
-        if (bone)
-        {
-            auto l_matWorldTransform = bone->GetWorldTransform()* bone->m_matInvBindPose;
-            auto l_mat = l_matWorldTransform;
-            //auto l_mat = bone->m_matInvBindPose;
-            if (bone->m_iJointIndex < boneCount)
-            {
-                m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;// 
-                l_AllBonesMatrixForSkinned1[bone->m_iJointIndex] = l_mat;
-                
-            }
-            else
-            {
-                int a = 0;
-            }
-        }
-    }
-
-    //for (int i = 0; i < m_JointOrderVector.size(); ++i)
-    //{
-    //    cBone* bone = FindBoneByIndex(m_JointOrderVector[i]);
-    //    if (bone)
-    //    {
-    //        auto l_matWorldTransform = bone->GetWorldTransform();
-    //        auto l_mat = l_matWorldTransform *bone->m_matInvBindPose;
-    //        //auto l_mat = bone->m_matInvBindPose;
-    //        if (bone->m_iJointIndex < boneCount)
-    //        {
-    //            m_pAllBonesMatrixForSkinned[i] = l_mat;// 
-    //            l_AllBonesMatrixForSkinned2[i] = l_mat;
-
-    //        }
-    //        else
-    //        {
-    //            int a = 0;
-    //        }
-    //    }
-    //}
 
     auto l_vPos = this->GetWorldPosition();
     //l_vPos.y = 5;
@@ -515,8 +524,7 @@ void cAnimationMesh::Draw()
         glUniform3fv(dirLightColorLoc, 1, dirLightColor);
         // Pass the bone matrices to the shader
         GLuint boneMatricesLocation = glGetUniformLocation(subMesh.shaderProgram, "uBoneTransforms");
-        glUniformMatrix4fv(boneMatricesLocation, boneCount, GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
-        //glUniformMatrix4fv(g_iBonesMatrixoacation, e_iCount, GL_FALSE, (float*)e_pBoneMatrices);
+        glUniformMatrix4fv(boneMatricesLocation, m_SkinningBoneVector.Count(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
 
         // Bind textures
         for (size_t i = 0; i < m_uiTextureIDVector.size(); ++i)

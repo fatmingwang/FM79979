@@ -33,6 +33,10 @@ void cBone::SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames)
 {
     m_FormKeyFrames = e_FormKeyFrames;
     size_t l_uiSize = m_FormKeyFrames.size();
+    if (l_uiSize == 0)
+    {
+        return;
+    }
     float l_fMinKeyTime(FLT_MAX), l_fMaxKeyTime(FLT_MIN), l_fKeyTime;
     for (FloatToSRTMap::iterator l_Iterator = m_FormKeyFrames.begin(); l_Iterator != m_FormKeyFrames.end(); ++l_Iterator)
     {
@@ -42,6 +46,7 @@ void cBone::SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames)
     }
     m_fMaxKeyTime = l_fMaxKeyTime;
     m_fMinKeyTime = l_fMinKeyTime;
+    m_PreviousSRT = std::make_pair( m_FormKeyFrames.begin()->first,m_FormKeyFrames.begin()->second );
 }
 
 
@@ -52,39 +57,69 @@ void cBone::EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty)
         return;
     }
 
+    // Find the keyframes surrounding the current time
     auto it = m_FormKeyFrames.lower_bound(e_fTime);
     if (it == m_FormKeyFrames.end())
     {
         it = std::prev(m_FormKeyFrames.end());
     }
 
-    const SRT& srt = it->second;
+    auto nextIt = it;
 
-    // Default values for SRT components
-    Vector3 defaultScale(1.0f, 1.0f, 1.0f);
-    Quaternion defaultRotation(1.0f, 0.0f, 0.0f, 0.0f);
-    Vector3 defaultTranslation(0.0f, 0.0f, 0.0f);
-
-    // Use provided SRT values or default values if not present
-    Vector3 scale = (srt.iSRTFlag & (1 << 1)) ? srt.scale : defaultScale;
-    Quaternion rotation = (srt.iSRTFlag & (1 << 2)) ? srt.rotation : defaultRotation;
-    Vector3 translation = (srt.iSRTFlag & (1 << 3)) ? srt.translation : defaultTranslation;
-
+    // Calculate the interpolation factor
+    float prevTime = m_PreviousSRT.first;
+    float nextTime = nextIt->first;
+    float factor = (e_fTime - prevTime) / (nextTime - prevTime);
+    // Apply the interpolated transformations
     cMatrix44 localTransform = cMatrix44::Identity;
 
-    // Apply transformations based on the SRT flag
-    if (srt.iSRTFlag & (1 << 1)) // Scale
-    {
-        localTransform *= cMatrix44::ScaleMatrix(scale);
-    }
-    if (srt.iSRTFlag & (1 << 2)) // Rotation
-    {
-        localTransform *= rotation.ToMatrix();
-    }
-    if (srt.iSRTFlag & (1 << 3)) // Translation
-    {
-        localTransform *= cMatrix44::TranslationMatrix(translation);
-    }
 
+    // Interpolate SRT values
+    const SRT& prevSRT = m_PreviousSRT.second;
+    const SRT& nextSRT = nextIt->second;
+    SRT l_CurrentSRT;
+    if (m_PreviousSRT.second.iSRTFlag & SRT_SCALE_FLAG)
+    {
+        Vector3 scale = prevSRT.scale * (1.0f - factor) + nextSRT.scale * factor;
+        l_CurrentSRT.scale = scale;
+        l_CurrentSRT.iSRTFlag |= SRT_SCALE_FLAG;
+    }
+    if (m_PreviousSRT.second.iSRTFlag & SRT_ROTATION_FLAG)
+    {
+        Quaternion rotation;
+        rotation.x = prevSRT.rotation.x * (1.0f - factor) + nextSRT.rotation.x * factor;
+        rotation.y = prevSRT.rotation.y * (1.0f - factor) + nextSRT.rotation.y * factor;
+        rotation.z = prevSRT.rotation.z * (1.0f - factor) + nextSRT.rotation.z * factor;
+        rotation.w = prevSRT.rotation.w * (1.0f - factor) + nextSRT.rotation.w * factor;
+        rotation = rotation.Normalize();  // Ensure the quaternion remains unit length
+        l_CurrentSRT.rotation = rotation;
+        l_CurrentSRT.iSRTFlag |= SRT_ROTATION_FLAG;
+    }
+    if (m_PreviousSRT.second.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
+    {
+        Vector3 translation = prevSRT.translation * (1.0f - factor) + nextSRT.translation * factor;
+        l_CurrentSRT.translation = translation;
+        l_CurrentSRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
+    }        
+    m_PreviousSRT = { e_fTime,l_CurrentSRT };
+    ApplySRT(m_PreviousSRT.second, e_bSetChildBonesDirty);
+}
+
+void cBone::ApplySRT(const SRT& srt, bool e_bSetChildBonesDirty)
+{
+    cMatrix44 localTransform = cMatrix44::Identity;
+    // Apply transformations based on the SRT flag
+    if (srt.iSRTFlag & SRT_SCALE_FLAG) // Scale
+    {
+        localTransform = cMatrix44::ScaleMatrix(srt.scale);
+    }
+    if (srt.iSRTFlag & SRT_ROTATION_FLAG) // Rotation
+    {
+        localTransform *= srt.rotation.ToMatrix();
+    }
+    if (srt.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
+    {
+        localTransform *= cMatrix44::TranslationMatrix(srt.translation);
+    }
     SetLocalTransform(localTransform, e_bSetChildBonesDirty);
 }
