@@ -7,9 +7,11 @@
 
 class cAnimationMesh : public cMesh
 {
-    cBone* FindBoneByIndex(int e_iIndex);
     cBone* m_pMainRootBone;
-    cNamedTypedObjectVector<cBone> m_SkinningBoneVector;
+    //this is useless but now m_SkinningBoneVector's data from here
+    cNamedTypedObjectVector<cBone>  m_AllNodeConvertToBoneBoneVector;
+    //m_AllNodeConvertToBoneBoneVector
+    std::vector<cBone*>             m_SkinningBoneVector;
     std::vector<int>                m_JointOrderVector;
     cMatrix44 m_matMeshBindShapePose;
     cMatrix44* m_pAllBonesMatrixForSkinned;
@@ -34,7 +36,7 @@ class cAnimationMesh : public cMesh
     virtual ~cAnimationMesh();
     void    loadSkins(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap);
     void    loadAnimations(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap);
-    void    loadNode(const tinygltf::Node& node, const tinygltf::Model& model, cBone* parentBone, std::map<const tinygltf::Node*, cBone*> e_tinyglTFNodeAndJointIndexMap);
+    void    loadNode(const tinygltf::Node& node, const tinygltf::Model& model, cBone* parentBone, std::map<const tinygltf::Node*, cBone*>& e_tinyglTFNodeAndJointIndexMap);
 
     void    LoadAnimations(const tinygltf::Model& model);
     void    SetCurrentAnimation(const std::string& animationName);
