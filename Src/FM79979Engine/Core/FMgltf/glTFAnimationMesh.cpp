@@ -82,11 +82,11 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
         {
             boneName = ValueToStringW(i);
         }
-        cBone*bone = new cBone(boneName.c_str(), i);
+        cBone*bone = new cBone(boneName.c_str(),(int)i);
         bool l_bSameName = m_AllNodeConvertToBoneBoneVector.AddObject(bone);
         assert(l_bSameName&&"node not allow to has same name!?");
         l_tinyglTFNodeAndJointIndexMap[&node] = bone;
-        l_NodeIndexAndBoneMap[i] = bone;
+        l_NodeIndexAndBoneMap[(int)i] = bone;
     }
     //get noe from scene to setup hirerachy and transform.
     for (auto l_Scene :model.scenes)
@@ -101,7 +101,7 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
     int l_iCount = (int)this->m_SkinningBoneVector.size();
     for (int i = 0; i < l_iCount; ++i)
     {
-        m_SkinningBoneVector[i]->m_StartWorldTransform = m_SkinningBoneVector[i]->GetWorldTransform();
+        m_SkinningBoneVector[i]->m_StartNodeWorldTransform = m_SkinningBoneVector[i]->GetWorldTransform();
     }
     
     // Load skins
@@ -117,7 +117,6 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
     }
     if (this->m_pMainRootBone)
     {
-        
         DumpBoneIndexDebugInfo(this->m_pMainRootBone, false, true);
     }
 }
@@ -146,7 +145,7 @@ void cAnimationMesh::loadSkins(const tinygltf::Model& model, std::map<int, cBone
                 if(l_pBone)
                 {
                     m_SkinningBoneVector.push_back(l_pBone);
-                    l_pBone->m_iJointIndex = i;
+                    l_pBone->m_iJointIndex = (int)i;
                     l_pBone->m_matInvBindPose = cMatrix44(data + i * 16);
                 }
                 else
@@ -186,13 +185,13 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
         parentBone->AddChildToLast(bone);
     }
 
-    cMatrix44   localTransform = cMatrix44::Identity;
+    cMatrix44   l_matNodeTransform = cMatrix44::Identity;
     SRT         l_SRT;
     //because gltf matrix is column so take trs to make it right?
     if (node.translation.size() == 3)
     {
         Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
-        localTransform = cMatrix44::TranslationMatrix(translation);
+        l_matNodeTransform = cMatrix44::TranslationMatrix(translation);
         l_SRT.translation = translation;
         l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
     }
@@ -200,14 +199,14 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
     if (node.rotation.size() == 4)
     {
         Quaternion rotation((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
-        localTransform *= rotation.ToMatrix();
+        l_matNodeTransform *= rotation.ToMatrix();
         l_SRT.rotation = rotation;
         l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
     }
     if (node.scale.size() == 3)
     {
         Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
-        localTransform *= cMatrix44::ScaleMatrix(scale);
+        l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
         l_SRT.scale = scale;
         l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
     }
@@ -215,12 +214,12 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
     if (node.matrix.size() == 16)
     {
         cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
-        localTransform = nodeMatrix;
+        l_matNodeTransform = nodeMatrix;
     }
     //11
-    bone->m_StartLocalTransform = localTransform;
+    bone->m_StartNodeTransform = l_matNodeTransform;
     bone->m_StartSRT = l_SRT;
-    bone->SetLocalTransform(localTransform);
+    bone->SetLocalTransform(l_matNodeTransform);
 
     for (int childIndex : node.children)
     {
@@ -352,14 +351,24 @@ void cAnimationMesh::UpdateAnimation(float deltaTime)
             newTime = m_pCurrentAnimationData->m_fCurrentTime + deltaTime;
         };
         m_pCurrentAnimationData->m_fCurrentTime = newTime;
-        int boneCount = this->m_JointOrderVector.size();
-        for(int i=0;i<boneCount;++i)
+        if (this->m_pMainRootBone)
         {
-            cBone* l_pBone = m_SkinningBoneVector[i];
-            l_pBone->EvaluateLocalXForm(m_pCurrentAnimationData->m_fCurrentTime);
+            this->UpdateNode(m_pMainRootBone, m_pCurrentAnimationData->m_fCurrentTime);
+        }
+        else
+        {
+            int boneCount = (int)this->m_JointOrderVector.size();
+            for (int i = 0; i < boneCount; ++i)
+            {
+                cBone* bone = m_SkinningBoneVector[i];
+                if (bone)
+                {
+                    bone->EvaluateLocalXForm(m_pCurrentAnimationData->m_fCurrentTime);
+                }
+            }
         }
     }
-    int boneCount = this->m_JointOrderVector.size();
+    int boneCount = (int)this->m_JointOrderVector.size();
     for (int i = 0; i < boneCount; ++i)
     {
         //int l_iBoneIndex = m_JointOrderVector[i];
@@ -372,7 +381,8 @@ void cAnimationMesh::UpdateAnimation(float deltaTime)
                 continue;
             }
             auto l_matWorldTransform = bone->GetWorldTransform();
-            auto l_mat = bone->m_matInvBindPose* l_matWorldTransform;
+            //auto l_mat = l_matWorldTransform *bone->m_matInvBindPose;
+            auto l_mat = l_matWorldTransform * bone->m_matInvBindPose;
             m_pAllBonesMatrixForSkinned[i] = l_mat;
             //m_pAllBonesMatrixForSkinned[i] = l_matWorldTransform;
         }
@@ -396,7 +406,7 @@ void cAnimationMesh::RefreshAnimationData()
         for (int i = 0; i < boneCount; ++i)
         {
             auto l_pBone = m_SkinningBoneVector[i];
-            m_pAllBonesMatrixForSkinned[i] = l_pBone->m_StartWorldTransform;
+            m_pAllBonesMatrixForSkinned[i] = l_pBone->m_StartNodeWorldTransform;
         }
     }
 }
@@ -410,12 +420,9 @@ void cAnimationMesh::Update(float elapsedTime)
         if (m_NameAndAnimationMap.size() > 1)
         {
             ++l_Animation;
+            ++l_Animation;
         }
         this->SetCurrentAnimation(l_Animation->first);
-    }
-    if (m_pCurrentAnimationData)
-    {
-        m_pCurrentAnimationData->m_fCurrentTime += elapsedTime;
     }
     UpdateAnimation(elapsedTime);
 }
@@ -442,26 +449,27 @@ void cAnimationMesh::Draw()
     static float l_fCameraZPosition = -6;
     lightAngle += 0.01f;
     angle += 0.01f;    
+    //angle = 90;
     cMatrix44 conversionMatrix = cMatrix44::Identity;
-    conversionMatrix.m[2][2] = -1.0f;
+    //conversionMatrix.m[2][2] = -1.0f;
     // Update the bone matrices for skinning
 
     auto l_vPos = this->GetWorldPosition();
     //l_vPos.y = 5;
     // Iterate through sub-meshes and draw each one
-    for (auto& subMesh : subMeshes)
+    for (auto& l_pSubMesh : this->m_SubMeshesVector)
     {
         // Use the shader program specific to this sub-mesh
-        glUseProgram(subMesh.shaderProgram);
+        glUseProgram(l_pSubMesh->shaderProgram);
 
         // Set model, view, projection matrices
-        GLuint modelLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4Model");
-        GLuint viewLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4View");
-        GLuint projLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4Projection");
+        GLuint modelLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Model");
+        GLuint viewLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4View");
+        GLuint projLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Projection");
 
         cMatrix44 modelMatrix = cMatrix44::TranslationMatrix(l_vPos);
         cMatrix44 viewMatrix;// = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
-        subMesh.GetProperCameraPosition(viewMatrix);
+        l_pSubMesh->GetProperCameraPosition(viewMatrix);
 
         viewMatrix.GetTranslation().z *= -1;
         Projection projectionMatrix;
@@ -476,9 +484,9 @@ void cAnimationMesh::Draw()
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
 
         // Set light and view position uniforms
-        GLuint lightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3LightColor");
-        GLuint lightPosLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3LightPosition");
-        GLuint viewPosLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3ViewPosition");
+        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3LightColor");
+        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3LightPosition");
+        GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3ViewPosition");
 
         Vector3 lightColor(1.0f, 1.0f, 1.0f);
         Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
@@ -489,8 +497,8 @@ void cAnimationMesh::Draw()
         glUniform3fv(viewPosLoc, 1, viewPos);
 
         // Set directional light uniforms
-        GLuint dirLightDirLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightDirection");
-        GLuint dirLightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightColor");
+        GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "dirLightDirection");
+        GLuint dirLightColorLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "dirLightColor");
 
         Vector3 dirLightDirection(-0.2f, -0.2f, 1.f);
         Vector3 dirLightColor(0.5f, 0.5f, 0.5f);
@@ -498,7 +506,7 @@ void cAnimationMesh::Draw()
         glUniform3fv(dirLightDirLoc, 1, dirLightDirection);
         glUniform3fv(dirLightColorLoc, 1, dirLightColor);
         // Pass the bone matrices to the shader
-        GLuint boneMatricesLocation = glGetUniformLocation(subMesh.shaderProgram, "uBoneTransforms");
+        GLuint boneMatricesLocation = glGetUniformLocation(l_pSubMesh->shaderProgram, "uBoneTransforms");
         glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
 
         // Bind textures
@@ -507,7 +515,7 @@ void cAnimationMesh::Draw()
             glActiveTexture(GL_TEXTURE0 + (GLenum)i);
             glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
         }
-        GLuint texture1Loc = glGetUniformLocation(subMesh.shaderProgram, "texture1");
+        GLuint texture1Loc = glGetUniformLocation(l_pSubMesh->shaderProgram, "texture1");
         glUniform1i(texture1Loc, 0);
 
         // Bind normal map texture if available
@@ -515,14 +523,14 @@ void cAnimationMesh::Draw()
         {
             glActiveTexture(GL_TEXTURE0 + (GLenum)m_uiTextureIDVector.size());
             glBindTexture(GL_TEXTURE_2D, m_uiNormalTextureIDVector[0]);
-            GLuint normalMapLoc = glGetUniformLocation(subMesh.shaderProgram, "normalMap");
+            GLuint normalMapLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "normalMap");
             glUniform1i(normalMapLoc, (GLint)m_uiTextureIDVector.size());
         }
 
         // Bind the vertex array and draw the sub-mesh
-        glBindVertexArray(subMesh.vao);
-        EnableVertexAttributes(subMesh.fvfFlags);
-        MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)subMesh.indexBuffer.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(l_pSubMesh->vao);
+        EnableVertexAttributes(l_pSubMesh->m_iFVFFlag);
+        MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)l_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
     }
 }
 

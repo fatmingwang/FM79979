@@ -42,7 +42,7 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
 
     if (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG)
     {
-        shaderCode += "layout(location = 6) in vec4 aJoints;\n";
+        shaderCode += "layout(location = 6) in ivec4 aJoints;\n";
     }
 
     // Normalizing the vectors and transforming to view space
@@ -83,10 +83,10 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
     {
         shaderCode += R"(
             // Skinning transformation
-            mat4 skinMatrix = aWeights.x * uBoneTransforms[int(aJoints.x)] +
-                              aWeights.y * uBoneTransforms[int(aJoints.y)] +
-                              aWeights.z * uBoneTransforms[int(aJoints.z)] +
-                              aWeights.w * uBoneTransforms[int(aJoints.w)];
+            mat4 skinMatrix = aWeights.x * uBoneTransforms[aJoints.x] +
+                              aWeights.y * uBoneTransforms[aJoints.y] +
+                              aWeights.z * uBoneTransforms[aJoints.z] +
+                              aWeights.w * uBoneTransforms[aJoints.w];
             vec4 skinnedPosition = skinMatrix * vec4(aPosition, 1.0);;
             worldPosition = inMat4Projection*inMat4View*inMat4Model* skinnedPosition;
 
@@ -396,7 +396,8 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
 
         for (const auto& primitive : meshPair.primitives)
         {
-            mesh->LoadAttributes(model, primitive, e_bCalculateBiNormal);
+            //mesh->LoadAttributes(model, primitive, e_bCalculateBiNormal);
+            mesh->LoadAttributesAndInitBuffer(model, primitive, e_bCalculateBiNormal);
 
             // Load textures for each material
             if (primitive.material >= 0 && primitive.material < model.materials.size())
@@ -404,9 +405,9 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
                 mesh->LoadTextures(model, model.materials[primitive.material]);
             }
             // Get or create the appropriate shader program for the sub-mesh
-            for (auto& subMesh : mesh->subMeshes)
+            for (auto l_pSubMesh : mesh->m_SubMeshesVector)
             {
-                subMesh.shaderProgram = GetShaderProgram(subMesh.fvfFlags);
+                l_pSubMesh->shaderProgram = GetShaderProgram(l_pSubMesh->m_iFVFFlag);
             }
             // Apply the node transformation to the mesh
             for (const auto& node : model.nodes)
@@ -436,14 +437,14 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
 // Initialize buffers for all meshes
 void cScene::InitBuffers()
 {
-    for (auto& meshPair : meshes)
-    {
-        meshPair.second->InitBuffer();
-    }
-    for (auto& meshPair : m_AnimationMeshMap)
-    {
-        meshPair.second->InitBuffer();
-    }
+    //for (auto& meshPair : meshes)
+    //{
+    //    meshPair.second->InitBuffer();
+    //}
+    //for (auto& meshPair : m_AnimationMeshMap)
+    //{
+    //    meshPair.second->InitBuffer();
+    //}
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -506,11 +507,11 @@ int glTFInit()
     //g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-    g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
     
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
-    //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
+    g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
     
     
     g_cScene.InitBuffers();

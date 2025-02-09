@@ -59,24 +59,24 @@ class cMesh:public FATMING_CORE::Frame
 public:
     struct SubMesh
     {
-        unsigned int fvfFlags;
-        GLuint shaderProgram;
-        unsigned int indexOffset;
-        unsigned int indexCount;
-        int m_uiVertexStride;
-        std::vector<float> vertexBuffer;
-        std::vector<uint32_t> indexBuffer;
-        GLuint vao;
-        GLuint vbo;
+        unsigned int    m_iFVFFlag = 0;
+        GLuint          shaderProgram;
+        unsigned int    indexOffset;
+        unsigned int    indexCount;
+        size_t          m_i64VertexCount = 0;
+        GLuint                      m_iVBOArray[TOTAL_FVF];
+        std::vector<uint32_t>       m_IndexBuffer;
+        GLuint                      vao;
         GLuint ebo;
         Vector3 m_vMinBounds;
         Vector3 m_vMaxBounds;
-        void GetProperCameraPosition(cMatrix44& e_CameraMatrix);
+        void    GetProperCameraPosition(cMatrix44& e_CameraMatrix);
+        void    ClearOpenGLData();
     };
     Vector3 m_vMinBounds;
     Vector3 m_vMaxBounds;
 protected:
-    std::vector<SubMesh> subMeshes;  // Store different primitives
+    std::vector<SubMesh*> m_SubMeshesVector;  // Store different primitives
     std::vector<GLuint> m_uiTextureIDVector;        // Base color textures (and other types if necessary)
     std::vector<GLuint> m_uiNormalTextureIDVector;  // Normal maps
     std::vector<GLuint> m_uiOocclusionTextureIDVector;  // Occlusion maps
@@ -86,12 +86,13 @@ public:
     cMesh();
     virtual ~cMesh();
 
-    void InitBuffer();  // Initialize and bind buffers
+    //void InitBuffer();  // Initialize and bind buffers
     virtual void Draw();        // Draw the mesh
 
     // Function to load vertex attributes and indices
-    void LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
+    //void LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
     void LoadTextures(const tinygltf::Model& model, const tinygltf::Material& material);
     void logFVFFlags();
+    void LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
 };
 void EnableVertexAttributes(unsigned int fvfFlags);

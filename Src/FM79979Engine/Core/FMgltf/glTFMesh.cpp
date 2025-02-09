@@ -9,104 +9,24 @@
 #include <cstring>
 #include <unordered_set>
 
-struct sLazySkinningVertext
-{
-    float           vPos[3];
-    float           fWeight[4];
-    unsigned short  usJoints[4];
-    float           vTextCord[2];
-};
-#ifdef DEBUG
-std::vector<sLazySkinningVertext>   g_sLazySkinningVertextVector;
-#endif
 cMesh::cMesh()
 {
 }
 
 cMesh::~cMesh()
 {
-    for (auto& subMesh : subMeshes)
+    for (auto l_pSubMesh : m_SubMeshesVector)
     {
-        glDeleteBuffers(1, &subMesh.vbo);
-        glDeleteBuffers(1, &subMesh.ebo);
-        glDeleteVertexArrays(1, &subMesh.vao);
+        l_pSubMesh->ClearOpenGLData();
     }
+    DELETE_VECTOR(m_SubMeshesVector);
 }
 
-void cMesh::InitBuffer()
-{
-    g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX] = 4;
-    size_t offset = 0;
-    for (auto& subMesh : subMeshes)
-    {
-        offset = 0;
-        glGenVertexArrays(1, &subMesh.vao);
-        glGenBuffers(1, &subMesh.vbo);
-        glGenBuffers(1, &subMesh.ebo);
-
-        glBindVertexArray(subMesh.vao);
-
-        // Upload vertex data
-        glBindBuffer(GL_ARRAY_BUFFER, subMesh.vbo);
-        glBufferData(GL_ARRAY_BUFFER, subMesh.vertexBuffer.size() * sizeof(float), subMesh.vertexBuffer.data(), GL_STATIC_DRAW);
-        //glBufferData(GL_ARRAY_BUFFER, subMesh.vertexBuffer.size() * sizeof(float), &g_sLazySkinningVertextVector[0], GL_STATIC_DRAW);
-        
-
-        // Upload index data
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, subMesh.ebo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, subMesh.indexBuffer.size() * sizeof(uint32_t), subMesh.indexBuffer.data(), GL_STATIC_DRAW);
-
-        // Define vertex attribute pointers dynamically based on FVF flags
-        auto l_StrideWithSize = subMesh.m_uiVertexStride * sizeof(float);
-        for (int i = 0; i < TOTAL_FVF; ++i)
-        {
-            if (subMesh.fvfFlags & (1 << i))
-            {
-                //glEnableVertexAttribArray(i);
-                //myVertexAttribPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], GL_FALSE, (GLsizei)l_StrideWithSize, (void*)offset);
-                //offset += g_iFVF_DataSize[i];
-
-
-
-                glEnableVertexAttribArray(i);
-                //make sure shader code jsoints is ivec4
-                //if (i == FVF_SKINNING_BONE_INDEX)
-                //{
-                //    // Use glVertexAttribIPointer for integer attributes
-                //    glVertexAttribIPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], (GLsizei)l_StrideWithSize, (void*)offset);
-                //}
-                //else
-                {
-                    glVertexAttribPointer(i, g_iFVF_DataStride[i], g_iFVF_DataType[i], GL_FALSE, (GLsizei)l_StrideWithSize, (void*)offset);
-                }
-                offset += g_iFVF_DataSize[i];
-
-
-            }
-        }
-    }
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER,0);
-
-    // Iterate through each subMesh to update the bounds
-    for (const auto& subMesh : subMeshes)
-    {
-        m_vMinBounds.x = min(m_vMinBounds.x, subMesh.m_vMinBounds.x);
-        m_vMinBounds.y = min(m_vMinBounds.y, subMesh.m_vMinBounds.y);
-        m_vMinBounds.z = min(m_vMinBounds.z, subMesh.m_vMinBounds.z);
-
-        m_vMaxBounds.x = max(m_vMaxBounds.x, subMesh.m_vMaxBounds.x);
-        m_vMaxBounds.y = max(m_vMaxBounds.y, subMesh.m_vMaxBounds.y);
-        m_vMaxBounds.z = max(m_vMaxBounds.z, subMesh.m_vMaxBounds.z);
-    }
-}
-
-
-void EnableVertexAttributes(unsigned int fvfFlags)
+void EnableVertexAttributes(unsigned int e_iFVFFlag)
 {
     for (int i = 0; i < TOTAL_FVF; ++i)
     {
-        if (fvfFlags & (1 << i))
+        if (e_iFVFFlag & (1 << i))
         {
             glEnableVertexAttribArray(i);
         }
@@ -127,6 +47,20 @@ void cMesh::SubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
     e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
 }
 
+void cMesh::SubMesh::ClearOpenGLData()
+{
+    for (int i = 0; i < TOTAL_FVF; ++i)
+    {
+        if (i & this->m_iFVFFlag)
+        {
+            glDeleteBuffers(1,&m_iVBOArray[i]);
+        }
+        
+    }
+    glDeleteBuffers(1, &ebo);
+    glDeleteVertexArrays(1, &vao);
+}
+
 void cMesh::Draw()
 {
     static float angle = 0.0f;
@@ -136,19 +70,19 @@ void cMesh::Draw()
     angle += 0.01f;
 
     auto l_vPos = this->GetLocalPosition();
-    for (auto& subMesh : subMeshes)
+    for (auto l_pSubMesh : m_SubMeshesVector)
     {
         // Use the shader program specific to this sub-mesh
-        glUseProgram(subMesh.shaderProgram);
+        glUseProgram(l_pSubMesh->shaderProgram);
 
         // Set model, view, projection matrices
-        GLuint modelLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4Model");
-        GLuint viewLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4View");
-        GLuint projLoc = glGetUniformLocation(subMesh.shaderProgram, "inMat4Projection");
+        GLuint modelLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Model");
+        GLuint viewLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4View");
+        GLuint projLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Projection");
 
         cMatrix44 modelMatrix = cMatrix44::TranslationMatrix(l_vPos);
         cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
-        subMesh.GetProperCameraPosition(viewMatrix);
+        l_pSubMesh->GetProperCameraPosition(viewMatrix);
 
         viewMatrix.GetTranslation().z *= -1;
         Projection projectionMatrix;
@@ -166,9 +100,9 @@ void cMesh::Draw()
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
 
         // Set light and view position uniforms
-        GLuint lightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3LightColor");
-        GLuint lightPosLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3LightPosition");
-        GLuint viewPosLoc = glGetUniformLocation(subMesh.shaderProgram, "inVec3ViewPosition");
+        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3LightColor");
+        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3LightPosition");
+        GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3ViewPosition");
 
         Vector3 lightColor(1.0f, 1.0f, 1.0f);
         Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
@@ -179,8 +113,8 @@ void cMesh::Draw()
         glUniform3fv(viewPosLoc, 1, viewPos);
 
         // Set directional light uniforms
-        GLuint dirLightDirLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightDirection");
-        GLuint dirLightColorLoc = glGetUniformLocation(subMesh.shaderProgram, "dirLightColor");
+        GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "dirLightDirection");
+        GLuint dirLightColorLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "dirLightColor");
 
         Vector3 dirLightDirection(-0.f, -0.f, -1.f);
         Vector3 dirLightColor(1.f, 0.f, 0.f);
@@ -194,7 +128,7 @@ void cMesh::Draw()
             glActiveTexture(GL_TEXTURE0 + (GLenum)i);
             glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
         }
-        GLuint texture1Loc = glGetUniformLocation(subMesh.shaderProgram, "texture1");
+        GLuint texture1Loc = glGetUniformLocation(l_pSubMesh->shaderProgram, "texture1");
         glUniform1i(texture1Loc, 0);
 
         // Bind normal map texture if available
@@ -202,266 +136,15 @@ void cMesh::Draw()
         {
             glActiveTexture(GL_TEXTURE0 + (GLenum)m_uiTextureIDVector.size());
             glBindTexture(GL_TEXTURE_2D, m_uiNormalTextureIDVector[0]);
-            GLuint normalMapLoc = glGetUniformLocation(subMesh.shaderProgram, "normalMap");
+            GLuint normalMapLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "normalMap");
             glUniform1i(normalMapLoc, (GLint)m_uiTextureIDVector.size());
         }
 
         // Bind the vertex array and draw the sub-mesh
-        glBindVertexArray(subMesh.vao);
-        EnableVertexAttributes(subMesh.fvfFlags);
-        MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)subMesh.indexBuffer.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(l_pSubMesh->vao);
+        EnableVertexAttributes(l_pSubMesh->m_iFVFFlag);
+        MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)l_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
     }
-}
-
-
-
-void cMesh::LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal)
-{
-    SubMesh subMesh;
-    subMesh.fvfFlags = 0;
-    auto LoadAttribute = [&](const std::string& name) -> const float*
-        {
-            auto it = primitive.attributes.find(name);
-            if (it == primitive.attributes.end())
-            {
-                FMLOG("%s can't find data", name.c_str());
-                return nullptr;
-            }
-            const tinygltf::Accessor& accessor = model.accessors[it->second];
-            const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
-            const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
-            size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
-            size_t count = accessor.count;
-            size_t stride = accessor.ByteStride(bufferView);
-            const unsigned char* dataPtr = buffer.data.data() + byteOffset;
-            if (name == "POSITION")
-            {
-                subMesh.m_vMinBounds = Vector3((float)accessor.minValues[0], (float)accessor.minValues[1], (float)accessor.minValues[2]);
-                subMesh.m_vMaxBounds = Vector3((float)accessor.maxValues[0], (float)accessor.maxValues[1], (float)accessor.maxValues[2]);
-            }
-            if (name == "JOINTS_0")
-            {
-                int     l_iJointsDataConvertStride = 0;
-                if (accessor.componentType == GL_UNSIGNED_SHORT)
-                {
-                    l_iJointsDataConvertStride = 2;//4 unsigned short 2 float
-                    g_iFVF_DataType[FVF_SKINNING_BONE_INDEX] = GL_UNSIGNED_SHORT;
-                }
-                else
-                if (accessor.componentType == GL_UNSIGNED_BYTE)
-                {
-                    l_iJointsDataConvertStride = 1;//4 byte one float
-                    g_iFVF_DataType[FVF_SKINNING_BONE_INDEX] = GL_UNSIGNED_BYTE;
-                }
-                g_iFVF_DataSize[FVF_SKINNING_BONE_INDEX] = l_iJointsDataConvertStride*sizeof(float);
-                g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX] = l_iJointsDataConvertStride;
-                
-            }
-#ifdef DEBUG
-            accessor.maxValues;
-            accessor.minValues;
-            if (accessor.componentType != 5126)
-            {
-                //5126 GL_FLOAT(No conversion needed)
-                //5123 GL_UNSIGNED_SHORT(Divide by 65535)
-                //5121 GL_UNSIGNED_BYTE(Divide by 255)
-                int a = 0;
-            }
-#endif
-            return reinterpret_cast<const float*>(dataPtr);
-        };
-    if (primitive.indices == -1)
-    {
-        const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
-        size_t vertexCount = positionAccessor.count;
-        subMesh.indexBuffer.resize(vertexCount);
-        std::iota(subMesh.indexBuffer.begin(), subMesh.indexBuffer.end(), 0);
-    }
-    else
-    {
-        const tinygltf::Accessor& indexAccessor = model.accessors[primitive.indices];
-        const tinygltf::BufferView& bufferView = model.bufferViews[indexAccessor.bufferView];
-        const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
-
-        const unsigned char* dataPtr = buffer.data.data() + bufferView.byteOffset + indexAccessor.byteOffset;
-
-        if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_SHORT)
-        {
-            const uint16_t* shortIndices = reinterpret_cast<const uint16_t*>(dataPtr);
-            subMesh.indexBuffer.resize(indexAccessor.count);
-            std::transform(shortIndices, shortIndices + indexAccessor.count, subMesh.indexBuffer.begin(),
-                           [](uint16_t val)
-                           {
-                               return static_cast<uint32_t>(val);
-                           });
-        }
-        else if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_INT)
-        {
-            subMesh.indexBuffer.resize(indexAccessor.count);
-            memcpy(subMesh.indexBuffer.data(), dataPtr, indexAccessor.count * sizeof(uint32_t));
-        }
-        else
-        {
-            std::cerr << "Unsupported index component type: " << indexAccessor.componentType << std::endl;
-            return;
-        }
-    }
-
-    bool hasPosition = primitive.attributes.find("POSITION") != primitive.attributes.end();
-    bool hasNormal = primitive.attributes.find("NORMAL") != primitive.attributes.end();
-    bool hasTexCoord = primitive.attributes.find("TEXCOORD_0") != primitive.attributes.end();
-    bool hasTangent = primitive.attributes.find("TANGENT") != primitive.attributes.end();
-    bool hasColor = primitive.attributes.find("COLOR_0") != primitive.attributes.end();
-    bool hasWeights = primitive.attributes.find("WEIGHTS_0") != primitive.attributes.end();
-    bool hasJoints = primitive.attributes.find("JOINTS_0") != primitive.attributes.end();
-    bool hasBinormal = calculateBinormal && hasPosition && hasNormal && hasTexCoord;
-    //hasJoints = false;
-    //hasWeights = false;
-    size_t vertexCount = 0;
-    if (hasPosition)
-    {
-        const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
-        vertexCount = positionAccessor.count;
-    }
-    subMesh.m_uiVertexStride = g_iFVF_DataStride[FVF_POS] + (hasNormal ? g_iFVF_DataStride[FVF_NORMAL] : 0) + (hasTexCoord ? g_iFVF_DataStride[FVF_TEX0] : 0) + (hasTangent ? g_iFVF_DataStride[FVF_TANGENT] : 0) + (hasColor ? g_iFVF_DataStride[FVF_DIFFUSE] : 0) + (hasWeights ? g_iFVF_DataStride[FVF_SKINNING_WEIGHT] : 0) + (hasBinormal ? g_iFVF_DataStride[FVF_BITAGENT] : 0);
-    if (hasJoints)
-    {
-        LoadAttribute("JOINTS_0");
-        subMesh.m_uiVertexStride += g_iFVF_DataStride[FVF_SKINNING_BONE_INDEX];;
-    }
-    subMesh.vertexBuffer.resize(vertexCount * subMesh.m_uiVertexStride);
-#ifdef DEBUG
-    g_sLazySkinningVertextVector.resize(vertexCount);
-#endif
-    const float* positionData = LoadAttribute("POSITION");
-    const float* normalData = LoadAttribute("NORMAL");
-    const float* texCoordData = LoadAttribute("TEXCOORD_0");
-    const float* tangentData = LoadAttribute("TANGENT");
-    const float* colorData = LoadAttribute("COLOR_0");
-    const float* weightsData = LoadAttribute("WEIGHTS_0");
-    const float* jointsData = LoadAttribute("JOINTS_0");
-    //weightsData = nullptr;
-    //jointsData = nullptr;
-    size_t offset = 0;
-    size_t l_uiLastIndex = 0;
-    std::unordered_set<int> skinningJoints;
-    for (size_t i = 0; i < vertexCount; ++i)
-    {
-        offset = 0;
-        int l_iArrtibuteIndex = 0;
-        auto l_iCurrentVertexIndex = i * subMesh.m_uiVertexStride;
-#ifdef DEBUG
-        sLazySkinningVertext*l_pData = &g_sLazySkinningVertextVector[i];
-#endif
-        if (positionData)
-        {
-            l_iArrtibuteIndex = FVF_POS;
-            Vector3 vertex(positionData[i * 3], positionData[i * 3 + 1], positionData[i * 3 + 2]);
-            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], positionData + i * 3, g_iFVF_DataSize[l_iArrtibuteIndex]);
-            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
-#ifdef DEBUG
-            memcpy(&l_pData->vPos, positionData + i * 3, g_iFVF_DataSize[l_iArrtibuteIndex]);
-#endif
-        }
-        if (normalData)
-        {
-            l_iArrtibuteIndex = FVF_NORMAL;
-            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], normalData + i * 3, g_iFVF_DataSize[l_iArrtibuteIndex]);
-            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
-        }
-        if (colorData)
-        {
-            l_iArrtibuteIndex = FVF_DIFFUSE;
-            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], colorData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
-            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
-        }
-        if (tangentData)
-        {
-            l_iArrtibuteIndex = FVF_TANGENT;
-            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], tangentData + i * 3, g_iFVF_DataSize[l_iArrtibuteIndex]);
-            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
-        }
-        if (hasBinormal)
-        {
-            l_iArrtibuteIndex = FVF_BITAGENT;
-            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
-        }
-        if (weightsData)
-        {
-            l_iArrtibuteIndex = FVF_SKINNING_WEIGHT;
-#ifdef DEBUG
-            float l_fZero[4] = { 0,0,0,0 };
-            memcpy(l_fZero, weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
-            float l_fWeight = 0;
-            for (int i = 0; i < 4; ++i)
-            {
-                l_fWeight += l_fZero[i];
-                if (l_fWeight > 1 || l_fWeight < 0)
-                {
-                    int a = 0;
-                }
-            }
-            memcpy(&l_pData->fWeight, weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
-#endif
-            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], weightsData + i * 4, g_iFVF_DataSize[l_iArrtibuteIndex]);
-            //memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], l_fZero, g_iFVF_DataSize[l_iArrtibuteIndex]);
-            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
-
-        }
-        if (jointsData)
-        {
-            l_iArrtibuteIndex = FVF_SKINNING_BONE_INDEX;
-            char* l_pJointData = (char*)jointsData;
-            l_pJointData += (i * g_iFVF_DataSize[l_iArrtibuteIndex]);
-            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
-#ifdef DEBUG
-            memcpy(&l_pData->usJoints, l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
-            unsigned short l_JointsID[4];
-            memcpy(l_JointsID, l_pJointData, g_iFVF_DataSize[l_iArrtibuteIndex]);
-            unsigned short l_JointsID2[4];
-            memcpy(l_JointsID2, &subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], g_iFVF_DataSize[l_iArrtibuteIndex]);
-            for (int i = 0; i < 4; ++i)
-            {
-                skinningJoints.insert(l_JointsID[i]);
-                if (l_JointsID[i] >= 24)
-                {
-                    int a = 0;
-                }
-            }
-#endif
-            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
-        }
-        if (texCoordData)
-        {
-            l_iArrtibuteIndex = FVF_TEX0;
-            const float* l_fpUVData = texCoordData + i * 2;
-            Vector2 l_vUV(l_fpUVData[0], l_fpUVData[1]);
-            memcpy(&subMesh.vertexBuffer[l_iCurrentVertexIndex + offset], &l_vUV, g_iFVF_DataSize[l_iArrtibuteIndex]);
-#ifdef DEBUG
-            memcpy(&l_pData->vTextCord, &l_vUV, g_iFVF_DataSize[l_iArrtibuteIndex]);
-#endif
-            offset += g_iFVF_DataStride[l_iArrtibuteIndex];
-            l_uiLastIndex = l_iCurrentVertexIndex + offset;
-        }
-    }
-#ifdef DEBUG
-    // Copy to a vector
-    std::vector<int> sortedJoints(skinningJoints.begin(), skinningJoints.end());
-
-    // Sort in ascending order
-    std::sort(sortedJoints.begin(), sortedJoints.end());
-#endif
-    if (hasPosition) subMesh.fvfFlags |= FVF_POS_FLAG;
-    if (hasNormal) subMesh.fvfFlags |= FVF_NORMAL_FLAG;
-    if (hasTexCoord) subMesh.fvfFlags |= FVF_TEX0_FLAG;
-    if (hasTangent) subMesh.fvfFlags |= FVF_TANGENT_FLAG;
-    if (hasColor) subMesh.fvfFlags |= FVF_DIFFUSE_FLAG;
-    if (hasWeights) subMesh.fvfFlags |= FVF_SKINNING_WEIGHT_FLAG;
-    if (hasJoints) subMesh.fvfFlags |= FVF_SKINNING_BONE_INDEX_FLAG;
-    if (hasBinormal) subMesh.fvfFlags |= FVF_BITAGENT_FLAG;
-
-    subMeshes.push_back(subMesh);
-    logFVFFlags();
 }
 
 void cMesh::LoadTextures(const tinygltf::Model& model, const tinygltf::Material& material)
@@ -556,15 +239,146 @@ void cMesh::LoadTextures(const tinygltf::Model& model, const tinygltf::Material&
 
 void cMesh::logFVFFlags()
 {
-    std::cout << "FVF Flags: " << std::endl;
-    for (const auto& subMesh : subMeshes)
+    FMLOG("FVF Flags")
+    for (const auto l_pSubMesh : m_SubMeshesVector)
     {
-        if (subMesh.fvfFlags & FVF_POS_FLAG) std::cout << "Position is present." << std::endl;
-        if (subMesh.fvfFlags & FVF_NORMAL_FLAG) std::cout << "Normal is present." << std::endl;
-        if (subMesh.fvfFlags & FVF_DIFFUSE_FLAG) std::cout << "Color is present." << std::endl;
-        if (subMesh.fvfFlags & FVF_TEX0_FLAG) std::cout << "Texture coordinates are present." << std::endl;
-        if (subMesh.fvfFlags & FVF_TANGENT_FLAG) std::cout << "Tangent is present." << std::endl;
-        if (subMesh.fvfFlags & FVF_BITAGENT_FLAG) std::cout << "Binormal is present." << std::endl;
-        if (subMesh.fvfFlags & FVF_NORMAL_MAP_TEXTURE_FLAG) std::cout << "Normal map is present." << std::endl;
+        if (l_pSubMesh->m_iFVFFlag & FVF_POS_FLAG) FMLOG("Position is present.");
+        if (l_pSubMesh->m_iFVFFlag & FVF_NORMAL_FLAG) FMLOG("Normal is present.");
+        if (l_pSubMesh->m_iFVFFlag & FVF_DIFFUSE_FLAG) FMLOG("Color is present.");
+        if (l_pSubMesh->m_iFVFFlag & FVF_SKINNING_WEIGHT_FLAG) FMLOG("weight is present.");
+        if (l_pSubMesh->m_iFVFFlag & FVF_SKINNING_BONE_INDEX_FLAG) FMLOG("joint is present.");
+        if (l_pSubMesh->m_iFVFFlag & FVF_TEX0_FLAG) FMLOG("Texture coordinates are present.");
+        if (l_pSubMesh->m_iFVFFlag & FVF_TANGENT_FLAG) FMLOG("Tangent is present.");
+        if (l_pSubMesh->m_iFVFFlag & FVF_BITAGENT_FLAG) FMLOG("Binormal is present.");
+        if (l_pSubMesh->m_iFVFFlag & FVF_NORMAL_MAP_TEXTURE_FLAG) FMLOG("Normal map is present.");
+    }
+}
+
+
+void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal)
+{
+    bool l_bPosition = primitive.attributes.find("POSITION") != primitive.attributes.end();
+    if (!l_bPosition)
+    {
+        return;
+    }
+    SubMesh* l_pSubMesh = new SubMesh();
+
+    // Load indices
+    if (primitive.indices == -1)
+    {
+        const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
+        size_t vertexCount = positionAccessor.count;
+        l_pSubMesh->m_IndexBuffer.resize(vertexCount);
+        std::iota(l_pSubMesh->m_IndexBuffer.begin(), l_pSubMesh->m_IndexBuffer.end(), 0);
+    }
+    else
+    {
+        const tinygltf::Accessor& indexAccessor = model.accessors[primitive.indices];
+        const tinygltf::BufferView& bufferView = model.bufferViews[indexAccessor.bufferView];
+        const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+
+        const unsigned char* dataPtr = buffer.data.data() + bufferView.byteOffset + indexAccessor.byteOffset;
+
+        if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_SHORT)
+        {
+            const uint16_t* shortIndices = reinterpret_cast<const uint16_t*>(dataPtr);
+            l_pSubMesh->m_IndexBuffer.assign(shortIndices, shortIndices + indexAccessor.count);
+        }
+        else if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_INT)
+        {
+            const uint32_t* intIndices = reinterpret_cast<const uint32_t*>(dataPtr);
+            l_pSubMesh->m_IndexBuffer.assign(intIndices, intIndices + indexAccessor.count);
+        }
+        else
+        {
+            std::cerr << "Unsupported index component type: " << indexAccessor.componentType << std::endl;
+            return;
+        }
+    }
+
+    // Generate and bind VAO
+    glGenVertexArrays(1, &l_pSubMesh->vao);
+    glBindVertexArray(l_pSubMesh->vao);
+
+    // Generate and upload index buffer
+    glGenBuffers(1, &l_pSubMesh->ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, l_pSubMesh->ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, l_pSubMesh->m_IndexBuffer.size() * sizeof(uint32_t), l_pSubMesh->m_IndexBuffer.data(), GL_STATIC_DRAW);
+
+    std::map<std::string, int> l_AttributeMap = {
+        {"POSITION", FVF_POS},
+        {"NORMAL", FVF_NORMAL},
+        {"COLOR_0", FVF_DIFFUSE},
+        {"TANGENT", FVF_TANGENT},
+        {"BITANGENT", FVF_BITAGENT},
+        {"WEIGHTS_0", FVF_SKINNING_WEIGHT},
+        {"JOINTS_0", FVF_SKINNING_BONE_INDEX},
+        {"TEXCOORD_0", FVF_TEX0},
+        {"TEXCOORD_1", FVF_TEX1}
+    };
+
+    for (const auto& attribute : primitive.attributes)
+    {
+        auto it = l_AttributeMap.find(attribute.first);
+        if (it != l_AttributeMap.end())
+        {
+            int l_iFVFIndex = it->second;
+            const tinygltf::Accessor& accessor = model.accessors[attribute.second];
+            const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+            const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+
+            size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
+            const unsigned char* dataPtr = buffer.data.data() + byteOffset;
+
+            l_pSubMesh->m_iFVFFlag |= 1 << l_iFVFIndex;
+            size_t dataSize = accessor.count * accessor.ByteStride(bufferView);
+
+            glGenBuffers(1, &l_pSubMesh->m_iVBOArray[l_iFVFIndex]);
+            glBindBuffer(GL_ARRAY_BUFFER, l_pSubMesh->m_iVBOArray[l_iFVFIndex]);
+            glBufferData(GL_ARRAY_BUFFER, dataSize, dataPtr, GL_STATIC_DRAW);
+
+            glEnableVertexAttribArray(l_iFVFIndex);
+            auto    l_ByteStride =  accessor.ByteStride(bufferView);
+            int     l_iStride = accessor.type;
+            int     l_iGLDataType = accessor.componentType;
+
+            if (accessor.componentType != GL_FLOAT)
+            {
+                //GL_FLOAT
+                //GL_UNSIGNED_BYTE 5121
+                //GL_UNSIGNED_SHORT,5123
+                //GL_UNSIGNED_INT,5125
+                //GL_FLOAT,5126
+                glVertexAttribIPointer(l_iFVFIndex, l_iStride, l_iGLDataType, l_ByteStride, nullptr);
+            }
+            else
+            {
+                glVertexAttribPointer(l_iFVFIndex, l_iStride, l_iGLDataType, GL_FALSE, l_ByteStride, nullptr);
+            }
+
+            if (attribute.first == "POSITION")
+            {
+                l_pSubMesh->m_i64VertexCount = accessor.count;
+                l_pSubMesh->m_vMinBounds = Vector3((float)accessor.minValues[0], (float)accessor.minValues[1], (float)accessor.minValues[2]);
+                l_pSubMesh->m_vMaxBounds = Vector3((float)accessor.maxValues[0], (float)accessor.maxValues[1], (float)accessor.maxValues[2]);
+            }
+        }
+    }
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    m_SubMeshesVector.push_back(l_pSubMesh);
+    logFVFFlags();
+    // Iterate through each subMesh to update the bounds
+    for (const auto l_pSubMesh : m_SubMeshesVector)
+    {
+        m_vMinBounds.x = min(m_vMinBounds.x, l_pSubMesh->m_vMinBounds.x);
+        m_vMinBounds.y = min(m_vMinBounds.y, l_pSubMesh->m_vMinBounds.y);
+        m_vMinBounds.z = min(m_vMinBounds.z, l_pSubMesh->m_vMinBounds.z);
+
+        m_vMaxBounds.x = max(m_vMaxBounds.x, l_pSubMesh->m_vMaxBounds.x);
+        m_vMaxBounds.y = max(m_vMaxBounds.y, l_pSubMesh->m_vMaxBounds.y);
+        m_vMaxBounds.z = max(m_vMaxBounds.z, l_pSubMesh->m_vMaxBounds.z);
     }
 }

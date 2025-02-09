@@ -190,14 +190,19 @@ public:
 	}
 
 	// Quaternion Slerp function
+	//https://github.com/KhronosGroup/glTF-Tutorials/blob/main/gltfTutorial/gltfTutorial_007_Animations.md
 	static Quaternion Slerp(const Quaternion& q1, const Quaternion& q2, float t)
 	{
 		// Clamp interpolation factor between 0 and 1
+#ifdef DEBUG
 		t = std::clamp(t, 0.0f, 1.0f);
 
 		Quaternion qStart = q1.Normalize();
 		Quaternion qEnd = q2.Normalize();
-
+#else
+		Quaternion qStart = q1;
+		Quaternion qEnd = q2;
+#endif
 		float dot = Dot(qStart, qEnd);
 
 		// If dot product is negative, flip one quaternion to take the shortest path

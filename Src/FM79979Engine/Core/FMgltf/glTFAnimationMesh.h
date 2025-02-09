@@ -28,7 +28,6 @@ class cAnimationMesh : public cMesh
     sAnimationData* m_pCurrentAnimationData;
     std::string m_CurrentAnimation;
 
-    void UpdateNodes(float e_fTimeValue);
     void UpdateNode(cBone* e_pBone, float e_fTime);
 
     public:
