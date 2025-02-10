@@ -262,6 +262,11 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
     {
         return;
     }
+    if (primitive.mode != TINYGLTF_MODE_TRIANGLES)
+    {
+        assert(0 && "only support triangles now");
+        return;
+    }
     SubMesh* l_pSubMesh = new SubMesh();
 
     // Load indices

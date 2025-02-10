@@ -188,14 +188,13 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
     cMatrix44   l_matNodeTransform = cMatrix44::Identity;
     SRT         l_SRT;
     //because gltf matrix is column so take trs to make it right?
-    if (node.translation.size() == 3)
+    if (node.scale.size() == 3)
     {
-        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
-        l_matNodeTransform = cMatrix44::TranslationMatrix(translation);
-        l_SRT.translation = translation;
-        l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
+        Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+        l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
+        l_SRT.scale = scale;
+        l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
     }
-
     if (node.rotation.size() == 4)
     {
         Quaternion rotation((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
@@ -203,12 +202,12 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
         l_SRT.rotation = rotation;
         l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
     }
-    if (node.scale.size() == 3)
+    if (node.translation.size() == 3)
     {
-        Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
-        l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
-        l_SRT.scale = scale;
-        l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
+        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+        l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
+        l_SRT.translation = translation;
+        l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
     }
 
     if (node.matrix.size() == 16)

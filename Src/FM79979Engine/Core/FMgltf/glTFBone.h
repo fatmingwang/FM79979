@@ -39,6 +39,7 @@ struct cBone : public Frame
     void EvaluateLocalXForm2(float e_fTime, bool e_bSetChildBonesDirty = true);
     void ApplySRT(const SRT& srt, bool e_bSetChildBonesDirty);
     cMatrix44   m_StartNodeWorldTransform;
+    //rest pose
     cMatrix44   m_StartNodeTransform;
     SRT         m_StartSRT;
 };

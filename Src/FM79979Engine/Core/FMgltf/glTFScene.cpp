@@ -8,7 +8,6 @@
 #include <sstream>
 #include "glTFScene.h"
 
-
 std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
 {
     std::string shaderCode = R"(
@@ -353,27 +352,24 @@ GLuint cScene::GetShaderProgram(unsigned int fvfFlags)
 cMatrix44 GetNodeMatrix(const tinygltf::Node& node)
 {
     cMatrix44 matrix = cMatrix44::Identity;
-
-    // Apply translation
-    if (node.translation.size() == 3)
-    {
-        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
-        matrix = cMatrix44::TranslationMatrix(translation);
-    }
-
-    // Apply rotation
-    if (node.rotation.size() == 4)
-    {
-        
-        Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
-        matrix *= rotation.ToMatrix();
-    }
-
     // Apply scale
     if (node.scale.size() == 3)
     {
         Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
         matrix *= cMatrix44::ScaleMatrix(scale);
+    }
+    // Apply rotation
+    if (node.rotation.size() == 4)
+    {
+
+        Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
+        matrix *= rotation.ToMatrix();
+    }
+    // Apply translation
+    if (node.translation.size() == 3)
+    {
+        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+        matrix = cMatrix44::TranslationMatrix(translation);
     }
 
     // Apply matrix if present
@@ -531,14 +527,15 @@ int glTFInit()
     //g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-    g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
     
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
     
     
-    g_cScene.InitBuffers();
+    //g_cScene.InitBuffers();
     return 1;
 }
 
