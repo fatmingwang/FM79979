@@ -25,24 +25,28 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
     // Adding tangents if necessary
     if (fvfFlags & FVF_TANGENT_FLAG)
     {
-        shaderCode += "layout(location = 3) in vec3 aTangent;\n";
+        shaderCode += R"(
+        layout(location = 3) in vec3 aTangent;)";
     }
 
     // Adding binormals if necessary
     if (fvfFlags & FVF_BITAGENT_FLAG)
     {
-        shaderCode += "layout(location = 4) in vec3 aBinormal;\n";
+        shaderCode += R"(
+        layout(location = 4) in vec3 aBinormal;)";
     }
 
     // Adding joint indices and weights if necessary
     if (fvfFlags & FVF_SKINNING_WEIGHT_FLAG)
     {
-        shaderCode += "layout(location = 5) in vec4 aWeights;\n";
+        shaderCode += R"(
+        layout(location = 5) in vec4 aWeights;)";
     }
 
     if (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG)
     {
-        shaderCode += "layout(location = 6) in ivec4 aJoints;\n";
+        shaderCode += R"(
+        layout(location = 6) in ivec4 aJoints;)";
     }
 
     // Normalizing the vectors and transforming to view space
@@ -60,12 +64,14 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
 
     if (fvfFlags & FVF_TANGENT_FLAG)
     {
-        shaderCode += "out vec3 toFSVec3Tangent;\n";
+        shaderCode += R"(
+        out vec3 toFSVec3Tangent;)";
     }
 
     if (fvfFlags & FVF_BITAGENT_FLAG)
     {
-        shaderCode += "out vec3 toFSVec3Binormal;\n";
+        shaderCode += R"(
+        out vec3 toFSVec3Binormal;)";
     }
 
     shaderCode += R"(
@@ -74,7 +80,8 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
     )";
 
     shaderCode += R"(
-        void main() {
+        void main() 
+        {
             vec4 worldPosition = inMat4Model * vec4(aPosition, 1.0);
             toFSVec3FragPos = worldPosition.xyz;
     )";
@@ -123,16 +130,21 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
     if ((fvfFlags & FVF_SKINNING_WEIGHT_FLAG) && (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG))
     {
         shaderCode += R"(    gl_Position = worldPosition;
-        })";
+        )";
     }
     else
     {
-        shaderCode += R"(    gl_Position = inMat4Projection * inMat4View * worldPosition;
-                             // Transform normal to world space and then to view space
-                             toFSVec3Normal = mat3(transpose(inverse(inMat4Model))) * aNormal;
-        })";
+        shaderCode += R"(
+            gl_Position = inMat4Projection * inMat4View * worldPosition;
+            // Transform normal to world space and then to view space
+            toFSVec3Normal = mat3(transpose(inverse(inMat4Model))) * aNormal;
+        )";
     }
-
+    shaderCode += R"(
+        })";
+#ifdef DEBUG
+    FMLOG(shaderCode.c_str());
+#endif
     return shaderCode;
 }
 
@@ -149,8 +161,19 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
         in vec2 toFSVec2TexCoord;
         in vec3 toFSVec3Normal;
         in vec3 toFSVec3FragPos;
-        in vec3 toFSVec3LightDir;
+        in vec3 toFSVec3LightDir;)";
+    if (fvfFlags & FVF_TANGENT_FLAG)
+    {
+        shaderCode += R"(
+        in vec3 toFSVec3Tangent;)";
+    }
 
+    if (fvfFlags & FVF_BITAGENT_FLAG)
+    {
+        shaderCode += R"(
+        in vec3 toFSVec3Binormal;)";
+    }
+    shaderCode += R"(
         // Declare the uniform for fvfFlags passed from C++ 
         uniform uint fvfFlags;
 
@@ -176,7 +199,8 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
         uniform vec3 dirLightColor;
 
         // Phong lighting model
-        vec3 ComputeLighting(vec3 normal, vec3 lightDir, vec3 viewDir) {
+        vec3 ComputeLighting(vec3 normal, vec3 lightDir, vec3 viewDir) 
+        {
             vec3 ambient = 0.1 * inVec3LightColor;  // Ambient lighting
 
             // Diffuse shading (Lambert's cosine law)
@@ -192,7 +216,8 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
         }
 
         // Directional light calculation
-        vec3 ComputeDirectionalLight(vec3 normal, vec3 viewDir) {
+        vec3 ComputeDirectionalLight(vec3 normal, vec3 viewDir) 
+        {
             vec3 ambient = 0.1 * dirLightColor;  // Ambient lighting
 
             // Diffuse shading (Lambert's cosine law)
@@ -208,18 +233,9 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
         }
     )";
 
-    if (fvfFlags & FVF_TANGENT_FLAG)
-    {
-        shaderCode += "in vec3 toFSVec3Tangent;\n";
-    }
-
-    if (fvfFlags & FVF_BITAGENT_FLAG)
-    {
-        shaderCode += "in vec3 toFSVec3Binormal;\n";
-    }
-
     shaderCode += R"(
-        void main() {
+        void main() 
+        {
             // Fetch base color texture
             vec3 color = texture(texture1, toFSVec2TexCoord).rgb;
     )";
@@ -256,17 +272,26 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
 
             // Apply texture and lighting effects
             FragColor = vec4(color * (lighting + dirLighting), 1.0);
-        })";
+        )";
     }
     else
     {
         shaderCode += R"(
             // Skip lighting calculations and directly set FragColor
             FragColor = vec4(color, 1.0);
-            //FragColor = vec4(1,0,0, 1.0);
-        })";
+        )";
     }
 
+    if ((fvfFlags & FVF_TEX0_FLAG)==0)
+    {
+        shaderCode += R"(
+            FragColor = vec4(1, 1, 0, 1.0);)";
+    }
+    shaderCode += R"(
+        })";
+#ifdef DEBUG
+    FMLOG(shaderCode.c_str());
+#endif
     return shaderCode;
 }
 
@@ -280,8 +305,6 @@ GLuint cScene::CreateShader(unsigned int fvfFlags)
 {
     std::string vertexCode = GenerateVertexShader(fvfFlags);
     std::string fragmentCode = GenerateFragmentShader(fvfFlags);
-    FMLOG(vertexCode.c_str());
-    FMLOG(fragmentCode.c_str());
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     const char* vShaderCode = vertexCode.c_str();
     glShaderSource(vertexShader, 1, &vShaderCode, nullptr);
@@ -302,7 +325,8 @@ GLuint cScene::CreateShader(unsigned int fvfFlags)
     {
         GLchar infoLog[512];
         glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+        FMLOG(infoLog);
+        assert(0&&"shader compile error");
     }
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
@@ -460,8 +484,8 @@ void cScene::Draw()
     UseShaderProgram(L"qoo79979");
     // Enable backface culling
     glEnable(GL_CULL_FACE);
-    //glCullFace(GL_BACK);
-    glCullFace(GL_FRONT);
+    glCullFace(GL_BACK);
+    //glCullFace(GL_FRONT);
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -507,11 +531,11 @@ int glTFInit()
     //g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-    //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
     
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
-    g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
+    //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
     
     
     g_cScene.InitBuffers();

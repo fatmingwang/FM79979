@@ -121,63 +121,6 @@ void cBone::SetFormKeyFrames(FloatTocMatrix44Map e_FormKeyFrames)
     m_fMinKeyTime = l_fMinKeyTime;
 }
 
-//
-//void cBone::EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty)
-//{
-//    //return EvaluateLocalXForm2(e_fTime,e_bSetChildBonesDirty);
-//    if (m_FormKeyFrames.empty())
-//    {
-//        return;
-//    }
-//
-//    // Find the keyframes surrounding the current time
-//    auto it = m_FormKeyFrames.lower_bound(e_fTime);
-//    if (it == m_FormKeyFrames.end())
-//    {
-//        it = std::prev(m_FormKeyFrames.end());
-//    }
-//
-//    auto nextIt = it;
-//
-//    // Calculate the interpolation factor
-//    float prevTime = m_PreviousSRT.first;
-//    float nextTime = nextIt->first;
-//    float factor = (e_fTime - prevTime) / (nextTime - prevTime);
-//    // Apply the interpolated transformations
-//    cMatrix44 localTransform = cMatrix44::Identity;
-//
-//
-//    // Interpolate SRT values
-//    const SRT& prevSRT = m_PreviousSRT.second;
-//    const SRT& nextSRT = nextIt->second;
-//    SRT l_CurrentSRT;
-//    if (m_PreviousSRT.second.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
-//    {
-//        Vector3 translation = prevSRT.translation * (1.0f - factor) + nextSRT.translation * factor;
-//        l_CurrentSRT.translation = translation;
-//        l_CurrentSRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
-//    }
-//    if (m_PreviousSRT.second.iSRTFlag & SRT_ROTATION_FLAG)
-//    {
-//        Quaternion rotation;
-//        rotation.x = prevSRT.rotation.x * (1.0f - factor) + nextSRT.rotation.x * factor;
-//        rotation.y = prevSRT.rotation.y * (1.0f - factor) + nextSRT.rotation.y * factor;
-//        rotation.z = prevSRT.rotation.z * (1.0f - factor) + nextSRT.rotation.z * factor;
-//        rotation.w = prevSRT.rotation.w * (1.0f - factor) + nextSRT.rotation.w * factor;
-//        rotation = rotation.Normalize();  // Ensure the quaternion remains unit length
-//        l_CurrentSRT.rotation = rotation;
-//        l_CurrentSRT.iSRTFlag |= SRT_ROTATION_FLAG;
-//    }
-//    if (m_PreviousSRT.second.iSRTFlag & SRT_SCALE_FLAG)
-//    {
-//        Vector3 scale = prevSRT.scale * (1.0f - factor) + nextSRT.scale * factor;
-//        l_CurrentSRT.scale = scale;
-//        l_CurrentSRT.iSRTFlag |= SRT_SCALE_FLAG;
-//    }
-//    m_PreviousSRT = { e_fTime,l_CurrentSRT };
-//    ApplySRT(m_PreviousSRT.second, e_bSetChildBonesDirty);
-//}
-
 
 
 void cBone::EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty)
