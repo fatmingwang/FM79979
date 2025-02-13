@@ -506,7 +506,7 @@ void cScene::Draw()
     {
         if (meshPair.second)
         {
-            meshPair.second->RenderSkeleton();
+            //meshPair.second->RenderSkeleton();
         }
     }
     
@@ -518,9 +518,10 @@ void cScene::Destory()
     DELETE_MAP(m_AnimationMeshMap);
 }
 
+#include "./ThirdParty/Chapter10Sample01.h"
 
 cScene g_cScene;
-
+Chapter10Sample01 g_Chapter10Sample01;
 int glTFInit()
 {
     //g_cScene.LoadFromGLTF("glTFModel/Duck.gltf",false);
@@ -534,7 +535,7 @@ int glTFInit()
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
     
-    
+    g_Chapter10Sample01.Initialize();
     //g_cScene.InitBuffers();
     return 1;
 }
@@ -543,6 +544,8 @@ void GlTFRender()
 {
     //    DrawModel(model, shaderProgram);
     g_cScene.Draw();
+    g_Chapter10Sample01.Update(0.016f);
+    g_Chapter10Sample01.Render(16/9);
 }
 
 void GlTFDestory()

@@ -88,21 +88,39 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
         l_tinyglTFNodeAndJointIndexMap[&node] = bone;
         l_NodeIndexAndBoneMap[(int)i] = bone;
     }
-    //get noe from scene to setup hirerachy and transform.
-    for (auto l_Scene :model.scenes)
+    for (size_t i = 0; i < model.nodes.size(); i++)
     {
-        for (int i = 0; i < l_Scene.nodes.size(); ++i)
+        const tinygltf::Node& node = model.nodes[i];
+        loadNode(node, model, nullptr, l_tinyglTFNodeAndJointIndexMap);
+        auto l_pBone = l_tinyglTFNodeAndJointIndexMap[&node];
+        for (auto l_iChildIndex : node.children)
         {
-            auto l_iNodeID = l_Scene.nodes[i];
-            const tinygltf::Node& node = model.nodes[l_iNodeID];
-            loadNode(node, model, nullptr, l_tinyglTFNodeAndJointIndexMap);
+            auto l_pChildBone = l_tinyglTFNodeAndJointIndexMap[&model.nodes[l_iChildIndex]];
+            l_pBone->AddChild(l_pChildBone);
         }
+        
+
     }
-    int l_iCount = (int)this->m_SkinningBoneVector.size();
-    for (int i = 0; i < l_iCount; ++i)
-    {
-        m_SkinningBoneVector[i]->m_StartNodeWorldTransform = m_SkinningBoneVector[i]->GetWorldTransform();
-    }
+    //get noe from scene to setup hirerachy and transform.
+    //for (auto l_Scene :model.scenes)
+    //{
+    //    for (int i = 0; i < l_Scene.nodes.size(); ++i)
+    //    {
+    //        auto l_iNodeID = l_Scene.nodes[i];
+    //        const tinygltf::Node& node = model.nodes[l_iNodeID];
+    //        loadNode(node, model, nullptr, l_tinyglTFNodeAndJointIndexMap);
+    //    }
+    //}
+    //for (size_t i = 0; i < model.skins.size(); i++)
+    //{
+    //    auto l_Skin = model.skins[i];
+    //    for (int j = 0; j < l_Skin.joints.size(); ++j)
+    //    {
+    //        auto l_NodeIndex = l_Skin.joints[j];
+    //        const tinygltf::Node& node = model.nodes[l_NodeIndex];
+    //        loadNode(node, model, nullptr, l_tinyglTFNodeAndJointIndexMap);
+    //    }
+    //}
     
     // Load skins
     loadSkins(model, l_NodeIndexAndBoneMap);
@@ -113,11 +131,19 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
     if (!m_pAllBonesMatrixForSkinned)
     {        
         m_pAllBonesMatrixForSkinned = new cMatrix44[this->m_SkinningBoneVector.size()];
+        //m_pAllBonesMatrixForSkinned = new cMatrix44[this->m_AllNodeConvertToBoneBoneVector.Count()];
+        
         
     }
+    auto l_mat = this->m_AllNodeConvertToBoneBoneVector[0]->GetWorldTransform();
     if (this->m_pMainRootBone)
     {
         DumpBoneIndexDebugInfo(this->m_pMainRootBone, false, true);
+    }
+    int l_iCount = (int)this->m_SkinningBoneVector.size();
+    for (int i = 0; i < l_iCount; ++i)
+    {
+        m_SkinningBoneVector[i]->m_StartNodeWorldTransform = m_SkinningBoneVector[i]->GetWorldTransform();
     }
 }
 
@@ -147,6 +173,14 @@ void cAnimationMesh::loadSkins(const tinygltf::Model& model, std::map<int, cBone
                     m_SkinningBoneVector.push_back(l_pBone);
                     l_pBone->m_iJointIndex = (int)i;
                     l_pBone->m_matInvBindPose = cMatrix44(data + i * 16);
+                    if (l_pBone->m_iJointIndex == 0)
+                    {
+                        if (m_pMainRootBone)
+                        {
+                            assert(m_pMainRootBone->m_iJointIndex == 0 && "skeleton should be same");
+                        }
+                        m_pMainRootBone = l_pBone;
+                    }
                 }
                 else
                 {
@@ -171,7 +205,6 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
         assert(0 && "can't find node index by name");
         return;
     }
-
     if (parentBone)
     {
 #ifdef DEBUG
@@ -188,12 +221,12 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
     cMatrix44   l_matNodeTransform = cMatrix44::Identity;
     SRT         l_SRT;
     //because gltf matrix is column so take trs to make it right?
-    if (node.scale.size() == 3)
+    if (node.translation.size() == 3)
     {
-        Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
-        l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
-        l_SRT.scale = scale;
-        l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
+        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+        l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
+        l_SRT.translation = translation;
+        l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
     }
     if (node.rotation.size() == 4)
     {
@@ -202,14 +235,34 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
         l_SRT.rotation = rotation;
         l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
     }
-    if (node.translation.size() == 3)
+    if (node.scale.size() == 3)
     {
-        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
-        l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
-        l_SRT.translation = translation;
-        l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
+        Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+        l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
+        l_SRT.scale = scale;
+        l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
     }
-
+    //if (node.scale.size() == 3)
+    //{
+    //    Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+    //    l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
+    //    l_SRT.scale = scale;
+    //    l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
+    //}
+    //if (node.rotation.size() == 4)
+    //{
+    //    Quaternion rotation((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
+    //    l_matNodeTransform *= rotation.ToMatrix();
+    //    l_SRT.rotation = rotation;
+    //    l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
+    //}
+    //if (node.translation.size() == 3)
+    //{
+    //    Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+    //    l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
+    //    l_SRT.translation = translation;
+    //    l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
+    //}
     if (node.matrix.size() == 16)
     {
         cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
@@ -220,10 +273,10 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
     bone->m_StartSRT = l_SRT;
     bone->SetLocalTransform(l_matNodeTransform);
 
-    for (int childIndex : node.children)
-    {
-        loadNode(model.nodes[childIndex], model, bone, e_tinyglTFNodeAndJointIndexMap);
-    }
+    //for (int childIndex : node.children)
+    //{
+    //    loadNode(model.nodes[childIndex], model, bone, e_tinyglTFNodeAndJointIndexMap);
+    //}
 }
 
 void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, cBone*>& e_NodeIndexAndBoneMap)
@@ -382,7 +435,7 @@ void cAnimationMesh::UpdateAnimation(float deltaTime)
             auto l_matWorldTransform = bone->GetWorldTransform();
             //auto l_mat = l_matWorldTransform *bone->m_matInvBindPose;
             auto l_mat = l_matWorldTransform * bone->m_matInvBindPose;
-            m_pAllBonesMatrixForSkinned[i] = l_mat;
+            m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
             //m_pAllBonesMatrixForSkinned[i] = l_matWorldTransform;
         }
         else
@@ -390,6 +443,29 @@ void cAnimationMesh::UpdateAnimation(float deltaTime)
             int a = 0;
         }
     }
+    //int boneCount = (int)this->m_AllNodeConvertToBoneBoneVector.Count();
+    //for (int i = 0; i < boneCount; ++i)
+    //{
+    //    //int l_iBoneIndex = m_JointOrderVector[i];
+    //    cBone* bone = m_AllNodeConvertToBoneBoneVector[i];
+    //    if (bone)
+    //    {
+    //        //assert(i == bone->m_iJointIndex);
+    //        if (bone->m_iJointIndex == -1)
+    //        {
+    //            //continue;
+    //        }
+    //        auto l_matWorldTransform = bone->GetWorldTransform();
+    //        //auto l_mat = l_matWorldTransform *bone->m_matInvBindPose;
+    //        auto l_mat = l_matWorldTransform * bone->m_matInvBindPose;
+    //        m_pAllBonesMatrixForSkinned[i] = l_mat;
+    //        //m_pAllBonesMatrixForSkinned[i] = l_matWorldTransform;
+    //    }
+    //    else
+    //    {
+    //        int a = 0;
+    //    }
+    //}
 }
 
 void cAnimationMesh::RefreshAnimationData()
@@ -447,7 +523,7 @@ void cAnimationMesh::Draw()
     static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
     lightAngle += 0.01f;
-    angle += 0.01f;    
+    //angle += 0.01f;    
     //angle = 90;
     cMatrix44 conversionMatrix = cMatrix44::Identity;
     //conversionMatrix.m[2][2] = -1.0f;

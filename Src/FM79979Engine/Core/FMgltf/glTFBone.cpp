@@ -200,19 +200,31 @@ void cBone::ApplySRT(const SRT& srt, bool e_bSetChildBonesDirty)
 {
     cMatrix44 localTransform = cMatrix44::Identity;
     SRT l_SRT = srt;
-    if (l_SRT.iSRTFlag & SRT_ROTATION_FLAG) // Rotation
-    {
-        localTransform *= l_SRT.rotation.ToMatrix();
-    }
     if (l_SRT.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
     {
         localTransform *= cMatrix44::TranslationMatrix(l_SRT.translation);
+    }
+    if (l_SRT.iSRTFlag & SRT_ROTATION_FLAG) // Rotation
+    {
+        localTransform *= l_SRT.rotation.ToMatrix();
     }
     if (l_SRT.iSRTFlag & SRT_SCALE_FLAG) // Scale
     {
         localTransform *= cMatrix44::ScaleMatrix(l_SRT.scale);
     }
-    localTransform = this->m_StartNodeTransform* localTransform;
+    //if (l_SRT.iSRTFlag & SRT_SCALE_FLAG) // Scale
+    //{
+    //    localTransform *= cMatrix44::ScaleMatrix(l_SRT.scale);
+    //}
+    //if (l_SRT.iSRTFlag & SRT_ROTATION_FLAG) // Rotation
+    //{
+    //    localTransform *= l_SRT.rotation.ToMatrix();
+    //}
+    //if (l_SRT.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
+    //{
+    //    localTransform *= cMatrix44::TranslationMatrix(l_SRT.translation);
+    //}
+    //localTransform = this->m_StartNodeTransform* localTransform;
     SetLocalTransform(localTransform , e_bSetChildBonesDirty);
 }
 
