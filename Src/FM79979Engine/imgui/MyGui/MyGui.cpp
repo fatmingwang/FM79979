@@ -33,6 +33,7 @@ TYPDE_DEFINE_MARCO(cMyGuiListBox);
 TYPDE_DEFINE_MARCO(cMyGuiScroller);
 TYPDE_DEFINE_MARCO(cMyGuiRootNode);
 TYPDE_DEFINE_MARCO(cMyGuiDatePicker);
+TYPDE_DEFINE_MARCO(cMyGuiVector3);
 
 ImVec2					cMyGuiBasicObj::m_vPropertyPos = ImVec2(1400, 10);
 ImVec2					cMyGuiBasicObj::m_vPropertySize = ImVec2(300, 600);
@@ -57,7 +58,8 @@ std::map<std::wstring, eMyImGuiType> g_ImguiTypeNameAndType =
 	{cMyGuiListBox::TypeID,eMyImGuiType::eMIGT_LIST_BOX},
 	{cMyGuiRootNode::TypeID,eMyImGuiType::eMIGT_ROOT_NODE},
 	{cMyGuiScroller::TypeID,eMyImGuiType::eMIGT_SCROLLER},
-	{cMyGuiDatePicker::TypeID,eMyImGuiType::eMIGT_DATA_PICKER}
+	{cMyGuiDatePicker::TypeID,eMyImGuiType::eMIGT_DATA_PICKER},
+	{cMyGuiVector3::TypeID,eMyImGuiType::eMIGT_SLIDER_VECTOR3}
 };
 
 using json = nlohmann::json;
@@ -1657,6 +1659,9 @@ cMyGuiBasicObj* GetMyGuiObj(eMyImGuiType e_eMyImGuiType)
 		case eMIGT_DATA_PICKER:
 		l_pObject = new cMyGuiDatePicker();
 		break;
+		case eMIGT_SLIDER_VECTOR3:
+		l_pObject = new cMyGuiVector3();
+		break;
 		default:
 		//e_eMyImGuiType
 		break;
@@ -1711,6 +1716,8 @@ const char* GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType)
 	//eMIGT_LIST_BOX,
 	//eMIGT_ROOT_NODE,
 	//eMIGT_SCROLLER,
+	//eMIGT_DATA_PICKER
+	//eMIGT_SLIDER_VECTOR3
 	const char* l_strTypeAndLabel[] =
 	{
 		"Node",
@@ -1728,7 +1735,8 @@ const char* GetMyGuiObjLabel(eMyImGuiType e_eMyImGuiType)
 		"ListBox",
 		"RootNode",
 		"Scroller",
-		"DatePicker"
+		"DatePicker",
+		"Vector3",
 	};
 	return l_strTypeAndLabel[e_eMyImGuiType];
 }
@@ -1776,4 +1784,41 @@ cMyGuiDatePicker::~cMyGuiDatePicker()
 std::string cMyGuiDatePicker::GetDateString()
 {
 	return std::string();
+}
+
+void cMyGuiVector3::InternalRender()
+{
+	ImVec2 l_Pos = this->GetWorldPosition();
+	float ll = 0;
+	ImGui::PushItemWidth(m_pData->m_vSize.x);
+	ImGui::SliderFloat("##X", &this->m_pImguiSliderVector3Data->m_vPos.x, -999, 999);
+	auto l_Size = ImGui::GetItemRectSize();
+	m_RenderRect = Vector4(l_Pos.x, l_Pos.y, l_Pos.x + m_pData->m_vSize.x, l_Pos.y + l_Size.y*3);
+	l_Pos.y += l_Size.y;
+	//l_Pos.x -= 10;
+	ImGui::SetCursorPos(l_Pos);
+	ImGui::SliderFloat("##Y", &this->m_pImguiSliderVector3Data->m_vPos.y, -9999, 9999);
+	l_Pos.y += l_Size.y;
+	ImGui::SetCursorPos(l_Pos);
+	ImGui::SliderFloat("##Z", &this->m_pImguiSliderVector3Data->m_vPos.z, -999, 999);
+	l_Pos.y += l_Size.y;
+	//below code get crash I donno why
+	//ImGui::InputFloat("PosX", &this->m_pImguiSliderVector3Data->m_vPos.x, 1);
+	//auto l_Size = ImGui::GetItemRectSize();
+	//l_Pos.y += l_Size.y;
+	//l_Pos.x = l_Size.x-12;
+	//ImGui::SetCursorPos(l_Pos);
+	//ImGui::InputFloat("PosY", &this->m_pImguiSliderVector3Data->m_vPos.y, 1);
+	//l_Pos.y += l_Size.y;
+	//ImGui::SetCursorPos(l_Pos);
+	//ImGui::InputFloat("PosZ", &this->m_pImguiSliderVector3Data->m_vPos.z, 1);
+	ImGui::PopItemWidth();
+}
+
+void cMyGuiVector3::InnerRenderProperty()
+{
+	cMyGuiBasicObj::InnerRenderProperty();
+	ImGui::InputFloat("X", &this->m_pImguiSliderVector3Data->m_vPos.x, 1);
+	ImGui::InputFloat("Y", &this->m_pImguiSliderVector3Data->m_vPos.y, 1);
+	ImGui::InputFloat("Z", &this->m_pImguiSliderVector3Data->m_vPos.z, 1);
 }

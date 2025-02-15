@@ -6,6 +6,21 @@
 namespace nlohmann
 {
     template <>
+    struct adl_serializer<Vector3>
+    {
+        static void to_json(json& j, const Vector3& v)
+        {
+            j = json{ {"x", v.x}, {"y", v.y},{"z", v.z} };
+        }
+
+        static void from_json(const json& j, Vector3& v)
+        {
+            j.at("x").get_to(v.x);
+            j.at("y").get_to(v.y);
+            j.at("z").get_to(v.z);
+        }
+    };
+    template <>
     struct adl_serializer<ImVec2>
     {
         static void to_json(json& j, const ImVec2& v)

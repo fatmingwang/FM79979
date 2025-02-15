@@ -92,6 +92,7 @@ enum eMyImGuiType
 	eMIGT_ROOT_NODE,
 	eMIGT_SCROLLER,
 	eMIGT_DATA_PICKER,
+	eMIGT_SLIDER_VECTOR3,
 	eMIGT_MAX
 };
 
@@ -393,6 +394,29 @@ public:
 	GET_SET(float, m_pSliderData->m_fMax, GetMax, SetMax);
 	GET_SET(float, m_pSliderData->m_fMin, GetMin, SetMin);
 	virtual void		InnerRenderProperty()override;
+};
+
+
+class cMyGuiVector3 :public cMyGuiBasicObj
+{
+	virtual	void		InternalRender()override;
+	struct sImguiSliderVector3Data :public sImguiData
+	{
+		Vector3	m_vPos;
+		sImguiSliderVector3Data()
+		{
+			this->m_vSize.x = 200.f;
+			m_vPos = Vector3::Zero;
+		}
+		NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(sImguiSliderVector3Data, MY_IMGUI_BASE_DATA, m_vPos);
+	};
+	LAZY_INTERNAL_SERIALIZE_FUNCTION(sImguiSliderVector3Data, m_pImguiSliderVector3Data);
+public:
+	cMyGuiVector3(){ }
+	virtual ~cMyGuiVector3(){ }
+	MYGUI_DEFAULT_IMPLEMENT();
+	virtual void		InnerRenderProperty()override;
+	void	GetRenderRect(){}
 };
 
 class cMyGuiCheckBox :public cMyGuiBasicObj
