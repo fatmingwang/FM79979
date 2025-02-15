@@ -22,7 +22,7 @@ virtual bool InternalSerialize(const nlohmann::json& e_Json)override		\
 	m_pData = std::dynamic_pointer_cast<VariableType>(Variable);			\
 	return true;															\
 }																			\
-virtual nlohmann::json		GetJson()override{return *Variable;}			\
+virtual nlohmann::json		GetJsonFromData()override{return *Variable;}	\
 public:																		\
 virtual void				CreateImguiDataData()override					\
 {																			\
@@ -210,7 +210,7 @@ public:
 	static cImGuiNode*			DoUnSerialize(const nlohmann::json& e_Json);
 	static std::function<void(cImGuiNode*)>	m_sfParseFunction;
 	static	void				DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode);
-	virtual nlohmann::json		GetJson();
+	virtual nlohmann::json		GetJsonFromData();
 
 
 	// Function to find a node by name (recursive)
@@ -345,6 +345,7 @@ public:
 	GET_SET(std::string, m_pEditBoxData->m_strHint, GetHint, SetHint);
 	GET_SET(bool, m_pEditBoxData->m_bMultiLines, IsMultiLines, SetMultiLines);
 	virtual void		InnerRenderProperty()override;
+	static bool			m_bEditboxDisableInputBecauseIAmLazyToHandlMouseFocus;
 };
 
 class cMyGuiSliderInteger :public cMyGuiBasicObj

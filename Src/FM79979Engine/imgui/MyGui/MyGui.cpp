@@ -35,6 +35,8 @@ TYPDE_DEFINE_MARCO(cMyGuiRootNode);
 TYPDE_DEFINE_MARCO(cMyGuiDatePicker);
 TYPDE_DEFINE_MARCO(cMyGuiVector3);
 
+bool	cMyGuiEditBox::m_bEditboxDisableInputBecauseIAmLazyToHandlMouseFocus = false;
+
 ImVec2					cMyGuiBasicObj::m_vPropertyPos = ImVec2(1400, 10);
 ImVec2					cMyGuiBasicObj::m_vPropertySize = ImVec2(300, 600);
 bool					cMyGuiBasicObj::m_bFirstUpdate = true;
@@ -275,6 +277,7 @@ void cImGuiNode::Render()
 	{
 		//ImGui::PushStyleColor(this->m_pData->m_ImguiStyleColorType, l_vColor);
 	}
+	//ImGui::PushID(&this->m_pData->m_iID);
 	this->InternalRender();
 	if (l_vColor.w != 0)
 	{
@@ -295,6 +298,7 @@ void cImGuiNode::Render()
 		l_Child->Render();
 	}
 	EndRender();
+	//ImGui::PopID();
 	bool l_bRenderBorder = false;
 	if (l_bRenderBorder)
 	{
@@ -339,7 +343,7 @@ void cImGuiNode::DeleteObjectAndAllChildren(cImGuiNode* e_pImGuiNode)
 	}
 }
 
-nlohmann::json cImGuiNode::GetJson()
+nlohmann::json cImGuiNode::GetJsonFromData()
 {
 	return *m_pData;
 }
@@ -420,7 +424,7 @@ void cImGuiNode::DoSerialize(nlohmann::json& e_JSON)
 {
 	const char* l_strChildrenKey = "Children";
 	std::string l_strNodeType = ValueToString(Type());
-	e_JSON[l_strNodeType] = this->GetJson();
+	e_JSON[l_strNodeType] = this->GetJsonFromData();
 	if (GetChildNodeVector().size())
 	{
 		e_JSON[l_strNodeType][l_strChildrenKey] = nlohmann::json::array();
@@ -943,8 +947,16 @@ cMyGuiEditBox::cMyGuiEditBox()
 void cMyGuiEditBox::InnerRenderProperty()
 {
 	cMyGuiBasicObj::InnerRenderProperty();
+	ImGui::Text("MultiLines");
+	ImGui::SameLine();
+	ImGui::ToggleButton("cMyGuiEditBox::InnerRenderProperty1", &this->m_pEditBoxData->m_bMultiLines);
 	ImGui::InputTextEx("Hint Text", &this->m_pEditBoxData->m_strHint, 0);
-	ImGui::InputTextEx("Label", &this->m_pEditBoxData->m_strLabel, 0);
+	if (this->m_pEditBoxData->m_bMultiLines)
+	{
+		if (ImGui::InputTextMultiline("##multilineqoo", &this->m_pEditBoxData->m_strText, this->m_pData->m_vSize, this->m_pEditBoxData->m_RenderFlag))
+		{
+		}
+	}
 }
 
 int InputCallback(ImGuiInputTextCallbackData* data)
@@ -982,6 +994,10 @@ void cMyGuiEditBox::FocusCheck()
 
 void cMyGuiEditBox::InternalRender()
 {
+	if (cMyGuiEditBox::m_bEditboxDisableInputBecauseIAmLazyToHandlMouseFocus)
+	{
+		ImGui::BeginDisabled(true); // Disable input
+	}
 	auto l_strID = "##" + this->m_pEditBoxData->m_strLabel;
 	float cursor_x = ImGui::GetCursorPosX();
 	ImGui::Text(this->m_pEditBoxData->m_strLabel.c_str());
@@ -999,7 +1015,7 @@ void cMyGuiEditBox::InternalRender()
 	{
 		if (this->m_pEditBoxData->m_strHint.length())
 		{
-			auto l_strID = "##"+this->m_pEditBoxData->m_strLabel;
+			std::string l_strID = std::string("##") + ValueToString(this->m_pData->m_iID) + this->m_pEditBoxData->m_strLabel;
 			if (ImGui::InputTextWithHint(l_strID.c_str(), m_pEditBoxData->m_strHint.c_str(), &this->m_pData->m_strText, this->m_pEditBoxData->m_RenderFlag))
 			{
 				m_bTextChanged = true;
@@ -1010,7 +1026,8 @@ void cMyGuiEditBox::InternalRender()
 
 	//InputText(const char* label, std::string * str, ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = nullptr, void* user_data = nullptr);
 			//ImGui::InputText(const char* label, std::string * str, ImGuiInputTextFlags flags, ImGuiInputTextCallback callback, void* user_data)
-			if (ImGui::InputText("Input", &this->m_pData->m_strText, this->m_pEditBoxData->m_RenderFlag, InputCallback, nullptr))
+			//if (ImGui::InputText("Input", &this->m_pData->m_strText, this->m_pEditBoxData->m_RenderFlag, InputCallback, nullptr))
+			if (ImGui::InputText("Input", &this->m_pData->m_strText, this->m_pEditBoxData->m_RenderFlag|ImGuiInputTextFlags_CallbackResize, InputCallback, nullptr))
 			{
 				m_bTextChanged = true;
 			}
@@ -1051,6 +1068,10 @@ void cMyGuiEditBox::InternalRender()
 		m_fContentChangedFunction(this->m_pData->m_strText);
 	}
 	m_bTextChanged = false;
+	if (cMyGuiEditBox::m_bEditboxDisableInputBecauseIAmLazyToHandlMouseFocus)
+	{
+		ImGui::EndDisabled(); // Re-enable input
+	}
 }
 
 void cMyGuiEditBox::RenderMultiLine()

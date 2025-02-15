@@ -24,7 +24,6 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode)
 	{
 		return;
 	}
-
 	auto l_strID = ValueToString(e_pNode->GetUniqueID());
 
 	// Display the checkbox for visibility
@@ -44,7 +43,7 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode)
 	{
 		nodeFlags |= ImGuiTreeNodeFlags_Leaf;
 	}
-	if (m_pSelectedNode == e_pNode)
+	if (m_pCurrentSelectedNode == e_pNode)
 	{
 		nodeFlags |= ImGuiTreeNodeFlags_Selected;
 	}
@@ -64,19 +63,19 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode)
 	}
 	bool l_bNodeOpen = false;
 	const char* l_strDragDropSourceID = "TREE_NODE";
-	if (m_bDoRename && this->m_pSelectedNode == e_pNode)
+	if (m_bDoRename && this->m_pCurrentSelectedNode == e_pNode)
 	{
 		l_bNodeOpen = false;
 		char buffer[2048];
-		strncpy(buffer, this->m_pSelectedNode->GetImGuiName().c_str(), sizeof(buffer));
+		strncpy(buffer, this->m_pCurrentSelectedNode->GetImGuiName().c_str(), sizeof(buffer));
 		buffer[sizeof(buffer) - 1] = '\0';
 
 		// Render an input text for renaming
 		if (ImGui::InputText("##Rename", buffer, sizeof(buffer), ImGuiInputTextFlags_EnterReturnsTrue))
 		{
-			this->m_pSelectedNode->SetImGuiName(buffer);
+			this->m_pCurrentSelectedNode->SetImGuiName(buffer);
 			m_bDoRename = false;
-			m_pSelectedNode = nullptr;
+			m_pCurrentSelectedNode = nullptr;
 		}
 
 
@@ -90,7 +89,7 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode)
 		if (!ImGui::IsItemFocused() && ImGui::IsMouseClicked(0))
 		{
 			m_bDoRename = false;
-			m_pSelectedNode = nullptr;
+			m_pCurrentSelectedNode = nullptr;
 		}
 	}
 	else
@@ -102,7 +101,8 @@ void cMyTreeView::DisplayTree(cImGuiNode* e_pNode)
 			{
 				m_pSelectedNodeRect[0] = ImGui::GetItemRectMin();
 				m_pSelectedNodeRect[1] = ImGui::GetItemRectMax();
-				m_pSelectedNode = e_pNode;
+				m_pCurrentSelectedNode = e_pNode;
+				cGameApp::ShowInfoOnScreen(L"node Selected",0.5f);
 				m_SelectedRelatedNodeVector.clear();
 			}
 			// Handle drag-and-drop source
@@ -178,10 +178,11 @@ void cMyTreeView::RenderTreeivewPopupMenuContext()
 {
 	if (ImGui::BeginPopupContextWindow("bwcontextmenu"))
 	{
-		m_pCopyNode = nullptr;
 		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_COPY]))
 		{
-			m_pCopyNode = this->m_pSelectedNode;
+			m_pCopyNode = this->m_pCurrentSelectedNode;
+			cGameApp::ShowInfoOnScreen(L"Copy Node Selected...");
+			//m_ToastMessage.ShowToast("Copy Node Selected...");
 			if (this->m_fMenuCallbackFunction)
 			{
 				this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_COPY]);
@@ -189,6 +190,30 @@ void cMyTreeView::RenderTreeivewPopupMenuContext()
 		}
 		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_PASTE]))
 		{
+			if (this->m_pCurrentSelectedNode)
+			{
+				if(this->m_pCopyNode)
+				{
+					cGameApp::ShowInfoOnScreen(L"Node Pasted from copied Node ");
+					nlohmann::json json;
+					this->m_pCopyNode->DoSerialize(json);
+					{
+						cImGuiNode*l_pNewNode = cImGuiNode::DoUnSerialize(json);
+						m_pCurrentSelectedNode->AddChild(l_pNewNode);
+					}
+					m_pCopyNode = nullptr;
+					m_pCutNode = nullptr;
+				}
+				else
+				if (m_pCutNode && m_pCurrentSelectedNode != m_pCutNode)
+				{
+					m_pCutNode->SetParent(this->m_pCurrentSelectedNode);
+					cGameApp::ShowInfoOnScreen(L"Node Pasted from cut node");
+					m_pCopyNode = nullptr;
+					m_pCutNode = nullptr;
+				}
+			}
+			
 			if (this->m_fMenuCallbackFunction)
 			{
 				this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_PASTE]);
@@ -200,23 +225,27 @@ void cMyTreeView::RenderTreeivewPopupMenuContext()
 			{
 				this->m_fMenuCallbackFunction(m_pCopyNode, m_strTreeViewMenuNameArray[eTVM_CUT]);
 			}
+			m_pCutNode = this->m_pCurrentSelectedNode;
+			cGameApp::ShowInfoOnScreen(L"Cut node Selected");
 		}
 		if (ImGui::MenuItem(m_strTreeViewMenuNameArray[eTVM_DELETE]))
 		{
 			if (this->m_fMenuCallbackFunction)
 			{
-				this->m_fMenuCallbackFunction(m_pSelectedNode, m_strTreeViewMenuNameArray[eTVM_DELETE]);
+				this->m_fMenuCallbackFunction(m_pCurrentSelectedNode, m_strTreeViewMenuNameArray[eTVM_DELETE]);
 			}
-			if (this->m_pSelectedNode)
+			if (this->m_pCurrentSelectedNode)
 			{
-				if (this->m_pSelectedNode->Type() != cMyGuiForm::TypeID)
+				if (this->m_pCurrentSelectedNode->Type() != cMyGuiForm::TypeID)
 				{
-					this->m_pSelectedNode->SetParent(nullptr);
-					SAFE_DELETE(this->m_pSelectedNode);
+					this->m_pCurrentSelectedNode->SetParent(nullptr);
+					SAFE_DELETE(this->m_pCurrentSelectedNode);
+					cGameApp::ShowInfoOnScreen(L"Selected node Deleted");
 				}
 			}
-			this->m_pSelectedNode = nullptr;
+			this->m_pCurrentSelectedNode = nullptr;
 			m_pCopyNode = nullptr;
+			m_pCutNode = nullptr;
 		}
 		ImGui::EndPopup();
 	}
@@ -276,9 +305,9 @@ void cMyTreeView::Render()
 	if (m_pDragNode && m_pDropParent)
 	{
 		m_pDragNode->SetParent(m_pDropParent, m_iDropIndex);
-		m_pSelectedNode = nullptr;
+		m_pCurrentSelectedNode = nullptr;
 	}
-	if (m_pSelectedNode && ImGui::IsKeyPressed(ImGuiKey_F2))
+	if (m_pCurrentSelectedNode && ImGui::IsKeyPressed(ImGuiKey_F2))
 	{
 		auto l_MousePos = cGameApp::m_sMousePosition;
 		Vector4 l_vRect(m_pSelectedNodeRect[0].x, m_pSelectedNodeRect[0].y, m_pSelectedNodeRect[1].x, m_pSelectedNodeRect[1].y);
@@ -288,6 +317,7 @@ void cMyTreeView::Render()
 			m_bDoRename = true;
 		}
 	}
+	m_ToastMessage.Render();
 }
 
 bool cMyTreeView::IsCollided(int e_iPosX, int e_iPosY)
@@ -310,7 +340,7 @@ void cMyTreeView::SetFocusNode(cImGuiNode* e_pNode)
 {
 	if (m_pRoot)
 	{
-		m_pSelectedNode = nullptr;
+		m_pCurrentSelectedNode = nullptr;
 		m_pFocusNode = nullptr;
 		m_SelectedRelatedNodeVector.clear();
 		auto l_Node = m_pRoot->FindNodeByUID(e_pNode->m_pData->m_iID,&m_SelectedRelatedNodeVector);
@@ -321,5 +351,23 @@ void cMyTreeView::SetFocusNode(cImGuiNode* e_pNode)
 			m_pFocusNode = e_pNode;
 			int l_iID = l_Node->m_pData->m_iID;
 		}
+	}
+}
+
+void cMyTreeView::SerRootNode(cImGuiNode* e_pImGuiNode)
+{
+	if (m_pRoot != e_pImGuiNode)
+	{
+		m_pRoot = e_pImGuiNode;
+		m_bDoRename = false;
+		m_iDropIndex = -1;
+		m_bAssignStartData = true;
+		m_bCollided = false;
+		m_pCopyNode = nullptr;
+		m_pCutNode = nullptr;
+		m_pDragNode = nullptr;
+		m_pDropParent = nullptr;
+		m_pCurrentSelectedNode = nullptr;
+		m_pFocusNode = nullptr;
 	}
 }

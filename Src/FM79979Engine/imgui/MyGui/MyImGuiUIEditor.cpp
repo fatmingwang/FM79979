@@ -27,6 +27,7 @@ cMyImGuiUIEditor::cMyImGuiUIEditor()
 {
 	m_p2DCamera = new cOrthogonalCamera();
 	m_pToolBoxRoot = nullptr;
+	cMyGuiEditBox::m_bEditboxDisableInputBecauseIAmLazyToHandlMouseFocus = true;
 }
 
 cMyImGuiUIEditor::~cMyImGuiUIEditor()
@@ -521,7 +522,7 @@ void cMyImGuiUIEditor::RenderToolBox()
 	}
 	int l_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
 	//ShowTreeViewWindow(this->m_pMainUIRoot->GetChildNodeVector()[0], l_iRenderFlag);
-	m_pTreeView->m_pRoot = this->m_pMainUIRoot->GetChildNodeVector()[0];
+	m_pTreeView->SerRootNode(this->m_pMainUIRoot->GetChildNodeVector()[0]);
 	m_pTreeView->Render();
 	if (m_pCollidedItem)
 	{

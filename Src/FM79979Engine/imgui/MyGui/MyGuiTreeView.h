@@ -1,9 +1,11 @@
 #pragma once
 #include "MyGui.h"
-
+#include "MyGUIUtilities.h"
 class cMyTreeView :public NamedTypedObject
 {
+	sToastMessage m_ToastMessage;
 	std::vector<cImGuiNode*>m_SelectedRelatedNodeVector;
+	cImGuiNode* m_pRoot = nullptr;
 public:
 	enum eTreeViewMenu
 	{
@@ -22,9 +24,10 @@ public:
 	};
 protected:
 	cImGuiNode* m_pCopyNode = nullptr;
+	cImGuiNode* m_pCutNode = nullptr;
 	cImGuiNode* m_pDragNode = nullptr;
 	cImGuiNode* m_pDropParent = nullptr;
-	cImGuiNode* m_pSelectedNode = nullptr;
+	cImGuiNode* m_pCurrentSelectedNode = nullptr;
 	cImGuiNode* m_pFocusNode = nullptr;
 
 	ImVec2		m_pSelectedNodeRect[2];
@@ -36,7 +39,6 @@ protected:
 	bool		m_bCollided = false;
 	public:
 	int m_iRenderFlag = ImGuiWindowFlags_NoTitleBar;
-	cImGuiNode* m_pRoot = nullptr;
 	ImVec2		m_vSize = ImVec2(350, 1000);
 	ImVec2		m_vPosition = ImVec2(1600, 0);
 	cMyTreeView();
@@ -45,12 +47,14 @@ protected:
 	bool			IsCollided(int e_iPosX, int e_iPosY);
 	cImGuiNode* GetSelectedNode()
 	{
-		return m_pSelectedNode;
+		return m_pCurrentSelectedNode;
 	}
 	void SetSelectedNodeNull()
 	{
-		m_pSelectedNode = nullptr;
+		m_pCurrentSelectedNode = nullptr;
 	}
 	void	SetFocusNode(cImGuiNode* e_pNode);
 	std::function<void(cImGuiNode*, const char*)>m_fMenuCallbackFunction;
+public:
+	void	SerRootNode(cImGuiNode*e_pImGuiNode);
 };

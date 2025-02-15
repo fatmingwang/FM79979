@@ -223,3 +223,36 @@ void RenderHintLabel(const char* e_strContent, const char* e_strLabel)
     }
     ImGui::PopStyleColor(1);
 }
+
+void sToastMessage::ShowToast(const std::string& msg, float durationSeconds)
+{
+    message = msg;
+    duration = durationSeconds;
+    startTime = std::chrono::steady_clock::now();
+    show = true;
+}
+
+void sToastMessage::Render()
+{
+    if (!show) return;
+
+    // Calculate elapsed time
+    float elapsed = std::chrono::duration<float>(
+        std::chrono::steady_clock::now() - startTime).count();
+
+    if (elapsed > duration)
+    {
+        show = false;
+        return;
+    }
+
+    // Display toast in bottom center
+    ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x / 2, ImGui::GetIO().DisplaySize.y - 50), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+    ImGui::SetNextWindowBgAlpha(0.6f); // Transparency
+
+    if (ImGui::Begin("##Toast", nullptr, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoInputs))
+    {
+        ImGui::TextUnformatted(message.c_str());
+        ImGui::End();
+    }
+}
