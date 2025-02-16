@@ -62,6 +62,8 @@ namespace FATMING_CORE
 		// world transform
 		cMatrix44                   GetWorldTransform();
 		void                        SetWorldTransform(const cMatrix44& WorldTransform);
+		void						GetAllInverseWorldTransform(std::map<Frame*,cMatrix44>&e_InverseTransformMap);
+		void						GetAllInverseWorldTransform(std::vector<cMatrix44>& e_InverseTransformVector);
 		//cMatrix44*                  GetWorldTransformPointer();
 
 		// basis vectors

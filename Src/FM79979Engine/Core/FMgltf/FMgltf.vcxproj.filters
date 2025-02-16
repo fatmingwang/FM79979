@@ -213,6 +213,9 @@
     <ClInclude Include="ThirdParty\nuklear.h">
       <Filter>ThirtyParty</Filter>
     </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -379,6 +382,9 @@
     </ClCompile>
     <ClCompile Include="ThirdParty\nuklear.c">
       <Filter>ThirtyParty</Filter>
+    </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

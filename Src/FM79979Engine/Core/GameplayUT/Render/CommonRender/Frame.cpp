@@ -449,6 +449,37 @@ namespace FATMING_CORE
 		SetTransformInternalData();
 	}
 
+	void Frame::GetAllInverseWorldTransform(std::map<Frame*,cMatrix44>&e_InverseTransformMap)
+	{
+		auto l_Pair = std::make_pair(this, GetWorldTransform().Inverted());
+		e_InverseTransformMap.insert(l_Pair);
+		auto l_pFrame = GetFirstChild();
+		if (l_pFrame)
+		{
+			l_pFrame->GetAllInverseWorldTransform(e_InverseTransformMap);
+		}
+		l_pFrame = GetNextSibling();
+		if (l_pFrame)
+		{
+			l_pFrame->GetAllInverseWorldTransform(e_InverseTransformMap);
+		}
+	}
+
+	void	Frame::GetAllInverseWorldTransform(std::vector<cMatrix44>& e_InverseTransformVector)
+	{
+		e_InverseTransformVector.push_back(GetWorldTransform().Inverted());
+		auto l_pFrame = GetFirstChild();
+		if (l_pFrame)
+		{
+			l_pFrame->GetAllInverseWorldTransform(e_InverseTransformVector);
+		}
+		l_pFrame = GetNextSibling();
+		if (l_pFrame)
+		{
+			l_pFrame->GetAllInverseWorldTransform(e_InverseTransformVector);
+		}
+	}
+
 
 	//-----------------------------------------------------------------------------
 	// Name: Frame::UpdateCachedWorldTransformIfNeeded()

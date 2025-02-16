@@ -528,8 +528,8 @@ int glTFInit()
     //g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-    g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
-    //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
     
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
