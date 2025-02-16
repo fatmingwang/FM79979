@@ -213,7 +213,10 @@
     <ClInclude Include="ThirdParty\nuklear.h">
       <Filter>ThirtyParty</Filter>
     </ClInclude>
-    <ClInclude Include="Skeleton.h">
+    <ClInclude Include="SkeletonPose.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="glVertexAttribute.h">
       <Filter>Mesh</Filter>
     </ClInclude>
   </ItemGroup>
@@ -383,7 +386,10 @@
     <ClCompile Include="ThirdParty\nuklear.c">
       <Filter>ThirtyParty</Filter>
     </ClCompile>
-    <ClCompile Include="Skeleton.cpp">
+    <ClCompile Include="SkeletonPose.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="glVertexAttribute.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
   </ItemGroup>
