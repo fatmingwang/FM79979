@@ -10,6 +10,7 @@
 #include "../XML/tinyxml.h"
 #include "../Math/Vector4.h"
 #include "../Math/Matrix44.h"
+#include "../Math/Quaternion.h"
 class	TiXmlElement;
 namespace FATMING_CORE
 {
@@ -207,6 +208,7 @@ namespace FATMING_CORE
 	std::wstring	ValueToStringW(int64 e_uiValue );
 	std::wstring	ValueToStringW(uint64 e_uiValue );
 	std::wstring	ValueToStringW(size_t e_iValue);
+	std::wstring	ValueToStringW(Quaternion& e_Quaternion);
 	//
 	std::string		ValueToString(std::wstring e_strValue);
 	std::string		ValueToString(std::string e_strValue);
@@ -226,6 +228,7 @@ namespace FATMING_CORE
 	std::string		ValueToString(int64 e_uiValue );
 	std::string		ValueToString(uint64 e_uiValue );
 	std::string		ValueToString(size_t e_iValue);
+	std::string		ValueToString(Quaternion& e_Quaternion);
 
 	std::string		UVToString(float*e_pfUV);
 
@@ -259,7 +262,6 @@ namespace FATMING_CORE
 	eShapeType				GetShapeType(const wchar_t*e_str);
 	eFMAnimationRuleType	GetFMAnimationRuleType(const char*e_str);
 	eFMAnimationRuleType	GetFMAnimationRuleType(const wchar_t*e_str);
-
 	template<class T>std::string	ValueToString(std::vector<T>e_Vector)
 	{
 		std::string	l_strResult;

@@ -664,6 +664,10 @@ namespace FATMING_CORE
 	{
 		return UT::CharToWchar(ValueToString(e_iValue));
 	}
+	std::wstring ValueToStringW(Quaternion& e_Quaternion)
+	{
+		return UT::CharToWchar(ValueToString(e_Quaternion));
+	}
 #endif
 	std::wstring	ValueToStringW(float e_fValue)
 	{
@@ -753,6 +757,13 @@ namespace FATMING_CORE
 	{
 		char	l_temp[TEMP_SIZE];
 		sprintf(l_temp,"%zu\0",e_iValue);
+		std::string	l_str = l_temp;
+		return l_str;
+	}
+	std::string ValueToString(Quaternion& e_Quaternion)
+	{
+		char	l_temp[TEMP_SIZE];
+		sprintf(l_temp, "%.2f,%.2f,%.2f,%.2f\0", e_Quaternion.x, e_Quaternion.y, e_Quaternion.z, e_Quaternion.w);
 		std::string	l_str = l_temp;
 		return l_str;
 	}

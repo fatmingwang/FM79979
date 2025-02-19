@@ -506,7 +506,7 @@ void cScene::Draw()
     {
         if (meshPair.second)
         {
-            //meshPair.second->RenderSkeleton();
+            meshPair.second->RenderSkeleton();
         }
     }
     
@@ -518,6 +518,7 @@ void cScene::Destory()
     DELETE_MAP(m_AnimationMeshMap);
 }
 
+#include "./ThirdParty/Chapter10Sample02.h"
 #include "./ThirdParty/Chapter10Sample01.h"
 
 cScene g_cScene;
@@ -528,8 +529,8 @@ int glTFInit()
     //g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-    //g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
-    g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
     
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);

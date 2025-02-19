@@ -5,9 +5,9 @@
 
 struct SRT
 {
-    Vector3 scale;
-    Quaternion rotation;
-    Vector3 translation;
+    Vector3 scale = Vector3::One;
+    Quaternion rotation = Quaternion::Zero;
+    Vector3 translation = Vector3::Zero;
     int     iSRTFlag = 0;//S 1<<1 R 1<< 2 T 1<<3
 };
 #define SRT_SCALE_FLAG          (1<<1)
