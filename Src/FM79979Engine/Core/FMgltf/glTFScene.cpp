@@ -520,18 +520,20 @@ void cScene::Destory()
 
 #include "./ThirdParty/Chapter10Sample02.h"
 #include "./ThirdParty/Chapter10Sample01.h"
+#include "./ThirdParty/Chapter12Sample03.h"
 
 cScene g_cScene;
-Chapter10Sample01 g_Chapter10Sample01;
+Chapter12Sample03 g_Chapter10Sample01;
 int glTFInit()
 {
     //g_cScene.LoadFromGLTF("glTFModel/Duck.gltf",false);
     //g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-    g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
     //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
+    g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);

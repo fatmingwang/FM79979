@@ -10,6 +10,8 @@
 #include <iostream>
 #include <sstream>
 
+bool g_bApplyInverseBindPose = true;
+
 cAnimationMesh::cAnimationMesh()
     : m_pMainRootBone(nullptr), m_pAllBonesMatrixForSkinned(nullptr), m_pCurrentAnimationData(nullptr)
 {
@@ -68,7 +70,7 @@ void	DumpBoneIndexDebugInfo(cBone*e_pBone,bool e_bDoNextSibling, bool e_bRoot)
         l_siCount = 0;
     }
 }
-SRT l_mm[256];
+sSRT l_mm[256];
 void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
 {
     std::map<int, cBone*> l_NodeIndexAndBoneMap;
@@ -148,9 +150,9 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
         FMLOG(
                 "Bone:%d,T:%s,R:%s,S%s",
                 i,
-                ValueToString(l_mm[i].translation).c_str(),
-                ValueToString(l_mm[i].rotation).c_str(),
-                ValueToString(l_mm[i].scale).c_str());
+                ValueToString(l_mm[i].vTranslation).c_str(),
+                ValueToString(l_mm[i].qRotation).c_str(),
+                ValueToString(l_mm[i].vScale).c_str());
     }
 }
 
@@ -162,6 +164,7 @@ void cAnimationMesh::loadSkins(const tinygltf::Model& model, std::map<int, cBone
         if (skin.skeleton != -1)
         {
             m_pMainRootBone = e_NodeIndexAndBoneMap[skin.skeleton];
+			m_pMainRootBone->m_iJointIndex = skin.skeleton;
         }
         //assert(m_pMainRootBone&&"can't find root");
         if (skin.inverseBindMatrices > -1)
@@ -169,24 +172,28 @@ void cAnimationMesh::loadSkins(const tinygltf::Model& model, std::map<int, cBone
             const auto& accessor = model.accessors[skin.inverseBindMatrices];
             const auto& bufferView = model.bufferViews[accessor.bufferView];
             const auto& buffer = model.buffers[bufferView.buffer];
-            const float* data = reinterpret_cast<const float*>(buffer.data.data() + bufferView.byteOffset + accessor.byteOffset);
+            const float* data = reinterpret_cast<const float*>(buffer.data.data() + (bufferView.byteOffset + accessor.byteOffset));
+            //const float* matrixData = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
+
             assert(accessor.count == skin.joints.size()&&"inverse matrix not match");
             for (size_t i = 0; i < skin.joints.size(); ++i)
             {
                 int l_NodeIndex = skin.joints[i];
                 auto l_pBone = this->m_AllNodeConvertToBoneBoneVector[l_NodeIndex];
+				assert(l_pBone->m_iNodeIndex == l_NodeIndex);
                 if(l_pBone)
                 {
+                    assert(l_pBone->m_iNodeIndex == l_NodeIndex);
                     m_SkinningBoneVector.push_back(l_pBone);
                     l_pBone->m_iJointIndex = (int)i;
                     l_pBone->m_matInvBindPose = cMatrix44(data + i * 16);
-                    if (l_pBone->m_iJointIndex == 0)
+                    //if (l_pBone->m_iJointIndex == 0)
                     {
                         if (m_pMainRootBone)
                         {
-                            assert(m_pMainRootBone->m_iJointIndex == 0 && "skeleton should be same");
+                            //assert(m_pMainRootBone->m_iJointIndex == skin.skeleton && "skeleton should be same");
                         }
-                        m_pMainRootBone = l_pBone;
+                        //m_pMainRootBone = l_pBone;
                     }
                 }
                 else
@@ -227,27 +234,27 @@ void cAnimationMesh::loadNode(const tinygltf::Node& node, const tinygltf::Model&
     }
 
     cMatrix44   l_matNodeTransform = cMatrix44::Identity;
-    SRT         l_SRT;
+    sSRT         l_SRT;
     //because gltf matrix is column so take trs to make it right?
     if (node.translation.size() == 3)
     {
         Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
         l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
-        l_SRT.translation = translation;
+        l_SRT.vTranslation = translation;
         l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
     }
     if (node.rotation.size() == 4)
     {
         Quaternion rotation((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
         l_matNodeTransform *= rotation.ToMatrix();
-        l_SRT.rotation = rotation;
+        l_SRT.qRotation = rotation;
         l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
     }
     if (node.scale.size() == 3)
     {
         Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
         l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
-        l_SRT.scale = scale;
+        l_SRT.vScale = scale;
         l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
     }
     //if (node.scale.size() == 3)
@@ -314,7 +321,6 @@ void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, 
             }
 
             cBone* bone = it->second;
-            //cBone* bone = this->m_SkinningBoneVector[channel.target_node];
             FloatToSRTMap& keyframes = animationData.m_BoneIDAndAnimationData[bone];
 
             const auto& inputAccessor = model.accessors[sampler.input];
@@ -330,22 +336,22 @@ void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, 
             for (size_t i = 0; i < inputAccessor.count; ++i)
             {
                 float time = inputData[i];
-                SRT& srt = keyframes[time];
+                sSRT& srt = keyframes[time];
 
                 if (channel.target_path == "translation")
                 {
-                    srt.translation = Vector3(outputData + (i * 3));
+                    srt.vTranslation = Vector3(outputData + (i * 3));
                     srt.iSRTFlag |= SRT_TRANSLATION_FLAG; // Set translation flag
                 }
                 else if (channel.target_path == "rotation")
                 {
-                    srt.rotation = Quaternion(outputData +(i * 4) ); 
+                    srt.qRotation = Quaternion(outputData +(i * 4) ); 
                     //srt.rotation.Normalize();
                     srt.iSRTFlag |= SRT_ROTATION_FLAG; // Set rotation flag
                 }
                 else if (channel.target_path == "scale")
                 {
-                    srt.scale = Vector3(outputData +(i * 3));
+                    srt.vScale = Vector3(outputData +(i * 3));
                     srt.iSRTFlag |= SRT_SCALE_FLAG; // Set scale flag
                 }
             }
@@ -436,44 +442,26 @@ void cAnimationMesh::UpdateAnimation(float deltaTime)
         if (bone)
         {
             assert(i == bone->m_iJointIndex);
+            assert(m_JointOrderVector[i] == bone->m_iNodeIndex);
             if (bone->m_iJointIndex == -1)
             {
                 continue;
             }
             auto l_matWorldTransform = bone->GetWorldTransform();
-            auto l_mat = l_matWorldTransform *bone->m_matInvBindPose;
-            //auto l_mat = l_matWorldTransform * bone->m_StartNodeWorldTransform.Inverted();
-            m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
-            //m_pAllBonesMatrixForSkinned[i] = l_matWorldTransform;
+            auto l_mat = l_matWorldTransform;
+            if (g_bApplyInverseBindPose)
+            {
+                l_mat = l_matWorldTransform * bone->m_matInvBindPose;
+            }
+            //m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
+            m_pAllBonesMatrixForSkinned[i] = l_mat;
+            //m_pAllBonesMatrixForSkinned[m_JointOrderVector[i]] = l_mat;
         }
         else
         {
             int a = 0;
         }
     }
-    //int boneCount = (int)this->m_AllNodeConvertToBoneBoneVector.Count();
-    //for (int i = 0; i < boneCount; ++i)
-    //{
-    //    //int l_iBoneIndex = m_JointOrderVector[i];
-    //    cBone* bone = m_AllNodeConvertToBoneBoneVector[i];
-    //    if (bone)
-    //    {
-    //        //assert(i == bone->m_iJointIndex);
-    //        if (bone->m_iJointIndex == -1)
-    //        {
-    //            //continue;
-    //        }
-    //        auto l_matWorldTransform = bone->GetWorldTransform();
-    //        //auto l_mat = l_matWorldTransform *bone->m_matInvBindPose;
-    //        auto l_mat = l_matWorldTransform * bone->m_matInvBindPose;
-    //        m_pAllBonesMatrixForSkinned[i] = l_mat;
-    //        //m_pAllBonesMatrixForSkinned[i] = l_matWorldTransform;
-    //    }
-    //    else
-    //    {
-    //        int a = 0;
-    //    }
-    //}
 }
 
 void cAnimationMesh::RefreshAnimationData()
@@ -638,7 +626,6 @@ void cAnimationMesh::RenderSkeleton()
     std::vector<Vector3>l_vAllVertices;
     std::vector<Vector3>l_vPoints;
     cMatrix44	l_mat = cMatrix44::Identity;
-	bool l_bApplyInverseBindPose = false;
     for (int i = 0; i < l_iBoneSize; ++i)
     {
         cBone* l_pMe = (*l_pVector)[i];
@@ -646,21 +633,15 @@ void cAnimationMesh::RenderSkeleton()
         if (l_pParent)
         {
             //parent
-            if (!l_bApplyInverseBindPose)
-            {
-                l_mat = l_pParent->GetWorldTransform();
-            }
-            else
+            l_mat = l_pParent->GetWorldTransform();
+            if (!g_bApplyInverseBindPose)
             {
                 l_mat = l_pParent->GetWorldTransform() * l_pParent->m_matInvBindPose;
             }
             l_vAllVertices.push_back(l_mat.GetTranslation());
             //me
-            if (!l_bApplyInverseBindPose)
-            {
-                l_mat = (l_pMe->GetWorldTransform() );
-            }
-            else
+            l_mat = (l_pMe->GetWorldTransform());
+            if (!g_bApplyInverseBindPose)
             {
                 l_mat = (l_pMe->GetWorldTransform() * l_pMe->m_matInvBindPose);
             }
@@ -673,10 +654,14 @@ void cAnimationMesh::RenderSkeleton()
         }
         l_vPoints.push_back(l_mat.GetTranslation());
     }
+    if (l_vPoints.size() == 0)
+    {
+        return;
+    }
     //l_mat = g_ModelMat * cMatrix44::ZAxisRotationMatrix(D3DXToRadian(180));
     l_mat = g_ModelMat ;
     UseShaderProgram(NO_TEXTURE_SHADER);
     SetupShaderViewProjectionMatrix(g_PVMat, false);
-    GLRender::RenderLine((float*)&l_vAllVertices[0], l_vAllVertices.size() , Vector4(0.f, 1.f, 0.5f, 1.f), 3, l_mat);
-    GLRender::RenderPoints(&l_vPoints[0], l_vPoints.size(), 5, Vector4(0.f, 1.f, 1.f, 1.f), l_mat);
+    GLRender::RenderLine((float*)&l_vAllVertices[0], (int)l_vAllVertices.size() , Vector4(0.f, 1.f, 0.5f, 1.f), 3, l_mat);
+    GLRender::RenderPoints(&l_vPoints[0], (int)l_vPoints.size(), 5, Vector4(0.f, 1.f, 1.f, 1.f), l_mat);
 }

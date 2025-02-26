@@ -17,7 +17,7 @@ void cBone::ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix
                 1, 0, 0, 0,
                 0, 1, 0, 0,
                 0, 0, 1, 0,
-                srt.translation.x, srt.translation.y, srt.translation.z, 1
+                srt.vTranslation.x, srt.vTranslation.y, srt.vTranslation.z, 1
             };
             cMatrix44 transMat(l_fTransArray);
             mat = transMat;
@@ -25,7 +25,7 @@ void cBone::ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix
         if (srt.iSRTFlag & SRT_ROTATION_FLAG)
         {
             // Construct rotation matrix from quaternion
-            float x = srt.rotation.x, y = srt.rotation.y, z = srt.rotation.z, w = srt.rotation.w;
+            float x = srt.qRotation.x, y = srt.qRotation.y, z = srt.qRotation.z, w = srt.qRotation.w;
             float l_fTotationArray[]
             {
                 1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w), 0,
@@ -41,9 +41,9 @@ void cBone::ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix
         {
             float l_fScaleArray[] =
             {
-                srt.scale.x, 0, 0, 0,
-                0, srt.scale.y, 0, 0,
-                0, 0, srt.scale.z, 0,
+                srt.vScale.x, 0, 0, 0,
+                0, srt.vScale.y, 0, 0,
+                0, 0, srt.vScale.z, 0,
                 0, 0, 0, 1
             };
             cMatrix44 scaleMat(l_fScaleArray);
@@ -88,7 +88,6 @@ void cBone::SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames)
     {
         return;
     }
-    m_PreviousSRT = { m_FormKeyFrames.begin()->first,m_FormKeyFrames.begin()->second };
     float l_fMinKeyTime(FLT_MAX), l_fMaxKeyTime(FLT_MIN), l_fKeyTime;
     for (FloatToSRTMap::iterator l_Iterator = m_FormKeyFrames.begin(); l_Iterator != m_FormKeyFrames.end(); ++l_Iterator)
     {
@@ -98,7 +97,7 @@ void cBone::SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames)
     }
     m_fMaxKeyTime = l_fMaxKeyTime;
     m_fMinKeyTime = l_fMinKeyTime;
-    m_PreviousSRT = std::make_pair( m_FormKeyFrames.begin()->first,m_FormKeyFrames.begin()->second );
+    //m_PreviousSRT = std::make_pair( m_FormKeyFrames.begin()->first,m_FormKeyFrames.begin()->second );
     ConvertSRTMapToMatrixMap(m_FormKeyFrames, m_MatrixKeyFrames);
 }
 
@@ -136,8 +135,9 @@ void cBone::EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty)
 
     if (it == m_FormKeyFrames.begin()) // If time is before the first keyframe
     {
-        m_PreviousSRT = *it;
-        ApplySRT(m_PreviousSRT.second, e_bSetChildBonesDirty);
+        //m_PreviousSRT = *it;
+        //ApplySRT(m_PreviousSRT.second, e_bSetChildBonesDirty);
+        ApplySRT(it->second, e_bSetChildBonesDirty);
         return;
     }
     if (it == m_FormKeyFrames.end()) // If time is after the last keyframe
@@ -153,8 +153,8 @@ void cBone::EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty)
 
     if (prevTime == nextTime) // Avoid division by zero
     {
-        m_PreviousSRT = *prevIt;
-        ApplySRT(m_PreviousSRT.second, e_bSetChildBonesDirty);
+        //m_PreviousSRT = *prevIt;
+        ApplySRT(prevIt->second, e_bSetChildBonesDirty);
         return;
     }
 
@@ -163,54 +163,54 @@ void cBone::EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty)
     factor = std::clamp(factor, 0.0f, 1.0f);
 
     // Interpolate SRT values
-    const SRT& prevSRT = prevIt->second;
-    const SRT& nextSRT = nextIt->second;
-    SRT l_CurrentSRT;
+    const sSRT& prevSRT = prevIt->second;
+    const sSRT& nextSRT = nextIt->second;
+    sSRT l_CurrentSRT;
 
     // Translation Interpolation
     if (prevSRT.iSRTFlag & SRT_TRANSLATION_FLAG)
     {
-        l_CurrentSRT.translation = prevSRT.translation * (1.0f - factor) + nextSRT.translation * factor;
+        l_CurrentSRT.vTranslation = prevSRT.vTranslation * (1.0f - factor) + nextSRT.vTranslation * factor;
         l_CurrentSRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
     }
 
     // Rotation Interpolation using SLERP
     if (prevSRT.iSRTFlag & SRT_ROTATION_FLAG)
     {
-        l_CurrentSRT.rotation = Quaternion::Slerp(prevSRT.rotation,nextSRT.rotation, factor);
+        l_CurrentSRT.qRotation = Quaternion::Slerp(prevSRT.qRotation,nextSRT.qRotation, factor);
         l_CurrentSRT.iSRTFlag |= SRT_ROTATION_FLAG;
     }
 
     // Scale Interpolation
     if (prevSRT.iSRTFlag & SRT_SCALE_FLAG)
     {
-        l_CurrentSRT.scale = prevSRT.scale * (1.0f - factor) + nextSRT.scale * factor;
+        l_CurrentSRT.vScale = prevSRT.vScale * (1.0f - factor) + nextSRT.vScale * factor;
         l_CurrentSRT.iSRTFlag |= SRT_SCALE_FLAG;
     }
 
     // Store the updated transform
-    m_PreviousSRT = { e_fTime, l_CurrentSRT };
+    //m_PreviousSRT = { e_fTime, l_CurrentSRT };
 
     // Apply the interpolated SRT
     ApplySRT(l_CurrentSRT, e_bSetChildBonesDirty);
 }
 
 
-void cBone::ApplySRT(const SRT& srt, bool e_bSetChildBonesDirty)
+void cBone::ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty)
 {
     cMatrix44 localTransform = cMatrix44::Identity;
-    SRT l_SRT = srt;
+    sSRT l_SRT = srt;
     if (l_SRT.iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
     {
-        localTransform *= cMatrix44::TranslationMatrix(l_SRT.translation);
+        localTransform *= cMatrix44::TranslationMatrix(l_SRT.vTranslation);
     }
     if (l_SRT.iSRTFlag & SRT_ROTATION_FLAG) // Rotation
     {
-        localTransform *= l_SRT.rotation.ToMatrix();
+        localTransform *= l_SRT.qRotation.ToMatrix();
     }
     if (l_SRT.iSRTFlag & SRT_SCALE_FLAG) // Scale
     {
-        localTransform *= cMatrix44::ScaleMatrix(l_SRT.scale);
+        localTransform *= cMatrix44::ScaleMatrix(l_SRT.vScale);
     }
     //if (l_SRT.iSRTFlag & SRT_SCALE_FLAG) // Scale
     //{
@@ -316,4 +316,147 @@ void cBone::EvaluateLocalXForm2(float timeValue, bool e_bSetChildBonesDirty)
         mNew.SetTranslation(tNew);
     }
     this->SetLocalTransform(this->m_StartNodeTransform*mNew, e_bSetChildBonesDirty);
+}
+
+cMatrix44 sSRT::GetMatrix()
+{
+    cMatrix44 l_Mat = cMatrix44::Identity;
+    if (iSRTFlag & SRT_TRANSLATION_FLAG) // Translation
+    {
+        l_Mat *= cMatrix44::TranslationMatrix(vTranslation);
+    }
+    if (iSRTFlag & SRT_ROTATION_FLAG) // Rotation
+    {
+        l_Mat *= qRotation.ToMatrix();
+    }
+    if (iSRTFlag & SRT_SCALE_FLAG) // Scale
+    {
+        l_Mat *= cMatrix44::ScaleMatrix(vScale);
+    }
+    return l_Mat;
+}
+
+sSRT sSRT::Blend(sSRT& e_Source1, sSRT& e_Source2, float e_fFactor)
+{
+    sSRT l_SRT;
+    l_SRT.iSRTFlag = e_Source1.iSRTFlag | e_Source2.iSRTFlag;
+    l_SRT.vScale = Vector3Lerp(e_Source1.vScale, e_Source2.vScale,e_fFactor);
+    l_SRT.qRotation = Quaternion::Slerp(e_Source1.qRotation, e_Source2.qRotation, e_fFactor);
+    l_SRT.vTranslation = Vector3Lerp(e_Source1.vTranslation,e_Source2.vTranslation, e_fFactor);
+    return l_SRT;
+}
+
+void cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone)
+{
+    auto l_uiSize = this->m_OrderedAnimationVector.size();
+    for (size_t i = 0; i < l_uiSize; ++i)
+    {
+        auto l_pFloatToSRTMap = m_OrderedAnimationVector[i];
+        if (l_pFloatToSRTMap->empty())
+        {
+            continue;
+        }
+
+        // Find the keyframes surrounding the current time
+        auto it = l_pFloatToSRTMap->lower_bound(e_fTime);
+
+        if (it == l_pFloatToSRTMap->begin()) // If time is before the first keyframe
+        {
+            m_SRTVector[i] = it->second;
+            continue;
+        }
+        if (it == l_pFloatToSRTMap->end()) // If time is after the last keyframe
+        {
+            it = std::prev(l_pFloatToSRTMap->end());
+        }
+
+        auto nextIt = it;
+        auto prevIt = std::prev(it); // Get the previous keyframe
+
+        float prevTime = prevIt->first;
+        float nextTime = nextIt->first;
+
+        if (prevTime == nextTime) // Avoid division by zero
+        {
+            m_SRTVector[i] = prevIt->second;
+            continue;
+        }
+
+        // Calculate the interpolation factor (clamped between 0 and 1)
+        float factor = (e_fTime - prevTime) / (nextTime - prevTime);
+        factor = std::clamp(factor, 0.0f, 1.0f);
+
+        // Interpolate SRT values
+        const sSRT& prevSRT = prevIt->second;
+        const sSRT& nextSRT = nextIt->second;
+        sSRT l_CurrentSRT;
+
+        // Translation Interpolation
+        if (prevSRT.iSRTFlag & SRT_TRANSLATION_FLAG)
+        {
+            l_CurrentSRT.vTranslation = prevSRT.vTranslation * (1.0f - factor) + nextSRT.vTranslation * factor;
+            l_CurrentSRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
+        }
+
+        // Rotation Interpolation using SLERP
+        if (prevSRT.iSRTFlag & SRT_ROTATION_FLAG)
+        {
+            l_CurrentSRT.qRotation = Quaternion::Slerp(prevSRT.qRotation, nextSRT.qRotation, factor);
+            l_CurrentSRT.iSRTFlag |= SRT_ROTATION_FLAG;
+        }
+
+        // Scale Interpolation
+        if (prevSRT.iSRTFlag & SRT_SCALE_FLAG)
+        {
+            l_CurrentSRT.vScale = prevSRT.vScale * (1.0f - factor) + nextSRT.vScale * factor;
+            l_CurrentSRT.iSRTFlag |= SRT_SCALE_FLAG;
+        }
+		m_SRTVector[i] = l_CurrentSRT;
+    }
+    if (e_bAssignToBone)
+    {
+        for (size_t i = 0; i < l_uiSize; ++i)
+        {
+            (*m_pOrderedBonesVector)[i]->SetLocalTransform(m_SRTVector[i].GetMatrix());
+        }
+    }
+}
+
+void cAnimationClip::SetBoneAndAnimationData(std::vector<cBone*>* e_pBoneVector, sAnimationData* e_pAnimationData)
+{
+	m_pOrderedBonesVector = e_pBoneVector;
+	m_fCurrentTime = e_pAnimationData->m_fCurrentTime;
+	m_fEndTime = e_pAnimationData->m_fEndTime;
+	m_bLoop = e_pAnimationData->m_fEndTime;
+	m_SRTVector.clear();
+	for (auto l_pBone : *e_pBoneVector)
+	{
+        sSRT l_SRT;
+        l_SRT.iSRTFlag = SRT_SCALE_FLAG | SRT_ROTATION_FLAG | SRT_TRANSLATION_FLAG;
+        auto l_IT = e_pAnimationData->m_BoneIDAndAnimationData.find(l_pBone);
+        if (l_IT != e_pAnimationData->m_BoneIDAndAnimationData.end())
+        {
+            auto l_Data = l_IT->second.find(0);
+            l_SRT = l_Data->second;
+			m_OrderedAnimationVector.push_back(&l_IT->second);
+        }
+		m_SRTVector.push_back(l_SRT);
+	}
+}
+
+void cAnimationClip::UpdateToTargetTime(float e_fTime, bool e_bAssignToBone)
+{
+    SampleToTime(e_fTime,true);
+}
+
+void cAnimationClip::BlendClips(float e_fTime, cAnimationClip* e_pTarget, bool e_bAssignToBone, float e_fTargetFactor)
+{
+    this->SampleToTime(e_fTime, false);
+    e_pTarget->SampleToTime(e_fTime, false);
+    auto l_uiSize = this->m_OrderedAnimationVector.size();
+    for (size_t i = 0; i < l_uiSize; ++i)
+    {
+        sSRT l_SRT = sSRT::Blend(this->m_SRTVector[i], e_pTarget->m_SRTVector[i], e_fTargetFactor);
+        (*this->m_pOrderedBonesVector)[i]->SetLocalTransform(l_SRT.GetMatrix());
+    }
 }

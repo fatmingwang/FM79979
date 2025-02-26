@@ -15,15 +15,6 @@ class cAnimationMesh : public cMesh
     std::vector<int>                m_JointOrderVector;
     cMatrix44 m_matMeshBindShapePose;
     cMatrix44* m_pAllBonesMatrixForSkinned;
-    struct sAnimationData
-    {
-        std::map<cBone*, FloatToSRTMap> m_BoneIDAndAnimationData;
-        float m_fMinKeyTime;
-        float m_fMaxKeyTime;
-        float m_fCurrentTime;
-        float m_fStartTime;
-        float m_fEndTime;
-    };
     std::map<std::string, sAnimationData*> m_NameAndAnimationMap;
     sAnimationData* m_pCurrentAnimationData;
     std::string m_CurrentAnimation;
