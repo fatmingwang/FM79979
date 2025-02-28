@@ -6,7 +6,7 @@
 struct sSRT
 {
     Vector3             vScale = Vector3::One;
-    Quaternion          qRotation = Quaternion::Zero;
+    Quaternion          qRotation = Quaternion::Identity;
     Vector3             vTranslation = Vector3::Zero;
     int                 iSRTFlag = 0;//S 1<<1 R 1<< 2 T 1<<3
     cMatrix44           GetMatrix();
@@ -18,57 +18,51 @@ struct sSRT
 
 using FloatToSRTMap = std::map<float, sSRT>;
 typedef std::map<float, cMatrix44> FloatTocMatrix44Map;
+void    ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Map& matrixMap);
 
 struct cBone : public Frame
 {
-    void ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Map& matrixMap);
-    //std::pair <float,SRT>     m_PreviousSRT;
-    //for debug
     int     m_iJointIndex = -1;
     int     m_iNodeIndex;
-    float m_fMinKeyTime;
-    float m_fMaxKeyTime;
-    FloatToSRTMap               m_FormKeyFrames;
-    FloatTocMatrix44Map         m_MatrixKeyFrames;
     cMatrix44 m_matInvBindPose;
-    std::wstring m_strSID;
 
-    cBone(const WCHAR* e_strName,int e_iJointIndex);
+    cBone(const wchar_t* e_strName,int e_iJointIndex);
     ~cBone();
     cBone* FinChildByName(const wchar_t* e_strBoneName);
-    void SetFormKeyFrames(FloatToSRTMap e_FormKeyFrames);
-    void SetFormKeyFrames(FloatTocMatrix44Map e_FormKeyFrames);
-    void EvaluateLocalXForm(float e_fTime, bool e_bSetChildBonesDirty = true);
-    void EvaluateLocalXForm2(float e_fTime, bool e_bSetChildBonesDirty = true);
     void ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty);
     cMatrix44   m_StartNodeWorldTransform;
     //rest pose
     cMatrix44   m_StartNodeTransform;
-    sSRT         m_StartSRT;
+    sSRT        m_StartSRT;
 };
 
 struct sAnimationData
 {
     std::map<cBone*, FloatToSRTMap> m_BoneIDAndAnimationData;
-    float m_fMinKeyTime;
-    float m_fMaxKeyTime;
-    float m_fCurrentTime;
-    float m_fStartTime;
-    float m_fEndTime;
+    bool    m_bLoop;
+    float   m_fMinKeyTime;
+    float   m_fMaxKeyTime;
+    float   m_fCurrentTime;
+    float   m_fStartTime;
+    float   m_fEndTime;
+    void    Update(float e_fElpaseTime);
 };
 
 class cAnimationClip:public NamedTypedObject
 {
-    //must same as joints influnces order,same as std::vector<cBone*>   cAnimationMesh::m_SkinningBoneVector;
-	std::vector<cBone*>*        m_pOrderedBonesVector;
-    std::vector<FloatToSRTMap*> m_OrderedAnimationVector;
-    std::vector<sSRT>            m_SRTVector;
-	void    SampleToTime(float e_fTime, bool e_bAssignToBone);
+    friend class cAnimationMesh;
+    class cAnimationMesh*                   m_pAnimationMesh;
+    //
+    std::vector<sSRT>                       m_SRTVector;
+    std::string                             m_strAnimationName;
+    sAnimationData*                         m_pCurrentAnimationData = nullptr;
+	bool                                    SampleToTime(float e_fTime, bool e_bAssignToBone,std::vector<sSRT>*e_pSRTVector = nullptr);
+    void	                                UpdateNode(cBone* e_pBone, float e_fTime,sSRT&e_SRT, bool e_bAssignToBone);
+    float                                   m_fBlendingTime = 0;
 public:
-	float   m_fCurrentTime;
-	float   m_fEndTime;
-	bool    m_bLoop;
-    void	SetBoneAndAnimationData(std::vector<cBone*>* e_pBoneVector, sAnimationData*e_pAnimationData);
+    void	SetBoneAndAnimationData(class cAnimationMesh* e_pAnimationMesh);
+    bool    SetAnimation(const char* e_strAnimationName,bool e_bLoop,float e_fTargetTime = 0.f);
 	void    UpdateToTargetTime(float e_fTime,bool e_bAssignToBone);
-    void    BlendClips(float e_fTime,cAnimationClip*e_pTarget, bool e_bAssignToBone, float e_fTargetFactor = 0.5);
+    void    BlendClips(float e_fTime,const char*e_strAnimationName1, const char* e_strAnimationName2, bool e_bAssignToBone, bool e_bLoop = true, float e_fTargetFactor = 0.5);
+    void    Update(float e_fElpaseTime);
 };

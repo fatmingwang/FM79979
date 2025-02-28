@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cstring>
 #include <unordered_set>
+#include <set>
 
 cMesh::cMesh()
 {
@@ -368,6 +369,22 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
                 l_pSubMesh->m_vMinBounds = Vector3((float)accessor.minValues[0], (float)accessor.minValues[1], (float)accessor.minValues[2]);
                 l_pSubMesh->m_vMaxBounds = Vector3((float)accessor.maxValues[0], (float)accessor.maxValues[1], (float)accessor.maxValues[2]);
             }
+#ifdef DEBUG
+            if (attribute.first == "JOINTS_0")
+            {
+				//std::set<unsigned short> l_tt2;
+    //            std::vector<unsigned short>l_TestVector;
+    //            int l_iCount = dataSize / sizeof(unsigned short);
+    //            unsigned short* l_pJoints = (unsigned short*)dataPtr;
+    //            for (int i = 0; i < l_iCount; ++i)
+    //            {
+    //                l_TestVector.push_back(*l_pJoints);
+    //                l_tt2.insert(*l_pJoints);
+    //                ++l_pJoints;
+    //            }
+    //            int a = 0;
+            }
+#endif
         }
     }
     glBindVertexArray(0);
