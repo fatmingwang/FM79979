@@ -317,6 +317,7 @@ namespace FATMING_CORE
 				glEnableVertexAttribArray(m_uiAttribArray[i]);
 				CHECK_GL_ERROR("cBaseShader::Use after glEnableVertexAttribArray");
 			}
+			//because it is not take FVF order so can't do disable here.
 			//else
 				//glDisableVertexAttribArray( m_uiAttribArray[i] );
 		}
@@ -682,5 +683,19 @@ namespace FATMING_CORE
 	void	SetGlobalScaleColor(Vector4 e_vColor)
 	{
 		g_vGlobalScaleColor	= e_vColor;
+	}
+	void EnableVertexAttributes(unsigned int e_iFVFFlag)
+	{
+		for (int i = 0; i < TOTAL_FVF; ++i)
+		{
+			if (e_iFVFFlag & (1 << i))
+			{
+				glEnableVertexAttribArray(i);
+			}
+			else
+			{
+				glDisableVertexAttribArray(i);
+			}
+		}
 	}
 }

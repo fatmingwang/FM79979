@@ -192,4 +192,5 @@ namespace FATMING_CORE
 	bool	CheckShader(int Object, int Type, const wchar_t*e_strMessage,std::string*e_strOutputLog = nullptr);
 	//
 	void	SetGlobalScaleColor(Vector4 e_vColor);	
+	void	EnableVertexAttributes(unsigned int e_iFVFFlags);
 }

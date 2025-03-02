@@ -327,10 +327,89 @@ GLuint cScene::CreateShader(unsigned int fvfFlags)
         FMLOG(infoLog);
         assert(0&&"shader compile error");
     }
+    else
+    {
+#ifdef DEBUG
+        PopulateUniform(shaderProgram);
+        PopulateAttribute(shaderProgram);
+#endif
+    }
+    
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
     return shaderProgram;
+}
+
+void cScene::PopulateUniform(int e_iProgram)
+{
+    int count = -1;
+    int length;
+    char name[128];
+    int size;
+    GLenum type;
+    char testName[256];
+    std::map<std::string, unsigned int>  l_NameAndUniformLocationMap;
+
+    glUseProgram(e_iProgram);
+    glGetProgramiv(e_iProgram, GL_ACTIVE_UNIFORMS, &count);
+
+    for (int i = 0; i < count; ++i)
+    {
+        memset(name, 0, sizeof(char) * 128);
+        glGetActiveUniform(e_iProgram, (GLuint)i, 128, &length, &size, &type, name);
+
+        int uniform = glGetUniformLocation(e_iProgram, name);
+        if (uniform >= 0)
+        {
+            std::string uniformName = name;
+            std::size_t found = uniformName.find('[');
+            if (found != std::string::npos)
+            {
+                uniformName.erase(uniformName.begin() + found, uniformName.end());
+                // Populate subscripted names too
+                unsigned int uniformIndex = 0;
+                while (true)
+                {
+                    memset(testName, 0, sizeof(char) * 256);
+                    sprintf(testName, "%s[%d]", uniformName.c_str(), uniformIndex++);
+                    int uniformLocation = glGetUniformLocation(e_iProgram, testName);
+                    if (uniformLocation < 0)
+                    {
+                        break;
+                    }
+                    l_NameAndUniformLocationMap[testName] = uniformLocation;
+                }
+            }
+            l_NameAndUniformLocationMap[uniformName] = uniform;
+        }
+    }
+    int a = 0;
+}
+
+void cScene::PopulateAttribute(int e_iProgram)
+{
+    int count = -1;
+    int length;
+    char name[128];
+    int size;
+    GLenum type;
+    std::map<std::string, unsigned int>  l_NameAndAttributeLocationMap;
+
+    glUseProgram(e_iProgram);
+    glGetProgramiv(e_iProgram, GL_ACTIVE_ATTRIBUTES, &count);
+
+    for (int i = 0; i < count; ++i)
+    {
+        memset(name, 0, sizeof(char) * 128);
+        glGetActiveAttrib(e_iProgram, (GLuint)i, 128, &length, &size, &type, name);
+        int attrib = glGetAttribLocation(e_iProgram, name);
+        if (attrib >= 0)
+        {
+            l_NameAndAttributeLocationMap[name] = attrib;
+        }
+    }
+    int a = 0;
 }
 
 GLuint cScene::GetShaderProgram(unsigned int fvfFlags)

@@ -23,17 +23,6 @@ cMesh::~cMesh()
     DELETE_VECTOR(m_SubMeshesVector);
 }
 
-void EnableVertexAttributes(unsigned int e_iFVFFlag)
-{
-    for (int i = 0; i < TOTAL_FVF; ++i)
-    {
-        if (e_iFVFFlag & (1 << i))
-        {
-            glEnableVertexAttribArray(i);
-        }
-    }
-}
-
 
 void cMesh::SubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
 {

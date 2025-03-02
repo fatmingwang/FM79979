@@ -1,9 +1,9 @@
 #pragma once
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/quaternion.hpp"
-#include "glm/gtc/type_ptr.hpp"
+//#include "glm/glm.hpp"
+//#include "glm/gtc/matrix_transform.hpp"
+//#include "glm/gtc/quaternion.hpp"
+//#include "glm/gtc/type_ptr.hpp"
 
 //enum eFVF
 //{
@@ -95,4 +95,3 @@ public:
     void logFVFFlags();
     void LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
 };
-void EnableVertexAttributes(unsigned int fvfFlags);
