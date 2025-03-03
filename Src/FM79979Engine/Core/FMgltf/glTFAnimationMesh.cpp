@@ -400,7 +400,7 @@ void cAnimationMesh::Update(float e_fElpaseTime)
         }
         this->SetCurrentAnimation(l_Animation->first);
     }
-    bool l_bDoBlendingTest = true;
+    bool l_bDoBlendingTest = false;
     if (!l_bDoBlendingTest)
     {
         this->m_AnimationClip.Update(e_fElpaseTime);
@@ -412,7 +412,7 @@ void cAnimationMesh::Update(float e_fElpaseTime)
         ++l_Animation;
         ++l_Animation;
         std::string l_strAnimation2 = (++l_Animation)->first;
-        this->m_AnimationClip.BlendClips(e_fElpaseTime, "Running", l_strAnimation2.c_str(), true, true, 0.9);
+        this->m_AnimationClip.BlendClips(e_fElpaseTime, "Running", l_strAnimation2.c_str(), true, true, 0.9f);
     }
     UpdateJointsMatrixToShader();
 }
@@ -505,24 +505,7 @@ void cAnimationMesh::Draw()
         // Pass the bone matrices to the shader
         GLuint boneMatricesLocation = glGetUniformLocation(l_pSubMesh->shaderProgram, "uBoneTransforms");
         glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
-
-        // Bind textures
-        for (size_t i = 0; i < m_uiTextureIDVector.size(); ++i)
-        {
-            glActiveTexture(GL_TEXTURE0 + (GLenum)i);
-            glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
-        }
-        GLuint texture1Loc = glGetUniformLocation(l_pSubMesh->shaderProgram, "texture1");
-        glUniform1i(texture1Loc, 0);
-
-        // Bind normal map texture if available
-        if (!m_uiNormalTextureIDVector.empty())
-        {
-            glActiveTexture(GL_TEXTURE0 + (GLenum)m_uiTextureIDVector.size());
-            glBindTexture(GL_TEXTURE_2D, m_uiNormalTextureIDVector[0]);
-            GLuint normalMapLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "normalMap");
-            glUniform1i(normalMapLoc, (GLint)m_uiTextureIDVector.size());
-        }
+        ApplyMaterial();;
 
         // Bind the vertex array and draw the sub-mesh
         glBindVertexArray(l_pSubMesh->vao);

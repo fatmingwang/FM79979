@@ -497,16 +497,15 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
         {
             //mesh->LoadAttributes(model, primitive, e_bCalculateBiNormal);
             mesh->LoadAttributesAndInitBuffer(model, primitive, e_bCalculateBiNormal);
-
-            // Load textures for each material
-            if (primitive.material >= 0 && primitive.material < model.materials.size())
-            {
-                mesh->LoadTextures(model, model.materials[primitive.material]);
-            }
             // Get or create the appropriate shader program for the sub-mesh
             for (auto l_pSubMesh : mesh->m_SubMeshesVector)
             {
                 l_pSubMesh->shaderProgram = GetShaderProgram(l_pSubMesh->m_iFVFFlag);
+                // Load textures for each material
+                if (primitive.material >= 0 && primitive.material < model.materials.size())
+                {
+                    mesh->LoadMaterial(model, model.materials[primitive.material], l_pSubMesh->shaderProgram);
+                }
             }
             // Apply the node transformation to the mesh
             for (const auto& node : model.nodes)
@@ -610,9 +609,9 @@ int glTFInit()
     // 
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
-    //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);

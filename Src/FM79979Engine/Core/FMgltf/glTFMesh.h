@@ -52,9 +52,13 @@
 #include <map>
 
 #include "../AllCoreInclude.h"
+#include "glTFMaterial.h"
 
 class cMesh:public FATMING_CORE::Frame
 {
+protected:
+    shared_ptr<cMaterial>m_Material;
+    void    ApplyMaterial();
     friend class cScene;
 public:
     struct SubMesh
@@ -77,10 +81,6 @@ public:
     Vector3 m_vMaxBounds;
 protected:
     std::vector<SubMesh*> m_SubMeshesVector;  // Store different primitives
-    std::vector<GLuint> m_uiTextureIDVector;        // Base color textures (and other types if necessary)
-    std::vector<GLuint> m_uiNormalTextureIDVector;  // Normal maps
-    std::vector<GLuint> m_uiOocclusionTextureIDVector;  // Occlusion maps
-    std::vector<GLuint> m_uiEmissiveTextureIDVector; // Emissive maps (if needed)
 
 public:
     cMesh();
@@ -91,7 +91,7 @@ public:
 
     // Function to load vertex attributes and indices
     //void LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
-    void LoadTextures(const tinygltf::Model& model, const tinygltf::Material& material);
+    void LoadMaterial(const tinygltf::Model& model, const tinygltf::Material& material,unsigned int e_uiShaderProgram);
     void logFVFFlags();
     void LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
 };

@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="glTFMaterial.h" />
     <ClInclude Include="glVertexAttribute.h" />
     <ClInclude Include="FileUtility.h" />
     <ClInclude Include="framework.h" />
@@ -210,6 +211,7 @@
     <ClInclude Include="tiny_gltf.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="glTFMaterial.cpp" />
     <ClCompile Include="glVertexAttribute.cpp" />
     <ClCompile Include="FileUtility.cpp" />
     <ClCompile Include="glTF.cpp" />

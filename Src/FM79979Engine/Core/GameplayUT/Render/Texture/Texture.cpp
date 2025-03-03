@@ -531,6 +531,12 @@ namespace FATMING_CORE
 		}
 		return true;
 	}
+	bool cTexture::Disable()
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+		m_suiLastUsingImageIndex = -1;
+		return true;
+	}
 	//===============
 	//
 	//===============

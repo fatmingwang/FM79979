@@ -10,6 +10,14 @@
 #include <unordered_set>
 #include <set>
 
+void cMesh::ApplyMaterial()
+{
+    if (this->m_Material)
+    {
+        this->m_Material->Apply();
+    }
+}
+
 cMesh::cMesh()
 {
 }
@@ -111,25 +119,7 @@ void cMesh::Draw()
 
         glUniform3fv(dirLightDirLoc, 1, dirLightDirection);
         glUniform3fv(dirLightColorLoc, 1, dirLightColor);
-
-        // Bind textures
-        for (size_t i = 0; i < m_uiTextureIDVector.size(); ++i)
-        {
-            glActiveTexture(GL_TEXTURE0 + (GLenum)i);
-            glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
-        }
-        GLuint texture1Loc = glGetUniformLocation(l_pSubMesh->shaderProgram, "texture1");
-        glUniform1i(texture1Loc, 0);
-
-        // Bind normal map texture if available
-        if (!m_uiNormalTextureIDVector.empty())
-        {
-            glActiveTexture(GL_TEXTURE0 + (GLenum)m_uiTextureIDVector.size());
-            glBindTexture(GL_TEXTURE_2D, m_uiNormalTextureIDVector[0]);
-            GLuint normalMapLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "normalMap");
-            glUniform1i(normalMapLoc, (GLint)m_uiTextureIDVector.size());
-        }
-
+        ApplyMaterial();
         // Bind the vertex array and draw the sub-mesh
         glBindVertexArray(l_pSubMesh->vao);
         EnableVertexAttributes(l_pSubMesh->m_iFVFFlag);
@@ -137,94 +127,10 @@ void cMesh::Draw()
     }
 }
 
-void cMesh::LoadTextures(const tinygltf::Model& model, const tinygltf::Material& material)
+void cMesh::LoadMaterial(const tinygltf::Model& e_Model, const tinygltf::Material& e_Material, unsigned int e_uiShaderProgram)
 {
-    // Load base color texture
-    if (material.pbrMetallicRoughness.baseColorTexture.index >= 0)
-    {
-        const tinygltf::Texture& texture = model.textures[material.pbrMetallicRoughness.baseColorTexture.index];
-        const tinygltf::Image& image = model.images[texture.source];
-
-        GLuint textureID = 0;
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        if (image.component == 3)
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.image.data());
-        }
-        else if (image.component == 4)
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.image.data());
-        }
-
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        m_uiTextureIDVector.push_back(textureID);
-    }
-
-    // Load normal map texture (if available)
-    if (material.normalTexture.index >= 0)
-    {
-        const tinygltf::Texture& texture = model.textures[material.normalTexture.index];
-        const tinygltf::Image& image = model.images[texture.source];
-
-        GLuint textureID = 0;
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        if (image.component == 3)
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.image.data());
-        }
-        else if (image.component == 4)
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.image.data());
-        }
-
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        m_uiNormalTextureIDVector.push_back(textureID);
-    }
-
-    // Load occlusion map texture (if available)
-    if (material.occlusionTexture.index >= 0)
-    {
-        const tinygltf::Texture& texture = model.textures[material.occlusionTexture.index];
-        const tinygltf::Image& image = model.images[texture.source];
-
-        GLuint textureID = 0;
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        if (image.component == 3)
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.width, image.height, 0, GL_RGB, GL_UNSIGNED_BYTE, image.image.data());
-        }
-        else if (image.component == 4)
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.image.data());
-        }
-
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        m_uiOocclusionTextureIDVector.push_back(textureID);
-    }
+    m_Material = std::make_shared<cMaterial>(e_uiShaderProgram);
+    m_Material->LoadMaterials(e_Model,e_Material);
 }
 
 void cMesh::logFVFFlags()

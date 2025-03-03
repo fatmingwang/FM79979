@@ -145,6 +145,26 @@ namespace FATMING_CORE
 		}
 	}
 
+	cTexture* cTextureManager::GetObjectByPixels(NamedTypedObject* e_pHolder, void* e_pPixelsData, int e_iWidth, int e_iHeight, const wchar_t* e_strName, int e_iDataFormat)
+	{
+		cTexture* l_pTexture = nullptr;
+		if (e_strName)
+		{
+			cNamedTypedObjectVector<cTexture>*l_pTextureManager = cTextureManager::GetInstance();
+			l_pTexture = dynamic_cast<cTexture*>(l_pTextureManager->GetObject(e_strName));
+		}
+		if (l_pTexture)
+		{
+			l_pTexture->AddRef(e_pHolder);
+			return l_pTexture;
+		}
+		else
+		{
+			l_pTexture = new cTexture(e_pHolder, (char*)e_pPixelsData, e_iWidth, e_iHeight, e_strName, false, false, e_iDataFormat);
+		}
+		return l_pTexture;
+	}
+
 	cTexture*	cTextureManager::GetObject(NamedTypedObject*e_pOwner, const char*e_strImageFileName, bool e_bFetchPixelData)
 	{
 		cTexture*l_pTexture = nullptr;
@@ -267,7 +287,9 @@ namespace FATMING_CORE
 	{
 		GLuint	l_iImageIndex = e_pSimpleGLTexture->GetImageIndex();
 		if (l_iImageIndex == -1)
+		{
 			return;
+		}
 	#ifdef DEBUG
 		int	l_iBeforeAlivableVRamKB = CheckRestVRam();
 	#endif

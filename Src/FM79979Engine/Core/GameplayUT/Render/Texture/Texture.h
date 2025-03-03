@@ -44,6 +44,7 @@ namespace FATMING_CORE
 		//it e_bFetchPixelData true m_pPixels will fill of pixel data.
 		bool	LoadImage(const char*e_strImageFileName,bool e_bFetchPixelData = false);
 		bool	ApplyImage();
+		bool	Disable();
 		bool	ApplyImageWithActiveTextureID(GLuint e_uintActiveTextureID);
 		static bool	ApplyImage(GLuint e_TextureID);
 		GLuint	GetImageIndex(){ return m_uiImageIndex;}

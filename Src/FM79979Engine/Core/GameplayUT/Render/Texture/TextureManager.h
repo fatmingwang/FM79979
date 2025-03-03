@@ -29,5 +29,6 @@ namespace FATMING_CORE
 		cTexture*	GetObject(NamedTypedObject*e_pOwner, const char*e_strImageFileName, bool e_bFetchPixelData = false);
 		//call this if loading is in another thread(not rendering thread)
 		void	UpdateOpenGLTextureBecauseMultiThreadLoading();
+		static cTexture* GetObjectByPixels(NamedTypedObject*e_pHolder,void*e_pPixelsData,int e_iWidth, int e_iHeight,const wchar_t*e_strName,int e_iDataFormat);
 	};
 }

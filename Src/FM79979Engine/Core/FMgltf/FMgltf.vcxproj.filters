@@ -219,6 +219,9 @@
     <ClInclude Include="glVertexAttribute.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="glTFMaterial.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -390,6 +393,9 @@
       <Filter>Mesh</Filter>
     </ClCompile>
     <ClCompile Include="glVertexAttribute.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFMaterial.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
   </ItemGroup>
