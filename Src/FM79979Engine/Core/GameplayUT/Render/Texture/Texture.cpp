@@ -29,10 +29,13 @@ namespace FATMING_CORE
 #endif
 	//https://www.opengl.org/sdk/docs/tutorials/ClockworkCoders/discard.php
 	//http://jerome.jouvie.free.fr/opengl-tutorials/Tutorial6.php
-	//GLfloat	g_fMAG_FILTERValue = GL_NEAREST;
-	//GLfloat	g_fMIN_FILTERValue = GL_NEAREST;
-	GLfloat	g_fMAG_FILTERValue = GL_LINEAR;
-	GLfloat	g_fMIN_FILTERValue = GL_LINEAR;
+	//GLfloat	g_uiMAG_FILTERValue = GL_NEAREST;
+	//GLfloat	g_uiMIN_FILTERValue = GL_NEAREST;
+	GLuint	g_uiMAG_FILTERValue = GL_LINEAR;
+	GLuint	g_uiMIN_FILTERValue = GL_LINEAR;
+
+	GLuint	g_uiTEXTURE_WRAP_S = GL_REPEAT;
+	GLuint	g_uiTEXTURE_WRAP_T = GL_REPEAT;
     GLuint  cTexture::m_suiLastUsingImageIndex = -1;
 	TYPDE_DEFINE_MARCO(cTexture);
 	//===============
@@ -93,10 +96,10 @@ namespace FATMING_CORE
 		glActiveTexture(GL_TEXTURE0);
 		m_suiLastUsingImageIndex = -1;
 		this->ApplyImage();/* Binding of texture name */
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue); /* We will use linear  interpolation for minifying filter */
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,  GL_REPEAT);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,  GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_uiMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_uiMIN_FILTERValue); /* We will use linear  interpolation for minifying filter */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, g_uiTEXTURE_WRAP_S);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, g_uiTEXTURE_WRAP_T);
 		//quick way to find out power of two.
 		//if (width & (width - 1)) or (height & (height - 1)):
 		int	l_iWidthPO2 = power_of_two(m_iWidth);
@@ -377,10 +380,10 @@ namespace FATMING_CORE
 		m_suiLastUsingImageIndex = -1;
 		this->ApplyImage();
 		// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_uiMIN_FILTERValue);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_uiMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, g_uiTEXTURE_WRAP_S);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, g_uiTEXTURE_WRAP_T);
 		UpdatePixels((const GLvoid*)l_pucPixelData, e_bFetchPixelData);
 		//#endif
 		if (l_BitMapObject)
@@ -478,10 +481,10 @@ namespace FATMING_CORE
 		m_suiLastUsingImageIndex = -1;
 		this->ApplyImage();
 		// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue);				
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,  GL_REPEAT);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,  GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_uiMIN_FILTERValue);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_uiMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, g_uiTEXTURE_WRAP_S);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, g_uiTEXTURE_WRAP_T);
 		UpdatePixels((const GLvoid*)l_pucPixelData,e_bFetchPixelData);
 //#endif
 		if(!e_bFetchPixelData && l_strExtensionName.compare("jpg") == 0 )
@@ -669,8 +672,8 @@ namespace FATMING_CORE
 		glBindTexture(GL_TEXTURE_2D, l_uiTexIndex);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, g_uiTEXTURE_WRAP_S);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, g_uiTEXTURE_WRAP_T);
 		glTexImage2D(GL_TEXTURE_2D, 0, e_iChannel, e_iWidth, e_iHeight, 0,
 						e_iFormat, GL_UNSIGNED_BYTE, e_pPixelsData);
 		return l_uiTexIndex;

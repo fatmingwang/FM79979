@@ -573,21 +573,10 @@ void cScene::Render()
         //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
         meshPair.second->Update(0.016f);
         meshPair.second->Render();
-        //meshPair.second->RenderBindPose();
     }
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
     glUseProgram(0);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    for (auto& meshPair : m_AnimationMeshMap)
-    {
-        if (meshPair.second)
-        {
-            meshPair.second->RenderSkeleton();
-        }
-    }
-    
 }
 
 void cScene::Destory()
@@ -609,9 +598,9 @@ int glTFInit()
     // 
     //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
-    g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    //g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
@@ -627,6 +616,18 @@ void GlTFRender()
     g_cScene.Render();
     g_Chapter10Sample01.Update(0.016f);
     g_Chapter10Sample01.Render(16/9);
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    for (auto& meshPair : g_cScene.m_AnimationMeshMap)
+    {
+        if (meshPair.second)
+        {
+            meshPair.second->RenderSkeleton();
+        }
+    }
+    glUseProgram(0);
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void GlTFDestory()

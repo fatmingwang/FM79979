@@ -33,9 +33,6 @@
     <ClInclude Include="tiny_gltf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="glTF.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="glTFScene.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -232,9 +229,6 @@
     </ClCompile>
     <ClCompile Include="glTFRenderTest.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="glTF.cpp">
-      <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="glTFScene.cpp">
       <Filter>Source Files</Filter>

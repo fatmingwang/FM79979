@@ -146,7 +146,6 @@
     <ClInclude Include="glVertexAttribute.h" />
     <ClInclude Include="FileUtility.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="glTF.h" />
     <ClInclude Include="glTFAnimationMesh.h" />
     <ClInclude Include="glTFBone.h" />
     <ClInclude Include="glTFMesh.h" />
@@ -214,7 +213,6 @@
     <ClCompile Include="glTFMaterial.cpp" />
     <ClCompile Include="glVertexAttribute.cpp" />
     <ClCompile Include="FileUtility.cpp" />
-    <ClCompile Include="glTF.cpp" />
     <ClCompile Include="glTFAnimationMesh.cpp" />
     <ClCompile Include="glTFBone.cpp" />
     <ClCompile Include="glTFMesh.cpp" />

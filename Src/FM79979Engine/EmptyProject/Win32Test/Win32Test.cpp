@@ -19,7 +19,7 @@
 // test.cpp : Defines the entry point for the application.
 #include <corecrt_io.h>
 #include <fcntl.h>
-#include "../../Core/FMgltf/glTF.h"
+
 //#define VLD_DEBUG
 //
 //#ifdef VLD_DEBUG

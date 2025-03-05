@@ -18,6 +18,60 @@ void cMesh::ApplyMaterial()
     }
 }
 
+void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinygltf::Primitive& primitive, sSubMesh* e_pSubMesh)
+{
+    // Generate normals if they are not present
+    if (primitive.attributes.find("NORMAL") == primitive.attributes.end())
+    {
+        int l_iFVFIndex = FVF_NORMAL;
+        const tinygltf::Accessor& accessor = e_Model.accessors[primitive.attributes.at("POSITION")];
+        const tinygltf::BufferView& bufferView = e_Model.bufferViews[accessor.bufferView];
+        const tinygltf::Buffer& buffer = e_Model.buffers[bufferView.buffer];
+
+        size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
+        const unsigned char* dataPtr = buffer.data.data() + byteOffset;
+
+        e_pSubMesh->m_iFVFFlag |= 1 << l_iFVFIndex;
+        size_t dataSize = accessor.count * accessor.ByteStride(bufferView);
+
+        std::vector<Vector3> normals;
+        normals.resize(accessor.count);
+        Vector3* l_pPositionData = (Vector3*)dataPtr;
+        for (size_t i = 0; i < e_pSubMesh->m_IndexBuffer.size(); i += 3)
+        {
+            uint32_t index0 = e_pSubMesh->m_IndexBuffer[i];
+            uint32_t index1 = e_pSubMesh->m_IndexBuffer[i + 1];
+            uint32_t index2 = e_pSubMesh->m_IndexBuffer[i + 2];
+
+            Vector3 v0 = l_pPositionData[index0];
+            Vector3 v1 = l_pPositionData[index1];
+            Vector3 v2 = l_pPositionData[index2];
+
+            Vector3 edge1 = v1 - v0;
+            Vector3 edge2 = v2 - v0;
+            Vector3 normal = edge1 ^ edge2;            
+            //do normalize? normal.NormalizeIt();
+
+            normals[index0] += normal;
+            normals[index1] += normal;
+            normals[index2] += normal;
+        }
+
+        for (auto& normal : normals)
+        {
+            normal.Normalize();
+        }
+
+        // Upload generated normals to GPU
+        glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVFIndex]);
+        glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVFIndex]);
+        glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(Vector3), normals.data(), GL_STATIC_DRAW);
+
+        glEnableVertexAttribArray(l_iFVFIndex);
+        glVertexAttribPointer(l_iFVFIndex, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
+    }
+}
+
 cMesh::cMesh()
 {
 }
@@ -33,7 +87,7 @@ cMesh::~cMesh()
 }
 
 
-void cMesh::SubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
+void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
 {
     Vector3 center = (m_vMinBounds + m_vMaxBounds) * 0.5f;
     Vector3 size = m_vMaxBounds - m_vMinBounds;
@@ -46,7 +100,7 @@ void cMesh::SubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
     e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
 }
 
-void cMesh::SubMesh::ClearOpenGLData()
+void cMesh::sSubMesh::ClearOpenGLData()
 {
     for (int i = 0; i < TOTAL_FVF; ++i)
     {
@@ -164,7 +218,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         assert(0 && "only support triangles now");
         return;
     }
-    SubMesh* l_pSubMesh = new SubMesh();
+    sSubMesh* l_pSubMesh = new sSubMesh();
 
     // Load indices
     if (primitive.indices == -1)
@@ -283,6 +337,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
 #endif
         }
     }
+    GenerateNormalAttribute(model, primitive, l_pSubMesh);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 

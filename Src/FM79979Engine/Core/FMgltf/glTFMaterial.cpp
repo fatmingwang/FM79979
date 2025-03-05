@@ -4,8 +4,10 @@
 
 namespace FATMING_CORE
 {
-    extern GLfloat	g_fMAG_FILTERValue;
-    extern GLfloat	g_fMIN_FILTERValue;
+    extern GLuint	g_uiMAG_FILTERValue;
+    extern GLuint	g_uiMIN_FILTERValue;
+    extern GLuint	g_uiTEXTURE_WRAP_S;
+    extern GLuint	g_uiTEXTURE_WRAP_T;
 }
 
 TYPDE_DEFINE_MARCO(cMaterial);
@@ -26,7 +28,8 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         const tinygltf::Texture& texture = model.textures[material.pbrMetallicRoughness.baseColorTexture.index];
         const tinygltf::Image& image = model.images[texture.source];
-        shared_ptr<cTexture>l_pTexture = GetTexture(image);
+        const tinygltf::Sampler& sampler = model.samplers[texture.sampler];
+        shared_ptr<cTexture>l_pTexture = GetTexture(image, sampler);
         m_uiBaseColorTextureVector.push_back(l_pTexture);
     }
 
@@ -35,7 +38,8 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         const tinygltf::Texture& texture = model.textures[material.normalTexture.index];
         const tinygltf::Image& image = model.images[texture.source];
-        shared_ptr<cTexture>l_pTexture = GetTexture(image);
+        const tinygltf::Sampler& sampler = model.samplers[texture.sampler];
+        shared_ptr<cTexture>l_pTexture = GetTexture(image, sampler);
         m_uiNormalTextureVector.push_back(l_pTexture);
     }
 
@@ -44,7 +48,8 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         const tinygltf::Texture& texture = model.textures[material.occlusionTexture.index];
         const tinygltf::Image& image = model.images[texture.source];
-        shared_ptr<cTexture> l_pTexture = GetTexture(image);
+        const tinygltf::Sampler& sampler = model.samplers[texture.sampler];
+        shared_ptr<cTexture> l_pTexture = GetTexture(image, sampler);
         m_uiOocclusionTextureVector.push_back(l_pTexture);
     }
 }
@@ -80,10 +85,13 @@ bool cMaterial::ApplyUnriforms()
 	return false;
 }
 
-shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image)
+shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image, const tinygltf::Sampler&e_Sampler)
 {
-    auto l_OriginalMAG = g_fMAG_FILTERValue;
-    auto l_OriginalMIN = g_fMIN_FILTERValue;
+    const tinygltf::Sampler& sampler = e_Sampler;
+    auto l_OriginalMAG = g_uiMAG_FILTERValue;
+    auto l_OriginalMIN = g_uiMIN_FILTERValue;
+    auto l_OriginalWRAP_S = g_uiTEXTURE_WRAP_S;
+    auto l_OriginalWRAP_T = g_uiTEXTURE_WRAP_T;
 
     auto l_uiFormat = GL_RGBA;
     if (e_Image.component == 3)
@@ -95,9 +103,15 @@ shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image)
     {
         l_uiFormat = GL_RGBA;
     }
+    g_uiMAG_FILTERValue = e_Sampler.magFilter;
+    g_uiMIN_FILTERValue = e_Sampler.minFilter;
+    g_uiTEXTURE_WRAP_S = e_Sampler.wrapS;
+    g_uiTEXTURE_WRAP_T = e_Sampler.wrapT;
     shared_ptr<cTexture>l_pTexture = cTextureManager::GetObjectByPixels((void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(e_Image.uri).c_str(), (int)l_uiFormat);
-    g_fMAG_FILTERValue = l_OriginalMAG;
-    g_fMIN_FILTERValue = l_OriginalMIN;
+    g_uiMAG_FILTERValue = l_OriginalMAG;
+    g_uiMIN_FILTERValue = l_OriginalMIN;
+    g_uiTEXTURE_WRAP_S = l_OriginalWRAP_S;
+    g_uiTEXTURE_WRAP_T = l_OriginalWRAP_T;
     l_pTexture->ApplyImage();
     glGenerateMipmap(GL_TEXTURE_2D);
     l_pTexture->Disable();

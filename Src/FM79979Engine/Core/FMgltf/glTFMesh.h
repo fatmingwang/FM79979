@@ -61,7 +61,7 @@ protected:
     void    ApplyMaterial();
     friend class cScene;
 public:
-    struct SubMesh
+    struct sSubMesh
     {
         unsigned int    m_iFVFFlag = 0;
         GLuint          shaderProgram;
@@ -80,8 +80,8 @@ public:
     Vector3 m_vMinBounds;
     Vector3 m_vMaxBounds;
 protected:
-    std::vector<SubMesh*> m_SubMeshesVector;  // Store different primitives
-
+    std::vector<sSubMesh*>  m_SubMeshesVector;  // Store different primitives
+    void                    GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinygltf::Primitive& primitive, sSubMesh*e_pSubMesh);
 public:
     cMesh();
     virtual ~cMesh();
