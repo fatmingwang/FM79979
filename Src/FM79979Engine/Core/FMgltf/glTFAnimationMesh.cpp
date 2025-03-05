@@ -342,7 +342,7 @@ void cAnimationMesh::SetCurrentAnimation(const std::string& e_strAnimationName)
     RefreshAnimationData();
 }
 
-void cAnimationMesh::UpdateJointsMatrixToShader()
+void cAnimationMesh::UpdateJointsMatrix()
 {
     int boneCount = (int)this->m_JointOrderVector.size();
     for (int i = 0; i < boneCount; ++i)
@@ -389,32 +389,38 @@ void cAnimationMesh::RefreshAnimationData()
 
 void cAnimationMesh::Update(float e_fElpaseTime)
 {
-    // Ensure the current animation data is valid
-    if (!this->m_AnimationClip.m_pCurrentAnimationData)
+    if (m_NameAndAnimationMap.size())
     {
-        auto l_Animation = m_NameAndAnimationMap.begin();
-        if (m_NameAndAnimationMap.size() > 1)
+        // Ensure the current animation data is valid
+        if (!this->m_AnimationClip.m_pCurrentAnimationData)
         {
-            ++l_Animation;
-            //++l_Animation;
+            if (m_NameAndAnimationMap.size())
+            {
+                auto l_Animation = m_NameAndAnimationMap.begin();
+                if (m_NameAndAnimationMap.size() > 1)
+                {
+                    ++l_Animation;
+                    //++l_Animation;
+                }
+                this->SetCurrentAnimation(l_Animation->first);
+            }
         }
-        this->SetCurrentAnimation(l_Animation->first);
+        bool l_bDoBlendingTest = false;
+        if (!l_bDoBlendingTest)
+        {
+            this->m_AnimationClip.Update(e_fElpaseTime);
+        }
+        else
+        {
+            auto l_Animation = m_NameAndAnimationMap.begin();
+            std::string l_strAnimation1 = l_Animation->first;
+            ++l_Animation;
+            ++l_Animation;
+            std::string l_strAnimation2 = (++l_Animation)->first;
+            this->m_AnimationClip.BlendClips(e_fElpaseTime, "Running", l_strAnimation2.c_str(), true, true, 0.9f);
+        }
+        UpdateJointsMatrix();
     }
-    bool l_bDoBlendingTest = false;
-    if (!l_bDoBlendingTest)
-    {
-        this->m_AnimationClip.Update(e_fElpaseTime);
-    }
-    else
-    {
-        auto l_Animation = m_NameAndAnimationMap.begin();
-        std::string l_strAnimation1 = l_Animation->first;
-        ++l_Animation;
-        ++l_Animation;
-        std::string l_strAnimation2 = (++l_Animation)->first;
-        this->m_AnimationClip.BlendClips(e_fElpaseTime, "Running", l_strAnimation2.c_str(), true, true, 0.9f);
-    }
-    UpdateJointsMatrixToShader();
 }
 
 void	cAnimationMesh::UpdateNode(cBone* e_pBone, float e_fTime)
@@ -437,7 +443,7 @@ void	cAnimationMesh::UpdateNode(cBone* e_pBone, float e_fTime)
 }
 cMatrix44 g_PVMat;
 cMatrix44 g_ModelMat;
-void cAnimationMesh::Draw()
+void cAnimationMesh::Render()
 {
     static float angle = 0.0f;
     static float lightAngle = 0.0f;

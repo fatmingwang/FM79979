@@ -71,15 +71,7 @@ void    captureToPhotoAlbum()
 namespace FATMING_CORE
 {
 	UINT	g_iAteVideoMomory = 0;//in KB
-	cTextureManager*cTextureManager::m_spTextureManager = nullptr;;
-	cTextureManager* cTextureManager::GetInstance()
-	{
-		if (!m_spTextureManager)
-		{
-			m_spTextureManager = new cTextureManager();
-		}
-		return m_spTextureManager;
-	}
+	//cTextureManager*cTextureManager::m_spTextureManager = nullptr;;
 	cTextureManager::cTextureManager()
 	{
 		this->m_bTryWithoutFullFilePathName = true;
@@ -88,7 +80,8 @@ namespace FATMING_CORE
 
 	cTextureManager::~cTextureManager()
 	{
-		m_spTextureManager = nullptr;
+		this->m_ObjectList;
+		//m_spTextureManager = nullptr;
 	}
 
 	void	cTextureManager::AddObjectWithDebugInfo(cTexture*e_pTexture)
@@ -107,28 +100,31 @@ namespace FATMING_CORE
 	}
 	void	cTextureManager::RemoveObjectWithDebugInfo(cTexture*e_pTexture)
 	{
-		assert(GetObjectIndexByName(e_pTexture->GetName()) != -1);
-		RemoveObjectWithoutDelete(e_pTexture);
+		if (!CheckRefToRelease(e_pTexture))
+		{
+			assert(GetObjectIndexByName(e_pTexture->GetName()) != -1);
+			RemoveObjectWithoutDelete(e_pTexture);
 #ifdef DEBUG
-		std::wstring l_strFileName = e_pTexture->GetName();
-		l_strFileName += L" destroy:Texture,Ate Ram:";
-		int l_iMB = g_iAteVideoMomory / 1024;
-		int l_iKB = g_iAteVideoMomory % 1024;
-		if (l_iMB > 0)
-		{
-			l_strFileName += ValueToStringW(l_iMB);
-			l_strFileName += L"M";
-		}
-		if (l_iKB > 0)
-		{
-			l_strFileName += ValueToStringW(l_iKB);
-			l_strFileName += L"K";
-		}
-		FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
+			std::wstring l_strFileName = e_pTexture->GetName();
+			l_strFileName += L" destroy:Texture,Ate Ram:";
+			int l_iMB = g_iAteVideoMomory / 1024;
+			int l_iKB = g_iAteVideoMomory % 1024;
+			if (l_iMB > 0)
+			{
+				l_strFileName += ValueToStringW(l_iMB);
+				l_strFileName += L"M";
+			}
+			if (l_iKB > 0)
+			{
+				l_strFileName += ValueToStringW(l_iKB);
+				l_strFileName += L"K";
+			}
+			FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
 #endif
-		if (Count() == 0)
+		}
+		if (Count() == 0 && this->m_NameAndSharedTextureMap.size() == 0)
 		{
-			SAFE_DELETE(m_spTextureManager);
+			cTextureManager::DestroyInstance();
 		}
 	}
 
@@ -145,24 +141,69 @@ namespace FATMING_CORE
 		}
 	}
 
-	cTexture* cTextureManager::GetObjectByPixels(NamedTypedObject* e_pHolder, void* e_pPixelsData, int e_iWidth, int e_iHeight, const wchar_t* e_strName, int e_iDataFormat)
+	shared_ptr<cTexture> cTextureManager::GetObjectByPixels(void* e_pPixelsData, int e_iWidth, int e_iHeight, const wchar_t* e_strName, int e_iDataFormat)
 	{
-		cTexture* l_pTexture = nullptr;
+		cTextureManager* l_pTextureManager = cTextureManager::GetInstance();
+		shared_ptr<cTexture> l_pTexture = nullptr;
 		if (e_strName)
 		{
-			cNamedTypedObjectVector<cTexture>*l_pTextureManager = cTextureManager::GetInstance();
-			l_pTexture = dynamic_cast<cTexture*>(l_pTextureManager->GetObject(e_strName));
+			auto l_IT = l_pTextureManager->m_NameAndSharedTextureMap.find(e_strName);
+			if (l_IT != l_pTextureManager->m_NameAndSharedTextureMap.end())
+			{
+				l_pTexture = l_IT->second;
+			}
 		}
 		if (l_pTexture)
 		{
-			l_pTexture->AddRef(e_pHolder);
 			return l_pTexture;
 		}
 		else
 		{
-			l_pTexture = new cTexture(e_pHolder, (char*)e_pPixelsData, e_iWidth, e_iHeight, e_strName, false, false, e_iDataFormat);
+			l_pTexture = std::make_shared<cTexture>(nullptr, (char*)e_pPixelsData, e_iWidth, e_iHeight, e_strName, false, false, e_iDataFormat);
+			l_pTextureManager->m_NameAndSharedTextureMap.insert({ e_strName, l_pTexture });
 		}
 		return l_pTexture;
+	}
+
+	void cTextureManager::ClearSharedTextureReferenceMap(std::vector<std::wstring>* e_pEraseVector)
+	{
+		auto &l_Map = cTextureManager::GetInstance()->m_NameAndSharedTextureMap;
+		if (!e_pEraseVector)
+		{
+			l_Map.clear();
+		}
+		else
+		{
+			for (auto l_Name : *e_pEraseVector)
+			{
+				ERASE_MAP(l_Map,l_Name);
+			}
+		}
+	}
+
+	bool cTextureManager::CheckRefToRelease(cTexture* e_pTexture)
+	{
+		if (e_pTexture)
+		{
+			if (e_pTexture->GetOwner())
+			{
+				return false;
+			}
+			else
+			{
+				auto l_IT = this->m_NameAndSharedTextureMap.find(e_pTexture->GetName());
+				if (l_IT != this->m_NameAndSharedTextureMap.end())
+				{
+					int l_iCount = l_IT->second.use_count();
+					if (l_iCount == 1)
+					{
+						this->m_NameAndSharedTextureMap.erase(l_IT);
+					}
+				}
+			}
+			return true;
+		}
+		return false;
 	}
 
 	cTexture*	cTextureManager::GetObject(NamedTypedObject*e_pOwner, const char*e_strImageFileName, bool e_bFetchPixelData)

@@ -262,12 +262,12 @@ namespace UT
 			e_pfRssult[0] = 2.0;
 
 			// first intersection
-			mu = (-b + sqrt( square(b) - 4*a*c )) / (2*a);
+			mu = (-b + (float)sqrt( square(b) - 4.f*a*c )) / (2.f*a);
 			e_pfRssult[1] = x1 + mu*(x2-x1);
 			e_pfRssult[2] = y1 + mu*(y2-y1);
 			e_pfRssult[3] = z1 + mu*(z2-z1);
 			// second intersection
-			mu = (-b - sqrt(square(b) - 4*a*c )) / (2*a);
+			mu = (-b - (float)sqrt(square(b) - 4.f*a*c )) / (2.f*a);
 			e_pfRssult[4] = x1 + mu*(x2-x1);
 			e_pfRssult[5] = y1 + mu*(y2-y1);
 			e_pfRssult[6] = z1 + mu*(z2-z1);

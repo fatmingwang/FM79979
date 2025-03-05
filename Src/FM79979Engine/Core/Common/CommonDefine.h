@@ -39,7 +39,14 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 #define CLEAR_AND_DELETE_OBJECT_IN_LIST(LIST){auto l_pObject = LIST->back();delete l_pObject;LIST->pop_back();LIST->clear();}
 
 
-
+#define ERASE_MAP(MAP,KEY)								\
+					{									\
+						auto l_IT = MAP.find(KEY);		\
+						if (l_IT != MAP.end())			\
+						{								\
+							MAP.erase(l_IT);			\
+						}								\
+					}
 #define DELETE_MAP(MAP){					\
 	auto i=MAP.begin();						\
 	for(;i!=MAP.end();++i)										\

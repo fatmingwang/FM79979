@@ -24,6 +24,7 @@ cMesh::cMesh()
 
 cMesh::~cMesh()
 {
+    m_Material = nullptr;
     for (auto l_pSubMesh : m_SubMeshesVector)
     {
         l_pSubMesh->ClearOpenGLData();
@@ -59,7 +60,7 @@ void cMesh::SubMesh::ClearOpenGLData()
     glDeleteVertexArrays(1, &vao);
 }
 
-void cMesh::Draw()
+void cMesh::Render()
 {
     static float angle = 0.0f;
     static float lightAngle = 0.0f;

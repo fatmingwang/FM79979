@@ -20,7 +20,7 @@ class cAnimationMesh : public cMesh
     cAnimationClip m_AnimationClip;
     //
     void    UpdateNode(cBone* e_pBone, float e_fTime);
-    void    UpdateJointsMatrixToShader();
+    void    UpdateJointsMatrix();
 public:
     cAnimationMesh();
     virtual ~cAnimationMesh();
@@ -33,7 +33,7 @@ public:
     void    SetCurrentAnimationTime(float e_fCurrentTime);
     void    RefreshAnimationData();
     void    Update(float elapsedTime) override;
-    void    Draw() override;
+    void    Render() override;
     void    JointUpdate(float elapsedTime);
     void    RenderSkeleton();
 };

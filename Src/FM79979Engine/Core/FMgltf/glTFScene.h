@@ -18,6 +18,6 @@ public:
     std::map<std::string, cAnimationMesh*> m_AnimationMeshMap;
     bool LoadFromGLTF(const std::string& filename,bool e_bCalculateBiNormal = false);
     void InitBuffers();
-    void Draw();
+    void Render();
     void Destory();
 };

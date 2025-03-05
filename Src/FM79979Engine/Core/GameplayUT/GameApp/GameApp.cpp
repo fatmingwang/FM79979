@@ -260,6 +260,7 @@ namespace	FATMING_CORE
 		SAFE_DELETE(m_spGameResourceManager);
 		m_spGlyphFontRender = nullptr;
 		SAFE_DELETE(m_spExternalFunctionVector);
+		cTextureManager::DestroyInstance();
 		SystemErrorCheck();
 		FMLog::WriteLog("all Destroy done");
 	}

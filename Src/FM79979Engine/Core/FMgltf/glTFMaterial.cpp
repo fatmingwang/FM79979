@@ -8,6 +8,8 @@ namespace FATMING_CORE
     extern GLfloat	g_fMIN_FILTERValue;
 }
 
+TYPDE_DEFINE_MARCO(cMaterial);
+
 cMaterial::cMaterial(unsigned int e_uiShadeProgrameID)
 {
     m_uiShadeProgrameID = e_uiShadeProgrameID;
@@ -24,7 +26,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         const tinygltf::Texture& texture = model.textures[material.pbrMetallicRoughness.baseColorTexture.index];
         const tinygltf::Image& image = model.images[texture.source];
-        cTexture* l_pTexture = GetTexture(image);
+        shared_ptr<cTexture>l_pTexture = GetTexture(image);
         m_uiBaseColorTextureVector.push_back(l_pTexture);
     }
 
@@ -33,7 +35,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         const tinygltf::Texture& texture = model.textures[material.normalTexture.index];
         const tinygltf::Image& image = model.images[texture.source];
-        cTexture*l_pTexture = GetTexture(image);
+        shared_ptr<cTexture>l_pTexture = GetTexture(image);
         m_uiNormalTextureVector.push_back(l_pTexture);
     }
 
@@ -42,7 +44,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         const tinygltf::Texture& texture = model.textures[material.occlusionTexture.index];
         const tinygltf::Image& image = model.images[texture.source];
-        cTexture* l_pTexture = GetTexture(image);
+        shared_ptr<cTexture> l_pTexture = GetTexture(image);
         m_uiOocclusionTextureVector.push_back(l_pTexture);
     }
 }
@@ -78,7 +80,7 @@ bool cMaterial::ApplyUnriforms()
 	return false;
 }
 
-cTexture* cMaterial::GetTexture(const tinygltf::Image& e_Image)
+shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image)
 {
     auto l_OriginalMAG = g_fMAG_FILTERValue;
     auto l_OriginalMIN = g_fMIN_FILTERValue;
@@ -93,7 +95,7 @@ cTexture* cMaterial::GetTexture(const tinygltf::Image& e_Image)
     {
         l_uiFormat = GL_RGBA;
     }
-    cTexture*l_pTexture = cTextureManager::GetObjectByPixels(this, (void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(e_Image.uri).c_str(), (int)l_uiFormat);
+    shared_ptr<cTexture>l_pTexture = cTextureManager::GetObjectByPixels((void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(e_Image.uri).c_str(), (int)l_uiFormat);
     g_fMAG_FILTERValue = l_OriginalMAG;
     g_fMIN_FILTERValue = l_OriginalMIN;
     l_pTexture->ApplyImage();

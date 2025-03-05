@@ -15,20 +15,23 @@ namespace FATMING_CORE
 	void			OpenGLDeleteTexture(cTexture*e_pSimpleGLTexture);
 
 	class cTexture;
-	class cTextureManager:public cNamedTypedObjectVector<cTexture>
+	class cTextureManager:public cNamedTypedObjectVector<cTexture>,public cSingltonTemplate<cTextureManager>
 	{
-		static cTextureManager*m_spTextureManager;
-		//
+		std::map<std::wstring, shared_ptr<cTexture>>m_NameAndSharedTextureMap;
 		cTextureManager();
 		virtual ~cTextureManager();
+		//
+		bool    CheckRefToRelease(cTexture* e_pTexture);
 	public:
-		static cTextureManager *GetInstance();
+		SINGLETON_BASIC_FUNCTION(cTextureManager);
+		//static cTextureManager *GetInstance();
 		void	AddObjectWithDebugInfo(cTexture*e_pTexture);
 		void	RemoveObjectWithDebugInfo(cTexture*e_pTexture);
 		//using	cNamedTypedObjectVector::GetObject;
 		cTexture*	GetObject(NamedTypedObject*e_pOwner, const char*e_strImageFileName, bool e_bFetchPixelData = false);
 		//call this if loading is in another thread(not rendering thread)
 		void	UpdateOpenGLTextureBecauseMultiThreadLoading();
-		static cTexture* GetObjectByPixels(NamedTypedObject*e_pHolder,void*e_pPixelsData,int e_iWidth, int e_iHeight,const wchar_t*e_strName,int e_iDataFormat);
+		static  shared_ptr<cTexture> GetObjectByPixels(void*e_pPixelsData,int e_iWidth, int e_iHeight,const wchar_t*e_strName,int e_iDataFormat);
+		static  void ClearSharedTextureReferenceMap(std::vector<std::wstring>*e_pEraseVector = nullptr);
 	};
 }

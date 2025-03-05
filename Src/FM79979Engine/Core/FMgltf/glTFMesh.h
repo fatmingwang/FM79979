@@ -87,7 +87,7 @@ public:
     virtual ~cMesh();
 
     //void InitBuffer();  // Initialize and bind buffers
-    virtual void Draw();        // Draw the mesh
+    virtual void Render();        // Draw the mesh
 
     // Function to load vertex attributes and indices
     //void LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);

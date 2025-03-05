@@ -125,7 +125,11 @@ namespace FATMING_CORE
 			assert((m_iWidth<=texSize||m_iHeight<=texSize)&&"texture size is too big then card support");
 			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, m_iChannel==4?GL_RGBA:GL_RGB, m_iWidth,m_iHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,e_pPixels,e_strName); // Texture specification.
 		}
-		cTextureManager::GetInstance()->AddObjectWithDebugInfo(this);
+		if (this->GetReferenceCount())
+		{//use std::shared_ptr?
+			cTextureManager::GetInstance()->AddObjectWithDebugInfo(this);
+		}
+		
 	}
 	//===============
 	//
@@ -164,7 +168,10 @@ namespace FATMING_CORE
 			FMLog::LogWithFlag(l_strFileName, true);
 #endif
 		}
-		cTextureManager::GetInstance()->AddObjectWithDebugInfo(this);
+		if (this->GetReferenceCount())
+		{
+			cTextureManager::GetInstance()->AddObjectWithDebugInfo(this);
+		}
 	}
 	//===============
 	//

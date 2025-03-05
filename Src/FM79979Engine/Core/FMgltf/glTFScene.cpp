@@ -548,7 +548,7 @@ void cScene::InitBuffers()
 }
 
 // Draw the scene
-void cScene::Draw()
+void cScene::Render()
 {
     cBaseShader* l_pShader = GetCurrentShader();
     if (l_pShader)
@@ -566,13 +566,13 @@ void cScene::Draw()
     for (auto& meshPair : meshes)
     {
         //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
-        meshPair.second->Draw();
+        meshPair.second->Render();
     }
     for (auto& meshPair : m_AnimationMeshMap)
     {
         //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
         meshPair.second->Update(0.016f);
-        meshPair.second->Draw();
+        meshPair.second->Render();
         //meshPair.second->RenderBindPose();
     }
     glDisable(GL_CULL_FACE);
@@ -624,7 +624,7 @@ int glTFInit()
 void GlTFRender()
 {
     //    DrawModel(model, shaderProgram);
-    g_cScene.Draw();
+    g_cScene.Render();
     g_Chapter10Sample01.Update(0.016f);
     g_Chapter10Sample01.Render(16/9);
 }
@@ -633,5 +633,6 @@ void GlTFDestory()
 {
     //    DrawModel(model, shaderProgram);
     g_cScene.Destory();
+    cTextureManager::ClearSharedTextureReferenceMap();
 }
 
