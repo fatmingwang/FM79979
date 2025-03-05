@@ -600,10 +600,12 @@ int glTFInit()
     //g_cScene.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
     //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    //g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
+    g_cScene.LoadFromGLTF("glTFModel/BoxAnimated.gltf", false);
+    
     
     g_Chapter10Sample01.Initialize();
     //g_cScene.InitBuffers();

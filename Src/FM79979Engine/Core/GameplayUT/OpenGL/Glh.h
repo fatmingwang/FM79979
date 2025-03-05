@@ -78,10 +78,13 @@
 	void					MyGLDisable(GLenum e_GLenum);
 	void					MyGLGetIntegerv(GLenum e_GLenum, GLint *params);
 	void					MyglGetBooleanv(GLenum e_GLenum, GLboolean* data);
+	void					MyGLTexParameteri(GLenum e_GLenum, GLenum e_Target, GLint e_iValue);
+	
 #else
 #define	MyGlErrorTest(q)
 #define	MyGLEnable(p)			glEnable(p)
 #define	MyGLDisable(p)			glDisable(p)
 #define	MyGLGetIntegerv(p,q)	glGetIntegerv(p,q)
 #define	MyglGetBooleanv(p,q)	glGetBooleanv(p,q);
+#define	MyGLTexParameteri(p,q)	glTexParameteri(p,q);
 #endif

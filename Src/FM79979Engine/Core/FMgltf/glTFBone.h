@@ -22,9 +22,11 @@ void    ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Ma
 
 struct cBone : public Frame
 {
-    int     m_iJointIndex = -1;
-    int     m_iNodeIndex;
-    cMatrix44 m_matInvBindPose;
+    int         m_iJointIndex = -1;
+    int         m_iNodeIndex;
+    cMatrix44   m_matInvBindPose;
+    //for non skinning animation
+    std::string m_strTargetMeshName;
 
     cBone(const wchar_t* e_strName,int e_iJointIndex);
     ~cBone();
@@ -39,6 +41,8 @@ struct cBone : public Frame
 struct sAnimationData
 {
     std::map<cBone*, FloatToSRTMap> m_BoneIDAndAnimationData;
+    //it should ony taget to bone where has mesh name
+    cBone*  m_pNotSkinningMeshBone = nullptr;
     bool    m_bLoop;
     float   m_fMinKeyTime;
     float   m_fMaxKeyTime;

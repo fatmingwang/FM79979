@@ -103,8 +103,11 @@ shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image, const
     {
         l_uiFormat = GL_RGBA;
     }
-    g_uiMAG_FILTERValue = e_Sampler.magFilter;
-    g_uiMIN_FILTERValue = e_Sampler.minFilter;
+    if (e_Sampler.magFilter != -1 && e_Sampler.minFilter != -1)
+    {
+        g_uiMAG_FILTERValue = e_Sampler.magFilter;
+        g_uiMIN_FILTERValue = e_Sampler.minFilter;
+    }
     g_uiTEXTURE_WRAP_S = e_Sampler.wrapS;
     g_uiTEXTURE_WRAP_T = e_Sampler.wrapT;
     shared_ptr<cTexture>l_pTexture = cTextureManager::GetObjectByPixels((void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(e_Image.uri).c_str(), (int)l_uiFormat);

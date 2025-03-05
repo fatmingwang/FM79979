@@ -248,4 +248,12 @@ void MyglGetBooleanv(GLenum e_GLenum, GLboolean* data)
 	CHECK_GL_ERROR(l_strInfo.c_str());
 }
 
+void	MyGLTexParameteri(GLenum e_GLenum, GLenum e_Target, GLint e_iValue)
+{
+	glTexParameteri(e_GLenum, e_Target, e_iValue);
+	std::string l_strInfo = "MyGLTexParameteri:";
+	l_strInfo += FATMING_CORE::ValueToString((uint64)e_GLenum);
+	CHECK_GL_ERROR(l_strInfo.c_str());
+}
+
 #endif

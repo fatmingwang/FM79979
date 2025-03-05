@@ -85,6 +85,11 @@ void cAnimationMesh::LoadAnimations(const tinygltf::Model& model)
             boneName = ValueToStringW(i);
         }
         cBone*bone = new cBone(boneName.c_str(),(int)i);
+        if (node.mesh != -1)
+        {
+            auto l_strMeshName = model.meshes[node.mesh].name;
+            bone->m_strTargetMeshName = l_strMeshName;
+        }
         bool l_bSameName = m_AllNodeConvertToBoneBoneVector.AddObject(bone);
         assert(l_bSameName&&"node not allow to has same name!?");
         l_tinyglTFNodeAndJointIndexMap[&node] = bone;
@@ -277,6 +282,7 @@ void cAnimationMesh::loadAnimations(const tinygltf::Model& model, std::map<int, 
             const auto& targetNode = model.nodes[channel.target_node];
             if (sampler.interpolation != "LINEAR")
             {
+                FMLOG("animation only support lineat format")
                 continue;
             }
             auto it = e_NodeIndexAndBoneMap.find(channel.target_node);
@@ -445,6 +451,17 @@ cMatrix44 g_PVMat;
 cMatrix44 g_ModelMat;
 void cAnimationMesh::Render()
 {
+    if (m_SkinningBoneVector.size() == 0)
+    {
+        if (this->m_AnimationClip.m_pCurrentAnimationData)
+        {
+            if (this->m_AnimationClip.m_pCurrentAnimationData->m_pNotSkinningMeshBone)
+            {
+                this->SetLocalTransform(this->m_AnimationClip.m_pCurrentAnimationData->m_pNotSkinningMeshBone->GetWorldTransform());
+            }
+        }
+        cMesh::Render();
+    }
     static float angle = 0.0f;
     static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
@@ -455,7 +472,7 @@ void cAnimationMesh::Render()
     //conversionMatrix.m[2][2] = -1.0f;
     // Update the bone matrices for skinning
 
-    auto l_vPos = this->GetWorldPosition();
+    auto l_matTransoform = this->GetWorldTransform();
     //l_vPos.y = 5;
     // Iterate through sub-meshes and draw each one
     for (auto& l_pSubMesh : this->m_SubMeshesVector)
@@ -468,7 +485,7 @@ void cAnimationMesh::Render()
         GLuint viewLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4View");
         GLuint projLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Projection");
 
-        cMatrix44 modelMatrix = cMatrix44::TranslationMatrix(l_vPos);
+        cMatrix44 modelMatrix = l_matTransoform;
         cMatrix44 viewMatrix;// = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
         l_pSubMesh->GetProperCameraPosition(viewMatrix);
 

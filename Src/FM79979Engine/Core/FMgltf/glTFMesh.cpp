@@ -119,10 +119,10 @@ void cMesh::Render()
     static float angle = 0.0f;
     static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
-    lightAngle += 0.01f;
-    angle += 0.01f;
+    //lightAngle += 0.01f;
+    //angle += 0.01f;
 
-    auto l_vPos = this->GetLocalPosition();
+    auto l_matTransform = this->GetWorldTransform();
     for (auto l_pSubMesh : m_SubMeshesVector)
     {
         // Use the shader program specific to this sub-mesh
@@ -133,7 +133,7 @@ void cMesh::Render()
         GLuint viewLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4View");
         GLuint projLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Projection");
 
-        cMatrix44 modelMatrix = cMatrix44::TranslationMatrix(l_vPos);
+        cMatrix44 modelMatrix = l_matTransform;
         cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
         l_pSubMesh->GetProperCameraPosition(viewMatrix);
 

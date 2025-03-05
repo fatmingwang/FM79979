@@ -25,6 +25,7 @@ public:
     cAnimationMesh();
     virtual ~cAnimationMesh();
     void    loadSkins(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap);
+    //fuck below 2 loadAnimations loadNode should move to scene not here...
     void    loadAnimations(const tinygltf::Model& model, std::map<int, cBone*>& nodeToBoneMap);
     void    loadNode(const tinygltf::Node& node, const tinygltf::Model& model, cBone* parentBone, std::map<const tinygltf::Node*, cBone*>& e_tinyglTFNodeAndJointIndexMap);
 

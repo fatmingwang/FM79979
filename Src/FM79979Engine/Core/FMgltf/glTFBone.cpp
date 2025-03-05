@@ -162,9 +162,27 @@ bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone,std::ve
     }
     std::vector<cBone*>&l_pBoneVector = m_pAnimationMesh->m_SkinningBoneVector;
     auto l_uiSize = l_pBoneVector.size();
-    for (size_t i = 0; i < l_uiSize; ++i)
+    if (l_uiSize)
     {
-        UpdateNode(l_pBoneVector[i], e_fTime, (*l_pSRTVector)[i],e_bAssignToBone);
+        for (size_t i = 0; i < l_uiSize; ++i)
+        {
+            UpdateNode(l_pBoneVector[i], e_fTime, (*l_pSRTVector)[i], e_bAssignToBone);
+        }
+    }
+    else
+    {//not skinning animation
+        sSRT l_sSRT;
+        for (auto l_IT : m_pCurrentAnimationData->m_BoneIDAndAnimationData)
+        {
+            UpdateNode(l_IT.first, e_fTime, l_sSRT, true);
+            if (!this->m_pCurrentAnimationData->m_pNotSkinningMeshBone)
+            {
+                if (l_IT.first->m_strTargetMeshName.length()>0)
+                {
+                    this->m_pCurrentAnimationData->m_pNotSkinningMeshBone = l_IT.first;
+                }
+            }
+        }
     }
     return true;
 }
