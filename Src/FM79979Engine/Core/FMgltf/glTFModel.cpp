@@ -11,17 +11,7 @@ TYPDE_DEFINE_MARCO(cglTFModel);
 
 cglTFModel::~cglTFModel()
 {
-    DELETE_MAP(m_NameAndAnimationMap)
-    int l_iCount = m_NodesVector.Count();
-    for (int i = 0; i < l_iCount; i++)
-    {
-        auto l_pData = m_NodesVector[i];
-        if (l_pData)
-        {
-            l_pData->SetParent(nullptr);
-        }
-    }
-    m_NodesVector.Destroy();
+    this->Destory();
 }
 
 std::string cglTFModel::GenerateVertexShader(unsigned int fvfFlags)
@@ -357,7 +347,7 @@ GLuint cglTFModel::CreateShader(unsigned int fvfFlags)
     return shaderProgram;
 }
 
-void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap)
+void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal)
 {
     cglTFNodeData* bone = nullptr;
     auto l_IT2 = e_tinyglTFNodeAndJointIndexMap.find(&node);
@@ -381,7 +371,6 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Mo
             int a = 0;
         }
 #endif
-        //parentBone->AddChildToLast(bone);
         parentBone->AddChild(bone);
     }
 
@@ -409,27 +398,6 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Mo
         l_SRT.vScale = scale;
         l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
     }
-    //if (node.scale.size() == 3)
-    //{
-    //    Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
-    //    l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
-    //    l_SRT.scale = scale;
-    //    l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
-    //}
-    //if (node.rotation.size() == 4)
-    //{
-    //    Quaternion rotation((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
-    //    l_matNodeTransform *= rotation.ToMatrix();
-    //    l_SRT.rotation = rotation;
-    //    l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
-    //}
-    //if (node.translation.size() == 3)
-    //{
-    //    Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
-    //    l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
-    //    l_SRT.translation = translation;
-    //    l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
-    //}
     if (node.matrix.size() == 16)
     {
         cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
@@ -439,7 +407,22 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Mo
     bone->m_StartNodeTransform = l_matNodeTransform;
     bone->m_StartSRT = l_SRT;
     bone->SetLocalTransform(l_matNodeTransform);
-
+    cMesh* l_pMesh = nullptr;
+    if (node.skin != -1)
+    {
+        l_pMesh = GenerateAnimationMesh(model.skins[node.skin], model.meshes[node.mesh], model, e_bCalculateBiNormal);
+    }
+    else
+    if (node.mesh != -1)
+    {
+        if (node.mesh < model.meshes.size())
+        {
+            l_pMesh = GenerateMesh(model.meshes[node.mesh], model, e_bCalculateBiNormal);
+        }
+        auto l_strMeshName = model.meshes[node.mesh].name;
+        //bone->m_strTargetMeshName = l_strMeshName;
+    }
+    bone->m_pMesh = l_pMesh;
     //for (int childIndex : node.children)
     //{
     //    loadNode(model.nodes[childIndex], model, bone, e_tinyglTFNodeAndJointIndexMap);
@@ -450,7 +433,6 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
 {
     std::map<int, cglTFNodeData*> &l_NodeIndexAndBoneMap = m_NodeIndexAndBoneMap;
     std::map<const tinygltf::Node*, cglTFNodeData*> l_tinyglTFNodeAndJointIndexMap;
-    //first generate all bones from all nodes
     for (size_t i = 0; i < model.nodes.size(); i++)
     {
         const tinygltf::Node& node = model.nodes[i];
@@ -460,24 +442,6 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
             boneName = ValueToStringW(i);
         }
         cglTFNodeData* l_pglTFNodeData = new cglTFNodeData(node, (int)i);
-        cMesh* l_pMesh = nullptr;
-        if (node.skin != -1)
-        {
-            cMesh*l_pMesh = new cSkinningMesh();
-            if (node.skin < model.skins.size())
-            {
-                //model.skins[node.skin];
-            }
-        }
-        if (node.mesh != -1)
-        {
-            if (node.mesh < model.meshes.size())
-            {
-                l_pMesh = GenerateMesh(model.meshes[node.mesh], model, e_bCalculateBiNormal);
-            }
-            auto l_strMeshName = model.meshes[node.mesh].name;
-            //bone->m_strTargetMeshName = l_strMeshName;
-        }
         bool l_bSameName = m_NodesVector.AddObject(l_pglTFNodeData);
         assert(l_bSameName && "node not allow to has same name!?");
         l_tinyglTFNodeAndJointIndexMap[&node] = l_pglTFNodeData;
@@ -486,7 +450,7 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
     for (size_t i = 0; i < model.nodes.size(); i++)
     {
         const tinygltf::Node& node = model.nodes[i];
-        InternalLoadNode(node, model, nullptr, l_tinyglTFNodeAndJointIndexMap);
+        InternalLoadNode(node, model, nullptr, l_tinyglTFNodeAndJointIndexMap, e_bCalculateBiNormal);
         auto l_pBone = l_tinyglTFNodeAndJointIndexMap[&node];
         for (auto l_iChildIndex : node.children)
         {
@@ -641,20 +605,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
 
         m_NameAndAnimationMap[animation.name] = l_pAnimationData;
     }
-}
-
-void cglTFModel::loadSkins(const tinygltf::Model& model)
-{
-    int l_iCount = this->m_NodesVector.Count();
-    for (int i = 0; i < l_iCount;++i)
-    {
-
-    }
-    for (const auto& skin : model.skins)
-    {
-        //skin.joints
-        
-    }
+    m_AnimationClip.m_pglTFModel = this;
 }
 
 void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
@@ -685,13 +636,13 @@ cMesh* cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const tinygltf::Mo
     return l_pMesh;
 }
 
-cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tinygltf::Mesh& e_Mesh, tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
     cSkinningMesh*l_pSkinningMesh = new cSkinningMesh();
     AssignMeshAttributes(l_pSkinningMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
     l_pSkinningMesh->LoadAnimations(e_Skin,this,e_Model);
     m_AnimationMeshMap[e_Mesh.name] = l_pSkinningMesh;
-    return nullptr;
+    return l_pSkinningMesh;
 }
 
 GLuint cglTFModel::GetShaderProgram(unsigned int fvfFlags)
@@ -762,56 +713,6 @@ bool cglTFModel::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNo
         return false;
     }
     LoadNodes(model,e_bCalculateBiNormal);
-    //for (const auto& meshPair : model.meshes)
-    for (int i=0;i<model.meshes.size();++i)
-    {
-        const auto& meshPair = model.meshes[i];
-        cMesh* mesh = nullptr;
-        if (!model.animations.empty())
-        {
-            mesh = new cSkinningMesh();
-        }
-        else
-        {
-            mesh = new cMesh();
-        }
-
-        for (const auto& primitive : meshPair.primitives)
-        {
-            //mesh->LoadAttributes(model, primitive, e_bCalculateBiNormal);
-            mesh->LoadAttributesAndInitBuffer(model, primitive, e_bCalculateBiNormal);
-            // Get or create the appropriate shader program for the sub-mesh
-            for (auto l_pSubMesh : mesh->m_SubMeshesVector)
-            {
-                l_pSubMesh->shaderProgram = GetShaderProgram(l_pSubMesh->m_iFVFFlag);
-                // Load textures for each material
-                if (primitive.material >= 0 && primitive.material < model.materials.size())
-                {
-                    mesh->LoadMaterial(model, model.materials[primitive.material], l_pSubMesh->shaderProgram);
-                }
-            }
-            // Apply the node transformation to the mesh
-            for (const auto& node : model.nodes)
-            {
-                if (node.mesh == std::distance(model.meshes.begin(), std::find(model.meshes.begin(), model.meshes.end(), meshPair)))
-                {
-                    cMatrix44 nodeMatrix = GetNodeMatrix(node);
-                    mesh->SetLocalTransform(nodeMatrix);
-                    break;
-                }
-            }
-        }
-
-        if (cSkinningMesh* animMesh = dynamic_cast<cSkinningMesh*>(mesh))
-        {
-            //animMesh->LoadAnimations(model, this->m_NodeIndexAndBoneMap, &this->m_NodesVector);
-            m_AnimationMeshMap[meshPair.name] = (cSkinningMesh*)mesh;
-        }
-        else
-        {
-            m_NameAndMeshes[meshPair.name] = mesh;
-        }
-    }
     loadAnimations(model);
     return true;
 }
@@ -873,15 +774,22 @@ void cglTFModel::Render()
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    for (auto& meshPair : m_NameAndMeshes)
+    int l_iNum = this->m_NodesVector.Count();
+    for (int i = 0; i < l_iNum; ++i)
     {
-        meshPair.second->Render();
+        auto l_pNode = m_NodesVector[i];
+        l_pNode->Update(0.016f);
+        l_pNode->Render();
     }
-    for (auto& meshPair : m_AnimationMeshMap)
-    {
-        meshPair.second->Update(0.016f);
-        meshPair.second->Render();
-    }
+    //for (auto& meshPair : m_NameAndMeshes)
+    //{
+    //    meshPair.second->Render();
+    //}
+    //for (auto& meshPair : m_AnimationMeshMap)
+    //{
+    //    meshPair.second->Update(0.016f);
+    //    meshPair.second->Render();
+    //}
     glUseProgram(0);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -889,6 +797,17 @@ void cglTFModel::Render()
 
 void cglTFModel::Destory()
 {
+    int l_iCount = m_NodesVector.Count();
+    for (int i = 0; i < l_iCount; i++)
+    {
+        auto l_pData = m_NodesVector[i];
+        if (l_pData)
+        {
+            l_pData->SetParent(nullptr);
+        }
+    }
+    m_NodesVector.Destroy();
+    DELETE_MAP(m_NameAndAnimationMap);
     DELETE_MAP(m_NameAndMeshes);
     DELETE_MAP(m_AnimationMeshMap);
 }
@@ -902,10 +821,15 @@ void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)
 //#include "./ThirdParty/Chapter10Sample01.h"
 //#include "./ThirdParty/Chapter12Sample03.h"
 
-cglTFModel g_glTFModel;
+cglTFModel* g_pglTFModel = nullptr;
 //Chapter12Sample03 g_Chapter10Sample01;
 int glTFInit()
 {
+    if(!g_pglTFModel)
+    {
+        g_pglTFModel = new cglTFModel();
+    }
+    cglTFModel& g_glTFModel = *g_pglTFModel;
     //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
     //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
@@ -913,11 +837,11 @@ int glTFInit()
     //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
-    g_glTFModel.LoadFromGLTF("glTFModel/BoxAnimated.gltf", false);
+    //g_glTFModel.LoadFromGLTF("glTFModel/BoxAnimated.gltf", false);
     
     
     //g_Chapter10Sample01.Initialize();
@@ -928,16 +852,23 @@ int glTFInit()
 void GlTFRender()
 {
     //    DrawModel(model, shaderProgram);
-    g_glTFModel.Render();
+    if (g_pglTFModel)
+    {
+        g_pglTFModel->Update(0.016f);
+        g_pglTFModel->Render();
+    }
     /*g_Chapter10Sample01.Update(0.016f);
     g_Chapter10Sample01.Render(16/9);*/
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    for (auto& meshPair : g_glTFModel.m_AnimationMeshMap)
+    if (g_pglTFModel)
     {
-        if (meshPair.second)
+        for (auto& meshPair : g_pglTFModel->m_AnimationMeshMap)
         {
-            meshPair.second->RenderSkeleton();
+            if (meshPair.second)
+            {
+                meshPair.second->RenderSkeleton();
+            }
         }
     }
     glUseProgram(0);
@@ -948,7 +879,7 @@ void GlTFRender()
 void GlTFDestory()
 {
     //    DrawModel(model, shaderProgram);
-    g_glTFModel.Destory();
+    SAFE_DELETE(g_pglTFModel);
     cTextureManager::ClearSharedTextureReferenceMap();
 }
 

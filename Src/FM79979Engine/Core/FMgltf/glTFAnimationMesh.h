@@ -18,7 +18,7 @@ class cSkinningMesh : public cMesh
 public:
     cSkinningMesh();
     virtual ~cSkinningMesh();
-    void    LoadAnimations(const tinygltf::Skin&e_Skin,cglTFModel*e_pModel, tinygltf::Model&e_Model);
+    void    LoadAnimations(const tinygltf::Skin&e_Skin,cglTFModel*e_pModel,const  tinygltf::Model&e_Model);
     void    RefreshAnimationData();
     void    Update(float elapsedTime) override;
     void    Render() override;

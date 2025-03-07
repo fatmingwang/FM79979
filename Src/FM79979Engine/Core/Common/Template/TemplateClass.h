@@ -133,8 +133,10 @@ public:
 		{
 			while( m_ObjectList.size() )
 			{
-				if(!RemoveObject(0))
+				if (!RemoveObject(0))
+				{
 					m_ObjectList.erase(m_ObjectList.begin());
+				}
 				//m_ObjectList[i].~T();
 			}
 		}

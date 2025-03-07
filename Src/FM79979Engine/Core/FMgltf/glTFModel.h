@@ -17,17 +17,16 @@ public:
     GLuint                                  GetShaderProgram(unsigned int fvfFlags);  // Returns shader based on FVF
     GLuint                                  CreateShader(unsigned int fvfFlags);
 
-    void                                    InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap);
+    void                                    InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal);
     void                                    LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNormal);
     void                                    PopulateUniform(int e_iProgram);
     void                                    PopulateAttribute(int e_iProgram);
     void                                    loadAnimations(const tinygltf::Model& model);
-    void                                    loadSkins(const tinygltf::Model& model);
     std::map<std::string, sAnimationData*>  m_NameAndAnimationMap;
     cAnimationClip                          m_AnimationClip;
     void                                    AssignMeshAttributes(cMesh*e_pMesh, const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
     cMesh*                                  GenerateMesh(const tinygltf::Mesh&e_Mesh, const tinygltf::Model&e_Model, bool e_bCalculateBiNormal);
-    cMesh*                                  GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Mesh& e_Mesh, tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
+    cMesh*                                  GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Mesh& e_Mesh,const tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
 public:
     DEFINE_TYPE_INFO();
     cglTFModel(){ }
