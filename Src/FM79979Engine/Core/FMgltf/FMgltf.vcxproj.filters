@@ -33,16 +33,13 @@
     <ClInclude Include="tiny_gltf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="glTFScene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="glTFMesh.h">
       <Filter>Mesh</Filter>
     </ClInclude>
     <ClInclude Include="glTFAnimationMesh.h">
       <Filter>Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="glTFBone.h">
+    <ClInclude Include="glTFNode.h">
       <Filter>Mesh</Filter>
     </ClInclude>
     <ClInclude Include="ThirdParty\AnimBaker.h">
@@ -219,18 +216,15 @@
     <ClInclude Include="glTFMaterial.h">
       <Filter>Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="glTFAnimation.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFModel.h">
+      <Filter>Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FileUtility.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="glTFRenderTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="glTFScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glTFMesh.cpp">
@@ -239,7 +233,7 @@
     <ClCompile Include="glTFAnimationMesh.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="glTFBone.cpp">
+    <ClCompile Include="glTFNode.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
     <ClCompile Include="ThirdParty\AnimBaker.cpp">
@@ -392,13 +386,11 @@
     <ClCompile Include="glTFMaterial.cpp">
       <Filter>Mesh</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="VS.glsl">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="FS.glsl">
-      <Filter>Source Files</Filter>
-    </None>
+    <ClCompile Include="glTFModel.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFAnimation.cpp">
+      <Filter>Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

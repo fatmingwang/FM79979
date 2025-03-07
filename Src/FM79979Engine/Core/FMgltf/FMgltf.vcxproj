@@ -142,14 +142,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="glTFAnimation.h" />
     <ClInclude Include="glTFMaterial.h" />
     <ClInclude Include="glVertexAttribute.h" />
     <ClInclude Include="FileUtility.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="glTFAnimationMesh.h" />
-    <ClInclude Include="glTFBone.h" />
+    <ClInclude Include="glTFNode.h" />
     <ClInclude Include="glTFMesh.h" />
-    <ClInclude Include="glTFScene.h" />
+    <ClInclude Include="glTFModel.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SkeletonPose.h" />
     <ClInclude Include="ThirdParty\AnimBaker.h" />
@@ -210,14 +211,13 @@
     <ClInclude Include="tiny_gltf.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="glTFAnimation.cpp" />
     <ClCompile Include="glTFMaterial.cpp" />
     <ClCompile Include="glVertexAttribute.cpp" />
-    <ClCompile Include="FileUtility.cpp" />
     <ClCompile Include="glTFAnimationMesh.cpp" />
-    <ClCompile Include="glTFBone.cpp" />
+    <ClCompile Include="glTFNode.cpp" />
     <ClCompile Include="glTFMesh.cpp" />
-    <ClCompile Include="glTFRenderTest.cpp" />
-    <ClCompile Include="glTFScene.cpp" />
+    <ClCompile Include="glTFModel.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -272,10 +272,6 @@
     <ClCompile Include="ThirdParty\TransformTrack.cpp" />
     <ClCompile Include="ThirdParty\Uniform.cpp" />
     <ClCompile Include="ThirdParty\vec3.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FS.glsl" />
-    <None Include="VS.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

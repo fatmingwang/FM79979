@@ -6,9 +6,26 @@
 #include "tiny_gltf.h"
 #include <iostream>
 #include <sstream>
-#include "glTFScene.h"
+#include "glTFModel.h"
 
-std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
+TYPDE_DEFINE_MARCO(cglTFModel);
+
+cglTFModel::~cglTFModel()
+{
+    DELETE_MAP(m_NameAndAnimationMap)
+    int l_iCount = m_NodesVector.Count();
+    for (int i = 0; i < l_iCount; i++)
+    {
+        auto l_pData = m_NodesVector[i];
+        if (l_pData)
+        {
+            l_pData->SetParent(nullptr);
+        }
+    }
+    m_NodesVector.Destroy();
+}
+
+std::string cglTFModel::GenerateVertexShader(unsigned int fvfFlags)
 {
     std::string shaderCode = R"(
         #version 330 core
@@ -148,7 +165,7 @@ std::string cScene::GenerateVertexShader(unsigned int fvfFlags)
 }
 
 
-std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
+std::string cglTFModel::GenerateFragmentShader(unsigned int fvfFlags)
 {
     std::string shaderCode = R"(
         #version 330 core
@@ -300,7 +317,7 @@ std::string cScene::GenerateFragmentShader(unsigned int fvfFlags)
 
 
 
-GLuint cScene::CreateShader(unsigned int fvfFlags)
+GLuint cglTFModel::CreateShader(unsigned int fvfFlags)
 {
     std::string vertexCode = GenerateVertexShader(fvfFlags);
     std::string fragmentCode = GenerateFragmentShader(fvfFlags);
@@ -341,7 +358,146 @@ GLuint cScene::CreateShader(unsigned int fvfFlags)
     return shaderProgram;
 }
 
-void cScene::PopulateUniform(int e_iProgram)
+void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap)
+{
+    cglTFNodeData* bone = nullptr;
+    auto l_IT2 = e_tinyglTFNodeAndJointIndexMap.find(&node);
+    if (l_IT2 != e_tinyglTFNodeAndJointIndexMap.end())
+    {
+        bone = l_IT2->second;
+    }
+    else
+    {
+        int notfound = 0;
+        assert(0 && "can't find node index by name");
+        return;
+    }
+    if (parentBone)
+    {
+#ifdef DEBUG
+        if (parentBone->m_iJointIndex == 3 &&
+            bone->m_iJointIndex == 4)
+        {
+            //for debug
+            int a = 0;
+        }
+#endif
+        //parentBone->AddChildToLast(bone);
+        parentBone->AddChild(bone);
+    }
+
+    cMatrix44   l_matNodeTransform = cMatrix44::Identity;
+    sSRT         l_SRT;
+    //because gltf matrix is column so take trs to make it right?
+    if (node.translation.size() == 3)
+    {
+        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+        l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
+        l_SRT.vTranslation = translation;
+        l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
+    }
+    if (node.rotation.size() == 4)
+    {
+        Quaternion rotation((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
+        l_matNodeTransform *= rotation.ToMatrix();
+        l_SRT.qRotation = rotation;
+        l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
+    }
+    if (node.scale.size() == 3)
+    {
+        Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+        l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
+        l_SRT.vScale = scale;
+        l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
+    }
+    //if (node.scale.size() == 3)
+    //{
+    //    Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+    //    l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
+    //    l_SRT.scale = scale;
+    //    l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
+    //}
+    //if (node.rotation.size() == 4)
+    //{
+    //    Quaternion rotation((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
+    //    l_matNodeTransform *= rotation.ToMatrix();
+    //    l_SRT.rotation = rotation;
+    //    l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
+    //}
+    //if (node.translation.size() == 3)
+    //{
+    //    Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+    //    l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
+    //    l_SRT.translation = translation;
+    //    l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
+    //}
+    if (node.matrix.size() == 16)
+    {
+        cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
+        l_matNodeTransform = nodeMatrix;
+    }
+    //11
+    bone->m_StartNodeTransform = l_matNodeTransform;
+    bone->m_StartSRT = l_SRT;
+    bone->SetLocalTransform(l_matNodeTransform);
+
+    //for (int childIndex : node.children)
+    //{
+    //    loadNode(model.nodes[childIndex], model, bone, e_tinyglTFNodeAndJointIndexMap);
+    //}
+}
+
+void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNormal)
+{
+    std::map<int, cglTFNodeData*> &l_NodeIndexAndBoneMap = m_NodeIndexAndBoneMap;
+    std::map<const tinygltf::Node*, cglTFNodeData*> l_tinyglTFNodeAndJointIndexMap;
+    //first generate all bones from all nodes
+    for (size_t i = 0; i < model.nodes.size(); i++)
+    {
+        const tinygltf::Node& node = model.nodes[i];
+        std::wstring boneName = std::wstring(node.name.begin(), node.name.end());
+        if (boneName.length() == 0)
+        {
+            boneName = ValueToStringW(i);
+        }
+        cglTFNodeData* bone = new cglTFNodeData(node, (int)i);
+        cMesh* l_pMesh = nullptr;
+        if (node.skin != -1)
+        {
+            cMesh*l_pMesh = new cSkinningMesh();
+            if (node.skin < model.skins.size())
+            {
+                //model.skins[node.skin];
+            }
+        }
+        if (node.mesh != -1)
+        {
+            if (node.mesh < model.meshes.size())
+            {
+                l_pMesh = GenerateMesh(model.meshes[node.mesh], model, e_bCalculateBiNormal);
+            }
+            auto l_strMeshName = model.meshes[node.mesh].name;
+            //bone->m_strTargetMeshName = l_strMeshName;
+        }
+        bool l_bSameName = m_NodesVector.AddObject(bone);
+        assert(l_bSameName && "node not allow to has same name!?");
+        l_tinyglTFNodeAndJointIndexMap[&node] = bone;
+        l_NodeIndexAndBoneMap[(int)i] = bone;
+    }
+    for (size_t i = 0; i < model.nodes.size(); i++)
+    {
+        const tinygltf::Node& node = model.nodes[i];
+        InternalLoadNode(node, model, nullptr, l_tinyglTFNodeAndJointIndexMap);
+        auto l_pBone = l_tinyglTFNodeAndJointIndexMap[&node];
+        for (auto l_iChildIndex : node.children)
+        {
+            auto l_pChildBone = l_tinyglTFNodeAndJointIndexMap[&model.nodes[l_iChildIndex]];
+            l_pBone->AddChild(l_pChildBone);
+        }
+    }
+}
+
+void cglTFModel::PopulateUniform(int e_iProgram)
 {
     int count = -1;
     int length;
@@ -387,7 +543,7 @@ void cScene::PopulateUniform(int e_iProgram)
     int a = 0;
 }
 
-void cScene::PopulateAttribute(int e_iProgram)
+void cglTFModel::PopulateAttribute(int e_iProgram)
 {
     int count = -1;
     int length;
@@ -412,7 +568,135 @@ void cScene::PopulateAttribute(int e_iProgram)
     int a = 0;
 }
 
-GLuint cScene::GetShaderProgram(unsigned int fvfFlags)
+void cglTFModel::loadAnimations(const tinygltf::Model& model)
+{
+    for (const auto& animation : model.animations)
+    {
+        sAnimationData* l_pAnimationData = new sAnimationData();
+        sAnimationData& animationData = *l_pAnimationData;
+        //animationData.m_fMinKeyTime = FLT_MAX;
+        //animationData.m_fMaxKeyTime = FLT_MIN;
+        animationData.m_fCurrentTime = 0.0f;
+        animationData.m_fStartTime = 0.0f;
+        animationData.m_fEndTime = 0.0f;
+
+        for (const auto& channel : animation.channels)
+        {
+            const auto& sampler = animation.samplers[channel.sampler];
+            const auto& targetNode = model.nodes[channel.target_node];
+            if (sampler.interpolation != "LINEAR")
+            {
+                FMLOG("animation only support lineat format")
+                    continue;
+            }
+            auto it = m_NodeIndexAndBoneMap.find(channel.target_node);
+            if (it == m_NodeIndexAndBoneMap.end())
+            {
+                continue;
+            }
+
+            cglTFNodeData* bone = it->second;
+            FloatToSRTMap& keyframes = animationData.m_BoneIDAndAnimationData[bone];
+
+            const auto& inputAccessor = model.accessors[sampler.input];
+            const auto& inputBufferView = model.bufferViews[inputAccessor.bufferView];
+            const auto& inputBuffer = model.buffers[inputBufferView.buffer];
+            const float* inputData = reinterpret_cast<const float*>(inputBuffer.data.data() + inputBufferView.byteOffset + inputAccessor.byteOffset);
+
+            const auto& outputAccessor = model.accessors[sampler.output];
+            const auto& outputBufferView = model.bufferViews[outputAccessor.bufferView];
+            const auto& outputBuffer = model.buffers[outputBufferView.buffer];
+            const float* outputData = reinterpret_cast<const float*>(outputBuffer.data.data() + outputBufferView.byteOffset + outputAccessor.byteOffset);
+
+            for (size_t i = 0; i < inputAccessor.count; ++i)
+            {
+                float time = inputData[i];
+                sSRT& srt = keyframes[time];
+
+                if (channel.target_path == "translation")
+                {
+                    srt.vTranslation = Vector3(outputData + (i * 3));
+                    srt.iSRTFlag |= SRT_TRANSLATION_FLAG; // Set translation flag
+                }
+                else if (channel.target_path == "rotation")
+                {
+                    srt.qRotation = Quaternion(outputData + (i * 4));
+                    //srt.rotation.Normalize();
+                    srt.iSRTFlag |= SRT_ROTATION_FLAG; // Set rotation flag
+                }
+                else if (channel.target_path == "scale")
+                {
+                    srt.vScale = Vector3(outputData + (i * 3));
+                    srt.iSRTFlag |= SRT_SCALE_FLAG; // Set scale flag
+                }
+            }
+
+            if (!keyframes.empty())
+            {
+                animationData.m_fMinKeyTime = min(animationData.m_fMinKeyTime, keyframes.begin()->first);
+                animationData.m_fMaxKeyTime = max(animationData.m_fMaxKeyTime, keyframes.rbegin()->first);
+                animationData.m_fStartTime = animationData.m_fMinKeyTime;
+                animationData.m_fEndTime = animationData.m_fMaxKeyTime;
+            }
+        }
+
+        m_NameAndAnimationMap[animation.name] = l_pAnimationData;
+    }
+}
+
+void cglTFModel::loadSkins(const tinygltf::Model& model)
+{
+    int l_iCount = this->m_NodesVector.Count();
+    for (int i = 0; i < l_iCount;++i)
+    {
+
+    }
+    for (const auto& skin : model.skins)
+    {
+        //skin.joints
+        
+    }
+}
+
+void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+{
+    const auto& meshPair = e_Mesh;
+    cMesh* l_pMesh = e_pMesh;
+    for (const auto& primitive : meshPair.primitives)
+    {
+        l_pMesh->LoadAttributesAndInitBuffer(e_Model, primitive, e_bCalculateBiNormal);
+        // Get or create the appropriate shader program for the sub-mesh
+        for (auto l_pSubMesh : l_pMesh->m_SubMeshesVector)
+        {
+            l_pSubMesh->shaderProgram = GetShaderProgram(l_pSubMesh->m_iFVFFlag);
+            // Load textures for each material
+            if (primitive.material >= 0 && primitive.material < e_Model.materials.size())
+            {
+                l_pMesh->LoadMaterial(e_Model, e_Model.materials[primitive.material], l_pSubMesh->shaderProgram);
+            }
+        }
+    }
+}
+
+cMesh* cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+{
+    const auto& meshPair = e_Mesh;
+    cMesh* l_pMesh = new cMesh();
+    AssignMeshAttributes(l_pMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
+    m_NameAndMeshes[e_Mesh.name] = l_pMesh;
+    return l_pMesh;
+}
+
+cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tinygltf::Mesh& e_Mesh, tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+{
+    cSkinningMesh*l_pSkinningMesh = new cSkinningMesh();
+    AssignMeshAttributes(l_pSkinningMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
+    l_pSkinningMesh->LoadAnimations(e_Skin,this,e_Model);
+    m_AnimationMeshMap[e_Mesh.name] = l_pSkinningMesh;
+    return nullptr;
+}
+
+GLuint cglTFModel::GetShaderProgram(unsigned int fvfFlags)
 {
     // Check if the shader program for this FVF already exists
     auto it = shaderPrograms.find(fvfFlags);
@@ -461,7 +745,7 @@ cMatrix44 GetNodeMatrix(const tinygltf::Node& node)
     return matrix;
 }
 // Load the scene from a GLTF file
-bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal)
+bool cglTFModel::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal)
 {
     tinygltf::TinyGLTF loader;
     tinygltf::Model model;
@@ -474,19 +758,20 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
         // If loading as binary fails, try loading as ASCII
         success = loader.LoadASCIIFromFile(&model, &err, &warn, filename);
     }
-
     if (!success)
     {
         std::cerr << "Error loading GLTF file: " << err << std::endl;
         return false;
     }
-
-    for (const auto& meshPair : model.meshes)
+    LoadNodes(model,e_bCalculateBiNormal);
+    //for (const auto& meshPair : model.meshes)
+    for (int i=0;i<model.meshes.size();++i)
     {
+        const auto& meshPair = model.meshes[i];
         cMesh* mesh = nullptr;
         if (!model.animations.empty())
         {
-            mesh = new cAnimationMesh();
+            mesh = new cSkinningMesh();
         }
         else
         {
@@ -519,36 +804,64 @@ bool cScene::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal
             }
         }
 
-        if (cAnimationMesh* animMesh = dynamic_cast<cAnimationMesh*>(mesh))
+        if (cSkinningMesh* animMesh = dynamic_cast<cSkinningMesh*>(mesh))
         {
-            animMesh->LoadAnimations(model);
-            m_AnimationMeshMap[meshPair.name] = (cAnimationMesh*)mesh;
+            //animMesh->LoadAnimations(model, this->m_NodeIndexAndBoneMap, &this->m_NodesVector);
+            m_AnimationMeshMap[meshPair.name] = (cSkinningMesh*)mesh;
         }
         else
         {
-            meshes[meshPair.name] = mesh;
+            m_NameAndMeshes[meshPair.name] = mesh;
         }
     }
+    loadAnimations(model);
     return true;
 }
 
 // Initialize buffers for all meshes
-void cScene::InitBuffers()
+void cglTFModel::InitBuffers()
 {
-    //for (auto& meshPair : meshes)
-    //{
-    //    meshPair.second->InitBuffer();
-    //}
-    //for (auto& meshPair : m_AnimationMeshMap)
-    //{
-    //    meshPair.second->InitBuffer();
-    //}
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
+void cglTFModel::Update(float e_fElpaseTime)
+{
+    if (m_NameAndAnimationMap.size())
+    {
+        // Ensure the current animation data is valid
+        if (!this->m_AnimationClip.m_pCurrentAnimationData)
+        {
+            if (m_NameAndAnimationMap.size())
+            {
+                auto l_Animation = m_NameAndAnimationMap.begin();
+                if (m_NameAndAnimationMap.size() > 1)
+                {
+                    ++l_Animation;
+                    //++l_Animation;
+                }
+                this->SetCurrentAnimation(l_Animation->first);
+            }
+        }
+        bool l_bDoBlendingTest = false;
+        if (!l_bDoBlendingTest)
+        {
+            this->m_AnimationClip.Update(e_fElpaseTime);
+        }
+        else
+        {
+            auto l_Animation = m_NameAndAnimationMap.begin();
+            std::string l_strAnimation1 = l_Animation->first;
+            ++l_Animation;
+            ++l_Animation;
+            std::string l_strAnimation2 = (++l_Animation)->first;
+            this->m_AnimationClip.BlendClips(e_fElpaseTime, "Running", l_strAnimation2.c_str(), true, true, 0.9f);
+        }
+    }
+}
+
 // Draw the scene
-void cScene::Render()
+void cglTFModel::Render()
 {
     cBaseShader* l_pShader = GetCurrentShader();
     if (l_pShader)
@@ -563,14 +876,12 @@ void cScene::Render()
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    for (auto& meshPair : meshes)
+    for (auto& meshPair : m_NameAndMeshes)
     {
-        //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
         meshPair.second->Render();
     }
     for (auto& meshPair : m_AnimationMeshMap)
     {
-        //meshPair.second.SetLocalPosition(Vector3(l_iIndex,0,0));
         meshPair.second->Update(0.016f);
         meshPair.second->Render();
     }
@@ -579,17 +890,22 @@ void cScene::Render()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void cScene::Destory()
+void cglTFModel::Destory()
 {
-    DELETE_MAP(meshes);
+    DELETE_MAP(m_NameAndMeshes);
     DELETE_MAP(m_AnimationMeshMap);
+}
+
+void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)
+{
+    this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
 }
 
 #include "./ThirdParty/Chapter10Sample02.h"
 #include "./ThirdParty/Chapter10Sample01.h"
 #include "./ThirdParty/Chapter12Sample03.h"
 
-cScene g_cScene;
+cglTFModel g_cScene;
 Chapter12Sample03 g_Chapter10Sample01;
 int glTFInit()
 {

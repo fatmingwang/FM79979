@@ -59,23 +59,21 @@ class cMesh:public FATMING_CORE::Frame
 protected:
     shared_ptr<cMaterial>m_Material;
     void    ApplyMaterial();
-    friend class cScene;
+    friend class cglTFModel;
 public:
     struct sSubMesh
     {
-        unsigned int    m_iFVFFlag = 0;
-        GLuint          shaderProgram;
-        unsigned int    indexOffset;
-        unsigned int    indexCount;
-        size_t          m_i64VertexCount = 0;
+        unsigned int                m_iFVFFlag = 0;
+        GLuint                      shaderProgram;
+        size_t                      m_i64VertexCount = 0;
         GLuint                      m_iVBOArray[TOTAL_FVF];
         std::vector<uint32_t>       m_IndexBuffer;
-        GLuint                      vao;
-        GLuint ebo;
-        Vector3 m_vMinBounds;
-        Vector3 m_vMaxBounds;
-        void    GetProperCameraPosition(cMatrix44& e_CameraMatrix);
-        void    ClearOpenGLData();
+        GLuint                      m_uiVAO;
+        GLuint                      m_uiEBO;
+        Vector3                     m_vMinBounds;
+        Vector3                     m_vMaxBounds;
+        void                        GetProperCameraPosition(cMatrix44& e_CameraMatrix);
+        void                        ClearOpenGLData();
     };
     Vector3 m_vMinBounds;
     Vector3 m_vMaxBounds;

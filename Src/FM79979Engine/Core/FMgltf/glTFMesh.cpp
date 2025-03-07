@@ -110,8 +110,8 @@ void cMesh::sSubMesh::ClearOpenGLData()
         }
         
     }
-    glDeleteBuffers(1, &ebo);
-    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &m_uiEBO);
+    glDeleteVertexArrays(1, &m_uiVAO);
 }
 
 void cMesh::Render()
@@ -176,7 +176,7 @@ void cMesh::Render()
         glUniform3fv(dirLightColorLoc, 1, dirLightColor);
         ApplyMaterial();
         // Bind the vertex array and draw the sub-mesh
-        glBindVertexArray(l_pSubMesh->vao);
+        glBindVertexArray(l_pSubMesh->m_uiVAO);
         EnableVertexAttributes(l_pSubMesh->m_iFVFFlag);
         MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)l_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
     }
@@ -254,12 +254,12 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
     }
 
     // Generate and bind VAO
-    glGenVertexArrays(1, &l_pSubMesh->vao);
-    glBindVertexArray(l_pSubMesh->vao);
+    glGenVertexArrays(1, &l_pSubMesh->m_uiVAO);
+    glBindVertexArray(l_pSubMesh->m_uiVAO);
 
     // Generate and upload index buffer
-    glGenBuffers(1, &l_pSubMesh->ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, l_pSubMesh->ebo);
+    glGenBuffers(1, &l_pSubMesh->m_uiEBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, l_pSubMesh->m_uiEBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, l_pSubMesh->m_IndexBuffer.size() * sizeof(uint32_t), l_pSubMesh->m_IndexBuffer.data(), GL_STATIC_DRAW);
 
     std::map<std::string, int> l_AttributeMap = {
