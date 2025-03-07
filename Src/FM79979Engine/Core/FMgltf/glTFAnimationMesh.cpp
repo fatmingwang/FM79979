@@ -11,7 +11,7 @@
 #include <sstream>
 
 bool g_bApplyInverseBindPose = true;
-
+TYPDE_DEFINE_MARCO(cSkinningMesh);
 cSkinningMesh::cSkinningMesh()
     : m_pMainRootBone(nullptr), m_pAllBonesMatrixForSkinned(nullptr)
 {

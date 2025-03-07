@@ -16,6 +16,7 @@ class cSkinningMesh : public cMesh
     cMatrix44*                              m_pAllBonesMatrixForSkinned;
     void    UpdateJointsMatrix();
 public:
+    DEFINE_TYPE_INFO();
     cSkinningMesh();
     virtual ~cSkinningMesh();
     void    LoadAnimations(const tinygltf::Skin&e_Skin,cglTFModel*e_pModel,const  tinygltf::Model&e_Model);

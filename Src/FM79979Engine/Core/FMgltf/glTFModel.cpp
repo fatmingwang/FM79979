@@ -407,7 +407,7 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Mo
     bone->m_StartNodeTransform = l_matNodeTransform;
     bone->m_StartSRT = l_SRT;
     bone->SetLocalTransform(l_matNodeTransform);
-    cMesh* l_pMesh = nullptr;
+    shared_ptr<cMesh>l_pMesh = nullptr;
     if (node.skin != -1)
     {
         l_pMesh = GenerateAnimationMesh(model.skins[node.skin], model.meshes[node.mesh], model, e_bCalculateBiNormal);
@@ -610,6 +610,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
 
 void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
+    e_pMesh->SetName(e_Mesh.name.c_str());
     const auto& meshPair = e_Mesh;
     cMesh* l_pMesh = e_pMesh;
     for (const auto& primitive : meshPair.primitives)
@@ -628,18 +629,28 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_M
     }
 }
 
-cMesh* cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+shared_ptr<cMesh> cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
-    cMesh* l_pMesh = new cMesh();
-    AssignMeshAttributes(l_pMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
+    auto l_IT = m_NameAndMeshes.find(e_Mesh.name);
+    if (l_IT != m_NameAndMeshes.end())
+    {
+        return l_IT->second;
+    }
+    shared_ptr<cMesh>l_pMesh = std::make_shared<cMesh>();
+    AssignMeshAttributes(l_pMesh.get(), e_Mesh, e_Model, e_bCalculateBiNormal);
     m_NameAndMeshes[e_Mesh.name] = l_pMesh;
     return l_pMesh;
 }
 
-cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+shared_ptr<cMesh> cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
-    cSkinningMesh*l_pSkinningMesh = new cSkinningMesh();
-    AssignMeshAttributes(l_pSkinningMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
+    auto l_IT = m_AnimationMeshMap.find(e_Mesh.name);
+    if (l_IT != m_AnimationMeshMap.end())
+    {
+        return l_IT->second;
+    }
+    shared_ptr<cSkinningMesh>l_pSkinningMesh = std::make_shared<cSkinningMesh>();
+    AssignMeshAttributes(l_pSkinningMesh.get(), e_Mesh, e_Model, e_bCalculateBiNormal);
     l_pSkinningMesh->LoadAnimations(e_Skin,this,e_Model);
     m_AnimationMeshMap[e_Mesh.name] = l_pSkinningMesh;
     return l_pSkinningMesh;
@@ -742,7 +753,7 @@ void cglTFModel::Update(float e_fElpaseTime)
                 this->SetCurrentAnimation(l_Animation->first);
             }
         }
-        bool l_bDoBlendingTest = true;
+        bool l_bDoBlendingTest = false;
         if (!l_bDoBlendingTest)
         {
             this->m_AnimationClip.Update(e_fElpaseTime);
@@ -808,8 +819,6 @@ void cglTFModel::Destory()
     }
     m_NodesVector.Destroy();
     DELETE_MAP(m_NameAndAnimationMap);
-    DELETE_MAP(m_NameAndMeshes);
-    DELETE_MAP(m_AnimationMeshMap);
 }
 
 void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)
@@ -836,8 +845,10 @@ int glTFInit()
     //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    g_glTFModel.LoadFromGLTF("glTFModel/glTF/ABeautifulGame.gltf", true);
+    
     //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
@@ -879,7 +890,7 @@ void GlTFRender()
 void GlTFDestory()
 {
     //    DrawModel(model, shaderProgram);
-    SAFE_DELETE(g_pglTFModel);
     cTextureManager::ClearSharedTextureReferenceMap();
+    SAFE_DELETE(g_pglTFModel);
 }
 

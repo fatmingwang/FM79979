@@ -9,6 +9,23 @@
 #include <unordered_set>
 #include <set>
 
+
+TYPDE_DEFINE_MARCO(cMesh);
+
+cMesh::cMesh()
+{
+}
+
+cMesh::~cMesh()
+{
+    m_Material = nullptr;
+    for (auto l_pSubMesh : m_SubMeshesVector)
+    {
+        l_pSubMesh->ClearOpenGLData();
+    }
+    DELETE_VECTOR(m_SubMeshesVector);
+}
+
 void cMesh::ApplyMaterial()
 {
     if (this->m_Material)
@@ -71,20 +88,6 @@ void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinyglt
     }
 }
 
-cMesh::cMesh()
-{
-}
-
-cMesh::~cMesh()
-{
-    m_Material = nullptr;
-    for (auto l_pSubMesh : m_SubMeshesVector)
-    {
-        l_pSubMesh->ClearOpenGLData();
-    }
-    DELETE_VECTOR(m_SubMeshesVector);
-}
-
 
 void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
 {
@@ -93,7 +96,7 @@ void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
     float radius = size.Length() * 0.5f;
     center.y *= -1;
     // Set the camera position to be a bit further away from the center of the mesh
-    Vector3 cameraPosition = center + Vector3(0, 0, radius * 525.0f);
+    Vector3 cameraPosition = center + Vector3(0, 0, radius * 5.0f);
 
     // Assuming you have a function to set the view matrix in the projectionMatrix
     e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
@@ -118,7 +121,7 @@ void cMesh::Render()
     static float angle = 0.0f;
     static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
-    lightAngle += 0.01f;
+    lightAngle += 0.001f;
     //angle += 0.01f;
 
     auto l_matTransform = this->GetWorldTransform();

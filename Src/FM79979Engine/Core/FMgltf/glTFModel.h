@@ -11,8 +11,8 @@ public:
     cNamedTypedObjectVector<cglTFNodeData>         m_NodesVector;
     std::map<int,cglTFNodeData*>                   m_NodeIndexAndBoneMap;
 
-    std::string GenerateVertexShader(unsigned int fvfFlags);
-    std::string GenerateFragmentShader(unsigned int fvfFlags);
+    std::string                             GenerateVertexShader(unsigned int fvfFlags);
+    std::string                             GenerateFragmentShader(unsigned int fvfFlags);
     std::map<unsigned int, GLuint>          m_FVFAndShaderProgramsMap; // FVF -> Shader Program Map
     GLuint                                  GetShaderProgram(unsigned int fvfFlags);  // Returns shader based on FVF
     GLuint                                  CreateShader(unsigned int fvfFlags);
@@ -25,14 +25,14 @@ public:
     std::map<std::string, sAnimationData*>  m_NameAndAnimationMap;
     cAnimationClip                          m_AnimationClip;
     void                                    AssignMeshAttributes(cMesh*e_pMesh, const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
-    cMesh*                                  GenerateMesh(const tinygltf::Mesh&e_Mesh, const tinygltf::Model&e_Model, bool e_bCalculateBiNormal);
-    cMesh*                                  GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Mesh& e_Mesh,const tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
+    shared_ptr<cMesh>                       GenerateMesh(const tinygltf::Mesh&e_Mesh, const tinygltf::Model&e_Model, bool e_bCalculateBiNormal);
+    shared_ptr<cMesh>                       GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Mesh& e_Mesh,const tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
 public:
     DEFINE_TYPE_INFO();
     cglTFModel(){ }
     virtual ~cglTFModel();
-    std::map<std::string, cMesh*> m_NameAndMeshes;
-    std::map<std::string, cSkinningMesh*> m_AnimationMeshMap;
+    std::map<std::string, shared_ptr<cMesh>> m_NameAndMeshes;
+    std::map<std::string, shared_ptr<cSkinningMesh>> m_AnimationMeshMap;
 
     bool    LoadFromGLTF(const std::string& filename,bool e_bCalculateBiNormal = false);
     void    InitBuffers();

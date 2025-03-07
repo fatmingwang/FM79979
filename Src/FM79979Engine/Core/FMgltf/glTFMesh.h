@@ -81,6 +81,7 @@ protected:
     std::vector<sSubMesh*>  m_SubMeshesVector;  // Store different primitives
     void                    GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinygltf::Primitive& primitive, sSubMesh*e_pSubMesh);
 public:
+    DEFINE_TYPE_INFO();
     cMesh();
     virtual ~cMesh();
 

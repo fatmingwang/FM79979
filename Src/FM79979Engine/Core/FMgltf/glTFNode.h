@@ -27,7 +27,7 @@ struct cglTFNodeData : public Frame
     //for debug
     int                 m_iJointIndex = -1;
     int                 m_iNodeIndex = -1;
-    class cMesh*        m_pMesh = nullptr;
+    shared_ptr<class cMesh>        m_pMesh = nullptr;
     //
     cMatrix44   m_StartNodeWorldTransform;
     //rest pose

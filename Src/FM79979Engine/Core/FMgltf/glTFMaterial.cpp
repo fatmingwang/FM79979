@@ -22,6 +22,7 @@ cMaterial::~cMaterial()
 
 void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Material& material)
 {
+    this->SetName(material.name.c_str());
     // Load base color texture
     if (material.pbrMetallicRoughness.baseColorTexture.index >= 0)
     {
