@@ -3,7 +3,6 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "tiny_gltf.h"
 #include <iostream>
 #include <sstream>
 #include "glTFModel.h"
@@ -460,7 +459,7 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
         {
             boneName = ValueToStringW(i);
         }
-        cglTFNodeData* bone = new cglTFNodeData(node, (int)i);
+        cglTFNodeData* l_pglTFNodeData = new cglTFNodeData(node, (int)i);
         cMesh* l_pMesh = nullptr;
         if (node.skin != -1)
         {
@@ -479,10 +478,10 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
             auto l_strMeshName = model.meshes[node.mesh].name;
             //bone->m_strTargetMeshName = l_strMeshName;
         }
-        bool l_bSameName = m_NodesVector.AddObject(bone);
+        bool l_bSameName = m_NodesVector.AddObject(l_pglTFNodeData);
         assert(l_bSameName && "node not allow to has same name!?");
-        l_tinyglTFNodeAndJointIndexMap[&node] = bone;
-        l_NodeIndexAndBoneMap[(int)i] = bone;
+        l_tinyglTFNodeAndJointIndexMap[&node] = l_pglTFNodeData;
+        l_NodeIndexAndBoneMap[(int)i] = l_pglTFNodeData;
     }
     for (size_t i = 0; i < model.nodes.size(); i++)
     {
@@ -680,7 +679,6 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_M
 
 cMesh* cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
-    const auto& meshPair = e_Mesh;
     cMesh* l_pMesh = new cMesh();
     AssignMeshAttributes(l_pMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
     m_NameAndMeshes[e_Mesh.name] = l_pMesh;
@@ -699,15 +697,15 @@ cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tin
 GLuint cglTFModel::GetShaderProgram(unsigned int fvfFlags)
 {
     // Check if the shader program for this FVF already exists
-    auto it = shaderPrograms.find(fvfFlags);
-    if (it != shaderPrograms.end())
+    auto l_IT = m_FVFAndShaderProgramsMap.find(fvfFlags);
+    if (l_IT != m_FVFAndShaderProgramsMap.end())
     {
-        return it->second; // Return existing shader program
+        return l_IT->second; // Return existing shader program
     }
 
     // If not, create a new shader program
     GLuint shaderProgram = CreateShader(fvfFlags);
-    shaderPrograms[fvfFlags] = shaderProgram;  // Store in the map
+    m_FVFAndShaderProgramsMap[fvfFlags] = shaderProgram;  // Store in the map
     return shaderProgram;
 }
 
@@ -744,7 +742,7 @@ cMatrix44 GetNodeMatrix(const tinygltf::Node& node)
 
     return matrix;
 }
-// Load the scene from a GLTF file
+
 bool cglTFModel::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal)
 {
     tinygltf::TinyGLTF loader;
@@ -860,7 +858,6 @@ void cglTFModel::Update(float e_fElpaseTime)
     }
 }
 
-// Draw the scene
 void cglTFModel::Render()
 {
     cBaseShader* l_pShader = GetCurrentShader();
@@ -901,42 +898,42 @@ void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)
     this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
 }
 
-#include "./ThirdParty/Chapter10Sample02.h"
-#include "./ThirdParty/Chapter10Sample01.h"
-#include "./ThirdParty/Chapter12Sample03.h"
+//#include "./ThirdParty/Chapter10Sample02.h"
+//#include "./ThirdParty/Chapter10Sample01.h"
+//#include "./ThirdParty/Chapter12Sample03.h"
 
-cglTFModel g_cScene;
-Chapter12Sample03 g_Chapter10Sample01;
+cglTFModel g_glTFModel;
+//Chapter12Sample03 g_Chapter10Sample01;
 int glTFInit()
 {
-    //g_cScene.LoadFromGLTF("glTFModel/Duck.gltf",false);
-    //g_cScene.LoadFromGLTF("glTFModel/Lantern.gltf",true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
-    //g_cScene.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-    //g_cScene.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
-    //g_cScene.LoadFromGLTF("glTFModel/Fox.gltf", true);
-    //g_cScene.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    //g_cScene.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
-    //g_cScene.LoadFromGLTF("glTFModel/Buggy.gltf", false);
-    //g_cScene.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
-    g_cScene.LoadFromGLTF("glTFModel/BoxAnimated.gltf", false);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
+    //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
+    g_glTFModel.LoadFromGLTF("glTFModel/BoxAnimated.gltf", false);
     
     
-    g_Chapter10Sample01.Initialize();
-    //g_cScene.InitBuffers();
+    //g_Chapter10Sample01.Initialize();
+    //g_glTFModel.InitBuffers();
     return 1;
 }
 
 void GlTFRender()
 {
     //    DrawModel(model, shaderProgram);
-    g_cScene.Render();
-    g_Chapter10Sample01.Update(0.016f);
-    g_Chapter10Sample01.Render(16/9);
+    g_glTFModel.Render();
+    /*g_Chapter10Sample01.Update(0.016f);
+    g_Chapter10Sample01.Render(16/9);*/
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    for (auto& meshPair : g_cScene.m_AnimationMeshMap)
+    for (auto& meshPair : g_glTFModel.m_AnimationMeshMap)
     {
         if (meshPair.second)
         {
@@ -951,7 +948,7 @@ void GlTFRender()
 void GlTFDestory()
 {
     //    DrawModel(model, shaderProgram);
-    g_cScene.Destory();
+    g_glTFModel.Destory();
     cTextureManager::ClearSharedTextureReferenceMap();
 }
 

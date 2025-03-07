@@ -2,8 +2,8 @@
 //#include "gltfMesh.h"
 #include <map>
 #include <string>
-#include "tiny_gltf.h"
 #include "../AllCoreInclude.h"
+#include "tiny_gltf.h"
 
 struct sSRT
 {
@@ -29,15 +29,16 @@ struct cglTFNodeData : public Frame
     int                 m_iNodeIndex = -1;
     class cMesh*        m_pMesh = nullptr;
     //
-
-    cglTFNodeData(const tinygltf::Node&e_Node,int e_iNodeIndex);
-    ~cglTFNodeData();
-    cglTFNodeData* FinChildByName(const wchar_t* e_strBoneName);
-    void ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty);
     cMatrix44   m_StartNodeWorldTransform;
     //rest pose
     cMatrix44   m_StartNodeTransform;
     sSRT        m_StartSRT;
+
+    cglTFNodeData(const tinygltf::Node&e_Node,int e_iNodeIndex);
+    virtual ~cglTFNodeData();
+
+    cglTFNodeData* FinChildByName(const wchar_t* e_strBoneName);
+    void ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty);
 
     virtual	void        Update(float e_fElpaseTime)override;
     virtual	void        Render()override;

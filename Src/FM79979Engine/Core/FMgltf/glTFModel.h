@@ -1,5 +1,5 @@
 #pragma once
-
+#include "tiny_gltf.h"
 #include "glTFMesh.h"
 #include "glTFAnimationMesh.h"
 #include "glTFAnimation.h"
@@ -13,9 +13,9 @@ public:
 
     std::string GenerateVertexShader(unsigned int fvfFlags);
     std::string GenerateFragmentShader(unsigned int fvfFlags);
-    std::map<unsigned int, GLuint> shaderPrograms; // FVF -> Shader Program Map
-    GLuint GetShaderProgram(unsigned int fvfFlags);  // Returns shader based on FVF
-    GLuint CreateShader(unsigned int fvfFlags);
+    std::map<unsigned int, GLuint>          m_FVFAndShaderProgramsMap; // FVF -> Shader Program Map
+    GLuint                                  GetShaderProgram(unsigned int fvfFlags);  // Returns shader based on FVF
+    GLuint                                  CreateShader(unsigned int fvfFlags);
 
     void                                    InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap);
     void                                    LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNormal);
@@ -30,9 +30,11 @@ public:
     cMesh*                                  GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Mesh& e_Mesh, tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
 public:
     DEFINE_TYPE_INFO();
+    cglTFModel(){ }
     virtual ~cglTFModel();
     std::map<std::string, cMesh*> m_NameAndMeshes;
     std::map<std::string, cSkinningMesh*> m_AnimationMeshMap;
+
     bool    LoadFromGLTF(const std::string& filename,bool e_bCalculateBiNormal = false);
     void    InitBuffers();
     void    Update(float e_fEpaseTime);

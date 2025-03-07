@@ -1,6 +1,5 @@
-#include "tiny_gltf.h"
-#include "glTFAnimationMesh.h"
 #include "glTFModel.h"
+#include "glTFAnimationMesh.h"
 #include <set>
 #include <unordered_set>
 #include <map>

@@ -9,15 +9,8 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Mesh">
+    <Filter Include="glTF">
       <UniqueIdentifier>{54c82dfe-38ca-49ab-a1d0-c4f504a6198b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ThirtyParty">
-      <UniqueIdentifier>{97586a28-1c44-49d4-bc05-7279d38e1547}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,200 +20,32 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FileUtility.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="glTFMesh.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFAnimationMesh.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFNode.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonPose.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="glVertexAttribute.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFMaterial.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFAnimation.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFModel.h">
+      <Filter>glTF</Filter>
     </ClInclude>
     <ClInclude Include="tiny_gltf.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="glTFMesh.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="glTFAnimationMesh.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="glTFNode.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\AnimBaker.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\AnimTexture.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Attribute.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Blending.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\CCDSolver.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\cgltf.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter06Sample01.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter08Sample01.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter09Sample01.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter10Sample01.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter10Sample02.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter11Sample01.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter11Sample02.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter11Sample03.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter12Sample01.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter12Sample02.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter12Sample03.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter13Sample01.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter13Sample02.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter13Sample03.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter14Sample01.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Chapter15Sample01.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Clip.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\CrossFadeController.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\CrossFadeTarget.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Crowd.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DebugDraw.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Draw.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\DualQuaternion.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\FABRIKSolver.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Frame.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\GLTFLoader.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\IKLeg.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\IndexBuffer.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Interpolation.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Intersections.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\khrplatform.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\mat4.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Mesh.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Pose.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\quat.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\RearrangeBones.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\SamplePoseInstance.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Shader.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Skeleton.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\SkinningType.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Texture.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Track.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Transform.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\TransformTrack.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\Uniform.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\vec2.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\vec3.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\vec4.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="ThirdParty\nuklear.h">
-      <Filter>ThirtyParty</Filter>
-    </ClInclude>
-    <ClInclude Include="SkeletonPose.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="glVertexAttribute.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="glTFMaterial.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="glTFAnimation.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="glTFModel.h">
-      <Filter>Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -228,169 +53,28 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glTFMesh.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glTFAnimationMesh.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glTFNode.cpp">
-      <Filter>Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\AnimBaker.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\AnimTexture.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Attribute.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Blend.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\CCDSolver.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\cgltf.c">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter06Sample01.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter08Sample01.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter09Sample01.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter10Sample01.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter10Sample02.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter11Sample01.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter11Sample02.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter11Sample03.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter12Sample01.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter12Sample02.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter12Sample03.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter13Sample01.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter13Sample02.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter13Sample03.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter14Sample01.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Chapter15Sample01.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Clip.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\CrossFadecontroller.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Crowd.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\DebugDraw.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Draw.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\DualQuaternion.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\FABRIKSolver.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\GLTFLoader.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\IKLeg.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\IndexBuffer.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Intersections.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\mat4.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Mesh.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Pose.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\quat.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\RearrangeBones.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Shader.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Skeleton.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Texture.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Track.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Transform.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\TransformTrack.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\Uniform.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\vec3.cpp">
-      <Filter>ThirtyParty</Filter>
-    </ClCompile>
-    <ClCompile Include="ThirdParty\nuklear.c">
-      <Filter>ThirtyParty</Filter>
+      <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="SkeletonPose.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glVertexAttribute.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glTFMaterial.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glTFModel.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glTFAnimation.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>glTF</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

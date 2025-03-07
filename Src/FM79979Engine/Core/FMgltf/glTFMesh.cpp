@@ -1,7 +1,6 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "tiny_gltf.h"
 #include <iostream>
 #include "glTFMesh.h"
 

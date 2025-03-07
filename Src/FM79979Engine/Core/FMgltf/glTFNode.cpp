@@ -1,5 +1,4 @@
 
-#include "tiny_gltf.h"
 #include "glTFNode.h"
 #include "glTFAnimationMesh.h"
 #include "glTFModel.h"
@@ -91,7 +90,15 @@ void ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Map& 
 }
 cglTFNodeData::cglTFNodeData(const tinygltf::Node& e_Node, int e_iNodeIndex)
 {
-    SetName(e_Node.name.c_str());
+    if (e_Node.name.length())
+    {
+        SetName(e_Node.name.c_str());
+    }
+    else
+    {
+        std::string l_strName = "NodeIndex:" + ValueToString(e_iNodeIndex);
+        SetName(l_strName.c_str());
+    }
     m_iNodeIndex = e_iNodeIndex;
 }
 

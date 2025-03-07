@@ -1,5 +1,4 @@
 #include "../AllCoreInclude.h"
-#include "tiny_gltf.h"
 #include "glTFMaterial.h"
 
 namespace FATMING_CORE
