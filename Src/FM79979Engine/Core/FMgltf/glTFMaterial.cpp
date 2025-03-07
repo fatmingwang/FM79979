@@ -27,8 +27,12 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         const tinygltf::Texture& texture = model.textures[material.pbrMetallicRoughness.baseColorTexture.index];
         const tinygltf::Image& image = model.images[texture.source];
-        const tinygltf::Sampler& sampler = model.samplers[texture.sampler];
-        shared_ptr<cTexture>l_pTexture = GetTexture(image, sampler);
+        const tinygltf::Sampler*l_pSampler = nullptr;
+        if (texture.sampler != -1)
+        {
+            l_pSampler = &model.samplers[texture.sampler];
+        }        
+        shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
         m_uiBaseColorTextureVector.push_back(l_pTexture);
     }
 
@@ -37,8 +41,12 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         const tinygltf::Texture& texture = model.textures[material.normalTexture.index];
         const tinygltf::Image& image = model.images[texture.source];
-        const tinygltf::Sampler& sampler = model.samplers[texture.sampler];
-        shared_ptr<cTexture>l_pTexture = GetTexture(image, sampler);
+        const tinygltf::Sampler* l_pSampler = nullptr;
+        if (texture.sampler != -1)
+        {
+            l_pSampler = &model.samplers[texture.sampler];
+        }
+        shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
         m_uiNormalTextureVector.push_back(l_pTexture);
     }
 
@@ -47,8 +55,12 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         const tinygltf::Texture& texture = model.textures[material.occlusionTexture.index];
         const tinygltf::Image& image = model.images[texture.source];
-        const tinygltf::Sampler& sampler = model.samplers[texture.sampler];
-        shared_ptr<cTexture> l_pTexture = GetTexture(image, sampler);
+        const tinygltf::Sampler* l_pSampler = nullptr;
+        if (texture.sampler != -1)
+        {
+            l_pSampler = &model.samplers[texture.sampler];
+        }
+        shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
         m_uiOocclusionTextureVector.push_back(l_pTexture);
     }
 }
@@ -84,9 +96,8 @@ bool cMaterial::ApplyUnriforms()
 	return false;
 }
 
-shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image, const tinygltf::Sampler&e_Sampler)
+shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image,const tinygltf::Sampler*e_pSampler)
 {
-    const tinygltf::Sampler& sampler = e_Sampler;
     auto l_OriginalMAG = g_uiMAG_FILTERValue;
     auto l_OriginalMIN = g_uiMIN_FILTERValue;
     auto l_OriginalWRAP_S = g_uiTEXTURE_WRAP_S;
@@ -102,13 +113,16 @@ shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image, const
     {
         l_uiFormat = GL_RGBA;
     }
-    if (e_Sampler.magFilter != -1 && e_Sampler.minFilter != -1)
+    if (e_pSampler)
     {
-        g_uiMAG_FILTERValue = e_Sampler.magFilter;
-        g_uiMIN_FILTERValue = e_Sampler.minFilter;
+        if (e_pSampler->magFilter != -1 && e_pSampler->minFilter != -1)
+        {
+            g_uiMAG_FILTERValue = e_pSampler->magFilter;
+            g_uiMIN_FILTERValue = e_pSampler->minFilter;
+        }
+        g_uiTEXTURE_WRAP_S = e_pSampler->wrapS;
+        g_uiTEXTURE_WRAP_T = e_pSampler->wrapT;
     }
-    g_uiTEXTURE_WRAP_S = e_Sampler.wrapS;
-    g_uiTEXTURE_WRAP_T = e_Sampler.wrapT;
     shared_ptr<cTexture>l_pTexture = cTextureManager::GetObjectByPixels((void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(e_Image.uri).c_str(), (int)l_uiFormat);
     g_uiMAG_FILTERValue = l_OriginalMAG;
     g_uiMIN_FILTERValue = l_OriginalMIN;

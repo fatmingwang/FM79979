@@ -833,11 +833,11 @@ int glTFInit()
     //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
     //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
-    //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+    g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);

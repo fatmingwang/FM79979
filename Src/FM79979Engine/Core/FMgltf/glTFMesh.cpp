@@ -118,7 +118,7 @@ void cMesh::Render()
     static float angle = 0.0f;
     static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
-    //lightAngle += 0.01f;
+    lightAngle += 0.01f;
     //angle += 0.01f;
 
     auto l_matTransform = this->GetWorldTransform();

@@ -12,7 +12,7 @@ class cMaterial:public NamedTypedObject
     std::vector<shared_ptr<cTexture>> m_uiOocclusionTextureVector;  // Occlusion maps
     std::vector<shared_ptr<cTexture>> m_uiEmissiveTextureIDVector; // Emissive maps (if needed)
 	bool	ApplyUnriforms();
-    shared_ptr<cTexture> GetTexture(const tinygltf::Image& e_Image, const tinygltf::Sampler&);
+    shared_ptr<cTexture> GetTexture(const tinygltf::Image& e_Image,const tinygltf::Sampler*);
 public:
     DEFINE_TYPE_INFO();
     cMaterial(unsigned int e_uiShadeProgrameID);
