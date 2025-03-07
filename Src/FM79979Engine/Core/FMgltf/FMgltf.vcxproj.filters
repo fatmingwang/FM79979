@@ -29,12 +29,6 @@
     <ClInclude Include="glTFNode.h">
       <Filter>glTF</Filter>
     </ClInclude>
-    <ClInclude Include="SkeletonPose.h">
-      <Filter>glTF</Filter>
-    </ClInclude>
-    <ClInclude Include="glVertexAttribute.h">
-      <Filter>glTF</Filter>
-    </ClInclude>
     <ClInclude Include="glTFMaterial.h">
       <Filter>glTF</Filter>
     </ClInclude>
@@ -59,12 +53,6 @@
       <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glTFNode.cpp">
-      <Filter>glTF</Filter>
-    </ClCompile>
-    <ClCompile Include="SkeletonPose.cpp">
-      <Filter>glTF</Filter>
-    </ClCompile>
-    <ClCompile Include="glVertexAttribute.cpp">
       <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glTFMaterial.cpp">

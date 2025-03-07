@@ -13,22 +13,9 @@ bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone, std::v
     {
         l_pSRTVector = e_pSRTVector;
     }
-    //std::vector<cglTFNodeData*>& l_pBoneVector = m_pAnimationMesh->m_SkinningBoneVector;
-    //auto l_uiSize = l_pBoneVector.size();
-    //if (l_uiSize)
-    //{
-    //    for (size_t i = 0; i < l_uiSize; ++i)
-    //    {
-    //        UpdateNode(l_pBoneVector[i], e_fTime, (*l_pSRTVector)[i], e_bAssignToBone);
-    //    }
-    //}
-    //else
-    {//not skinning animation
-        sSRT l_sSRT;
-        for (auto l_IT : m_pCurrentAnimationData->m_BoneIDAndAnimationData)
-        {
-            UpdateNode(l_IT.first, e_fTime, l_sSRT, true);
-        }
+    for (auto l_IT : m_pCurrentAnimationData->m_BoneIDAndAnimationData)
+    {
+        UpdateNode(l_IT.first, e_fTime, (*l_pSRTVector)[l_IT.first->m_iNodeIndex], e_bAssignToBone);
     }
     return true;
 }
@@ -170,10 +157,6 @@ void cAnimationClip::Update(float e_fElpaseTime)
         m_pCurrentAnimationData->Update(e_fElpaseTime);
         this->SampleToTime(this->m_pCurrentAnimationData->m_fCurrentTime, true);
     }
-}
-
-void sAnimationData::GenerateNodeVectorFromAnimationData()
-{
 }
 
 void sAnimationData::Update(float e_fElpaseTime)

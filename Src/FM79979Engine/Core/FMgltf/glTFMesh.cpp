@@ -93,7 +93,7 @@ void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
     float radius = size.Length() * 0.5f;
     center.y *= -1;
     // Set the camera position to be a bit further away from the center of the mesh
-    Vector3 cameraPosition = center + Vector3(0, 0, radius * 5.0f);
+    Vector3 cameraPosition = center + Vector3(0, 0, radius * 525.0f);
 
     // Assuming you have a function to set the view matrix in the projectionMatrix
     e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));

@@ -6,7 +6,6 @@ struct sAnimationData
 {
     std::map<cglTFNodeData*, FloatToSRTMap> m_BoneIDAndAnimationData;
     std::vector<cglTFNodeData>              m_NodeVectorFromAnimationData;
-    void    GenerateNodeVectorFromAnimationData();
     bool    m_bLoop;
     float   m_fMinKeyTime;
     float   m_fMaxKeyTime;

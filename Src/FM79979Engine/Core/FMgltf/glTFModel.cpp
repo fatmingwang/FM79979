@@ -605,7 +605,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
 
         m_NameAndAnimationMap[animation.name] = l_pAnimationData;
     }
-    m_AnimationClip.m_pglTFModel = this;
+    m_AnimationClip.SetBoneAndAnimationData(this);
 }
 
 void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
@@ -742,7 +742,7 @@ void cglTFModel::Update(float e_fElpaseTime)
                 this->SetCurrentAnimation(l_Animation->first);
             }
         }
-        bool l_bDoBlendingTest = false;
+        bool l_bDoBlendingTest = true;
         if (!l_bDoBlendingTest)
         {
             this->m_AnimationClip.Update(e_fElpaseTime);
@@ -833,11 +833,11 @@ int glTFInit()
     //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
     //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
-    g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);

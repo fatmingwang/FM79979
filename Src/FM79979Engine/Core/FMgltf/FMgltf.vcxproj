@@ -144,20 +144,17 @@
   <ItemGroup>
     <ClInclude Include="glTFAnimation.h" />
     <ClInclude Include="glTFMaterial.h" />
-    <ClInclude Include="glVertexAttribute.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="glTFAnimationMesh.h" />
     <ClInclude Include="glTFNode.h" />
     <ClInclude Include="glTFMesh.h" />
     <ClInclude Include="glTFModel.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="SkeletonPose.h" />
     <ClInclude Include="tiny_gltf.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glTFAnimation.cpp" />
     <ClCompile Include="glTFMaterial.cpp" />
-    <ClCompile Include="glVertexAttribute.cpp" />
     <ClCompile Include="glTFAnimationMesh.cpp" />
     <ClCompile Include="glTFNode.cpp" />
     <ClCompile Include="glTFMesh.cpp" />
@@ -168,7 +165,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SkeletonPose.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
