@@ -66,11 +66,16 @@ class cMesh:public FATMING_CORE::Frame
         };
         std::vector<sMorphTarget>   m_MorphTargets;
     };
-    std::vector<double>          m_MorphWeights; // Store blending weights per target
+    //useless?
+    std::vector<double>             m_MorphWeights; // Store blending weights per target
+    //from sAnimationData,as many as m_SubMeshesVector.size()
+	std::vector<float>			    m_CurrentAnimationMorphPrimitiveWeightsVector;
+    void                            ApplyMorphUniformData();
 protected:
     shared_ptr<cMaterial>m_Material;
     void    ApplyMaterial();
     friend class cglTFModel;
+    friend class cAnimationClip;
 public:
     struct sSubMesh
     {

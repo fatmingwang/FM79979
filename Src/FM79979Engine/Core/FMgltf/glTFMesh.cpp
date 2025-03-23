@@ -26,6 +26,46 @@ cMesh::~cMesh()
     DELETE_VECTOR(m_SubMeshesVector);
 }
 
+void cMesh::ApplyMorphUniformData()
+{
+    if (m_CurrentAnimationMorphPrimitiveWeightsVector.size())
+    {//setup how many primitive and weights data
+        //GLuint weightBuffer;
+        //glGenBuffers(1, &weightBuffer);
+        //glBindBuffer(GL_UNIFORM_BUFFER, weightBuffer);
+        //glBufferData(GL_UNIFORM_BUFFER, sizeof(float) * m_CurrentAnimationMorphPrimitiveWeightsVector.size(),
+        //             m_CurrentAnimationMorphPrimitiveWeightsVector.data(), GL_DYNAMIC_DRAW);
+        //glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    }
+
+    auto l_strMorphShader = R"(
+        #version 330 core
+        layout(location = 0) in vec3 aPos;
+        layout(location = 1) in vec3 aMorphTarget0;
+        layout(location = 2) in vec3 aMorphTarget1;
+        layout(location = 3) in vec3 aMorphTarget2;
+        layout(location = 4) in vec3 aMorphTarget3;
+
+
+        uniform float Weights[4];
+        uniform float t;  // Animation time factor (0.0 - 1.0)
+
+        void main() {
+            // Interpolate morph weights on the GPU
+            float weights[4] = Weights;
+
+            // Compute the final morphed vertex position
+            vec3 morphedPos = aPos;
+            morphedPos += weights[0] * aMorphTarget0;
+            morphedPos += weights[1] * aMorphTarget1;
+            morphedPos += weights[2] * aMorphTarget2;
+            morphedPos += weights[3] * aMorphTarget3;
+
+            gl_Position = vec4(morphedPos, 1.0);
+        }
+    )";
+}
+
 void cMesh::ApplyMaterial()
 {
     if (this->m_Material)

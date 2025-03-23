@@ -590,7 +590,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
             {
                 size_t frameCount = inputAccessor.count;
                 size_t morphCount = outputAccessor.count / frameCount;
-                std::map<float, std::vector<float>>& l_Map = animationData.m_TimaAndWeightMap;
+                std::map<float, std::vector<float>>& l_Map = animationData.m_TimaAndMorphWeightMap;
                 for (int i = 0; i < frameCount; ++i)
                 {
                     float time = inputData[i];

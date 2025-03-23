@@ -17,6 +17,10 @@ bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone, std::v
     {
         UpdateNode(l_IT.first, e_fTime, (*l_pSRTVector)[l_IT.first->m_iNodeIndex], e_bAssignToBone);
     }
+    if (m_pCurrentAnimationData->m_TimaAndMorphWeightMap.size() && m_pCurrentAnimationData->m_pTargetMesh)
+    {
+        m_pCurrentAnimationData->m_pTargetMesh->m_CurrentAnimationMorphPrimitiveWeightsVector = m_pCurrentAnimationData->GetInterpolatedWeights(e_fTime);
+    }
     return true;
 }
 
@@ -112,6 +116,18 @@ bool cAnimationClip::SetAnimation(const char* e_strAnimationName, bool e_bLoop, 
         m_pCurrentAnimationData = it->second;
         m_pCurrentAnimationData->m_fCurrentTime = e_fTargetTime;
         m_pCurrentAnimationData->m_bLoop = e_bLoop;
+        if (!m_pCurrentAnimationData->m_pTargetMesh)
+        {
+            auto l_pBoneIT = this->m_pglTFModel->m_NodeIndexAndBoneMap.find(m_pCurrentAnimationData->m_iTargetNodeIndex);
+            if (l_pBoneIT != this->m_pglTFModel->m_NodeIndexAndBoneMap.end())
+            {
+                m_pCurrentAnimationData->m_pTargetMesh = l_pBoneIT->second->m_pMesh;
+            }
+            else
+            {
+                FMLOG("animation %s don't has target mesh!? how come!!?", e_strAnimationName);
+            }
+        }
         return true;
     }
     return false;
@@ -174,4 +190,48 @@ void sAnimationData::Update(float e_fElpaseTime)
         }
     }
     m_fCurrentTime = l_fNewTime;
+}
+
+
+std::vector<float> sAnimationData::GetInterpolatedWeights(float e_fTime)
+{
+    if (m_TimaAndMorphWeightMap.empty())
+    {
+        return {}; // No morph animation data
+    }
+
+    // If exact match found, return weights directly
+    auto exact = m_TimaAndMorphWeightMap.find(e_fTime);
+    if (exact != m_TimaAndMorphWeightMap.end())
+    {
+        return exact->second;
+    }
+
+    // Find closest keyframes before and after e_fTime
+    auto upper = m_TimaAndMorphWeightMap.upper_bound(e_fTime);
+    if (upper == m_TimaAndMorphWeightMap.begin())
+    {
+        return upper->second; // Before first keyframe, return first weights
+    }
+    if (upper == m_TimaAndMorphWeightMap.end())
+    {
+        return std::prev(upper)->second; // After last keyframe, return last weights
+    }
+
+    // Interpolate between two closest keyframes
+    auto lower = std::prev(upper);
+    float t1 = lower->first;
+    float t2 = upper->first;
+    float alpha = (e_fTime - t1) / (t2 - t1); // Interpolation factor
+
+    const std::vector<float>& weights1 = lower->second;
+    const std::vector<float>& weights2 = upper->second;
+    std::vector<float> interpolatedWeights(weights1.size());
+
+    for (size_t i = 0; i < weights1.size(); i++)
+    {
+        interpolatedWeights[i] = (1.0f - alpha) * weights1[i] + alpha * weights2[i];
+    }
+
+    return interpolatedWeights;
 }
