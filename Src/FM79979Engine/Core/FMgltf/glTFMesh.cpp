@@ -251,6 +251,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         else
         {
             std::cerr << "Unsupported index component type: " << indexAccessor.componentType << std::endl;
+            SAFE_DELETE(l_pSubMesh);
             return;
         }
     }
@@ -275,7 +276,6 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         {"TEXCOORD_0", FVF_TEX0},
         {"TEXCOORD_1", FVF_TEX1}
     };
-
     for (const auto& attribute : primitive.attributes)
     {
         auto it = l_AttributeMap.find(attribute.first);
@@ -356,4 +356,66 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         m_vMaxBounds.y = max(m_vMaxBounds.y, l_pSubMesh->m_vMaxBounds.y);
         m_vMaxBounds.z = max(m_vMaxBounds.z, l_pSubMesh->m_vMaxBounds.z);
     }
+    LoadMorphingAttributes(l_pSubMesh, model, primitive, calculateBinormal);
+}
+
+void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal)
+{
+    if (!e_pSubMesh || primitive.targets.empty())
+    {
+        return;
+    }
+
+    if (e_pSubMesh->m_spMeshMorphData)
+    {
+        FMLOG("morpthing data already parsed!?");
+        return;
+    }
+    e_pSubMesh->m_spMeshMorphData = std::make_shared<sMeshMorphData>();
+    e_pSubMesh->m_spMeshMorphData->m_MorphTargets.resize(primitive.targets.size());
+
+    for (size_t i = 0; i < primitive.targets.size(); ++i)
+    {
+        const auto& target = primitive.targets[i];
+
+        auto& morphTarget = e_pSubMesh->m_spMeshMorphData->m_MorphTargets[i]; // Store in cMesh
+
+        // Load POSITION deltas
+        if (target.find("POSITION") != target.end())
+        {
+            const tinygltf::Accessor& accessor = model.accessors[target.at("POSITION")];
+            const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+            const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+
+            const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
+            morphTarget.m_PositionVector.assign(data, data + accessor.count * 3);
+        }
+
+        // Load NORMAL deltas
+        if (target.find("NORMAL") != target.end())
+        {
+            const tinygltf::Accessor& accessor = model.accessors[target.at("NORMAL")];
+            const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+            const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+
+            const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
+            morphTarget.m_NormalVector.assign(data, data + accessor.count * 3);
+        }
+
+        // Load TANGENT deltas (Optional)
+        if (target.find("TANGENT") != target.end())
+        {
+            const tinygltf::Accessor& accessor = model.accessors[target.at("TANGENT")];
+            const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
+            const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+
+            const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
+            morphTarget.m_TangentVector.assign(data, data + accessor.count * 3);
+        }
+    }
+}
+
+void cMesh::SetMorphingWeights(const std::vector<double>& e_Weights)
+{
+	m_MorphWeights = e_Weights;
 }

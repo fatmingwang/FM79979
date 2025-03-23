@@ -56,6 +56,17 @@
 
 class cMesh:public FATMING_CORE::Frame
 {
+    struct sMeshMorphData
+    {
+        struct sMorphTarget
+        {
+            std::vector<float> m_PositionVector;
+            std::vector<float> m_NormalVector;
+            std::vector<float> m_TangentVector;
+        };
+        std::vector<sMorphTarget>   m_MorphTargets;
+    };
+    std::vector<double>          m_MorphWeights; // Store blending weights per target
 protected:
     shared_ptr<cMaterial>m_Material;
     void    ApplyMaterial();
@@ -72,6 +83,7 @@ public:
         GLuint                      m_uiEBO;
         Vector3                     m_vMinBounds;
         Vector3                     m_vMaxBounds;
+        shared_ptr<sMeshMorphData>  m_spMeshMorphData;
         void                        GetProperCameraPosition(cMatrix44& e_CameraMatrix);
         void                        ClearOpenGLData();
     };
@@ -90,7 +102,9 @@ public:
 
     // Function to load vertex attributes and indices
     //void LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
-    void LoadMaterial(const tinygltf::Model& model, const tinygltf::Material& material,unsigned int e_uiShaderProgram);
-    void logFVFFlags();
-    void LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
+    void            LoadMaterial(const tinygltf::Model& model, const tinygltf::Material& material,unsigned int e_uiShaderProgram);
+    void            LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
+    void            LoadMorphingAttributes(sSubMesh*e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
+    void            SetMorphingWeights(const std::vector<double>&e_Weights);
+    void            logFVFFlags();
 };

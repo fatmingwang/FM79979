@@ -60,7 +60,7 @@ void	DumpBoneIndexDebugInfo(cglTFNodeData*e_pBone,bool e_bDoNextSibling, bool e_
     }
 }
 
-void cSkinningMesh::LoadAnimations(const tinygltf::Skin& e_Skin, cglTFModel* e_pModel,const tinygltf::Model& e_Model)
+void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_pModel,const tinygltf::Model& e_Model)
 {
     if (e_Skin.skeleton != -1)
     {

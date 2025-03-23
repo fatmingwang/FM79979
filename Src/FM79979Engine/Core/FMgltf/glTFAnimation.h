@@ -6,6 +6,11 @@ struct sAnimationData
 {
     std::map<cglTFNodeData*, FloatToSRTMap> m_BoneIDAndAnimationData;
     std::vector<cglTFNodeData>              m_NodeVectorFromAnimationData;
+    //morphing
+    //here only contain weights because position and others are store in SubMesh
+    //here only apply weight and sub mesh do it's own morpthing.
+    std::map<float, std::vector<float>>     m_TimaAndWeightMap;
+    int                                     m_iTargetNodeIndex = -1;
     bool    m_bLoop;
     float   m_fMinKeyTime;
     float   m_fMaxKeyTime;
@@ -14,6 +19,7 @@ struct sAnimationData
     float   m_fEndTime;
     void    Update(float e_fElpaseTime);
 };
+
 
 class cAnimationClip :public NamedTypedObject
 {

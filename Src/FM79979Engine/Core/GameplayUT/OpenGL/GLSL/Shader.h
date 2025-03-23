@@ -38,6 +38,11 @@
 
 #define	FVF_HAS_NORMAL_MAP_TEXTURE		9//just a flag to tell shader to use normal map texture
 
+#define	FVF_MORPHING_VERTEX_POS			10
+#define	FVF_MORPHING_VERTEX_NORMAL		11
+#define	FVF_MORPHING_VERTEX_TANGENT		12
+#define	FVF_MORPHING_VERTEX_BITANGENT	13
+
 #define	FVF_POS_FLAG					1<<FVF_POS
 #define	FVF_NORMAL_FLAG					1<<FVF_NORMAL
 #define	FVF_DIFFUSE_FLAG				1<<FVF_DIFFUSE

@@ -19,7 +19,7 @@ public:
     DEFINE_TYPE_INFO();
     cSkinningMesh();
     virtual ~cSkinningMesh();
-    void    LoadAnimations(const tinygltf::Skin&e_Skin,cglTFModel*e_pModel,const  tinygltf::Model&e_Model);
+    void    LoadJointsData(const tinygltf::Skin&e_Skin,cglTFModel*e_pModel,const  tinygltf::Model&e_Model);
     void    RefreshAnimationData();
     void    Update(float elapsedTime) override;
     void    Render() override;
