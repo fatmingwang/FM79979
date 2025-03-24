@@ -12,6 +12,9 @@
     <Filter Include="glTF">
       <UniqueIdentifier>{54c82dfe-38ca-49ab-a1d0-c4f504a6198b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="glTF\Shader">
+      <UniqueIdentifier>{ddcc1c60-45db-4b49-bffa-1071b31f88a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -41,6 +44,9 @@
     <ClInclude Include="tiny_gltf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LazyShaderGenerator.h">
+      <Filter>glTF\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -63,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="glTFAnimation.cpp">
       <Filter>glTF</Filter>
+    </ClCompile>
+    <ClCompile Include="LazyShaderGenerator.cpp">
+      <Filter>glTF\Shader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

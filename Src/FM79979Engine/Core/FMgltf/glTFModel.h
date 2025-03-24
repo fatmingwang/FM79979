@@ -11,11 +11,9 @@ public:
     cNamedTypedObjectVector<cglTFNodeData>         m_NodesVector;
     std::map<int,cglTFNodeData*>                   m_NodeIndexAndBoneMap;
 
-    std::string                             GenerateVertexShader(unsigned int fvfFlags);
-    std::string                             GenerateFragmentShader(unsigned int fvfFlags);
     std::map<unsigned int, GLuint>          m_FVFAndShaderProgramsMap; // FVF -> Shader Program Map
-    GLuint                                  GetShaderProgram(unsigned int fvfFlags);  // Returns shader based on FVF
-    GLuint                                  CreateShader(unsigned int fvfFlags);
+    GLuint                                  GetShaderProgram(unsigned int fvfFlags,int e_iNumMorphTarget);  // Returns shader based on FVF
+    GLuint                                  CreateShader(unsigned int fvfFlags, int e_iNumMorphTarget);
 
     void                                    InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal);
     void                                    LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNormal);

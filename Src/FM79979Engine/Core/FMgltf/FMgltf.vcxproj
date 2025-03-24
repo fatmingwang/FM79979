@@ -149,6 +149,7 @@
     <ClInclude Include="glTFNode.h" />
     <ClInclude Include="glTFMesh.h" />
     <ClInclude Include="glTFModel.h" />
+    <ClInclude Include="LazyShaderGenerator.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="tiny_gltf.h" />
   </ItemGroup>
@@ -159,6 +160,7 @@
     <ClCompile Include="glTFNode.cpp" />
     <ClCompile Include="glTFMesh.cpp" />
     <ClCompile Include="glTFModel.cpp" />
+    <ClCompile Include="LazyShaderGenerator.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

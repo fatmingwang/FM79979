@@ -56,21 +56,12 @@
 
 class cMesh:public FATMING_CORE::Frame
 {
-    struct sMeshMorphData
-    {
-        struct sMorphTarget
-        {
-            std::vector<float> m_PositionVector;
-            std::vector<float> m_NormalVector;
-            std::vector<float> m_TangentVector;
-        };
-        std::vector<sMorphTarget>   m_MorphTargets;
-    };
     //useless?
     std::vector<double>             m_MorphWeights; // Store blending weights per target
     //from sAnimationData,as many as m_SubMeshesVector.size()
 	std::vector<float>			    m_CurrentAnimationMorphPrimitiveWeightsVector;
     void                            ApplyMorphUniformData();
+	typedef std::vector<std::map<int, float*>> sMorphTargetVector;
 protected:
     shared_ptr<cMaterial>m_Material;
     void    ApplyMaterial();
@@ -88,7 +79,9 @@ public:
         GLuint                      m_uiEBO;
         Vector3                     m_vMinBounds;
         Vector3                     m_vMaxBounds;
-        shared_ptr<sMeshMorphData>  m_spMeshMorphData;
+        //for debug
+        shared_ptr<sMorphTargetVector>    m_spFVFAndVertexDataMorphTargetMap;
+		int 					    m_iNumMorphTarget = 0;
         void                        GetProperCameraPosition(cMatrix44& e_CameraMatrix);
         void                        ClearOpenGLData();
     };

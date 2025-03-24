@@ -406,31 +406,42 @@ void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& m
         return;
     }
 
-    if (e_pSubMesh->m_spMeshMorphData)
+    if (e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap)
     {
         FMLOG("morpthing data already parsed!?");
         return;
     }
-    e_pSubMesh->m_spMeshMorphData = std::make_shared<sMeshMorphData>();
-    e_pSubMesh->m_spMeshMorphData->m_MorphTargets.resize(primitive.targets.size());
-
-    for (size_t i = 0; i < primitive.targets.size(); ++i)
+    shared_ptr<sMorphTargetVector>    l_spMorphTargetVector;
+#ifdef DEBUG
+    e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap = std::make_shared<sMorphTargetVector>();
+    l_spMorphTargetVector = e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap;
+#endif
+	auto l_MaxMorphingTarget = FVF_MORPHING_TARGET_POS4 - FVF_MORPHING_TARGET_POS1 + 1;
+    auto l_uiNumTarget = primitive.targets.size()> l_MaxMorphingTarget? l_MaxMorphingTarget: primitive.targets.size();
+    for (size_t i = 0; i < l_uiNumTarget; ++i)
     {
         const auto& target = primitive.targets[i];
-
-        auto& morphTarget = e_pSubMesh->m_spMeshMorphData->m_MorphTargets[i]; // Store in cMesh
-
+        std::map<int, float*>l_FVFAndVertexData;
         // Load POSITION deltas
         if (target.find("POSITION") != target.end())
         {
+            ++e_pSubMesh->m_iNumMorphTarget;
+            int l_iFVF = (int)(FVF_MORPHING_TARGET_POS1 + i);
             const tinygltf::Accessor& accessor = model.accessors[target.at("POSITION")];
             const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
             const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
-
+            size_t l_uiPosDataSize = accessor.count * accessor.ByteStride(bufferView);
             const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
-            morphTarget.m_PositionVector.assign(data, data + accessor.count * 3);
+			l_FVFAndVertexData = { {l_iFVF, (float*)data} };
+            e_pSubMesh->m_iFVFFlag |= 1 << (FVF_MORPHING_TARGET_POS1 + i);
+            // Upload generated normals to GPU
+            glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVF]);
+            glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVF]);
+            glBufferData(GL_ARRAY_BUFFER, l_uiPosDataSize, data, GL_STATIC_DRAW);
+            glEnableVertexAttribArray(l_iFVF);
+            glVertexAttribPointer(l_iFVF, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
         }
-
+#ifdef DEBUG
         // Load NORMAL deltas
         if (target.find("NORMAL") != target.end())
         {
@@ -439,7 +450,6 @@ void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& m
             const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
 
             const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
-            morphTarget.m_NormalVector.assign(data, data + accessor.count * 3);
         }
 
         // Load TANGENT deltas (Optional)
@@ -448,10 +458,13 @@ void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& m
             const tinygltf::Accessor& accessor = model.accessors[target.at("TANGENT")];
             const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
             const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
-
             const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
-            morphTarget.m_TangentVector.assign(data, data + accessor.count * 3);
         }
+        if (l_spMorphTargetVector)
+        {
+            l_spMorphTargetVector->push_back(l_FVFAndVertexData);
+        }
+#endif
     }
 }
 
