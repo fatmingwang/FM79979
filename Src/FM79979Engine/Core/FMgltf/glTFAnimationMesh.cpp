@@ -181,12 +181,12 @@ void cSkinningMesh::Render()
     for (auto& l_pSubMesh : this->m_SubMeshesVector)
     {
         // Use the shader program specific to this sub-mesh
-        glUseProgram(l_pSubMesh->shaderProgram);
+        glUseProgram(l_pSubMesh->m_iShaderProgram);
 
         // Set model, view, projection matrices
-        GLuint modelLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Model");
-        GLuint viewLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4View");
-        GLuint projLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Projection");
+        GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
+        GLuint viewLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4View");
+        GLuint projLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Projection");
 
         cMatrix44 modelMatrix = l_matTransoform;
         cMatrix44 viewMatrix;// = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
@@ -207,9 +207,9 @@ void cSkinningMesh::Render()
         g_ModelMat = modelMatrix;
 
         // Set light and view position uniforms
-        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3LightColor");
-        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3LightPosition");
-        GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3ViewPosition");
+        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3LightColor");
+        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3LightPosition");
+        GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3ViewPosition");
 
         Vector3 lightColor(1.0f, 1.0f, 1.0f);
         Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
@@ -220,8 +220,8 @@ void cSkinningMesh::Render()
         glUniform3fv(viewPosLoc, 1, viewPos);
 
         // Set directional light uniforms
-        GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "dirLightDirection");
-        GLuint dirLightColorLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "dirLightColor");
+        GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightDirection");
+        GLuint dirLightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightColor");
 
         Vector3 dirLightDirection(-0.2f, -0.2f, 1.f);
         Vector3 dirLightColor(0.5f, 0.5f, 0.5f);
@@ -229,13 +229,13 @@ void cSkinningMesh::Render()
         glUniform3fv(dirLightDirLoc, 1, dirLightDirection);
         glUniform3fv(dirLightColorLoc, 1, dirLightColor);
         // Pass the bone matrices to the shader
-        GLuint boneMatricesLocation = glGetUniformLocation(l_pSubMesh->shaderProgram, "uBoneTransforms");
+        GLuint boneMatricesLocation = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uBoneTransforms");
         glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
         ApplyMaterial();;
 
         // Bind the vertex array and draw the sub-mesh
         glBindVertexArray(l_pSubMesh->m_uiVAO);
-        EnableVertexAttributes(l_pSubMesh->m_iFVFFlag);
+        EnableVertexAttributes(l_pSubMesh->m_i64FVFFlag);
         MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)l_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
     }
 }

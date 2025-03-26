@@ -67,7 +67,9 @@ namespace FATMING_CORE
 		m_uiMatrixVPLoacation = -1;
 		this->SetName(e_strName);
 		m_bTexture = e_bTexture;
-		memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
+		auto ll = TOTAL_FVF;
+		//memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
+		std::fill(m_uiAttribArray, m_uiAttribArray + TOTAL_FVF, GLuint(-1));
 		bool	l_b = CreateProgram(e_bTexture?g_strCommonVS:g_strCommonVSNoTexture,
 									e_bTexture?g_strCommonFS:g_strCommonFSNoTexture,
 									e_bTexture);
@@ -264,7 +266,10 @@ namespace FATMING_CORE
 
 					for (int i = 0; i < TOTAL_FVF; ++i)
 					{
-						m_uiAttribArray[i] = glGetAttribLocation(m_uiProgram, g_strShaderAttribution[i]);
+						if (g_strShaderAttribution[i] && strlen(g_strShaderAttribution[i]))
+						{
+							m_uiAttribArray[i] = glGetAttribLocation(m_uiProgram, g_strShaderAttribution[i]);
+						}
 					}
 					CHECK_GL_ERROR("cBaseShader::456");
 					this->Unuse();
@@ -684,17 +689,17 @@ namespace FATMING_CORE
 	{
 		g_vGlobalScaleColor	= e_vColor;
 	}
-	void EnableVertexAttributes(unsigned int e_iFVFFlag)
+	void EnableVertexAttributes(int64 e_i64FVFFlag)
 	{
 		for (int i = 0; i < TOTAL_FVF; ++i)
 		{
-			if (e_iFVFFlag & (1 << i))
+			if (e_i64FVFFlag & (1LL << i))
 			{
-				glEnableVertexAttribArray(i);
+				LAZY_DO_GL_COMMAND_AND_GET_ERROR(glEnableVertexAttribArray(i));
 			}
 			else
 			{
-				glDisableVertexAttribArray(i);
+				LAZY_DO_GL_COMMAND_AND_GET_ERROR(glDisableVertexAttribArray(i));
 			}
 		}
 	}

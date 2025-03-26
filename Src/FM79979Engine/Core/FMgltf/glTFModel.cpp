@@ -172,22 +172,18 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
 
 void cglTFModel::PopulateUniform(int e_iProgram)
 {
-    int count = -1;
-    int length;
-    char name[128];
-    int size;
-    GLenum type;
-    char testName[256];
     std::map<std::string, unsigned int>  l_NameAndUniformLocationMap;
-
+    int count = -1;
     glUseProgram(e_iProgram);
     glGetProgramiv(e_iProgram, GL_ACTIVE_UNIFORMS, &count);
 
     for (int i = 0; i < count; ++i)
     {
-        memset(name, 0, sizeof(char) * 128);
-        glGetActiveUniform(e_iProgram, (GLuint)i, 128, &length, &size, &type, name);
-
+        char name[256];
+        GLsizei length;
+        GLint size;
+        GLenum type;
+        glGetActiveUniform(e_iProgram, i, sizeof(name), &length, &size, &type, name);
         int uniform = glGetUniformLocation(e_iProgram, name);
         if (uniform >= 0)
         {
@@ -200,14 +196,14 @@ void cglTFModel::PopulateUniform(int e_iProgram)
                 unsigned int uniformIndex = 0;
                 while (true)
                 {
-                    memset(testName, 0, sizeof(char) * 256);
-                    sprintf(testName, "%s[%d]", uniformName.c_str(), uniformIndex++);
-                    int uniformLocation = glGetUniformLocation(e_iProgram, testName);
+                    memset(name, 0, sizeof(char) * 256);
+                    sprintf(name, "%s[%d]", uniformName.c_str(), uniformIndex++);
+                    int uniformLocation = glGetUniformLocation(e_iProgram, name);
                     if (uniformLocation < 0)
                     {
                         break;
                     }
-                    l_NameAndUniformLocationMap[testName] = uniformLocation;
+                    l_NameAndUniformLocationMap[name] = uniformLocation;
                 }
             }
             l_NameAndUniformLocationMap[uniformName] = uniform;
@@ -361,11 +357,11 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_M
         // Get or create the appropriate shader program for the sub-mesh
         for (auto l_pSubMesh : l_pMesh->m_SubMeshesVector)
         {
-            l_pSubMesh->shaderProgram = GetShaderProgram(l_pSubMesh->m_iFVFFlag, l_pSubMesh->m_iNumMorphTarget);
+            l_pSubMesh->m_iShaderProgram = GetShaderProgram(l_pSubMesh->m_i64FVFFlag, l_pSubMesh->m_iNumMorphTarget);
             // Load textures for each material
             if (primitive.material >= 0 && primitive.material < e_Model.materials.size())
             {
-                l_pMesh->LoadMaterial(e_Model, e_Model.materials[primitive.material], l_pSubMesh->shaderProgram);
+                l_pMesh->LoadMaterial(e_Model, e_Model.materials[primitive.material], l_pSubMesh->m_iShaderProgram);
             }
         }
     }

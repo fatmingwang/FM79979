@@ -26,44 +26,14 @@ cMesh::~cMesh()
     DELETE_VECTOR(m_SubMeshesVector);
 }
 
-void cMesh::ApplyMorphUniformData()
+void cMesh::ApplyMorphUniformData(sSubMesh* e_pSubMesh)
 {
-    if (m_CurrentAnimationMorphPrimitiveWeightsVector.size())
+    if (m_CurrentAnimationMorphPrimitiveWeightsVector.size() && e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap)
     {//setup how many primitive and weights data
-        //GLuint weightBuffer;
-        //glGenBuffers(1, &weightBuffer);
-        //glBindBuffer(GL_UNIFORM_BUFFER, weightBuffer);
-        //glBufferData(GL_UNIFORM_BUFFER, sizeof(float) * m_CurrentAnimationMorphPrimitiveWeightsVector.size(),
-        //             m_CurrentAnimationMorphPrimitiveWeightsVector.data(), GL_DYNAMIC_DRAW);
-        //glBindBuffer(GL_UNIFORM_BUFFER, 0);
+        auto l_uiUniform = glGetUniformLocation(e_pSubMesh->m_iShaderProgram,"uMorphWeights");
+        auto l_uiSize = e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap->size();
+        LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform1fv(l_uiUniform, l_uiSize, m_CurrentAnimationMorphPrimitiveWeightsVector.data()));
     }
-
-    auto l_strMorphShader = R"(
-        #version 330 core
-        layout(location = 0) in vec3 aPos;
-        layout(location = 1) in vec3 aMorphTarget0;
-        layout(location = 2) in vec3 aMorphTarget1;
-        layout(location = 3) in vec3 aMorphTarget2;
-        layout(location = 4) in vec3 aMorphTarget3;
-
-
-        uniform float Weights[4];
-        uniform float t;  // Animation time factor (0.0 - 1.0)
-
-        void main() {
-            // Interpolate morph weights on the GPU
-            float weights[4] = Weights;
-
-            // Compute the final morphed vertex position
-            vec3 morphedPos = aPos;
-            morphedPos += weights[0] * aMorphTarget0;
-            morphedPos += weights[1] * aMorphTarget1;
-            morphedPos += weights[2] * aMorphTarget2;
-            morphedPos += weights[3] * aMorphTarget3;
-
-            gl_Position = vec4(morphedPos, 1.0);
-        }
-    )";
 }
 
 void cMesh::ApplyMaterial()
@@ -87,7 +57,7 @@ void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinyglt
         size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
         const unsigned char* dataPtr = buffer.data.data() + byteOffset;
 
-        e_pSubMesh->m_iFVFFlag |= 1 << l_iFVFIndex;
+        e_pSubMesh->m_i64FVFFlag |= 1LL << l_iFVFIndex;
         size_t dataSize = accessor.count * accessor.ByteStride(bufferView);
 
         std::vector<Vector3> normals;
@@ -133,7 +103,7 @@ void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
 {
     Vector3 center = (m_vMinBounds + m_vMaxBounds) * 0.5f;
     Vector3 size = m_vMaxBounds - m_vMinBounds;
-    float radius = size.Length() * 0.5f;
+    float radius = size.Length() * 100.5f;
     center.y *= -1;
     // Set the camera position to be a bit further away from the center of the mesh
     Vector3 cameraPosition = center + Vector3(0, 0, radius * 5.0f);
@@ -146,7 +116,7 @@ void cMesh::sSubMesh::ClearOpenGLData()
 {
     for (int i = 0; i < TOTAL_FVF; ++i)
     {
-        if (i & this->m_iFVFFlag)
+        if (i & this->m_i64FVFFlag)
         {
             glDeleteBuffers(1,&m_iVBOArray[i]);
         }
@@ -168,17 +138,17 @@ void cMesh::Render()
     for (auto l_pSubMesh : m_SubMeshesVector)
     {
         // Use the shader program specific to this sub-mesh
-        glUseProgram(l_pSubMesh->shaderProgram);
+        glUseProgram(l_pSubMesh->m_iShaderProgram);
 
         // Set model, view, projection matrices
-        GLuint modelLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Model");
-        GLuint viewLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4View");
-        GLuint projLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inMat4Projection");
-
+        GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
+        GLuint viewLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4View");
+        GLuint projLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Projection");
+		ApplyMorphUniformData(l_pSubMesh);
         cMatrix44 modelMatrix = l_matTransform;
         cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
         l_pSubMesh->GetProperCameraPosition(viewMatrix);
-
+        //lazy for now.
         viewMatrix.GetTranslation().z *= -1;
         Projection projectionMatrix;
         projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
@@ -195,31 +165,35 @@ void cMesh::Render()
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
 
         // Set light and view position uniforms
-        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3LightColor");
-        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3LightPosition");
-        GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "inVec3ViewPosition");
+        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3LightColor");
+        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3LightPosition");
+        GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3ViewPosition");
 
         Vector3 lightColor(1.0f, 1.0f, 1.0f);
         Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
         Vector3 viewPos(0.0f, 0.0f, 30.0f);
-
-        glUniform3fv(lightColorLoc, 1, lightColor);
-        glUniform3fv(lightPosLoc, 1, lightPos);
-        glUniform3fv(viewPosLoc, 1, viewPos);
+        if (lightColorLoc != -1)
+        {
+            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(lightColorLoc, 1, lightColor));
+            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(lightPosLoc, 1, lightPos));
+            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(viewPosLoc, 1, viewPos));
+        }
 
         // Set directional light uniforms
-        GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "dirLightDirection");
-        GLuint dirLightColorLoc = glGetUniformLocation(l_pSubMesh->shaderProgram, "dirLightColor");
+        GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightDirection");
+        GLuint dirLightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightColor");
 
         Vector3 dirLightDirection(-0.f, -0.f, -1.f);
         Vector3 dirLightColor(1.f, 0.f, 0.f);
-
-        glUniform3fv(dirLightDirLoc, 1, dirLightDirection);
-        glUniform3fv(dirLightColorLoc, 1, dirLightColor);
+        if (dirLightDirLoc != -1)
+        {
+            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(dirLightDirLoc, 1, dirLightDirection));
+            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(dirLightColorLoc, 1, dirLightColor));
+        }
         ApplyMaterial();
         // Bind the vertex array and draw the sub-mesh
         glBindVertexArray(l_pSubMesh->m_uiVAO);
-        EnableVertexAttributes(l_pSubMesh->m_iFVFFlag);
+        EnableVertexAttributes(l_pSubMesh->m_i64FVFFlag);
         MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)l_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
     }
 }
@@ -235,15 +209,15 @@ void cMesh::logFVFFlags()
     FMLOG("FVF Flags")
     for (const auto l_pSubMesh : m_SubMeshesVector)
     {
-        if (l_pSubMesh->m_iFVFFlag & FVF_POS_FLAG) FMLOG("Position is present.");
-        if (l_pSubMesh->m_iFVFFlag & FVF_NORMAL_FLAG) FMLOG("Normal is present.");
-        if (l_pSubMesh->m_iFVFFlag & FVF_DIFFUSE_FLAG) FMLOG("Color is present.");
-        if (l_pSubMesh->m_iFVFFlag & FVF_SKINNING_WEIGHT_FLAG) FMLOG("weight is present.");
-        if (l_pSubMesh->m_iFVFFlag & FVF_SKINNING_BONE_INDEX_FLAG) FMLOG("joint is present.");
-        if (l_pSubMesh->m_iFVFFlag & FVF_TEX0_FLAG) FMLOG("Texture coordinates are present.");
-        if (l_pSubMesh->m_iFVFFlag & FVF_TANGENT_FLAG) FMLOG("Tangent is present.");
-        if (l_pSubMesh->m_iFVFFlag & FVF_BITAGENT_FLAG) FMLOG("Binormal is present.");
-        if (l_pSubMesh->m_iFVFFlag & FVF_NORMAL_MAP_TEXTURE_FLAG) FMLOG("Normal map is present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_POS_FLAG) FMLOG("Position is present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_NORMAL_FLAG) FMLOG("Normal is present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_DIFFUSE_FLAG) FMLOG("Color is present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_SKINNING_WEIGHT_FLAG) FMLOG("weight is present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_SKINNING_BONE_INDEX_FLAG) FMLOG("joint is present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_TEX0_FLAG) FMLOG("Texture coordinates are present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_TANGENT_FLAG) FMLOG("Tangent is present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_BITAGENT_FLAG) FMLOG("Binormal is present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_NORMAL_MAP_TEXTURE_FLAG) FMLOG("Normal map is present.");
     }
 }
 
@@ -329,7 +303,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
             size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
             const unsigned char* dataPtr = buffer.data.data() + byteOffset;
 
-            l_pSubMesh->m_iFVFFlag |= 1 << l_iFVFIndex;
+            l_pSubMesh->m_i64FVFFlag |= 1LL << l_iFVFIndex;
             size_t dataSize = accessor.count * accessor.ByteStride(bufferView);
 
             glGenBuffers(1, &l_pSubMesh->m_iVBOArray[l_iFVFIndex]);
@@ -380,8 +354,6 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         }
     }
     GenerateNormalAttribute(model, primitive, l_pSubMesh);
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     m_SubMeshesVector.push_back(l_pSubMesh);
     logFVFFlags();
@@ -397,6 +369,8 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         m_vMaxBounds.z = max(m_vMaxBounds.z, l_pSubMesh->m_vMaxBounds.z);
     }
     LoadMorphingAttributes(l_pSubMesh, model, primitive, calculateBinormal);
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal)
@@ -430,16 +404,19 @@ void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& m
             const tinygltf::Accessor& accessor = model.accessors[target.at("POSITION")];
             const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
             const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
-            size_t l_uiPosDataSize = accessor.count * accessor.ByteStride(bufferView);
-            const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
-			l_FVFAndVertexData = { {l_iFVF, (float*)data} };
-            e_pSubMesh->m_iFVFFlag |= 1 << (FVF_MORPHING_TARGET_POS1 + i);
-            // Upload generated normals to GPU
-            glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVF]);
-            glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVF]);
-            glBufferData(GL_ARRAY_BUFFER, l_uiPosDataSize, data, GL_STATIC_DRAW);
-            glEnableVertexAttribArray(l_iFVF);
-            glVertexAttribPointer(l_iFVF, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
+            if (accessor.componentType == GL_FLOAT)
+            {
+                size_t l_uiPosDataSize = accessor.count * accessor.ByteStride(bufferView);
+                const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
+                l_FVFAndVertexData = { {l_iFVF, (float*)data} };
+                e_pSubMesh->m_i64FVFFlag |= 1LL << (l_iFVF);
+                // Upload generated normals to GPU
+                glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVF]);
+                glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVF]);
+                glBufferData(GL_ARRAY_BUFFER, l_uiPosDataSize, data, GL_STATIC_DRAW);
+                glEnableVertexAttribArray(l_iFVF);
+                glVertexAttribPointer(l_iFVF, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
+            }
         }
 #ifdef DEBUG
         // Load NORMAL deltas

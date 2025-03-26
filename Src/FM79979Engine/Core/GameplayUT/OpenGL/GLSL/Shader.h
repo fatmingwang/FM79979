@@ -65,7 +65,7 @@
 //#define	FVF_TEX7				14//UV	2float
 
 //last one
-#define	TOTAL_FVF						FVF_MORPHING_TARGET_POS4
+#define	TOTAL_FVF						FVF_MORPHING_TARGET_POS4+1
 
 extern char*	g_strShaderAttribution[TOTAL_FVF];
 extern int		g_iFVF_DataStride[TOTAL_FVF];
@@ -197,5 +197,5 @@ namespace FATMING_CORE
 	bool	CheckShader(int Object, int Type, const wchar_t*e_strMessage,std::string*e_strOutputLog = nullptr);
 	//
 	void	SetGlobalScaleColor(Vector4 e_vColor);	
-	void	EnableVertexAttributes(unsigned int e_iFVFFlags);
+	void	EnableVertexAttributes(int64 e_i64FVFFlags);
 }

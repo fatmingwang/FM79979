@@ -56,22 +56,11 @@
 
 class cMesh:public FATMING_CORE::Frame
 {
-    //useless?
-    std::vector<double>             m_MorphWeights; // Store blending weights per target
-    //from sAnimationData,as many as m_SubMeshesVector.size()
-	std::vector<float>			    m_CurrentAnimationMorphPrimitiveWeightsVector;
-    void                            ApplyMorphUniformData();
-	typedef std::vector<std::map<int, float*>> sMorphTargetVector;
-protected:
-    shared_ptr<cMaterial>m_Material;
-    void    ApplyMaterial();
-    friend class cglTFModel;
-    friend class cAnimationClip;
-public:
+    typedef std::vector<std::map<int, float*>> sMorphTargetVector;
     struct sSubMesh
     {
-        unsigned int                m_iFVFFlag = 0;
-        GLuint                      shaderProgram;
+        int64                       m_i64FVFFlag = 0;
+        GLuint                      m_iShaderProgram;
         size_t                      m_i64VertexCount = 0;
         GLuint                      m_iVBOArray[TOTAL_FVF];
         std::vector<uint32_t>       m_IndexBuffer;
@@ -81,10 +70,22 @@ public:
         Vector3                     m_vMaxBounds;
         //for debug
         shared_ptr<sMorphTargetVector>    m_spFVFAndVertexDataMorphTargetMap;
-		int 					    m_iNumMorphTarget = 0;
+        int 					    m_iNumMorphTarget = 0;
         void                        GetProperCameraPosition(cMatrix44& e_CameraMatrix);
         void                        ClearOpenGLData();
     };
+    //
+    //useless?
+    std::vector<double>             m_MorphWeights; // Store blending weights per target
+    //from sAnimationData,as many as m_SubMeshesVector.size(),all submesh has same count
+	std::vector<float>			    m_CurrentAnimationMorphPrimitiveWeightsVector;
+    void                            ApplyMorphUniformData(struct sSubMesh*e_pSubMesh);
+protected:
+    shared_ptr<cMaterial>m_Material;
+    void    ApplyMaterial();
+    friend class cglTFModel;
+    friend class cAnimationClip;
+public:
     Vector3 m_vMinBounds;
     Vector3 m_vMaxBounds;
 protected:

@@ -3,7 +3,7 @@
 namespace FATMING_CORE
 {
 	//from 2DShader.cpp
-	extern GLuint	g_uiAttribArray[9];//TOTAL_FVF
+	extern GLuint	g_uiAttribArray[TOTAL_FVF];//TOTAL_FVF
 	cTerrianVertex::cTerrianVertex(int e_iGridWidth,int e_iGridHeight,bool e_bUseVBO,int e_iInputImageWidth,int e_iInputImageHeight,int64 e_iFVF)
 	{
 		m_uiIndexBufferCount = 0;

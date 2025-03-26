@@ -1,7 +1,8 @@
-#include "LazyShaderGenerator.h"
 #include "../AllCoreInclude.h"
+#include "LazyShaderGenerator.h"
 
-std::string GenerateVertexShaderWithFVF(unsigned int fvfFlags, int e_iNumMorphTarget)
+
+std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarget)
 {
     std::string shaderCode = R"(
         #version 330 core
@@ -10,45 +11,48 @@ std::string GenerateVertexShaderWithFVF(unsigned int fvfFlags, int e_iNumMorphTa
         #endif
 
         layout(location = 0) in vec3 aPosition;
-        layout(location = 1) in vec3 aNormal;
-        layout(location = 7) in vec2 aTexCoord;
-    )";
-    if (e_iNumMorphTarget>0)
-    {
-        // Generate morph target attributes dynamically
-        for (int i = 0; i < e_iNumMorphTarget; i++)
-        {
-            shaderCode += "\tlayout(location = " + std::to_string(i + FVF_MORPHING_TARGET_POS1) + ") in vec3 aMorphTarget" + std::to_string(i) + ";\n\t";
-        }
-        // Generate weight uniforms
-        shaderCode += "\tuniform float morphWeights[" + std::to_string(e_iNumMorphTarget) + "];\n";
-
-    }
+        layout(location = 1) in vec3 aNormal;)";
     // Adding tangents if necessary
-    if (fvfFlags & FVF_TANGENT_FLAG)
+    if (e_i64FVFFlags & FVF_TANGENT_FLAG)
     {
         shaderCode += R"(
         layout(location = 3) in vec3 aTangent;)";
     }
 
     // Adding binormals if necessary
-    if (fvfFlags & FVF_BITAGENT_FLAG)
+    if (e_i64FVFFlags & FVF_BITAGENT_FLAG)
     {
         shaderCode += R"(
         layout(location = 4) in vec3 aBinormal;)";
     }
 
     // Adding joint indices and weights if necessary
-    if (fvfFlags & FVF_SKINNING_WEIGHT_FLAG)
+    if (e_i64FVFFlags & FVF_SKINNING_WEIGHT_FLAG)
     {
         shaderCode += R"(
         layout(location = 5) in vec4 aWeights;)";
     }
 
-    if (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG)
+    if (e_i64FVFFlags & FVF_SKINNING_BONE_INDEX_FLAG)
     {
         shaderCode += R"(
         layout(location = 6) in ivec4 aJoints;)";
+    }
+    // Adding tangents if necessary
+    if (e_i64FVFFlags & FVF_TEX0_FLAG)
+    {
+        shaderCode += R"(
+        layout(location = 7) in vec2 aTexCoord;)";
+    }
+    if (e_iNumMorphTarget > 0)
+    {
+        // Generate morph target attributes dynamically
+        for (int i = 0; i < e_iNumMorphTarget; i++)
+        {
+            shaderCode += "\n\t\tlayout(location = " + std::to_string(i + FVF_MORPHING_TARGET_POS1) + ") in vec3 aMorphTarget" + std::to_string(i) + ";";
+        }
+        // Generate weight uniforms
+        shaderCode += "\n\t\tuniform float uMorphWeights[" + std::to_string(e_iNumMorphTarget) + "];";
     }
 
     // Normalizing the vectors and transforming to view space
@@ -64,18 +68,18 @@ std::string GenerateVertexShaderWithFVF(unsigned int fvfFlags, int e_iNumMorphTa
         out vec3 toFSVec3LightDir;
     )";
 
-    if (fvfFlags & FVF_TANGENT_FLAG)
+    if (e_i64FVFFlags & FVF_TANGENT_FLAG)
     {
         shaderCode += R"(
         out vec3 toFSVec3Tangent;)";
     }
 
-    if (fvfFlags & FVF_BITAGENT_FLAG)
+    if (e_i64FVFFlags & FVF_BITAGENT_FLAG)
     {
         shaderCode += R"(
         out vec3 toFSVec3Binormal;)";
     }
-    if (fvfFlags & FVF_SKINNING_WEIGHT_FLAG)
+    if (e_i64FVFFlags & FVF_SKINNING_WEIGHT_FLAG)
     {
         shaderCode += R"(
             const int MAX_BONES = 100;
@@ -92,7 +96,7 @@ std::string GenerateVertexShaderWithFVF(unsigned int fvfFlags, int e_iNumMorphTa
         )";
         for (int i = 0; i < e_iNumMorphTarget; i++)
         {
-            shaderCode += "\tmorphedPosition += morphWeights[" + std::to_string(i) + "] * aMorphTarget" + std::to_string(i) + ";\n\t\t";
+            shaderCode += "\tmorphedPosition += uMorphWeights[" + std::to_string(i) + "] * aMorphTarget" + std::to_string(i) + ";\n\t\t";
         }
         shaderCode += R"(
             vec4 worldPosition = inMat4Model * vec4(morphedPosition, 1.0);
@@ -109,7 +113,7 @@ std::string GenerateVertexShaderWithFVF(unsigned int fvfFlags, int e_iNumMorphTa
     )";
     }
 
-    if ((fvfFlags & FVF_SKINNING_WEIGHT_FLAG) && (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG))
+    if ((e_i64FVFFlags & FVF_SKINNING_WEIGHT_FLAG) && (e_i64FVFFlags & FVF_SKINNING_BONE_INDEX_FLAG))
     {
         shaderCode += R"(
             // Skinning transformation
@@ -129,7 +133,7 @@ std::string GenerateVertexShaderWithFVF(unsigned int fvfFlags, int e_iNumMorphTa
     )";
 
 
-    if (fvfFlags & FVF_TANGENT_FLAG)
+    if (e_i64FVFFlags & FVF_TANGENT_FLAG)
     {
         shaderCode += R"(
             // Transform tangent if present
@@ -137,20 +141,22 @@ std::string GenerateVertexShaderWithFVF(unsigned int fvfFlags, int e_iNumMorphTa
         )";
     }
 
-    if (fvfFlags & FVF_BITAGENT_FLAG)
+    if (e_i64FVFFlags & FVF_BITAGENT_FLAG)
     {
         shaderCode += R"(
             // Transform binormal if present
             toFSVec3Binormal = mat3(transpose(inverse(inMat4Model))) * aBinormal;
         )";
     }
-
-    shaderCode += R"(
+    if (e_i64FVFFlags & FVF_TEX0_FLAG)
+    {
+        shaderCode += R"(
             // Pass texture coordinates
             toFSVec2TexCoord = aTexCoord;
         )";
+    }
 
-    if ((fvfFlags & FVF_SKINNING_WEIGHT_FLAG) && (fvfFlags & FVF_SKINNING_BONE_INDEX_FLAG))
+    if ((e_i64FVFFlags & FVF_SKINNING_WEIGHT_FLAG) && (e_i64FVFFlags & FVF_SKINNING_BONE_INDEX_FLAG))
     {
         shaderCode += R"(    gl_Position = worldPosition;
         )";
@@ -172,7 +178,7 @@ std::string GenerateVertexShaderWithFVF(unsigned int fvfFlags, int e_iNumMorphTa
 }
 
 
-std::string GenerateFragmentShaderWithFVF(unsigned int fvfFlags)
+std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 {
     std::string shaderCode = R"(
         #version 330 core
@@ -185,26 +191,26 @@ std::string GenerateFragmentShaderWithFVF(unsigned int fvfFlags)
         in vec3 toFSVec3Normal;
         in vec3 toFSVec3FragPos;
         in vec3 toFSVec3LightDir;)";
-    if (fvfFlags & FVF_TANGENT_FLAG)
+    if (e_i64FVFFlags & FVF_TANGENT_FLAG)
     {
         shaderCode += R"(
         in vec3 toFSVec3Tangent;)";
     }
 
-    if (fvfFlags & FVF_BITAGENT_FLAG)
+    if (e_i64FVFFlags & FVF_BITAGENT_FLAG)
     {
         shaderCode += R"(
         in vec3 toFSVec3Binormal;)";
     }
     shaderCode += R"(
         // Declare the uniform for fvfFlags passed from C++ 
-        uniform uint fvfFlags;
+        //uniform uint fvfFlags;
 
         // Define constants for flags, from shader.h
-        const uint FVF_TANGENT_FLAG = 1u << 4;
-        const uint FVF_BITAGENT_FLAG = 1u << 5;
-        const uint FVF_NORMAL_FLAG = 1u << 1;  // Flag for normal
-        const uint FVF_NORMAL_MAP = 1u << 6;  // Flag for normal map
+        //const uint FVF_TANGENT_FLAG = 1u << 4;
+        //const uint FVF_BITAGENT_FLAG = 1u << 5;
+        //const uint FVF_NORMAL_FLAG = 1u << 1;  // Flag for normal
+        //const uint FVF_NORMAL_MAP = 1u << 6;  // Flag for normal map
 
         // Add normal map if necessary
         uniform sampler2D normalMap;
@@ -255,26 +261,35 @@ std::string GenerateFragmentShaderWithFVF(unsigned int fvfFlags)
             return ambient + diffuse + specular;  // Returning the combined light contribution
         }
     )";
-
-    shaderCode += R"(
+    if (e_i64FVFFlags & FVF_TEX0_FLAG)
+    {
+        shaderCode += R"(
         void main() 
         {
             // Fetch base color texture
             vec3 color = texture(texture1, toFSVec2TexCoord).rgb;
-    )";
+        )";
+    }
+    else
+    {
+        shaderCode += R"(
+        void main() 
+        {
+            // Fetch base color texture
+            vec3 color = vec3(0);
+        )";
+    }
 
-    if (fvfFlags & FVF_NORMAL_FLAG)
+    if (e_i64FVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG)
     {
         shaderCode += R"(
             // Normal map processing (if flag is set)
             vec3 normal = normalize(toFSVec3Normal);
-            if (bool(fvfFlags & FVF_NORMAL_MAP)) 
-            {  // Check if FVF_NORMAL_MAP bit is set
-                vec3 normalMapColor = texture(normalMap, toFSVec2TexCoord).rgb;
-                normalMapColor = normalize(normalMapColor * 2.0 - 1.0);  // Convert from [0, 1] to [-1, 1]
+            vec3 normalMapColor = texture(normalMap, toFSVec2TexCoord).rgb;
+            normalMapColor = normalize(normalMapColor * 2.0 - 1.0);  // Convert from [0, 1] to [-1, 1]
 
                         )";
-        if (fvfFlags & FVF_BITAGENT_FLAG)
+        if (e_i64FVFFlags & FVF_BITAGENT_FLAG)
         {
             shaderCode += R"(
                 // Transform normal from tangent space to world space
@@ -282,8 +297,27 @@ std::string GenerateFragmentShaderWithFVF(unsigned int fvfFlags)
                 normal = normalize(TBN * normalMapColor);
             )";
         }
-        shaderCode += R"(
-            }
+    }
+    else
+    {
+        //shaderCode += R"(
+        //    // Skip lighting calculations and directly set FragColor
+        //    FragColor = vec4(color, 1.0);
+        //)";
+        if (e_i64FVFFlags & FVF_NORMAL_FLAG)
+        {
+            shaderCode += R"(
+            vec3 normal = toFSVec3Normal;
+            )";
+        }
+        else
+        {
+            shaderCode += R"(
+            vec3 normal;
+            )";
+        }
+    }
+    shaderCode += R"(
             // Calculate the view direction
             vec3 viewDir = normalize(inVec3ViewPosition - toFSVec3FragPos);
 
@@ -296,20 +330,12 @@ std::string GenerateFragmentShaderWithFVF(unsigned int fvfFlags)
             // Apply texture and lighting effects
             FragColor = vec4(color * (lighting + dirLighting), 1.0);
         )";
-    }
-    else
-    {
-        shaderCode += R"(
-            // Skip lighting calculations and directly set FragColor
-            FragColor = vec4(color, 1.0);
-        )";
-    }
 
-    if ((fvfFlags & FVF_TEX0_FLAG) == 0)
-    {
-        shaderCode += R"(
-            FragColor = vec4(1, 1, 0, 1.0);)";
-    }
+    //if ((e_i64FVFFlags & FVF_TEX0_FLAG) == 0)
+    //{
+    //    shaderCode += R"(
+    //        FragColor = vec4(1, 1, 0, 1.0);)";
+    //}
     shaderCode += R"(
         })";
 #ifdef DEBUG
