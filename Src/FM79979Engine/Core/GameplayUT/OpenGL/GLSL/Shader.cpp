@@ -94,7 +94,8 @@ namespace FATMING_CORE
 		m_uiMatrixVPLoacation = -1;
 		this->SetName(e_strName);
 		m_bTexture = e_bTexture;
-		memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
+		//memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
+		std::fill(m_uiAttribArray, m_uiAttribArray + TOTAL_FVF, GLuint(-1));
 		bool	l_b = CreateProgram(e_strVS,e_strPS,e_bTexture);
 		assert(g_bShowErrorMessageBoxIfShaderIsWrong?l_b:true);
 	}
@@ -105,7 +106,8 @@ namespace FATMING_CORE
 		m_uiProgram = -1;
 		m_uiVS = -1;
 		m_uiFS = -1;
-		memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
+		//memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
+		std::fill(m_uiAttribArray, m_uiAttribArray + TOTAL_FVF, GLuint(-1));
 	}
 	cBaseShader::cBaseShader(const wchar_t*e_strName,bool *e_pbClientState)
 	{

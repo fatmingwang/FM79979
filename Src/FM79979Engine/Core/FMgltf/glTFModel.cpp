@@ -582,9 +582,9 @@ int glTFInit()
     // 
     //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
+    g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //morphing
-    g_glTFModel.LoadFromGLTF("glTFModel/AnimatedMorphCube.glb", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedMorphCube.glb", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/CarConcept.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/glTF/ABeautifulGame.gltf", true);
     
