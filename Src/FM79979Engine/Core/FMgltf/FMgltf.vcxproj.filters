@@ -47,6 +47,9 @@
     <ClInclude Include="LazyShaderGenerator.h">
       <Filter>glTF\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="glTFLight.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -72,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="LazyShaderGenerator.cpp">
       <Filter>glTF\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFLight.cpp">
+      <Filter>glTF</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="glTFAnimation.h" />
+    <ClInclude Include="glTFLight.h" />
     <ClInclude Include="glTFMaterial.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="glTFAnimationMesh.h" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glTFAnimation.cpp" />
+    <ClCompile Include="glTFLight.cpp" />
     <ClCompile Include="glTFMaterial.cpp" />
     <ClCompile Include="glTFAnimationMesh.cpp" />
     <ClCompile Include="glTFNode.cpp" />
