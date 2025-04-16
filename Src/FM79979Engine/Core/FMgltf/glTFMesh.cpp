@@ -103,8 +103,8 @@ void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
 {
     Vector3 center = (m_vMinBounds + m_vMaxBounds) * 0.5f;
     Vector3 size = m_vMaxBounds - m_vMinBounds;
-    //float radius = size.Length() * 100.5f;
-    float radius = size.Length();
+    float radius = size.Length() * 150.5f;
+    //float radius = size.Length();
     center.y *= -1;
     // Set the camera position to be a bit further away from the center of the mesh
     Vector3 cameraPosition = center + Vector3(0, 0, radius);
@@ -129,7 +129,7 @@ void cMesh::sSubMesh::ClearOpenGLData()
 
 void cMesh::Render()
 {
-    static float angle = 0.0f;
+    static float angle = 10.0f;
     static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
     lightAngle += 0.001f;

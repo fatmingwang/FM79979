@@ -16,7 +16,7 @@
 //    }
 //}
 
-void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model, std::vector<cglTFLight>& lights)
+void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
 {
     const auto& extLights = model.extensions.find("KHR_lights_punctual");
     if (extLights == model.extensions.end()) return;
@@ -26,28 +26,29 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model, std::vector<cg
     {
         const tinygltf::Value& lightDef = lightsArray.Get(i);
 
-        cglTFLight light;
+        sLightData light;
         std::string l_strName = lightDef.Get("name").Get<std::string>();
-		//light.name = 
-        std::string type = lightDef.Get("type").Get<std::string>();
-
-        if (type == "directional")
+        if (lightDef.Has("type"))
         {
-            light.m_eType = eLightType::eLT_DIRECTIONAL;
-        }
-        else
-        if (type == "spot")
-        {
-            light.m_eType = eLightType::eLT_SPOT;
-        }
-        else
-        if (type == "point")
-        {
-            light.m_eType = eLightType::eLT_POINT;
-        }
-        else
-        {
-            light.m_eType = eLightType::eLT_POINT;
+            std::string type = lightDef.Get("type").Get<std::string>();
+            if (type == "directional")
+            {
+                light.m_eType = eLightType::eLT_DIRECTIONAL;
+            }
+            else
+            if (type == "spot")
+            {
+                light.m_eType = eLightType::eLT_SPOT;
+            }
+            else
+            if (type == "point")
+            {
+                light.m_eType = eLightType::eLT_POINT;
+            }
+            else
+            {
+                light.m_eType = eLightType::eLT_POINT;
+            }
         }
 
         if (lightDef.Has("color"))
@@ -82,8 +83,7 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model, std::vector<cg
                 light.m_fOuterConeAngle = (float)spot.Get("outerConeAngle").Get<double>();
             }
         }
-
-        lights.push_back(light);
+        m_LightDataVector.push_back(light);
     }
 
     // Position/direction come from node transforms
@@ -91,14 +91,47 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model, std::vector<cg
     {
         if (!node.extensions.count("KHR_lights_punctual")) continue;
         int lightIndex = node.extensions.at("KHR_lights_punctual").Get("light").Get<int>();
-        if (lightIndex >= 0 && lightIndex < lights.size())
+        if (lightIndex >= 0 && lightIndex < m_LightDataVector.size())
         {
+            cMatrix44 l_Mat = cMatrix44::Identity;
+            if (node.matrix.size() == 16)
+            {
+                l_Mat = cMatrix44(&node.matrix[0]);
+            }
+            else
+            {
+                Vector3 l_vTranslation = Vector3::Zero;
+                Quaternion l_vRotation = Quaternion::Identity;
+                Vector3 l_vScale = Vector3::One;
+                if (node.translation.size() == 3)
+                {
+                    l_vTranslation = Vector3((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+                }
+                if (node.rotation.size() == 4)
+                {
+                    l_vRotation = Quaternion((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
+                }
+                if (node.scale.size() == 3)
+                {
+                    l_vScale = Vector3((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+                }
+				l_Mat = cMatrix44::TranslationMatrix(l_vTranslation)*l_vRotation.ToMatrix()* cMatrix44::ScaleMatrix(l_vScale);
+            }
             // You must convert node.translation and rotation to world-space
             if (node.translation.size() == 3)
             {
-				lights[lightIndex].m_vPosition = Vector3((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+                m_LightDataVector[lightIndex].m_vPosition = Vector3((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+                m_LightDataVector[lightIndex].m_vDirection = Vector3(&l_Mat.m[2][0]);
             }
-            // Direction can be derived from node.rotation if needed
         }
     }
+}
+
+void cglTFLight::CreateDefaulights()
+{
+}
+
+const std::vector<cglTFLight::sLightData>& cglTFLight::GetLights() const
+{
+        return m_LightDataVector;
 }
