@@ -129,6 +129,16 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
 
 void cglTFLight::CreateDefaulights()
 {
+	sLightData light;
+	light.m_eType = eLightType::eLT_DIRECTIONAL;
+	light.m_fIntensity = 1.0f;
+	light.m_fRange = 0.0f;
+	light.m_fInnerConeAngle = 0.0f;
+	light.m_fOuterConeAngle = 0.0f;
+	light.m_vPosition = Vector3(0.f, 0.f, 0.f);
+	light.m_vDirection = Vector3(0.f, -1.f, 0.f);
+	light.m_vColor = Vector3(1.f, 1.f, 1.f);
+	m_LightDataVector.push_back(light);
 }
 
 const std::vector<cglTFLight::sLightData>& cglTFLight::GetLights() const

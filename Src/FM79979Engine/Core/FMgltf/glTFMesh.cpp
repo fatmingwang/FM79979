@@ -99,15 +99,25 @@ void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinyglt
 }
 
 
+
+
 void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
 {
     Vector3 center = (m_vMinBounds + m_vMaxBounds) * 0.5f;
-    Vector3 size = m_vMaxBounds - m_vMinBounds;
-    float radius = size.Length() * 150.5f;
-    //float radius = size.Length();
+    Vector3 l_Extends = m_vMaxBounds - m_vMinBounds;
+    float l_fSize = max(l_Extends.x,l_Extends.y);
+    l_fSize = max(l_fSize, l_Extends.z);
+    //float l_fEffectiveSize = max(l_fSize, 1);
+    //// Calculate distance based on FOV
+    //float fovY = 45 * (3.14159265358979323846f / 180.0f);
+    //float distance = (l_fEffectiveSize / 2.0f) / std::tan(fovY / 2.0f) * l_fSize;
+    //// Apply minimum and maximum distance constraints
+    //float minDistance = 1.0f;
+    //float maxDistance = 1000.0f;
+    //distance = std::clamp(distance, minDistance, maxDistance);
     center.y *= -1;
     // Set the camera position to be a bit further away from the center of the mesh
-    Vector3 cameraPosition = center + Vector3(0, 0, radius);
+    Vector3 cameraPosition = center + Vector3(0, 0, l_fSize*2);
 
     // Assuming you have a function to set the view matrix in the projectionMatrix
     e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
@@ -132,8 +142,8 @@ void cMesh::Render()
     static float angle = 10.0f;
     static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
-    lightAngle += 0.001f;
-    //angle += 0.01f;
+    lightAngle += 0.01f;
+    angle += 0.01f;
 
     auto l_matTransform = this->GetWorldTransform();
     for (auto l_pSubMesh : m_SubMeshesVector)
@@ -146,7 +156,8 @@ void cMesh::Render()
         GLuint viewLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4View");
         GLuint projLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Projection");
 		ApplyMorphUniformData(l_pSubMesh);
-        cMatrix44 modelMatrix = l_matTransform;
+        //cMatrix44 modelMatrix = l_matTransform;
+        cMatrix44 modelMatrix = cMatrix44::Identity;
         cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
         l_pSubMesh->GetProperCameraPosition(viewMatrix);
         //lazy for now.
