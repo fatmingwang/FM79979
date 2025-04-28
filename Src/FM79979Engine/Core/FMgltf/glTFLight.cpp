@@ -125,6 +125,10 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
             }
         }
     }
+    if (m_LightDataVector.size() == 0)
+    {
+        CreateDefaulights();
+    }
 }
 
 void cglTFLight::CreateDefaulights()

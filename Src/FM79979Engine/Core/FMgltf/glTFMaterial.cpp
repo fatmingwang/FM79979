@@ -35,6 +35,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         }        
         shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
         m_uiBaseColorTextureVector.push_back(l_pTexture);
+		m_i64TextureFVFFlag |= 1LL << FVF_HAS_PBR_TEXTURE;
     }
 
     // Load normal map texture (if available)
@@ -49,6 +50,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         }
         shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
         m_uiNormalTextureVector.push_back(l_pTexture);
+        m_i64TextureFVFFlag |= 1LL << FVF_HAS_NORMAL_MAP_TEXTURE;
     }
 
     // Load occlusion map texture (if available)
@@ -63,6 +65,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         }
         shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
         m_uiOocclusionTextureVector.push_back(l_pTexture);
+        m_i64TextureFVFFlag |= 1LL << FVF_HAS_PBR_TEXTURE;
     }
 }
 

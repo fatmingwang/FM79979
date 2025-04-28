@@ -4,6 +4,7 @@
 
 class cMaterial:public NamedTypedObject
 {
+	int64        m_i64TextureFVFFlag = 0;
     unsigned int m_uiShadeProgrameID;
 	tinygltf::Material material;
      //m_pTexture;

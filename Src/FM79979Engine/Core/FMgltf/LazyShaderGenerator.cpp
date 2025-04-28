@@ -180,7 +180,7 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
 std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 {
     std::string l_strDefine;
-    // Define flags for conditional compilation
+
     if (e_i64FVFFlags & FVF_TEX0_FLAG)
         l_strDefine += "#define USE_TEXCOORD\n";
     if (e_i64FVFFlags & FVF_NORMAL_FLAG)
@@ -191,6 +191,14 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
         l_strDefine += "#define USE_BINORMAL\n";
     if (e_i64FVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG)
         l_strDefine += "#define USE_NORMAL_MAP\n";
+
+    // Define ONE of these depending on the shader type you want to build:
+    if (e_i64FVFFlags & FVF_TEX0_FLAG)
+        l_strDefine += "#define USE_DIFFUSE_ONLY\n";
+    if (e_i64FVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG)
+        l_strDefine += "#define USE_DIFFUSE_NORMAL\n";
+    if (e_i64FVFFlags & FVF_HAS_PBR_TEXTURE_FLAG)
+        l_strDefine += "#define USE_PBR\n";
 
     std::string shaderCode = R"(
     #version 330 core
@@ -216,71 +224,109 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 
     out vec4 FragColor;
 
-    uniform sampler2D normalMap;
-    uniform sampler2D texture1;
-    uniform sampler2D textureRoughness;
-    uniform sampler2D textureMetallic;
-
     uniform vec3 inVec3LightColor;
     uniform vec3 inVec3LightPosition;
     uniform vec3 inVec3ViewPosition;
 
-    uniform vec3 dirLightDirection;
-    uniform vec3 dirLightColor;
-
-    vec3 ComputeLighting(vec3 normal, vec3 lightDir, vec3 viewDir)
-    {
-        vec3 ambient = 0.1 * inVec3LightColor;
-        float diff = max(dot(normal, lightDir), 0.0);
-        vec3 diffuse = diff * inVec3LightColor;
-        vec3 reflectDir = reflect(-lightDir, normal);
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-        vec3 specular = spec * inVec3LightColor;
-        return ambient + diffuse + specular;
-    }
-
-    vec3 ComputeDirectionalLight(vec3 normal, vec3 viewDir)
-    {
-        vec3 ambient = 0.1 * dirLightColor;
-        float diff = max(dot(normal, -dirLightDirection), 0.0);
-        vec3 diffuse = diff * dirLightColor;
-        vec3 reflectDir = reflect(dirLightDirection, normal);
-        float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-        vec3 specular = spec * dirLightColor;
-        return ambient + diffuse + specular;
-    }
-
-    void main()
-    {
-#ifdef USE_TEXCOORD
-        vec3 color = texture(texture1, toFSVec2TexCoord).rgb;
-#else
-        vec3 color = vec3(0);
+#ifdef USE_DIFFUSE_ONLY
+    uniform sampler2D textureDiffuse;
 #endif
 
+#ifdef USE_DIFFUSE_NORMAL
+    uniform sampler2D textureDiffuse;
+    uniform sampler2D textureNormal;
+#endif
+
+#ifdef USE_PBR
+    uniform sampler2D textureAlbedo;
+    uniform sampler2D textureRoughness;
+    uniform sampler2D textureMetallic;
+    uniform sampler2D textureNormal;
+#endif
+
+vec3 GetNormalFromMap()
+{
 #ifdef USE_NORMAL_MAP
-        vec3 normal = normalize(toFSVec3Normal);
-        vec3 normalMapColor = texture(normalMap, toFSVec2TexCoord).rgb;
-        normalMapColor = normalize(normalMapColor * 2.0 - 1.0);
 #ifdef USE_BINORMAL
-        mat3 TBN = mat3(normalize(toFSVec3Tangent), normalize(toFSVec3Binormal), normalize(toFSVec3Normal));
-        normal = normalize(TBN * normalMapColor);
+    vec3 tangent = normalize(toFSVec3Tangent);
+    vec3 bitangent = normalize(toFSVec3Binormal);
+    vec3 normal = normalize(toFSVec3Normal);
+    mat3 TBN = mat3(tangent, bitangent, normal);
+    vec3 normalMap = texture(textureNormal, toFSVec2TexCoord).rgb;
+    normalMap = normalMap * 2.0 - 1.0;
+    return normalize(TBN * normalMap);
+#else
+    return normalize(toFSVec3Normal);
 #endif
 #else
-#ifdef USE_NORMAL
-        vec3 normal = toFSVec3Normal;
+    return normalize(toFSVec3Normal);
+#endif
+}
+
+vec3 fresnelSchlick(float cosTheta, vec3 F0)
+{
+    return F0 + (1.0 - F0) * pow(1.0 - cosTheta, 5.0);
+}
+
+void main()
+{
+#ifdef USE_DIFFUSE_ONLY
+    vec3 N = normalize(toFSVec3Normal);
+    vec3 L = normalize(inVec3LightPosition - toFSVec3FragPos);
+    float diff = max(dot(N, L), 0.0);
+    vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
+    vec3 result = diffuseColor * inVec3LightColor * diff;
+    FragColor = vec4(result, 1.0);
+#elif defined(USE_DIFFUSE_NORMAL)
+    vec3 N = GetNormalFromMap();
+    vec3 L = normalize(inVec3LightPosition - toFSVec3FragPos);
+    float diff = max(dot(N, L), 0.0);
+    vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
+    vec3 result = diffuseColor * inVec3LightColor * diff;
+    FragColor = vec4(result, 1.0);
+#elif defined(USE_PBR)
+    vec3 albedo = pow(texture(textureAlbedo, toFSVec2TexCoord).rgb, vec3(2.2));
+    float roughness = texture(textureRoughness, toFSVec2TexCoord).r;
+    float metallic = texture(textureMetallic, toFSVec2TexCoord).r;
+
+    vec3 N = GetNormalFromMap();
+    vec3 V = normalize(inVec3ViewPosition - toFSVec3FragPos);
+    vec3 L = normalize(inVec3LightPosition - toFSVec3FragPos);
+    vec3 H = normalize(V + L);
+
+    float NDF = pow(max(dot(N, H), 0.0), (2.0 / pow(roughness + 0.001, 4.0)) - 2.0);
+    float G = 1.0; // Simplified for performance
+    vec3 F0 = mix(vec3(0.04), albedo, metallic);
+    vec3 F = fresnelSchlick(max(dot(H, V), 0.0), F0);
+
+    float NdotL = max(dot(N, L), 0.0);
+
+    vec3 kS = F;
+    vec3 kD = vec3(1.0) - kS;
+    kD *= 1.0 - metallic;
+
+    vec3 numerator = NDF * G * F;
+    float denominator = 4.0 * max(dot(N, V), 0.001) * max(dot(N, L), 0.001);
+    vec3 specular = numerator / max(denominator, 0.001);
+
+    vec3 irradiance = inVec3LightColor;
+    vec3 diffuse = kD * albedo / 3.14159;
+
+    vec3 color = (diffuse + specular) * irradiance * NdotL;
+
+    FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0);
 #else
-        vec3 normal;
+    // No texture, no normal map, no PBR -> basic diffuse lighting
+    vec3 N = normalize(toFSVec3Normal);
+    vec3 L = normalize(inVec3LightPosition - toFSVec3FragPos);
+    float diff = max(dot(N, L), 0.0);
+    vec3 diffuseColor = vec3(1.0, 1.0, 1.0); // White diffuse color
+    vec3 result = diffuseColor * inVec3LightColor * diff;
+    FragColor = vec4(result, 1.0);
 #endif
-#endif
+}
 
-        vec3 viewDir = normalize(inVec3ViewPosition - toFSVec3FragPos);
-        vec3 lighting = ComputeLighting(normal, toFSVec3LightDir, viewDir);
-        vec3 dirLighting = ComputeDirectionalLight(normal, viewDir);
-        FragColor = vec4(color * (lighting + dirLighting), 1.0);
-    }
-    )";
-
+)";
 #ifdef DEBUG
     FMLOG(shaderCode.c_str());
 #endif

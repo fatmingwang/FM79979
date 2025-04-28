@@ -6,6 +6,7 @@
 
 class cglTFModel:public NamedTypedObject
 {
+	std::shared_ptr<class cglTFLight> m_pLight;
 public:
     //this is useless but now m_SkinningBoneVector's data from here
     cNamedTypedObjectVector<cglTFNodeData>         m_NodesVector;

@@ -1,27 +1,5 @@
 #pragma once
 
-//#include "glm/glm.hpp"
-//#include "glm/gtc/matrix_transform.hpp"
-//#include "glm/gtc/quaternion.hpp"
-//#include "glm/gtc/type_ptr.hpp"
-
-//enum eFVF
-//{
-//    FVF_POSITION1 = 1 << 0,   // Position attribute (vec3)
-//    FVF_NORMAL = 1 << 1,     // Normal attribute (vec3)
-//    FVF_DIFFUSE = 1 << 2,      // Color attribute (vec4)
-//    FVF_TEX0 = 1 << 3,   // Texture coordinates attribute (vec2)
-//    FVF_TANGENT5 = 1 << 4,    // Tangent attribute (vec3)
-//    FVF_BITAGENT = 1 << 5,   // Binormal attribute (vec3)
-//    FVF_NORMAL_MAP = 1 << 6,  // Normal map (for fragment shader)
-//    FVF_METALLIC = 1 << 7,    // Metallic texture (for PBR)
-//    FVF_ROUGHNESS = 1 << 8,   // Roughness texture (for PBR)
-//    FVF_EMISSIVE = 1 << 9,    // Emissive texture (if needed)
-//    FVF_OCCLUSION = 1 << 10,  // Occlusion texture (for PBR)
-//    FVF_BASE_COLOR = 1 << 11, // Base color texture (if needed)
-//    FVF_PBR = FVF_METALLIC | FVF_ROUGHNESS | FVF_OCCLUSION | FVF_BASE_COLOR, // PBR materials group
-//    FVF_ALL = FVF_POSITION1 | FVF_NORMAL | FVF_TEX0 | FVF_TANGENT5 | FVF_BITAGENT // All common attributes
-//};
 //Explanation:
 //Position(FVF_POSITION1) : Vertex position(typically vec3).
 //Normal(FVF_NORMAL) : Normal vector(typically vec3).
