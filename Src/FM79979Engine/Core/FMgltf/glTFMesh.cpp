@@ -177,19 +177,22 @@ void cMesh::Render()
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
 
         // Set light and view position uniforms
-        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3LightColor");
-        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3LightPosition");
+        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uLightColors");
+        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uLightPositions");
         GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3ViewPosition");
+        GLuint l_uNumLights = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uNumLights");
 
         Vector3 lightColor(1.0f, 1.0f, 1.0f);
         Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
         Vector3 viewPos(0.0f, 0.0f, 30.0f);
-        if (lightColorLoc != -1)
+        GLint l_uiNumLight = 1;
+        //if (lightColorLoc != -1)
         {
             LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(lightColorLoc, 1, lightColor));
             LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(lightPosLoc, 1, lightPos));
             LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(viewPosLoc, 1, viewPos));
         }
+        glUniform1i(l_uNumLights, l_uiNumLight);
 
         // Set directional light uniforms
         GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightDirection");

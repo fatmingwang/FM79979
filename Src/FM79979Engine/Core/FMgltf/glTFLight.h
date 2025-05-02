@@ -36,7 +36,8 @@ public:
 private:
         std::vector< sLightData> m_LightDataVector;
 public:
-    void        LoadLightsFromGLTF(const tinygltf::Model& model);
-	void        CreateDefaulights();
-    const std::vector<sLightData>& GetLights() const;
+    void                            LoadLightsFromGLTF(const tinygltf::Model& model);
+	void                            CreateDefaulights();
+    const std::vector<sLightData>&  GetLights() const;
+    static bool                     IsLightExists(const tinygltf::Model& model);
 };

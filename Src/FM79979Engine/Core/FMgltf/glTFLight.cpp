@@ -149,3 +149,19 @@ const std::vector<cglTFLight::sLightData>& cglTFLight::GetLights() const
 {
         return m_LightDataVector;
 }
+
+bool cglTFLight::IsLightExists(const tinygltf::Model& model)
+{
+    const auto& extLights = model.extensions.find("KHR_lights_punctual");
+    if (extLights == model.extensions.end())
+    {
+        return false;
+    }
+
+    const auto& lightsArray = extLights->second.Get("lights");
+    if (lightsArray.ArrayLen())
+    {
+        return true;
+    }
+    return false;
+}

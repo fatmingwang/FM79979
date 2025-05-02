@@ -466,8 +466,11 @@ bool cglTFModel::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNo
         std::cerr << "Error loading GLTF file: " << err << std::endl;
         return false;
     }
-	m_pLight = std::make_shared<cglTFLight>();
-	m_pLight->LoadLightsFromGLTF(model);
+    if (cglTFLight::IsLightExists(model))
+    {
+        m_pLight = std::make_shared<cglTFLight>();
+        m_pLight->LoadLightsFromGLTF(model);
+    }
     //m_pLight->
     LoadNodes(model,e_bCalculateBiNormal);
     loadAnimations(model);
@@ -588,12 +591,12 @@ int glTFInit()
     //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //morphing
-    g_glTFModel.LoadFromGLTF("glTFModel/AnimatedMorphCube.glb", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedMorphCube.glb", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/CarConcept.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/glTF/ABeautifulGame.gltf", true);
     
     //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);

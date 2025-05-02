@@ -207,17 +207,21 @@ void cSkinningMesh::Render()
         g_ModelMat = modelMatrix;
 
         // Set light and view position uniforms
-        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3LightColor");
-        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3LightPosition");
+        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uLightColors");
+        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uLightPositions");
         GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3ViewPosition");
+        GLuint l_uNumLights = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uNumLights");
+        
 
         Vector3 lightColor(1.0f, 1.0f, 1.0f);
         Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
         Vector3 viewPos(0.0f, 0.0f, 30.0f);
+        GLint l_uiNumLight = 1;
 
         glUniform3fv(lightColorLoc, 1, lightColor);
         glUniform3fv(lightPosLoc, 1, lightPos);
         glUniform3fv(viewPosLoc, 1, viewPos);
+        glUniform1i(l_uNumLights, l_uiNumLight);
 
         // Set directional light uniforms
         GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightDirection");
