@@ -1,6 +1,8 @@
 #include "tiny_gltf.h"
 #include "glTFLight.h"
 
+TYPDE_DEFINE_MARCO(cglTFLight);
+
 
 //"extensions": {
 //    "KHR_lights_punctual": {
@@ -145,9 +147,22 @@ void cglTFLight::CreateDefaulights()
 	m_LightDataVector.push_back(light);
 }
 
-const std::vector<cglTFLight::sLightData>& cglTFLight::GetLights() const
+const std::vector<sLightData>& cLighCollector::GetLights() const
 {
         return m_LightDataVector;
+}
+
+void cLighCollector::SetLight(int e_iIndex, sLightData e_sLightData)
+{
+	if (e_iIndex >= 0 && e_iIndex < m_LightDataVector.size())
+	{
+		m_LightDataVector[e_iIndex] = e_sLightData;
+	}
+}
+
+void cLighCollector::AddLight(sLightData e_sLightData)
+{
+	m_LightDataVector.push_back(e_sLightData);
 }
 
 bool cglTFLight::IsLightExists(const tinygltf::Model& model)

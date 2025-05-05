@@ -17,7 +17,7 @@ cglTFModel::~cglTFModel()
 }
 
 
-GLuint cglTFModel::CreateShader(unsigned int fvfFlags, int e_iNumMorphTarget)
+GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
 {
     std::string vertexCode = GenerateVertexShaderWithFVF(fvfFlags, e_iNumMorphTarget);
     std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
@@ -399,7 +399,7 @@ shared_ptr<cMesh> cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin
     return l_pSkinningMesh;
 }
 
-GLuint cglTFModel::GetShaderProgram(unsigned int fvfFlags, int e_iNumMorphTarget)
+GLuint cglTFModel::GetShaderProgram(int64 fvfFlags, int e_iNumMorphTarget)
 {
     // Check if the shader program for this FVF already exists
     auto l_IT = m_FVFAndShaderProgramsMap.find(fvfFlags);
