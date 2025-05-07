@@ -8,6 +8,7 @@
 #include <cstring>
 #include <unordered_set>
 #include <set>
+#include "glTFLight.h"
 
 
 TYPDE_DEFINE_MARCO(cMesh);
@@ -144,13 +145,13 @@ void cMesh::Render()
     static float l_fCameraZPosition = -6;
     lightAngle += 0.01f;
     angle += 0.01f;
-
     auto l_matTransform = this->GetWorldTransform();
     for (auto l_pSubMesh : m_SubMeshesVector)
     {
         // Use the shader program specific to this sub-mesh
         glUseProgram(l_pSubMesh->m_iShaderProgram);
-
+        //fuck not implement yet
+        //cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
         // Set model, view, projection matrices
         GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
         GLuint viewLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4View");

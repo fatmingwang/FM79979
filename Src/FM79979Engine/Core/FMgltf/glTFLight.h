@@ -9,17 +9,33 @@ enum class eLightType
     eLT_MAX
 };
 
-// Structure to hold light properties
-struct sLightData
+//Structure to hold light properties
+//std140 layout rules
+struct alignas(16) sLightData
 {
-    eLightType  m_eType = eLightType::eLT_MAX;
-    float       m_fIntensity = 1.0f;
-    float       m_fRange = 0.0f;         // Only for point and spot
-    float       m_fInnerConeAngle = 0.0f; // Only for spot
-    float       m_fOuterConeAngle = 0.0f;
-    Vector3     m_vPosition = Vector3::Zero;
-    Vector3     m_vDirection = Vector3(0.0f, 0.0f, -1.0f); // Default down
-    Vector3     m_vColor = Vector3(1.0f, 1.f, 1.f);
+    Vector3     m_vPosition;        // Aligned to 16 bytes
+    float       m_fIntensity;      // Aligned to 16 bytes (vec4 padding)
+
+    Vector3     m_vDirection;      // Aligned to 16 bytes
+    float       m_fRange;          // Aligned to 16 bytes (vec4 padding)
+
+    Vector3     m_vColor;          // Aligned to 16 bytes
+    float       m_fInnerConeAngle; // Aligned to 16 bytes (vec4 padding)
+
+    float       m_fOuterConeAngle; // Aligned to 4 bytes
+    int         m_eType;           // Aligned to 4 bytes (enum stored as int)
+    float       _padding[2];       // Padding to align the structure to 16 bytes
+    bool operator==(const sLightData& other) const
+    {
+        return m_eType == other.m_eType &&
+            m_fIntensity == other.m_fIntensity &&
+            m_fRange == other.m_fRange &&
+            m_fInnerConeAngle == other.m_fInnerConeAngle &&
+            m_fOuterConeAngle == other.m_fOuterConeAngle &&
+            m_vPosition == other.m_vPosition &&
+            m_vDirection == other.m_vDirection &&
+            m_vColor == other.m_vColor;
+    }
 };
 
 class cglTFLight:public NamedTypedObject
@@ -33,23 +49,30 @@ public:
     static bool                     IsLightExists(const tinygltf::Model& model);
 };
 
-class cLighCollector:public NamedTypedObject, public cSingltonTemplate<NamedTypedObject>
+class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighController>
 {
-    std::vector< sLightData> m_LightDataVector;
+    GLuint m_uiLightUBO = -1;
+    std::vector<sLightData> m_LightDataVector;
+    cLighController();
+    virtual ~cLighController();
 public:
     DEFINE_TYPE_INFO();
+    SINGLETON_BASIC_FUNCTION(cLighController);
     const   std::vector<sLightData>& GetLights() const;
     void    SetLight(int e_iIndex, sLightData e_sLightData);
-    void    AddLight(sLightData e_sLightData);
-    void    Render();
+    void    AddLight(sLightData& e_sLightData);
+    void    RemoveLight(sLightData& e_sLightData);
+    void    Render(GLuint e_uiProgramID);
 };
 
 
 class cLighFrameData:public Frame
 {
+    sLightData m_LightData;
 public:
     DEFINE_TYPE_INFO();
-    sLightData m_LightData;
+    virtual void Render()override;
+    virtual void EndRender()override;
 };
 
 
