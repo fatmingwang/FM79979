@@ -38,19 +38,15 @@ struct alignas(16) sLightData
     }
 };
 
-class cglTFLight:public NamedTypedObject
-{
-private:
-    std::vector< sLightData>        m_LightDataVector;
-    void                            CreateDefaulights();
-public:
-    DEFINE_TYPE_INFO();
-    void                            LoadLightsFromGLTF(const tinygltf::Model& model);
-    static bool                     IsLightExists(const tinygltf::Model& model);
-};
-
 class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighController>
 {
+    // Prepare the UBO data
+    struct alignas(16) LightBlock
+    {
+        int numLights;       // Number of lights
+        float pad[3];        // Padding to align to 16 bytes
+        sLightData lights[256]; // Array of light data
+    } m_LightBlock;
     GLuint m_uiLightUBO = -1;
     std::vector<sLightData> m_LightDataVector;
     cLighController();
@@ -71,8 +67,28 @@ class cLighFrameData:public Frame
     sLightData m_LightData;
 public:
     DEFINE_TYPE_INFO();
+	cLighFrameData(sLightData e_LightData)
+    {
+		m_LightData = e_LightData; 
+	}
+	virtual ~cLighFrameData(){ }
     virtual void Render()override;
     virtual void EndRender()override;
+	sLightData&  GetLightData()
+	{
+		return m_LightData;
+	}
+};
+
+class cglTFLight :public NamedTypedObject
+{
+    private:
+    std::vector< sLightData>        m_LightDataVector;
+    public:
+    DEFINE_TYPE_INFO();
+    void                            LoadLightsFromGLTF(const tinygltf::Model& model);
+    static cLighFrameData           CreateDirectionLight();
+    static bool                     IsLightExists(const tinygltf::Model& model);
 };
 
 

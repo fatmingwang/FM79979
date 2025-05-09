@@ -33,7 +33,7 @@ void cMesh::ApplyMorphUniformData(sSubMesh* e_pSubMesh)
     {//setup how many primitive and weights data
         auto l_uiUniform = glGetUniformLocation(e_pSubMesh->m_iShaderProgram,"uMorphWeights");
         auto l_uiSize = e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap->size();
-        LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform1fv(l_uiUniform, l_uiSize, m_CurrentAnimationMorphPrimitiveWeightsVector.data()));
+        LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform1fv((GLsizei)l_uiUniform, (GLsizei)l_uiSize, m_CurrentAnimationMorphPrimitiveWeightsVector.data()));
     }
 }
 
@@ -151,7 +151,7 @@ void cMesh::Render()
         // Use the shader program specific to this sub-mesh
         glUseProgram(l_pSubMesh->m_iShaderProgram);
         //fuck not implement yet
-        //cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
+        cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
         // Set model, view, projection matrices
         GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
         GLuint viewLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4View");
@@ -177,35 +177,8 @@ void cMesh::Render()
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
 
-        // Set light and view position uniforms
-        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uLightColors");
-        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uLightPositions");
-        GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3ViewPosition");
-        GLuint l_uNumLights = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uNumLights");
 
-        Vector3 lightColor(1.0f, 1.0f, 1.0f);
-        Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
-        Vector3 viewPos(0.0f, 0.0f, 30.0f);
-        GLint l_uiNumLight = 1;
-        //if (lightColorLoc != -1)
-        {
-            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(lightColorLoc, 1, lightColor));
-            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(lightPosLoc, 1, lightPos));
-            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(viewPosLoc, 1, viewPos));
-        }
-        glUniform1i(l_uNumLights, l_uiNumLight);
 
-        // Set directional light uniforms
-        GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightDirection");
-        GLuint dirLightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightColor");
-
-        Vector3 dirLightDirection(-0.f, -0.f, -1.f);
-        Vector3 dirLightColor(1.f, 0.f, 0.f);
-        if (dirLightDirLoc != -1)
-        {
-            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(dirLightDirLoc, 1, dirLightDirection));
-            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform3fv(dirLightColorLoc, 1, dirLightColor));
-        }
         ApplyMaterial();
         // Bind the vertex array and draw the sub-mesh
         glBindVertexArray(l_pSubMesh->m_uiVAO);

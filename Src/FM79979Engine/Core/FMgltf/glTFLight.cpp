@@ -2,8 +2,8 @@
 #include "glTFLight.h"
 
 TYPDE_DEFINE_MARCO(cglTFLight);
-
-
+TYPDE_DEFINE_MARCO(cLighController);
+TYPDE_DEFINE_MARCO(cLighFrameData);
 //"extensions": {
 //    "KHR_lights_punctual": {
 //        "lights": [
@@ -131,11 +131,11 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
     }
     if (m_LightDataVector.size() == 0)
     {
-        CreateDefaulights();
+        CreateDirectionLight();
     }
 }
 
-void cglTFLight::CreateDefaulights()
+cLighFrameData cglTFLight::CreateDirectionLight()
 {
 	sLightData light;
 	light.m_eType = (int)eLightType::eLT_DIRECTIONAL;
@@ -146,7 +146,7 @@ void cglTFLight::CreateDefaulights()
 	light.m_vPosition = Vector3(0.f, 0.f, 0.f);
 	light.m_vDirection = Vector3(0.f, -1.f, 0.f);
 	light.m_vColor = Vector3(1.f, 1.f, 1.f);
-	m_LightDataVector.push_back(light);
+    return light;
 }
 
 cLighController::cLighController()
@@ -199,10 +199,24 @@ void cLighController::Render(GLuint e_uiProgramID)
     {
         numLights = maxLights;
     }
-
+    if (numLights == 0)
+    {
+		auto l_Light = cglTFLight::CreateDirectionLight();
+		m_LightDataVector.push_back(l_Light.GetLightData());
+    }
+    else
+    {
+        sLightData& l_Light = m_LightDataVector[0];
+        static float lightAngle = 0.0f;
+        lightAngle += 0.01f;
+		l_Light.m_vDirection = Vector3(-0.2f, -0.2f, 1.f);
+		l_Light.m_vPosition = Vector3(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
+    }
+	m_LightBlock.numLights = numLights;
+    memcpy(m_LightBlock.lights, m_LightDataVector.data(), numLights * sizeof(sLightData));
     // Bind and upload data to the UBO
     glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
-    glBufferData(GL_UNIFORM_BUFFER, numLights * sizeof(sLightData), m_LightDataVector.data(), GL_DYNAMIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(LightBlock), &m_LightBlock, GL_DYNAMIC_DRAW);
     glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_uiLightUBO); // Bind to binding point 0
 
     // Link the UBO to the shader program

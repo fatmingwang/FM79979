@@ -9,7 +9,7 @@
 #include <cfloat>
 #include <iostream>
 #include <sstream>
-
+#include "glTFLight.h"
 bool g_bApplyInverseBindPose = true;
 TYPDE_DEFINE_MARCO(cSkinningMesh);
 cSkinningMesh::cSkinningMesh()
@@ -165,11 +165,7 @@ void cSkinningMesh::Render()
     {
         cMesh::Render();
     }
-    static float angle = 0.0f;
-    static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
-    lightAngle += 0.01f;
-    angle += 0.01f;    
     //angle = 90;
     cMatrix44 conversionMatrix = cMatrix44::Identity;
     //conversionMatrix.m[2][2] = -1.0f;
@@ -182,7 +178,7 @@ void cSkinningMesh::Render()
     {
         // Use the shader program specific to this sub-mesh
         glUseProgram(l_pSubMesh->m_iShaderProgram);
-
+        cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
         // Set model, view, projection matrices
         GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
         GLuint viewLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4View");
@@ -197,8 +193,6 @@ void cSkinningMesh::Render()
         projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
 
         modelMatrix = conversionMatrix * modelMatrix;
-        cMatrix44 rotationMatrix = cMatrix44::YAxisRotationMatrix(angle);
-        modelMatrix = rotationMatrix * modelMatrix;
 
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
@@ -206,32 +200,6 @@ void cSkinningMesh::Render()
         g_PVMat = projectionMatrix.GetMatrix() * viewMatrix;
         g_ModelMat = modelMatrix;
 
-        // Set light and view position uniforms
-        GLuint lightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uLightColors");
-        GLuint lightPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uLightPositions");
-        GLuint viewPosLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inVec3ViewPosition");
-        GLuint l_uNumLights = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uNumLights");
-        
-
-        Vector3 lightColor(1.0f, 1.0f, 1.0f);
-        Vector3 lightPos(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
-        Vector3 viewPos(0.0f, 0.0f, 30.0f);
-        GLint l_uiNumLight = 1;
-
-        glUniform3fv(lightColorLoc, 1, lightColor);
-        glUniform3fv(lightPosLoc, 1, lightPos);
-        glUniform3fv(viewPosLoc, 1, viewPos);
-        glUniform1i(l_uNumLights, l_uiNumLight);
-
-        // Set directional light uniforms
-        GLuint dirLightDirLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightDirection");
-        GLuint dirLightColorLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "dirLightColor");
-
-        Vector3 dirLightDirection(-0.2f, -0.2f, 1.f);
-        Vector3 dirLightColor(0.5f, 0.5f, 0.5f);
-
-        glUniform3fv(dirLightDirLoc, 1, dirLightDirection);
-        glUniform3fv(dirLightColorLoc, 1, dirLightColor);
         // Pass the bone matrices to the shader
         GLuint boneMatricesLocation = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uBoneTransforms");
         glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
