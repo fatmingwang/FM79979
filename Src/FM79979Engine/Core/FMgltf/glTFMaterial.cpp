@@ -78,8 +78,11 @@ void cMaterial::Apply()
         //glActiveTexture(GL_TEXTURE0 + (GLenum)i);
         //glBindTexture(GL_TEXTURE_2D, m_uiTextureIDVector[i]);
     }
-    GLuint texture1Loc = glGetUniformLocation(m_uiShadeProgrameID, "texture1");
-    glUniform1i(texture1Loc, 0);
+    GLuint texture1Loc = glGetUniformLocation(m_uiShadeProgrameID, "textureDiffuse");
+    if (texture1Loc != GL_INVALID_INDEX)
+    {
+        glUniform1i(texture1Loc, 0);
+    }
 
     // Bind normal map texture if available
     if (!m_uiNormalTextureVector.empty())
@@ -88,7 +91,7 @@ void cMaterial::Apply()
         m_uiNormalTextureVector[0]->ApplyImageWithActiveTextureID((GLuint)m_uiBaseColorTextureVector.size());
         //glActiveTexture(GL_TEXTURE0 + (GLenum)m_uiTextureIDVector.size());
         //glBindTexture(GL_TEXTURE_2D, m_uiNormalTextureIDVector[0]);
-        GLuint normalMapLoc = glGetUniformLocation(m_uiShadeProgrameID, "normalMap");
+        GLuint normalMapLoc = glGetUniformLocation(m_uiShadeProgrameID, "textureNormal");
         glUniform1i(normalMapLoc, (GLint)m_uiBaseColorTextureVector.size());
     }
 

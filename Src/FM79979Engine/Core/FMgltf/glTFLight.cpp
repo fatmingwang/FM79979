@@ -137,29 +137,32 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
 
 cLighFrameData cglTFLight::CreateDirectionLight()
 {
-	sLightData light;
-	light.m_eType = (int)eLightType::eLT_DIRECTIONAL;
-	light.m_fIntensity = 1.0f;
-	light.m_fRange = 0.0f;
-	light.m_fInnerConeAngle = 0.0f;
-	light.m_fOuterConeAngle = 0.0f;
-	light.m_vPosition = Vector3(0.f, 0.f, 0.f);
-	light.m_vDirection = Vector3(0.f, -1.f, 0.f);
-	light.m_vColor = Vector3(1.f, 1.f, 1.f);
+    sLightData light;
+    light.m_eType = (int)eLightType::eLT_DIRECTIONAL; // Directional light
+    light.m_fIntensity = 1.0f;                       // Intensity of the light
+    light.m_fRange = 0.0f;                           // Not used for directional lights
+    light.m_fInnerConeAngle = 0.0f;                  // Not used for directional lights
+    light.m_fOuterConeAngle = 0.0f;                  // Not used for directional lights
+    light.m_vPosition = Vector3(0.f, 10.f, 10.f);    // Arbitrary position (not used for directional lights)
+    light.m_vDirection = Vector3(0.f, -1.f, -1.f);   // Light direction (pointing toward the origin)
+    light.m_vColor = Vector3(1.f, 1.f, 1.f);         // White light
     return light;
 }
 
 cLighController::cLighController()
 {
     glGenBuffers(1, &m_uiLightUBO);
+    glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(LightBlock), nullptr, GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0); // Unbind after allocation
 }
 
 cLighController::~cLighController()
 {
-    if (m_uiLightUBO != 0)
+    if (m_uiLightUBO != -1)
     {
         glDeleteBuffers(1, &m_uiLightUBO); // Delete UBO
-        m_uiLightUBO = 0;
+        m_uiLightUBO = -1;
     }
 }
 
@@ -192,8 +195,14 @@ void cLighController::RemoveLight(sLightData& e_sLightData)
 
 void cLighController::Render(GLuint e_uiProgramID)
 {
+    GLuint l_inVec3ViewPosition = glGetUniformLocation(e_uiProgramID, "inVec3ViewPosition");
+    if (l_inVec3ViewPosition != GL_INVALID_INDEX)
+    {
+        Vector3 l_vCameraPos(0, 0, -99999);
+        glUniform3fv(l_inVec3ViewPosition, 1, l_vCameraPos);
+    }
     // Ensure we don't exceed the maximum number of lights
-    int maxLights = 256; // Adjust based on hardware limits
+    int maxLights = 8; // Adjust based on hardware limits
     int numLights = static_cast<int>(m_LightDataVector.size());
     if (numLights > maxLights)
     {
@@ -202,32 +211,80 @@ void cLighController::Render(GLuint e_uiProgramID)
     if (numLights == 0)
     {
 		auto l_Light = cglTFLight::CreateDirectionLight();
-		m_LightDataVector.push_back(l_Light.GetLightData());
+        m_LightDataVector.push_back(l_Light.GetLightData());
+        sLightData l_AmbientLight;
+        l_AmbientLight.m_eType = (int)eLightType::eLT_AMBIENT;
+		l_AmbientLight.m_vColor = Vector3(0.1f, 0.1f, 0.1f); // Ambient light color 
+		l_AmbientLight.m_vPosition = Vector3(0.f, 0.f, 0.f); // Position of the ambient light
+        m_LightDataVector.push_back(l_AmbientLight);
+        numLights = 2;
     }
     else
     {
-        sLightData& l_Light = m_LightDataVector[0];
-        static float lightAngle = 0.0f;
-        lightAngle += 0.01f;
-		l_Light.m_vDirection = Vector3(-0.2f, -0.2f, 1.f);
-		l_Light.m_vPosition = Vector3(100.0f * cos(lightAngle), 0.0f, 100.0f * sin(lightAngle));
+        sLightData& dynamicLight = m_LightDataVector[0];
+        static float angle = 0.0f; // Angle for dynamic movement
+        float deltaTime = 0.016f;  // Replace with actual frame time
+        angle += 1.5f * deltaTime; // Adjust speed based on frame time
+
+        dynamicLight.m_fIntensity = 1.f;
+        // Update the light's position in a circular path
+        dynamicLight.m_vPosition = Vector3(10.0f * cos(angle), 5.0f, 10.0f * sin(angle));
+
+        // Update the light's direction to point toward the origin
+        dynamicLight.m_vDirection = -dynamicLight.m_vPosition.Normalize();
+
+        // Change the light's color over time for a dynamic effect
+        dynamicLight.m_vColor = Vector3(
+            (sin(angle) + 1.0f) * 0.5f, // Red oscillates
+            (cos(angle) + 1.0f) * 0.5f, // Green oscillates
+            1.0f                        // Blue remains constant
+        );
     }
 	m_LightBlock.numLights = numLights;
     memcpy(m_LightBlock.lights, m_LightDataVector.data(), numLights * sizeof(sLightData));
-    // Bind and upload data to the UBO
-    glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
-    glBufferData(GL_UNIFORM_BUFFER, sizeof(LightBlock), &m_LightBlock, GL_DYNAMIC_DRAW);
-    glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_uiLightUBO); // Bind to binding point 0
 
-    // Link the UBO to the shader program
-    GLuint blockIndex = glGetUniformBlockIndex(e_uiProgramID, "LightBlock");
-    if (blockIndex != GL_INVALID_INDEX)
+    if(0)
     {
-        glUniformBlockBinding(e_uiProgramID, blockIndex, 0);
-    }
+        sLightData l_ssTestingBlock;
+        l_ssTestingBlock.m_vColor = Vector3(1,0.5, 0.5);
+		l_ssTestingBlock.m_eType = (int)eLightType::eLT_DIRECTIONAL;
+		l_ssTestingBlock.m_vPosition = Vector3(0, 0, 0);
+        l_ssTestingBlock.m_fIntensity = 1;
+        GLuint blockIndex = glGetUniformBlockIndex(e_uiProgramID, "TestingBlock");
+        if (blockIndex != GL_INVALID_INDEX)
+        {
+            glUniformBlockBinding(e_uiProgramID, blockIndex, 0);
+            glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_uiLightUBO); // Bind UBO to binding point 0
+        }
+        // Bind and upload data to the UBO
+        glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
+        glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(sLightData), &l_ssTestingBlock);
 
-    // Unbind the UBO
-    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+        // Unbind the UBO
+        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    }
+    
+    else
+    {
+        GLuint blockIndex = glGetUniformBlockIndex(e_uiProgramID, "LightBlock");
+        if (blockIndex != GL_INVALID_INDEX)
+        {
+            glUniformBlockBinding(e_uiProgramID, blockIndex, 0);
+            glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_uiLightUBO); // Bind UBO to binding point 0
+        }
+        // Bind and upload data to the UBO
+        glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
+        glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(LightBlock), &m_LightBlock);
+
+        // Unbind the UBO
+        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    }
+    // Check for OpenGL errors
+    GLenum error = glGetError();
+    if (error != GL_NO_ERROR)
+    {
+        int a = 0;
+    }
 
 }
 

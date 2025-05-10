@@ -140,11 +140,7 @@ void cMesh::sSubMesh::ClearOpenGLData()
 
 void cMesh::Render()
 {
-    static float angle = 10.0f;
-    static float lightAngle = 0.0f;
     static float l_fCameraZPosition = -6;
-    lightAngle += 0.01f;
-    angle += 0.01f;
     auto l_matTransform = this->GetWorldTransform();
     for (auto l_pSubMesh : m_SubMeshesVector)
     {
@@ -157,8 +153,8 @@ void cMesh::Render()
         GLuint viewLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4View");
         GLuint projLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Projection");
 		ApplyMorphUniformData(l_pSubMesh);
-        //cMatrix44 modelMatrix = l_matTransform;
-        cMatrix44 modelMatrix = cMatrix44::Identity;
+        cMatrix44 modelMatrix = l_matTransform;
+        //cMatrix44 modelMatrix = cMatrix44::Identity;
         cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
         l_pSubMesh->GetProperCameraPosition(viewMatrix);
         //lazy for now.
@@ -170,8 +166,6 @@ void cMesh::Render()
         conversionMatrix.m[2][2] = -1.0f;
 
         modelMatrix = conversionMatrix * modelMatrix;
-        cMatrix44 rotationMatrix = cMatrix44::YAxisRotationMatrix(angle);
-        modelMatrix = rotationMatrix * modelMatrix;
 
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);

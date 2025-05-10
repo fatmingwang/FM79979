@@ -6,6 +6,7 @@ enum class eLightType
     eLT_DIRECTIONAL = 0,
     eLT_POINT,
     eLT_SPOT,
+    eLT_AMBIENT,
     eLT_MAX
 };
 
@@ -43,9 +44,9 @@ class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighCon
     // Prepare the UBO data
     struct alignas(16) LightBlock
     {
+        sLightData lights[8]; // Array of light data
         int numLights;       // Number of lights
         float pad[3];        // Padding to align to 16 bytes
-        sLightData lights[256]; // Array of light data
     } m_LightBlock;
     GLuint m_uiLightUBO = -1;
     std::vector<sLightData> m_LightDataVector;

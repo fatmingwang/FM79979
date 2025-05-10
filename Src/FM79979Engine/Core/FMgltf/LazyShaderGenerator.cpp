@@ -146,6 +146,7 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 {
     std::string l_strDefine;
 
+    // Define macros based on FVF flags
     if (e_i64FVFFlags & FVF_TEX0_FLAG)
         l_strDefine += "#define USE_TEXCOORD\n";
     if (e_i64FVFFlags & FVF_NORMAL_FLAG)
@@ -156,12 +157,12 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
         l_strDefine += "#define USE_BINORMAL\n";
     if (e_i64FVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG)
         l_strDefine += "#define USE_NORMAL_MAP\n";
-
     if (e_i64FVFFlags & FVF_HAS_PBR_TEXTURE_FLAG)
         l_strDefine += "#define USE_PBR\n";
 
+    // Start building the shader code
     std::string shaderCode = R"(
-        #version 330 core
+        #version 450
         #ifdef GL_ES
         precision mediump float;
         #endif
@@ -186,7 +187,8 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
         uniform vec3 inVec3ViewPosition;
 
         // Light data structure matching std140 layout
-        struct Light {
+        struct Light
+        {
             vec3 position;       // Aligned to 16 bytes
             float intensity;     // Aligned to 16 bytes (vec4 padding)
 
@@ -202,10 +204,16 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
             float pad2;           // Padding to align the structure to 16 bytes
         };
 
-        layout(std140) uniform LightBlock {
+        layout(std140) uniform LightBlock 
+        {
+            Light lights[8];   // Array of light data (maximum 8 lights)
             int numLights;       // Number of lights
             vec3 pad;            // Padding to align to 16 bytes
-            Light lights[256];   // Array of light data (maximum 256 lights)
+        };
+
+        layout(std140) uniform TestingBlock
+        {
+            Light TestingLight;            // Padding to align to 16 bytes
         };
 
         #ifdef USE_PBR
@@ -220,6 +228,7 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
         #endif
         #endif
 
+        // Function to get the normal from the normal map or fallback to the interpolated normal
         vec3 GetNormalFromMap()
         {
         #ifdef USE_NORMAL_MAP
@@ -230,54 +239,89 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
             vec3 normalMap = texture(textureNormal, toFSVec2TexCoord).rgb * 2.0 - 1.0;
             return normalize(TBN * normalMap);
         #else
-            return toFSVec3Normal;
+            return normalize(toFSVec3Normal);
         #endif
+        }
+
+        // Function to calculate the diffuse color
+        vec3 CalculateDiffuseColor(vec3 lightColor, float diff)
+        {
+        #ifdef USE_TEXCOORD
+            vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
+            return diffuseColor * lightColor * diff;
+        #else
+            return lightColor * diff;
+        #endif
+        }
+
+        // Function to calculate PBR lighting
+        vec3 CalculatePBRLighting(vec3 N, vec3 V, vec3 L, vec3 lightColor, vec3 albedo, float roughness, float metallic)
+        {
+            vec3 H = normalize(V + L);
+            vec3 F0 = mix(vec3(0.04), albedo, metallic);
+            vec3 F = F0 + (1.0 - F0) * pow(1.0 - max(dot(H, V), 0.0), 5.0);
+            float NDF = pow(max(dot(N, H), 0.0), (2.0 / pow(roughness + 0.001, 4.0)) - 2.0);
+            float G = 1.0;
+
+            float NdotV = max(dot(N, V), 0.001);
+            float NdotL = max(dot(N, L), 0.001);
+            float denom = 4.0 * NdotV * NdotL;
+            vec3 spec = NDF * G * F / max(denom, 0.001);
+            vec3 kS = F;
+            vec3 kD = vec3(1.0) - kS;
+            kD *= 1.0 - metallic;
+            vec3 irradiance = lightColor;
+            vec3 diffuse = kD * albedo / 3.14159;
+            return (diffuse + spec) * irradiance * NdotL;
         }
 
         void main()
         {
             vec3 N = GetNormalFromMap();
             vec3 V = normalize(inVec3ViewPosition - toFSVec3FragPos);
-            vec3 color = vec3(0.1);
-
+            vec3 color = vec3(0.0);
+        //#ifdef USE_TEXCOORD
+        //    vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
+        //    return diffuseColor * lightColor * diff;
+        //#else
             for (int i = 0; i < numLights; ++i)
             {
-                vec3 L = normalize(lights[i].position - toFSVec3FragPos);
-                vec3 H = normalize(V + L);
+                vec3 L;
+                float distance = 1.0;
+                float attenuation = 1.0;
+                if (lights[i].type == 0) 
+                { // Directional light
+                    L = -normalize(lights[i].direction);
+                }
+                else
+                if (lights[i].type == 3) 
+                { //ambient
+                    //texture(textureDiffuse, toFSVec2TexCoord).rgb should move to start
+                    vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
+                    color += (lights[i].color*diffuseColor);
+                    continue;
+                }
+                else
+                { // Point or spot light
+                    L = normalize(lights[i].position - toFSVec3FragPos);
+                    distance = length(lights[i].position - toFSVec3FragPos);
+                    if (lights[i].range > 0.0) 
+                    {
+                        attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
+                    }
+                }
                 float diff = max(dot(N, L), 0.0);
 
                 #ifdef USE_PBR
                 vec3 albedo = pow(texture(textureAlbedo, toFSVec2TexCoord).rgb, vec3(2.2));
                 float roughness = texture(textureRoughness, toFSVec2TexCoord).r;
                 float metallic = texture(textureMetallic, toFSVec2TexCoord).r;
-
-                vec3 F0 = mix(vec3(0.04), albedo, metallic);
-                vec3 F = F0 + (1.0 - F0) * pow(1.0 - max(dot(H, V), 0.0), 5.0);
-                float NDF = pow(max(dot(N, H), 0.0), (2.0 / pow(roughness + 0.001, 4.0)) - 2.0);
-                float G = 1.0;
-
-                float NdotV = max(dot(N, V), 0.001);
-                float NdotL = max(dot(N, L), 0.001);
-                float denom = 4.0 * NdotV * NdotL;
-                vec3 spec = NDF * G * F / max(denom, 0.001);
-                vec3 kS = F;
-                vec3 kD = vec3(1.0) - kS;
-                kD *= 1.0 - metallic;
-                vec3 irradiance = lights[i].color * lights[i].intensity;
-                vec3 diffuse = kD * albedo / 3.14159;
-                color += (diffuse + spec) * irradiance * NdotL;
+                color += CalculatePBRLighting(N, V, L, lights[i].color * lights[i].intensity, albedo, roughness, metallic);
                 #else
-                vec3 lightColor = lights[i].color * lights[i].intensity;
-                #ifdef USE_TEXCOORD
-                vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
-                color += diffuseColor * lightColor * diff;
-                #else
-                color += lightColor * diff;
-                #endif
+                color += CalculateDiffuseColor(lights[i].color * lights[i].intensity*attenuation, diff);
                 #endif
             }
-
-            FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0);
+            FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0); // Gamma correction
         }
     )";
 
@@ -286,5 +330,6 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 #endif
     return shaderCode;
 }
+
 
 
