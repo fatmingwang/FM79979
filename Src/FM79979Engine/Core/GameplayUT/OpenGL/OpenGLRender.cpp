@@ -258,7 +258,7 @@ namespace FATMING_CORE
 		//need this one or screen flash...and I dont know why
 		glScissor(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
 		CHECK_GL_ERROR("after viewport");
-		glClearColor(0,0,0,1);
+		glClearColor(m_vBGColor.x, m_vBGColor.y, m_vBGColor.z, m_vBGColor.w);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		CHECK_GL_ERROR("before viewport 1");
 		if (m_vDeviceViewPortSize.x != m_vViewPortSize.x ||
