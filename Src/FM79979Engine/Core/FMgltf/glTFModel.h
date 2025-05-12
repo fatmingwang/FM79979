@@ -6,13 +6,14 @@
 
 class cglTFModel:public NamedTypedObject
 {
-	std::shared_ptr<class cglTFLight> m_pLight;
+    std::shared_ptr<class cglTFCamera>      m_pCamera;
+	std::shared_ptr<class cglTFLight>       m_pLight;
     GLuint                                  CreateShader(int64 fvfFlags, int e_iNumMorphTarget);
     std::map<int64, GLuint>                 m_FVFAndShaderProgramsMap; // FVF -> Shader Program Map
     GLuint                                  GetShaderProgram(int64 fvfFlags, int e_iNumMorphTarget);  // Returns shader based on FVF
     //this is useless but now m_SkinningBoneVector's data from here
-    cNamedTypedObjectVector<cglTFNodeData>         m_NodesVector;
-    std::map<int, cglTFNodeData*>                   m_NodeIndexAndBoneMap;
+    cNamedTypedObjectVector<cglTFNodeData>  m_NodesVector;
+    std::map<int, cglTFNodeData*>           m_NodeIndexAndBoneMap;
     void                                    InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal);
     void                                    LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNormal);
     void                                    PopulateUniform(int e_iProgram);

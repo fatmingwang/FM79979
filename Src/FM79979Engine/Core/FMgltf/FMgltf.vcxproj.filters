@@ -50,6 +50,9 @@
     <ClInclude Include="glTFLight.h">
       <Filter>glTF</Filter>
     </ClInclude>
+    <ClInclude Include="glTFCamera.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -77,6 +80,9 @@
       <Filter>glTF\Shader</Filter>
     </ClCompile>
     <ClCompile Include="glTFLight.cpp">
+      <Filter>glTF</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFCamera.cpp">
       <Filter>glTF</Filter>
     </ClCompile>
   </ItemGroup>

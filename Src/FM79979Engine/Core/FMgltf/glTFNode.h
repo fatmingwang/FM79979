@@ -22,8 +22,9 @@ using FloatToSRTMap = std::map<float, sSRT>;
 typedef std::map<float, cMatrix44> FloatTocMatrix44Map;
 void    ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Map& matrixMap);
 
-struct cglTFNodeData : public Frame
+class cglTFNodeData : public Frame
 {
+public:
     //for debug
     int                 m_iJointIndex = -1;
     int                 m_iNodeIndex = -1;

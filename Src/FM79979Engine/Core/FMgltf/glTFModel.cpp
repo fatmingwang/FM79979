@@ -8,6 +8,7 @@
 #include "glTFModel.h"
 #include "LazyShaderGenerator.h"
 #include "glTFLight.h"
+#include "glTFCamera.h"
 
 TYPDE_DEFINE_MARCO(cglTFModel);
 
@@ -466,14 +467,19 @@ bool cglTFModel::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNo
         std::cerr << "Error loading GLTF file: " << err << std::endl;
         return false;
     }
+    //m_pLight->
+    LoadNodes(model,e_bCalculateBiNormal);
+    loadAnimations(model);
     if (cglTFLight::IsLightExists(model))
     {
         m_pLight = std::make_shared<cglTFLight>();
         m_pLight->LoadLightsFromGLTF(model);
     }
-    //m_pLight->
-    LoadNodes(model,e_bCalculateBiNormal);
-    loadAnimations(model);
+	if (cglTFCamera::IsCameraExists(model))
+	{
+		m_pCamera = std::make_shared<cglTFCamera>();
+		m_pCamera->LoadCamerasFromGLTF(model,&this->m_NodeIndexAndBoneMap);
+	}
     return true;
 }
 
