@@ -5,9 +5,10 @@
 #include <vector>
 #include "../AllCoreInclude.h"
 
-class cglTFCamera
+class cglTFCamera:public NamedTypedObject
 {
     public:
+    DEFINE_TYPE_INFO();
     enum class eCameraType
     {
         PERSPECTIVE,
@@ -39,4 +40,38 @@ class cglTFCamera
     const sCamera* GetCameraByIndex(size_t index) const;
     const sCamera* GetCameraByName(const std::string& name) const;
     static bool    IsCameraExists(const tinygltf::Model& model);
+};
+
+
+
+// Controller for managing multiple cameras
+class cCameraController : public NamedTypedObject, public cSingltonTemplate<cCameraController>
+{
+    std::shared_ptr<cFrameCamera> m_Camera;
+    cCameraController();
+    virtual ~cCameraController();
+public:
+    DEFINE_TYPE_INFO();
+    SINGLETON_BASIC_FUNCTION(cCameraController);
+    void SetCamera(std::shared_ptr<cFrameCamera> e_CameraData)
+    {
+        m_Camera = e_CameraData;
+	}
+    void Render(GLuint e_uiProgramID);
+};
+
+// Frame-specific camera data
+class cCameraFrameData : public Frame
+{
+    std::shared_ptr<cFrameCamera> m_Camera;
+public:
+    DEFINE_TYPE_INFO();
+    cCameraFrameData(cglTFCamera::sCamera e_CameraData);
+    virtual ~cCameraFrameData(){}
+    virtual void Render() override;
+    virtual void EndRender() override;
+    std::shared_ptr<cFrameCamera> GetCameraData()
+    {
+        return m_Camera;
+    }
 };

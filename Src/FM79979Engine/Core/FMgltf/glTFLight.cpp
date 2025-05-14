@@ -1,5 +1,6 @@
 #include "tiny_gltf.h"
 #include "glTFLight.h"
+#include "glTFCamera.h"
 
 TYPDE_DEFINE_MARCO(cglTFLight);
 TYPDE_DEFINE_MARCO(cLighController);
@@ -191,6 +192,18 @@ void cLighController::RemoveLight(sLightData& e_sLightData)
 	{
 		m_LightDataVector.erase(it, m_LightDataVector.end());
 	}
+}
+
+cCameraController::cCameraController()
+{
+}
+
+cCameraController::~cCameraController()
+{
+}
+
+void cCameraController::SetCamera(cglTFCamera::sCamera e_sCameraData)
+{
 }
 
 void cLighController::Render(GLuint e_uiProgramID)

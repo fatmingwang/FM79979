@@ -2,6 +2,12 @@
 #include "glTFCamera.h"
 #include "glTFNode.h"
 
+
+
+TYPDE_DEFINE_MARCO(cCameraFrameData);
+TYPDE_DEFINE_MARCO(cCameraController);
+TYPDE_DEFINE_MARCO(cglTFCamera);
+
 void cglTFCamera::LoadCamerasFromGLTF(const tinygltf::Model& model, std::map<int,cglTFNodeData*>* e_pNideIndexAndNodeDataMap)
 {
     cameras.clear();
@@ -87,4 +93,61 @@ const cglTFCamera::sCamera* cglTFCamera::GetCameraByName(const std::string& name
 bool cglTFCamera::IsCameraExists(const tinygltf::Model& model)
 {
 	return model.cameras.size() > 0?true:false;
+}
+
+
+
+cCameraFrameData::cCameraFrameData(cglTFCamera::sCamera e_CameraData)
+{
+    // Initialize m_Camera as a shared pointer to a new cFrameCamera instance
+    m_Camera = std::make_shared<cFrameCamera>();
+
+    // Configure the projection based on the camera type
+    Projection proj;
+    if (e_CameraData.type == cglTFCamera::eCameraType::PERSPECTIVE)
+    {
+        // Set perspective projection using field of view, aspect ratio, near, and far planes
+        proj.SetFovYAspect(e_CameraData.yfov, e_CameraData.aspectRatio, e_CameraData.znear, e_CameraData.zfar);
+    }
+    else if (e_CameraData.type == cglTFCamera::eCameraType::ORTHOGRAPHIC)
+    {
+        // Set orthographic projection using width, height, near, and far planes
+        float width = e_CameraData.xmag * 2.0f; // Assuming xmag represents half-width
+        float height = e_CameraData.ymag * 2.0f; // Assuming ymag represents half-height
+        proj.SetOrthographic(width, height, e_CameraData.znear, e_CameraData.zfar);
+    }
+
+    // Apply the configured projection to the camera
+    m_Camera->SetProjection(proj);
+
+    // Set the initial transform of the camera
+    m_Camera->SetLocalTransform(e_CameraData.m_StartNodeTransform);
+}
+
+
+// Render: Renders the camera
+void cCameraController::Render(GLuint e_uiProgramID)
+{
+    if (m_Camera)
+    {
+        m_Camera->Render();
+    }
+}
+
+// cCameraFrameData Render
+void cCameraFrameData::Render()
+{
+    if (m_Camera)
+    {
+        m_Camera->Render();
+    }
+}
+
+// cCameraFrameData EndRender
+void cCameraFrameData::EndRender()
+{
+    if (m_Camera)
+    {
+        m_Camera->DisableRender();
+    }
 }
