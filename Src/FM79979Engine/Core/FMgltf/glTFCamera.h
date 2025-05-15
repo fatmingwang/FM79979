@@ -53,10 +53,7 @@ class cCameraController : public NamedTypedObject, public cSingltonTemplate<cCam
 public:
     DEFINE_TYPE_INFO();
     SINGLETON_BASIC_FUNCTION(cCameraController);
-    void SetCamera(std::shared_ptr<cFrameCamera> e_CameraData)
-    {
-        m_Camera = e_CameraData;
-	}
+    void SetCamera(std::shared_ptr<cFrameCamera> e_CameraData);
     void Render(GLuint e_uiProgramID);
 };
 

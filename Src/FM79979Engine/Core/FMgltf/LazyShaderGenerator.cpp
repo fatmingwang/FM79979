@@ -200,8 +200,8 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 
             float outerConeAngle; // Aligned to 4 bytes
             int type;             // Aligned to 4 bytes
-            float pad1;           // Padding to align the structure to 16 bytes
-            float pad2;           // Padding to align the structure to 16 bytes
+            int Enable;          //
+            float pad;           // Padding to align the structure to 16 bytes
         };
 
         layout(std140) uniform LightBlock 
@@ -289,6 +289,10 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
                 vec3 L;
                 float distance = 1.0;
                 float attenuation = 1.0;
+                if (lights[i].Enable == 0)
+                {
+                    continue;
+                }
                 if (lights[i].type == 0) 
                 { // Directional light
                     L = -normalize(lights[i].direction);

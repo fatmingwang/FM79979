@@ -1,6 +1,5 @@
 #include "tiny_gltf.h"
 #include "glTFLight.h"
-#include "glTFCamera.h"
 
 TYPDE_DEFINE_MARCO(cglTFLight);
 TYPDE_DEFINE_MARCO(cLighController);
@@ -136,7 +135,7 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
     }
 }
 
-cLighFrameData cglTFLight::CreateDirectionLight()
+std::shared_ptr<sLightData> cglTFLight::CreateDirectionLight()
 {
     sLightData light;
     light.m_eType = (int)eLightType::eLT_DIRECTIONAL; // Directional light
@@ -147,7 +146,20 @@ cLighFrameData cglTFLight::CreateDirectionLight()
     light.m_vPosition = Vector3(0.f, 10.f, 10.f);    // Arbitrary position (not used for directional lights)
     light.m_vDirection = Vector3(0.f, -1.f, -1.f);   // Light direction (pointing toward the origin)
     light.m_vColor = Vector3(1.f, 1.f, 1.f);         // White light
-    return light;
+	light.m_iEnable = 1;                            // Light is enabled
+	std::shared_ptr<sLightData>l_Light = std::make_shared<sLightData>(light);
+    return l_Light;
+}
+
+std::shared_ptr<sLightData> cglTFLight::CreateAmbientLight()
+{
+    sLightData l_AmbientLight;
+    l_AmbientLight.m_eType = (int)eLightType::eLT_AMBIENT;
+    l_AmbientLight.m_vColor = Vector3(0.1f, 0.1f, 0.1f); // Ambient light color 
+    l_AmbientLight.m_vPosition = Vector3(0.f, 0.f, 0.f); // Position of the ambient light
+	l_AmbientLight.m_fIntensity = 1.0f; // Intensity of the ambient light
+    l_AmbientLight.m_iEnable = 1;
+    return std::make_shared<sLightData>(l_AmbientLight);
 }
 
 cLighController::cLighController()
@@ -167,44 +179,33 @@ cLighController::~cLighController()
     }
 }
 
-const std::vector<sLightData>& cLighController::GetLights() const
+const std::vector<std::shared_ptr<sLightData>>& cLighController::GetLights() const
 {
         return m_LightDataVector;
 }
 
-void cLighController::SetLight(int e_iIndex, sLightData e_sLightData)
+void cLighController::SetLight(int e_iIndex, std::shared_ptr<sLightData> e_LightData)
 {
 	if (e_iIndex >= 0 && e_iIndex < m_LightDataVector.size())
 	{
-		m_LightDataVector[e_iIndex] = e_sLightData;
+		m_LightDataVector[e_iIndex] = e_LightData;
 	}
 }
 
-void cLighController::AddLight(sLightData& e_sLightData)
+void cLighController::AddLight(std::shared_ptr<sLightData> e_LightData)
 {
-	m_LightDataVector.push_back(e_sLightData);
+	m_LightDataVector.push_back(e_LightData);
 }
 
-void cLighController::RemoveLight(sLightData& e_sLightData)
+void cLighController::RemoveLight(std::shared_ptr<sLightData> e_LightData)
 {
-	auto it = std::remove(m_LightDataVector.begin(), m_LightDataVector.end(), e_sLightData);
+	auto it = std::remove(m_LightDataVector.begin(), m_LightDataVector.end(), e_LightData);
 	if (it != m_LightDataVector.end())
 	{
 		m_LightDataVector.erase(it, m_LightDataVector.end());
 	}
 }
 
-cCameraController::cCameraController()
-{
-}
-
-cCameraController::~cCameraController()
-{
-}
-
-void cCameraController::SetCamera(cglTFCamera::sCamera e_sCameraData)
-{
-}
 
 void cLighController::Render(GLuint e_uiProgramID)
 {
@@ -223,38 +224,37 @@ void cLighController::Render(GLuint e_uiProgramID)
     }
     if (numLights == 0)
     {
-		auto l_Light = cglTFLight::CreateDirectionLight();
-        m_LightDataVector.push_back(l_Light.GetLightData());
-        sLightData l_AmbientLight;
-        l_AmbientLight.m_eType = (int)eLightType::eLT_AMBIENT;
-		l_AmbientLight.m_vColor = Vector3(0.1f, 0.1f, 0.1f); // Ambient light color 
-		l_AmbientLight.m_vPosition = Vector3(0.f, 0.f, 0.f); // Position of the ambient light
-        m_LightDataVector.push_back(l_AmbientLight);
-        numLights = 2;
+        m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
+        m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
+        numLights = m_LightDataVector.size();
     }
     else
     {
-        sLightData& dynamicLight = m_LightDataVector[0];
+        auto l_TestDirectionLight = m_LightDataVector[0];
+        l_TestDirectionLight->m_iEnable = 0;
         static float angle = 0.0f; // Angle for dynamic movement
         float deltaTime = 0.016f;  // Replace with actual frame time
         angle += 1.5f * deltaTime; // Adjust speed based on frame time
 
-        dynamicLight.m_fIntensity = 1.f;
+        l_TestDirectionLight->m_fIntensity = 1.f;
         // Update the light's position in a circular path
-        dynamicLight.m_vPosition = Vector3(10.0f * cos(angle), 5.0f, 10.0f * sin(angle));
+        l_TestDirectionLight->m_vPosition = Vector3(10.0f * cos(angle), 5.0f, 10.0f * sin(angle));
 
         // Update the light's direction to point toward the origin
-        dynamicLight.m_vDirection = -dynamicLight.m_vPosition.Normalize();
+        l_TestDirectionLight->m_vDirection = -l_TestDirectionLight->m_vPosition.Normalize();
 
         // Change the light's color over time for a dynamic effect
-        dynamicLight.m_vColor = Vector3(
+        l_TestDirectionLight->m_vColor = Vector3(
             (sin(angle) + 1.0f) * 0.5f, // Red oscillates
             (cos(angle) + 1.0f) * 0.5f, // Green oscillates
             1.0f                        // Blue remains constant
         );
     }
 	m_LightBlock.numLights = numLights;
-    memcpy(m_LightBlock.lights, m_LightDataVector.data(), numLights * sizeof(sLightData));
+    for(int i = 0; i < m_LightBlock.numLights; ++i)
+    {
+        m_LightBlock.lights[i] = *m_LightDataVector[i].get();
+	}
 
     if(0)
     {
@@ -317,12 +317,20 @@ bool cglTFLight::IsLightExists(const tinygltf::Model& model)
     return false;
 }
 
+cLighFrameData::~cLighFrameData()
+{
+    cLighController::GetInstance()->RemoveLight(m_LightData);
+}
+
 void cLighFrameData::Render()
 {
-	cLighController::GetInstance()->AddLight(m_LightData);
+    if (m_bDataChanged)
+    {
+        cLighController::GetInstance()->AddLight(m_LightData);
+    }
 }
 
 void cLighFrameData::EndRender()
 {
-    cLighController::GetInstance()->RemoveLight(m_LightData);
+    
 }

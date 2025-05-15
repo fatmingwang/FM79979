@@ -95,8 +95,6 @@ bool cglTFCamera::IsCameraExists(const tinygltf::Model& model)
 	return model.cameras.size() > 0?true:false;
 }
 
-
-
 cCameraFrameData::cCameraFrameData(cglTFCamera::sCamera e_CameraData)
 {
     // Initialize m_Camera as a shared pointer to a new cFrameCamera instance
@@ -124,7 +122,13 @@ cCameraFrameData::cCameraFrameData(cglTFCamera::sCamera e_CameraData)
     m_Camera->SetLocalTransform(e_CameraData.m_StartNodeTransform);
 }
 
+cCameraController::cCameraController()
+{
+}
 
+cCameraController::~cCameraController()
+{
+}
 // Render: Renders the camera
 void cCameraController::Render(GLuint e_uiProgramID)
 {
@@ -141,6 +145,11 @@ void cCameraFrameData::Render()
     {
         m_Camera->Render();
     }
+}
+
+void cCameraController::SetCamera(std::shared_ptr<cFrameCamera> e_CameraData)
+{
+    m_Camera = e_CameraData;
 }
 
 // cCameraFrameData EndRender

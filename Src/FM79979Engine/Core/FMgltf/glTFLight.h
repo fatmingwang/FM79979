@@ -25,8 +25,9 @@ struct alignas(16) sLightData
 
     float       m_fOuterConeAngle; // Aligned to 4 bytes
     int         m_eType;           // Aligned to 4 bytes (enum stored as int)
-    float       _padding[2];       // Padding to align the structure to 16 bytes
-    bool operator==(const sLightData& other) const
+	int         m_iEnable;        //0 disable 1 enable
+    float       _padding;       // Padding to align the structure to 16 bytes
+    /*bool operator==(const sLightData& other) const
     {
         return m_eType == other.m_eType &&
             m_fIntensity == other.m_fIntensity &&
@@ -36,7 +37,7 @@ struct alignas(16) sLightData
             m_vPosition == other.m_vPosition &&
             m_vDirection == other.m_vDirection &&
             m_vColor == other.m_vColor;
-    }
+    }*/
 };
 
 class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighController>
@@ -49,33 +50,36 @@ class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighCon
         float pad[3];        // Padding to align to 16 bytes
     } m_LightBlock;
     GLuint m_uiLightUBO = -1;
-    std::vector<sLightData> m_LightDataVector;
+    //from cLighFrameData
+    std::vector<std::shared_ptr<sLightData>> m_LightDataVector;
     cLighController();
     virtual ~cLighController();
 public:
     DEFINE_TYPE_INFO();
     SINGLETON_BASIC_FUNCTION(cLighController);
-    const   std::vector<sLightData>& GetLights() const;
-    void    SetLight(int e_iIndex, sLightData e_sLightData);
-    void    AddLight(sLightData& e_sLightData);
-    void    RemoveLight(sLightData& e_sLightData);
+    const   std::vector<std::shared_ptr<sLightData>>& GetLights() const;
+    void    SetLight(int e_iIndex, std::shared_ptr<sLightData> e_LightData);
+    void    AddLight(std::shared_ptr<sLightData> e_LightData);
+    void    RemoveLight(std::shared_ptr<sLightData> e_LightData);
     void    Render(GLuint e_uiProgramID);
 };
 
 
 class cLighFrameData:public Frame
 {
-    sLightData m_LightData;
+    std::shared_ptr<sLightData>m_LightData;
+    //after benn added into cLighController will be false
+	bool    m_bDataChanged = true;
 public:
     DEFINE_TYPE_INFO();
 	cLighFrameData(sLightData e_LightData)
     {
-		m_LightData = e_LightData; 
+        m_LightData = std::make_shared<sLightData>(e_LightData);
 	}
-	virtual ~cLighFrameData(){ }
+    virtual ~cLighFrameData();
     virtual void Render()override;
     virtual void EndRender()override;
-	sLightData&  GetLightData()
+    std::shared_ptr<sLightData>  GetLightData()
 	{
 		return m_LightData;
 	}
@@ -87,9 +91,10 @@ class cglTFLight :public NamedTypedObject
     std::vector< sLightData>        m_LightDataVector;
     public:
     DEFINE_TYPE_INFO();
-    void                            LoadLightsFromGLTF(const tinygltf::Model& model);
-    static cLighFrameData           CreateDirectionLight();
-    static bool                     IsLightExists(const tinygltf::Model& model);
+    void                                        LoadLightsFromGLTF(const tinygltf::Model& model);
+    static std::shared_ptr<sLightData>          CreateDirectionLight();
+    static std::shared_ptr<sLightData>          CreateAmbientLight();
+    static bool                                 IsLightExists(const tinygltf::Model& model);
 };
 
 
