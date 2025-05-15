@@ -45,8 +45,8 @@ class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighCon
     // Prepare the UBO data
     struct alignas(16) LightBlock
     {
-        sLightData lights[8]; // Array of light data
-        int numLights;       // Number of lights
+        sLightData m_Lights[8]; // Array of light data
+        int m_iNumLights;       // Number of lights
         float pad[3];        // Padding to align to 16 bytes
     } m_LightBlock;
     GLuint m_uiLightUBO = -1;

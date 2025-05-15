@@ -226,7 +226,7 @@ void cLighController::Render(GLuint e_uiProgramID)
     {
         m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
         m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
-        numLights = m_LightDataVector.size();
+        numLights = (int)m_LightDataVector.size();
     }
     else
     {
@@ -250,10 +250,10 @@ void cLighController::Render(GLuint e_uiProgramID)
             1.0f                        // Blue remains constant
         );
     }
-	m_LightBlock.numLights = numLights;
-    for(int i = 0; i < m_LightBlock.numLights; ++i)
+	m_LightBlock.m_iNumLights = numLights;
+    for(int i = 0; i < m_LightBlock.m_iNumLights; ++i)
     {
-        m_LightBlock.lights[i] = *m_LightDataVector[i].get();
+        m_LightBlock.m_Lights[i] = *m_LightDataVector[i].get();
 	}
 
     if(0)
