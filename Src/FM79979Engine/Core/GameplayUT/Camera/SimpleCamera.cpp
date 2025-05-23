@@ -116,14 +116,17 @@ namespace FATMING_CORE
 		{
 			Proj = cMatrix44PerspectiveRH( m_fWidth, m_fHeight, m_fZNear, m_fZFar );
 		}
-		else if( m_Type == Projection::Orthographic )
+		else
+		if( m_Type == Projection::Orthographic )
 		{
-			glhOrthof2(Proj,-m_fWidth/2,m_fWidth/2,m_fHeight/2,-m_fHeight/2,m_fZNear, m_fZFar);
+			cMatrix44	l_matProjection;
+			glhOrthof2((float*)Proj.m, 0, m_fWidth, m_fHeight, 0, -10000, 10000);
 			//Proj = cMatrix44OrthographicRH( m_fWidth, m_fHeight, m_fZNear, m_fZFar );
 		}
 		else
-			assert( 0 );
-
+		{
+			assert( 0 && "not support projection type");
+		}
 		return Proj;
 	}
 
@@ -272,7 +275,7 @@ namespace FATMING_CORE
 		m_vUpVector*=-1;
 	}
 
-	void cCamera::Render( void )
+	void cCamera::Render()
 	{
 
 		//The point at which the camera looks:
@@ -369,6 +372,24 @@ namespace FATMING_CORE
 	{
 		//MyGLEnable(GL_DEPTH_TEST);
 		FATMING_CORE::SetupShaderViewProjectionMatrix(m_Projection.GetMatrix()*this->GetWorldView(),true);
+	}
+
+	void cFrameCamera::SetRenderStatus()
+	{
+		if(m_Projection.GetType() == Projection::Perspective)
+		{
+			glEnable(GL_DEPTH_TEST);
+			glDepthFunc(GL_LEQUAL);
+			glClearDepth(1.0f);
+			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
+		else
+		{
+			glDisable(GL_DEPTH_TEST);
+			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		}
 	}
 
 	void	cFrameCamera::DisableRender()

@@ -125,38 +125,133 @@ cCameraFrameData::cCameraFrameData(cglTFCamera::sCamera e_CameraData)
 cCameraController::cCameraController()
 {
 }
-
 cCameraController::~cCameraController()
 {
+    m_CameraVector.clear();
 }
-// Render: Renders the camera
+
+bool cCameraController::AddCamera(std::shared_ptr<cFrameCamera> camera)
+{
+    if (!camera)
+    {
+        return false;
+    }
+
+    // Check if the camera already exists (pointer comparison)
+    for (const auto& cam : m_CameraVector)
+    {
+        if (cam == camera)
+        {
+            // Already exists, do not add again
+            return false;
+        }
+    }
+
+    m_CameraVector.push_back(camera);
+
+    if (m_CurrentCameraIndex == -1)
+    {
+        m_CurrentCameraIndex = 0;
+    }
+    return true;
+}
+
+void cCameraController::RemoveCamera(std::shared_ptr<cFrameCamera> camera)
+{
+    auto it = std::remove(m_CameraVector.begin(), m_CameraVector.end(), camera);
+    if (it != m_CameraVector.end())
+    {
+        m_CameraVector.erase(it, m_CameraVector.end());
+    }
+    if (m_CameraVector.empty())
+    {
+        m_CurrentCameraIndex = -1;
+    }
+    else
+    if (m_CurrentCameraIndex >= (int)m_CameraVector.size())
+    {
+        m_CurrentCameraIndex = 0;
+    }
+}
+
+void cCameraController::ClearCameras()
+{
+    m_CameraVector.clear();
+    m_CurrentCameraIndex = -1;
+}
+
+size_t cCameraController::GetCameraCount() const
+{
+    return m_CameraVector.size();
+}
+
+std::shared_ptr<cFrameCamera> cCameraController::GetCamera(size_t idx) const
+{
+    if (idx < m_CameraVector.size())
+    {
+        return m_CameraVector[idx];
+    }
+    return nullptr;
+}
+
+std::shared_ptr<cFrameCamera> cCameraController::GetCurrentCamera() const
+{
+    if (m_CurrentCameraIndex >= 0 && m_CurrentCameraIndex < (int)m_CameraVector.size())
+    {
+        return m_CameraVector[m_CurrentCameraIndex];
+    }
+    return nullptr;
+}
+
+bool cCameraController::SwitchCamera(size_t idx)
+{
+    if (idx < m_CameraVector.size())
+    {
+        m_CurrentCameraIndex = (int)idx;
+        return true;
+    }
+    return false;
+}
+
+bool cCameraController::SwitchCamera(std::shared_ptr<cFrameCamera> camera)
+{
+    for (size_t i = 0; i < m_CameraVector.size(); ++i)
+    {
+        if (m_CameraVector[i] == camera)
+        {
+            m_CurrentCameraIndex = (int)i;
+            return true;
+        }
+    }
+    return false;
+}
+
 void cCameraController::Render(GLuint e_uiProgramID)
 {
-    if (m_Camera)
+    auto l_pCamera = GetCurrentCamera();
+    if (l_pCamera)
     {
-        m_Camera->Render();
+        auto l_Matrix = l_pCamera->GetWorldViewProjection();
     }
 }
 
-// cCameraFrameData Render
 void cCameraFrameData::Render()
 {
-    if (m_Camera)
+    if(!this->m_bAddIntocCameraController)
     {
-        m_Camera->Render();
+		this->m_bAddIntocCameraController = true;
+		cCameraController::GetInstance()->AddCamera(m_Camera);
+    }
+    if(this->m_bDoUseThisCamera)
+    {
+        m_iOriginalCameraIndex = cCameraController::GetInstance()->GetCurrentCameraIndex();
+        cCameraController::GetInstance()->SwitchCamera(m_Camera);
     }
 }
-
-void cCameraController::SetCamera(std::shared_ptr<cFrameCamera> e_CameraData)
-{
-    m_Camera = e_CameraData;
-}
-
-// cCameraFrameData EndRender
 void cCameraFrameData::EndRender()
 {
-    if (m_Camera)
+    if(m_iOriginalCameraIndex != -1)
     {
-        m_Camera->DisableRender();
-    }
+        cCameraController::GetInstance()->SwitchCamera(m_iOriginalCameraIndex);
+	}
 }

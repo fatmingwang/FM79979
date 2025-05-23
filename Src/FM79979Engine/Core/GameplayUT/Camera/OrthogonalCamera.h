@@ -52,6 +52,7 @@ namespace FATMING_CORE
 		//e_bYInvert is because the z is invert so Y is invert too,but in the 3D world we do not expect this...
 		//ignore for worldtransform now because I am lazy to test it
 		void					Render(bool e_bYInvert = false,const wchar_t*e_strShaderName = nullptr);
+		cMatrix44				GetMatrix(bool e_bYInvert = false);
 		//
 		//void    				MoveViewRect(Vector2 e_vDirection);
 		//start point will have a offset if offset value is not 0

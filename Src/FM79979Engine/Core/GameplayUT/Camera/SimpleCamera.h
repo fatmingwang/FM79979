@@ -60,7 +60,7 @@ namespace FATMING_CORE
 	public:
 		DEFINE_TYPE_INFO()
 		cCamera();				//inits the values (Position: (0|0|0) Target: (0|0|-1) )
-		void 				Render ( void );	//executes some glRotates and a glTranslate command
+		void 				Render ();	//executes some glRotates and a glTranslate command
 								//Note: You should call glLoadIdentity before using Render
 		void 				Move( Vector3 Direction );
 		void 				RotateX( GLfloat Angle );
@@ -95,6 +95,7 @@ namespace FATMING_CORE
 		cMatrix44            GetLocalInvView() const { return GetLocalTransform(); }
 		cMatrix44            GetWorldInvView() { return GetWorldTransform(); }
 		virtual void		 Render()override;
+		virtual void		 SetRenderStatus();
 		void				 DisableRender();
 	};
 }

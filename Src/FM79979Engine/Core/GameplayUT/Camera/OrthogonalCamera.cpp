@@ -99,15 +99,36 @@ namespace FATMING_CORE
 		//push attribute
 		MyGLDisable(GL_DEPTH_TEST);
 		MyGLDisable(GL_CULL_FACE);
-		if( e_bYInvert )
-			glhOrthof2(m_ProjectionMatrix,m_vViewRect.x,m_vViewRect.z,m_vViewRect.y,m_vViewRect.w, -10000, 10000);
+		if (e_bYInvert)
+		{
+			glhOrthof2(m_ProjectionMatrix, m_vViewRect.x, m_vViewRect.z, m_vViewRect.y, m_vViewRect.w, -10000, 10000);
+		}
 		else
-			glhOrthof2(m_ProjectionMatrix,m_vViewRect.x,m_vViewRect.z,m_vViewRect.w,m_vViewRect.y, -10000, 10000);
+		{
+			glhOrthof2(m_ProjectionMatrix, m_vViewRect.x, m_vViewRect.z, m_vViewRect.w, m_vViewRect.y, -10000, 10000);
+		}
 		//because I invert Y.
 		//cMatrix44	l_mat = this->GetWorldTransform();
 		//l_mat.SetTranslation(-l_mat.GetTranslation());
 		m_ProjectionMatrix *= cMatrix44::RotationMatrix(m_vCameraAngle);
 		FATMING_CORE::SetupShaderViewProjectionMatrix(m_ProjectionMatrix,true);
+	}
+
+	cMatrix44 cOrthogonalCamera::GetMatrix(bool e_bYInvert)
+	{
+		if (e_bYInvert)
+		{
+			glhOrthof2(m_ProjectionMatrix, m_vViewRect.x, m_vViewRect.z, m_vViewRect.y, m_vViewRect.w, -10000, 10000);
+		}
+		else
+		{
+			glhOrthof2(m_ProjectionMatrix, m_vViewRect.x, m_vViewRect.z, m_vViewRect.w, m_vViewRect.y, -10000, 10000);
+		}
+		//because I invert Y.
+		//cMatrix44	l_mat = this->GetWorldTransform();
+		//l_mat.SetTranslation(-l_mat.GetTranslation());
+		m_ProjectionMatrix *= cMatrix44::RotationMatrix(m_vCameraAngle);
+		return m_ProjectionMatrix;
 	}
 
 	void	cOrthogonalCamera::DrawGrid(float e_fXOffset,float e_fYOffset,Vector4 e_vColor,float e_fLineWidth)

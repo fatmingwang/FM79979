@@ -45,26 +45,65 @@ class cglTFCamera:public NamedTypedObject
 
 
 // Controller for managing multiple cameras
+// Controller for managing multiple cameras
 class cCameraController : public NamedTypedObject, public cSingltonTemplate<cCameraController>
 {
-    std::shared_ptr<cFrameCamera> m_Camera;
+    std::vector<std::shared_ptr<cFrameCamera>> m_CameraVector;
+
+    int m_CurrentCameraIndex = -1;
     cCameraController();
     virtual ~cCameraController();
 public:
     DEFINE_TYPE_INFO();
     SINGLETON_BASIC_FUNCTION(cCameraController);
-    void SetCamera(std::shared_ptr<cFrameCamera> e_CameraData);
+
+    // Add a camera to the controller
+    bool AddCamera(std::shared_ptr<cFrameCamera> camera);
+
+    // Remove a camera (by pointer)
+    void RemoveCamera(std::shared_ptr<cFrameCamera> camera);
+
+    // Remove all cameras
+    void ClearCameras();
+
+    // Get number of cameras
+    size_t GetCameraCount() const;
+
+    // Get camera by index
+    std::shared_ptr<cFrameCamera> GetCamera(size_t idx) const;
+
+    // Get current camera
+    std::shared_ptr<cFrameCamera> GetCurrentCamera() const;
+
+    // Switch current camera by index
+    bool SwitchCamera(size_t idx);
+
+    // Switch current camera by pointer
+    bool SwitchCamera(std::shared_ptr<cFrameCamera> camera);
+
+    // Render using the current camera (if any)
     void Render(GLuint e_uiProgramID);
+    int  GetCurrentCameraIndex() const
+    {
+        return m_CurrentCameraIndex;
+	}
 };
 
 // Frame-specific camera data
 class cCameraFrameData : public Frame
 {
     std::shared_ptr<cFrameCamera> m_Camera;
+	bool m_bAddIntocCameraController = false;
+    //force render for post effect or something?
+    bool m_bDoUseThisCamera = false;
+	int  m_iOriginalCameraIndex = -1;
 public:
     DEFINE_TYPE_INFO();
     cCameraFrameData(cglTFCamera::sCamera e_CameraData);
-    virtual ~cCameraFrameData(){}
+    virtual ~cCameraFrameData()
+    {
+
+    }
     virtual void Render() override;
     virtual void EndRender() override;
     std::shared_ptr<cFrameCamera> GetCameraData()
