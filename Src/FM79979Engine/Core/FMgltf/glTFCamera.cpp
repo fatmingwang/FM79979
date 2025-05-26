@@ -231,8 +231,26 @@ void cCameraController::Render(GLuint e_uiProgramID)
     auto l_pCamera = GetCurrentCamera();
     if (l_pCamera)
     {
-        auto l_Matrix = l_pCamera->GetWorldViewProjection();
+        auto l_Matrix = l_pCamera->GetWorldViewglTFProjection();
     }
+}
+
+void cCameraController::CreateDefault3DCamera()
+{
+    if (m_CameraVector.empty())
+    {
+        m_CameraVector.push_back(std::make_shared<cFrameCamera>());
+        m_CurrentCameraIndex = 0;
+        auto l_pCamera = GetCurrentCamera();
+        if (l_pCamera)
+        {
+            Projection proj;
+            //proj.SetFovYAspect(45.0f, 16.f/9.f, 0.1f, 100.0f);
+            proj.SetFovYAspect(60.0f, 16.f / 9.f, 0.1f, 100.0f);
+            l_pCamera->SetProjection(proj);
+            l_pCamera->SetLocalTransform(cMatrix44::Identity); // Identity transform
+        }
+}
 }
 
 void cCameraFrameData::Render()

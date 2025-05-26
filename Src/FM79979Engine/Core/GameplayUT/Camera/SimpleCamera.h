@@ -26,6 +26,7 @@ namespace FATMING_CORE
 
 		// get projection data
 		cMatrix44           GetMatrix() const;
+		cMatrix44			GetglTFPerspectiveRH();
 		float				GetAspect(){ return m_fAspect; }
 		sFrustum			GetFrustum() const;
 		float               GetFovX() const;
@@ -91,6 +92,7 @@ namespace FATMING_CORE
 		// view matrices
 		cMatrix44            GetLocalView() const { return GetLocalTransform().Inverted(); }
 		cMatrix44            GetWorldView() { return GetWorldTransform().Inverted(); }
+		cMatrix44            GetWorldViewglTFProjection();
 		cMatrix44            GetWorldViewProjection() { return m_Projection.GetMatrix()*GetWorldTransform().Inverted(); }
 		cMatrix44            GetLocalInvView() const { return GetLocalTransform(); }
 		cMatrix44            GetWorldInvView() { return GetWorldTransform(); }

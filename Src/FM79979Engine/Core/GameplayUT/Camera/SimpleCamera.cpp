@@ -130,6 +130,22 @@ namespace FATMING_CORE
 		return Proj;
 	}
 
+	cMatrix44 Projection::GetglTFPerspectiveRH()
+	{
+		cMatrix44 M;
+		float TwoNearZ = m_fZNear + m_fZNear;
+
+		// Standard OpenGL RH perspective
+		M.r[0] = VECTOR4Set(TwoNearZ / m_fWidth, 0.0f, 0.0f, 0.0f);
+		M.r[1] = VECTOR4Set(0.0f, TwoNearZ / m_fHeight, 0.0f, 0.0f);
+		// Flip Z to match glTF (+Z forward)
+		float zScale = m_fZFar / (m_fZNear - m_fZFar);
+		M.r[2] = VECTOR4Set(0.0f, 0.0f, -zScale, -1.0f);
+		M.r[3] = VECTOR4Set(0.0f, 0.0f, -zScale * m_fZNear, 0.0f);
+
+		return M;
+	}
+
 	sFrustum Projection::GetFrustum() const
 	{
 		sFrustum Temp;
@@ -366,6 +382,11 @@ namespace FATMING_CORE
 	cFrameCamera::cFrameCamera(cFrameCamera*e_pFrameCamera):Frame(e_pFrameCamera)
 	{
 		m_Projection = e_pFrameCamera->m_Projection;
+	}
+
+	cMatrix44 cFrameCamera::GetWorldViewglTFProjection()
+	{
+		return m_Projection.GetglTFPerspectiveRH() * GetWorldTransform().Inverted();
 	}
 
 	void	cFrameCamera::Render()

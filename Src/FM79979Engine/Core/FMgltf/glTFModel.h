@@ -4,6 +4,8 @@
 #include "glTFAnimationMesh.h"
 #include "glTFAnimation.h"
 
+//glTF uses a right-handed coordinate system. glTF defines +Y as up, +Z as forward, and -X as right; the front of a glTF asset faces +Z.
+//so camera use right hand too
 class cglTFModel:public NamedTypedObject
 {
     std::shared_ptr<class cglTFCamera>      m_pCamera;
