@@ -9,7 +9,7 @@
 #include <unordered_set>
 #include <set>
 #include "glTFLight.h"
-
+#include"glTFCamera.h"
 
 TYPDE_DEFINE_MARCO(cMesh);
 
@@ -146,30 +146,16 @@ void cMesh::Render()
     {
         // Use the shader program specific to this sub-mesh
         glUseProgram(l_pSubMesh->m_iShaderProgram);
-        //fuck not implement yet
+        ApplyMorphUniformData(l_pSubMesh);
         cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
-        // Set model, view, projection matrices
         GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
-        GLuint viewLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4View");
-        GLuint projLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Projection");
-		ApplyMorphUniformData(l_pSubMesh);
         cMatrix44 modelMatrix = l_matTransform;
-        //cMatrix44 modelMatrix = cMatrix44::Identity;
         cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
         l_pSubMesh->GetProperCameraPosition(viewMatrix);
         //lazy for now.
         viewMatrix.GetTranslation().z *= -1;
-        Projection projectionMatrix;
-        projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
-
-        cMatrix44 conversionMatrix = cMatrix44::Identity;
-        conversionMatrix.m[2][2] = -1.0f;
-
-        modelMatrix = conversionMatrix * modelMatrix;
-
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
+		cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram, viewMatrix);
 
 
 

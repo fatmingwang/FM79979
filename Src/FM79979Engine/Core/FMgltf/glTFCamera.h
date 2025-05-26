@@ -50,7 +50,8 @@ class cCameraController : public NamedTypedObject, public cSingltonTemplate<cCam
 {
 	std::vector<std::shared_ptr<cFrameCamera>> m_CameraVector;
 
-	int m_CurrentCameraIndex = -1;
+	int					m_CurrentCameraIndex = -1;
+	int                 m_iLastUsedProgram = -1;
 	cCameraController();
 	virtual ~cCameraController();
 	public:
@@ -82,7 +83,7 @@ class cCameraController : public NamedTypedObject, public cSingltonTemplate<cCam
 	bool SwitchCamera(std::shared_ptr<cFrameCamera> camera);
 
 	// Render using the current camera (if any)
-	void    Render(GLuint e_uiProgramID);
+	void    Render(GLuint e_uiProgramID,float*e_pMatrix = nullptr);
 	void    CreateDefault3DCamera();
 	int		GetCurrentCameraIndex() const
 	{

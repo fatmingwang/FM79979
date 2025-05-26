@@ -52,6 +52,7 @@ class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighCon
     GLuint m_uiLightUBO = -1;
     //from cLighFrameData
     std::vector<std::shared_ptr<sLightData>> m_LightDataVector;
+    int                 m_iLastUsedProgram = -1;
     cLighController();
     virtual ~cLighController();
 public:
@@ -61,6 +62,7 @@ public:
     void    SetLight(int e_iIndex, std::shared_ptr<sLightData> e_LightData);
     void    AddLight(std::shared_ptr<sLightData> e_LightData);
     void    RemoveLight(std::shared_ptr<sLightData> e_LightData);
+    void    RenderBegin();
     void    Render(GLuint e_uiProgramID);
 };
 

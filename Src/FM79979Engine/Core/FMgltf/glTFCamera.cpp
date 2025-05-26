@@ -226,12 +226,45 @@ bool cCameraController::SwitchCamera(std::shared_ptr<cFrameCamera> camera)
     return false;
 }
 
-void cCameraController::Render(GLuint e_uiProgramID)
+void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
 {
+    if (m_iLastUsedProgram == e_uiProgramID)
+    {
+		//return; // No need to re-render if the same program is used
+    }
+	m_iLastUsedProgram = e_uiProgramID;
     auto l_pCamera = GetCurrentCamera();
+    if(!l_pCamera)
+    {
+        this->CreateDefault3DCamera();
+        l_pCamera = GetCurrentCamera();
+    }
     if (l_pCamera)
     {
         auto l_Matrix = l_pCamera->GetWorldViewglTFProjection();
+        // Set model, view, projection matrices
+        GLuint viewLoc = glGetUniformLocation(e_uiProgramID, "inMat4View");
+        GLuint projLoc = glGetUniformLocation(e_uiProgramID, "inMat4Projection");
+        //cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
+		cMatrix44 viewMatrix = l_pCamera->GetWorldTransform();
+        if(e_pMatrix)
+        {
+            viewMatrix = e_pMatrix;
+		}
+        else
+        {
+            //lazy for now.
+            viewMatrix.GetTranslation().z *= -1;
+        }
+        Projection projectionMatrix;
+		//180/4 = 45 degree FOV
+		//radians = 45 * (XM_PI / 180.0f);
+        projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
+        auto l_matProjectionMatrix = projectionMatrix.GetglTFPerspectiveRH();
+        auto l_matProjectionMatrix2 = projectionMatrix.GetMatrix();
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, l_matProjectionMatrix);
+
     }
 }
 

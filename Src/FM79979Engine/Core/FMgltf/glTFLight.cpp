@@ -206,9 +206,19 @@ void cLighController::RemoveLight(std::shared_ptr<sLightData> e_LightData)
 	}
 }
 
+void cLighController::RenderBegin()
+{
+    m_iLastUsedProgram = -1;
+}
+
 
 void cLighController::Render(GLuint e_uiProgramID)
 {
+    if(m_iLastUsedProgram == e_uiProgramID)
+    {
+        //return;
+	}
+    m_iLastUsedProgram = e_uiProgramID;
     GLuint l_inVec3ViewPosition = glGetUniformLocation(e_uiProgramID, "inVec3ViewPosition");
     if (l_inVec3ViewPosition != GL_INVALID_INDEX)
     {
@@ -231,10 +241,10 @@ void cLighController::Render(GLuint e_uiProgramID)
     else
     {
         auto l_TestDirectionLight = m_LightDataVector[0];
-        l_TestDirectionLight->m_iEnable = 0;
+        l_TestDirectionLight->m_iEnable = 1;
         static float angle = 0.0f; // Angle for dynamic movement
         float deltaTime = 0.016f;  // Replace with actual frame time
-        angle += 1.5f * deltaTime; // Adjust speed based on frame time
+        angle += 0.5f * deltaTime; // Adjust speed based on frame time
 
         l_TestDirectionLight->m_fIntensity = 1.f;
         // Update the light's position in a circular path
