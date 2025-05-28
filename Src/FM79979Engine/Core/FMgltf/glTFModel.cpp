@@ -502,7 +502,7 @@ void cglTFModel::Update(float e_fElpaseTime)
                 auto l_Animation = m_NameAndAnimationMap.begin();
                 if (m_NameAndAnimationMap.size() > 1)
                 {
-                    ++l_Animation;
+                    //++l_Animation;
                     //++l_Animation;
                 }
                 this->SetCurrentAnimation(l_Animation->first);
@@ -593,7 +593,7 @@ int glTFInit()
     //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
     //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
-    g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+    //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //morphing
@@ -602,7 +602,7 @@ int glTFInit()
     //g_glTFModel.LoadFromGLTF("glTFModel/glTF/ABeautifulGame.gltf", true);
     
     //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
+    g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
     
     //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);

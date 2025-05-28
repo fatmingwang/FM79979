@@ -150,14 +150,12 @@ void cMesh::Render()
         cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
         GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
         cMatrix44 modelMatrix = l_matTransform;
-        cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
+        cMatrix44 viewMatrix;
         l_pSubMesh->GetProperCameraPosition(viewMatrix);
         //lazy for now.
         viewMatrix.GetTranslation().z *= -1;
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
 		cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram, viewMatrix);
-
-
 
         ApplyMaterial();
         // Bind the vertex array and draw the sub-mesh

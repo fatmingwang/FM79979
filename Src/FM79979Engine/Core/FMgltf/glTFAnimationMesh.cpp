@@ -10,6 +10,7 @@
 #include <iostream>
 #include <sstream>
 #include "glTFLight.h"
+#include"glTFCamera.h"
 bool g_bApplyInverseBindPose = true;
 TYPDE_DEFINE_MARCO(cSkinningMesh);
 cSkinningMesh::cSkinningMesh()
@@ -23,7 +24,7 @@ cSkinningMesh::~cSkinningMesh()
 }
 
 
-void	DumpBoneIndexDebugInfo(cglTFNodeData*e_pBone,bool e_bDoNextSibling, bool e_bRoot)
+void	DumpBoneIndexDebugInfo(cglTFNodeData* e_pBone, bool e_bDoNextSibling, bool e_bRoot)
 {
     Frame* l_pParentNode = e_pBone->GetParent();
     static int	l_siCount = 0;
@@ -51,7 +52,7 @@ void	DumpBoneIndexDebugInfo(cglTFNodeData*e_pBone,bool e_bDoNextSibling, bool e_
 
     if (e_bDoNextSibling && e_pBone->GetNextSibling())
     {
-        DumpBoneIndexDebugInfo((cglTFNodeData*)e_pBone->GetNextSibling(),e_bDoNextSibling, false);
+        DumpBoneIndexDebugInfo((cglTFNodeData*)e_pBone->GetNextSibling(), e_bDoNextSibling, false);
     }
     if (e_bRoot)
     {
@@ -60,7 +61,7 @@ void	DumpBoneIndexDebugInfo(cglTFNodeData*e_pBone,bool e_bDoNextSibling, bool e_
     }
 }
 
-void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_pModel,const tinygltf::Model& e_Model)
+void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_pModel, const tinygltf::Model& e_Model)
 {
     if (e_Skin.skeleton != -1)
     {
@@ -98,7 +99,7 @@ void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_p
         }
     }
     if (!m_pAllBonesMatrixForSkinned)
-    {        
+    {
         m_pAllBonesMatrixForSkinned = new cMatrix44[e_Skin.joints.size()];
     }
     RefreshAnimationData();
@@ -157,23 +158,13 @@ void cSkinningMesh::Update(float e_fElpaseTime)
     UpdateJointsMatrix();
 }
 
-cMatrix44 g_PVMat;
-cMatrix44 g_ModelMat;
 void cSkinningMesh::Render()
 {
     if (m_SkinningBoneVector.size() == 0)
     {
         cMesh::Render();
     }
-    static float l_fCameraZPosition = -6;
-    //angle = 90;
-    cMatrix44 conversionMatrix = cMatrix44::Identity;
-    //conversionMatrix.m[2][2] = -1.0f;
-    // Update the bone matrices for skinning
-
     auto l_matTransoform = this->GetWorldTransform();
-    //l_vPos.y = 5;
-    // Iterate through sub-meshes and draw each one
     for (auto& l_pSubMesh : this->m_SubMeshesVector)
     {
         // Use the shader program specific to this sub-mesh
@@ -181,30 +172,17 @@ void cSkinningMesh::Render()
         cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
         // Set model, view, projection matrices
         GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
-        GLuint viewLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4View");
-        GLuint projLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Projection");
 
         cMatrix44 modelMatrix = l_matTransoform;
-        cMatrix44 viewMatrix;// = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
+        cMatrix44 viewMatrix;
         l_pSubMesh->GetProperCameraPosition(viewMatrix);
-
         viewMatrix.GetTranslation().z *= -1;
-        Projection projectionMatrix;
-        projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
-
-        modelMatrix = conversionMatrix * modelMatrix;
-
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, projectionMatrix.GetMatrix());
-        g_PVMat = projectionMatrix.GetMatrix() * viewMatrix;
-        g_ModelMat = modelMatrix;
-
+        cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram, viewMatrix);
         // Pass the bone matrices to the shader
         GLuint boneMatricesLocation = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uBoneTransforms");
         glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
         ApplyMaterial();;
-
         // Bind the vertex array and draw the sub-mesh
         glBindVertexArray(l_pSubMesh->m_uiVAO);
         EnableVertexAttributes(l_pSubMesh->m_i64FVFFlag);
@@ -254,10 +232,18 @@ void cSkinningMesh::RenderSkeleton()
     {
         return;
     }
-    //l_mat = g_ModelMat * cMatrix44::ZAxisRotationMatrix(D3DXToRadian(180));
-    l_mat = g_ModelMat ;
+    l_mat = this->GetWorldTransform();
     UseShaderProgram(NO_TEXTURE_SHADER);
-    SetupShaderViewProjectionMatrix(g_PVMat, false);
-    GLRender::RenderLine((float*)&l_vAllVertices[0], (int)l_vAllVertices.size() , Vector4(0.f, 1.f, 0.5f, 1.f), 3, l_mat);
+    auto l_pCamera = cCameraController::GetInstance()->GetCurrentCamera();
+    if (l_pCamera)
+    {
+        cMatrix44 viewMatrix;
+        auto l_pSubMesh = m_SubMeshesVector[0];
+        l_pSubMesh->GetProperCameraPosition(viewMatrix);
+        viewMatrix.GetTranslation().z *= -1;
+        auto l_matPV = l_pCamera->GetProjection().GetMatrix() * viewMatrix;
+        SetupShaderViewProjectionMatrix(l_matPV, false);
+    }
+    GLRender::RenderLine((float*)&l_vAllVertices[0], (int)l_vAllVertices.size(), Vector4(0.f, 1.f, 0.5f, 1.f), 3, l_mat);
     GLRender::RenderPoints(&l_vPoints[0], (int)l_vPoints.size(), 5, Vector4(0.f, 1.f, 1.f, 1.f), l_mat);
 }

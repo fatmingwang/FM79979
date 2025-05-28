@@ -124,6 +124,7 @@ cCameraFrameData::cCameraFrameData(cglTFCamera::sCamera e_CameraData)
 
 cCameraController::cCameraController()
 {
+    m_pCameraBehaveByMouseBehave = new cCameraBehaveByMouseBehave(nullptr);
 }
 cCameraController::~cCameraController()
 {
@@ -226,6 +227,20 @@ bool cCameraController::SwitchCamera(std::shared_ptr<cFrameCamera> camera)
     return false;
 }
 
+
+void cCameraController::Update(float e_fElpaseTime)
+{
+    if (m_bEnableChangeByMouse)
+    {
+        // Assumes cGameApp::m_sbMouseClickStatus is accessible and of type sMouseState
+        if (m_pCameraBehaveByMouseBehave)
+        {
+            m_pCameraBehaveByMouseBehave->CameraUpDateByMouse(cGameApp::m_sbMouseClickStatus[0], cGameApp::m_sbMouseClickStatus[1], cGameApp::m_sMouseWhellDelta,
+                                                              cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, e_fElpaseTime);
+        }
+    }
+}
+
 void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
 {
     if (m_iLastUsedProgram == e_uiProgramID)
@@ -279,7 +294,8 @@ void cCameraController::CreateDefault3DCamera()
         {
             Projection proj;
             //proj.SetFovYAspect(45.0f, 16.f/9.f, 0.1f, 100.0f);
-            proj.SetFovYAspect(60.0f, 16.f / 9.f, 0.1f, 100.0f);
+            //proj.SetFovYAspect(60.0f, 16.f / 9.f, 0.1f, 100.0f);
+            proj.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
             l_pCamera->SetProjection(proj);
             l_pCamera->SetLocalTransform(cMatrix44::Identity); // Identity transform
         }
