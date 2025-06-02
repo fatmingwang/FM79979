@@ -615,6 +615,7 @@ int glTFInit()
 
 void GlTFRender()
 {
+    cCameraController::GetInstance()->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
     if (g_pglTFModel)
     {
         g_pglTFModel->Update(0.016f);

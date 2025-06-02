@@ -177,6 +177,10 @@ void cCameraController::RemoveCamera(std::shared_ptr<cFrameCamera> camera)
 
 void cCameraController::ClearCameras()
 {
+    if (m_pCameraBehaveByMouseBehave)
+    {
+        m_pCameraBehaveByMouseBehave->SetCamera(nullptr);
+    }
     m_CameraVector.clear();
     m_CurrentCameraIndex = -1;
 }
@@ -209,7 +213,18 @@ bool cCameraController::SwitchCamera(size_t idx)
     if (idx < m_CameraVector.size())
     {
         m_CurrentCameraIndex = (int)idx;
+        if (this->m_bEnableCotrolCameraByMouse)
+        {
+            if (m_pCameraBehaveByMouseBehave)
+            {
+				m_pCameraBehaveByMouseBehave->SetCamera(m_CameraVector[m_CurrentCameraIndex].get());
+            }
+        }
         return true;
+    }
+    if (m_pCameraBehaveByMouseBehave)
+    {
+        m_pCameraBehaveByMouseBehave->SetCamera(nullptr);
     }
     return false;
 }
@@ -220,8 +235,7 @@ bool cCameraController::SwitchCamera(std::shared_ptr<cFrameCamera> camera)
     {
         if (m_CameraVector[i] == camera)
         {
-            m_CurrentCameraIndex = (int)i;
-            return true;
+            return SwitchCamera(i);
         }
     }
     return false;
@@ -230,11 +244,22 @@ bool cCameraController::SwitchCamera(std::shared_ptr<cFrameCamera> camera)
 
 void cCameraController::Update(float e_fElpaseTime)
 {
-    if (m_bEnableChangeByMouse)
+    if (m_bEnableCotrolCameraByMouse)
     {
         // Assumes cGameApp::m_sbMouseClickStatus is accessible and of type sMouseState
         if (m_pCameraBehaveByMouseBehave)
         {
+            if (cGameApp::m_sucKeyData['R'])
+            {
+                auto l_pCamera = this->GetCurrentCamera();
+                if (l_pCamera)
+                {
+                    l_pCamera->SetLocalPosition(Vector3(0, 8, 22));
+                    l_pCamera->SetLocalRotation(Vector3(0, 0, 0));
+                    m_pCameraBehaveByMouseBehave->SetAngleX(0);
+                    m_pCameraBehaveByMouseBehave->SetAngleY(0);
+                }
+            }
             m_pCameraBehaveByMouseBehave->CameraUpDateByMouse(cGameApp::m_sbMouseClickStatus[0], cGameApp::m_sbMouseClickStatus[1], cGameApp::m_sMouseWhellDelta,
                                                               cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, e_fElpaseTime);
         }
@@ -261,20 +286,17 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
         GLuint viewLoc = glGetUniformLocation(e_uiProgramID, "inMat4View");
         GLuint projLoc = glGetUniformLocation(e_uiProgramID, "inMat4Projection");
         //cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
-		cMatrix44 viewMatrix = l_pCamera->GetWorldTransform();
+		cMatrix44 viewMatrix = l_pCamera->GetWorldView();
         if(e_pMatrix)
         {
             viewMatrix = e_pMatrix;
 		}
-        else
-        {
-            //lazy for now.
-            viewMatrix.GetTranslation().z *= -1;
-        }
         Projection projectionMatrix;
 		//180/4 = 45 degree FOV
 		//radians = 45 * (XM_PI / 180.0f);
         projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
+        //projectionMatrix.SetFovYAspect(XM_PIDIV4, 4/3, 0.1f, 10000.0f);
+        //projectionMatrix.SetFovYAspect(XM_PIDIV4*2, 21 / 9, 0.1f, 10000.0f);
         auto l_matProjectionMatrix = projectionMatrix.GetglTFPerspectiveRH();
         auto l_matProjectionMatrix2 = projectionMatrix.GetMatrix();
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
@@ -283,7 +305,7 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
     }
 }
 
-void cCameraController::CreateDefault3DCamera()
+void cCameraController::CreateDefault3DCamera(bool e_bEnableControleByMouse)
 {
     if (m_CameraVector.empty())
     {
@@ -298,8 +320,20 @@ void cCameraController::CreateDefault3DCamera()
             proj.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
             l_pCamera->SetProjection(proj);
             l_pCamera->SetLocalTransform(cMatrix44::Identity); // Identity transform
+            if (1)
+            {
+                l_pCamera->SetLocalPosition(Vector3(1, 4, 10));
+            }
+            
         }
+        this->m_bEnableCotrolCameraByMouse = e_bEnableControleByMouse;
+        this->SwitchCamera(m_CurrentCameraIndex);
+    }
 }
+
+int cCameraController::GetCurrentCameraIndex() const
+{
+    return m_CurrentCameraIndex;
 }
 
 void cCameraFrameData::Render()

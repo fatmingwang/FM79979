@@ -869,3 +869,33 @@ bool FindKeyByValueInMap(std::map<K, V>& e_MapOfElemen, V value, K& e_Key)
 	}
 	return false;
 }
+
+template <typename T>
+class cProperty
+{
+private:
+	T m_Value;
+
+public:
+	cProperty(T e_InitialValue = T{}) : m_Value(e_InitialValue)
+	{
+	}
+
+	// Getter
+	operator T& ()
+	{
+		return m_Value;
+	}
+	operator const T& () const
+	{
+		return m_Value;
+	}
+	// Setter
+	cProperty& operator=(const T& e_Value)
+	{
+		m_Value = e_Value;
+		return *this;
+	}
+};
+
+#define PROPERTY(TYPE,NAME) cProperty<TYPE> NAME;

@@ -174,11 +174,25 @@ void cSkinningMesh::Render()
         GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
 
         cMatrix44 modelMatrix = l_matTransoform;
-        cMatrix44 viewMatrix;
-        l_pSubMesh->GetProperCameraPosition(viewMatrix);
-        viewMatrix.GetTranslation().z *= -1;
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
-        cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram, viewMatrix);
+        if (1)
+        {
+            auto l_pCamera = cCameraController::GetInstance()->GetCurrentCamera();
+            if (!l_pCamera)
+            {
+                cCameraController::GetInstance()->CreateDefault3DCamera();
+                l_pCamera = cCameraController::GetInstance()->GetCurrentCamera();
+            }
+            cMatrix44 viewMatrix = l_pCamera->GetWorldView();
+            cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
+        }
+        else
+        {
+            cMatrix44 viewMatrix;
+            l_pSubMesh->GetProperCameraPosition(viewMatrix);
+            viewMatrix.GetTranslation().z *= -1;
+            cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram, viewMatrix);
+        }
         // Pass the bone matrices to the shader
         GLuint boneMatricesLocation = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uBoneTransforms");
         glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
@@ -237,12 +251,8 @@ void cSkinningMesh::RenderSkeleton()
     auto l_pCamera = cCameraController::GetInstance()->GetCurrentCamera();
     if (l_pCamera)
     {
-        cMatrix44 viewMatrix;
-        auto l_pSubMesh = m_SubMeshesVector[0];
-        l_pSubMesh->GetProperCameraPosition(viewMatrix);
-        viewMatrix.GetTranslation().z *= -1;
-        auto l_matPV = l_pCamera->GetProjection().GetMatrix() * viewMatrix;
-        SetupShaderViewProjectionMatrix(l_matPV, false);
+        auto l_matWVP = l_pCamera->GetWorldViewglTFProjection();
+        SetupShaderViewProjectionMatrix(l_matWVP, false);
     }
     GLRender::RenderLine((float*)&l_vAllVertices[0], (int)l_vAllVertices.size(), Vector4(0.f, 1.f, 0.5f, 1.f), 3, l_mat);
     GLRender::RenderPoints(&l_vPoints[0], (int)l_vPoints.size(), 5, Vector4(0.f, 1.f, 1.f, 1.f), l_mat);

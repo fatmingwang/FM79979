@@ -54,7 +54,7 @@ class cCameraController : public NamedTypedObject, public cSingltonTemplate<cCam
 	int                 m_iLastUsedProgram = -1;
 	cCameraController();
 	virtual ~cCameraController();
-	bool                m_bEnableChangeByMouse = true;
+	bool                m_bEnableCotrolCameraByMouse = true;
 	cCameraBehaveByMouseBehave*	m_pCameraBehaveByMouseBehave;
 public:
 	DEFINE_TYPE_INFO();
@@ -79,19 +79,15 @@ public:
 	std::shared_ptr<cFrameCamera> GetCurrentCamera() const;
 
 	// Switch current camera by index
-	bool SwitchCamera(size_t idx);
+	bool	SwitchCamera(size_t idx);
 
 	// Switch current camera by pointer
-	bool SwitchCamera(std::shared_ptr<cFrameCamera> camera);
-
-
+	bool	SwitchCamera(std::shared_ptr<cFrameCamera> camera);
 	void	Update(float e_fElpaseTime);
 	void    Render(GLuint e_uiProgramID,float*e_pMatrix = nullptr);
-	void    CreateDefault3DCamera();
-	int		GetCurrentCameraIndex() const
-	{
-		return m_CurrentCameraIndex;
-	}
+	void    CreateDefault3DCamera(bool e_bEnableControleByMouse = true);
+	auto	GetCurrentCameraIndex() const ->int;
+	//auto GetCurrentCameraIndex() const -> int;
 };
 
 // Frame-specific camera data
