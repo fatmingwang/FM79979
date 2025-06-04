@@ -140,7 +140,6 @@ void cMesh::sSubMesh::ClearOpenGLData()
 
 void cMesh::Render()
 {
-    static float l_fCameraZPosition = -6;
     auto l_matTransform = this->GetWorldTransform();
     for (auto l_pSubMesh : m_SubMeshesVector)
     {
@@ -149,13 +148,9 @@ void cMesh::Render()
         ApplyMorphUniformData(l_pSubMesh);
         cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
         GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
-        cMatrix44 modelMatrix = l_matTransform;
-        cMatrix44 viewMatrix;
-        l_pSubMesh->GetProperCameraPosition(viewMatrix);
-        //lazy for now.
-        viewMatrix.GetTranslation().z *= -1;
+        cMatrix44 modelMatrix = l_matTransform;;
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
-		cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram, viewMatrix);
+		cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
 
         ApplyMaterial();
         // Bind the vertex array and draw the sub-mesh

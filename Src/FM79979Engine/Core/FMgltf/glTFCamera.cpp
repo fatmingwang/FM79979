@@ -260,6 +260,16 @@ void cCameraController::Update(float e_fElpaseTime)
                     m_pCameraBehaveByMouseBehave->SetAngleY(0);
                 }
             }
+            else
+            if (cGameApp::m_sucKeyData[107])//+
+            {
+                m_pCameraBehaveByMouseBehave->SetMouseMoveSpeed(m_pCameraBehaveByMouseBehave->GetMouseMoveSpeed() * 1.1);
+            }
+            else
+            if (cGameApp::m_sucKeyData[109])//-
+            {
+                m_pCameraBehaveByMouseBehave->SetMouseMoveSpeed(m_pCameraBehaveByMouseBehave->GetMouseMoveSpeed() / 1.1);
+            }
             m_pCameraBehaveByMouseBehave->CameraUpDateByMouse(cGameApp::m_sbMouseClickStatus[0], cGameApp::m_sbMouseClickStatus[1], cGameApp::m_sMouseWhellDelta,
                                                               cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, e_fElpaseTime);
         }
@@ -313,7 +323,10 @@ void cCameraController::RenderGrid()
 		UseShaderProgram();
         l_pCamera->Render();
         cMatrix44	l_mat = cMatrix44::XAxisRotationMatrix(D3DXToRadian(90));
-        RenderPlane(cMatrix44::TranslationMatrix(Vector3(0, 0, -15)) * l_mat, 10, 10, 1, 1, 1, Vector4(0.5, 1, 0, 1));
+        RenderPlane(cMatrix44::TranslationMatrix(Vector3(0, 0, 0)) * l_mat, 10, 10, 1, 1, 1, Vector4(0.5, 1, 0, 1));
+        auto l_vPos = l_pCamera->GetWorldPosition();
+        glEnable2D(1920, 1080);
+        cGameApp::RenderFont(1000, 100, UT::ComposeMsgByFormat(L"Camera Pos: %.2f,%.2f,%.2f", l_vPos.x, l_vPos.y, l_vPos.z).c_str());
         cBaseShader* l_pShader = GetCurrentShader();
         if (l_pShader)
         {

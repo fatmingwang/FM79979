@@ -175,24 +175,7 @@ void cSkinningMesh::Render()
 
         cMatrix44 modelMatrix = l_matTransoform;
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
-        if (1)
-        {
-            auto l_pCamera = cCameraController::GetInstance()->GetCurrentCamera();
-            if (!l_pCamera)
-            {
-                cCameraController::GetInstance()->CreateDefault3DCamera();
-                l_pCamera = cCameraController::GetInstance()->GetCurrentCamera();
-            }
-            cMatrix44 viewMatrix = l_pCamera->GetWorldView();
-            cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
-        }
-        else
-        {
-            cMatrix44 viewMatrix;
-            l_pSubMesh->GetProperCameraPosition(viewMatrix);
-            viewMatrix.GetTranslation().z *= -1;
-            cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram, viewMatrix);
-        }
+        cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
         // Pass the bone matrices to the shader
         GLuint boneMatricesLocation = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uBoneTransforms");
         glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
