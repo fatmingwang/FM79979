@@ -540,6 +540,7 @@ void cglTFModel::Render()
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+    cCameraController::GetInstance()->RenderGrid();
     int l_iNum = this->m_NodesVector.Count();
     for (int i = 0; i < l_iNum; ++i)
     {

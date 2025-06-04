@@ -305,6 +305,23 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
     }
 }
 
+void cCameraController::RenderGrid()
+{
+    auto l_pCamera = GetCurrentCamera();
+    if (l_pCamera)
+    {
+		UseShaderProgram();
+        l_pCamera->Render();
+        cMatrix44	l_mat = cMatrix44::XAxisRotationMatrix(D3DXToRadian(90));
+        RenderPlane(cMatrix44::TranslationMatrix(Vector3(0, 0, -15)) * l_mat, 10, 10, 1, 1, 1, Vector4(0.5, 1, 0, 1));
+        cBaseShader* l_pShader = GetCurrentShader();
+        if (l_pShader)
+        {
+            l_pShader->Unuse();
+        }
+	}
+}
+
 void cCameraController::CreateDefault3DCamera(bool e_bEnableControleByMouse)
 {
     if (m_CameraVector.empty())

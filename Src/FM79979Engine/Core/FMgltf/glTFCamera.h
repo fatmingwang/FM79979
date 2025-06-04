@@ -85,6 +85,7 @@ public:
 	bool	SwitchCamera(std::shared_ptr<cFrameCamera> camera);
 	void	Update(float e_fElpaseTime);
 	void    Render(GLuint e_uiProgramID,float*e_pMatrix = nullptr);
+	void	RenderGrid();
 	void    CreateDefault3DCamera(bool e_bEnableControleByMouse = true);
 	auto	GetCurrentCameraIndex() const ->int;
 	//auto GetCurrentCameraIndex() const -> int;
