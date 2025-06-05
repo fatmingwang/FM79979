@@ -263,12 +263,12 @@ void cCameraController::Update(float e_fElpaseTime)
             else
             if (cGameApp::m_sucKeyData[107])//+
             {
-                m_pCameraBehaveByMouseBehave->SetMouseMoveSpeed(m_pCameraBehaveByMouseBehave->GetMouseMoveSpeed() * 1.1);
+                m_pCameraBehaveByMouseBehave->SetMouseMoveSpeed(m_pCameraBehaveByMouseBehave->GetMouseMoveSpeed() * 1.1f);
             }
             else
             if (cGameApp::m_sucKeyData[109])//-
             {
-                m_pCameraBehaveByMouseBehave->SetMouseMoveSpeed(m_pCameraBehaveByMouseBehave->GetMouseMoveSpeed() / 1.1);
+                m_pCameraBehaveByMouseBehave->SetMouseMoveSpeed(m_pCameraBehaveByMouseBehave->GetMouseMoveSpeed() / 1.1f);
             }
             m_pCameraBehaveByMouseBehave->CameraUpDateByMouse(cGameApp::m_sbMouseClickStatus[0], cGameApp::m_sbMouseClickStatus[1], cGameApp::m_sMouseWhellDelta,
                                                               cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, e_fElpaseTime);
@@ -301,14 +301,10 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
         {
             viewMatrix = e_pMatrix;
 		}
-        Projection projectionMatrix;
-		//180/4 = 45 degree FOV
-		//radians = 45 * (XM_PI / 180.0f);
-        projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
-        //projectionMatrix.SetFovYAspect(XM_PIDIV4, 4/3, 0.1f, 10000.0f);
-        //projectionMatrix.SetFovYAspect(XM_PIDIV4*2, 21 / 9, 0.1f, 10000.0f);
-        auto l_matProjectionMatrix = projectionMatrix.GetglTFPerspectiveRH();
-        auto l_matProjectionMatrix2 = projectionMatrix.GetMatrix();
+        auto l_Proj = l_pCamera->GetProjection();
+        auto l_matProjectionMatrix = l_Proj.GetglTFPerspectiveRH();        
+        //auto l_matProjectionMatrix = projectionMatrix.GetglTFPerspectiveRH();
+        //auto l_matProjectionMatrix2 = projectionMatrix.GetMatrix();
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, l_matProjectionMatrix);
 
@@ -347,6 +343,9 @@ void cCameraController::CreateDefault3DCamera(bool e_bEnableControleByMouse)
             Projection proj;
             //proj.SetFovYAspect(45.0f, 16.f/9.f, 0.1f, 100.0f);
             //proj.SetFovYAspect(60.0f, 16.f / 9.f, 0.1f, 100.0f);
+            //projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
+            //projectionMatrix.SetFovYAspect(XM_PIDIV4, 4/3, 0.1f, 10000.0f);
+            //projectionMatrix.SetFovYAspect(XM_PIDIV4*2, 21 / 9, 0.1f, 10000.0f);
             proj.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
             l_pCamera->SetProjection(proj);
             l_pCamera->SetLocalTransform(cMatrix44::Identity); // Identity transform
@@ -354,7 +353,6 @@ void cCameraController::CreateDefault3DCamera(bool e_bEnableControleByMouse)
             {
                 l_pCamera->SetLocalPosition(Vector3(1, 4, 10));
             }
-            
         }
         this->m_bEnableCotrolCameraByMouse = e_bEnableControleByMouse;
         this->SwitchCamera(m_CurrentCameraIndex);

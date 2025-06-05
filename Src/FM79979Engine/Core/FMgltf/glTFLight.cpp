@@ -212,31 +212,14 @@ void cLighController::RenderBegin()
 }
 
 
-void cLighController::Render(GLuint e_uiProgramID)
+void  cLighController::Update(float e_fElpaseTime)
 {
-    if(m_iLastUsedProgram == e_uiProgramID)
-    {
-        //return;
-	}
-    m_iLastUsedProgram = e_uiProgramID;
-    GLuint l_inVec3ViewPosition = glGetUniformLocation(e_uiProgramID, "inVec3ViewPosition");
-    if (l_inVec3ViewPosition != GL_INVALID_INDEX)
-    {
-        Vector3 l_vCameraPos(0, 0, -99999);
-        glUniform3fv(l_inVec3ViewPosition, 1, l_vCameraPos);
-    }
-    // Ensure we don't exceed the maximum number of lights
-    int maxLights = 8; // Adjust based on hardware limits
-    int numLights = static_cast<int>(m_LightDataVector.size());
-    if (numLights > maxLights)
-    {
-        numLights = maxLights;
-    }
-    if (numLights == 0)
+    int l_iNumLights = static_cast<int>(m_LightDataVector.size());
+    if (l_iNumLights == 0)
     {
         m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
         m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
-        numLights = (int)m_LightDataVector.size();
+        l_iNumLights = (int)m_LightDataVector.size();
     }
     else
     {
@@ -259,6 +242,27 @@ void cLighController::Render(GLuint e_uiProgramID)
             (cos(angle) + 1.0f) * 0.5f, // Green oscillates
             1.0f                        // Blue remains constant
         );
+    }
+}
+
+void cLighController::Render(GLuint e_uiProgramID)
+{
+    if(m_iLastUsedProgram == e_uiProgramID)
+    {
+        //return;
+	}
+    m_iLastUsedProgram = e_uiProgramID;
+    GLuint l_inVec3ViewPosition = glGetUniformLocation(e_uiProgramID, "inVec3ViewPosition");
+    if (l_inVec3ViewPosition != GL_INVALID_INDEX)
+    {
+        Vector3 l_vCameraPos(0, 0, -99999);
+        glUniform3fv(l_inVec3ViewPosition, 1, l_vCameraPos);
+    }
+    // Ensure we don't exceed the maximum number of lights
+    int numLights = static_cast<int>(m_LightDataVector.size());
+    if (numLights > MAX_LIGHT)
+    {
+        numLights = MAX_LIGHT;
     }
 	m_LightBlock.m_iNumLights = numLights;
     for(int i = 0; i < m_LightBlock.m_iNumLights; ++i)

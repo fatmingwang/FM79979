@@ -39,13 +39,13 @@ struct alignas(16) sLightData
             m_vColor == other.m_vColor;
     }*/
 };
-
+#define MAX_LIGHT   8
 class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighController>
 {
     // Prepare the UBO data
     struct alignas(16) LightBlock
     {
-        sLightData m_Lights[8]; // Array of light data
+        sLightData m_Lights[MAX_LIGHT]; // Array of light data
         int m_iNumLights;       // Number of lights
         float pad[3];        // Padding to align to 16 bytes
     } m_LightBlock;
@@ -64,10 +64,11 @@ public:
     void    RemoveLight(std::shared_ptr<sLightData> e_LightData);
     void    RenderBegin();
     void    Render(GLuint e_uiProgramID);
+    void    Update(float e_fElpaseTime);
 };
 
 
-class cLighFrameData:public Frame
+class cLighFrameData:public cRenderObject
 {
     std::shared_ptr<sLightData>m_LightData;
     //after benn added into cLighController will be false

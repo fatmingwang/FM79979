@@ -10,7 +10,7 @@
 #include <iostream>
 #include <sstream>
 #include "glTFLight.h"
-#include"glTFCamera.h"
+#include "glTFCamera.h"
 bool g_bApplyInverseBindPose = true;
 TYPDE_DEFINE_MARCO(cSkinningMesh);
 cSkinningMesh::cSkinningMesh()

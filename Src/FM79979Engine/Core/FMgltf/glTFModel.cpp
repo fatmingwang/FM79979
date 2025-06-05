@@ -527,20 +527,6 @@ void cglTFModel::Update(float e_fElpaseTime)
 
 void cglTFModel::Render()
 {
-    cBaseShader* l_pShader = GetCurrentShader();
-    if (l_pShader)
-    {
-        l_pShader->Unuse();
-    }
-    UseShaderProgram(L"qoo79979");
-    // Enable backface culling
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    //glCullFace(GL_FRONT);
-    // Enable depth testing
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    cCameraController::GetInstance()->RenderGrid();
     int l_iNum = this->m_NodesVector.Count();
     for (int i = 0; i < l_iNum; ++i)
     {
@@ -548,18 +534,6 @@ void cglTFModel::Render()
         l_pNode->Update(0.016f);
         l_pNode->Render();
     }
-    //for (auto& meshPair : m_NameAndMeshes)
-    //{
-    //    meshPair.second->Render();
-    //}
-    //for (auto& meshPair : m_AnimationMeshMap)
-    //{
-    //    meshPair.second->Update(0.016f);
-    //    meshPair.second->Render();
-    //}
-    glUseProgram(0);
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void cglTFModel::Destory()
@@ -581,68 +555,3 @@ void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)
 {
     this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
 }
-
-cglTFModel* g_pglTFModel = nullptr;
-
-int glTFInit()
-{
-    if(!g_pglTFModel)
-    {
-        g_pglTFModel = new cglTFModel();
-    }
-    cglTFModel& g_glTFModel = *g_pglTFModel;
-    //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
-    //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
-    // 
-    g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
-    //morphing
-    //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedMorphCube.glb", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/CarConcept.gltf", false);
-    //g_glTFModel.LoadFromGLTF("glTFModel/glTF/ABeautifulGame.gltf", true);
-    
-    //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
-    
-    //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
-    //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
-    //g_glTFModel.LoadFromGLTF("glTFModel/BoxAnimated.gltf", false);
-    
-   
-    //g_glTFModel.InitBuffers();
-    return 1;
-}
-
-void GlTFRender()
-{
-    cCameraController::GetInstance()->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
-    if (g_pglTFModel)
-    {
-        g_pglTFModel->Update(0.016f);
-        g_pglTFModel->Render();
-    }
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
-    if (g_pglTFModel)
-    {
-        for (auto& meshPair : g_pglTFModel->m_AnimationMeshMap)
-        {
-            if (meshPair.second)
-            {
-                meshPair.second->RenderSkeleton();
-            }
-        }
-    }
-    glUseProgram(0);
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
-
-void GlTFDestory()
-{
-    //    DrawModel(model, shaderProgram);
-    cTextureManager::ClearSharedTextureReferenceMap();
-    SAFE_DELETE(g_pglTFModel);
-}
-

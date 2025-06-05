@@ -15,6 +15,9 @@
     <Filter Include="glTF\Shader">
       <UniqueIdentifier>{ddcc1c60-45db-4b49-bffa-1071b31f88a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameScene">
+      <UniqueIdentifier>{d4c65394-fe09-4f36-affe-f0718044c5e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -53,6 +56,9 @@
     <ClInclude Include="glTFCamera.h">
       <Filter>glTF</Filter>
     </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>GameScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -84,6 +90,12 @@
     </ClCompile>
     <ClCompile Include="glTFCamera.cpp">
       <Filter>glTF</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTestCode.cpp">
+      <Filter>GameScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

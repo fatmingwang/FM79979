@@ -92,7 +92,7 @@ public:
 };
 
 // Frame-specific camera data
-class cCameraFrameData : public Frame
+class cCameraFrameData : public cRenderObject
 {
 	std::shared_ptr<cFrameCamera> m_Camera;
 	bool m_bAddIntocCameraController = false;

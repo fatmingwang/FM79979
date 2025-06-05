@@ -32,7 +32,7 @@
 #include "../AllCoreInclude.h"
 #include "glTFMaterial.h"
 
-class cMesh:public FATMING_CORE::Frame
+class cMesh:public FATMING_CORE::cRenderObject
 {
     typedef std::vector<std::map<int, float*>> sMorphTargetVector;
     struct sSubMesh
