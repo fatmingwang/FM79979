@@ -128,6 +128,7 @@ cCameraController::cCameraController()
 }
 cCameraController::~cCameraController()
 {
+    SAFE_DELETE(m_pCameraBehaveByMouseBehave);
     m_CameraVector.clear();
 }
 
@@ -316,11 +317,15 @@ void cCameraController::RenderGrid()
     auto l_pCamera = GetCurrentCamera();
     if (l_pCamera)
     {
+        glEnable(GL_CULL_FACE);
+        glEnable(GL_DEPTH_TEST);
 		UseShaderProgram();
         l_pCamera->Render();
         cMatrix44	l_mat = cMatrix44::XAxisRotationMatrix(D3DXToRadian(90));
         RenderPlane(cMatrix44::TranslationMatrix(Vector3(0, 0, 0)) * l_mat, 10, 10, 1, 1, 1, Vector4(0.5, 1, 0, 1));
         auto l_vPos = l_pCamera->GetWorldPosition();
+        glDisable(GL_CULL_FACE);
+        glDisable(GL_DEPTH_TEST);
         glEnable2D(1920, 1080);
         cGameApp::RenderFont(1000, 100, UT::ComposeMsgByFormat(L"Camera Pos: %.2f,%.2f,%.2f", l_vPos.x, l_vPos.y, l_vPos.z).c_str());
         cBaseShader* l_pShader = GetCurrentShader();
@@ -383,4 +388,19 @@ void cCameraFrameData::EndRender()
     {
         cCameraController::GetInstance()->SwitchCamera(m_iOriginalCameraIndex);
 	}
+}
+
+void g_fSetCameraUniform(GLuint e_uiProgramID, float* e_pMatrix)
+{
+    cCameraController::GetInstance()->Render(e_uiProgramID,e_pMatrix);
+}
+
+void g_fCameraDebugRender()
+{
+    cCameraController::GetInstance()->RenderGrid();
+}
+
+void g_fCameraControllerUpdate(float e_fElpaseTime)
+{
+	cCameraController::GetInstance()->Update(e_fElpaseTime);
 }

@@ -496,6 +496,7 @@ namespace FATMING_CORE
 				{
 					*m_pCachedWorldBound = (*m_pLocalBound) * m_CachedWorldTransform;
 				}
+				TransformChangedInternalData();
 			}
 			else
 			{
@@ -505,7 +506,7 @@ namespace FATMING_CORE
 					if (m_pLocalBound->GetType() != 0)
 						*m_pCachedWorldBound = (*m_pLocalBound) * m_CachedWorldTransform;
 				}
-
+				TransformChangedInternalData();
 			}
 		}
 	}

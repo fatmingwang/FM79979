@@ -100,6 +100,9 @@ class cglTFLight :public NamedTypedObject
     static bool                                 IsLightExists(const tinygltf::Model& model);
 };
 
+void g_fSetLightUniform(GLuint e_uiProgramID);
+void g_fLightControllerUpdate(float e_fElpaseTime);
+//void AddDefaultDirectionAndAmbientLight();
 
 //std140 Padding Rules(WebGL 2 follows them strictly)
 //Type	Aligned Size

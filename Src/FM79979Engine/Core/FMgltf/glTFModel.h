@@ -6,8 +6,9 @@
 
 //glTF uses a right-handed coordinate system. glTF defines +Y as up, +Z as forward, and -X as right; the front of a glTF asset faces +Z.
 //so camera use right hand too
-class cglTFModel:public NamedTypedObject
+class cglTFModel:public FATMING_CORE::cRenderObject
 {
+    virtual	void		                    TransformChangedInternalData()override;
     std::shared_ptr<class cglTFCamera>      m_pCamera;
 	std::shared_ptr<class cglTFLight>       m_pLight;
     GLuint                                  CreateShader(int64 fvfFlags, int e_iNumMorphTarget);
@@ -28,12 +29,15 @@ class cglTFModel:public NamedTypedObject
     shared_ptr<cMesh>                       GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Mesh& e_Mesh,const tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
     friend class cAnimationClip;
     friend class cSkinningMesh;
+    std::map<std::string, shared_ptr<cMesh>>            m_NameAndMeshes;
+    std::vector<cglTFNodeData*>                         m_ContainMeshglTFNodeDataVector;
+    cglTFNodeData* m_pRoot;
 public:
+    //wrong but I am Lazy
+    std::map<std::string, shared_ptr<cSkinningMesh>>    m_AnimationMeshMap;
     DEFINE_TYPE_INFO();
     cglTFModel(){ }
     virtual ~cglTFModel();
-    std::map<std::string, shared_ptr<cMesh>> m_NameAndMeshes;
-    std::map<std::string, shared_ptr<cSkinningMesh>> m_AnimationMeshMap;
 
     bool    LoadFromGLTF(const std::string& filename,bool e_bCalculateBiNormal = false);
     void    InitBuffers();
@@ -45,3 +49,5 @@ public:
     void    SetCurrentAnimation(const std::string& animationName);
     void    SetCurrentAnimationTime(float e_fCurrentTime);
 };
+
+void g_fRenderSkeleton(cglTFModel*e_pglTFModel);

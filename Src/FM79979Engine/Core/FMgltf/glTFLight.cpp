@@ -129,10 +129,6 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
             }
         }
     }
-    if (m_LightDataVector.size() == 0)
-    {
-        CreateDirectionLight();
-    }
 }
 
 std::shared_ptr<sLightData> cglTFLight::CreateDirectionLight()
@@ -348,3 +344,19 @@ void cLighFrameData::EndRender()
 {
     
 }
+
+void g_fSetLightUniform(GLuint e_uiProgramID)
+{
+    cLighController::GetInstance()->Render(e_uiProgramID);
+}
+
+void g_fLightControllerUpdate(float e_fElpaseTime)
+{
+    cLighController::GetInstance()->Update(e_fElpaseTime);
+}
+
+//void AddDefaultDirectionAndAmbientLight()
+//{
+//    cLighController::GetInstance()->AddLight(cglTFLight::CreateDirectionLight());
+//    cLighController::GetInstance()->AddLight(cglTFLight::CreateAmbientLight());
+//}

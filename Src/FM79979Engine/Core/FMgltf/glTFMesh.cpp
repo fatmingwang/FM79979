@@ -138,25 +138,33 @@ void cMesh::sSubMesh::ClearOpenGLData()
     glDeleteVertexArrays(1, &m_uiVAO);
 }
 
+void	cMesh::CallOpenGLDraw(sSubMesh* e_pSubMesh)
+{
+    // Bind the vertex array and draw the sub-mesh
+    glBindVertexArray(e_pSubMesh->m_uiVAO);
+    EnableVertexAttributes(e_pSubMesh->m_i64FVFFlag);
+    MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)e_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
+}
+
+void cMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
+{
+    // Use the shader program specific to this sub-mesh
+    glUseProgram(e_pSubMesh->m_iShaderProgram);
+    ApplyMorphUniformData(e_pSubMesh);
+    g_fSetLightUniform(e_pSubMesh->m_iShaderProgram);
+    GLuint modelLoc = glGetUniformLocation(e_pSubMesh->m_iShaderProgram, "inMat4Model");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, e_mat);
+    g_fSetCameraUniform(e_pSubMesh->m_iShaderProgram);
+    ApplyMaterial();
+}
+
 void cMesh::Render()
 {
     auto l_matTransform = this->GetWorldTransform();
     for (auto l_pSubMesh : m_SubMeshesVector)
     {
-        // Use the shader program specific to this sub-mesh
-        glUseProgram(l_pSubMesh->m_iShaderProgram);
-        ApplyMorphUniformData(l_pSubMesh);
-        cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
-        GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
-        cMatrix44 modelMatrix = l_matTransform;;
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
-		cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
-
-        ApplyMaterial();
-        // Bind the vertex array and draw the sub-mesh
-        glBindVertexArray(l_pSubMesh->m_uiVAO);
-        EnableVertexAttributes(l_pSubMesh->m_i64FVFFlag);
-        MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)l_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
+        SetSubMeshCommonUniformData(l_pSubMesh, l_matTransform);
+        CallOpenGLDraw(l_pSubMesh);
     }
 }
 

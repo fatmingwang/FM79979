@@ -9,16 +9,6 @@ cglTFScene::cglTFScene()
     // Create root frame
     m_pRootFrame = std::make_unique<cRenderObject>();
     m_pRootFrame->SetName(L"RootFrame");
-
-    // Assign default camera controller
-    cCameraController::GetInstance()->CreateDefault3DCamera();
-    // Optionally set up default camera data here
-
-    // Assign default light controller (singleton)
-    cLighController::GetInstance();
-    // Optionally add a default light
-    auto defaultLight = cglTFLight::CreateDirectionLight();
-    cLighController::GetInstance()->AddLight(defaultLight);
 }
 
 cglTFScene::~cglTFScene()
@@ -43,8 +33,9 @@ Frame* cglTFScene::GetRootFrame() const
 // Recursive update
 void cglTFScene::Update(float e_fElpaseTime)
 {
-    cLighController::GetInstance()->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
-    cCameraController::GetInstance()->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
+    
+    g_fLightControllerUpdate(e_fElpaseTime);
+    g_fCameraControllerUpdate(e_fElpaseTime);
     if (m_pRootFrame)
     {
 		m_pRootFrame->UpdateNodes(e_fElpaseTime);
@@ -55,8 +46,6 @@ void cglTFScene::Update(float e_fElpaseTime)
 // Recursive render
 void cglTFScene::Render()
 {
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
     // Enable backface culling
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
@@ -70,7 +59,6 @@ void cglTFScene::Render()
         l_pShader->Unuse();
     }
     UseShaderProgram(L"qoo79979");
-    cCameraController::GetInstance()->RenderGrid();
     if (m_pRootFrame)
     {
 		m_pRootFrame->RenderNodes();
@@ -78,6 +66,9 @@ void cglTFScene::Render()
     glUseProgram(0);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glDisable(GL_CULL_FACE);
+    glDisable(GL_DEPTH_TEST);
+    g_fCameraDebugRender();
 }
 
 // Find Frame by name (recursive)

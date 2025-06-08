@@ -2,15 +2,28 @@
 #include "glTFModel.h"
 #include "GameScene.h"
 
-cglTFModel* g_pglTFModel = nullptr;
+cglTFScene*g_pglTFScene = nullptr;
+
+cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName)
+{
+    cglTFModel*l_pglTFModel = new cglTFModel();;
+    l_pglTFModel->LoadFromGLTF(e_strFileName, true);
+    e_pFrame->AddChild(l_pglTFModel);
+    return l_pglTFModel;
+}
 
 int glTFInit()
 {
-    if (!g_pglTFModel)
+	g_pglTFScene = new cglTFScene();
+    auto l_pRootFrame = g_pglTFScene->GetRootFrame();
     {
-        g_pglTFModel = new cglTFModel();
+        auto l_pWoman = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
+        l_pWoman->SetLocalPosition(Vector3(-5, 0, 0));
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
+        l_pDuck->SetLocalPosition(Vector3(5, 0, 0));
+        auto l_pLatern = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");
+        //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     }
-    cglTFModel& g_glTFModel = *g_pglTFModel;
     //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
     //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     // 
@@ -23,8 +36,6 @@ int glTFInit()
     //g_glTFModel.LoadFromGLTF("glTFModel/glTF/ABeautifulGame.gltf", true);
 
     //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-    g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
-
     //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
     //g_glTFModel.LoadFromGLTF("glTFModel/BoxAnimated.gltf", false);
@@ -32,6 +43,17 @@ int glTFInit()
 
     //g_glTFModel.InitBuffers();
     return 1;
+}
+
+void GlTFUpdate(float e_fElpaseTime)
+{
+    float l_fElpaseTime = cGameApp::m_sTimeAndFPS.fElpaseTime;
+    g_fLightControllerUpdate(l_fElpaseTime);
+    g_fCameraControllerUpdate(l_fElpaseTime);
+    if (g_pglTFScene)
+    {
+		g_pglTFScene->Update(l_fElpaseTime);
+    }
 }
 
 void GlTFRender()
@@ -49,34 +71,98 @@ void GlTFRender()
         l_pShader->Unuse();
     }
     UseShaderProgram(L"qoo79979");
-    cLighController::GetInstance()->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
-    cCameraController::GetInstance()->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
-    if (g_pglTFModel)
+    if (g_pglTFScene)
     {
-        g_pglTFModel->Update(0.016f);
-        g_pglTFModel->Render();
+		g_pglTFScene->Render();
     }
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
     glUseProgram(0);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    if (g_pglTFModel)
-    {
-        for (auto& meshPair : g_pglTFModel->m_AnimationMeshMap)
-        {
-            if (meshPair.second)
-            {
-                meshPair.second->RenderSkeleton();
-            }
-        }
-    }
+    //g_fRenderSkeleton(g_pglTFModel);
+    g_fCameraDebugRender();
+    
 }
 
 void GlTFDestory()
 {
     //    DrawModel(model, shaderProgram);
+    SAFE_DELETE(g_pglTFScene);
     cTextureManager::ClearSharedTextureReferenceMap();
-    SAFE_DELETE(g_pglTFModel);
+    //SAFE_DELETE(g_pglTFModel);
 }
 
+
+//cglTFModel* g_pglTFModel = nullptr;
+//
+//int glTFInit()
+//{
+//    if (!g_pglTFModel)
+//    {
+//        g_pglTFModel = new cglTFModel();
+//    }
+//    cglTFModel& g_glTFModel = *g_pglTFModel;
+//    //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
+//    //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
+//    // 
+//    //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+//    //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
+//    //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
+//    //morphing
+//    //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedMorphCube.glb", true);
+//    //g_glTFModel.LoadFromGLTF("glTFModel/CarConcept.gltf", false);
+//    //g_glTFModel.LoadFromGLTF("glTFModel/glTF/ABeautifulGame.gltf", true);
+//
+//    //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
+//    g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
+//
+//    //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
+//    //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
+//    //g_glTFModel.LoadFromGLTF("glTFModel/BoxAnimated.gltf", false);
+//
+//
+//    //g_glTFModel.InitBuffers();
+//    return 1;
+//}
+//
+//void GlTFRender()
+//{
+//    // Enable backface culling
+//    glEnable(GL_CULL_FACE);
+//    glCullFace(GL_BACK);
+//    //glCullFace(GL_FRONT);
+//    // Enable depth testing
+//    glEnable(GL_DEPTH_TEST);
+//    glDepthFunc(GL_LESS);
+//    cBaseShader* l_pShader = GetCurrentShader();
+//    if (l_pShader)
+//    {
+//        l_pShader->Unuse();
+//    }
+//    UseShaderProgram(L"qoo79979");
+//    float l_fElpaseTime = cGameApp::m_sTimeAndFPS.fElpaseTime;
+//    g_fLightControllerUpdate(l_fElpaseTime);
+//    g_fCameraControllerUpdate(l_fElpaseTime);
+//    if (g_pglTFModel)
+//    {
+//        g_pglTFModel->Update(0.016f);
+//        g_pglTFModel->Render();
+//    }
+//    glDisable(GL_CULL_FACE);
+//    glDisable(GL_DEPTH_TEST);
+//    glUseProgram(0);
+//    glBindVertexArray(0);
+//    glBindBuffer(GL_ARRAY_BUFFER, 0);
+//    g_fRenderSkeleton(g_pglTFModel);
+//    g_fCameraDebugRender();
+//
+//}
+//
+//void GlTFDestory()
+//{
+//    //    DrawModel(model, shaderProgram);
+//    cTextureManager::ClearSharedTextureReferenceMap();
+//    SAFE_DELETE(g_pglTFModel);
+//}
+//

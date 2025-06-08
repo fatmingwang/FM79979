@@ -17,6 +17,19 @@ cglTFModel::~cglTFModel()
     this->Destory();
 }
 
+void	cglTFModel::TransformChangedInternalData()
+{
+    auto l_mat = this->GetWorldTransform();
+    //if (m_pRoot)
+    //{
+    //    auto l_NewMat = m_pRoot->m_StartNodeWorldTransform* l_mat;
+    //    m_pRoot->SetWorldTransform(l_NewMat);
+    //}
+    for (auto l_IT : m_ContainMeshglTFNodeDataVector)
+    {
+        l_IT->SetMeshTransform(l_mat);
+    }
+}
 
 GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
 {
@@ -61,11 +74,11 @@ GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
 
 void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal)
 {
-    cglTFNodeData* bone = nullptr;
+    cglTFNodeData* l_pBone = nullptr;
     auto l_IT2 = e_tinyglTFNodeAndJointIndexMap.find(&node);
     if (l_IT2 != e_tinyglTFNodeAndJointIndexMap.end())
     {
-        bone = l_IT2->second;
+        l_pBone = l_IT2->second;
     }
     else
     {
@@ -77,13 +90,13 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Mo
     {
 #ifdef DEBUG
         if (parentBone->m_iJointIndex == 3 &&
-            bone->m_iJointIndex == 4)
+            l_pBone->m_iJointIndex == 4)
         {
             //for debug
             int a = 0;
         }
 #endif
-        parentBone->AddChild(bone);
+        parentBone->AddChild(l_pBone);
     }
 
     cMatrix44   l_matNodeTransform = cMatrix44::Identity;
@@ -116,9 +129,9 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Mo
         l_matNodeTransform = nodeMatrix;
     }
     //11
-    bone->m_StartNodeTransform = l_matNodeTransform;
-    bone->m_StartSRT = l_SRT;
-    bone->SetLocalTransform(l_matNodeTransform);
+    l_pBone->m_StartNodeTransform = l_matNodeTransform;
+    l_pBone->m_StartSRT = l_SRT;
+    l_pBone->SetLocalTransform(l_matNodeTransform);
     shared_ptr<cMesh>l_pMesh = nullptr;
     if (node.skin != -1)
     {
@@ -134,7 +147,13 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Mo
         auto l_strMeshName = model.meshes[node.mesh].name;
         //bone->m_strTargetMeshName = l_strMeshName;
     }
-    bone->m_pMesh = l_pMesh;
+    l_pBone->m_pMesh = l_pMesh;
+    //do not do l_pMesh->SetParent, because smart pointer problem and I am lazy to fix now.
+    if (l_pMesh)
+    {
+        m_ContainMeshglTFNodeDataVector.push_back(l_pBone);
+        //l_pMesh->SetParent(bone);
+    }
     //for (int childIndex : node.children)
     //{
     //    loadNode(model.nodes[childIndex], model, bone, e_tinyglTFNodeAndJointIndexMap);
@@ -169,6 +188,27 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
             auto l_pChildBone = l_tinyglTFNodeAndJointIndexMap[&model.nodes[l_iChildIndex]];
             l_pBone->AddChild(l_pChildBone);
         }
+    }
+    // Assume 'model' is a tinygltf::Model
+    int sceneIndex = model.defaultScene; // or model.scene (older versions)
+    if (sceneIndex < 0 || sceneIndex >= model.scenes.size())
+    {
+        // fallback: use scene 0
+        sceneIndex = 0;
+    }
+    const tinygltf::Scene& scene = model.scenes[sceneIndex];
+
+    // scene.nodes is a vector of root node indices
+    for (int rootNodeIndex : scene.nodes)
+    {
+        //const tinygltf::Node& rootNode = model.nodes[rootNodeIndex];
+        auto l_IT = m_NodeIndexAndBoneMap.find(rootNodeIndex);
+        if (l_IT != m_NodeIndexAndBoneMap.end())
+        {
+            //l_IT->second->SetParent(this);
+            m_pRoot = l_IT->second;
+        }
+        // rootNode is a root node of the scene
     }
 }
 
@@ -383,6 +423,7 @@ shared_ptr<cMesh> cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const t
     shared_ptr<cMesh>l_pMesh = std::make_shared<cMesh>();
     AssignMeshAttributes(l_pMesh.get(), e_Mesh, e_Model, e_bCalculateBiNormal);
     m_NameAndMeshes[e_Mesh.name] = l_pMesh;
+    l_pMesh->SetName(e_Mesh.name.c_str());
     return l_pMesh;
 }
 
@@ -397,6 +438,7 @@ shared_ptr<cMesh> cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin
     AssignMeshAttributes(l_pSkinningMesh.get(), e_Mesh, e_Model, e_bCalculateBiNormal);
     l_pSkinningMesh->LoadJointsData(e_Skin,this,e_Model);
     m_AnimationMeshMap[e_Mesh.name] = l_pSkinningMesh;
+    l_pSkinningMesh->SetName(e_Mesh.name.c_str());
     return l_pSkinningMesh;
 }
 
@@ -451,6 +493,7 @@ cMatrix44 GetNodeMatrix(const tinygltf::Node& node)
 
 bool cglTFModel::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal)
 {
+    this->SetName(filename.c_str());
     tinygltf::TinyGLTF loader;
     tinygltf::Model model;
 
@@ -492,6 +535,7 @@ void cglTFModel::InitBuffers()
 
 void cglTFModel::Update(float e_fElpaseTime)
 {
+    GetWorldTransform();
     if (m_NameAndAnimationMap.size())
     {
         // Ensure the current animation data is valid
@@ -523,16 +567,17 @@ void cglTFModel::Update(float e_fElpaseTime)
             this->m_AnimationClip.BlendClips(e_fElpaseTime, "Running", l_strAnimation2.c_str(), true, true, 0.9f);
         }
     }
+    for (auto l_IT : m_ContainMeshglTFNodeDataVector)
+    {
+        l_IT->Update(e_fElpaseTime);
+    }
 }
 
 void cglTFModel::Render()
 {
-    int l_iNum = this->m_NodesVector.Count();
-    for (int i = 0; i < l_iNum; ++i)
+    for (auto l_IT : m_ContainMeshglTFNodeDataVector)
     {
-        auto l_pNode = m_NodesVector[i];
-        l_pNode->Update(0.016f);
-        l_pNode->Render();
+        l_IT->Render();
     }
 }
 
@@ -554,4 +599,18 @@ void cglTFModel::Destory()
 void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)
 {
     this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
+}
+
+void g_fRenderSkeleton(cglTFModel* e_pglTFModel)
+{
+    if (e_pglTFModel)
+    {
+        for (auto& meshPair : e_pglTFModel->m_AnimationMeshMap)
+        {
+            if (meshPair.second)
+            {
+                meshPair.second->RenderSkeleton();
+            }
+        }
+    }
 }

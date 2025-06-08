@@ -14,7 +14,8 @@ class cSkinningMesh : public cMesh
     std::vector<int>                        m_JointOrderVector;
     cMatrix44                               m_matMeshBindShapePose;
     cMatrix44*                              m_pAllBonesMatrixForSkinned;
-    void    UpdateJointsMatrix();
+    void                                    UpdateJointsMatrix();
+    virtual void					        SetSubMeshCommonUniformData(sSubMesh* e_pMesh, cMatrix44& e_mat)override;
 public:
     DEFINE_TYPE_INFO();
     cSkinningMesh();

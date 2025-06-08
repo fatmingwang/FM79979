@@ -16,6 +16,7 @@ namespace FATMING_CORE
 	{
 		//while set transform is called we might need some data update.ex:rotation
 		virtual	void				SetTransformInternalData() {}
+		virtual	void				TransformChangedInternalData(){}
 	protected:
 		void						DestoryWithChildren();
 	public:

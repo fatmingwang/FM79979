@@ -35,6 +35,7 @@
 class cMesh:public FATMING_CORE::cRenderObject
 {
     typedef std::vector<std::map<int, float*>> sMorphTargetVector;
+protected:
     struct sSubMesh
     {
         int64                       m_i64FVFFlag = 0;
@@ -58,6 +59,8 @@ class cMesh:public FATMING_CORE::cRenderObject
     //from sAnimationData,as many as m_SubMeshesVector.size(),all submesh has same count
 	std::vector<float>			    m_CurrentAnimationMorphPrimitiveWeightsVector;
     void                            ApplyMorphUniformData(struct sSubMesh*e_pSubMesh);
+    virtual void					SetSubMeshCommonUniformData(sSubMesh*e_pMesh,cMatrix44&e_mat);
+    void					        CallOpenGLDraw(sSubMesh* e_pMesh);
 protected:
     shared_ptr<cMaterial>m_Material;
     void    ApplyMaterial();

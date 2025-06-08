@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-class cglTFScene : public NamedTypedObject
+class cglTFScene : public Frame
 {
 private:
     std::unique_ptr<cRenderObject> m_pRootFrame;
@@ -24,5 +24,6 @@ public:
     void Render();
 
     // Find Frame by name (recursive)
-    Frame* FindFrameByName(const std::wstring& name) const;
+    Frame*  FindFrameByName(const std::wstring& name) const;
+	bool    AddFrame(Frame* pFrame);
 };

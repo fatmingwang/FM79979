@@ -157,11 +157,19 @@ void cglTFNodeData::ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty)
     SetLocalTransform(localTransform , e_bSetChildBonesDirty);
 }
 
+void	cglTFNodeData::SetMeshTransform(cMatrix44& e_Mat)
+{
+    if (this->m_pMesh)
+    {
+        auto l_NewMat = e_Mat* this->GetWorldTransform();
+        this->m_pMesh->SetWorldTransform(l_NewMat);
+    }
+}
 void cglTFNodeData::Update(float e_fElpaseTime)
 {
     if (this->m_pMesh)
     {
-        this->m_pMesh->SetLocalTransform(this->GetWorldTransform());
+        this->GetWorldTransform();
         this->m_pMesh->Update(e_fElpaseTime);
     }
 }

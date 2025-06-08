@@ -143,6 +143,14 @@ void cSkinningMesh::UpdateJointsMatrix()
     }
 }
 
+void	cSkinningMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
+{
+	cMesh::SetSubMeshCommonUniformData(e_pSubMesh, e_mat);
+    // Pass the bone matrices to the shader
+    GLuint boneMatricesLocation = glGetUniformLocation(e_pSubMesh->m_iShaderProgram, "uBoneTransforms");
+    glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
+}
+
 void cSkinningMesh::RefreshAnimationData()
 {
     int boneCount = (int)this->m_JointOrderVector.size();
@@ -164,26 +172,11 @@ void cSkinningMesh::Render()
     {
         cMesh::Render();
     }
-    auto l_matTransoform = this->GetWorldTransform();
+    auto l_matWorldTransoform = this->GetWorldTransform();
     for (auto& l_pSubMesh : this->m_SubMeshesVector)
     {
-        // Use the shader program specific to this sub-mesh
-        glUseProgram(l_pSubMesh->m_iShaderProgram);
-        cLighController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
-        // Set model, view, projection matrices
-        GLuint modelLoc = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "inMat4Model");
-
-        cMatrix44 modelMatrix = l_matTransoform;
-        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, modelMatrix);
-        cCameraController::GetInstance()->Render(l_pSubMesh->m_iShaderProgram);
-        // Pass the bone matrices to the shader
-        GLuint boneMatricesLocation = glGetUniformLocation(l_pSubMesh->m_iShaderProgram, "uBoneTransforms");
-        glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
-        ApplyMaterial();;
-        // Bind the vertex array and draw the sub-mesh
-        glBindVertexArray(l_pSubMesh->m_uiVAO);
-        EnableVertexAttributes(l_pSubMesh->m_i64FVFFlag);
-        MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)l_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
+        SetSubMeshCommonUniformData(l_pSubMesh, l_matWorldTransoform);
+		cMesh::CallOpenGLDraw(l_pSubMesh);
     }
 }
 

@@ -25,6 +25,7 @@ void    ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Ma
 class cglTFNodeData : public Frame
 {
 public:
+    void		        SetMeshTransform(cMatrix44&e_Mat);
     //for debug
     int                 m_iJointIndex = -1;
     int                 m_iNodeIndex = -1;
