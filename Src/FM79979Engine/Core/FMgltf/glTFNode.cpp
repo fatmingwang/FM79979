@@ -102,13 +102,29 @@ cglTFNodeData::cglTFNodeData(const tinygltf::Node& e_Node, int e_iNodeIndex)
     m_iNodeIndex = e_iNodeIndex;
 }
 
+cglTFNodeData::cglTFNodeData(cglTFNodeData* e_pglTFNodeData)
+{
+    //for debug
+    m_iJointIndex = e_pglTFNodeData->m_iJointIndex;
+    m_iNodeIndex = e_pglTFNodeData->m_iNodeIndex;
+    m_pMesh = e_pglTFNodeData->m_pMesh;
+    //
+    m_StartNodeWorldTransform = e_pglTFNodeData->m_StartNodeWorldTransform;
+    m_StartNodeTransform = e_pglTFNodeData->m_StartNodeTransform;
+    m_StartSRT = e_pglTFNodeData->m_StartSRT;
+}
+
 cglTFNodeData::~cglTFNodeData()
 {
-    if (this->m_pMesh)
+}
+
+void cglTFNodeData::SetMesh(cMesh* e_pMesh)
+{
+    m_pMesh = e_pMesh;
+    if (m_pMesh)
     {
-		this->m_pMesh->SetParent(nullptr);
+        m_pMesh->SetParent(this);
     }
-    // Destructor implementation
 }
 
 cglTFNodeData* cglTFNodeData::FinChildByName(const wchar_t* e_strBoneName)
@@ -161,19 +177,12 @@ void cglTFNodeData::ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty)
     SetLocalTransform(localTransform , e_bSetChildBonesDirty);
 }
 
-void	cglTFNodeData::SetMeshTransform(cMatrix44& e_Mat)
-{
-    if (this->m_pMesh)
-    {
-        auto l_NewMat = e_Mat* this->GetWorldTransform();
-        this->m_pMesh->SetWorldTransform(l_NewMat);
-    }
-}
 void cglTFNodeData::Update(float e_fElpaseTime)
 {
     if (this->m_pMesh)
     {
-        this->GetWorldTransform();
+        
+        this->m_pMesh->SetWorldTransform(this->GetWorldTransform());
         this->m_pMesh->Update(e_fElpaseTime);
     }
 }

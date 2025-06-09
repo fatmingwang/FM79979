@@ -24,12 +24,11 @@ void    ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Ma
 
 class cglTFNodeData : public Frame
 {
+    class cMesh* m_pMesh = nullptr;
 public:
-    void		        SetMeshTransform(cMatrix44&e_Mat);
     //for debug
     int                 m_iJointIndex = -1;
     int                 m_iNodeIndex = -1;
-    shared_ptr<class cMesh>        m_pMesh = nullptr;
     //
     cMatrix44   m_StartNodeWorldTransform;
     //rest pose
@@ -37,8 +36,13 @@ public:
     sSRT        m_StartSRT;
 
     cglTFNodeData(const tinygltf::Node&e_Node,int e_iNodeIndex);
+    cglTFNodeData(cglTFNodeData*e_pglTFNodeData);
     virtual ~cglTFNodeData();
-
+    class cMesh* GetMesh()
+    {
+        return m_pMesh;
+    }
+	void SetMesh(class cMesh* e_pMesh);
     cglTFNodeData* FinChildByName(const wchar_t* e_strBoneName);
     void ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty);
 

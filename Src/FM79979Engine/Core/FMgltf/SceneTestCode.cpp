@@ -17,13 +17,19 @@ int glTFInit()
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
     {
-        auto l_pWoman = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
-        l_pWoman->SetLocalPosition(Vector3(-5, 0, 0));
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        l_pDuck->SetLocalPosition(Vector3(5, 0, 0));
-        auto l_pLatern = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");
-        auto l_pSimpleSkin = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
-        l_pSimpleSkin->SetLocalPosition(Vector3(3, 0, -2));
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
+        //l_pDuck->SetLocalPosition(Vector3(5, 0, 0));
+        //auto l_pLatern = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");
+        //auto l_pWoman = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
+        //l_pWoman->SetLocalPosition(Vector3(-5, 0, 0));
+        //auto l_pSimpleSkin = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
+        //l_pSimpleSkin->SetLocalPosition(Vector3(3, 0, -2));
+        //LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.gltf");
+        //LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
+        //LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
+        LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
+        //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
+        // 
         //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     }
     //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);

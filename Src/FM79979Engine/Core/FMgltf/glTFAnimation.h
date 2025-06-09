@@ -1,17 +1,19 @@
 #pragma once
 
 #include "glTFNode.h"
-
-struct sAnimationData
+#include "Common.h"
+class cglTFNodeData;
+struct sAnimationData:public NamedTypedObject
 {
-    std::map<cglTFNodeData*, FloatToSRTMap> m_BoneIDAndAnimationData;
+    std::map<int, FloatToSRTMap>                m_BoneIDAndAnimationData;
+    cNamedTypedObjectVector<cglTFNodeData>*     m_pBoneVector;
     //std::vector<cglTFNodeData>              m_NodeVectorFromAnimationData;
     //morphing
     //here only contain weights because position and others are store in SubMesh
     //here only apply weight and sub mesh do it's own morpthing.
-    std::map<float, std::vector<float>>     m_TimaAndMorphWeightMap;
-    shared_ptr<class cMesh>                 m_pTargetMesh;
-    int                                     m_iTargetNodeIndex = -1;
+    std::map<float, std::vector<float>>         m_TimaAndMorphWeightMap;
+    class cMesh*                                m_pTargetMesh;
+    int                                         m_iTargetNodeIndex = -1;
     bool    m_bLoop;
     float   m_fMinKeyTime;
     float   m_fMaxKeyTime;

@@ -79,7 +79,7 @@ void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_p
 {
     if (e_Skin.skeleton != -1)
     {
-        m_pMainRootBone = e_pModel->m_NodesVector[e_Skin.skeleton].get();
+        m_pMainRootBone = e_pModel->m_NodesVector[e_Skin.skeleton];
     }
     m_JointOrderVector = std::make_shared<std::vector<int>>(e_Skin.joints);
     auto l_uiJointSize = e_Skin.joints.size();
@@ -99,7 +99,7 @@ void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_p
         {
             int l_NodeIndex = e_Skin.joints[i];
             auto l_pNode = e_pModel->m_NodesVector[l_NodeIndex];
-            m_SkinningBoneVector.push_back(l_pNode.get());
+            m_SkinningBoneVector.push_back(l_pNode);
             assert(l_pNode->m_iNodeIndex == l_NodeIndex);
             if (l_pNode)
             {

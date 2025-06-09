@@ -15,6 +15,12 @@ std::map<std::string, cglTFModel*> cglTFModel::m_sNameAndglTFModelMap;
 std::map<int64, GLuint>          cglTFModel::m_FVFAndShaderProgramsMap;
 TYPDE_DEFINE_MARCO(cglTFModel);
 
+//because scene will delete it
+cglTFModel::cglTFModel()
+{
+    m_NodesVector.SetFromResource(true);
+}
+
 cglTFModel::~cglTFModel()
 {
     this->Destory();
@@ -22,16 +28,16 @@ cglTFModel::~cglTFModel()
 
 void	cglTFModel::TransformChangedInternalData()
 {
-    auto l_mat = this->GetWorldTransform();
-    //if (m_pRoot)
+    //auto l_mat = this->GetWorldTransform();
+    ////if (m_pRoot)
+    ////{
+    ////    auto l_NewMat = m_pRoot->m_StartNodeWorldTransform* l_mat;
+    ////    m_pRoot->SetWorldTransform(l_NewMat);
+    ////}
+    //for (auto l_IT : m_ContainMeshglTFNodeDataVector)
     //{
-    //    auto l_NewMat = m_pRoot->m_StartNodeWorldTransform* l_mat;
-    //    m_pRoot->SetWorldTransform(l_NewMat);
+    //    l_IT->SetMeshTransform(l_mat);
     //}
-    for (auto l_IT : m_ContainMeshglTFNodeDataVector)
-    {
-        l_IT->SetMeshTransform(l_mat);
-    }
 }
 
 GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
@@ -75,10 +81,10 @@ GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
     return shaderProgram;
 }
 
-void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal)
+void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal)
 {
     cglTFNodeData* l_pBone = nullptr;
-    auto l_IT2 = e_tinyglTFNodeAndJointIndexMap.find(&node);
+    auto l_IT2 = e_tinyglTFNodeAndJointIndexMap.find(&e_pNode);
     if (l_IT2 != e_tinyglTFNodeAndJointIndexMap.end())
     {
         l_pBone = l_IT2->second;
@@ -105,57 +111,57 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Mo
     cMatrix44   l_matNodeTransform = cMatrix44::Identity;
     sSRT         l_SRT;
     //because gltf matrix is column so take trs to make it right?
-    if (node.translation.size() == 3)
+    if (e_pNode.translation.size() == 3)
     {
-        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
+        Vector3 translation((float)e_pNode.translation[0], (float)e_pNode.translation[1], (float)e_pNode.translation[2]);
         l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
         l_SRT.vTranslation = translation;
         l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
     }
-    if (node.rotation.size() == 4)
+    if (e_pNode.rotation.size() == 4)
     {
-        Quaternion rotation((float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2], (float)node.rotation[3]);
+        Quaternion rotation((float)e_pNode.rotation[0], (float)e_pNode.rotation[1], (float)e_pNode.rotation[2], (float)e_pNode.rotation[3]);
         l_matNodeTransform *= rotation.ToMatrix();
         l_SRT.qRotation = rotation;
         l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
     }
-    if (node.scale.size() == 3)
+    if (e_pNode.scale.size() == 3)
     {
-        Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
+        Vector3 scale((float)e_pNode.scale[0], (float)e_pNode.scale[1], (float)e_pNode.scale[2]);
         l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
         l_SRT.vScale = scale;
         l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
     }
-    if (node.matrix.size() == 16)
+    if (e_pNode.matrix.size() == 16)
     {
-        cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
+        cMatrix44 nodeMatrix = cMatrix44(e_pNode.matrix.data());
         l_matNodeTransform = nodeMatrix;
     }
     //11
     l_pBone->m_StartNodeTransform = l_matNodeTransform;
     l_pBone->m_StartSRT = l_SRT;
     l_pBone->SetLocalTransform(l_matNodeTransform);
-    shared_ptr<cMesh>l_pMesh = nullptr;
-    if (node.skin != -1)
+    cMesh*l_pMesh = nullptr;
+    if (e_pNode.skin != -1)
     {
-        l_pMesh = GenerateAnimationMesh(model.skins[node.skin], model.meshes[node.mesh], model, e_bCalculateBiNormal);
+        l_pMesh = GenerateAnimationMesh(model.skins[e_pNode.skin], model.meshes[e_pNode.mesh], model, e_bCalculateBiNormal);
     }
     else
-    if (node.mesh != -1)
+    if (e_pNode.mesh != -1)
     {
-        if (node.mesh < model.meshes.size())
+        if (e_pNode.mesh < model.meshes.size())
         {
-            l_pMesh = GenerateMesh(model.meshes[node.mesh], model, e_bCalculateBiNormal);
+            l_pMesh = GenerateMesh(model.meshes[e_pNode.mesh], model, e_bCalculateBiNormal);
         }
-        auto l_strMeshName = model.meshes[node.mesh].name;
+        auto l_strMeshName = model.meshes[e_pNode.mesh].name;
         //bone->m_strTargetMeshName = l_strMeshName;
     }
-    l_pBone->m_pMesh = l_pMesh;
+    l_pBone->SetMesh(l_pMesh);
     //do not do l_pMesh->SetParent, because smart pointer problem and I am lazy to fix now.
     if (l_pMesh)
     {
         m_ContainMeshglTFNodeDataVector.push_back(l_pBone);
-        l_pMesh->SetParent(l_pBone);
+        //l_pMesh->SetParent(l_pBone);
     }
     //for (int childIndex : node.children)
     //{
@@ -175,11 +181,11 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
         {
             boneName = ValueToStringW(i);
         }
-        std::shared_ptr<cglTFNodeData>l_pglTFNodeData = std::make_shared<cglTFNodeData>(node, (int)i);
-        bool l_bSameName = m_NodesVector.Add(l_pglTFNodeData);
+        cglTFNodeData*l_pglTFNodeData = new cglTFNodeData(node, (int)i);
+        bool l_bSameName = m_NodesVector.AddObject(l_pglTFNodeData);
         assert(l_bSameName && "node not allow to has same name!?");
-        l_tinyglTFNodeAndJointIndexMap[&node] = l_pglTFNodeData.get();
-        l_NodeIndexAndBoneMap[(int)i] = l_pglTFNodeData.get();
+        l_tinyglTFNodeAndJointIndexMap[&node] = l_pglTFNodeData;
+        l_NodeIndexAndBoneMap[(int)i] = l_pglTFNodeData;
     }
     for (size_t i = 0; i < model.nodes.size(); i++)
     {
@@ -206,10 +212,9 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
     {
         //const tinygltf::Node& rootNode = model.nodes[rootNodeIndex];
         auto l_IT = m_NodeIndexAndBoneMap.find(rootNodeIndex);
-        if (l_IT != m_NodeIndexAndBoneMap.end())
+        if (!l_IT->second->GetParent())
         {
-            //l_IT->second->SetParent(this);
-            m_pRoot = l_IT->second;
+            l_IT->second->SetParent(this);
         }
         // rootNode is a root node of the scene
     }
@@ -299,7 +304,8 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
 {
     for (const auto& animation : model.animations)
     {
-        std::shared_ptr<sAnimationData> l_pAnimationData = std::make_shared<sAnimationData>();
+        sAnimationData* l_pAnimationData = new sAnimationData();
+        l_pAnimationData->m_pBoneVector = &this->m_NodesVector;
         //l_pAnimationData->m_fMinKeyTime = FLT_MAX;
         //l_pAnimationData->m_fMaxKeyTime = FLT_MIN;
         l_pAnimationData->m_fCurrentTime = 0.0f;
@@ -354,7 +360,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
                 for (size_t i = 0; i < inputAccessor.count; ++i)
                 {
                     float time = inputData[i];
-                    FloatToSRTMap& keyframes = l_pAnimationData->m_BoneIDAndAnimationData[bone];
+                    FloatToSRTMap& keyframes = l_pAnimationData->m_BoneIDAndAnimationData[bone->m_iNodeIndex];
                     sSRT& srt = keyframes[time];
                     if (channel.target_path == "translation")
                     {
@@ -415,29 +421,29 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_M
     }
 }
 
-shared_ptr<cMesh> cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+cMesh* cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
     auto l_IT = m_NameAndMeshes.find(e_Mesh.name);
     if (l_IT != m_NameAndMeshes.end())
     {
         return l_IT->second;
     }
-    shared_ptr<cMesh>l_pMesh = std::make_shared<cMesh>();
-    AssignMeshAttributes(l_pMesh.get(), e_Mesh, e_Model, e_bCalculateBiNormal);
+    cMesh*l_pMesh = new cMesh();
+    AssignMeshAttributes(l_pMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
     m_NameAndMeshes[e_Mesh.name] = l_pMesh;
     l_pMesh->SetName(e_Mesh.name.c_str());
     return l_pMesh;
 }
 
-shared_ptr<cMesh> cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
     auto l_IT = m_AnimationMeshMap.find(e_Mesh.name);
     if (l_IT != m_AnimationMeshMap.end())
     {
         return l_IT->second;
     }
-    shared_ptr<cSkinningMesh>l_pSkinningMesh = std::make_shared<cSkinningMesh>();
-    AssignMeshAttributes(l_pSkinningMesh.get(), e_Mesh, e_Model, e_bCalculateBiNormal);
+    cSkinningMesh*l_pSkinningMesh = new cSkinningMesh();
+    AssignMeshAttributes(l_pSkinningMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
     l_pSkinningMesh->LoadJointsData(e_Skin,this,e_Model);
     m_AnimationMeshMap[e_Mesh.name] = l_pSkinningMesh;
     l_pSkinningMesh->SetName(e_Mesh.name.c_str());
@@ -549,7 +555,7 @@ void cglTFModel::Update(float e_fElpaseTime)
                 auto l_Animation = m_NameAndAnimationMap.begin();
                 if (m_NameAndAnimationMap.size() > 1)
                 {
-                    //++l_Animation;
+                    ++l_Animation;
                     //++l_Animation;
                 }
                 this->SetCurrentAnimation(l_Animation->first);
@@ -570,36 +576,52 @@ void cglTFModel::Update(float e_fElpaseTime)
             this->m_AnimationClip.BlendClips(e_fElpaseTime, "Running", l_strAnimation2.c_str(), true, true, 0.9f);
         }
     }
-    for (auto l_IT : m_ContainMeshglTFNodeDataVector)
-    {
-        l_IT->Update(e_fElpaseTime);
-    }
+
+    //for(auto l_IT : m_AnimationMeshMap)
+    //{
+    //    l_IT.second->Update(e_fElpaseTime);
+    //}
+    //for (auto l_IT : m_NameAndMeshes)
+    //{
+    //    l_IT.second->Update(e_fElpaseTime);
+    //}
+    
+
+    //for (auto l_IT : m_NodeIndexAndBoneMap)
+    //{
+    //    l_IT.second->Update(e_fElpaseTime);
+    //}
 }
 
 void cglTFModel::Render()
 {
-    for (auto l_IT : m_ContainMeshglTFNodeDataVector)
-    {
-        l_IT->Render();
-    }
+    //for (auto l_IT : m_AnimationMeshMap)
+    //{
+    //    l_IT.second->Render();
+    //}
+    //for (auto l_IT : m_NameAndMeshes)
+    //{
+    //    l_IT.second->Render();
+    //}
+    //for (auto l_IT : m_NodeIndexAndBoneMap)
+    //{
+    //    l_IT.second->Render();
+    //}
 }
 
 void cglTFModel::Destory()
 {
-    int l_iCount = (int)m_NodesVector.Size();
-    for (int i = 0; i < l_iCount; i++)
-    {
-        auto l_pData = m_NodesVector[i];
-        if (l_pData)
-        {
-            l_pData->SetParent(nullptr);
-        }
-    }
+    DELETE_MAP(m_NameAndAnimationMap);
 }
 
 void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)
 {
     this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
+}
+
+cglTFModelRenderNode* cglTFModel::ToRenderNode()
+{
+    return nullptr;
 }
 
 void g_fRenderSkeleton(cglTFModel* e_pglTFModel)
