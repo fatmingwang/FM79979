@@ -301,8 +301,12 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
                 if (lights[i].type == 3) 
                 { //ambient
                     //texture(textureDiffuse, toFSVec2TexCoord).rgb should move to start
+#ifdef USE_TEXCOORD
                     vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
                     color += (lights[i].color*diffuseColor);
+#else
+                    color += lights[i].color;
+#endif
                     continue;
                 }
                 else

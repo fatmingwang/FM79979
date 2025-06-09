@@ -22,6 +22,8 @@ int glTFInit()
         auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
         l_pDuck->SetLocalPosition(Vector3(5, 0, 0));
         auto l_pLatern = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");
+        auto l_pSimpleSkin = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
+        l_pSimpleSkin->SetLocalPosition(Vector3(3, 0, -2));
         //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
     }
     //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
@@ -58,30 +60,10 @@ void GlTFUpdate(float e_fElpaseTime)
 
 void GlTFRender()
 {
-    // Enable backface culling
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    //glCullFace(GL_FRONT);
-    // Enable depth testing
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-    cBaseShader* l_pShader = GetCurrentShader();
-    if (l_pShader)
-    {
-        l_pShader->Unuse();
-    }
-    UseShaderProgram(L"qoo79979");
     if (g_pglTFScene)
     {
 		g_pglTFScene->Render();
     }
-    glDisable(GL_CULL_FACE);
-    glDisable(GL_DEPTH_TEST);
-    glUseProgram(0);
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    //g_fRenderSkeleton(g_pglTFModel);
-    g_fCameraDebugRender();
     
 }
 

@@ -99,7 +99,7 @@ void cAnimationClip::SetBoneAndAnimationData(cglTFModel* e_pglTFModel)
 {
     m_pglTFModel = e_pglTFModel;
     m_SRTVector.clear();
-    for (auto l_pBone : *e_pglTFModel->m_NodesVector.GetList())
+    for (auto l_pBone : e_pglTFModel->m_NodesVector.GetVector())
     {
         sSRT l_SRT;
         l_SRT.iSRTFlag = SRT_SCALE_FLAG | SRT_ROTATION_FLAG | SRT_TRANSLATION_FLAG;
@@ -113,7 +113,7 @@ bool cAnimationClip::SetAnimation(const char* e_strAnimationName, bool e_bLoop, 
     if (it != m_pglTFModel->m_NameAndAnimationMap.end())
     {
         m_strAnimationName = e_strAnimationName;
-        m_pCurrentAnimationData = it->second;
+        m_pCurrentAnimationData = it->second.get();
         m_pCurrentAnimationData->m_fCurrentTime = e_fTargetTime;
         m_pCurrentAnimationData->m_bLoop = e_bLoop;
         if (!m_pCurrentAnimationData->m_pTargetMesh)
@@ -157,8 +157,8 @@ void    cAnimationClip::BlendClips(float e_fTime, const char* e_strAnimationName
     this->m_pCurrentAnimationData->Update(e_fTime);
     this->SampleToTime(this->m_pCurrentAnimationData->m_fCurrentTime, false, &l_SRTVector2);
 
-    cNamedTypedObjectVector<cglTFNodeData>&l_BoneVector = this->m_pglTFModel->m_NodesVector;
-    auto l_iSize = l_BoneVector.Count();
+    auto l_BoneVector = this->m_pglTFModel->m_NodesVector;
+    auto l_iSize = l_BoneVector.Size();
     for (int i = 0; i < l_iSize; ++i)
     {
         m_SRTVector[i] = sSRT::Blend(l_SRTVector1[i], l_SRTVector2[i], e_fTargetFactor);

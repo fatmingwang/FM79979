@@ -17,14 +17,17 @@ cMesh::cMesh()
 {
 }
 
+cMesh::cMesh(cMesh* e_pMesh)
+{
+    m_vMinBounds = e_pMesh->m_vMinBounds;
+    m_vMaxBounds = e_pMesh->m_vMaxBounds;
+    m_Material = e_pMesh->m_Material;
+    m_SubMeshesVector = e_pMesh->m_SubMeshesVector;
+}
+
 cMesh::~cMesh()
 {
     m_Material = nullptr;
-    for (auto l_pSubMesh : m_SubMeshesVector)
-    {
-        l_pSubMesh->ClearOpenGLData();
-    }
-    DELETE_VECTOR(m_SubMeshesVector);
 }
 
 void cMesh::ApplyMorphUniformData(sSubMesh* e_pSubMesh)
@@ -124,15 +127,14 @@ void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
     e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
 }
 
-void cMesh::sSubMesh::ClearOpenGLData()
+cMesh::sSubMesh::~sSubMesh()
 {
     for (int i = 0; i < TOTAL_FVF; ++i)
     {
         if (i & this->m_i64FVFFlag)
         {
-            glDeleteBuffers(1,&m_iVBOArray[i]);
+            glDeleteBuffers(1, &m_iVBOArray[i]);
         }
-        
     }
     glDeleteBuffers(1, &m_uiEBO);
     glDeleteVertexArrays(1, &m_uiVAO);
@@ -163,8 +165,8 @@ void cMesh::Render()
     auto l_matTransform = this->GetWorldTransform();
     for (auto l_pSubMesh : m_SubMeshesVector)
     {
-        SetSubMeshCommonUniformData(l_pSubMesh, l_matTransform);
-        CallOpenGLDraw(l_pSubMesh);
+        SetSubMeshCommonUniformData(l_pSubMesh.get(), l_matTransform);
+        CallOpenGLDraw(l_pSubMesh.get());
     }
 }
 
@@ -204,7 +206,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         assert(0 && "only support triangles now");
         return;
     }
-    sSubMesh* l_pSubMesh = new sSubMesh();
+    std::shared_ptr<sSubMesh> l_pSubMesh = std::make_shared<sSubMesh>();
 
     // Load indices
     if (primitive.indices == -1)
@@ -235,7 +237,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         else
         {
             std::cerr << "Unsupported index component type: " << indexAccessor.componentType << std::endl;
-            SAFE_DELETE(l_pSubMesh);
+            l_pSubMesh = nullptr;
             return;
         }
     }
@@ -323,7 +325,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
 #endif
         }
     }
-    GenerateNormalAttribute(model, primitive, l_pSubMesh);
+    GenerateNormalAttribute(model, primitive, l_pSubMesh.get());
 
     m_SubMeshesVector.push_back(l_pSubMesh);
     logFVFFlags();
@@ -338,7 +340,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         m_vMaxBounds.y = max(m_vMaxBounds.y, l_pSubMesh->m_vMaxBounds.y);
         m_vMaxBounds.z = max(m_vMaxBounds.z, l_pSubMesh->m_vMaxBounds.z);
     }
-    LoadMorphingAttributes(l_pSubMesh, model, primitive, calculateBinormal);
+    LoadMorphingAttributes(l_pSubMesh.get(), model, primitive, calculateBinormal);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -415,7 +417,7 @@ void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& m
     }
 }
 
-void cMesh::SetMorphingWeights(const std::vector<double>& e_Weights)
-{
-	m_MorphWeights = e_Weights;
-}
+//void cMesh::SetMorphingWeights(const std::vector<double>& e_Weights)
+//{
+//	m_MorphWeights = e_Weights;
+//}

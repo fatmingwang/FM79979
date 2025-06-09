@@ -35,7 +35,11 @@
 	//virtual bool                IsDerivedFrom( const wchar_t* _TypeID ) const { return ( _TypeID == TypeID ); }
 	//virtual bool IsDerivedFrom( const wchar_t* e_strTypeID ) const  { if( e_strTypeID == TypeID ) return true;  return __super::IsDerivedFrom( e_strTypeID ); 
 
+
+
 #define	CLONE_MYSELF(TYPE)		virtual NamedTypedObject*	Clone()override{ return new TYPE(this); }
+#define	GET_TYPE_CLONE(TYPE)	TYPE*	GetTypeClone(){ return dynamic_cast<TYPE*>(this->Clone()); }
+#define	LAZY_CLONE_FUNCTION(TYPE) CLONE_MYSELF(TYPE); GET_TYPE_CLONE(TYPE);
 
 #define	CLONE_RETURN_NULLPTR()	virtual NamedTypedObject*	Clone()override{ return nullptr; }
 
@@ -109,6 +113,7 @@ public:
 	bool						IsMagicIDMatch();//if not match pointer might delete at somewhere
 #endif
 	virtual	void				UpdateTimeStamp(){}
+	std::wstring& GetObjectName(){return m_sObjectName;}
 };
 
 const int DEFAULT_COLLECTION_HASHSIZE = 61;

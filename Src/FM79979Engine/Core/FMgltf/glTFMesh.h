@@ -51,11 +51,11 @@ protected:
         shared_ptr<sMorphTargetVector>    m_spFVFAndVertexDataMorphTargetMap;
         int 					    m_iNumMorphTarget = 0;
         void                        GetProperCameraPosition(cMatrix44& e_CameraMatrix);
-        void                        ClearOpenGLData();
+        ~sSubMesh();
     };
     //
     //useless?
-    std::vector<double>             m_MorphWeights; // Store blending weights per target
+    //std::vector<double>             m_MorphWeights; // Store blending weights per target
     //from sAnimationData,as many as m_SubMeshesVector.size(),all submesh has same count
 	std::vector<float>			    m_CurrentAnimationMorphPrimitiveWeightsVector;
     void                            ApplyMorphUniformData(struct sSubMesh*e_pSubMesh);
@@ -70,11 +70,13 @@ public:
     Vector3 m_vMinBounds;
     Vector3 m_vMaxBounds;
 protected:
-    std::vector<sSubMesh*>  m_SubMeshesVector;  // Store different primitives
+    std::vector<std::shared_ptr<sSubMesh>>  m_SubMeshesVector;  // Store different primitives
     void                    GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinygltf::Primitive& primitive, sSubMesh*e_pSubMesh);
 public:
     DEFINE_TYPE_INFO();
+    LAZY_CLONE_FUNCTION(cMesh);
     cMesh();
+    cMesh(cMesh*e_pMesh);
     virtual ~cMesh();
 
     //void InitBuffer();  // Initialize and bind buffers
@@ -85,6 +87,6 @@ public:
     void            LoadMaterial(const tinygltf::Model& model, const tinygltf::Material& material,unsigned int e_uiShaderProgram);
     void            LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
     void            LoadMorphingAttributes(sSubMesh*e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
-    void            SetMorphingWeights(const std::vector<double>&e_Weights);
+    //void            SetMorphingWeights(const std::vector<double>&e_Weights);
     void            logFVFFlags();
 };

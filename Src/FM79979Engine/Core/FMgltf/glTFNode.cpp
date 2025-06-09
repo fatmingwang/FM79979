@@ -104,6 +104,10 @@ cglTFNodeData::cglTFNodeData(const tinygltf::Node& e_Node, int e_iNodeIndex)
 
 cglTFNodeData::~cglTFNodeData()
 {
+    if (this->m_pMesh)
+    {
+		this->m_pMesh->SetParent(nullptr);
+    }
     // Destructor implementation
 }
 

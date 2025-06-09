@@ -10,6 +10,8 @@
 #include "glTFLight.h"
 #include "glTFCamera.h"
 
+
+std::map<std::string, cglTFModel*> cglTFModel::m_sNameAndglTFModelMap;
 TYPDE_DEFINE_MARCO(cglTFModel);
 
 cglTFModel::~cglTFModel()
@@ -152,7 +154,7 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& node, const tinygltf::Mo
     if (l_pMesh)
     {
         m_ContainMeshglTFNodeDataVector.push_back(l_pBone);
-        //l_pMesh->SetParent(bone);
+        l_pMesh->SetParent(l_pBone);
     }
     //for (int childIndex : node.children)
     //{
@@ -172,11 +174,11 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
         {
             boneName = ValueToStringW(i);
         }
-        cglTFNodeData* l_pglTFNodeData = new cglTFNodeData(node, (int)i);
-        bool l_bSameName = m_NodesVector.AddObject(l_pglTFNodeData);
+        std::shared_ptr<cglTFNodeData>l_pglTFNodeData = std::make_shared<cglTFNodeData>(node, (int)i);
+        bool l_bSameName = m_NodesVector.Add(l_pglTFNodeData);
         assert(l_bSameName && "node not allow to has same name!?");
-        l_tinyglTFNodeAndJointIndexMap[&node] = l_pglTFNodeData;
-        l_NodeIndexAndBoneMap[(int)i] = l_pglTFNodeData;
+        l_tinyglTFNodeAndJointIndexMap[&node] = l_pglTFNodeData.get();
+        l_NodeIndexAndBoneMap[(int)i] = l_pglTFNodeData.get();
     }
     for (size_t i = 0; i < model.nodes.size(); i++)
     {
@@ -296,13 +298,12 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
 {
     for (const auto& animation : model.animations)
     {
-        sAnimationData* l_pAnimationData = new sAnimationData();
-        sAnimationData& animationData = *l_pAnimationData;
-        //animationData.m_fMinKeyTime = FLT_MAX;
-        //animationData.m_fMaxKeyTime = FLT_MIN;
-        animationData.m_fCurrentTime = 0.0f;
-        animationData.m_fStartTime = 0.0f;
-        animationData.m_fEndTime = 0.0f;
+        std::shared_ptr<sAnimationData> l_pAnimationData = std::make_shared<sAnimationData>();
+        //l_pAnimationData->m_fMinKeyTime = FLT_MAX;
+        //l_pAnimationData->m_fMaxKeyTime = FLT_MIN;
+        l_pAnimationData->m_fCurrentTime = 0.0f;
+        l_pAnimationData->m_fStartTime = 0.0f;
+        l_pAnimationData->m_fEndTime = 0.0f;
 
         for (const auto& channel : animation.channels)
         {
@@ -332,13 +333,13 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
             const auto& outputBufferView = model.bufferViews[outputAccessor.bufferView];
             const auto& outputBuffer = model.buffers[outputBufferView.buffer];
             const float* outputData = reinterpret_cast<const float*>(outputBuffer.data.data() + outputBufferView.byteOffset + outputAccessor.byteOffset);
-            animationData.m_iTargetNodeIndex = channel.target_node;
+            l_pAnimationData->m_iTargetNodeIndex = channel.target_node;
             //morph
             if (channel.target_path == "weights")
             {
                 size_t l_uiFrameCount = inputAccessor.count;
                 size_t l_MorphTargetCount = outputAccessor.count / l_uiFrameCount;
-                std::map<float, std::vector<float>>& l_Map = animationData.m_TimaAndMorphWeightMap;
+                std::map<float, std::vector<float>>& l_Map = l_pAnimationData->m_TimaAndMorphWeightMap;
                 for (int i = 0; i < l_uiFrameCount; ++i)
                 {
                     float time = inputData[i];
@@ -352,7 +353,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
                 for (size_t i = 0; i < inputAccessor.count; ++i)
                 {
                     float time = inputData[i];
-                    FloatToSRTMap& keyframes = animationData.m_BoneIDAndAnimationData[bone];
+                    FloatToSRTMap& keyframes = l_pAnimationData->m_BoneIDAndAnimationData[bone];
                     sSRT& srt = keyframes[time];
                     if (channel.target_path == "translation")
                     {
@@ -377,10 +378,10 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
             {
                 float l_fBeginTime = inputData[0];
                 float l_fEndTime = inputData[inputAccessor.count-1];
-                animationData.m_fMinKeyTime = min(animationData.m_fMinKeyTime, l_fBeginTime);
-                animationData.m_fMaxKeyTime = max(animationData.m_fMaxKeyTime, l_fEndTime);
-                animationData.m_fStartTime = animationData.m_fMinKeyTime;
-                animationData.m_fEndTime = animationData.m_fMaxKeyTime;
+                l_pAnimationData->m_fMinKeyTime = min(l_pAnimationData->m_fMinKeyTime, l_fBeginTime);
+                l_pAnimationData->m_fMaxKeyTime = max(l_pAnimationData->m_fMaxKeyTime, l_fEndTime);
+                l_pAnimationData->m_fStartTime = l_pAnimationData->m_fMinKeyTime;
+                l_pAnimationData->m_fEndTime = l_pAnimationData->m_fMaxKeyTime;
             }
         }
 
@@ -409,7 +410,7 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_M
     }
     if (e_Mesh.weights.size())
     {
-		l_pMesh->SetMorphingWeights(e_Mesh.weights);
+		//l_pMesh->SetMorphingWeights(e_Mesh.weights);
     }
 }
 
@@ -523,6 +524,7 @@ bool cglTFModel::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNo
 		m_pCamera = std::make_shared<cglTFCamera>();
 		m_pCamera->LoadCamerasFromGLTF(model,&this->m_NodeIndexAndBoneMap);
 	}
+	m_sNameAndglTFModelMap.insert(std::make_pair(filename, this));
     return true;
 }
 
@@ -583,7 +585,7 @@ void cglTFModel::Render()
 
 void cglTFModel::Destory()
 {
-    int l_iCount = m_NodesVector.Count();
+    int l_iCount = (int)m_NodesVector.Size();
     for (int i = 0; i < l_iCount; i++)
     {
         auto l_pData = m_NodesVector[i];
@@ -592,8 +594,6 @@ void cglTFModel::Destory()
             l_pData->SetParent(nullptr);
         }
     }
-    m_NodesVector.Destroy();
-    DELETE_MAP(m_NameAndAnimationMap);
 }
 
 void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)

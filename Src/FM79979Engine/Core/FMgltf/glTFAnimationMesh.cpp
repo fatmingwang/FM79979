@@ -14,13 +14,27 @@
 bool g_bApplyInverseBindPose = true;
 TYPDE_DEFINE_MARCO(cSkinningMesh);
 cSkinningMesh::cSkinningMesh()
-    : m_pMainRootBone(nullptr), m_pAllBonesMatrixForSkinned(nullptr)
+    : m_pMainRootBone(nullptr)
 {
+	m_pNodeInversePoseMatrixVector = std::make_shared<std::vector<cMatrix44>>();
+    m_JointOrderVector = std::shared_ptr<std::vector<int>>();
+}
+
+cSkinningMesh::cSkinningMesh(cSkinningMesh* e_pSkinningMesh)
+{
+    m_SkinningBoneVector = e_pSkinningMesh->m_SkinningBoneVector;
+    m_pNodeInversePoseMatrixVector = e_pSkinningMesh->m_pNodeInversePoseMatrixVector;
+
+    m_pMainRootBone = e_pSkinningMesh->m_pMainRootBone;
+    m_SkinningBoneVector                = e_pSkinningMesh->m_SkinningBoneVector;
+    m_pNodeInversePoseMatrixVector = e_pSkinningMesh->m_pNodeInversePoseMatrixVector;
+    m_JointOrderVector = e_pSkinningMesh->m_JointOrderVector;
+    //m_matMeshBindShapePose = e_pSkinningMesh->m_matMeshBindShapePose;
+    m_AllBonesMatrixForSkinnedVector = e_pSkinningMesh->m_AllBonesMatrixForSkinnedVector;;
 }
 
 cSkinningMesh::~cSkinningMesh()
 {
-    SAFE_DELETE_ARRAY(m_pAllBonesMatrixForSkinned);
 }
 
 
@@ -65,9 +79,9 @@ void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_p
 {
     if (e_Skin.skeleton != -1)
     {
-        m_pMainRootBone = e_pModel->m_NodesVector[e_Skin.skeleton];
+        m_pMainRootBone = e_pModel->m_NodesVector[e_Skin.skeleton].get();
     }
-    m_JointOrderVector = e_Skin.joints;
+    m_JointOrderVector = std::make_shared<std::vector<int>>(e_Skin.joints);
     auto l_uiJointSize = e_Skin.joints.size();
     for (size_t i = 0; i < l_uiJointSize; ++i)
     {
@@ -85,12 +99,12 @@ void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_p
         {
             int l_NodeIndex = e_Skin.joints[i];
             auto l_pNode = e_pModel->m_NodesVector[l_NodeIndex];
-            m_SkinningBoneVector.push_back(l_pNode);
+            m_SkinningBoneVector.push_back(l_pNode.get());
             assert(l_pNode->m_iNodeIndex == l_NodeIndex);
             if (l_pNode)
             {
                 l_pNode->m_iJointIndex = (int)i;
-                m_NodeInversePoseMatrixVector.push_back(cMatrix44(data + i * 16));
+                m_pNodeInversePoseMatrixVector->push_back(cMatrix44(data + i * 16));
             }
             else
             {
@@ -98,9 +112,9 @@ void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_p
             }
         }
     }
-    if (!m_pAllBonesMatrixForSkinned)
+    if (m_AllBonesMatrixForSkinnedVector.size() == 0)
     {
-        m_pAllBonesMatrixForSkinned = new cMatrix44[e_Skin.joints.size()];
+		m_AllBonesMatrixForSkinnedVector.resize(e_Skin.joints.size());
     }
     RefreshAnimationData();
     if (this->m_pMainRootBone)
@@ -113,7 +127,7 @@ void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_p
 
 void cSkinningMesh::UpdateJointsMatrix()
 {
-    int boneCount = (int)this->m_JointOrderVector.size();
+    int boneCount = (int)this->m_JointOrderVector->size();
     for (int i = 0; i < boneCount; ++i)
     {
         //int l_iBoneIndex = m_JointOrderVector[i];
@@ -121,7 +135,7 @@ void cSkinningMesh::UpdateJointsMatrix()
         if (bone)
         {
             assert(i == bone->m_iJointIndex);
-            assert(m_JointOrderVector[i] == bone->m_iNodeIndex);
+            assert((*m_JointOrderVector)[i] == bone->m_iNodeIndex);
             if (bone->m_iJointIndex == -1)
             {
                 continue;
@@ -130,11 +144,9 @@ void cSkinningMesh::UpdateJointsMatrix()
             auto l_mat = l_matWorldTransform;
             if (g_bApplyInverseBindPose)
             {
-                l_mat = l_matWorldTransform * m_NodeInversePoseMatrixVector[i];
+                l_mat = l_matWorldTransform * (*m_pNodeInversePoseMatrixVector)[i];
             }
-            //m_pAllBonesMatrixForSkinned[bone->m_iJointIndex] = l_mat;
-            m_pAllBonesMatrixForSkinned[i] = l_mat;
-            //m_pAllBonesMatrixForSkinned[m_JointOrderVector[i]] = l_mat;
+            m_AllBonesMatrixForSkinnedVector[i] = l_mat;
         }
         else
         {
@@ -148,16 +160,16 @@ void	cSkinningMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44&
 	cMesh::SetSubMeshCommonUniformData(e_pSubMesh, e_mat);
     // Pass the bone matrices to the shader
     GLuint boneMatricesLocation = glGetUniformLocation(e_pSubMesh->m_iShaderProgram, "uBoneTransforms");
-    glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)m_pAllBonesMatrixForSkinned);
+    glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)&m_AllBonesMatrixForSkinnedVector[0]);
 }
 
 void cSkinningMesh::RefreshAnimationData()
 {
-    int boneCount = (int)this->m_JointOrderVector.size();
+    int boneCount = (int)this->m_JointOrderVector->size();
     for (int i = 0; i < boneCount; ++i)
     {
         auto l_pBone = m_SkinningBoneVector[i];
-        m_pAllBonesMatrixForSkinned[i] = l_pBone->m_StartNodeWorldTransform;
+        m_AllBonesMatrixForSkinnedVector[i] = l_pBone->m_StartNodeWorldTransform;
     }
 }
 
@@ -175,8 +187,8 @@ void cSkinningMesh::Render()
     auto l_matWorldTransoform = this->GetWorldTransform();
     for (auto& l_pSubMesh : this->m_SubMeshesVector)
     {
-        SetSubMeshCommonUniformData(l_pSubMesh, l_matWorldTransoform);
-		cMesh::CallOpenGLDraw(l_pSubMesh);
+        SetSubMeshCommonUniformData(l_pSubMesh.get(), l_matWorldTransoform);
+		cMesh::CallOpenGLDraw(l_pSubMesh.get());
     }
 }
 
@@ -200,21 +212,21 @@ void cSkinningMesh::RenderSkeleton()
             l_mat = l_pParent->GetWorldTransform();
             if (!g_bApplyInverseBindPose)
             {
-                l_mat = l_pParent->GetWorldTransform() * m_NodeInversePoseMatrixVector[l_pParent->m_iJointIndex];
+                l_mat = l_pParent->GetWorldTransform() * (*m_pNodeInversePoseMatrixVector)[l_pParent->m_iJointIndex];
             }
             l_vAllVertices.push_back(l_mat.GetTranslation());
             //me
             l_mat = (l_pMe->GetWorldTransform());
             if (!g_bApplyInverseBindPose)
             {
-                l_mat = (l_pMe->GetWorldTransform() * m_NodeInversePoseMatrixVector[l_pMe->m_iJointIndex]);
+                l_mat = (l_pMe->GetWorldTransform() * (*m_pNodeInversePoseMatrixVector)[l_pMe->m_iJointIndex]);
             }
             l_vAllVertices.push_back(l_mat.GetTranslation());
             ++l_iNumBone;
         }
         else
         {
-            l_mat = (l_pMe->GetWorldTransform() * m_NodeInversePoseMatrixVector[l_pMe->m_iJointIndex]);
+            l_mat = (l_pMe->GetWorldTransform() * (*m_pNodeInversePoseMatrixVector)[l_pMe->m_iJointIndex]);
         }
         l_vPoints.push_back(l_mat.GetTranslation());
     }
