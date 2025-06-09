@@ -34,7 +34,7 @@ class cAnimationClip :public NamedTypedObject
     class cglTFModel*                       m_pglTFModel = nullptr;
     bool                                    SampleToTime(float e_fTime, bool e_bAssignToBone, std::vector<sSRT>* e_pSRTVector = nullptr);
     void	                                UpdateNode(cglTFNodeData* e_pBone, float e_fTime, sSRT& e_SRT, bool e_bAssignToBone);
-    public:
+public:
     void	SetBoneAndAnimationData(class cglTFModel* e_pglTFModel);
     bool    SetAnimation(const char* e_strAnimationName, bool e_bLoop, float e_fTargetTime = 0.f);
     void    UpdateToTargetTime(float e_fTime, bool e_bAssignToBone);

@@ -12,6 +12,7 @@
 
 
 std::map<std::string, cglTFModel*> cglTFModel::m_sNameAndglTFModelMap;
+std::map<int64, GLuint>          cglTFModel::m_FVFAndShaderProgramsMap;
 TYPDE_DEFINE_MARCO(cglTFModel);
 
 cglTFModel::~cglTFModel()

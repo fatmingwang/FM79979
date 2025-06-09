@@ -303,7 +303,7 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
             viewMatrix = e_pMatrix;
 		}
         auto l_Proj = l_pCamera->GetProjection();
-        auto l_matProjectionMatrix = l_Proj.GetglTFPerspectiveRH();        
+        auto l_matProjectionMatrix = l_Proj.GetMatrix();// .GetglTFPerspectiveRH();
         //auto l_matProjectionMatrix = projectionMatrix.GetglTFPerspectiveRH();
         //auto l_matProjectionMatrix2 = projectionMatrix.GetMatrix();
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
