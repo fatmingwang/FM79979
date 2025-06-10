@@ -21,11 +21,12 @@ public:
     cSkinningMesh();
     cSkinningMesh(cSkinningMesh*e_pSkinningMesh);
     virtual ~cSkinningMesh();
-    LAZY_CLONE_FUNCTION(cMesh);
+    LAZY_CLONE_FUNCTION(cSkinningMesh);
     void    LoadJointsData(const tinygltf::Skin&e_Skin,cglTFModel*e_pModel,const  tinygltf::Model&e_Model);
     void    RefreshAnimationData();
     void    Update(float elapsedTime) override;
     void    Render() override;
     void    JointUpdate(float elapsedTime);
     void    RenderSkeleton();
+    virtual         void AfterCloneSetBoneData(cglTFModelRenderNode* e_pData)override;
 };

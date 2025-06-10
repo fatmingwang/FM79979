@@ -8,7 +8,7 @@ cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName)
 {
     cglTFModel*l_pglTFModel = new cglTFModel();;
     l_pglTFModel->LoadFromGLTF(e_strFileName, true);
-    e_pFrame->AddChild(l_pglTFModel);
+    //e_pFrame->AddChild(l_pglTFModel);
     return l_pglTFModel;
 }
 
@@ -17,8 +17,23 @@ int glTFInit()
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
     {
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        l_pDuck->SetLocalPosition(Vector3(5, 0, 0));
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
+        //l_pRootFrame->AddChild(l_pDuck);
+		//cglTFModelRenderNode* l_pToRenderNode = l_pDuck->ToRenderNode();
+        //l_pToRenderNode->SetLocalPosition(Vector3(5, 0, 0));
+		//l_pRootFrame->AddChild(l_pToRenderNode);
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
+        auto l_pDuck2 = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
+        //l_pRootFrame->AddChild(l_pDuck2);
+        //l_pDuck2->SetLocalPosition(Vector3(5, 0, 0));
+        //cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck2->ToRenderNode();
+        for(int i=0;i<10;i++)
+        {
+            cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck2->ToRenderNode();
+            l_pToRenderNode1->SetLocalPosition(Vector3(-10+i*2, 0, 0) + Vector3(0, 0, 0));
+            l_pToRenderNode1->Update(i*0.5f);
+            l_pRootFrame->AddChild(l_pToRenderNode1);// 
+		}
         //auto l_pLatern = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");
         //auto l_pWoman = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
         //l_pWoman->SetLocalPosition(Vector3(-5, 0, 0));
@@ -77,6 +92,7 @@ void GlTFDestory()
 {
     //    DrawModel(model, shaderProgram);
     SAFE_DELETE(g_pglTFScene);
+    cglTFModel::DeleteCachedFiles();
     cTextureManager::ClearSharedTextureReferenceMap();
     //SAFE_DELETE(g_pglTFModel);
 }

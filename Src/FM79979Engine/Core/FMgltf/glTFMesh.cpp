@@ -162,7 +162,6 @@ void cMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
 
 void cMesh::Render()
 {
-    auto l_matTransform1 = this->GetParent()->GetWorldTransform();
     auto l_matTransform = this->GetWorldTransform();
     for (auto l_pSubMesh : m_SubMeshesVector)
     {

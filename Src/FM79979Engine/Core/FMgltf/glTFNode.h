@@ -22,10 +22,12 @@ using FloatToSRTMap = std::map<float, sSRT>;
 typedef std::map<float, cMatrix44> FloatTocMatrix44Map;
 void    ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Map& matrixMap);
 
-class cglTFNodeData : public Frame
+class cglTFNodeData : public cRenderObject
 {
     class cMesh* m_pMesh = nullptr;
 public:
+    DEFINE_TYPE_INFO();
+    LAZY_CLONE_FUNCTION(cglTFNodeData);
     //for debug
     int                 m_iJointIndex = -1;
     int                 m_iNodeIndex = -1;

@@ -56,3 +56,14 @@ class cSharedObjectVector :public NamedTypedObject
         return m_ObjectVector[e_iIndex];
     }
 };
+
+//std::map<std::string, cMesh*>                           m_NameAndMeshes;
+template<class KEY, class TYPE>std::map<KEY, TYPE> CloneMap(std::map<KEY, TYPE>&e_Source)
+{
+    std::map<KEY, TYPE>l_Data;
+    for (auto l_IT : e_Source)
+    {
+		l_Data[l_IT.first] = dynamic_cast<TYPE>(l_IT.second->Clone());
+    }
+    return l_Data;
+}

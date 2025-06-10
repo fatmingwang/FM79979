@@ -23,21 +23,19 @@ cglTFModel::cglTFModel()
 
 cglTFModel::~cglTFModel()
 {
+    m_sNameAndglTFModelMap.erase(this->GetCharName());;
     this->Destory();
 }
 
-void	cglTFModel::TransformChangedInternalData()
+std::map<std::string, sAnimationData*> cglTFModel::CloneNameAndAnimationMap(cglTFModelRenderNode* e_pglTFModelRenderNode)
 {
-    //auto l_mat = this->GetWorldTransform();
-    ////if (m_pRoot)
-    ////{
-    ////    auto l_NewMat = m_pRoot->m_StartNodeWorldTransform* l_mat;
-    ////    m_pRoot->SetWorldTransform(l_NewMat);
-    ////}
-    //for (auto l_IT : m_ContainMeshglTFNodeDataVector)
-    //{
-    //    l_IT->SetMeshTransform(l_mat);
-    //}
+	std::map<std::string, sAnimationData*> l_CloneMap;
+    for(auto l_IT : m_NameAndAnimationMap)
+    {
+        sAnimationData*l_pClone = sAnimationData::CloneFromModel(e_pglTFModelRenderNode,l_IT.second);
+        l_CloneMap[l_IT.first] = l_pClone;
+	}
+    return l_CloneMap;
 }
 
 GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
@@ -153,20 +151,14 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf:
         {
             l_pMesh = GenerateMesh(model.meshes[e_pNode.mesh], model, e_bCalculateBiNormal);
         }
-        auto l_strMeshName = model.meshes[e_pNode.mesh].name;
-        //bone->m_strTargetMeshName = l_strMeshName;
+        //auto l_strMeshName = model.meshes[e_pNode.mesh].name;
+        ////bone->m_strTargetMeshName = l_strMeshName;
     }
     l_pBone->SetMesh(l_pMesh);
-    //do not do l_pMesh->SetParent, because smart pointer problem and I am lazy to fix now.
     if (l_pMesh)
     {
         m_ContainMeshglTFNodeDataVector.push_back(l_pBone);
-        //l_pMesh->SetParent(l_pBone);
     }
-    //for (int childIndex : node.children)
-    //{
-    //    loadNode(model.nodes[childIndex], model, bone, e_tinyglTFNodeAndJointIndexMap);
-    //}
 }
 
 void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNormal)
@@ -208,15 +200,13 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
     const tinygltf::Scene& scene = model.scenes[sceneIndex];
 
     // scene.nodes is a vector of root node indices
-    for (int rootNodeIndex : scene.nodes)
+    for (int l_iNodeIndex : scene.nodes)
     {
-        //const tinygltf::Node& rootNode = model.nodes[rootNodeIndex];
-        auto l_IT = m_NodeIndexAndBoneMap.find(rootNodeIndex);
+        auto l_IT = m_NodeIndexAndBoneMap.find(l_iNodeIndex);
         if (!l_IT->second->GetParent())
         {
             l_IT->second->SetParent(this);
         }
-        // rootNode is a root node of the scene
     }
 }
 
@@ -499,19 +489,19 @@ cMatrix44 GetNodeMatrix(const tinygltf::Node& node)
     return matrix;
 }
 
-bool cglTFModel::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNormal)
+bool cglTFModel::LoadFromGLTF(const std::string& e_strFilename, bool e_bCalculateBiNormal)
 {
-    this->SetName(filename.c_str());
+    this->SetName(e_strFilename.c_str());
     tinygltf::TinyGLTF loader;
     tinygltf::Model model;
 
     std::string err;
     std::string warn;
-    bool success = loader.LoadBinaryFromFile(&model, &err, &warn, filename);
+    bool success = loader.LoadBinaryFromFile(&model, &err, &warn, e_strFilename);
     if (!success)
     {
         // If loading as binary fails, try loading as ASCII
-        success = loader.LoadASCIIFromFile(&model, &err, &warn, filename);
+        success = loader.LoadASCIIFromFile(&model, &err, &warn, e_strFilename);
     }
     if (!success)
     {
@@ -531,7 +521,7 @@ bool cglTFModel::LoadFromGLTF(const std::string& filename, bool e_bCalculateBiNo
 		m_pCamera = std::make_shared<cglTFCamera>();
 		m_pCamera->LoadCamerasFromGLTF(model,&this->m_NodeIndexAndBoneMap);
 	}
-	m_sNameAndglTFModelMap.insert(std::make_pair(filename, this));
+	m_sNameAndglTFModelMap.insert(std::make_pair(e_strFilename, this));
     return true;
 }
 
@@ -544,7 +534,6 @@ void cglTFModel::InitBuffers()
 
 void cglTFModel::Update(float e_fElpaseTime)
 {
-    GetWorldTransform();
     if (m_NameAndAnimationMap.size())
     {
         // Ensure the current animation data is valid
@@ -576,42 +565,17 @@ void cglTFModel::Update(float e_fElpaseTime)
             this->m_AnimationClip.BlendClips(e_fElpaseTime, "Running", l_strAnimation2.c_str(), true, true, 0.9f);
         }
     }
-
-    //for(auto l_IT : m_AnimationMeshMap)
-    //{
-    //    l_IT.second->Update(e_fElpaseTime);
-    //}
-    //for (auto l_IT : m_NameAndMeshes)
-    //{
-    //    l_IT.second->Update(e_fElpaseTime);
-    //}
-    
-
-    //for (auto l_IT : m_NodeIndexAndBoneMap)
-    //{
-    //    l_IT.second->Update(e_fElpaseTime);
-    //}
 }
 
 void cglTFModel::Render()
 {
-    //for (auto l_IT : m_AnimationMeshMap)
-    //{
-    //    l_IT.second->Render();
-    //}
-    //for (auto l_IT : m_NameAndMeshes)
-    //{
-    //    l_IT.second->Render();
-    //}
-    //for (auto l_IT : m_NodeIndexAndBoneMap)
-    //{
-    //    l_IT.second->Render();
-    //}
 }
 
 void cglTFModel::Destory()
 {
+    DELETE_MAP(m_NameAndMeshes);
     DELETE_MAP(m_NameAndAnimationMap);
+    DELETE_MAP(m_AnimationMeshMap);
 }
 
 void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)
@@ -619,21 +583,121 @@ void cglTFModel::SetCurrentAnimation(const std::string& e_strAnimationName)
     this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
 }
 
-cglTFModelRenderNode* cglTFModel::ToRenderNode()
+void cglTFModelRenderNode::SetCurrentAnimationTime(float e_fCurrentTime)
 {
-    return nullptr;
+    this->m_AnimationClip.UpdateToTargetTime(e_fCurrentTime,true);
 }
 
-void g_fRenderSkeleton(cglTFModel* e_pglTFModel)
+cglTFModelRenderNode* cglTFModel::ToRenderNode()
 {
-    if (e_pglTFModel)
+    //std::map<std::string, sAnimationData*>                  m_NameAndAnimationMap;
+    auto* l_pRenderNode = new cglTFModelRenderNode();
+	l_pRenderNode->m_NodesVector.CloneFromList(&m_NodesVector);
+	l_pRenderNode->m_NodesVector.SetFromResource(true);
+    //fuck different model use same resource.
+    l_pRenderNode->m_NameAndAnimationMap = CloneNameAndAnimationMap(l_pRenderNode);
+    l_pRenderNode->m_pSourceglTFModel = this;
+    // Copy contain mesh node vector
+    for (auto l_pNode : m_ContainMeshglTFNodeDataVector)
     {
-        for (auto& meshPair : e_pglTFModel->m_AnimationMeshMap)
+        auto l_mat = l_pNode->GetWorldTransform();
+        auto l_pContainMeshNode = l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex];
+        auto l_pMesh = l_pContainMeshNode->GetMesh();
+		l_pRenderNode->m_ContainMeshglTFNodeDataVector.push_back(l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex]);  
+		l_pRenderNode->m_NameAndMeshes[l_pNode->GetMesh()->GetCharName()] = l_pContainMeshNode->GetMesh();
+        if (l_pMesh)
         {
-            if (meshPair.second)
+            l_pMesh->AfterCloneSetBoneData(l_pRenderNode);
+        }
+    }
+    // Set hierarchy for l_pRenderNode->m_NodesVector based on m_NodesVector
+    for (int i = 0; i < m_NodesVector.Count(); ++i)
+    {
+        cglTFNodeData* srcNode = m_NodesVector[i];
+        cglTFNodeData* srcParent = dynamic_cast<cglTFNodeData*>(srcNode->GetParent());
+        l_pRenderNode->m_NodeIndexAndBoneMap[srcNode->m_iNodeIndex] = l_pRenderNode->m_NodesVector[srcNode->m_iNodeIndex];
+        if (srcParent)
+        {
+            int parentIndex = srcParent->m_iNodeIndex;
+            cglTFNodeData* dstNode = l_pRenderNode->m_NodesVector[i];
+            cglTFNodeData* dstParent = l_pRenderNode->m_NodesVector[parentIndex];
+            dstNode->SetParent(dstParent,false);
+            auto l_mat = l_pRenderNode->m_NodesVector[i]->GetWorldTransform();
+            int a = 0;
+        }
+        else
+        {
+            // If no parent, clear parent in the render node as well
+            l_pRenderNode->m_NodesVector[i]->SetParent(l_pRenderNode);
+        }
+    }
+    l_pRenderNode->m_AnimationClip.SetBoneAndAnimationData(l_pRenderNode);
+    return l_pRenderNode;
+}
+
+void cglTFModel::DeleteCachedFiles()
+{
+    auto l_Map = cglTFModel::m_sNameAndglTFModelMap;
+    for (auto l_IT : l_Map)
+    {
+		Frame::DestoryWithChildren(l_IT.second);
+    }
+	cglTFModel::m_sNameAndglTFModelMap.clear();
+}
+
+
+void cglTFModelRenderNode::Update(float e_fElpaseTime)
+{
+    if (m_NameAndAnimationMap.size())
+    {
+        // Ensure the current animation data is valid
+        if (!this->m_AnimationClip.m_pCurrentAnimationData)
+        {
+            if (m_NameAndAnimationMap.size())
             {
-                meshPair.second->RenderSkeleton();
+                auto l_Animation = m_NameAndAnimationMap.begin();
+                if (m_NameAndAnimationMap.size() > 1)
+                {
+                    ++l_Animation;
+                    //++l_Animation;
+                }
+                this->SetCurrentAnimation(l_Animation->first);
             }
+        }
+        bool l_bDoBlendingTest = false;
+        if (!l_bDoBlendingTest)
+        {
+            this->m_AnimationClip.Update(e_fElpaseTime);
+        }
+        else
+        {
+            auto l_Animation = m_NameAndAnimationMap.begin();
+            std::string l_strAnimation1 = l_Animation->first;
+            ++l_Animation;
+            ++l_Animation;
+            std::string l_strAnimation2 = (++l_Animation)->first;
+            this->m_AnimationClip.BlendClips(e_fElpaseTime, "Running", l_strAnimation2.c_str(), true, true, 0.9f);
+        }
+    }
+}
+
+void cglTFModelRenderNode::Render()
+{
+
+}
+
+void cglTFModelRenderNode::SetCurrentAnimation(const std::string& e_strAnimationName)
+{
+    this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
+}
+
+void g_fRenderSkeleton(std::map<std::string, cSkinningMesh*>& e_Map)
+{
+    for (auto& meshPair : e_Map)
+    {
+        if (meshPair.second)
+        {
+            meshPair.second->RenderSkeleton();
         }
     }
 }

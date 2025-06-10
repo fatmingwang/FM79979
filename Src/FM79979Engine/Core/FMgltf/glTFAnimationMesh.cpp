@@ -20,17 +20,15 @@ cSkinningMesh::cSkinningMesh()
     m_JointOrderVector = std::shared_ptr<std::vector<int>>();
 }
 
-cSkinningMesh::cSkinningMesh(cSkinningMesh* e_pSkinningMesh)
+cSkinningMesh::cSkinningMesh(cSkinningMesh* e_pSkinningMesh) :cMesh(e_pSkinningMesh)
 {
-    m_SkinningBoneVector = e_pSkinningMesh->m_SkinningBoneVector;
-    m_pNodeInversePoseMatrixVector = e_pSkinningMesh->m_pNodeInversePoseMatrixVector;
-
-    m_pMainRootBone = e_pSkinningMesh->m_pMainRootBone;
-    m_SkinningBoneVector                = e_pSkinningMesh->m_SkinningBoneVector;
     m_pNodeInversePoseMatrixVector = e_pSkinningMesh->m_pNodeInversePoseMatrixVector;
     m_JointOrderVector = e_pSkinningMesh->m_JointOrderVector;
+
+    m_SkinningBoneVector = e_pSkinningMesh->m_SkinningBoneVector;
+    m_pMainRootBone = e_pSkinningMesh->m_pMainRootBone;
     //m_matMeshBindShapePose = e_pSkinningMesh->m_matMeshBindShapePose;
-    m_AllBonesMatrixForSkinnedVector = e_pSkinningMesh->m_AllBonesMatrixForSkinnedVector;;
+    m_AllBonesMatrixForSkinnedVector = e_pSkinningMesh->m_AllBonesMatrixForSkinnedVector;
 }
 
 cSkinningMesh::~cSkinningMesh()
@@ -61,12 +59,12 @@ void	DumpBoneIndexDebugInfo(cglTFNodeData* e_pBone, bool e_bDoNextSibling, bool 
     FMLog::Log(l_strDebugInfo.c_str(), false);
     if (e_pBone->GetFirstChild())
     {
-        DumpBoneIndexDebugInfo((cglTFNodeData*)e_pBone->GetFirstChild(), true, false);
+        DumpBoneIndexDebugInfo(dynamic_cast<cglTFNodeData*>(e_pBone->GetFirstChild()), true, false);
     }
 
     if (e_bDoNextSibling && e_pBone->GetNextSibling())
     {
-        DumpBoneIndexDebugInfo((cglTFNodeData*)e_pBone->GetNextSibling(), e_bDoNextSibling, false);
+        DumpBoneIndexDebugInfo(dynamic_cast<cglTFNodeData*>(e_pBone->GetNextSibling()), e_bDoNextSibling, false);
     }
     if (e_bRoot)
     {
@@ -183,6 +181,7 @@ void cSkinningMesh::Render()
     if (m_SkinningBoneVector.size() == 0)
     {
         cMesh::Render();
+        return;
     }
     auto l_matWorldTransoform = this->GetWorldTransform();
     for (auto& l_pSubMesh : this->m_SubMeshesVector)
@@ -205,7 +204,7 @@ void cSkinningMesh::RenderSkeleton()
     for (int i = 0; i < l_iBoneSize; ++i)
     {
         cglTFNodeData* l_pMe = (*l_pVector)[i];
-        cglTFNodeData* l_pParent = (cglTFNodeData*)l_pMe->GetParent();
+        cglTFNodeData* l_pParent = dynamic_cast<cglTFNodeData*>(l_pMe->GetParent());
         if (l_pParent)
         {
             //parent
@@ -244,4 +243,19 @@ void cSkinningMesh::RenderSkeleton()
     }
     GLRender::RenderLine((float*)&l_vAllVertices[0], (int)l_vAllVertices.size(), Vector4(0.f, 1.f, 0.5f, 1.f), 3, l_mat);
     GLRender::RenderPoints(&l_vPoints[0], (int)l_vPoints.size(), 5, Vector4(0.f, 1.f, 1.f, 1.f), l_mat);
+}
+
+void cSkinningMesh::AfterCloneSetBoneData(cglTFModelRenderNode* e_pData)
+{
+    std::vector<cglTFNodeData*> l_SkinningBoneVectorFromClon = m_SkinningBoneVector;
+    auto l_SkinningBoneVectorFromModel = *e_pData->m_NodesVector.GetList();
+    m_SkinningBoneVector.clear();
+    for (auto l_IT : l_SkinningBoneVectorFromClon)
+    {
+        m_SkinningBoneVector.push_back(l_SkinningBoneVectorFromModel[l_IT->m_iNodeIndex]);
+    }
+    if (m_pMainRootBone)
+    {
+        m_pMainRootBone = e_pData->m_NodesVector[m_pMainRootBone->m_iNodeIndex];
+    }
 }

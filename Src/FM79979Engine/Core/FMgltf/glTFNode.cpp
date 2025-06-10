@@ -5,6 +5,8 @@
 #include "glTFAnimation.h"
 
 
+TYPDE_DEFINE_MARCO(cglTFNodeData);
+
 cMatrix44 sSRT::GetMatrix()
 {
     cMatrix44 l_Mat = cMatrix44::Identity;
@@ -105,9 +107,15 @@ cglTFNodeData::cglTFNodeData(const tinygltf::Node& e_Node, int e_iNodeIndex)
 cglTFNodeData::cglTFNodeData(cglTFNodeData* e_pglTFNodeData)
 {
     //for debug
+    auto l_mat = e_pglTFNodeData->GetLocalTransform();
+    this->SetLocalTransform(l_mat);
     m_iJointIndex = e_pglTFNodeData->m_iJointIndex;
     m_iNodeIndex = e_pglTFNodeData->m_iNodeIndex;
-    m_pMesh = e_pglTFNodeData->m_pMesh;
+    m_pMesh = nullptr;
+    if (e_pglTFNodeData->m_pMesh)
+    {
+        m_pMesh = e_pglTFNodeData->m_pMesh->GetTypeClone();
+    }
     //
     m_StartNodeWorldTransform = e_pglTFNodeData->m_StartNodeWorldTransform;
     m_StartNodeTransform = e_pglTFNodeData->m_StartNodeTransform;
@@ -121,10 +129,6 @@ cglTFNodeData::~cglTFNodeData()
 void cglTFNodeData::SetMesh(cMesh* e_pMesh)
 {
     m_pMesh = e_pMesh;
-    if (m_pMesh)
-    {
-        m_pMesh->SetParent(this);
-    }
 }
 
 cglTFNodeData* cglTFNodeData::FinChildByName(const wchar_t* e_strBoneName)
@@ -133,11 +137,11 @@ cglTFNodeData* cglTFNodeData::FinChildByName(const wchar_t* e_strBoneName)
         return this;
     if (this->GetNextSibling() != nullptr)
     {
-        return ((cglTFNodeData*)(GetNextSibling()))->FinChildByName(e_strBoneName);
+        return (dynamic_cast<cglTFNodeData*>(GetNextSibling()))->FinChildByName(e_strBoneName);
     }
     if (GetFirstChild() != nullptr)
     {
-        return ((cglTFNodeData*)(GetFirstChild()))->FinChildByName(e_strBoneName);
+        return (dynamic_cast<cglTFNodeData*>(GetFirstChild()))->FinChildByName(e_strBoneName);
     }
     return nullptr;
 }
@@ -189,7 +193,8 @@ void cglTFNodeData::Render()
 {
     if (this->m_pMesh)
     {
-        this->m_pMesh->SetWorldTransform(this->GetWorldTransform());
+        auto l_mat = this->GetWorldTransform();
+        this->m_pMesh->SetWorldTransform(l_mat);
         this->m_pMesh->Render();
     }
 }

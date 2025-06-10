@@ -96,9 +96,24 @@ void cAnimationClip::UpdateNode(cglTFNodeData* e_pBone, float e_fTime, sSRT& e_S
     }
 }
 
+void	cAnimationClip::SetBoneAndAnimationData(class cglTFModelRenderNode* e_pglTFModel)
+{
+    m_pNodesVector = &e_pglTFModel->m_NodesVector;
+    m_pNodeIndexAndBoneMap = &e_pglTFModel->m_NodeIndexAndBoneMap;
+    m_pNameAndAnimationMap = &e_pglTFModel->m_NameAndAnimationMap;
+    m_SRTVector.clear();
+    for (auto l_pBone : *e_pglTFModel->m_NodesVector.GetList())
+    {
+        sSRT l_SRT;
+        l_SRT.iSRTFlag = SRT_SCALE_FLAG | SRT_ROTATION_FLAG | SRT_TRANSLATION_FLAG;
+        m_SRTVector.push_back(l_SRT);
+    }
+}
 void cAnimationClip::SetBoneAndAnimationData(cglTFModel* e_pglTFModel)
 {
-    m_pglTFModel = e_pglTFModel;
+    m_pNodesVector = &e_pglTFModel->m_NodesVector;
+    m_pNodeIndexAndBoneMap = &e_pglTFModel->m_NodeIndexAndBoneMap;
+    m_pNameAndAnimationMap = &e_pglTFModel->m_NameAndAnimationMap;
     m_SRTVector.clear();
     for (auto l_pBone : *e_pglTFModel->m_NodesVector.GetList())
     {
@@ -110,8 +125,14 @@ void cAnimationClip::SetBoneAndAnimationData(cglTFModel* e_pglTFModel)
 
 bool cAnimationClip::SetAnimation(const char* e_strAnimationName, bool e_bLoop, float e_fTargetTime)
 {
-    auto it = m_pglTFModel->m_NameAndAnimationMap.find(e_strAnimationName);
-    if (it != m_pglTFModel->m_NameAndAnimationMap.end())
+    //m_pNodeIndexAndBoneMap = &e_pglTFModel->m_NodeIndexAndBoneMap;
+    //m_pNameAndAnimationMap = &e_pglTFModel->m_NameAndAnimationMap;
+    if (!m_pNameAndAnimationMap || !m_pNodeIndexAndBoneMap)
+    {
+        return false;
+    }
+    auto it = m_pNameAndAnimationMap->find(e_strAnimationName);
+    if (it != m_pNameAndAnimationMap->end())
     {
         m_strAnimationName = e_strAnimationName;
         m_pCurrentAnimationData = it->second;
@@ -119,8 +140,8 @@ bool cAnimationClip::SetAnimation(const char* e_strAnimationName, bool e_bLoop, 
         m_pCurrentAnimationData->m_bLoop = e_bLoop;
         if (!m_pCurrentAnimationData->m_pTargetMesh)
         {
-            auto l_pBoneIT = this->m_pglTFModel->m_NodeIndexAndBoneMap.find(m_pCurrentAnimationData->m_iTargetNodeIndex);
-            if (l_pBoneIT != this->m_pglTFModel->m_NodeIndexAndBoneMap.end())
+            auto l_pBoneIT = this->m_pNodeIndexAndBoneMap->find(m_pCurrentAnimationData->m_iTargetNodeIndex);
+            if (l_pBoneIT != this->m_pNodeIndexAndBoneMap->end())
             {
                 m_pCurrentAnimationData->m_pTargetMesh = l_pBoneIT->second->GetMesh();
             }
@@ -158,12 +179,11 @@ void    cAnimationClip::BlendClips(float e_fTime, const char* e_strAnimationName
     this->m_pCurrentAnimationData->Update(e_fTime);
     this->SampleToTime(this->m_pCurrentAnimationData->m_fCurrentTime, false, &l_SRTVector2);
 
-    auto l_BoneVector = this->m_pglTFModel->m_NodesVector;
-    auto l_iSize = l_BoneVector.Count();
+    auto l_iSize = m_pNodesVector->Count();
     for (int i = 0; i < l_iSize; ++i)
     {
         m_SRTVector[i] = sSRT::Blend(l_SRTVector1[i], l_SRTVector2[i], e_fTargetFactor);
-        l_BoneVector[i]->SetLocalTransform(m_SRTVector[i].GetMatrix());
+        (*m_pNodesVector)[i]->SetLocalTransform(m_SRTVector[i].GetMatrix());
     }
 }
 
@@ -235,4 +255,13 @@ std::vector<float> sAnimationData::GetInterpolatedWeights(float e_fTime)
     }
 
     return interpolatedWeights;
+}
+
+sAnimationData* sAnimationData::CloneFromModel(cglTFModelRenderNode* e_pglTFModelRenderNode, sAnimationData* e_pSource)
+{
+	sAnimationData* l_pAnimationData = new sAnimationData();
+    //is this safe?
+    *l_pAnimationData = *e_pSource;
+    l_pAnimationData->m_pBoneVector = &e_pglTFModelRenderNode->m_NodesVector;
+    return l_pAnimationData;
 }

@@ -89,4 +89,5 @@ public:
     void            LoadMorphingAttributes(sSubMesh*e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
     //void            SetMorphingWeights(const std::vector<double>&e_Weights);
     void            logFVFFlags();
+    virtual         void AfterCloneSetBoneData(class cglTFModelRenderNode* e_pData){}
 };
