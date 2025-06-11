@@ -350,7 +350,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
                 for (size_t i = 0; i < inputAccessor.count; ++i)
                 {
                     float time = inputData[i];
-                    FloatToSRTMap& keyframes = l_pAnimationData->m_BoneIDAndAnimationData[bone->m_iNodeIndex];
+                    FloatToSRTMap& keyframes = (*l_pAnimationData->m_BoneIDAndAnimationData)[bone->m_iNodeIndex];
                     sSRT& srt = keyframes[time];
                     if (channel.target_path == "translation")
                     {

@@ -5,7 +5,11 @@
 class cglTFNodeData;
 struct sAnimationData:public NamedTypedObject
 {
-    std::map<int, FloatToSRTMap>                m_BoneIDAndAnimationData;
+    sAnimationData()
+    {
+		m_BoneIDAndAnimationData = std::make_shared<std::map<int, FloatToSRTMap>>();
+    }
+    std::shared_ptr<std::map<int, FloatToSRTMap>>                m_BoneIDAndAnimationData;
     cNamedTypedObjectVector<cglTFNodeData>*     m_pBoneVector;
     //morphing
     //here only contain weights because position and others are store in SubMesh

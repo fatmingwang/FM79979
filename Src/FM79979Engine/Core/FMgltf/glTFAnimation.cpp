@@ -13,7 +13,7 @@ bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone, std::v
     {
         l_pSRTVector = e_pSRTVector;
     }
-    for (auto l_IT : m_pCurrentAnimationData->m_BoneIDAndAnimationData)
+    for (auto l_IT : *m_pCurrentAnimationData->m_BoneIDAndAnimationData)
     {
         auto l_pBone = (*m_pCurrentAnimationData->m_pBoneVector)[l_IT.first];
         UpdateNode(l_pBone, e_fTime, (*l_pSRTVector)[l_IT.first], e_bAssignToBone);
@@ -27,7 +27,7 @@ bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone, std::v
 
 void cAnimationClip::UpdateNode(cglTFNodeData* e_pBone, float e_fTime, sSRT& e_SRT, bool e_bAssignToBone)
 {
-    FloatToSRTMap* l_pFloatToSRTMap = &this->m_pCurrentAnimationData->m_BoneIDAndAnimationData[e_pBone->m_iNodeIndex];
+    FloatToSRTMap* l_pFloatToSRTMap = &(*this->m_pCurrentAnimationData->m_BoneIDAndAnimationData)[e_pBone->m_iNodeIndex];
     if (l_pFloatToSRTMap->empty())
     {
         sSRT l_sSRT;
