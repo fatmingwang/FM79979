@@ -70,7 +70,7 @@ char*g_strShaderAttribution[TOTAL_FVF] = {
 											"VSInflunceBoneIndices",//6
 											"VSTexcoord",			//7
 											"VSTexcoord1",			//8
-											"","","","",""};
+											"","","",""};
 int		g_iFVF_DataSize[TOTAL_FVF] = {
 #ifndef IOS
 										(int)(g_iFVF_DataStride[0]*sizeof(float)),

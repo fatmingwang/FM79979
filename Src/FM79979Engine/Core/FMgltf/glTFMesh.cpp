@@ -188,13 +188,13 @@ void cMesh::logFVFFlags()
         if (l_pSubMesh->m_i64FVFFlag & FVF_SKINNING_BONE_INDEX_FLAG) FMLOG("joint is present.");
         if (l_pSubMesh->m_i64FVFFlag & FVF_TEX0_FLAG) FMLOG("Texture coordinates are present.");
         if (l_pSubMesh->m_i64FVFFlag & FVF_TANGENT_FLAG) FMLOG("Tangent is present.");
-        if (l_pSubMesh->m_i64FVFFlag & FVF_BITAGENT_FLAG) FMLOG("Binormal is present.");
+        if (l_pSubMesh->m_i64FVFFlag & FVF_BINORMAL_FLAG) FMLOG("Binormal is present.");
         if (l_pSubMesh->m_i64FVFFlag & FVF_NORMAL_MAP_TEXTURE_FLAG) FMLOG("Normal map is present.");
     }
 }
 
 
-void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal)
+void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool e_bCalculateBinormal)
 {
     bool l_bPosition = primitive.attributes.find("POSITION") != primitive.attributes.end();
     if (!l_bPosition)
@@ -256,7 +256,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         {"NORMAL", FVF_NORMAL},
         {"COLOR_0", FVF_DIFFUSE},
         {"TANGENT", FVF_TANGENT},
-        {"BITANGENT", FVF_BITAGENT},
+        {"BITANGENT", FVF_BINORMAL},
         {"WEIGHTS_0", FVF_SKINNING_WEIGHT},
         {"JOINTS_0", FVF_SKINNING_BONE_INDEX},
         {"TEXCOORD_0", FVF_TEX0},
@@ -340,12 +340,12 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         m_vMaxBounds.y = max(m_vMaxBounds.y, l_pSubMesh->m_vMaxBounds.y);
         m_vMaxBounds.z = max(m_vMaxBounds.z, l_pSubMesh->m_vMaxBounds.z);
     }
-    LoadMorphingAttributes(l_pSubMesh.get(), model, primitive, calculateBinormal);
+    LoadMorphingAttributes(l_pSubMesh.get(), model, primitive, e_bCalculateBinormal);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal)
+void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool e_bCalculateBiNormal)
 {
     if (!e_pSubMesh || primitive.targets.empty())
     {

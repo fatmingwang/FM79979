@@ -235,8 +235,8 @@ void  cLighController::Update(float e_fElpaseTime)
         // Change the light's color over time for a dynamic effect
         l_TestDirectionLight->m_vColor = Vector3(
             (sin(angle) + 1.0f) * 0.5f, // Red oscillates
-            (cos(angle) + 1.0f) * 0.5f, // Green oscillates
-            1.0f                        // Blue remains constant
+            (cos(angle) + 1.0f) * 0.1f, // Green oscillates
+            0.5f                        // Blue remains constant
         );
     }
 }

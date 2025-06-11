@@ -29,35 +29,42 @@
 #define	FVF_NORMAL						1//xyz  3float
 #define	FVF_DIFFUSE						2//RGBA 4float
 #define	FVF_TANGENT						3//xyz  3float
-#define	FVF_BITAGENT					4//xyz  3float
+#define	FVF_BINORMAL					4//xyz  3float
 #define	FVF_SKINNING_WEIGHT				5//4 inlunce bones 4float
 #define	FVF_SKINNING_BONE_INDEX			6//the data for bone id usually is 4 unsigned byte to become 1 float.if the bone ID is bigger than 512,u have to ensure data swap problem
 										 //1*4 byte one float
-#define	FVF_TEX0						7//UV	2float
-#define	FVF_TEX1						8//UV	2float
+#define	FVF_TEX0						7//UV1	2float
+#define	FVF_TEX1						8//UV2	2float
 
-#define	FVF_HAS_NORMAL_MAP_TEXTURE		9//just a flag to tell shader to use normal map texture
+#define	FVF_MORPHING_TARGET_POS1		9
+#define	FVF_MORPHING_TARGET_POS2		10
+#define	FVF_MORPHING_TARGET_POS3		11
+#define	FVF_MORPHING_TARGET_POS4		12
 
-#define	FVF_MORPHING_TARGET_POS1		10
-#define	FVF_MORPHING_TARGET_POS2		11
-#define	FVF_MORPHING_TARGET_POS3		12
-#define	FVF_MORPHING_TARGET_POS4		13
-
-#define	FVF_HAS_PBR_TEXTURE				14
+#define	FVF_HAS_NORMAL_MAP_TEXTURE		13//just a flag to tell shader to use normal map texture
+#define	FVF_OCCLUSION_TEXTURE			14
+#define	FVF_METALLIC_ROUGHNESS_TEXTURE	15
+#define	FVF_EMISSIVE_TEXTURE			16
 
 
 
-#define	FVF_POS_FLAG					1<<FVF_POS
-#define	FVF_NORMAL_FLAG					1<<FVF_NORMAL
-#define	FVF_DIFFUSE_FLAG				1<<FVF_DIFFUSE
-#define	FVF_TANGENT_FLAG				1<<FVF_TANGENT
-#define	FVF_BITAGENT_FLAG				1<<FVF_BITAGENT
-#define	FVF_SKINNING_WEIGHT_FLAG		1<<FVF_SKINNING_WEIGHT
-#define	FVF_SKINNING_BONE_INDEX_FLAG	1<<FVF_SKINNING_BONE_INDEX
-#define	FVF_TEX0_FLAG					1<<FVF_TEX0
-#define	FVF_TEX1_FLAG					1<<FVF_TEX1
-#define	FVF_NORMAL_MAP_TEXTURE_FLAG		1<<FVF_HAS_NORMAL_MAP_TEXTURE
-#define	FVF_HAS_PBR_TEXTURE_FLAG		1<<FVF_HAS_PBR_TEXTURE
+#define	FVF_POS_FLAG						1<<FVF_POS
+#define	FVF_NORMAL_FLAG						1<<FVF_NORMAL
+#define	FVF_DIFFUSE_FLAG					1<<FVF_DIFFUSE
+#define	FVF_TANGENT_FLAG					1<<FVF_TANGENT
+#define	FVF_BINORMAL_FLAG					1<<FVF_BINORMAL
+#define	FVF_SKINNING_WEIGHT_FLAG			1<<FVF_SKINNING_WEIGHT
+#define	FVF_SKINNING_BONE_INDEX_FLAG		1<<FVF_SKINNING_BONE_INDEX
+#define	FVF_TEX0_FLAG						1<<FVF_TEX0
+#define	FVF_TEX1_FLAG						1<<FVF_TEX1
+#define	FVF_NORMAL_MAP_TEXTURE_FLAG			1<<FVF_HAS_NORMAL_MAP_TEXTURE
+#define	FVF_HAS_MORPHING_TARGET_POS1		1<<FVF_MORPHING_TARGET_POS1
+#define	FVF_HAS_MORPHING_TARGET_POS2		1<<FVF_MORPHING_TARGET_POS2
+#define	FVF_HAS_MORPHING_TARGET_POS3		1<<FVF_MORPHING_TARGET_POS3
+#define	FVF_HAS_MORPHING_TARGET_POS4		1<<FVF_MORPHING_TARGET_POS4
+#define	FVF_HAS_FVF_OCCLUSION_TEXTURE		1<<FVF_OCCLUSION_TEXTURE
+#define	FVF_HAS_METALLIC_ROUGHNESS_TEXTURE  1<<FVF_METALLIC_ROUGHNESS_TEXTURE
+#define	FVF_HAS_EMISSIVE_TEXTURE			1<<FVF_EMISSIVE_TEXTURE
 
 
 #define	COMMON_MESH_FVF_FLAG			(FVF_POS_FLAG|FVF_NORMAL_FLAG|FVF_TEX0_FLAG)
@@ -70,8 +77,9 @@
 //#define	FVF_TEX6				13//UV	2float
 //#define	FVF_TEX7				14//UV	2float
 
-//last one
-#define	TOTAL_FVF						FVF_HAS_PBR_TEXTURE+1
+//only need location part.FVF_MORPHING_TARGET_POS4
+//layout(location = FVF_MORPHING_TARGET_POS4)
+#define	TOTAL_FVF						FVF_MORPHING_TARGET_POS4+1
 
 extern char*	g_strShaderAttribution[TOTAL_FVF];
 extern int		g_iFVF_DataStride[TOTAL_FVF];

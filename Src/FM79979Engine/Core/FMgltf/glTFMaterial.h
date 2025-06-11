@@ -12,6 +12,14 @@ class cMaterial:public NamedTypedObject
     std::vector<shared_ptr<cTexture>> m_uiNormalTextureVector;  // Normal maps
     std::vector<shared_ptr<cTexture>> m_uiOocclusionTextureVector;  // Occlusion maps
     std::vector<shared_ptr<cTexture>> m_uiEmissiveTextureIDVector; // Emissive maps (if needed)
+    std::vector<shared_ptr<cTexture>> m_uiMetallicRoughnessTextureVector; // 
+    //Metallic - roughness maps
+    // PBR uniform factors
+    float m_baseColorFactor[4];    // RGBA
+    float m_metallicFactor;
+    float m_roughnessFactor;
+    float m_occlusionStrength;
+    float m_emissiveFactor[3];     // RGB
 	bool	ApplyUnriforms();
     shared_ptr<cTexture> GetTexture(const tinygltf::Image& e_Image,const tinygltf::Sampler*);
 public:
