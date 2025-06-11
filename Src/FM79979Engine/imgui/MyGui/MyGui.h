@@ -41,39 +41,6 @@ virtual void				CreateImguiDataData()override					\
 	}																		\
 }																			\
 protected:
-
-
-
-template <typename T>
-class cProperty
-{
-private:
-	T m_Value;
-
-public:
-	cProperty(T initialValue = T{}) : m_Value(initialValue)
-	{
-	}
-
-	// Getter
-	operator T& ()
-	{
-		return m_Value;
-	}
-	operator const T& () const
-	{
-		return m_Value;
-	}
-
-	// Setter
-	cProperty& operator=(const T& e_Value)
-	{
-		m_Value = e_Value;
-		return *this;
-	}
-};
-
-
 enum eMyImGuiType
 {
 	eMIGT_NODE = 0,

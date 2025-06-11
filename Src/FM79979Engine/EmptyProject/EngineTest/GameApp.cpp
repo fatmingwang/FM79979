@@ -22,6 +22,7 @@ extern void	SampleMouseUp(int e_iPosX,int e_iPosY);
 extern void	SampleKeyup(char e_cKey);
 
 extern int		glTFInit();
+extern void		GlTFUpdate(float e_fElpaseTime);
 extern void		GlTFRender();
 extern void		GlTFDestory();
 
@@ -87,6 +88,7 @@ void	cEngineTestApp::Update(float e_fElpaseTime)
 	{
 		g_pNetworkSample->Update(e_fElpaseTime);
 	}
+	GlTFUpdate(e_fElpaseTime);
 }
 
 void	cEngineTestApp::Render()

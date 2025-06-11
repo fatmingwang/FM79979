@@ -23,11 +23,11 @@ int glTFInit()
         //l_pToRenderNode->SetLocalPosition(Vector3(5, 0, 0));
 		//l_pRootFrame->AddChild(l_pToRenderNode);
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
-        auto l_pDuck2 = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
+        auto l_pDuck2 = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
         //l_pRootFrame->AddChild(l_pDuck2);
         //l_pDuck2->SetLocalPosition(Vector3(5, 0, 0));
         //cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck2->ToRenderNode();
-        for(int i=0;i<10;i++)
+        for(int i=0;i<1;i++)
         {
             cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck2->ToRenderNode();
             l_pToRenderNode1->SetLocalPosition(Vector3(-10+i*2, 0, 0) + Vector3(0, 0, 0));

@@ -35,7 +35,9 @@ void	DumpInfo(const wchar_t*e_strDescription, cSmartObject*e_pSmartObject, Named
 
 cSmartObject::cSmartObject(NamedTypedObject*e_pResource)
 {
+#ifdef DEBUG
 	m_ReferenceList.SetName("cSmartObject");
+#endif
 	m_pRecource = e_pResource;
 	m_refCount = 0;
 	//AddRef(e_pResource);
