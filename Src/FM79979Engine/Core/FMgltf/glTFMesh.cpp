@@ -19,6 +19,7 @@ cMesh::cMesh()
 
 cMesh::cMesh(cMesh* e_pMesh)
 {
+    SetName(e_pMesh->GetName());
     m_vMinBounds = e_pMesh->m_vMinBounds;
     m_vMaxBounds = e_pMesh->m_vMaxBounds;
     m_Material = e_pMesh->m_Material;
