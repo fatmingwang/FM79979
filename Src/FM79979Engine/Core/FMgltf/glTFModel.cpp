@@ -601,13 +601,28 @@ cglTFModelRenderNode* cglTFModel::ToRenderNode()
     for (auto l_pNode : m_ContainMeshglTFNodeDataVector)
     {
         auto l_mat = l_pNode->GetWorldTransform();
-        auto l_pContainMeshNode = l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex];
-        auto l_pMesh = l_pContainMeshNode->GetMesh();
-		l_pRenderNode->m_ContainMeshglTFNodeDataVector.push_back(l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex]);  
-		l_pRenderNode->m_NameAndMeshes[l_pNode->GetMesh()->GetCharName()] = l_pContainMeshNode->GetMesh();
-        if (l_pMesh)
+        auto l_pSrcMesh = l_pNode->GetMesh();
+        if (l_pSrcMesh)
         {
-            l_pMesh->AfterCloneSetBoneData(l_pRenderNode);
+            cMesh*l_pMesh = nullptr;
+            auto l_IT = l_pRenderNode->m_NameAndMeshes.find(l_pSrcMesh->GetCharName());
+            if (l_IT == l_pRenderNode->m_NameAndMeshes.end())
+            {//clone a new one
+                l_pMesh = l_pSrcMesh->GetTypeClone();
+                l_pRenderNode->m_NameAndMeshes[l_pSrcMesh->GetCharName()] = l_pMesh;
+            }
+            else
+            {
+                l_pMesh = l_IT->second;
+            }
+            auto l_pContainMeshNode = l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex];
+			l_pContainMeshNode->SetMesh(l_pMesh);
+            l_pRenderNode->m_ContainMeshglTFNodeDataVector.push_back(l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex]);
+            if (l_pMesh)
+			{//
+				assert(l_pMesh->Type() != cSkinningMesh::TypeID&&"it should not happen for skinning mesh");
+                l_pMesh->AfterCloneSetBoneData(l_pRenderNode);
+            }
         }
     }
     // Set hierarchy for l_pRenderNode->m_NodesVector based on m_NodesVector

@@ -111,11 +111,8 @@ cglTFNodeData::cglTFNodeData(cglTFNodeData* e_pglTFNodeData)
     this->SetLocalTransform(l_mat);
     m_iJointIndex = e_pglTFNodeData->m_iJointIndex;
     m_iNodeIndex = e_pglTFNodeData->m_iNodeIndex;
+    //assign later ensure mesh only exists once.
     m_pMesh = nullptr;
-    if (e_pglTFNodeData->m_pMesh)
-    {
-        m_pMesh = e_pglTFNodeData->m_pMesh->GetTypeClone();
-    }
     //
     m_StartNodeWorldTransform = e_pglTFNodeData->m_StartNodeWorldTransform;
     m_StartNodeTransform = e_pglTFNodeData->m_StartNodeTransform;
