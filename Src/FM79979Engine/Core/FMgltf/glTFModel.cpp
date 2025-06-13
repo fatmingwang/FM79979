@@ -394,17 +394,25 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_M
     for (const auto& primitive : e_Mesh.primitives)
     {
         l_pMesh->LoadAttributesAndInitBuffer(e_Model, primitive, e_bCalculateBiNormal);
-        // Get or create the appropriate shader program for the sub-mesh
-        for (auto l_pSubMesh : l_pMesh->m_SubMeshesVector)
+    }
+    // Get or create the appropriate shader program for the sub-mesh
+    int l_iIndex = 0;
+    for (const auto& primitive : e_Mesh.primitives)
+    {
+        auto l_pSubMesh = l_pMesh->m_SubMeshesVector[l_iIndex];
+        ++l_iIndex;
+        //for (auto l_pSubMesh : l_pMesh->m_SubMeshesVector)
         {
-            l_pSubMesh->m_iShaderProgram = GetShaderProgram(l_pSubMesh->m_i64FVFFlag, l_pSubMesh->m_iNumMorphTarget);
             // Load textures for each material
+            shared_ptr<cMaterial>l_pMaterial;
             if (primitive.material >= 0 && primitive.material < e_Model.materials.size())
             {
-                l_pMesh->LoadMaterial(e_Model, e_Model.materials[primitive.material], l_pSubMesh->m_iShaderProgram);
+                l_pMaterial = l_pMesh->LoadMaterial(e_Model, e_Model.materials[primitive.material], l_pSubMesh);
             }
+            l_pSubMesh->m_iShaderProgram = GetShaderProgram(l_pSubMesh->m_i64FVFFlag, l_pMaterial->GetTextureFVFFlag(), l_pSubMesh->m_iNumMorphTarget);
+            l_pMaterial->SetShaderProgramID(l_pSubMesh->m_iShaderProgram);
         }
-    }
+    }    
     if (e_Mesh.weights.size())
     {
 		//l_pMesh->SetMorphingWeights(e_Mesh.weights);
@@ -440,18 +448,20 @@ cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tin
     return l_pSkinningMesh;
 }
 
-GLuint cglTFModel::GetShaderProgram(int64 fvfFlags, int e_iNumMorphTarget)
+GLuint cglTFModel::GetShaderProgram(int64 e_i64FVFFlags,int64 e_i64TextureFVF, int e_iNumMorphTarget)
 {
+    int64 l_i64FinalFVFFlags = e_i64FVFFlags | e_i64TextureFVF;
+    //|= 1LL << l_iFVFIndex
     // Check if the shader program for this FVF already exists
-    auto l_IT = m_FVFAndShaderProgramsMap.find(fvfFlags);
+    auto l_IT = m_FVFAndShaderProgramsMap.find(l_i64FinalFVFFlags);
     if (l_IT != m_FVFAndShaderProgramsMap.end())
     {
         return l_IT->second; // Return existing shader program
     }
 
     // If not, create a new shader program
-    GLuint shaderProgram = CreateShader(fvfFlags, e_iNumMorphTarget);
-    m_FVFAndShaderProgramsMap[fvfFlags] = shaderProgram;  // Store in the map
+    GLuint shaderProgram = CreateShader(l_i64FinalFVFFlags, e_iNumMorphTarget);
+    m_FVFAndShaderProgramsMap[l_i64FinalFVFFlags] = shaderProgram;  // Store in the map
     return shaderProgram;
 }
 

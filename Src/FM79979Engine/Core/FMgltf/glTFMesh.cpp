@@ -22,13 +22,11 @@ cMesh::cMesh(cMesh* e_pMesh)
     SetName(e_pMesh->GetName());
     m_vMinBounds = e_pMesh->m_vMinBounds;
     m_vMaxBounds = e_pMesh->m_vMaxBounds;
-    m_Material = e_pMesh->m_Material;
     m_SubMeshesVector = e_pMesh->m_SubMeshesVector;
 }
 
 cMesh::~cMesh()
 {
-    m_Material = nullptr;
 }
 
 void cMesh::ApplyMorphUniformData(sSubMesh* e_pSubMesh)
@@ -38,14 +36,6 @@ void cMesh::ApplyMorphUniformData(sSubMesh* e_pSubMesh)
         auto l_uiUniform = glGetUniformLocation(e_pSubMesh->m_iShaderProgram,"uMorphWeights");
         auto l_uiSize = e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap->size();
         LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform1fv((GLsizei)l_uiUniform, (GLsizei)l_uiSize, m_CurrentAnimationMorphPrimitiveWeightsVector.data()));
-    }
-}
-
-void cMesh::ApplyMaterial()
-{
-    if (this->m_Material)
-    {
-        this->m_Material->Apply();
     }
 }
 
@@ -128,6 +118,40 @@ void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
     e_CameraMatrix = cMatrix44::LookAtMatrix(cameraPosition, center, Vector3(0, 1, 0));
 }
 
+void cMesh::sSubMesh::ApplyMaterial()
+{
+    if (this->m_Material)
+    {
+        this->m_Material->Apply();
+    }
+}
+
+shared_ptr<cMaterial>   cMesh::LoadMaterial(const tinygltf::Model& e_Model, const tinygltf::Material& e_Material, std::shared_ptr<sSubMesh>e_SubMesh)
+{
+	auto l_IT = m_MaterialNameAndMaterialMap.find(e_Material.name);
+    if(l_IT != m_MaterialNameAndMaterialMap.end() && e_Material.name.length() != 0)
+    {//same material ignore.
+        e_SubMesh->m_Material = l_IT->second;
+        return e_SubMesh->m_Material;
+	}
+    auto l_Material = std::make_shared<cMaterial>();
+    l_Material->SetName(e_Material.name.c_str());
+    l_Material->LoadMaterials(e_Model, e_Material);
+	e_SubMesh->m_Material = l_Material;
+    m_MaterialNameAndMaterialMap[e_Material.name] = l_Material;
+    m_MaterialVector.push_back(l_Material);
+    //FMLOG_FORMAT("Material name:%s",e_Material.name.c_str());
+    FMLOG("Material name:%s", e_Material.name.c_str());
+    return e_SubMesh->m_Material;
+}
+
+//cMesh::sSubMesh::sSubMesh(sSubMesh* e_psSubMesh)
+//{
+//    *this = *e_psSubMesh;
+//    m_spFVFAndVertexDataMorphTargetMap = e_psSubMesh->m_spFVFAndVertexDataMorphTargetMap;
+//    this->m_Material = e_psSubMesh->m_Material;
+//}
+
 cMesh::sSubMesh::~sSubMesh()
 {
     for (int i = 0; i < TOTAL_FVF; ++i)
@@ -158,7 +182,8 @@ void cMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
     GLuint modelLoc = glGetUniformLocation(e_pSubMesh->m_iShaderProgram, "inMat4Model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, e_mat);
     g_fSetCameraUniform(e_pSubMesh->m_iShaderProgram);
-    ApplyMaterial();
+    e_pSubMesh->ApplyMaterial();
+    
 }
 
 void cMesh::Render()
@@ -169,12 +194,7 @@ void cMesh::Render()
         SetSubMeshCommonUniformData(l_pSubMesh.get(), l_matTransform);
         CallOpenGLDraw(l_pSubMesh.get());
     }
-}
-
-void cMesh::LoadMaterial(const tinygltf::Model& e_Model, const tinygltf::Material& e_Material, unsigned int e_uiShaderProgram)
-{
-    m_Material = std::make_shared<cMaterial>(e_uiShaderProgram);
-    m_Material->LoadMaterials(e_Model,e_Material);
+    
 }
 
 void cMesh::logFVFFlags()
@@ -195,7 +215,7 @@ void cMesh::logFVFFlags()
 }
 
 
-void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool e_bCalculateBinormal)
+void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const tinygltf::Primitive& primitive, bool e_bCalculateBinormal)
 {
     bool l_bPosition = primitive.attributes.find("POSITION") != primitive.attributes.end();
     if (!l_bPosition)
@@ -208,20 +228,19 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         return;
     }
     std::shared_ptr<sSubMesh> l_pSubMesh = std::make_shared<sSubMesh>();
-
     // Load indices
     if (primitive.indices == -1)
     {
-        const tinygltf::Accessor& positionAccessor = model.accessors[primitive.attributes.at("POSITION")];
+        const tinygltf::Accessor& positionAccessor = e_Model.accessors[primitive.attributes.at("POSITION")];
         size_t vertexCount = positionAccessor.count;
         l_pSubMesh->m_IndexBuffer.resize(vertexCount);
         std::iota(l_pSubMesh->m_IndexBuffer.begin(), l_pSubMesh->m_IndexBuffer.end(), 0);
     }
     else
     {
-        const tinygltf::Accessor& indexAccessor = model.accessors[primitive.indices];
-        const tinygltf::BufferView& bufferView = model.bufferViews[indexAccessor.bufferView];
-        const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+        const tinygltf::Accessor& indexAccessor = e_Model.accessors[primitive.indices];
+        const tinygltf::BufferView& bufferView = e_Model.bufferViews[indexAccessor.bufferView];
+        const tinygltf::Buffer& buffer = e_Model.buffers[bufferView.buffer];
 
         const unsigned char* dataPtr = buffer.data.data() + bufferView.byteOffset + indexAccessor.byteOffset;
 
@@ -269,9 +288,9 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         if (it != l_AttributeMap.end())
         {
             int l_iFVFIndex = it->second;
-            const tinygltf::Accessor& accessor = model.accessors[attribute.second];
-            const tinygltf::BufferView& bufferView = model.bufferViews[accessor.bufferView];
-            const tinygltf::Buffer& buffer = model.buffers[bufferView.buffer];
+            const tinygltf::Accessor& accessor = e_Model.accessors[attribute.second];
+            const tinygltf::BufferView& bufferView = e_Model.bufferViews[accessor.bufferView];
+            const tinygltf::Buffer& buffer = e_Model.buffers[bufferView.buffer];
 
             size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
             const unsigned char* dataPtr = buffer.data.data() + byteOffset;
@@ -326,7 +345,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
 #endif
         }
     }
-    GenerateNormalAttribute(model, primitive, l_pSubMesh.get());
+    GenerateNormalAttribute(e_Model, primitive, l_pSubMesh.get());
 
     m_SubMeshesVector.push_back(l_pSubMesh);
     logFVFFlags();
@@ -341,7 +360,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tiny
         m_vMaxBounds.y = max(m_vMaxBounds.y, l_pSubMesh->m_vMaxBounds.y);
         m_vMaxBounds.z = max(m_vMaxBounds.z, l_pSubMesh->m_vMaxBounds.z);
     }
-    LoadMorphingAttributes(l_pSubMesh.get(), model, primitive, e_bCalculateBinormal);
+    LoadMorphingAttributes(l_pSubMesh.get(), e_Model, primitive, e_bCalculateBinormal);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

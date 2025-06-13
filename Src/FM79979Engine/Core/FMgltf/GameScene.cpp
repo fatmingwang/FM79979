@@ -63,12 +63,13 @@ void cglTFScene::Render()
     {
 		m_pRootFrame->RenderNodes();
     }
+
     glUseProgram(0);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    g_fCameraDebugRender();
+    //g_fCameraDebugRender();
 }
 
 // Find Frame by name (recursive)

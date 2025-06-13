@@ -5,7 +5,7 @@
 class cMaterial:public NamedTypedObject
 {
 	int64        m_i64TextureFVFFlag = 0;
-    unsigned int m_uiShadeProgrameID;
+    unsigned int m_uiShaderProgrameID = -1;
 	tinygltf::Material material;
      //m_pTexture;
     std::vector<shared_ptr<cTexture>> m_uiBaseColorTextureVector;
@@ -24,10 +24,12 @@ class cMaterial:public NamedTypedObject
     shared_ptr<cTexture> GetTexture(const tinygltf::Image& e_Image,const tinygltf::Sampler*);
 public:
     DEFINE_TYPE_INFO();
-    cMaterial(unsigned int e_uiShadeProgrameID);
+    cMaterial();
     virtual ~cMaterial();
     void    LoadMaterials(const tinygltf::Model& model, const tinygltf::Material& material);
 	void	Apply();
+    void    SetShaderProgramID(unsigned int e_uiShaderProgramID);
+    int64   GetTextureFVFFlag(){return m_i64TextureFVFFlag;}
 };
 //const tinygltf::Material& material
 //m_pTexture = new cTexture(this,e_pPixelsData,e_iWidth,e_iHeight,e_strName,true,false,e_iDataFormat);

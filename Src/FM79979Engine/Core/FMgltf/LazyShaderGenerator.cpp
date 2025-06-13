@@ -359,13 +359,15 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
         l_strDefine += "#define USE_TANGENT\n";
     if (e_i64FVFFlags & FVF_BINORMAL_FLAG)
         l_strDefine += "#define USE_BINORMAL\n";
-    if (e_i64FVFFlags & FVF_HAS_NORMAL_MAP_TEXTURE)
+    if (e_i64FVFFlags & FVF_BASE_COLOR_TEXTURE_FLAG)
+        l_strDefine += "#define FVF_BASE_COLOR_TEXTURE_FLAG\n";
+    if (e_i64FVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG)
         l_strDefine += "#define USE_NORMAL_MAP\n";
-    if (e_i64FVFFlags & FVF_HAS_FVF_OCCLUSION_TEXTURE)
+    if (e_i64FVFFlags & FVF_FVF_OCCLUSION_TEXTURE_FLAG)
         l_strDefine += "#define USE_OCCLUSION\n";
-    if (e_i64FVFFlags & FVF_HAS_METALLIC_ROUGHNESS_TEXTURE)
+    if (e_i64FVFFlags & FVF_METALLIC_ROUGHNESS_TEXTURE_FLAG)
         l_strDefine += "#define USE_METALLIC_ROUGHNESS\n";
-    if (e_i64FVFFlags & FVF_HAS_EMISSIVE_TEXTURE)
+    if (e_i64FVFFlags & FVF_EMISSIVE_TEXTURE_FLAG)
         l_strDefine += "#define USE_EMISSIVE\n";
 
     // Start building the shader code
@@ -520,12 +522,16 @@ void main()
     vec3 N = GetNormalFromMap();
     vec3 V = normalize(inVec3ViewPosition - toFSVec3FragPos);
     vec3 color = vec3(0.0);
-
-#ifdef USE_TEXCOORD
-    vec3 albedo = pow(texture(textureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * baseColorFactor.rgb;
+#if defined(USE_TEXCOORD) && defined(FVF_BASE_COLOR_TEXTURE_FLAG)
+    vec3 albedo = texture(textureDiffuse, toFSVec2TexCoord).rgb;
 #else
     vec3 albedo = baseColorFactor.rgb;
 #endif
+//#if defined(USE_TEXCOORD) && defined(FVF_BASE_COLOR_TEXTURE_FLAG)
+//    vec3 albedo = pow(texture(textureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * baseColorFactor.rgb;
+//#else
+//    vec3 albedo = baseColorFactor.rgb;
+//#endif
 
 #ifdef USE_OCCLUSION
     float occlusion = texture(textureOcclusion, toFSVec2TexCoord).r * occlusionStrength;
@@ -587,6 +593,7 @@ void main()
     }
 
     color += emissive;
+    //FragColor = vec4(color,1);
     FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0); // Gamma correction
 }
 )";

@@ -21,7 +21,9 @@ namespace FATMING_CORE
 
 //please d onot use 60 as flag setting or core log wiil be ignore?
 #define	CORE_LOG_FLAG		60
+//FMLOG("Material name:%s", e_Material.name.c_str());
 #define	FMLOG(...)FMLog::LogWithFlag(UT::ComposeMsgByFormat( __VA_ARGS__).c_str(), CORE_LOG_FLAG);
+#define	FMLOG_FORMAT(...)FMLog::LogFormat(__VA_ARGS__);
 namespace FMLog
 {
 	//if windows messagebox will pop up or just a outputdebugstring,0 for do g_spstrLogErrorMsgString,1 for immediately show messagebox,2 for OutputDebugString,
@@ -41,6 +43,8 @@ namespace FMLog
 	//force to write
 	void					Log(const char*e_str   , bool e_bWriteLog);
 	void					Log(const wchar_t*e_str, bool e_bWriteLog);
+	void					LogFormat(const wchar_t* fmt, ...);
+	void					LogFormat(const char* fmt, ...);
 	//
 	void					LogWithFlag(const wchar_t*e_str,int e_iLogFlagLevel, bool e_bWriteLog = g_sbLogInfoWriteIntoFile);
 	void					LogWithFlag(std::wstring e_str ,int e_iLogFlagLevel, bool e_bWriteLog = g_sbLogInfoWriteIntoFile);

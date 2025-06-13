@@ -173,6 +173,42 @@ namespace FMLog
 			WriteLog(e_str);
 		}
 	}
+	void FMLog::LogFormat(const wchar_t* fmt ...)
+	{
+		if (!g_bFMLogEnable)
+		{
+			return;
+		}
+
+		constexpr size_t BUFFER_SIZE = 2048;
+		wchar_t buffer[BUFFER_SIZE];
+
+		va_list args;
+		va_start(args, fmt);
+		vswprintf(buffer, BUFFER_SIZE, fmt, args);
+		va_end(args);
+
+		Log(buffer, false);
+	}
+	// Variadic log function (C-style formatting)
+	void FMLog::LogFormat(const char* fmt, ...)
+	{
+		if (!g_bFMLogEnable)
+		{
+			return;
+		}
+
+		constexpr size_t BUFFER_SIZE = 2048;
+		char buffer[BUFFER_SIZE];
+
+		va_list args;
+		va_start(args, fmt);
+		vsnprintf(buffer, BUFFER_SIZE, fmt, args);
+		va_end(args);
+
+		// Use the existing Log function to handle output and file writing
+		Log(buffer, false);
+	}
 	void LogWithFlag(std::wstring e_str, int e_iLogFlagLevel, bool e_bWriteLog)
 	{
 		LogWithFlag(e_str.c_str(), e_iLogFlagLevel, e_bWriteLog);

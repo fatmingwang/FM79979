@@ -38,19 +38,23 @@ class cMesh:public FATMING_CORE::cRenderObject
 protected:
     struct sSubMesh
     {
+        //for debug
+        shared_ptr<sMorphTargetVector>    m_spFVFAndVertexDataMorphTargetMap;
+        //
         int64                       m_i64FVFFlag = 0;
         GLuint                      m_iShaderProgram;
         size_t                      m_i64VertexCount = 0;
         GLuint                      m_iVBOArray[TOTAL_FVF];
         std::vector<uint32_t>       m_IndexBuffer;
-        GLuint                      m_uiVAO;
-        GLuint                      m_uiEBO;
+        GLuint                      m_uiVAO = -1;
+        GLuint                      m_uiEBO = -1;
         Vector3                     m_vMinBounds;
         Vector3                     m_vMaxBounds;
-        //for debug
-        shared_ptr<sMorphTargetVector>    m_spFVFAndVertexDataMorphTargetMap;
         int 					    m_iNumMorphTarget = 0;
         void                        GetProperCameraPosition(cMatrix44& e_CameraMatrix);
+        //void LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
+        void                        ApplyMaterial();
+        shared_ptr<cMaterial>       m_Material;
         ~sSubMesh();
     };
     //
@@ -62,7 +66,6 @@ protected:
     virtual void					SetSubMeshCommonUniformData(sSubMesh*e_pMesh,cMatrix44&e_mat);
     void					        CallOpenGLDraw(sSubMesh* e_pMesh);
 protected:
-    shared_ptr<cMaterial>m_Material;
     void    ApplyMaterial();
     friend class cglTFModel;
     friend class cAnimationClip;
@@ -70,7 +73,9 @@ public:
     Vector3 m_vMinBounds;
     Vector3 m_vMaxBounds;
 protected:
-    std::vector<std::shared_ptr<sSubMesh>>  m_SubMeshesVector;  // Store different primitives
+    std::vector<std::shared_ptr<sSubMesh>>              m_SubMeshesVector;
+    std::vector<std::shared_ptr<cMaterial>>             m_MaterialVector;
+    std::map<std::string,shared_ptr<cMaterial>>         m_MaterialNameAndMaterialMap;
     void                    GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinygltf::Primitive& primitive, sSubMesh*e_pSubMesh);
 public:
     DEFINE_TYPE_INFO();
@@ -83,11 +88,9 @@ public:
     virtual void Render();        // Draw the mesh
 
     // Function to load vertex attributes and indices
-    //void LoadAttributes(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
-    void            LoadMaterial(const tinygltf::Model& model, const tinygltf::Material& material,unsigned int e_uiShaderProgram);
-    void            LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
-    void            LoadMorphingAttributes(sSubMesh*e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
-    //void            SetMorphingWeights(const std::vector<double>&e_Weights);
-    void            logFVFFlags();
-    virtual         void AfterCloneSetBoneData(class cglTFModelRenderNode* e_pData){}
+    void                    LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
+    void                    LoadMorphingAttributes(sSubMesh*e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
+    shared_ptr<cMaterial>   LoadMaterial(const tinygltf::Model& model, const tinygltf::Material& material, std::shared_ptr<sSubMesh>e_SubMesh);
+    void                    logFVFFlags();
+    virtual void            AfterCloneSetBoneData(class cglTFModelRenderNode* e_pData){}
 };

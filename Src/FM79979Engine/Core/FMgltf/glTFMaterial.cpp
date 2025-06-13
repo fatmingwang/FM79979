@@ -11,9 +11,8 @@ namespace FATMING_CORE
 
 TYPDE_DEFINE_MARCO(cMaterial);
 
-cMaterial::cMaterial(unsigned int e_uiShadeProgrameID)
+cMaterial::cMaterial()
 {
-    m_uiShadeProgrameID = e_uiShadeProgrameID;
     m_baseColorFactor[0] = m_baseColorFactor[1] = m_baseColorFactor[2] = m_baseColorFactor[3] = 1.0f;
     m_metallicFactor = 1.0f;
     m_roughnessFactor = 1.0f;
@@ -24,6 +23,8 @@ cMaterial::cMaterial(unsigned int e_uiShadeProgrameID)
 cMaterial::~cMaterial()
 {
 }
+
+
 
 void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Material& material)
 {
@@ -40,12 +41,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         }        
         shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
         m_uiBaseColorTextureVector.push_back(l_pTexture);
-		m_i64TextureFVFFlag |= 1LL << FVF_TEX0_FLAG;
-    }
-    // Load base color factor
-    for (size_t i = 0; i < 4; ++i)
-    {
-        m_baseColorFactor[i] = static_cast<float>(material.pbrMetallicRoughness.baseColorFactor[i]);
+		m_i64TextureFVFFlag |= FVF_BASE_COLOR_TEXTURE_FLAG;
     }
 
     // Load normal map texture (if available)
@@ -60,7 +56,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         }
         shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
         m_uiNormalTextureVector.push_back(l_pTexture);
-        m_i64TextureFVFFlag |= 1LL << FVF_HAS_NORMAL_MAP_TEXTURE;
+        m_i64TextureFVFFlag |= FVF_NORMAL_MAP_TEXTURE_FLAG;
     }
     // Load occlusion map texture (if available)
     if (material.occlusionTexture.index >= 0)
@@ -74,10 +70,8 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         }
         shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
         m_uiOocclusionTextureVector.push_back(l_pTexture);
-        m_i64TextureFVFFlag |= 1LL << FVF_HAS_FVF_OCCLUSION_TEXTURE;
+        m_i64TextureFVFFlag |=  FVF_FVF_OCCLUSION_TEXTURE_FLAG;
     }
-    // Load occlusion strength
-    m_occlusionStrength = static_cast<float>(material.occlusionTexture.strength);
 
     // Load metallic-roughness texture and factors
     if (material.pbrMetallicRoughness.metallicRoughnessTexture.index >= 0)
@@ -91,10 +85,8 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         }
         shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
         m_uiMetallicRoughnessTextureVector.push_back(l_pTexture);
-        m_i64TextureFVFFlag |= 1LL << FVF_HAS_METALLIC_ROUGHNESS_TEXTURE;
+        m_i64TextureFVFFlag |= FVF_METALLIC_ROUGHNESS_TEXTURE_FLAG;
     }
-    m_metallicFactor = static_cast<float>(material.pbrMetallicRoughness.metallicFactor);
-    m_roughnessFactor = static_cast<float>(material.pbrMetallicRoughness.roughnessFactor);
 
     // Load emissive texture and factor
     if (material.emissiveTexture.index >= 0)
@@ -108,35 +100,61 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         }
         shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
         m_uiEmissiveTextureIDVector.push_back(l_pTexture);
-        m_i64TextureFVFFlag |= 1LL << FVF_HAS_EMISSIVE_TEXTURE;
+        m_i64TextureFVFFlag |= FVF_EMISSIVE_TEXTURE_FLAG;
     }
     for (size_t i = 0; i < 3; ++i)
     {
         m_emissiveFactor[i] = static_cast<float>(material.emissiveFactor[i]);
     }
+    m_metallicFactor = static_cast<float>(material.pbrMetallicRoughness.metallicFactor);
+    m_roughnessFactor = static_cast<float>(material.pbrMetallicRoughness.roughnessFactor);
+    // Load occlusion strength
+    m_occlusionStrength = static_cast<float>(material.occlusionTexture.strength);
+    // Load base color factor
+    for (size_t i = 0; i < 4; ++i)
+    {
+        m_baseColorFactor[i] = static_cast<float>(material.pbrMetallicRoughness.baseColorFactor[i]);
+    }
 }
+
+void  cMaterial::SetShaderProgramID(unsigned int e_uiShaderProgramID)
+{
+    m_uiShaderProgrameID = e_uiShaderProgramID;
+}
+
 
 void cMaterial::Apply()
 {
     GLuint textureUnit = 0;
-
     // Bind base color texture
-    for (size_t i = 0; i < m_uiBaseColorTextureVector.size(); ++i)
+    GLuint textureLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureDiffuse");
+    if (textureLoc != GL_INVALID_INDEX && !m_uiBaseColorTextureVector.empty())
     {
-        m_uiBaseColorTextureVector[i]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint textureLoc = glGetUniformLocation(m_uiShadeProgrameID, "textureDiffuse");
+        for (size_t i = 0; i < m_uiBaseColorTextureVector.size(); ++i)
+        {
+            if (textureLoc != GL_INVALID_INDEX)
+            {
+                glUniform1i(textureLoc, textureUnit);
+            }
+            m_uiBaseColorTextureVector[i]->ApplyImageWithActiveTextureID(textureUnit);
+            textureUnit++;
+        }
+    }
+    else
+    {
+        // No base color texture: unbind from unit 0 and set uniform
+        glActiveTexture(GL_TEXTURE0 + textureUnit);
+        glBindTexture(GL_TEXTURE_2D, 0);
         if (textureLoc != GL_INVALID_INDEX)
         {
             glUniform1i(textureLoc, textureUnit);
         }
-        textureUnit++;
     }
-
     // Bind normal map texture
     if (!m_uiNormalTextureVector.empty())
     {
         m_uiNormalTextureVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint normalMapLoc = glGetUniformLocation(m_uiShadeProgrameID, "textureNormal");
+        GLuint normalMapLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureNormal");
         if (normalMapLoc != GL_INVALID_INDEX)
         {
             glUniform1i(normalMapLoc, textureUnit);
@@ -148,7 +166,7 @@ void cMaterial::Apply()
     if (!m_uiOocclusionTextureVector.empty())
     {
         m_uiOocclusionTextureVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint occlusionLoc = glGetUniformLocation(m_uiShadeProgrameID, "textureOcclusion");
+        GLuint occlusionLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureOcclusion");
         if (occlusionLoc != GL_INVALID_INDEX)
         {
             glUniform1i(occlusionLoc, textureUnit);
@@ -160,7 +178,7 @@ void cMaterial::Apply()
     if (!m_uiMetallicRoughnessTextureVector.empty())
     {
         m_uiMetallicRoughnessTextureVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint metallicRoughnessLoc = glGetUniformLocation(m_uiShadeProgrameID, "textureMetallicRoughness");
+        GLuint metallicRoughnessLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureMetallicRoughness");
         if (metallicRoughnessLoc != GL_INVALID_INDEX)
         {
             glUniform1i(metallicRoughnessLoc, textureUnit);
@@ -172,7 +190,7 @@ void cMaterial::Apply()
     if (!m_uiEmissiveTextureIDVector.empty())
     {
         m_uiEmissiveTextureIDVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint emissiveLoc = glGetUniformLocation(m_uiShadeProgrameID, "textureEmissive");
+        GLuint emissiveLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureEmissive");
         if (emissiveLoc != GL_INVALID_INDEX)
         {
             glUniform1i(emissiveLoc, textureUnit);
@@ -188,7 +206,7 @@ bool cMaterial::ApplyUnriforms()
     bool success = true;
 
     // Set base color factor
-    GLuint baseColorFactorLoc = glGetUniformLocation(m_uiShadeProgrameID, "baseColorFactor");
+    GLuint baseColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "baseColorFactor");
     if (baseColorFactorLoc != GL_INVALID_INDEX)
     {
         glUniform4fv(baseColorFactorLoc, 1, m_baseColorFactor);
@@ -199,7 +217,7 @@ bool cMaterial::ApplyUnriforms()
     }
 
     // Set metallic factor
-    GLuint metallicFactorLoc = glGetUniformLocation(m_uiShadeProgrameID, "metallicFactor");
+    GLuint metallicFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "metallicFactor");
     if (metallicFactorLoc != GL_INVALID_INDEX)
     {
         glUniform1f(metallicFactorLoc, m_metallicFactor);
@@ -210,7 +228,7 @@ bool cMaterial::ApplyUnriforms()
     }
 
     // Set roughness factor
-    GLuint roughnessFactorLoc = glGetUniformLocation(m_uiShadeProgrameID, "roughnessFactor");
+    GLuint roughnessFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "roughnessFactor");
     if (roughnessFactorLoc != GL_INVALID_INDEX)
     {
         glUniform1f(roughnessFactorLoc, m_roughnessFactor);
@@ -221,7 +239,7 @@ bool cMaterial::ApplyUnriforms()
     }
 
     // Set occlusion strength
-    GLuint occlusionStrengthLoc = glGetUniformLocation(m_uiShadeProgrameID, "occlusionStrength");
+    GLuint occlusionStrengthLoc = glGetUniformLocation(m_uiShaderProgrameID, "occlusionStrength");
     if (occlusionStrengthLoc != GL_INVALID_INDEX)
     {
         glUniform1f(occlusionStrengthLoc, m_occlusionStrength);
@@ -232,7 +250,7 @@ bool cMaterial::ApplyUnriforms()
     }
 
     // Set emissive factor
-    GLuint emissiveFactorLoc = glGetUniformLocation(m_uiShadeProgrameID, "emissiveFactor");
+    GLuint emissiveFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "emissiveFactor");
     if (emissiveFactorLoc != GL_INVALID_INDEX)
     {
         glUniform3fv(emissiveFactorLoc, 1, m_emissiveFactor);
@@ -273,6 +291,7 @@ shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image,const 
         g_uiTEXTURE_WRAP_T = e_pSampler->wrapT;
     }
     shared_ptr<cTexture>l_pTexture = cTextureManager::GetObjectByPixels((void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(e_Image.uri).c_str(), (int)l_uiFormat);
+    l_pTexture->SetName(e_Image.name.c_str());
     g_uiMAG_FILTERValue = l_OriginalMAG;
     g_uiMIN_FILTERValue = l_OriginalMIN;
     g_uiTEXTURE_WRAP_S = l_OriginalWRAP_S;
