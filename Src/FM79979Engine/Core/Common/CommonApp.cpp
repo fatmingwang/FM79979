@@ -70,6 +70,7 @@ namespace	FATMING_CORE
 	short												cCommonApp::m_sMouseWhellDelta = 0;
 	bool												cCommonApp::m_sbTouched = false;//if true mouse down
 	bool												cCommonApp::m_sucKeyData[MAX_PATH];
+	bool												cCommonApp::m_sucKeyUpData[MAX_PATH];
 	float												cCommonApp::m_sfVersion = 1.f;
 	bool												cCommonApp::m_sbLeave = false;
 	bool												cCommonApp::m_sbGamePause = false;

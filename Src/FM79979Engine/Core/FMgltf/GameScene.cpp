@@ -33,13 +33,12 @@ Frame* cglTFScene::GetRootFrame() const
 // Recursive update
 void cglTFScene::Update(float e_fElpaseTime)
 {
-    
     g_fLightControllerUpdate(e_fElpaseTime);
-    g_fCameraControllerUpdate(e_fElpaseTime);
     if (m_pRootFrame)
     {
 		m_pRootFrame->UpdateNodes(e_fElpaseTime);
     }
+    g_fCameraControllerUpdate(e_fElpaseTime);
         //m_pRootFrame-Update(e_fElpaseTime);
 }
 
@@ -69,7 +68,7 @@ void cglTFScene::Render()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    //g_fCameraDebugRender();
+    g_fCameraDebugRender();
 }
 
 // Find Frame by name (recursive)

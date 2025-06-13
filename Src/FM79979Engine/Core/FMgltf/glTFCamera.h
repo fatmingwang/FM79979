@@ -7,8 +7,9 @@
 
 class cglTFCamera :public NamedTypedObject
 {
-	public:
+public:
 	DEFINE_TYPE_INFO();
+	virtual ~cglTFCamera();
 	enum class eCameraType
 	{
 		PERSPECTIVE,
@@ -28,18 +29,19 @@ class cglTFCamera :public NamedTypedObject
 		float       ymag;        // Orthographic
 		int         nodeIndex = -1;
 		cMatrix44   m_StartNodeTransform = cMatrix44::Identity;
+		class cglTFNodeData* m_pglTFNodeData = nullptr;
 	};
 
 	// List of cameras loaded from glTF
-	std::vector<sCamera> cameras;
+	std::vector<sCamera> m_CameraVector;
 
 	// Load all camera data from glTF model
 	void LoadCamerasFromGLTF(const tinygltf::Model& model, std::map<int, class cglTFNodeData*>* e_pNideIndexAndNodeDataMap);
 	// Accessors
 	size_t GetCameraCount() const;
-	const sCamera* GetCameraByIndex(size_t index) const;
-	const sCamera* GetCameraByName(const std::string& name) const;
-	static bool    IsCameraExists(const tinygltf::Model& model);
+	const sCamera*	GetCameraByIndex(size_t index) const;
+	const sCamera*	GetCameraByName(const std::string& name) const;
+	static bool		IsCameraExists(const tinygltf::Model& model);
 };
 
 
@@ -48,6 +50,7 @@ class cglTFCamera :public NamedTypedObject
 //glTF uses a right - handed coordinate system.glTF defines + Y as up, +Z as forward, and -X as right; the front of a glTF asset faces + Z.
 class cCameraController : public NamedTypedObject, public cSingltonTemplate<cCameraController>
 {
+	std::map<std::string,cglTFCamera*>	m_NameAndglTFCameraMap;
 	std::vector<std::shared_ptr<cFrameCamera>> m_CameraVector;
 
 	int					m_CurrentCameraIndex = -1;
@@ -56,10 +59,13 @@ class cCameraController : public NamedTypedObject, public cSingltonTemplate<cCam
 	virtual ~cCameraController();
 	bool                m_bEnableCotrolCameraByMouse = true;
 	cCameraBehaveByMouseBehave*	m_pCameraBehaveByMouseBehave;
+	int					m_iDefaultModelCameraIndex = -1;
 public:
 	DEFINE_TYPE_INFO();
 	SINGLETON_BASIC_FUNCTION(cCameraController);
 
+	bool AddglTFCamera(cglTFCamera*e_pglTFCamera);
+	bool RemoveglTFCamera(cglTFCamera* e_pglTFCamera);
 	// Add a camera to the controller
 	bool AddCamera(std::shared_ptr<cFrameCamera> camera);
 
@@ -106,6 +112,7 @@ public:
 	{
 
 	}
+	virtual void Update(float e_fElpaseTime)override;
 	virtual void Render() override;
 	virtual void EndRender() override;
 	std::shared_ptr<cFrameCamera> GetCameraData()

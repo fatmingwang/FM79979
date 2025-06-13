@@ -10,8 +10,8 @@
 //!!!!!!!!!!  please do not delete it directly instead use   DestoryWithChildren        !!!!!!!!!!!!!!
 class cglTFModel:public FATMING_CORE::cRenderObject
 {
-	static std::map<std::string, cglTFModel*> m_sNameAndglTFModelMap;
-    static std::map<int64, GLuint>            m_FVFAndShaderProgramsMap; // FVF -> Shader Program Map
+	static std::map<std::string, cglTFModel*>               m_sNameAndglTFModelMap;
+    static std::map<int64, GLuint>                          m_FVFAndShaderProgramsMap; // FVF -> Shader Program Map
     //
     std::shared_ptr<class cglTFCamera>                      m_pCamera;
 	std::shared_ptr<class cglTFLight>                       m_pLight;
@@ -38,6 +38,7 @@ class cglTFModel:public FATMING_CORE::cRenderObject
     void                                    Destory();
     friend class cAnimationClip;
     friend class cSkinningMesh;
+    friend class cglTFCamera;
 public:
     DEFINE_TYPE_INFO();
     cglTFModel();

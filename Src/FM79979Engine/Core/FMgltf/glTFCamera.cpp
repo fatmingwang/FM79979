@@ -1,16 +1,22 @@
 #include "tiny_gltf.h"
 #include "glTFCamera.h"
 #include "glTFNode.h"
-
+#include "glTFModel.h"
 
 
 TYPDE_DEFINE_MARCO(cCameraFrameData);
 TYPDE_DEFINE_MARCO(cCameraController);
 TYPDE_DEFINE_MARCO(cglTFCamera);
 
+cglTFCamera::~cglTFCamera()
+{
+    cCameraController::GetInstance()->RemoveglTFCamera(this);
+}
+
 void cglTFCamera::LoadCamerasFromGLTF(const tinygltf::Model& model, std::map<int,cglTFNodeData*>* e_pNideIndexAndNodeDataMap)
 {
-    cameras.clear();
+    cCameraController::GetInstance()->AddglTFCamera(this);
+    m_CameraVector.clear();
 
     for (const auto& gltfCam : model.cameras)
     {
@@ -44,24 +50,28 @@ void cglTFCamera::LoadCamerasFromGLTF(const tinygltf::Model& model, std::map<int
             cam.type = eCameraType::UNKNOWN;
         }
 
-        cameras.push_back(std::move(cam));
+        m_CameraVector.push_back(std::move(cam));
     }
     // Link cameras to nodes and compute transform
     for (size_t nodeIdx = 0; nodeIdx < model.nodes.size(); ++nodeIdx)
     {
         const auto& node = model.nodes[nodeIdx];
-        if (node.camera >= 0 && node.camera < static_cast<int>(cameras.size()))
+        if (node.camera >= 0 && node.camera < static_cast<int>(m_CameraVector.size()))
         {
-            cameras[node.camera].nodeIndex = static_cast<int>(nodeIdx);
+            m_CameraVector[node.camera].nodeIndex = static_cast<int>(nodeIdx);
             if (e_pNideIndexAndNodeDataMap)
             {
-                auto l_IT = e_pNideIndexAndNodeDataMap->find(cameras[node.camera].nodeIndex);
+                auto l_IT = e_pNideIndexAndNodeDataMap->find(m_CameraVector[node.camera].nodeIndex);
 				if (l_IT != e_pNideIndexAndNodeDataMap->end())
 				{
 					cglTFNodeData* pNodeData = l_IT->second;
 					if (pNodeData)
 					{
-						cameras[node.camera].m_StartNodeTransform = pNodeData->m_StartNodeTransform;
+						m_CameraVector[node.camera].m_StartNodeTransform = pNodeData->m_StartNodeTransform;
+                        if (m_CameraVector[node.camera].nodeIndex != -1)
+                        {
+                            m_CameraVector[node.camera].m_pglTFNodeData = pNodeData;
+                        }
 					}
 				}
             }
@@ -69,20 +79,21 @@ void cglTFCamera::LoadCamerasFromGLTF(const tinygltf::Model& model, std::map<int
     }
 }
 
+
 size_t cglTFCamera::GetCameraCount() const
 {
-    return cameras.size();
+    return m_CameraVector.size();
 }
 
 const cglTFCamera::sCamera* cglTFCamera::GetCameraByIndex(size_t index) const
 {
-    if (index >= cameras.size()) return nullptr;
-    return &cameras[index];
+    if (index >= m_CameraVector.size()) return nullptr;
+    return &m_CameraVector[index];
 }
 
 const cglTFCamera::sCamera* cglTFCamera::GetCameraByName(const std::string& name) const
 {
-    for (const auto& cam : cameras)
+    for (const auto& cam : m_CameraVector)
     {
         if (cam.name == name)
             return &cam;
@@ -130,6 +141,18 @@ cCameraController::~cCameraController()
 {
     SAFE_DELETE(m_pCameraBehaveByMouseBehave);
     m_CameraVector.clear();
+}
+
+bool cCameraController::AddglTFCamera(cglTFCamera* e_pglTFCamera)
+{
+    m_NameAndglTFCameraMap[e_pglTFCamera->GetCharName()] = e_pglTFCamera;
+    return false;
+}
+
+bool cCameraController::RemoveglTFCamera(cglTFCamera* e_pglTFCamera)
+{
+	m_NameAndglTFCameraMap.erase(e_pglTFCamera->GetCharName());
+    return false;
 }
 
 bool cCameraController::AddCamera(std::shared_ptr<cFrameCamera> camera)
@@ -275,6 +298,37 @@ void cCameraController::Update(float e_fElpaseTime)
                                                               cGameApp::m_sMousePosition.x, cGameApp::m_sMousePosition.y, e_fElpaseTime);
         }
     }
+    auto l_pCamera = GetCurrentCamera();
+    if (!l_pCamera)
+    {
+        this->CreateDefault3DCamera();
+        l_pCamera = GetCurrentCamera();
+    }
+    if (m_NameAndglTFCameraMap.size())
+    {
+        if (cGameApp::m_sucKeyUpData['R'])
+        {
+            cGameApp::m_sucKeyUpData['R'] = false;
+            ++m_iDefaultModelCameraIndex;
+            auto l_IT = m_NameAndglTFCameraMap.begin();
+            if (m_iDefaultModelCameraIndex >= l_IT->second->m_CameraVector.size())
+            {
+                m_iDefaultModelCameraIndex = -1;
+            }
+        }
+        if (m_iDefaultModelCameraIndex != -1)
+        {
+            auto l_IT = m_NameAndglTFCameraMap.begin();
+            if (l_IT->second->m_CameraVector.size())
+            {
+                if (l_IT->second->m_CameraVector[m_iDefaultModelCameraIndex].m_pglTFNodeData)
+                {
+                    auto l_mat = l_IT->second->m_CameraVector[m_iDefaultModelCameraIndex].m_pglTFNodeData->GetWorldTransform();
+                    l_pCamera->SetLocalTransform(l_mat);
+                }
+            }
+        }
+    }
 }
 
 void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
@@ -285,11 +339,6 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
     }
 	m_iLastUsedProgram = e_uiProgramID;
     auto l_pCamera = GetCurrentCamera();
-    if(!l_pCamera)
-    {
-        this->CreateDefault3DCamera();
-        l_pCamera = GetCurrentCamera();
-    }
     if (l_pCamera)
     {
         auto l_Matrix = l_pCamera->GetWorldViewglTFProjection();
@@ -327,7 +376,16 @@ void cCameraController::RenderGrid()
         glDisable(GL_CULL_FACE);
         glDisable(GL_DEPTH_TEST);
         glEnable2D(1920, 1080);
-        cGameApp::RenderFont(1000, 100, UT::ComposeMsgByFormat(L"Camera Pos: %.2f,%.2f,%.2f", l_vPos.x, l_vPos.y, l_vPos.z).c_str());
+        std::wstring l_strCameraNodeName;
+        if (m_iDefaultModelCameraIndex != -1)
+        {
+            auto l_IT = m_NameAndglTFCameraMap.begin();
+            if (l_IT->second->m_CameraVector.size())
+            {
+                l_strCameraNodeName = l_IT->second->m_CameraVector[m_iDefaultModelCameraIndex].m_pglTFNodeData->GetName();
+            }
+        }
+        cGameApp::RenderFont(1000, 100, UT::ComposeMsgByFormat(L"Camera Pos: %.2f,%.2f,%.2f\nModelCameraIndex:%d %s", l_vPos.x, l_vPos.y, l_vPos.z, m_iDefaultModelCameraIndex, l_strCameraNodeName.c_str()).c_str());
         cBaseShader* l_pShader = GetCurrentShader();
         if (l_pShader)
         {
@@ -367,6 +425,11 @@ void cCameraController::CreateDefault3DCamera(bool e_bEnableControleByMouse)
 int cCameraController::GetCurrentCameraIndex() const
 {
     return m_CurrentCameraIndex;
+}
+
+void cCameraFrameData::Update(float e_fElpaseTime)
+{
+
 }
 
 void cCameraFrameData::Render()

@@ -15,7 +15,7 @@ struct sAnimationData:public NamedTypedObject
     //here only contain weights because position and others are store in SubMesh
     //here only apply weight and sub mesh do it's own morpthing.
     std::map<float, std::vector<float>>         m_TimaAndMorphWeightMap;
-    class cMesh*                                m_pTargetMesh;
+    class cMesh*                                m_pTargetMesh = nullptr;
     int                                         m_iTargetNodeIndex = -1;
     bool    m_bLoop;
     float   m_fMinKeyTime;

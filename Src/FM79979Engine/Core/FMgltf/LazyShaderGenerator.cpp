@@ -523,15 +523,11 @@ void main()
     vec3 V = normalize(inVec3ViewPosition - toFSVec3FragPos);
     vec3 color = vec3(0.0);
 #if defined(USE_TEXCOORD) && defined(FVF_BASE_COLOR_TEXTURE_FLAG)
-    vec3 albedo = texture(textureDiffuse, toFSVec2TexCoord).rgb;
+    //vec3 albedo = texture(textureDiffuse, toFSVec2TexCoord).rgb;
+    vec3 albedo = pow(texture(textureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * baseColorFactor.rgb;
 #else
     vec3 albedo = baseColorFactor.rgb;
 #endif
-//#if defined(USE_TEXCOORD) && defined(FVF_BASE_COLOR_TEXTURE_FLAG)
-//    vec3 albedo = pow(texture(textureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * baseColorFactor.rgb;
-//#else
-//    vec3 albedo = baseColorFactor.rgb;
-//#endif
 
 #ifdef USE_OCCLUSION
     float occlusion = texture(textureOcclusion, toFSVec2TexCoord).r * occlusionStrength;
@@ -587,8 +583,8 @@ void main()
                 attenuation *= spotIntensity;
             }
         }
-        float diff = max(dot(N, L), 0.0)*lights[i].intensity;
-        color += (diff*albedo);
+        //float diff = max(dot(N, L), 0.0)*lights[i].intensity;
+        //color += (diff*albedo);
         color += CalculatePBRLighting(N, V, L, lights[i].color, lights[i].intensity * attenuation, albedo, roughness, metallic, occlusion);
     }
 

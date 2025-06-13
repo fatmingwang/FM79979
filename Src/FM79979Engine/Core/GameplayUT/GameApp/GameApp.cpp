@@ -200,7 +200,10 @@ namespace	FATMING_CORE
 	void	cGameApp::Init()
 	{
 		if (m_spGlyphFontRender)
+		{
 			return;
+		}
+		memset(m_sucKeyUpData, 0, sizeof(m_sucKeyUpData));
 #ifdef DEBUG
 		DumpGraphicsInfo();
 #endif
@@ -497,6 +500,7 @@ namespace	FATMING_CORE
 				this->m_sbDebugFunctionWorking = !this->m_sbDebugFunctionWorking;
 		}
 		m_sucKeyData[(unsigned char)e_char] = false;
+		m_sucKeyUpData[(unsigned char)e_char] = true;
 	}
 
 	void	cGameApp::RenderPause()

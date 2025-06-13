@@ -31,6 +31,8 @@ namespace	FATMING_CORE
 		static	bool												m_sbTouched;//if true mouse down
 		//all key data is pressed or not
 		static	bool												m_sucKeyData[MAX_PATH];
+		static	bool												m_sucKeyUpData[MAX_PATH];
+		
 		//
 		//this one could be write into file,so we could check user version
 		static  float												m_sfVersion;
