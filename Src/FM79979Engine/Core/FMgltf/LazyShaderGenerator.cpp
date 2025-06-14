@@ -4,6 +4,10 @@
 
 std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarget)
 {
+    if (e_i64FVFFlags & FVF_INSTANCING_FLAG && e_iNumMorphTarget > 0)
+    {
+        assert(0&&"fuck....instance and morph exists at asame time....I am lazy to do this now fuck");
+    }
 	std::string l_strDefine;
 	if (e_i64FVFFlags & FVF_POS_FLAG)
 		l_strDefine += "#define USE_POSITION\n";
@@ -21,7 +25,8 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
 		l_strDefine += "#define USE_JOINTS\n";
 	if (e_i64FVFFlags & FVF_TEX0_FLAG)
 		l_strDefine += "#define USE_TEXCOORD\n";
-
+    if (e_i64FVFFlags & FVF_INSTANCING_FLAG)
+        l_strDefine += "#define USE_INSTANCING\n";
 	std::string shaderCode = R"(
 #version 330 core
 #ifdef GL_ES
@@ -53,6 +58,14 @@ layout(location = 6) in ivec4 aJoints;
 #endif
 #ifdef USE_TEXCOORD
 layout(location = 7) in vec2 aTexCoord;
+#endif
+#ifdef USE_INSTANCING
+//layout is not allow to assign mat4 so split it to vec4
+// Per-instance matrix: locations 10,11,12,13
+layout(location = 9) in vec4 aInstanceMatrix0;
+layout(location = 10) in vec4 aInstanceMatrix1;
+layout(location = 11) in vec4 aInstanceMatrix2;
+layout(location = 12) in vec4 aInstanceMatrix3;
 #endif
 )";
 
@@ -114,20 +127,39 @@ void main()
     worldPos = skinMatrix * worldPos;
 #endif
 #endif
-
+#ifdef USE_INSTANCING
+    mat4 instanceMatrix = mat4(aInstanceMatrix0, aInstanceMatrix1, aInstanceMatrix2, aInstanceMatrix3);
+    mat3 instanceNormalMatrix = mat3(instanceMatrix);
+    worldPos = instanceMatrix * worldPos;
+#endif
     worldPos = inMat4Model * worldPos;
     toFSVec3FragPos = worldPos.xyz;
     gl_Position = inMat4Projection * inMat4View * worldPos;
 
 #ifdef USE_NORMAL
+#ifdef USE_INSTANCING
+    toFSVec3Normal = mat3(transpose(inverse(inMat4Model))) * (instanceNormalMatrix * aNormal);
+#else
     toFSVec3Normal = mat3(transpose(inverse(inMat4Model))) * aNormal;
 #endif
+#endif
+
 #ifdef USE_TANGENT
+#ifdef USE_INSTANCING
+    toFSVec3Tangent = mat3(transpose(inverse(inMat4Model))) * (instanceNormalMatrix * aTangent);
+#else
     toFSVec3Tangent = mat3(transpose(inverse(inMat4Model))) * aTangent;
 #endif
+#endif
+
 #ifdef USE_BINORMAL
+#ifdef USE_INSTANCING
+    toFSVec3Binormal = mat3(transpose(inverse(inMat4Model))) * (instanceNormalMatrix * aBinormal);
+#else
     toFSVec3Binormal = mat3(transpose(inverse(inMat4Model))) * aBinormal;
 #endif
+#endif
+
 #ifdef USE_TEXCOORD
     toFSVec2TexCoord = aTexCoord;
 #endif

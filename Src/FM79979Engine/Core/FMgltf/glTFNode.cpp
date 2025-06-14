@@ -123,9 +123,16 @@ cglTFNodeData::~cglTFNodeData()
 {
 }
 
-void cglTFNodeData::SetMesh(cMesh* e_pMesh)
+void cglTFNodeData::SetMesh(cMesh* e_pMesh, const tinygltf::Node& e_pNode, const tinygltf::Model& model)
 {
     m_pMesh = e_pMesh;
+    this->m_Instance = LoadInstance(e_pNode, model);
+}
+
+void cglTFNodeData::SetMesh(cMesh* e_pMesh, std::shared_ptr<cMeshInstance>e_Instance)
+{
+    m_pMesh = e_pMesh;
+    m_Instance = e_Instance;
 }
 
 cglTFNodeData* cglTFNodeData::FinChildByName(const wchar_t* e_strBoneName)
@@ -192,6 +199,129 @@ void cglTFNodeData::Render()
     {
         auto l_mat = this->GetWorldTransform();
         this->m_pMesh->SetWorldTransform(l_mat);
-        this->m_pMesh->Render();
+        if (m_Instance)
+        {
+            this->m_pMesh->Render(m_Instance.get());
+        }
+        else
+        {
+            this->m_pMesh->Render();
+        }
+        
     }
+}
+
+bool cglTFNodeData::ContainInstanceExtension(const tinygltf::Node& e_pNode)
+{
+    auto extIt = e_pNode.extensions.find("EXT_mesh_gpu_instancing");
+    if (extIt != e_pNode.extensions.end())
+    {
+        return true;
+    }
+    return false;
+}
+
+std::shared_ptr<cMeshInstance> cglTFNodeData::LoadInstance(const tinygltf::Node& e_pNode, const tinygltf::Model& model)
+{
+    if (!cglTFNodeData::ContainInstanceExtension(e_pNode))
+    {
+        return nullptr;
+    }
+    auto extIt = e_pNode.extensions.find("EXT_mesh_gpu_instancing");
+    const auto& ext = extIt->second;
+    if (!ext.Has("attributes")) return nullptr;
+    const auto& attributes = ext.Get("attributes");
+
+    // Determine instance count from one of the accessors
+    size_t count = 0;
+    if (attributes.Has("TRANSLATION"))
+    {
+        int accessorIdx = attributes.Get("TRANSLATION").Get<int>();
+        count = model.accessors[accessorIdx].count;
+    }
+    else if (attributes.Has("MATRIX"))
+    {
+        int accessorIdx = attributes.Get("MATRIX").Get<int>();
+        count = model.accessors[accessorIdx].count;
+    }
+    else
+    {
+        // No instancing data
+        return nullptr;
+    }
+
+    std::vector<sSRT> srtVector(count);
+    std::vector<cMatrix44> matrices(count);
+    bool hasMatrix = false;
+
+    // Read per-instance attributes
+    if (attributes.Has("TRANSLATION"))
+    {
+        int accessorIdx = attributes.Get("TRANSLATION").Get<int>();
+        const auto& accessor = model.accessors[accessorIdx];
+        const auto& bufferView = model.bufferViews[accessor.bufferView];
+        const auto& buffer = model.buffers[bufferView.buffer];
+        const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
+        for (size_t i = 0; i < count; ++i)
+        {
+            srtVector[i].vTranslation = Vector3(&data[i * 3]);
+            srtVector[i].iSRTFlag |= SRT_TRANSLATION_FLAG;
+        }
+    }
+    if (attributes.Has("ROTATION"))
+    {
+        int accessorIdx = attributes.Get("ROTATION").Get<int>();
+        const auto& accessor = model.accessors[accessorIdx];
+        const auto& bufferView = model.bufferViews[accessor.bufferView];
+        const auto& buffer = model.buffers[bufferView.buffer];
+        const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
+        for (size_t i = 0; i < count; ++i)
+        {
+            srtVector[i].qRotation = Quaternion(&data[i * 4]);
+            srtVector[i].iSRTFlag |= SRT_ROTATION_FLAG;
+        }
+    }
+    if (attributes.Has("SCALE"))
+    {
+        int accessorIdx = attributes.Get("SCALE").Get<int>();
+        const auto& accessor = model.accessors[accessorIdx];
+        const auto& bufferView = model.bufferViews[accessor.bufferView];
+        const auto& buffer = model.buffers[bufferView.buffer];
+        const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
+        for (size_t i = 0; i < count; ++i)
+        {
+            srtVector[i].vScale = Vector3(&data[i * 3]);
+            srtVector[i].iSRTFlag |= SRT_SCALE_FLAG;
+        }
+    }
+    if (attributes.Has("MATRIX"))
+    {
+        hasMatrix = true;
+        int accessorIdx = attributes.Get("MATRIX").Get<int>();
+        const auto& accessor = model.accessors[accessorIdx];
+        const auto& bufferView = model.bufferViews[accessor.bufferView];
+        const auto& buffer = model.buffers[bufferView.buffer];
+        const float* data = reinterpret_cast<const float*>(&buffer.data[bufferView.byteOffset + accessor.byteOffset]);
+        for (size_t i = 0; i < count; ++i)
+        {
+            matrices[i] = cMatrix44(&data[i * 16]);
+        }
+    }
+
+    // Compose transforms
+    std::vector<cMatrix44> transforms;
+    for (size_t i = 0; i < count; ++i)
+    {
+        if (hasMatrix)
+        {
+            transforms.push_back(matrices[i]);
+        }
+        else
+        {
+            transforms.push_back(srtVector[i].GetMatrix());
+        }
+    }
+    auto instance = std::make_shared<cMeshInstance>();
+    instance->SetInstanceTransforms(transforms);
+    return instance;
 }

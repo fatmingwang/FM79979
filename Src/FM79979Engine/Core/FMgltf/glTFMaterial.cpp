@@ -145,10 +145,10 @@ void cMaterial::Apply()
         // No base color texture: unbind from unit 0 and set uniform
         glActiveTexture(GL_TEXTURE0 + textureUnit);
         glBindTexture(GL_TEXTURE_2D, 0);
-        if (textureLoc != GL_INVALID_INDEX)
-        {
-            glUniform1i(textureLoc, textureUnit);
-        }
+        //if (textureLoc != GL_INVALID_INDEX)
+        //{
+        //    glUniform1i(textureLoc, textureUnit);
+        //}
     }
     // Bind normal map texture
     if (!m_uiNormalTextureVector.empty())

@@ -24,10 +24,12 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/fox.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");          
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");          
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");// 
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleInstancing.glb");// 
+        // 
         // 
         l_pRootFrame->AddChild(l_pDuck);
         
@@ -35,7 +37,7 @@ int glTFInit()
         //l_pRootFrame->AddChild(l_pDuck2);
         //l_pDuck2->SetLocalPosition(Vector3(5, 0, 0));
         //cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck2->ToRenderNode();
-        for(int i=0;i<0;i++)
+        for(int i=0;i<1;i++)
         {
             cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck->ToRenderNode();
             l_pToRenderNode1->SetName(UT::ComposeMsgByFormat(L"Car",ValueToString(i).c_str()));

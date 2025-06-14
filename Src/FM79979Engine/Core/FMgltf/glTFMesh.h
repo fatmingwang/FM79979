@@ -32,9 +32,11 @@
 #include "../AllCoreInclude.h"
 #include "glTFMaterial.h"
 
+class cMeshInstance;
 class cMesh:public FATMING_CORE::cRenderObject
 {
     typedef std::vector<std::map<int, float*>> sMorphTargetVector;
+    friend class cMeshInstance;
 protected:
     struct sSubMesh
     {
@@ -86,11 +88,61 @@ public:
 
     //void InitBuffer();  // Initialize and bind buffers
     virtual void Render();        // Draw the mesh
+    virtual void Render(cMeshInstance*e_pMeshInstance);
+    
 
     // Function to load vertex attributes and indices
-    void                    LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
-    void                    LoadMorphingAttributes(sSubMesh*e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
-    shared_ptr<cMaterial>   LoadMaterial(const tinygltf::Model& model, const tinygltf::Material& material, std::shared_ptr<sSubMesh>e_SubMesh);
-    void                    logFVFFlags();
-    virtual void            AfterCloneSetBoneData(class cglTFModelRenderNode* e_pData){}
+    void                            LoadAttributesAndInitBuffer(const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
+    void                            LoadMorphingAttributes(sSubMesh*e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool calculateBinormal);
+    shared_ptr<cMaterial>           LoadMaterial(const tinygltf::Model& model, const tinygltf::Material& material, std::shared_ptr<sSubMesh>e_SubMesh);
+    void                            logFVFFlags();
+    virtual void                    AfterCloneSetBoneData(class cglTFModelRenderNode* e_pData){}
+};
+
+// Instance manager for cMesh
+class cMeshInstance:public NamedTypedObject
+{
+public:
+    cMeshInstance();
+    ~cMeshInstance();
+
+    // Set per-instance transforms
+    void SetInstanceTransforms(const std::vector<cMatrix44>& e_TransformVector);
+
+    // Clear all instances
+    void Clear();
+
+    // Get instance count
+    size_t GetCount() const
+    {
+        return m_InstanceTransformVector.size();
+    }
+
+    // Get instance transforms
+    const std::vector<cMatrix44>& GetTransforms() const
+    {
+        return m_InstanceTransformVector;
+    }
+
+    // OpenGL buffer management
+    void InitBuffer(const std::vector<std::shared_ptr<cMesh::sSubMesh>>& e_SubMesheVector);
+    void UpdateBuffer();
+
+    GLuint GetInstanceVBO() const
+    {
+        return m_InstanceVBO;
+    }
+    bool IsBufferDirty() const
+    {
+        return m_BufferDirty;
+    }
+    void MarkBufferDirty()
+    {
+        m_BufferDirty = true;
+    }
+
+private:
+    std::vector<cMatrix44> m_InstanceTransformVector;
+    GLuint m_InstanceVBO = 0;
+    bool m_BufferDirty = false;
 };

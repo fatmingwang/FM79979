@@ -32,9 +32,9 @@ class cglTFModel:public FATMING_CORE::cRenderObject
     void                                    PopulateUniform(int e_iProgram);
     void                                    PopulateAttribute(int e_iProgram);
     void                                    loadAnimations(const tinygltf::Model& model);
-    void                                    AssignMeshAttributes(cMesh*e_pMesh, const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
-    cMesh*                                  GenerateMesh(const tinygltf::Mesh&e_Mesh, const tinygltf::Model&e_Model, bool e_bCalculateBiNormal);
-    cMesh*                                  GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Mesh& e_Mesh,const tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
+    void                                    AssignMeshAttributes(cMesh*e_pMesh, const tinygltf::Node& node,const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
+    cMesh*                                  GenerateMesh(const tinygltf::Node& node,const tinygltf::Mesh&e_Mesh, const tinygltf::Model&e_Model, bool e_bCalculateBiNormal);
+    cMesh*                                  GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Node& node, const tinygltf::Mesh& e_Mesh,const tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
     void                                    Destory();
     friend class cAnimationClip;
     friend class cSkinningMesh;

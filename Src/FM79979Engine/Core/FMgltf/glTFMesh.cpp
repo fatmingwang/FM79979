@@ -124,6 +124,18 @@ void cMesh::sSubMesh::ApplyMaterial()
     {
         this->m_Material->Apply();
     }
+    else
+    {
+        GLuint metallicFactorLoc = glGetUniformLocation(this->m_iShaderProgram, "baseColorFactor");
+        if (metallicFactorLoc != GL_INVALID_INDEX)
+        {
+            Vector4 l_vbaseColorFactor = Vector4::One;
+            glUniform4fv(metallicFactorLoc,1,(float*)&l_vbaseColorFactor);
+            //glUniform4fv(g_iColorLoacation, 1, (float*)&e_vColor);;
+        }
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
 }
 
 shared_ptr<cMaterial>   cMesh::LoadMaterial(const tinygltf::Model& e_Model, const tinygltf::Material& e_Material, std::shared_ptr<sSubMesh>e_SubMesh)
@@ -194,7 +206,39 @@ void cMesh::Render()
         SetSubMeshCommonUniformData(l_pSubMesh.get(), l_matTransform);
         CallOpenGLDraw(l_pSubMesh.get());
     }
-    
+}
+
+void cMesh::Render(cMeshInstance* e_pMeshInstance)
+{
+    if (e_pMeshInstance)
+    {
+        auto l_matTransform = this->GetWorldTransform();
+        size_t instanceCount = e_pMeshInstance->GetCount();
+        assert(instanceCount > 0);
+        if (e_pMeshInstance->GetInstanceVBO() == 0)
+        {
+            e_pMeshInstance->InitBuffer(m_SubMeshesVector);
+        }
+
+        if (e_pMeshInstance->IsBufferDirty())
+        {
+            e_pMeshInstance->UpdateBuffer();
+        }
+        for (auto& subMesh : m_SubMeshesVector)
+        {
+            SetSubMeshCommonUniformData(subMesh.get(), l_matTransform);
+            glBindVertexArray(subMesh->m_uiVAO);
+            EnableVertexAttributes(subMesh->m_i64FVFFlag);
+            for(int i= FVF_MORPHING_TARGET_POS1; i < FVF_MORPHING_TARGET_POS1+4; ++i)
+            {
+                LAZY_DO_GL_COMMAND_AND_GET_ERROR(glEnableVertexAttribArray(i));
+			}
+            glDrawElementsInstanced(GL_TRIANGLES,
+                                    static_cast<GLsizei>(subMesh->m_IndexBuffer.size()),
+                                    GL_UNSIGNED_INT, 0,
+                                    static_cast<GLsizei>(instanceCount));
+        }
+    }
 }
 
 void cMesh::logFVFFlags()
@@ -441,3 +485,88 @@ void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& m
 //{
 //	m_MorphWeights = e_Weights;
 //}
+
+
+// --- cMeshInstance Implementation ---
+
+cMeshInstance::cMeshInstance()
+{
+}
+cMeshInstance::~cMeshInstance()
+{
+    if (m_InstanceVBO) glDeleteBuffers(1, &m_InstanceVBO);
+}
+
+void cMeshInstance::SetInstanceTransforms(const std::vector<cMatrix44>& transforms)
+{
+    m_InstanceTransformVector = transforms;
+    m_BufferDirty = true;
+}
+
+void cMeshInstance::Clear()
+{
+    m_InstanceTransformVector.clear();
+    m_BufferDirty = true;
+}
+
+void cMeshInstance::InitBuffer(const std::vector<std::shared_ptr<cMesh::sSubMesh>>& subMeshes)
+{
+    if (m_InstanceVBO == 0)
+    {
+        glGenBuffers(1, &m_InstanceVBO);
+    }
+
+    for (auto& subMesh : subMeshes)
+    {
+        glBindVertexArray(subMesh->m_uiVAO);
+        glBindBuffer(GL_ARRAY_BUFFER, m_InstanceVBO);
+
+        // mat4 occupies 4 attribute locations (e.g., 13, 14, 15, 16)
+        GLuint baseLocation = FVF_MORPHING_TARGET_POS1;
+        for (GLuint i = 0; i < 4; ++i)
+        {
+            glEnableVertexAttribArray(baseLocation + i);
+            glVertexAttribPointer(
+                baseLocation + i,         // attribute location
+                4, GL_FLOAT, GL_FALSE,
+                sizeof(cMatrix44),
+                (void*)(sizeof(float) * i * 4)
+            );
+            glVertexAttribDivisor(baseLocation + i, 1);
+        }
+
+        glBindVertexArray(0);
+    }
+    //for (auto& subMesh : subMeshes)
+    //{
+    //    glBindVertexArray(subMesh->m_uiVAO);
+    //    glBindBuffer(GL_ARRAY_BUFFER, m_InstanceVBO);
+    //    //glBufferData(GL_ARRAY_BUFFER, m_InstanceTransformVector.size() * sizeof(cMatrix44),
+    //    //             m_InstanceTransformVector.data(), GL_DYNAMIC_DRAW);
+    //    //GLuint attribLocation = FVF_INSTANCING;
+    //    GLuint attribLocation = FVF_MORPHING_TARGET_POS1; // Use locations FVF_INSTANCING_FLAG +1 +2 +3
+    //    glEnableVertexAttribArray(attribLocation);
+    //    glVertexAttribPointer(attribLocation, 16, GL_FLOAT, GL_FALSE, sizeof(cMatrix44), nullptr);
+    //    glVertexAttribDivisor(attribLocation, 1);
+
+
+
+    //    //glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVFIndex]);
+    //    //glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVFIndex]);
+    //    //glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(Vector3), normals.data(), GL_STATIC_DRAW);
+
+    //    //glEnableVertexAttribArray(l_iFVFIndex);
+    //    //glVertexAttribPointer(l_iFVFIndex, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
+    //    glBindVertexArray(0);
+    //}
+}
+
+void cMeshInstance::UpdateBuffer()
+{
+    if (m_InstanceVBO == 0) return;
+    glBindBuffer(GL_ARRAY_BUFFER, m_InstanceVBO);
+    glBufferData(GL_ARRAY_BUFFER, m_InstanceTransformVector.size() * sizeof(cMatrix44),
+                 m_InstanceTransformVector.data(), GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    m_BufferDirty = false;
+}

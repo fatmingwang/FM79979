@@ -142,19 +142,19 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf:
     cMesh*l_pMesh = nullptr;
     if (e_pNode.skin != -1)
     {
-        l_pMesh = GenerateAnimationMesh(model.skins[e_pNode.skin], model.meshes[e_pNode.mesh], model, e_bCalculateBiNormal);
+        l_pMesh = GenerateAnimationMesh(model.skins[e_pNode.skin], e_pNode, model.meshes[e_pNode.mesh], model, e_bCalculateBiNormal);
     }
     else
     if (e_pNode.mesh != -1)
     {
         if (e_pNode.mesh < model.meshes.size())
         {
-            l_pMesh = GenerateMesh(model.meshes[e_pNode.mesh], model, e_bCalculateBiNormal);
+            l_pMesh = GenerateMesh(e_pNode,model.meshes[e_pNode.mesh], model, e_bCalculateBiNormal);
         }
         //auto l_strMeshName = model.meshes[e_pNode.mesh].name;
         ////bone->m_strTargetMeshName = l_strMeshName;
     }
-    l_pBone->SetMesh(l_pMesh);
+    l_pBone->SetMesh(l_pMesh,e_pNode,model);
     if (l_pMesh)
     {
         m_ContainMeshglTFNodeDataVector.push_back(l_pBone);
@@ -368,6 +368,10 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
                         srt.vScale = Vector3(outputData + (i * 3));
                         srt.iSRTFlag |= SRT_SCALE_FLAG; // Set scale flag
                     }
+                    else if (channel.target_path == "matrix")
+                    {
+                        int a = 0;
+                    }
                 }
             }
 
@@ -387,7 +391,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
     m_AnimationClip.SetBoneAndAnimationData(this);
 }
 
-void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const tinygltf::Node& node, const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
     e_pMesh->SetName(e_Mesh.name.c_str());
     cMesh* l_pMesh = e_pMesh;
@@ -401,25 +405,30 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const  tinygltf::Mesh& e_M
     {
         auto l_pSubMesh = l_pMesh->m_SubMeshesVector[l_iIndex];
         ++l_iIndex;
-        //for (auto l_pSubMesh : l_pMesh->m_SubMeshesVector)
+        // Load textures for each material
+        shared_ptr<cMaterial>l_pMaterial;
+        if (primitive.material >= 0 && primitive.material < e_Model.materials.size())
         {
-            // Load textures for each material
-            shared_ptr<cMaterial>l_pMaterial;
-            if (primitive.material >= 0 && primitive.material < e_Model.materials.size())
-            {
-                l_pMaterial = l_pMesh->LoadMaterial(e_Model, e_Model.materials[primitive.material], l_pSubMesh);
-            }
-            l_pSubMesh->m_iShaderProgram = GetShaderProgram(l_pSubMesh->m_i64FVFFlag, l_pMaterial->GetTextureFVFFlag(), l_pSubMesh->m_iNumMorphTarget);
+            l_pMaterial = l_pMesh->LoadMaterial(e_Model, e_Model.materials[primitive.material], l_pSubMesh);
+        }
+        int64 l_i64TextureFlag = 0;
+        if (l_pMaterial)
+        {
+            l_i64TextureFlag = l_pMaterial->GetTextureFVFFlag();
+        }
+        if(cglTFNodeData::ContainInstanceExtension(node))
+        {
+            l_pSubMesh->m_i64FVFFlag |= FVF_INSTANCING_FLAG;
+        }
+        l_pSubMesh->m_iShaderProgram = GetShaderProgram(l_pSubMesh->m_i64FVFFlag| FVF_INSTANCING_FLAG, l_i64TextureFlag, l_pSubMesh->m_iNumMorphTarget);
+        if (l_pMaterial)
+        {
             l_pMaterial->SetShaderProgramID(l_pSubMesh->m_iShaderProgram);
         }
     }    
-    if (e_Mesh.weights.size())
-    {
-		//l_pMesh->SetMorphingWeights(e_Mesh.weights);
-    }
 }
 
-cMesh* cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+cMesh* cglTFModel::GenerateMesh(const tinygltf::Node& node,const tinygltf::Mesh& e_Mesh, const tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
     auto l_IT = m_NameAndMeshes.find(e_Mesh.name);
     if (l_IT != m_NameAndMeshes.end())
@@ -427,13 +436,13 @@ cMesh* cglTFModel::GenerateMesh(const tinygltf::Mesh& e_Mesh, const tinygltf::Mo
         return l_IT->second;
     }
     cMesh*l_pMesh = new cMesh();
-    AssignMeshAttributes(l_pMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
-    m_NameAndMeshes[e_Mesh.name] = l_pMesh;
     l_pMesh->SetName(e_Mesh.name.c_str());
+    AssignMeshAttributes(l_pMesh, node,e_Mesh, e_Model, e_bCalculateBiNormal);
+    m_NameAndMeshes[e_Mesh.name] = l_pMesh;
     return l_pMesh;
 }
 
-cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
+cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tinygltf::Node& node, const tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal)
 {
     auto l_IT = m_AnimationMeshMap.find(e_Mesh.name);
     if (l_IT != m_AnimationMeshMap.end())
@@ -441,10 +450,10 @@ cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tin
         return l_IT->second;
     }
     cSkinningMesh*l_pSkinningMesh = new cSkinningMesh();
-    AssignMeshAttributes(l_pSkinningMesh, e_Mesh, e_Model, e_bCalculateBiNormal);
+    l_pSkinningMesh->SetName(e_Mesh.name.c_str());
+    AssignMeshAttributes(l_pSkinningMesh, node, e_Mesh, e_Model, e_bCalculateBiNormal);
     l_pSkinningMesh->LoadJointsData(e_Skin,this,e_Model);
     m_AnimationMeshMap[e_Mesh.name] = l_pSkinningMesh;
-    l_pSkinningMesh->SetName(e_Mesh.name.c_str());
     return l_pSkinningMesh;
 }
 
@@ -626,7 +635,7 @@ cglTFModelRenderNode* cglTFModel::ToRenderNode()
                 l_pMesh = l_IT->second;
             }
             auto l_pContainMeshNode = l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex];
-			l_pContainMeshNode->SetMesh(l_pMesh);
+			l_pContainMeshNode->SetMesh(l_pMesh, l_pNode->GetInstance());
             l_pRenderNode->m_ContainMeshglTFNodeDataVector.push_back(l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex]);
             if (l_pMesh)
 			{//

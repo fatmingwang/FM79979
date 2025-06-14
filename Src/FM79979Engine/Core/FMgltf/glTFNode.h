@@ -22,9 +22,14 @@ using FloatToSRTMap = std::map<float, sSRT>;
 typedef std::map<float, cMatrix44> FloatTocMatrix44Map;
 void    ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Map& matrixMap);
 
+//=====================================
+class cMeshInstance;
 class cglTFNodeData : public cRenderObject
 {
     class cMesh* m_pMesh = nullptr;
+    // Instance manager
+    std::shared_ptr<cMeshInstance>  m_Instance;
+    std::shared_ptr<cMeshInstance>  LoadInstance(const tinygltf::Node& e_pNode, const tinygltf::Model& model);
 public:
     DEFINE_TYPE_INFO();
     LAZY_CLONE_FUNCTION(cglTFNodeData);
@@ -44,10 +49,16 @@ public:
     {
         return m_pMesh;
     }
-	void SetMesh(class cMesh* e_pMesh);
+	void SetMesh(class cMesh* e_pMesh, const tinygltf::Node& e_pNode, const tinygltf::Model& model);
+    void SetMesh(class cMesh* e_pMesh, std::shared_ptr<cMeshInstance>e_Instance);
     cglTFNodeData* FinChildByName(const wchar_t* e_strBoneName);
     void ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty);
 
     virtual	void        Update(float e_fElpaseTime)override;
     virtual	void        Render()override;
+    std::shared_ptr<cMeshInstance>  GetInstance()
+    {
+        return m_Instance;
+    }
+    static bool ContainInstanceExtension(const tinygltf::Node& e_pNode);
 };

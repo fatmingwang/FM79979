@@ -198,6 +198,8 @@ namespace FATMING_CORE
 		//#endif
 		MyGLGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &l_iValue);					l_str = L"GL_MAX_VERTEX_ATTRIBS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		MyGLGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS, &l_iValue);		l_str = L"GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS:";	l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		MyGLGetIntegerv(GL_MAX_UNIFORM_LOCATIONS, &l_iValue);		l_str = L"GL_MAX_UNIFORM_LOCATIONS:";	l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		
 		//MyGLGetIntegerv(GL_MAX_VIEWPORT_DIMS,&l_iValue);					l_str = L"GL_MAX_VIEWPORT_DIMS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 #if defined(WIN32) && !defined(UWP)
 		//auto l_strExternsion = glGetString(GL_EXTENSIONS);
