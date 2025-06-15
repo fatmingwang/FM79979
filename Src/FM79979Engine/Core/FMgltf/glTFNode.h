@@ -49,7 +49,7 @@ public:
     {
         return m_pMesh;
     }
-	void SetMesh(class cMesh* e_pMesh, const tinygltf::Node& e_pNode, const tinygltf::Model& model);
+	void SetMesh(class cMesh* e_pMesh, const tinygltf::Node& e_pNode, const tinygltf::Model& model,int e_iInstanceValue);
     void SetMesh(class cMesh* e_pMesh, std::shared_ptr<cMeshInstance>e_Instance);
     cglTFNodeData* FinChildByName(const wchar_t* e_strBoneName);
     void ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty);

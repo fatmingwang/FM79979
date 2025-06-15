@@ -563,10 +563,12 @@ void cMeshInstance::InitBuffer(const std::vector<std::shared_ptr<cMesh::sSubMesh
 
 void cMeshInstance::UpdateBuffer()
 {
-    if (m_InstanceVBO == 0) return;
+    if (m_InstanceVBO == 0)
+    {
+        return;
+    }
     glBindBuffer(GL_ARRAY_BUFFER, m_InstanceVBO);
-    glBufferData(GL_ARRAY_BUFFER, m_InstanceTransformVector.size() * sizeof(cMatrix44),
-                 m_InstanceTransformVector.data(), GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, m_InstanceTransformVector.size() * sizeof(cMatrix44),m_InstanceTransformVector.data(), GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     m_BufferDirty = false;
 }

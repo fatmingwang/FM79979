@@ -123,10 +123,25 @@ cglTFNodeData::~cglTFNodeData()
 {
 }
 
-void cglTFNodeData::SetMesh(cMesh* e_pMesh, const tinygltf::Node& e_pNode, const tinygltf::Model& model)
+void cglTFNodeData::SetMesh(cMesh* e_pMesh, const tinygltf::Node& e_pNode, const tinygltf::Model& model, int e_iInstanceValue)
 {
     m_pMesh = e_pMesh;
     this->m_Instance = LoadInstance(e_pNode, model);
+    if (!this->m_Instance)
+    {
+        if (e_iInstanceValue > 1)
+        {
+            this->m_Instance = cMeshInstance::CreateInstance();
+            std::vector<cMatrix44>l_matVector;
+            for (int i = 0; i < e_iInstanceValue; ++i)
+            {
+                cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(i * 2.f, 0, 0));
+                l_matVector.push_back(l_mat);
+            }
+            this->m_Instance->SetInstanceTransforms(l_matVector);
+        }
+    }
+    
 }
 
 void cglTFNodeData::SetMesh(cMesh* e_pMesh, std::shared_ptr<cMeshInstance>e_Instance)

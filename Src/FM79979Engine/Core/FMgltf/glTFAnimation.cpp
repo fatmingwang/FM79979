@@ -310,15 +310,21 @@ cAnimTexture::cAnimTexture(cAnimationClip& e_AnimationClip, const char* e_strAni
         int l_SQRT = (int)sqrt(l_iRequireSize)+1;
         int l_iSize = NextPowerOfTwo(l_SQRT);
 		this->Resize(l_iSize);
+        Vector3 l_vScale;
+        Vector3 l_vRotation;
+        Vector3 l_vTranslation;
+        float   l_Inverted = 0;
         for(int i=0; i < l_iNumStep; ++i)
         {
             e_AnimationClip.UpdateToTargetTime(l_fStepTime*i, true);
             for(int j = 0; j < l_iBneCount; ++j)
             {
                 cglTFNodeData* l_pBone = (*l_pCurrentAnimationData->m_pBoneVector)[j];
-                auto l_mat = l_pBone->GetWorldTransform();
-                int matrixIdx = i * l_iBneCount + j;
-                SetTexel(matrixIdx, l_mat);
+                cMatrix44 l_mat = l_pBone->GetWorldTransform();
+                l_mat.Decompose(l_vScale, l_vRotation, l_vTranslation, l_Inverted);
+                SetTexel(i, j, l_vTranslation);
+                SetTexel(i, j, l_vRotation);
+                SetTexel(i, j, l_vScale);
 			}
 		}
         Save(l_strPath.c_str());
@@ -474,6 +480,26 @@ unsigned int cAnimTexture::GetHandle()
     return mHandle;
 }
 
+void cAnimTexture::SetTexel(unsigned int x, unsigned int y, const Vector4& e_Value)
+{
+    unsigned int index = (y * mSize * 4) + (x * 4);
+
+    mData[index + 0] = e_Value.x;
+    mData[index + 1] = e_Value.y;
+    mData[index + 2] = e_Value.z;
+    mData[index + 3] = e_Value.w;
+}
+
+void cAnimTexture::SetTexel(unsigned int x, unsigned int y, const Vector3& e_Value)
+{
+    unsigned int index = (y * mSize * 4) + (x * 4);
+
+    mData[index + 0] = e_Value.x;
+    mData[index + 1] = e_Value.y;
+    mData[index + 2] = e_Value.z;
+    mData[index + 3] = 0.0f;
+}
+
 void cAnimTexture::Set(unsigned int uniformIndex, unsigned int textureIndex)
 {
     glActiveTexture(GL_TEXTURE0 + textureIndex);
@@ -490,25 +516,4 @@ void cAnimTexture::UnSet(unsigned int textureIndex)
 float* cAnimTexture::GetData()
 {
     return mData;
-}
-
-void   cAnimTexture::SetTexel(unsigned int x, unsigned int y, const cMatrix44& e_Mat)
-{
-	const int l_ciMatrixSize = 16; // 4x4 matrix has 16 elements
-    // Each matrix occupies 4 texels (16 floats)
-    unsigned int matrixIndex = y * mSize + x;
-    unsigned int floatIndex = matrixIndex * l_ciMatrixSize;
-    memcpy(&mData[floatIndex], e_Mat, sizeof(float) * l_ciMatrixSize);
-
-}
-void   cAnimTexture::SetTexel(unsigned int matrixIdx, const cMatrix44& e_Mat)
-{
-    // matrixIdx: 0 .. (mSize * mSize / 4) - 1
-    unsigned int floatIndex = matrixIdx * 16; // 16 floats per matrix
-    if (floatIndex + 16 > mSize * mSize * g_iTextureColorComponentCount)
-    {
-        // Out of bounds, do not write
-        return;
-    }
-    memcpy(&mData[floatIndex], e_Mat, sizeof(float) * 16);
 }

@@ -4,10 +4,10 @@
 
 cglTFScene*g_pglTFScene = nullptr;
 
-cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName)
+cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceValue = 0)
 {
     cglTFModel*l_pglTFModel = new cglTFModel();;
-    l_pglTFModel->LoadFromGLTF(e_strFileName, true);
+    l_pglTFModel->LoadFromGLTF(e_strFileName, true,e_iInstanceValue);
     //e_pFrame->AddChild(l_pglTFModel);
     return l_pglTFModel;
 }
@@ -18,21 +18,21 @@ int glTFInit()
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
     {
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",0);
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/AnimatedMorphCube.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/fox.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");          
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");          
         
         {
             //auto l_pDuck2 = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");
             //l_pRootFrame->AddChild(l_pDuck2);
         }
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");// 
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf",1);
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleInstancing.glb");// 
         // 
         // 

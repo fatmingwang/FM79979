@@ -102,6 +102,81 @@ out vec3 toFSVec3Tangent;
 out vec3 toFSVec3Binormal;
 #endif
 
+//for animation texture
+
+const int MAX_INSTANCES = 100;
+uniform sampler2D uAnimTexture;
+
+uniform ivec2 frames[MAX_INSTANCES];
+uniform float time[MAX_INSTANCES];
+uniform int uNumAnimationModel;
+
+
+mat4 RotationMatrixFromEuler(vec3 euler)
+{
+    float cx = cos(euler.x), sx = sin(euler.x);
+    float cy = cos(euler.y), sy = sin(euler.y);
+    float cz = cos(euler.z), sz = sin(euler.z);
+
+    mat4 rotX = mat4(
+        1, 0, 0, 0,
+        0, cx, sx, 0,
+        0, -sx, cx, 0,
+        0, 0, 0, 1
+    );
+    mat4 rotY = mat4(
+        cy, 0, -sy, 0,
+        0, 1, 0, 0,
+        sy, 0, cy, 0,
+        0, 0, 0, 1
+    );
+    mat4 rotZ = mat4(
+        cz, sz, 0, 0,
+        -sz, cz, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    );
+    // ZYX order (common for Euler angles)
+    return rotZ * rotY * rotX;
+}
+
+mat4 GetAnimationPose(int joint, int instance)
+{
+    int x_now = frames[instance].x;
+    int x_next = frames[instance].y;
+    int y_pos = joint * 3;
+
+    vec3 pos0 = texelFetch(uAnimTexture, ivec2(x_now, y_pos + 0), 0).xyz;
+    vec3 rot0 = texelFetch(uAnimTexture, ivec2(x_now, y_pos + 1), 0).xyz;
+    vec3 scl0 = texelFetch(uAnimTexture, ivec2(x_now, y_pos + 2), 0).xyz;
+
+    vec3 pos1 = texelFetch(uAnimTexture, ivec2(x_next, y_pos + 0), 0).xyz;
+    vec3 rot1 = texelFetch(uAnimTexture, ivec2(x_next, y_pos + 1), 0).xyz;
+    vec3 scl1 = texelFetch(uAnimTexture, ivec2(x_next, y_pos + 2), 0).xyz;
+
+    float t = time[instance];
+
+    vec3 position = mix(pos0, pos1, t);
+    vec3 rotation = mix(rot0, rot1, t); // Linear interpolation of Euler angles (ok for small angles)
+    vec3 scale = mix(scl0, scl1, t);
+
+    mat4 S = mat4(
+        scale.x, 0, 0, 0,
+        0, scale.y, 0, 0,
+        0, 0, scale.z, 0,
+        0, 0, 0, 1
+    );
+    mat4 R = RotationMatrixFromEuler(rotation);
+    mat4 T = mat4(
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        position.x, position.y, position.z, 1
+    );
+    // T * R * S
+    return T * R * S;
+}
+
 void main()
 {
     vec3 position = aPosition;
@@ -120,10 +195,27 @@ void main()
 
 #ifdef USE_WEIGHTS
 #ifdef USE_JOINTS
-    mat4 skinMatrix = aWeights.x * uBoneTransforms[aJoints.x] +
-                      aWeights.y * uBoneTransforms[aJoints.y] +
-                      aWeights.z * uBoneTransforms[aJoints.z] +
-                      aWeights.w * uBoneTransforms[aJoints.w];
+    mat4 skinMatrix;
+    if(uNumAnimationModel != 0)
+    {
+        int instanceIndex = gl_InstanceID % uNumAnimationModel;
+	    mat4 pose0 = GetAnimationPose(aJoints.x, instanceIndex);
+	    mat4 pose1 = GetAnimationPose(aJoints.y, instanceIndex);
+	    mat4 pose2 = GetAnimationPose(aJoints.z, instanceIndex);
+	    mat4 pose3 = GetAnimationPose(aJoints.w, instanceIndex);
+
+        skinMatrix = aWeights.x * pose0 +
+                          aWeights.y * pose1 +
+                          aWeights.z * pose2 +
+                          aWeights.w * pose3;
+    }
+    else
+    {
+        skinMatrix = aWeights.x * uBoneTransforms[aJoints.x] +
+                          aWeights.y * uBoneTransforms[aJoints.y] +
+                          aWeights.z * uBoneTransforms[aJoints.z] +
+                          aWeights.w * uBoneTransforms[aJoints.w];
+    }   
     worldPos = skinMatrix * worldPos;
 #endif
 #endif

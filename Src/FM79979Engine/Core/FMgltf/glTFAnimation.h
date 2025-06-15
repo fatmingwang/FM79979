@@ -84,7 +84,6 @@ protected:
     void Set(unsigned int uniformIndex, unsigned int textureIndex);
     void UnSet(unsigned int textureIndex);
     unsigned int GetHandle();
-
-    void        SetTexel(unsigned int x, unsigned int y, const cMatrix44& e_Mat);
-    void        SetTexel(unsigned int matrixIdx, const cMatrix44& e_Mat);
+    void        SetTexel(unsigned int x, unsigned int y, const Vector4& e_Value);
+    void        SetTexel(unsigned int x, unsigned int y, const Vector3& e_Value);
 };

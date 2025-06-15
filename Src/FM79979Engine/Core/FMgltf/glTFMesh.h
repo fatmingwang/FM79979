@@ -140,7 +140,10 @@ public:
     {
         m_BufferDirty = true;
     }
-
+    static std::shared_ptr<cMeshInstance>CreateInstance()
+    {
+        return std::make_shared<cMeshInstance>();
+    }
 private:
     std::vector<cMatrix44> m_InstanceTransformVector;
     GLuint m_InstanceVBO = 0;

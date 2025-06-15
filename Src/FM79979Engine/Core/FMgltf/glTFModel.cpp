@@ -154,7 +154,7 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf:
         //auto l_strMeshName = model.meshes[e_pNode.mesh].name;
         ////bone->m_strTargetMeshName = l_strMeshName;
     }
-    l_pBone->SetMesh(l_pMesh,e_pNode,model);
+    l_pBone->SetMesh(l_pMesh,e_pNode,model, m_iInstanceValue);
     if (l_pMesh)
     {
         m_ContainMeshglTFNodeDataVector.push_back(l_pBone);
@@ -417,7 +417,7 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const tinygltf::Node& node
         {
             l_i64TextureFlag = l_pMaterial->GetTextureFVFFlag();
         }
-        if(cglTFNodeData::ContainInstanceExtension(node))
+        if(cglTFNodeData::ContainInstanceExtension(node) || m_iInstanceValue > 0)
         {
             l_pSubMesh->m_i64FVFFlag |= FVF_INSTANCING_FLAG;
         }
@@ -509,9 +509,10 @@ cMatrix44 GetNodeMatrix(const tinygltf::Node& node)
     return matrix;
 }
 
-bool cglTFModel::LoadFromGLTF(const std::string& e_strFilename, bool e_bCalculateBiNormal)
+bool cglTFModel::LoadFromGLTF(const std::string& e_strFilename, bool e_bCalculateBiNormal,int e_iInstanceValue)
 {
     this->SetName(e_strFilename.c_str());
+	m_iInstanceValue = e_iInstanceValue;
     tinygltf::TinyGLTF loader;
     tinygltf::Model model;
 
@@ -728,7 +729,7 @@ void cglTFModelRenderNode::Render()
 void cglTFModelRenderNode::SetCurrentAnimation(const std::string& e_strAnimationName)
 {
     this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
-    //cAnimTexture l_cAnimTexture(this->m_AnimationClip, e_strAnimationName.c_str());
+    cAnimTexture l_cAnimTexture(this->m_AnimationClip, e_strAnimationName.c_str());
     int a = 0;
 }
 
