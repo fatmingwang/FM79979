@@ -1,5 +1,6 @@
 #include "tiny_gltf.h"
 #include "glTFLight.h"
+#include "glTFAnimation.h"
 
 TYPDE_DEFINE_MARCO(cglTFLight);
 TYPDE_DEFINE_MARCO(cLighController);

@@ -87,3 +87,37 @@ protected:
     void        SetTexel(unsigned int x, unsigned int y, const Vector4& e_Value);
     void        SetTexel(unsigned int x, unsigned int y, const Vector3& e_Value);
 };
+#define ANIMATION_TEXTURE_FPS       30.0f
+#define ANIMATION_FRAME_STEP_TIME   1/ANIMATION_TEXTURE_FPS
+
+struct sAnimationFrameAndTime :public NamedTypedObject
+{
+    float m_fNextFrameLerpTimes;
+    float m_fCurrentPlayTime;
+    int   m_iNextFrame;
+    int   m_iCurrentFrame;
+    float m_fAnimationEndTime = 0.f;
+    bool  m_bLoop = false;
+    int   m_iLastFrame = -1;
+public:
+    sAnimationFrameAndTime(float e_fEndTime);
+    void Update(float e_fElpaseTime);
+};
+
+struct sAniamationInstanceData :public NamedTypedObject
+{
+    std::vector<std::shared_ptr<sAnimationFrameAndTime>>    m_AnimationFrameAndTimeVector;
+	std::shared_ptr<cAnimTexture>                           m_spAnimTexture;
+};
+
+
+class cAnimationInstanceManager :public NamedTypedObject
+{
+	std::shared_ptr<class cMeshInstance> m_pMeshInstance;
+	std::map<std::string,std::shared_ptr<sAniamationInstanceData>> m_AnimationNameAndAniamationInstanceDataMap;
+public:
+    cAnimationInstanceManager(cAnimationClip& e_AnimationClip, std::shared_ptr<class cMeshInstance>);
+    virtual ~cAnimationInstanceManager();
+    void Render(GLuint e_uiProgramID, std::shared_ptr<sAniamationInstanceData>);
+    std::shared_ptr<sAniamationInstanceData>    GetAnimationInstanceData(const char* e_strAnimationName);
+};

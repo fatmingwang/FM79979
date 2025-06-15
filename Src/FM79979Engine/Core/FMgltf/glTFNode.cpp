@@ -133,9 +133,12 @@ void cglTFNodeData::SetMesh(cMesh* e_pMesh, const tinygltf::Node& e_pNode, const
         {
             this->m_Instance = cMeshInstance::CreateInstance();
             std::vector<cMatrix44>l_matVector;
+            int gridSize = static_cast<int>(std::ceil(std::sqrt(static_cast<float>(e_iInstanceValue))));
             for (int i = 0; i < e_iInstanceValue; ++i)
             {
-                cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(i * 2.f, 0, 0));
+                int row = i / gridSize;
+                int col = i % gridSize;
+                cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(col * 5.f, row * 5.f, 0));
                 l_matVector.push_back(l_mat);
             }
             this->m_Instance->SetInstanceTransforms(l_matVector);

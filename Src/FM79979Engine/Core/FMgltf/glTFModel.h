@@ -24,6 +24,8 @@ class cglTFModel:public FATMING_CORE::cRenderObject
     std::vector<cglTFNodeData*>                             m_ContainMeshglTFNodeDataVector;
     cAnimationClip                                          m_AnimationClip;
 	int     										        m_iInstanceValue;
+	//if skinning mesh and m_iInstanceValue, then this will be created.
+    std::shared_ptr<class cAnimationInstanceManager>        m_spAnimationInstanceManager;
     //
     std::map<std::string, sAnimationData*>                  CloneNameAndAnimationMap(cglTFModelRenderNode*e_pglTFModelRenderNode);
     GLuint                                  CreateShader(int64 e_i64FVFFlags, int e_iNumMorphTarget);

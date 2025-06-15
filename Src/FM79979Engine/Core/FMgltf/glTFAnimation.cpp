@@ -517,3 +517,60 @@ float* cAnimTexture::GetData()
 {
     return mData;
 }
+
+
+sAnimationFrameAndTime::sAnimationFrameAndTime(float e_fEndTime)
+{
+    m_fCurrentPlayTime = 0.f;
+    m_iNextFrame = 0;
+    m_iCurrentFrame = 1;
+    m_fAnimationEndTime = e_fEndTime;
+    m_iLastFrame = (int)(e_fEndTime / ANIMATION_FRAME_STEP_TIME) + 1;
+    m_bLoop = true;
+}
+void sAnimationFrameAndTime::Update(float e_fElpaseTime)
+{
+    m_fCurrentPlayTime += e_fElpaseTime;
+    if (m_fCurrentPlayTime >= m_fAnimationEndTime)
+    {
+        if (m_bLoop)
+        {
+            m_fCurrentPlayTime = UT::GetFloatModulus(m_fCurrentPlayTime, m_fAnimationEndTime);
+        }
+        else
+        {
+            m_fCurrentPlayTime = m_fAnimationEndTime;
+        }
+    }
+    m_iCurrentFrame = (int)(m_fCurrentPlayTime / ANIMATION_FRAME_STEP_TIME);
+    m_iNextFrame = m_iCurrentFrame + 1;
+    m_fNextFrameLerpTimes = (m_fCurrentPlayTime - (m_iCurrentFrame * ANIMATION_FRAME_STEP_TIME)) / ANIMATION_FRAME_STEP_TIME;
+    if (m_iCurrentFrame >= m_iLastFrame)
+    {
+        m_iCurrentFrame = 0;
+    }
+    if (m_iNextFrame >= m_iLastFrame)
+    {
+        m_iNextFrame = 0;
+    }
+}
+
+
+cAnimationInstanceManager::cAnimationInstanceManager(cAnimationClip& e_AnimationClip, std::shared_ptr<class cMeshInstance>)
+{
+}
+
+cAnimationInstanceManager::~cAnimationInstanceManager()
+{
+}
+
+
+void cAnimationInstanceManager::Render(GLuint e_uiProgramID, std::shared_ptr<sAniamationInstanceData>)
+{
+
+}
+
+std::shared_ptr<sAniamationInstanceData> cAnimationInstanceManager::GetAnimationInstanceData(const char* e_strAnimationName)
+{
+    return MapFind(m_AnimationNameAndAniamationInstanceDataMap, e_strAnimationName);
+}

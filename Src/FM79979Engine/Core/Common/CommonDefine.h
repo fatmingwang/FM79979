@@ -71,6 +71,18 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 		SAFE_RELEASE(l_Type2);									\
 	}MAP.clear();}
 
+//c++ 17
+template <typename Map, typename Key>
+auto MapFind(Map&e_Map, const Key& e_key) -> decltype(e_Map.begin()->second)
+{
+	auto it = e_Map.find(e_key);
+	if (it != e_Map.end())
+	{
+		return it->second;
+	}
+	return nullptr;
+}
+
 //Type Variable,GetName,SetName
 #define GET_SET_DEC( T,V,p,q ) protected:T V;public:T p (){ return V; }void q (T value){ V = value; }
 

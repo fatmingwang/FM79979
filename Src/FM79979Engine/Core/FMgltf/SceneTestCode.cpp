@@ -18,7 +18,7 @@ int glTFInit()
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
     {
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",0);
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",100);
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/AnimatedMorphCube.glb");
@@ -32,7 +32,7 @@ int glTFInit()
             //l_pRootFrame->AddChild(l_pDuck2);
         }
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");// 
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf",1);
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf",1);
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleInstancing.glb");// 
         // 
         // 
