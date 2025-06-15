@@ -44,6 +44,7 @@ class cAnimationClip :public NamedTypedObject
     //class cglTFModel*                       m_pglTFModel = nullptr;
     bool                                    SampleToTime(float e_fTime, bool e_bAssignToBone, std::vector<sSRT>* e_pSRTVector = nullptr);
     void	                                UpdateNode(cglTFNodeData* e_pBone, float e_fTime, sSRT& e_SRT, bool e_bAssignToBone);
+    friend class cAnimTexture;
 public:
     void	SetBoneAndAnimationData(class cglTFModel* e_pglTFModel);
     void	SetBoneAndAnimationData(class cglTFModelRenderNode* e_pglTFModel);
@@ -51,4 +52,39 @@ public:
     void    UpdateToTargetTime(float e_fTime, bool e_bAssignToBone);
     void    BlendClips(float e_fTime, const char* e_strAnimationName1, const char* e_strAnimationName2, bool e_bAssignToBone, bool e_bLoop = true, float e_fTargetFactor = 0.5);
     void    Update(float e_fElpaseTime);
+    sAnimationData* GetCurrentAnimationData()
+    {
+        return m_pCurrentAnimationData;
+    }
+};
+
+class cAnimTexture :public NamedTypedObject
+{
+protected:
+    float* mData;
+    unsigned int mSize;
+    unsigned int mHandle;
+    public:
+    cAnimTexture(cAnimationClip&e_AnimationClip, const char* e_strAnimationName);
+    cAnimTexture(const cAnimTexture&);
+    cAnimTexture& operator=(const cAnimTexture&);
+    cAnimTexture(const char* path);
+    cAnimTexture(unsigned int size);
+    ~cAnimTexture();
+
+    bool Load(const char* path);
+    bool Save(const char* path);
+    void UploadTextureDataToGPU();
+
+    unsigned int Size();
+    //make it square
+    void Resize(unsigned int e_uiWidthAndHeight);
+    float* GetData();
+
+    void Set(unsigned int uniformIndex, unsigned int textureIndex);
+    void UnSet(unsigned int textureIndex);
+    unsigned int GetHandle();
+
+    void        SetTexel(unsigned int x, unsigned int y, const cMatrix44& e_Mat);
+    void        SetTexel(unsigned int matrixIdx, const cMatrix44& e_Mat);
 };

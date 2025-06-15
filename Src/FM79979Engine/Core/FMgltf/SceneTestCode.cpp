@@ -19,16 +19,21 @@ int glTFInit()
     {
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/AnimatedMorphCube.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/fox.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");          
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");          
+        
+        {
+            //auto l_pDuck2 = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");
+            //l_pRootFrame->AddChild(l_pDuck2);
+        }
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");// 
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleInstancing.glb");// 
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleInstancing.glb");// 
         // 
         // 
         l_pRootFrame->AddChild(l_pDuck);
@@ -37,11 +42,12 @@ int glTFInit()
         //l_pRootFrame->AddChild(l_pDuck2);
         //l_pDuck2->SetLocalPosition(Vector3(5, 0, 0));
         //cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck2->ToRenderNode();
-        for(int i=0;i<1;i++)
+        int l_iNumCloneNodex = 0;
+        for(int i=0;i< l_iNumCloneNodex;i++)
         {
             cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck->ToRenderNode();
             l_pToRenderNode1->SetName(UT::ComposeMsgByFormat(L"Car",ValueToString(i).c_str()));
-            l_pToRenderNode1->SetLocalPosition(Vector3(i*5.f, 0, 0) + Vector3(0, 0, 0));
+            l_pToRenderNode1->SetLocalPosition(Vector3(i*2.f, 0, 0) + Vector3(0, 0, 0));
             l_pToRenderNode1->Update(i*0.5f);
             l_pRootFrame->AddChild(l_pToRenderNode1);// 
 		}
@@ -82,6 +88,7 @@ int glTFInit()
 void GlTFUpdate(float e_fElpaseTime)
 {
     float l_fElpaseTime = cGameApp::m_sTimeAndFPS.fElpaseTime;
+    l_fElpaseTime = cGameApp::m_sbSpeedControl ? l_fElpaseTime * cGameApp::m_sfGameSpeedValue : l_fElpaseTime;
     g_fLightControllerUpdate(l_fElpaseTime);
     g_fCameraControllerUpdate(l_fElpaseTime);
     if (g_pglTFScene)

@@ -306,9 +306,10 @@ void cCameraController::Update(float e_fElpaseTime)
     }
     if (m_NameAndglTFCameraMap.size())
     {
-        if (cGameApp::m_sucKeyUpData['R'])
+        //only support cglTFModel not clone node
+        if (cGameApp::m_sucKeyUpData['T'])
         {
-            cGameApp::m_sucKeyUpData['R'] = false;
+            cGameApp::m_sucKeyUpData['T'] = false;
             ++m_iDefaultModelCameraIndex;
             auto l_IT = m_NameAndglTFCameraMap.begin();
             if (m_iDefaultModelCameraIndex >= l_IT->second->m_CameraVector.size())

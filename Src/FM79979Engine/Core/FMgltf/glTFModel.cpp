@@ -388,6 +388,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
 
         m_NameAndAnimationMap[animation.name] = l_pAnimationData;
     }
+    m_AnimationClip.SetName(this->GetName());
     m_AnimationClip.SetBoneAndAnimationData(this);
 }
 
@@ -420,7 +421,7 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const tinygltf::Node& node
         {
             l_pSubMesh->m_i64FVFFlag |= FVF_INSTANCING_FLAG;
         }
-        l_pSubMesh->m_iShaderProgram = GetShaderProgram(l_pSubMesh->m_i64FVFFlag| FVF_INSTANCING_FLAG, l_i64TextureFlag, l_pSubMesh->m_iNumMorphTarget);
+        l_pSubMesh->m_iShaderProgram = GetShaderProgram(l_pSubMesh->m_i64FVFFlag, l_i64TextureFlag, l_pSubMesh->m_iNumMorphTarget);
         if (l_pMaterial)
         {
             l_pMaterial->SetShaderProgramID(l_pSubMesh->m_iShaderProgram);
@@ -639,7 +640,6 @@ cglTFModelRenderNode* cglTFModel::ToRenderNode()
             l_pRenderNode->m_ContainMeshglTFNodeDataVector.push_back(l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex]);
             if (l_pMesh)
 			{//
-				assert(l_pMesh->Type() != cSkinningMesh::TypeID&&"it should not happen for skinning mesh");
                 l_pMesh->AfterCloneSetBoneData(l_pRenderNode);
             }
         }
@@ -665,6 +665,7 @@ cglTFModelRenderNode* cglTFModel::ToRenderNode()
             l_pRenderNode->m_NodesVector[i]->SetParent(l_pRenderNode);
         }
     }
+    l_pRenderNode->m_AnimationClip.SetName(m_AnimationClip.GetName());
     l_pRenderNode->m_AnimationClip.SetBoneAndAnimationData(l_pRenderNode);
     return l_pRenderNode;
 }
@@ -689,10 +690,14 @@ void cglTFModelRenderNode::Update(float e_fElpaseTime)
         {
             if (m_NameAndAnimationMap.size())
             {
+                int l_iIndex = 0;
+				l_iIndex = rand() % m_NameAndAnimationMap.size();
                 auto l_Animation = m_NameAndAnimationMap.begin();
+				std::advance(l_Animation, l_iIndex);
+                //l_Animation += l_iIndex;
                 if (m_NameAndAnimationMap.size() > 1)
                 {
-                    ++l_Animation;
+                    //++l_Animation;
                     //++l_Animation;
                 }
                 this->SetCurrentAnimation(l_Animation->first);
@@ -723,6 +728,8 @@ void cglTFModelRenderNode::Render()
 void cglTFModelRenderNode::SetCurrentAnimation(const std::string& e_strAnimationName)
 {
     this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
+    //cAnimTexture l_cAnimTexture(this->m_AnimationClip, e_strAnimationName.c_str());
+    int a = 0;
 }
 
 void g_fRenderSkeleton(std::map<std::string, cSkinningMesh*>& e_Map)

@@ -1,6 +1,12 @@
 #include "../AllCoreInclude.h"
 #include "glTFAnimation.h"
 #include "glTFModel.h"
+#include <fstream>
+#include <iostream>
+#include <filesystem>
+namespace fs = std::filesystem;
+
+const int g_iTextureColorComponentCount = 4; // RGBA
 
 bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone, std::vector<sSRT>* e_pSRTVector)
 {
@@ -125,8 +131,6 @@ void cAnimationClip::SetBoneAndAnimationData(cglTFModel* e_pglTFModel)
 
 bool cAnimationClip::SetAnimation(const char* e_strAnimationName, bool e_bLoop, float e_fTargetTime)
 {
-    //m_pNodeIndexAndBoneMap = &e_pglTFModel->m_NodeIndexAndBoneMap;
-    //m_pNameAndAnimationMap = &e_pglTFModel->m_NameAndAnimationMap;
     if (!m_pNameAndAnimationMap || !m_pNodeIndexAndBoneMap)
     {
         return false;
@@ -264,4 +268,247 @@ sAnimationData* sAnimationData::CloneFromModel(cglTFModelRenderNode* e_pglTFMode
     *l_pAnimationData = *e_pSource;
     l_pAnimationData->m_pBoneVector = &e_pglTFModelRenderNode->m_NodesVector;
     return l_pAnimationData;
+}
+
+
+// Utility function to get next power of two
+unsigned int NextPowerOfTwo(unsigned int v)
+{
+    if (v == 0) return 1;
+    v--;
+    v |= v >> 1;
+    v |= v >> 2;
+    v |= v >> 4;
+    v |= v >> 8;
+    v |= v >> 16;
+    v++;
+    return v;
+}
+
+
+cAnimTexture::cAnimTexture(cAnimationClip& e_AnimationClip, const char* e_strAnimationName)
+{
+    mData = 0;
+    mSize = 0;
+    glGenTextures(1, &mHandle);
+	e_AnimationClip.SetAnimation(e_strAnimationName, true, 0.0f);
+    auto l_pCurrentAnimationData = e_AnimationClip.GetCurrentAnimationData();
+    if (l_pCurrentAnimationData)
+    {
+        fs::path filePath(e_AnimationClip.GetCharName());
+        std::string filenameWithoutExtension = filePath.stem().string();
+        std::string l_strPath = filenameWithoutExtension + "/" + std::string(e_strAnimationName)+".AnimTexture";
+        if (this->Load(l_strPath.c_str()))
+        {
+            return;
+        }
+        //30 fps
+        float l_fStepTime = 0.032f;
+        int l_iNumStep = (int)(l_pCurrentAnimationData->m_fEndTime / l_fStepTime) + 1;
+        int l_iBneCount = l_pCurrentAnimationData->m_pBoneVector->Count();
+        int l_iRequireSize = l_iNumStep * 16 * l_iBneCount;
+        int l_SQRT = (int)sqrt(l_iRequireSize)+1;
+        int l_iSize = NextPowerOfTwo(l_SQRT);
+		this->Resize(l_iSize);
+        for(int i=0; i < l_iNumStep; ++i)
+        {
+            e_AnimationClip.UpdateToTargetTime(l_fStepTime*i, true);
+            for(int j = 0; j < l_iBneCount; ++j)
+            {
+                cglTFNodeData* l_pBone = (*l_pCurrentAnimationData->m_pBoneVector)[j];
+                auto l_mat = l_pBone->GetWorldTransform();
+                int matrixIdx = i * l_iBneCount + j;
+                SetTexel(matrixIdx, l_mat);
+			}
+		}
+        Save(l_strPath.c_str());
+    }
+}
+
+cAnimTexture::cAnimTexture(const cAnimTexture& other)
+{
+    mData = 0;
+    mSize = 0;
+    glGenTextures(1, &mHandle);
+    *this = other;
+}
+
+cAnimTexture& cAnimTexture::operator=(const cAnimTexture& other)
+{
+    if (this == &other)
+    {
+        return *this;
+    }
+
+    mSize = other.mSize;
+    if (mData != 0)
+    {
+        delete[] mData;
+    }
+    mData = new float[mSize * mSize * g_iTextureColorComponentCount];
+    memcpy(mData, other.mData, sizeof(float) * (mSize * mSize * g_iTextureColorComponentCount));
+
+    return *this;
+}
+
+cAnimTexture::cAnimTexture(const char* path)
+{
+    mData = 0;
+    mSize = 0;
+    glGenTextures(1, &mHandle);
+}
+
+cAnimTexture::cAnimTexture(unsigned int size)
+{
+    glGenTextures(1, &mHandle);
+    mSize = size;
+    mData = new float[size * size * g_iTextureColorComponentCount];
+}
+
+cAnimTexture::~cAnimTexture()
+{
+    if (mData != 0)
+    {
+        delete[] mData;
+    }
+    glDeleteTextures(1, &mHandle);
+}
+
+bool cAnimTexture::Load(const char* path)
+{
+    std::ifstream file;
+    file.open(path, std::ios::in | std::ios::binary);
+    if (!file.is_open())
+    {
+        //std::cout << "Couldn't open " << path << " to read from\n";
+		FMLOG("Couldn't open %s to read from", path);
+        return false;
+    }
+
+    file >> mSize;
+    if (mSize == 0)
+    {
+        //std::cout << "Trying to read Animation Texture With Size 0\n";
+		FMLOG("Trying to read Animation Texture With Size 0");
+        return false;
+    }
+
+    mData = new float[mSize * mSize * g_iTextureColorComponentCount];
+    file.read((char*)mData, sizeof(float) * (mSize * mSize * g_iTextureColorComponentCount));
+    file.close();
+    UploadTextureDataToGPU();
+    return true;
+}
+
+bool cAnimTexture::Save(const char* path)
+{
+    fs::path filePath(path);
+    fs::path dir = filePath.parent_path();
+    if (!dir.empty() && !fs::exists(dir))
+    {
+        fs::create_directories(dir);
+    }
+    std::ofstream file;
+    file.open(path, std::ios::out | std::ios::binary);
+    if (!file.is_open())
+    {
+        //std::cout << "Couldn't open " << path << " to write to\n";
+		FMLOG("Couldn't open %s to write to", path);
+        return false;
+    }
+
+    file << mSize;
+    if (mSize != 0)
+    {
+        file.write((char*)mData, sizeof(float) * (mSize * mSize * g_iTextureColorComponentCount));
+    }
+    else
+    {
+        //std::cout << "Trying to write Animation Texture With Size 0\n";
+		FMLOG("Trying to write Animation Texture With Size 0");
+
+    }
+    file.close();
+    if (mSize <= 0)
+    {
+        return false;
+    }
+    return true;
+}
+
+void cAnimTexture::UploadTextureDataToGPU()
+{
+    glBindTexture(GL_TEXTURE_2D, mHandle);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, mSize, mSize, 0, GL_RGBA, GL_FLOAT, mData);
+
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+unsigned int cAnimTexture::Size()
+{
+    return mSize;
+}
+
+void cAnimTexture::Resize(unsigned int newSize)
+{
+    if (mData != 0)
+    {
+        delete[] mData;
+    }
+    mSize = newSize;
+	//512*4/16 = 128
+    //width size 512 bone limit is 128
+    mData = new float[mSize * mSize * g_iTextureColorComponentCount];
+}
+
+unsigned int cAnimTexture::GetHandle()
+{
+    return mHandle;
+}
+
+void cAnimTexture::Set(unsigned int uniformIndex, unsigned int textureIndex)
+{
+    glActiveTexture(GL_TEXTURE0 + textureIndex);
+    glBindTexture(GL_TEXTURE_2D, mHandle);
+    glUniform1i(uniformIndex, textureIndex); // Bind uniform X to sampler Y
+}
+void cAnimTexture::UnSet(unsigned int textureIndex)
+{
+    glActiveTexture(GL_TEXTURE0 + textureIndex);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glActiveTexture(GL_TEXTURE0);
+}
+
+float* cAnimTexture::GetData()
+{
+    return mData;
+}
+
+void   cAnimTexture::SetTexel(unsigned int x, unsigned int y, const cMatrix44& e_Mat)
+{
+	const int l_ciMatrixSize = 16; // 4x4 matrix has 16 elements
+    // Each matrix occupies 4 texels (16 floats)
+    unsigned int matrixIndex = y * mSize + x;
+    unsigned int floatIndex = matrixIndex * l_ciMatrixSize;
+    memcpy(&mData[floatIndex], e_Mat, sizeof(float) * l_ciMatrixSize);
+
+}
+void   cAnimTexture::SetTexel(unsigned int matrixIdx, const cMatrix44& e_Mat)
+{
+    // matrixIdx: 0 .. (mSize * mSize / 4) - 1
+    unsigned int floatIndex = matrixIdx * 16; // 16 floats per matrix
+    if (floatIndex + 16 > mSize * mSize * g_iTextureColorComponentCount)
+    {
+        // Out of bounds, do not write
+        return;
+    }
+    memcpy(&mData[floatIndex], e_Mat, sizeof(float) * 16);
 }
