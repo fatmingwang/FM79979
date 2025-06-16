@@ -200,6 +200,11 @@ void cAnimationClip::Update(float e_fElpaseTime)
     }
 }
 
+sAnimationData* cAnimationClip::GetAnimationData(std::string e_strName)
+{
+    return MapFind(*m_pNameAndAnimationMap, e_strName);
+}
+
 void sAnimationData::Update(float e_fElpaseTime)
 {
     float l_fNewTime = m_fCurrentTime + e_fElpaseTime;
@@ -556,8 +561,28 @@ void sAnimationFrameAndTime::Update(float e_fElpaseTime)
 }
 
 
-cAnimationInstanceManager::cAnimationInstanceManager(cAnimationClip& e_AnimationClip, std::shared_ptr<class cMeshInstance>)
+sAniamationInstanceData::sAniamationInstanceData(cAnimationClip* e_pAnimationClip, const char* e_strAnimationName, int e_iNumInstanceData)
 {
+    auto l_pAnimationData = e_pAnimationClip->GetAnimationData(e_strAnimationName);
+    if (!l_pAnimationData)
+    {
+        FMLOG("can't find animation %s", e_strAnimationName);
+        assert("no animation data");
+        return;
+    }
+    m_spAnimTexture = std::make_shared<cAnimTexture>(*e_pAnimationClip, e_strAnimationName);
+    for (int i = 0; i < e_iNumInstanceData; ++i)
+    {
+        std::shared_ptr<sAnimationFrameAndTime>l_spData = std::make_shared<sAnimationFrameAndTime>(l_pAnimationData->m_fEndTime);
+        m_AnimationFrameAndTimeVector.push_back(l_spData);
+    }
+}
+
+
+cAnimationInstanceManager::cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance> e_spMeshInstance)
+{
+    m_pAnimationClip = e_pAnimationClip;
+    m_spMeshInstance = e_spMeshInstance;
 }
 
 cAnimationInstanceManager::~cAnimationInstanceManager()
@@ -569,8 +594,22 @@ void cAnimationInstanceManager::Render(GLuint e_uiProgramID, std::shared_ptr<sAn
 {
 
 }
-
+void cAnimationInstanceManager::GenerateAnimationNameAndAniamationInstanceDataMap(int e_iNumInstanceData)
+{
+    if (m_AnimationNameAndAniamationInstanceDataMap.size() == 0)
+    {
+        if (this->m_pAnimationClip->m_pNameAndAnimationMap->size())
+        {
+            for (auto l_IT : *this->m_pAnimationClip->m_pNameAndAnimationMap)
+            {
+                std::shared_ptr<sAniamationInstanceData>l_spData = std::make_shared<sAniamationInstanceData>(this->m_pAnimationClip, l_IT.first.c_str(),e_iNumInstanceData);
+                m_AnimationNameAndAniamationInstanceDataMap[l_IT.first] = l_spData;
+            }
+        }
+    }
+}
 std::shared_ptr<sAniamationInstanceData> cAnimationInstanceManager::GetAnimationInstanceData(const char* e_strAnimationName)
 {
+    GenerateAnimationNameAndAniamationInstanceDataMap((int)m_spMeshInstance->GetTransforms().size());
     return MapFind(m_AnimationNameAndAniamationInstanceDataMap, e_strAnimationName);
 }

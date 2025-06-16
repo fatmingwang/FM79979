@@ -45,6 +45,7 @@ class cAnimationClip :public NamedTypedObject
     bool                                    SampleToTime(float e_fTime, bool e_bAssignToBone, std::vector<sSRT>* e_pSRTVector = nullptr);
     void	                                UpdateNode(cglTFNodeData* e_pBone, float e_fTime, sSRT& e_SRT, bool e_bAssignToBone);
     friend class cAnimTexture;
+    friend class cAnimationInstanceManager;
 public:
     void	SetBoneAndAnimationData(class cglTFModel* e_pglTFModel);
     void	SetBoneAndAnimationData(class cglTFModelRenderNode* e_pglTFModel);
@@ -52,6 +53,7 @@ public:
     void    UpdateToTargetTime(float e_fTime, bool e_bAssignToBone);
     void    BlendClips(float e_fTime, const char* e_strAnimationName1, const char* e_strAnimationName2, bool e_bAssignToBone, bool e_bLoop = true, float e_fTargetFactor = 0.5);
     void    Update(float e_fElpaseTime);
+    sAnimationData* GetAnimationData(std::string e_strName);
     sAnimationData* GetCurrentAnimationData()
     {
         return m_pCurrentAnimationData;
@@ -108,15 +110,18 @@ struct sAniamationInstanceData :public NamedTypedObject
 {
     std::vector<std::shared_ptr<sAnimationFrameAndTime>>    m_AnimationFrameAndTimeVector;
 	std::shared_ptr<cAnimTexture>                           m_spAnimTexture;
+    sAniamationInstanceData(cAnimationClip* e_pAnimationClip, const char* e_strAnimationName,int e_iNumInstanceData);
 };
 
 
 class cAnimationInstanceManager :public NamedTypedObject
 {
-	std::shared_ptr<class cMeshInstance> m_pMeshInstance;
+	std::shared_ptr<class cMeshInstance> m_spMeshInstance;
 	std::map<std::string,std::shared_ptr<sAniamationInstanceData>> m_AnimationNameAndAniamationInstanceDataMap;
+    cAnimationClip*m_pAnimationClip = nullptr;
+    void GenerateAnimationNameAndAniamationInstanceDataMap(int e_iNumInstanceData);
 public:
-    cAnimationInstanceManager(cAnimationClip& e_AnimationClip, std::shared_ptr<class cMeshInstance>);
+    cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance>);
     virtual ~cAnimationInstanceManager();
     void Render(GLuint e_uiProgramID, std::shared_ptr<sAniamationInstanceData>);
     std::shared_ptr<sAniamationInstanceData>    GetAnimationInstanceData(const char* e_strAnimationName);

@@ -25,20 +25,20 @@ class cglTFModel:public FATMING_CORE::cRenderObject
     cAnimationClip                                          m_AnimationClip;
 	int     										        m_iInstanceValue;
 	//if skinning mesh and m_iInstanceValue, then this will be created.
-    std::shared_ptr<class cAnimationInstanceManager>        m_spAnimationInstanceManager;
+    std::vector<std::shared_ptr<class cAnimationInstanceManager>>        m_sAnimationInstanceManagerVector;
     //
     std::map<std::string, sAnimationData*>                  CloneNameAndAnimationMap(cglTFModelRenderNode*e_pglTFModelRenderNode);
-    GLuint                                  CreateShader(int64 e_i64FVFFlags, int e_iNumMorphTarget);
-    GLuint                                  GetShaderProgram(int64 fvfFlags,int64 e_i64extureFVF , int e_iNumMorphTarget);  // Returns shader based on FVF
-    void                                    InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal);
-    void                                    LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNormal);
-    void                                    PopulateUniform(int e_iProgram);
-    void                                    PopulateAttribute(int e_iProgram);
-    void                                    loadAnimations(const tinygltf::Model& model);
-    void                                    AssignMeshAttributes(cMesh*e_pMesh, const tinygltf::Node& node,const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
-    cMesh*                                  GenerateMesh(const tinygltf::Node& node,const tinygltf::Mesh&e_Mesh, const tinygltf::Model&e_Model, bool e_bCalculateBiNormal);
-    cMesh*                                  GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Node& node, const tinygltf::Mesh& e_Mesh,const tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
-    void                                    Destory();
+    GLuint                                                  CreateShader(int64 e_i64FVFFlags, int e_iNumMorphTarget);
+    GLuint                                                  GetShaderProgram(int64 fvfFlags,int64 e_i64extureFVF , int e_iNumMorphTarget);  // Returns shader based on FVF
+    void                                                    InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal);
+    void                                                    LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNormal);
+    void                                                    PopulateUniform(int e_iProgram);
+    void                                                    PopulateAttribute(int e_iProgram);
+    void                                                    loadAnimations(const tinygltf::Model& model);
+    void                                                    AssignMeshAttributes(cMesh*e_pMesh, const tinygltf::Node& node,const  tinygltf::Mesh& e_Mesh, const  tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
+    cMesh*                                                  GenerateMesh(const tinygltf::Node& node,const tinygltf::Mesh&e_Mesh, const tinygltf::Model&e_Model, bool e_bCalculateBiNormal);
+    cMesh*                                                  GenerateAnimationMesh(const tinygltf::Skin&e_Skin, const tinygltf::Node& node, const tinygltf::Mesh& e_Mesh,const tinygltf::Model& e_Model, bool e_bCalculateBiNormal);
+    void                                                    Destory();
     friend class cAnimationClip;
     friend class cSkinningMesh;
     friend class cglTFCamera;

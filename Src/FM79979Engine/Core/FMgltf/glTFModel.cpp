@@ -155,6 +155,13 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf:
         ////bone->m_strTargetMeshName = l_strMeshName;
     }
     l_pBone->SetMesh(l_pMesh,e_pNode,model, m_iInstanceValue);
+    auto l_pMeshInstance = l_pBone->GetMeshInstance();
+    if (l_pMeshInstance)
+    {
+        std::shared_ptr<cAnimationInstanceManager>l_spAnimationInstanceManager = std::make_shared<cAnimationInstanceManager>(&this->m_AnimationClip, l_pMeshInstance);
+        m_sAnimationInstanceManagerVector.push_back(l_spAnimationInstanceManager);
+    }
+    
     if (l_pMesh)
     {
         m_ContainMeshglTFNodeDataVector.push_back(l_pBone);
@@ -543,6 +550,13 @@ bool cglTFModel::LoadFromGLTF(const std::string& e_strFilename, bool e_bCalculat
 		m_pCamera->LoadCamerasFromGLTF(model,&this->m_NodeIndexAndBoneMap);
 	}
 	m_sNameAndglTFModelMap.insert(std::make_pair(e_strFilename, this));
+
+    //for test code
+    if (m_sAnimationInstanceManagerVector.size())
+    {
+        auto l_InstanceData = m_sAnimationInstanceManagerVector[0]->GetAnimationInstanceData("Idle");
+        int a = 0;
+    }
     return true;
 }
 
@@ -637,7 +651,13 @@ cglTFModelRenderNode* cglTFModel::ToRenderNode()
                 l_pMesh = l_IT->second;
             }
             auto l_pContainMeshNode = l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex];
-			l_pContainMeshNode->SetMesh(l_pMesh, l_pNode->GetInstance());
+            auto l_spMeshInstance = l_pNode->GetMeshInstance();
+			l_pContainMeshNode->SetMesh(l_pMesh, l_spMeshInstance);
+            if (l_spMeshInstance)
+            {
+                std::shared_ptr<cAnimationInstanceManager>l_spAnimationInstanceManager = std::make_shared<cAnimationInstanceManager>(&this->m_AnimationClip, l_spMeshInstance);
+                m_sAnimationInstanceManagerVector.push_back(l_spAnimationInstanceManager);
+            }
             l_pRenderNode->m_ContainMeshglTFNodeDataVector.push_back(l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex]);
             if (l_pMesh)
 			{//

@@ -104,6 +104,7 @@ class cMeshInstance:public NamedTypedObject
 {
 public:
     cMeshInstance();
+    cMeshInstance(cMeshInstance*e_pMeshInstance);
     ~cMeshInstance();
 
     // Set per-instance transforms

@@ -117,6 +117,7 @@ cglTFNodeData::cglTFNodeData(cglTFNodeData* e_pglTFNodeData)
     m_StartNodeWorldTransform = e_pglTFNodeData->m_StartNodeWorldTransform;
     m_StartNodeTransform = e_pglTFNodeData->m_StartNodeTransform;
     m_StartSRT = e_pglTFNodeData->m_StartSRT;
+    m_Instance = std::make_shared<cMeshInstance>(e_pglTFNodeData->m_Instance.get());
 }
 
 cglTFNodeData::~cglTFNodeData()
@@ -126,6 +127,10 @@ cglTFNodeData::~cglTFNodeData()
 void cglTFNodeData::SetMesh(cMesh* e_pMesh, const tinygltf::Node& e_pNode, const tinygltf::Model& model, int e_iInstanceValue)
 {
     m_pMesh = e_pMesh;
+    if (!m_pMesh)
+    {
+        return;
+    }
     this->m_Instance = LoadInstance(e_pNode, model);
     if (!this->m_Instance)
     {
@@ -144,7 +149,6 @@ void cglTFNodeData::SetMesh(cMesh* e_pMesh, const tinygltf::Node& e_pNode, const
             this->m_Instance->SetInstanceTransforms(l_matVector);
         }
     }
-    
 }
 
 void cglTFNodeData::SetMesh(cMesh* e_pMesh, std::shared_ptr<cMeshInstance>e_Instance)

@@ -56,7 +56,7 @@ public:
 
     virtual	void        Update(float e_fElpaseTime)override;
     virtual	void        Render()override;
-    std::shared_ptr<cMeshInstance>  GetInstance()
+    std::shared_ptr<cMeshInstance>  GetMeshInstance()
     {
         return m_Instance;
     }

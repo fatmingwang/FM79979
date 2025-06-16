@@ -492,6 +492,10 @@ void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& m
 cMeshInstance::cMeshInstance()
 {
 }
+cMeshInstance::cMeshInstance(cMeshInstance* e_pMeshInstance)
+{
+    m_InstanceTransformVector = e_pMeshInstance->m_InstanceTransformVector;
+}
 cMeshInstance::~cMeshInstance()
 {
     if (m_InstanceVBO) glDeleteBuffers(1, &m_InstanceVBO);
