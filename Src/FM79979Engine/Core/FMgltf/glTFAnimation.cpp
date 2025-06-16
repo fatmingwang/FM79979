@@ -289,49 +289,52 @@ unsigned int NextPowerOfTwo(unsigned int v)
     v++;
     return v;
 }
-
-
 cAnimTexture::cAnimTexture(cAnimationClip& e_AnimationClip, const char* e_strAnimationName)
 {
     mData = 0;
     mSize = 0;
     glGenTextures(1, &mHandle);
-	e_AnimationClip.SetAnimation(e_strAnimationName, true, 0.0f);
+    e_AnimationClip.SetAnimation(e_strAnimationName, true, 0.0f);
     auto l_pCurrentAnimationData = e_AnimationClip.GetCurrentAnimationData();
     if (l_pCurrentAnimationData)
     {
         fs::path filePath(e_AnimationClip.GetCharName());
         std::string filenameWithoutExtension = filePath.stem().string();
-        std::string l_strPath = filenameWithoutExtension + "/" + std::string(e_strAnimationName)+".AnimTexture";
-        if (this->Load(l_strPath.c_str()))
+        std::string l_strPath = filenameWithoutExtension + "/" + std::string(e_strAnimationName) + ".AnimTexture";
+        //if (this->Load(l_strPath.c_str()))
         {
-            return;
+            //return;
         }
-        //30 fps
-        float l_fStepTime = 0.032f;
-        int l_iNumStep = (int)(l_pCurrentAnimationData->m_fEndTime / l_fStepTime) + 1;
-        int l_iBneCount = l_pCurrentAnimationData->m_pBoneVector->Count();
-        int l_iRequireSize = l_iNumStep * 16 * l_iBneCount;
-        int l_SQRT = (int)sqrt(l_iRequireSize)+1;
+        // 30 fps
+        float l_fStepTime = ANIMATION_FRAME_STEP_TIME;
+        int l_iNumFrames = (int)(l_pCurrentAnimationData->m_fEndTime / l_fStepTime) + 1;
+        int l_iNumBones = l_pCurrentAnimationData->m_pBoneVector->Count();
+        assert(l_iNumBones <= 100 && "now shader is 100");
+        const int l_iNumRowsPerMatrix = 4; // mat4 has 4 rows
+        int l_TotalMatrices = l_iNumFrames * l_iNumBones;
+        int l_TotalTexels = l_TotalMatrices * l_iNumRowsPerMatrix;
+        int l_SQRT = (int)sqrt(l_TotalTexels) + 1;
         int l_iSize = NextPowerOfTwo(l_SQRT);
-		this->Resize(l_iSize);
-        Vector3 l_vScale;
-        Vector3 l_vRotation;
-        Vector3 l_vTranslation;
-        float   l_Inverted = 0;
-        for(int i=0; i < l_iNumStep; ++i)
+        this->Resize(l_iSize);
+        for (int l_iFrameIndex = 0; l_iFrameIndex < l_iNumFrames; ++l_iFrameIndex)
         {
-            e_AnimationClip.UpdateToTargetTime(l_fStepTime*i, true);
-            for(int j = 0; j < l_iBneCount; ++j)
+            e_AnimationClip.UpdateToTargetTime(l_fStepTime * l_iFrameIndex, true);
+            for (int l_iBoneIndex = 0; l_iBoneIndex < l_iNumBones; ++l_iBoneIndex)
             {
-                cglTFNodeData* l_pBone = (*l_pCurrentAnimationData->m_pBoneVector)[j];
+                cglTFNodeData* l_pBone = (*l_pCurrentAnimationData->m_pBoneVector)[l_iBoneIndex];
                 cMatrix44 l_mat = l_pBone->GetWorldTransform();
-                l_mat.Decompose(l_vScale, l_vRotation, l_vTranslation, l_Inverted);
-                SetTexel(i, j, l_vTranslation);
-                SetTexel(i, j, l_vRotation);
-                SetTexel(i, j, l_vScale);
-			}
-		}
+                // Store each row of the matrix as a vec4
+                for (int row = 0; row < l_iNumRowsPerMatrix; ++row)
+                {
+                    int linearIndex = (l_iFrameIndex * l_iNumBones + l_iBoneIndex) * l_iNumRowsPerMatrix + row;
+                    int x = linearIndex % mSize;
+                    int y = linearIndex / mSize;
+                    VECTOR4 rowVec = l_mat.r[row]; // Assumes GetRow returns Vector4
+                    SetTexel(x, y, Vector4(rowVec.x, rowVec.y, rowVec.z, rowVec.w));
+                }
+            }
+        }
+        UploadTextureDataToGPU();
         Save(l_strPath.c_str());
     }
 }
@@ -457,8 +460,8 @@ void cAnimTexture::UploadTextureDataToGPU()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -487,7 +490,7 @@ unsigned int cAnimTexture::GetHandle()
 
 void cAnimTexture::SetTexel(unsigned int x, unsigned int y, const Vector4& e_Value)
 {
-    unsigned int index = (y * mSize * 4) + (x * 4);
+    unsigned int index = (y * mSize * g_iTextureColorComponentCount) + (x * g_iTextureColorComponentCount);
 
     mData[index + 0] = e_Value.x;
     mData[index + 1] = e_Value.y;
@@ -497,7 +500,7 @@ void cAnimTexture::SetTexel(unsigned int x, unsigned int y, const Vector4& e_Val
 
 void cAnimTexture::SetTexel(unsigned int x, unsigned int y, const Vector3& e_Value)
 {
-    unsigned int index = (y * mSize * 4) + (x * 4);
+    unsigned int index = (y * mSize * g_iTextureColorComponentCount) + (x * g_iTextureColorComponentCount);
 
     mData[index + 0] = e_Value.x;
     mData[index + 1] = e_Value.y;
@@ -530,7 +533,8 @@ sAnimationFrameAndTime::sAnimationFrameAndTime(float e_fEndTime)
     m_iNextFrame = 0;
     m_iCurrentFrame = 1;
     m_fAnimationEndTime = e_fEndTime;
-    m_iLastFrame = (int)(e_fEndTime / ANIMATION_FRAME_STEP_TIME) + 1;
+    float l_fStepTime = ANIMATION_FRAME_STEP_TIME;
+    m_iLastFrame = (int)(e_fEndTime / l_fStepTime) + 1;
     m_bLoop = true;
 }
 void sAnimationFrameAndTime::Update(float e_fElpaseTime)
@@ -570,6 +574,8 @@ sAniamationInstanceData::sAniamationInstanceData(cAnimationClip* e_pAnimationCli
         assert("no animation data");
         return;
     }
+    m_FrameIndexVector.resize(e_iNumInstanceData);
+    m_ToNextLerpTime.resize(e_iNumInstanceData);;
     m_spAnimTexture = std::make_shared<cAnimTexture>(*e_pAnimationClip, e_strAnimationName);
     for (int i = 0; i < e_iNumInstanceData; ++i)
     {
@@ -579,10 +585,11 @@ sAniamationInstanceData::sAniamationInstanceData(cAnimationClip* e_pAnimationCli
 }
 
 
-cAnimationInstanceManager::cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance> e_spMeshInstance)
+cAnimationInstanceManager::cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance> e_spMeshInstance, GLuint e_uiProgramID)
 {
     m_pAnimationClip = e_pAnimationClip;
     m_spMeshInstance = e_spMeshInstance;
+    m_uiProgramID = e_uiProgramID;
 }
 
 cAnimationInstanceManager::~cAnimationInstanceManager()
@@ -590,9 +597,44 @@ cAnimationInstanceManager::~cAnimationInstanceManager()
 }
 
 
-void cAnimationInstanceManager::Render(GLuint e_uiProgramID, std::shared_ptr<sAniamationInstanceData>)
+void cAnimationInstanceManager::Render(GLuint e_uiProgramID, std::shared_ptr<sAniamationInstanceData>e_spAniamationInstanceDataVector)
 {
-
+    if (!e_spAniamationInstanceDataVector || !e_spAniamationInstanceDataVector->m_spAnimTexture)
+    {
+        return;
+    }
+    int l_iSize = (int)e_spAniamationInstanceDataVector->m_AnimationFrameAndTimeVector.size();
+    GLuint l_uiuNumAnimationModelID = glGetUniformLocation(e_uiProgramID, "uNumAnimationModel");
+    if (l_uiuNumAnimationModelID != GL_INVALID_INDEX)
+    {
+        glUniform1i(l_uiuNumAnimationModelID,l_iSize);
+    }
+    const int l_iTestID = 3;
+    GLuint l_uiuAnimTexture = glGetUniformLocation(e_uiProgramID, "uAnimTexture");
+    if (l_uiuAnimTexture != GL_INVALID_INDEX)
+    {
+        e_spAniamationInstanceDataVector->m_spAnimTexture->Set(l_uiuAnimTexture, l_iTestID);
+    }
+    GLuint l_uiuCurrentAndNextFrameIndex = glGetUniformLocation(e_uiProgramID, "uCurrentAndNextFrameIndex");
+    GLuint l_uiuAnimationLerpTime = glGetUniformLocation(e_uiProgramID, "uAnimationLerpTime");
+    if (l_uiuCurrentAndNextFrameIndex != GL_INVALID_INDEX)
+    {
+        glUniform2iv(l_uiuCurrentAndNextFrameIndex, l_iSize, (GLint*)&e_spAniamationInstanceDataVector->m_FrameIndexVector[0]);
+    }
+    if (l_uiuAnimationLerpTime != GL_INVALID_INDEX)
+    {
+        glUniform1fv(l_uiuAnimationLerpTime,l_iSize,(GLfloat*)&e_spAniamationInstanceDataVector->m_ToNextLerpTime[0]);
+    }
+    GLuint l_uiuNnumBones = glGetUniformLocation(e_uiProgramID, "uNnumBones");
+    if (l_uiuNnumBones != GL_INVALID_INDEX)
+    {
+        glUniform1i(l_uiuNnumBones, this->m_pAnimationClip->m_pNodesVector->Count());
+    }
+    GLuint l_uuTtextureSize = glGetUniformLocation(e_uiProgramID, "uTtextureSize");
+    if (l_uuTtextureSize != GL_INVALID_INDEX)
+    {
+        glUniform1i(l_uuTtextureSize, e_spAniamationInstanceDataVector->m_spAnimTexture->mSize);
+    }
 }
 void cAnimationInstanceManager::GenerateAnimationNameAndAniamationInstanceDataMap(int e_iNumInstanceData)
 {
@@ -608,8 +650,8 @@ void cAnimationInstanceManager::GenerateAnimationNameAndAniamationInstanceDataMa
         }
     }
 }
-std::shared_ptr<sAniamationInstanceData> cAnimationInstanceManager::GetAnimationInstanceData(const char* e_strAnimationName)
+std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > cAnimationInstanceManager::GetAnimationInstanceData(const char* e_strAnimationName)
 {
     GenerateAnimationNameAndAniamationInstanceDataMap((int)m_spMeshInstance->GetTransforms().size());
-    return MapFind(m_AnimationNameAndAniamationInstanceDataMap, e_strAnimationName);
+    return { MapFind(m_AnimationNameAndAniamationInstanceDataMap, e_strAnimationName),m_uiProgramID };
 }

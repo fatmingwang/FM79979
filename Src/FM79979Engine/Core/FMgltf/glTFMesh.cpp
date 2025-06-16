@@ -33,7 +33,7 @@ void cMesh::ApplyMorphUniformData(sSubMesh* e_pSubMesh)
 {
     if (m_CurrentAnimationMorphPrimitiveWeightsVector.size() && e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap)
     {//setup how many primitive and weights data
-        auto l_uiUniform = glGetUniformLocation(e_pSubMesh->m_iShaderProgram,"uMorphWeights");
+        auto l_uiUniform = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID,"uMorphWeights");
         auto l_uiSize = e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap->size();
         LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform1fv((GLsizei)l_uiUniform, (GLsizei)l_uiSize, m_CurrentAnimationMorphPrimitiveWeightsVector.data()));
     }
@@ -126,7 +126,7 @@ void cMesh::sSubMesh::ApplyMaterial()
     }
     else
     {
-        GLuint metallicFactorLoc = glGetUniformLocation(this->m_iShaderProgram, "baseColorFactor");
+        GLuint metallicFactorLoc = glGetUniformLocation(this->m_iShaderProgramID, "baseColorFactor");
         if (metallicFactorLoc != GL_INVALID_INDEX)
         {
             Vector4 l_vbaseColorFactor = Vector4::One;
@@ -188,12 +188,12 @@ void	cMesh::CallOpenGLDraw(sSubMesh* e_pSubMesh)
 void cMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
 {
     // Use the shader program specific to this sub-mesh
-    glUseProgram(e_pSubMesh->m_iShaderProgram);
+    glUseProgram(e_pSubMesh->m_iShaderProgramID);
     ApplyMorphUniformData(e_pSubMesh);
-    g_fSetLightUniform(e_pSubMesh->m_iShaderProgram);
-    GLuint modelLoc = glGetUniformLocation(e_pSubMesh->m_iShaderProgram, "inMat4Model");
+    g_fSetLightUniform(e_pSubMesh->m_iShaderProgramID);
+    GLuint modelLoc = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID, "inMat4Model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, e_mat);
-    g_fSetCameraUniform(e_pSubMesh->m_iShaderProgram);
+    g_fSetCameraUniform(e_pSubMesh->m_iShaderProgramID);
     e_pSubMesh->ApplyMaterial();
     
 }
@@ -256,6 +256,16 @@ void cMesh::logFVFFlags()
         if (l_pSubMesh->m_i64FVFFlag & FVF_BINORMAL_FLAG) FMLOG("Binormal is present.");
         if (l_pSubMesh->m_i64FVFFlag & FVF_NORMAL_MAP_TEXTURE_FLAG) FMLOG("Normal map is present.");
     }
+}
+
+GLuint cMesh::GetSubMeshShaderProgramID(int e_iIndexOfSubMesh)
+{
+    if (this->m_SubMeshesVector.size() > e_iIndexOfSubMesh)
+    {
+        return this->m_SubMeshesVector[e_iIndexOfSubMesh]->m_iShaderProgramID;
+    }
+    
+    return -1;
 }
 
 

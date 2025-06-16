@@ -27,6 +27,9 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
 		l_strDefine += "#define USE_TEXCOORD\n";
     if (e_i64FVFFlags & FVF_INSTANCING_FLAG)
         l_strDefine += "#define USE_INSTANCING\n";
+    if (e_i64FVFFlags & FVF_ANIMATION_TEXTURE_FLAG)
+        l_strDefine += "#define FVF_ANIMATION_TEXTURE_FLAG\n";
+    
 	std::string shaderCode = R"(
 #version 330 core
 #ifdef GL_ES
@@ -107,9 +110,11 @@ out vec3 toFSVec3Binormal;
 const int MAX_INSTANCES = 100;
 uniform sampler2D uAnimTexture;
 
-uniform ivec2 frames[MAX_INSTANCES];
-uniform float time[MAX_INSTANCES];
+uniform ivec2 uCurrentAndNextFrameIndex[MAX_INSTANCES];
+uniform float uAnimationLerpTime[MAX_INSTANCES];
 uniform int uNumAnimationModel;
+uniform int uNnumBones;
+uniform int uTtextureSize;
 
 
 mat4 RotationMatrixFromEuler(vec3 euler)
@@ -140,10 +145,100 @@ mat4 RotationMatrixFromEuler(vec3 euler)
     return rotZ * rotY * rotX;
 }
 
+
+mat4 LerpMat4(mat4 a, mat4 b, float t)
+{
+    mat4 result;
+    for (int i = 0; i < 4; ++i)
+        result[i] = mix(a[i], b[i], t); // mix each row (vec4)
+    return result;
+}
+
 mat4 GetAnimationPose(int joint, int instance)
 {
-    int x_now = frames[instance].x;
-    int x_next = frames[instance].y;
+    int numBones = uNnumBones;
+    int textureSize = uTtextureSize;
+    int numRowsPerMatrix = 4;
+
+    int frame0 = uCurrentAndNextFrameIndex[instance].x;
+    int frame1 = uCurrentAndNextFrameIndex[instance].y;
+    float t = uAnimationLerpTime[instance];
+
+    // Compute base texel index for each frame
+    int linearIndex0 = (frame0 * numBones + joint) * numRowsPerMatrix;
+    int linearIndex1 = (frame1 * numBones + joint) * numRowsPerMatrix;
+
+    //int idx0 = linearIndex0;
+    //int x0 = idx0 % textureSize;
+    //int y0 = idx0 / textureSize;
+    //vec4 row0 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+    //idx0 += 1;
+    //x0 = idx0 % textureSize;
+    //y0 = idx0 / textureSize;
+    //vec4 row1 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+    //idx0 += 1;
+    //x0 = idx0 % textureSize;
+    //y0 = idx0 / textureSize;
+    //vec4 row2 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+    //idx0 += 1;
+    //x0 = idx0 % textureSize;
+    //y0 = idx0 / textureSize;
+    //vec4 row3 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+    //mat4 mat0 = mat4(
+    //    row0,
+    //    row1,
+    //    row2,
+    //    row3
+    //);
+
+
+
+    //idx0 = linearIndex1;
+    //x0 = idx0 % textureSize;
+    //y0 = idx0 / textureSize;
+    //row0 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+    //idx0 += 1;
+    //x0 = idx0 % textureSize;
+    //y0 = idx0 / textureSize;
+    //row1 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+    //idx0 += 1;
+    //x0 = idx0 % textureSize;
+    //y0 = idx0 / textureSize;
+    //row2 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+    //idx0 += 1;
+    //x0 = idx0 % textureSize;
+    //y0 = idx0 / textureSize;
+    //row3 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+    //mat4 mat1 = mat4(
+    //    row0,
+    //    row1,
+    //    row2,
+    //    row3
+    //);
+
+    // Fetch 4 rows for each frame
+    mat4 mat0, mat1;
+    for (int row = 0; row < 4; ++row) {
+        int idx0 = linearIndex0 + row;
+        int x0 = idx0 % textureSize;
+        int y0 = idx0 / textureSize;
+        mat0[row] = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+
+        int idx1 = linearIndex1 + row;
+        int x1 = idx1 % textureSize;
+        int y1 = idx1 / textureSize;
+        mat1[row] = texelFetch(uAnimTexture, ivec2(x1, y1), 0);
+    }
+    
+    // Linear interpolate each matrix element
+    mat4 pose = LerpMat4(mat0, mat1, t);
+    return pose;
+}
+
+mat4 GetAnimationPoseByTRS(int joint, int instance)
+{
+    int x_now = uCurrentAndNextFrameIndex[instance].x;
+    int x_next = uCurrentAndNextFrameIndex[instance].y;
     int y_pos = joint * 3;
 
     vec3 pos0 = texelFetch(uAnimTexture, ivec2(x_now, y_pos + 0), 0).xyz;
@@ -154,7 +249,7 @@ mat4 GetAnimationPose(int joint, int instance)
     vec3 rot1 = texelFetch(uAnimTexture, ivec2(x_next, y_pos + 1), 0).xyz;
     vec3 scl1 = texelFetch(uAnimTexture, ivec2(x_next, y_pos + 2), 0).xyz;
 
-    float t = time[instance];
+    float t = uAnimationLerpTime[instance];
 
     vec3 position = mix(pos0, pos1, t);
     vec3 rotation = mix(rot0, rot1, t); // Linear interpolation of Euler angles (ok for small angles)

@@ -54,6 +54,7 @@ public:
     //
     void    SetCurrentAnimation(const std::string& animationName);
     void    SetCurrentAnimationTime(float e_fCurrentTime);
+    std::vector<std::shared_ptr<class cAnimationInstanceManager>>& GetAnimationInstanceManagerVector(){return   m_sAnimationInstanceManagerVector; }
     class cglTFModelRenderNode* ToRenderNode();
     static void DeleteCachedFiles();
 };

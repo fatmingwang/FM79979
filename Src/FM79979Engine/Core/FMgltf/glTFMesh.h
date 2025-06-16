@@ -44,7 +44,7 @@ protected:
         shared_ptr<sMorphTargetVector>    m_spFVFAndVertexDataMorphTargetMap;
         //
         int64                       m_i64FVFFlag = 0;
-        GLuint                      m_iShaderProgram;
+        GLuint                      m_iShaderProgramID;
         size_t                      m_i64VertexCount = 0;
         GLuint                      m_iVBOArray[TOTAL_FVF];
         std::vector<uint32_t>       m_IndexBuffer;
@@ -97,6 +97,7 @@ public:
     shared_ptr<cMaterial>           LoadMaterial(const tinygltf::Model& model, const tinygltf::Material& material, std::shared_ptr<sSubMesh>e_SubMesh);
     void                            logFVFFlags();
     virtual void                    AfterCloneSetBoneData(class cglTFModelRenderNode* e_pData){}
+    GLuint                          GetSubMeshShaderProgramID(int e_iIndexOfSubMesh = 0);
 };
 
 // Instance manager for cMesh

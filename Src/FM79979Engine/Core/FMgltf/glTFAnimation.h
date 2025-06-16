@@ -62,6 +62,7 @@ public:
 
 class cAnimTexture :public NamedTypedObject
 {
+    friend class cAnimationInstanceManager;
 protected:
     float* mData;
     unsigned int mSize;
@@ -90,7 +91,7 @@ protected:
     void        SetTexel(unsigned int x, unsigned int y, const Vector3& e_Value);
 };
 #define ANIMATION_TEXTURE_FPS       30.0f
-#define ANIMATION_FRAME_STEP_TIME   1/ANIMATION_TEXTURE_FPS
+#define ANIMATION_FRAME_STEP_TIME   (1/ANIMATION_TEXTURE_FPS)
 
 struct sAnimationFrameAndTime :public NamedTypedObject
 {
@@ -110,6 +111,13 @@ struct sAniamationInstanceData :public NamedTypedObject
 {
     std::vector<std::shared_ptr<sAnimationFrameAndTime>>    m_AnimationFrameAndTimeVector;
 	std::shared_ptr<cAnimTexture>                           m_spAnimTexture;
+    struct sFrameIndex
+    {
+        int iCurrent = 0;
+        int iNext = 1;
+    };
+    std::vector<sFrameIndex>    m_FrameIndexVector;
+    std::vector<float>          m_ToNextLerpTime;
     sAniamationInstanceData(cAnimationClip* e_pAnimationClip, const char* e_strAnimationName,int e_iNumInstanceData);
 };
 
@@ -120,9 +128,11 @@ class cAnimationInstanceManager :public NamedTypedObject
 	std::map<std::string,std::shared_ptr<sAniamationInstanceData>> m_AnimationNameAndAniamationInstanceDataMap;
     cAnimationClip*m_pAnimationClip = nullptr;
     void GenerateAnimationNameAndAniamationInstanceDataMap(int e_iNumInstanceData);
+    GLuint m_uiProgramID;
 public:
-    cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance>);
+    cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance>, GLuint e_uiProgramID);
     virtual ~cAnimationInstanceManager();
     void Render(GLuint e_uiProgramID, std::shared_ptr<sAniamationInstanceData>);
-    std::shared_ptr<sAniamationInstanceData>    GetAnimationInstanceData(const char* e_strAnimationName);
+    
+    std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint >    GetAnimationInstanceData(const char* e_strAnimationName);
 };
