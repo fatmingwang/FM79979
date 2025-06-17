@@ -290,7 +290,8 @@ shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image,const 
         g_uiTEXTURE_WRAP_S = e_pSampler->wrapS;
         g_uiTEXTURE_WRAP_T = e_pSampler->wrapT;
     }
-    shared_ptr<cTexture>l_pTexture = cTextureManager::GetObjectByPixels((void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(e_Image.uri).c_str(), (int)l_uiFormat);
+    std::string l_strTextureName = this->GetCharName()+"_"+ e_Image.name;
+    shared_ptr<cTexture>l_pTexture = cTextureManager::GetObjectByPixels((void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(l_strTextureName).c_str(), (int)l_uiFormat);
     l_pTexture->SetName(e_Image.name.c_str());
     g_uiMAG_FILTERValue = l_OriginalMAG;
     g_uiMIN_FILTERValue = l_OriginalMIN;

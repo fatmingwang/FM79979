@@ -567,6 +567,7 @@ void cglTFModel::InitBuffers()
 
 void cglTFModel::Update(float e_fElpaseTime)
 {
+    return;
     if (m_NameAndAnimationMap.size())
     {
         // Ensure the current animation data is valid

@@ -181,7 +181,6 @@ void	cMesh::CallOpenGLDraw(sSubMesh* e_pSubMesh)
 {
     // Bind the vertex array and draw the sub-mesh
     glBindVertexArray(e_pSubMesh->m_uiVAO);
-    EnableVertexAttributes(e_pSubMesh->m_i64FVFFlag);
     MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)e_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
 }
 
@@ -228,11 +227,6 @@ void cMesh::Render(cMeshInstance* e_pMeshInstance)
         {
             SetSubMeshCommonUniformData(subMesh.get(), l_matTransform);
             glBindVertexArray(subMesh->m_uiVAO);
-            EnableVertexAttributes(subMesh->m_i64FVFFlag);
-            for(int i= FVF_MORPHING_TARGET_POS1; i < FVF_MORPHING_TARGET_POS1+4; ++i)
-            {
-                LAZY_DO_GL_COMMAND_AND_GET_ERROR(glEnableVertexAttribArray(i));
-			}
             glDrawElementsInstanced(GL_TRIANGLES,
                                     static_cast<GLsizei>(subMesh->m_IndexBuffer.size()),
                                     GL_UNSIGNED_INT, 0,

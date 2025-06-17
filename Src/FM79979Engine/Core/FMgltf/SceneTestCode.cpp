@@ -8,7 +8,6 @@ cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceV
 {
     cglTFModel*l_pglTFModel = new cglTFModel();;
     l_pglTFModel->LoadFromGLTF(e_strFileName, true,e_iInstanceValue);
-    //e_pFrame->AddChild(l_pglTFModel);
     return l_pglTFModel;
 }
 
@@ -25,13 +24,12 @@ class cSkinningAnimTestClass
     GLuint m_uiProgramID;
     std::shared_ptr<sAniamationInstanceData> m_spAniamationInstanceData;
 public:
-    void    SetData(std::vector<std::shared_ptr<class cAnimationInstanceManager>>&e_Data)
+    void    SetData(std::vector<std::shared_ptr<class cAnimationInstanceManager>>&e_Data,const char*e_strTargetAnimationName)
     {
         if (e_Data.size())
         {
             m_spAnimationInstanceManager = e_Data[0];
-            std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > l_TupleData = e_Data[0]->GetAnimationInstanceData("Running");
-            //std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > l_TupleData = e_Data[0]->GetAnimationInstanceData("");
+            std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > l_TupleData = e_Data[0]->GetAnimationInstanceData(e_strTargetAnimationName);
             m_spAniamationInstanceData = std::get<0>(l_TupleData);
             m_uiProgramID = std::get<1>(l_TupleData);
             auto l_uiSize = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector.size();
@@ -40,7 +38,7 @@ public:
                 auto l_pCurrentData = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector[i];
                 l_pCurrentData->Update(frand(0, 3.f));
                 m_spAniamationInstanceData->m_FrameIndexVector[i].iCurrent = l_pCurrentData->m_iCurrentFrame;
-                m_spAniamationInstanceData->m_FrameIndexVector[i].iCurrent = l_pCurrentData->m_iNextFrame;
+                m_spAniamationInstanceData->m_FrameIndexVector[i].iNext = l_pCurrentData->m_iNextFrame;
                 m_spAniamationInstanceData->m_ToNextLerpTime[i] = l_pCurrentData->m_fNextFrameLerpTimes;
             }
         }
@@ -86,11 +84,8 @@ int glTFInit()
 {
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
+    bool l_bDoAnimTexture = true;
     {
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",100);
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf", 100);
-        g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector());
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/AnimatedMorphCube.glb");
@@ -98,12 +93,25 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");          
-        
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",100);
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf", 100);
+        if (l_bDoAnimTexture)
         {
-            //auto l_pDuck2 = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");
+            //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Running");
+            g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "");
+        }
+        {
+            
             //l_pRootFrame->AddChild(l_pDuck2);
         }
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");// 
+        if(0)
+        {
+            auto l_pDuck2 = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");// 
+            l_pDuck2->SetWorldPosition(Vector3(20, 0, 0));
+            l_pRootFrame->AddChild(l_pDuck2);
+        }
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf",1);
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleInstancing.glb");// 
         // 

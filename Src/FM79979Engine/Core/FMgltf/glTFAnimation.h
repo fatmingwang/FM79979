@@ -63,11 +63,10 @@ public:
 class cAnimTexture :public NamedTypedObject
 {
     friend class cAnimationInstanceManager;
-protected:
-    float* mData;
-    unsigned int mSize;
-    unsigned int mHandle;
-    public:
+    float* m_pfTextureData;
+    unsigned int m_TextureSquareSize = -1;
+    unsigned int m_uiOpenglTecxtureID = -1;
+public:
     cAnimTexture(cAnimationClip&e_AnimationClip, const char* e_strAnimationName);
     cAnimTexture(const cAnimTexture&);
     cAnimTexture& operator=(const cAnimTexture&);
@@ -127,7 +126,7 @@ class cAnimationInstanceManager :public NamedTypedObject
 	std::shared_ptr<class cMeshInstance> m_spMeshInstance;
 	std::map<std::string,std::shared_ptr<sAniamationInstanceData>> m_AnimationNameAndAniamationInstanceDataMap;
     cAnimationClip*m_pAnimationClip = nullptr;
-    void GenerateAnimationNameAndAniamationInstanceDataMap(int e_iNumInstanceData);
+    void GenerateAnimationNameAndAniamationInstanceDataMap(int e_iNumInstanceData, const char* e_strAnimationName);
     GLuint m_uiProgramID;
 public:
     cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance>, GLuint e_uiProgramID);

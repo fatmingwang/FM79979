@@ -158,9 +158,9 @@ extern void TestRenderFunction(GLuint e_uiProgramID);
 void	cSkinningMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
 {
 	cMesh::SetSubMeshCommonUniformData(e_pSubMesh, e_mat);
+    TestRenderFunction(e_pSubMesh->m_iShaderProgramID);
     // Pass the bone matrices to the shader
     GLuint boneMatricesLocation = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID, "uBoneTransforms");
-    TestRenderFunction(e_pSubMesh->m_iShaderProgramID);
     glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)&m_AllBonesMatrixForSkinnedVector[0]);
 }
 

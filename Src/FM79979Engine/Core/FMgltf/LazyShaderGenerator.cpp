@@ -113,8 +113,8 @@ uniform sampler2D uAnimTexture;
 uniform ivec2 uCurrentAndNextFrameIndex[MAX_INSTANCES];
 uniform float uAnimationLerpTime[MAX_INSTANCES];
 uniform int uNumAnimationModel;
-uniform int uNnumBones;
-uniform int uTtextureSize;
+uniform int uNumBones;
+uniform int uTextureSize;
 
 
 mat4 RotationMatrixFromEuler(vec3 euler)
@@ -156,8 +156,31 @@ mat4 LerpMat4(mat4 a, mat4 b, float t)
 
 mat4 GetAnimationPose(int joint, int instance)
 {
-    int numBones = uNnumBones;
-    int textureSize = uTtextureSize;
+    int l_iJointIndex = joint*4;
+    int l_iY1 = 80;//uCurrentAndNextFrameIndex[instance].x;
+    int l_iY2 = uCurrentAndNextFrameIndex[instance].y;
+    float t = uAnimationLerpTime[instance];
+    // Fetch 4 rows for each frame
+    mat4 mat0, mat1;
+    for (int row = 0; row < 4; ++row)
+    {
+        int x0 = l_iJointIndex+(row);
+        int y0 = l_iY1;
+        mat0[row] = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
+
+        int x1 = x0;
+        int y1 = l_iY2;
+        mat1[row] = texelFetch(uAnimTexture, ivec2(x1, y1), 0);
+    }
+    // Linear interpolate each matrix element
+    mat4 pose = LerpMat4(mat0, mat1, t);
+    return pose;
+}
+
+mat4 GetAnimationPoseUseTightTexture(int joint, int instance)
+{
+    int numBones = uNumBones;
+    int textureSize = uTextureSize;
     int numRowsPerMatrix = 4;
 
     int frame0 = uCurrentAndNextFrameIndex[instance].x;
@@ -218,7 +241,8 @@ mat4 GetAnimationPose(int joint, int instance)
 
     // Fetch 4 rows for each frame
     mat4 mat0, mat1;
-    for (int row = 0; row < 4; ++row) {
+    for (int row = 0; row < 4; ++row)
+    {
         int idx0 = linearIndex0 + row;
         int x0 = idx0 % textureSize;
         int y0 = idx0 / textureSize;
