@@ -1,12 +1,13 @@
 #include "../AllCoreInclude.h"
 #include "glTFAnimation.h"
+#include "glTFAnimationMesh.h"
 #include "glTFModel.h"
 #include <fstream>
 #include <iostream>
 #include <filesystem>
 namespace fs = std::filesystem;
 
-const int g_iTextureColorComponentCount = 4; // RGBA
+//const int g_iTextureColorComponentCount = 4; // RGBA
 
 bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone, std::vector<sSRT>* e_pSRTVector)
 {
@@ -289,9 +290,9 @@ unsigned int NextPowerOfTwo(unsigned int v)
     v++;
     return v;
 }
-cAnimTexture::cAnimTexture(cAnimationClip& e_AnimationClip, const char* e_strAnimationName)
+cAnimTexture::cAnimTexture(cAnimationClip& e_AnimationClip, const char* e_strAnimationName, cSkinningMesh* e_pSkinningMesh)
 {
-    m_pfTextureData = nullptr;
+    m_pvTextureData = nullptr;
     m_TextureSquareSize = 0;
     e_AnimationClip.SetAnimation(e_strAnimationName, true, 0.0f);
     auto l_pCurrentAnimationData = e_AnimationClip.GetCurrentAnimationData();
@@ -305,10 +306,12 @@ cAnimTexture::cAnimTexture(cAnimationClip& e_AnimationClip, const char* e_strAni
             //return;
         }
         // 30 fps
+        auto l_pAllBoneVector = e_pSkinningMesh->GetSkinningBoneVector();
+        auto l_NodeInversePoseMatrixVector = e_pSkinningMesh->GetNodeInversePoseMatrixVector();
         bool l_bDoLazyAlign = true;
         float l_fStepTime = ANIMATION_FRAME_STEP_TIME;
         int l_iNumFrames = (int)(l_pCurrentAnimationData->m_fEndTime / l_fStepTime) + 1;
-        int l_iNumBones = l_pCurrentAnimationData->m_pBoneVector->Count();
+        int l_iNumBones = (int)l_pAllBoneVector->size();
         assert(l_iNumBones <= 100 && "now shader is 100");
         const int l_iNumRowsPerMatrix = 4; // mat4 has 4 rows
         int l_TotalMatrices = l_iNumFrames * l_iNumBones;
@@ -317,25 +320,30 @@ cAnimTexture::cAnimTexture(cAnimationClip& e_AnimationClip, const char* e_strAni
         int l_iTextureSize = NextPowerOfTwo(l_SQRT);
         if (l_bDoLazyAlign)
         {
-            l_iTextureSize = 512;
+            l_iTextureSize = 1024;
         }
         this->Resize(l_iTextureSize);
         for (int l_iFrameIndex = 0; l_iFrameIndex < l_iNumFrames; ++l_iFrameIndex)
         {
-            e_AnimationClip.UpdateToTargetTime(l_fStepTime * l_iFrameIndex, true);
+            if (l_iFrameIndex == 81)
+            {
+                int a = 0;
+            }
+            e_AnimationClip.Update(ANIMATION_FRAME_STEP_TIME);
             for (int l_iJointIndex = 0; l_iJointIndex < l_iNumBones; ++l_iJointIndex)
             {
-                cglTFNodeData* l_pBone = (*l_pCurrentAnimationData->m_pBoneVector)[l_iJointIndex];
+                cglTFNodeData* l_pBone = (*l_pAllBoneVector)[l_iJointIndex];
                 cMatrix44 l_mat = l_pBone->GetWorldTransform();
+                l_mat *= (*l_NodeInversePoseMatrixVector)[l_iJointIndex];
                 //cMatrix44 l_matTranspose = l_mat.Transposed();
                 // Store each row of the matrix as a vec4
                 if (l_bDoLazyAlign)
                 {
-                    const int l_ciMatrixFloatCount = 16;
-                    int l_iX = l_iJointIndex * l_ciMatrixFloatCount;
-                    int l_iY = (l_iFrameIndex * l_iTextureSize)* g_iTextureColorComponentCount;
+                    const int l_ci4VectorCount = 4;
+                    int l_iX = l_iJointIndex * l_ci4VectorCount;
+                    int l_iY = (l_iFrameIndex * l_iTextureSize);
                     int l_iDataIndex = l_iX + l_iY;
-                    memcpy(&m_pfTextureData[l_iDataIndex], l_mat, sizeof(cMatrix44));
+                    memcpy(&m_pvTextureData[l_iDataIndex], l_mat, sizeof(cMatrix44));
                 }
                 else
                 {
@@ -361,7 +369,7 @@ cAnimTexture::cAnimTexture(cAnimationClip& e_AnimationClip, const char* e_strAni
 
 cAnimTexture::cAnimTexture(const cAnimTexture& other)
 {
-    m_pfTextureData = nullptr;
+    m_pvTextureData = nullptr;
     m_TextureSquareSize = 0;
     glGenTextures(1, &m_uiOpenglTecxtureID);
     *this = other;
@@ -375,19 +383,19 @@ cAnimTexture& cAnimTexture::operator=(const cAnimTexture& other)
     }
 
     m_TextureSquareSize = other.m_TextureSquareSize;
-    if (m_pfTextureData != 0)
+    if (m_pvTextureData != 0)
     {
-        delete[] m_pfTextureData;
+        delete[] m_pvTextureData;
     }
-    m_pfTextureData = new float[m_TextureSquareSize * m_TextureSquareSize * g_iTextureColorComponentCount];
-    memcpy(m_pfTextureData, other.m_pfTextureData, sizeof(float) * (m_TextureSquareSize * m_TextureSquareSize * g_iTextureColorComponentCount));
+    m_pvTextureData = new Vector4[m_TextureSquareSize * m_TextureSquareSize ];
+    memcpy(m_pvTextureData, other.m_pvTextureData, sizeof(Vector4) * (m_TextureSquareSize * m_TextureSquareSize));
 
     return *this;
 }
 
 cAnimTexture::cAnimTexture(const char* path)
 {
-    m_pfTextureData = nullptr;
+    m_pvTextureData = nullptr;
     m_TextureSquareSize = 0;
     glGenTextures(1, &m_uiOpenglTecxtureID);
 }
@@ -396,12 +404,12 @@ cAnimTexture::cAnimTexture(unsigned int size)
 {
     glGenTextures(1, &m_uiOpenglTecxtureID);
     m_TextureSquareSize = size;
-    m_pfTextureData = new float[size * size * g_iTextureColorComponentCount];
+    m_pvTextureData = new Vector4[size * size];
 }
 
 cAnimTexture::~cAnimTexture()
 {
-    SAFE_DELETE(m_pfTextureData);
+    SAFE_DELETE(m_pvTextureData);
     if (m_uiOpenglTecxtureID != -1)
     {
         glDeleteTextures(1, &m_uiOpenglTecxtureID);
@@ -427,8 +435,8 @@ bool cAnimTexture::Load(const char* path)
         return false;
     }
 
-    m_pfTextureData = new float[m_TextureSquareSize * m_TextureSquareSize * g_iTextureColorComponentCount];
-    file.read((char*)m_pfTextureData, sizeof(float) * (m_TextureSquareSize * m_TextureSquareSize * g_iTextureColorComponentCount));
+    m_pvTextureData = new Vector4[m_TextureSquareSize * m_TextureSquareSize];
+    file.read((char*)m_pvTextureData, sizeof(Vector4) * (m_TextureSquareSize * m_TextureSquareSize));
     file.close();
     UploadTextureDataToGPU();
     return true;
@@ -454,7 +462,7 @@ bool cAnimTexture::Save(const char* path)
     file << m_TextureSquareSize;
     if (m_TextureSquareSize != 0)
     {
-        file.write((char*)m_pfTextureData, sizeof(float) * (m_TextureSquareSize * m_TextureSquareSize * g_iTextureColorComponentCount));
+        file.write((char*)m_pvTextureData, sizeof(Vector4) * (m_TextureSquareSize * m_TextureSquareSize));
     }
     else
     {
@@ -474,7 +482,7 @@ void cAnimTexture::UploadTextureDataToGPU()
 {
     glBindTexture(GL_TEXTURE_2D, m_uiOpenglTecxtureID);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, m_TextureSquareSize, m_TextureSquareSize, 0, GL_RGBA, GL_FLOAT, m_pfTextureData);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, m_TextureSquareSize, m_TextureSquareSize, 0, GL_RGBA, GL_FLOAT, m_pvTextureData);
 
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -493,12 +501,12 @@ unsigned int cAnimTexture::Size()
 
 void cAnimTexture::Resize(unsigned int newSize)
 {
-    if (m_pfTextureData != 0)
+    if (m_pvTextureData != 0)
     {
-        delete[] m_pfTextureData;
+        delete[] m_pvTextureData;
     }
     m_TextureSquareSize = newSize;
-    m_pfTextureData = new float[m_TextureSquareSize * m_TextureSquareSize * g_iTextureColorComponentCount];
+    m_pvTextureData = new Vector4[m_TextureSquareSize * m_TextureSquareSize];
 }
 
 unsigned int cAnimTexture::GetHandle()
@@ -508,22 +516,16 @@ unsigned int cAnimTexture::GetHandle()
 
 void cAnimTexture::SetTexel(unsigned int x, unsigned int y, const Vector4& e_Value)
 {
-    unsigned int index = (y * m_TextureSquareSize * g_iTextureColorComponentCount) + (x * g_iTextureColorComponentCount);
+    unsigned int index = (y * m_TextureSquareSize) + x;
 
-    m_pfTextureData[index + 0] = e_Value.x;
-    m_pfTextureData[index + 1] = e_Value.y;
-    m_pfTextureData[index + 2] = e_Value.z;
-    m_pfTextureData[index + 3] = e_Value.w;
+    m_pvTextureData[index] = e_Value;
 }
 
 void cAnimTexture::SetTexel(unsigned int x, unsigned int y, const Vector3& e_Value)
 {
-    unsigned int index = (y * m_TextureSquareSize * g_iTextureColorComponentCount) + (x * g_iTextureColorComponentCount);
-
-    m_pfTextureData[index + 0] = e_Value.x;
-    m_pfTextureData[index + 1] = e_Value.y;
-    m_pfTextureData[index + 2] = e_Value.z;
-    m_pfTextureData[index + 3] = 0.0f;
+    unsigned int index = (y * m_TextureSquareSize ) + x ;
+    Vector4 l_vData(e_Value.x, e_Value.y, e_Value.z, 0.f);
+    m_pvTextureData[index] = l_vData;
 }
 
 void cAnimTexture::Set(unsigned int uniformIndex, unsigned int textureIndex)
@@ -541,7 +543,7 @@ void cAnimTexture::UnSet(unsigned int textureIndex)
 
 float* cAnimTexture::GetData()
 {
-    return m_pfTextureData;
+    return (float*)m_pvTextureData;
 }
 
 
@@ -583,7 +585,7 @@ void sAnimationFrameAndTime::Update(float e_fElpaseTime)
 }
 
 
-sAniamationInstanceData::sAniamationInstanceData(cAnimationClip* e_pAnimationClip, const char* e_strAnimationName, int e_iNumInstanceData)
+sAniamationInstanceData::sAniamationInstanceData(cAnimationClip* e_pAnimationClip, const char* e_strAnimationName, int e_iNumInstanceData,cSkinningMesh* e_pSkinningMesh)
 {
     auto l_pAnimationData = e_pAnimationClip->GetAnimationData(e_strAnimationName);
     if (!l_pAnimationData)
@@ -594,7 +596,7 @@ sAniamationInstanceData::sAniamationInstanceData(cAnimationClip* e_pAnimationCli
     }
     m_FrameIndexVector.resize(e_iNumInstanceData);
     m_ToNextLerpTime.resize(e_iNumInstanceData);;
-    m_spAnimTexture = std::make_shared<cAnimTexture>(*e_pAnimationClip, e_strAnimationName);
+    m_spAnimTexture = std::make_shared<cAnimTexture>(*e_pAnimationClip, e_strAnimationName, e_pSkinningMesh);
     for (int i = 0; i < e_iNumInstanceData; ++i)
     {
         std::shared_ptr<sAnimationFrameAndTime>l_spData = std::make_shared<sAnimationFrameAndTime>(l_pAnimationData->m_fEndTime);
@@ -603,8 +605,9 @@ sAniamationInstanceData::sAniamationInstanceData(cAnimationClip* e_pAnimationCli
 }
 
 
-cAnimationInstanceManager::cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance> e_spMeshInstance, GLuint e_uiProgramID)
+cAnimationInstanceManager::cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance> e_spMeshInstance, GLuint e_uiProgramID, cSkinningMesh* e_pTargetMesh)
 {
+    m_pTargetMesh = e_pTargetMesh;
     m_pAnimationClip = e_pAnimationClip;
     m_spMeshInstance = e_spMeshInstance;
     m_uiProgramID = e_uiProgramID;
@@ -667,7 +670,7 @@ void cAnimationInstanceManager::GenerateAnimationNameAndAniamationInstanceDataMa
         auto l_pValue = MapFind(m_AnimationNameAndAniamationInstanceDataMap, e_strAnimationName);
         if (!l_pValue)
         {
-            std::shared_ptr<sAniamationInstanceData>l_spData = std::make_shared<sAniamationInstanceData>(this->m_pAnimationClip, e_strAnimationName,e_iNumInstanceData);
+            std::shared_ptr<sAniamationInstanceData>l_spData = std::make_shared<sAniamationInstanceData>(this->m_pAnimationClip, e_strAnimationName,e_iNumInstanceData,this->m_pTargetMesh);
             m_AnimationNameAndAniamationInstanceDataMap[e_strAnimationName] = l_spData;
         }
         //if (this->m_pAnimationClip->m_pNameAndAnimationMap->size())

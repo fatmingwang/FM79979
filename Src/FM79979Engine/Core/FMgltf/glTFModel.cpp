@@ -158,9 +158,11 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf:
     auto l_pMeshInstance = l_pBone->GetMeshInstance();
     if (l_pMeshInstance)
     {
-        std::shared_ptr<cAnimationInstanceManager>l_spAnimationInstanceManager = std::make_shared<cAnimationInstanceManager>(&this->m_AnimationClip, l_pMeshInstance, l_pMesh->GetSubMeshShaderProgramID());
-        m_sAnimationInstanceManagerVector.push_back(l_spAnimationInstanceManager);
-
+        if (l_pMesh->Type() == cSkinningMesh::TypeID)
+        {
+            std::shared_ptr<cAnimationInstanceManager>l_spAnimationInstanceManager = std::make_shared<cAnimationInstanceManager>(&this->m_AnimationClip, l_pMeshInstance, l_pMesh->GetSubMeshShaderProgramID(), (cSkinningMesh*)l_pMesh);
+            m_sAnimationInstanceManagerVector.push_back(l_spAnimationInstanceManager);
+        }
     }
     
     if (l_pMesh)
@@ -567,7 +569,6 @@ void cglTFModel::InitBuffers()
 
 void cglTFModel::Update(float e_fElpaseTime)
 {
-    return;
     if (m_NameAndAnimationMap.size())
     {
         // Ensure the current animation data is valid
@@ -654,8 +655,11 @@ cglTFModelRenderNode* cglTFModel::ToRenderNode()
 			l_pContainMeshNode->SetMesh(l_pMesh, l_spMeshInstance);
             if (l_spMeshInstance)
             {
-                std::shared_ptr<cAnimationInstanceManager>l_spAnimationInstanceManager = std::make_shared<cAnimationInstanceManager>(&this->m_AnimationClip, l_spMeshInstance, l_pMesh->GetSubMeshShaderProgramID());
-                m_sAnimationInstanceManagerVector.push_back(l_spAnimationInstanceManager);
+                if (l_pMesh->Type() == cSkinningMesh::TypeID)
+                {
+                    std::shared_ptr<cAnimationInstanceManager>l_spAnimationInstanceManager = std::make_shared<cAnimationInstanceManager>(&this->m_AnimationClip, l_spMeshInstance, l_pMesh->GetSubMeshShaderProgramID(), (cSkinningMesh*)l_pMesh);
+                    m_sAnimationInstanceManagerVector.push_back(l_spAnimationInstanceManager);
+                }
             }
             l_pRenderNode->m_ContainMeshglTFNodeDataVector.push_back(l_pRenderNode->m_NodesVector[l_pNode->m_iNodeIndex]);
             if (l_pMesh)
@@ -748,7 +752,7 @@ void cglTFModelRenderNode::Render()
 void cglTFModelRenderNode::SetCurrentAnimation(const std::string& e_strAnimationName)
 {
     this->m_AnimationClip.SetAnimation(e_strAnimationName.c_str(), true);
-    cAnimTexture l_cAnimTexture(this->m_AnimationClip, e_strAnimationName.c_str());
+    //cAnimTexture l_cAnimTexture(this->m_AnimationClip, e_strAnimationName.c_str());
     int a = 0;
 }
 

@@ -29,4 +29,12 @@ public:
     void    JointUpdate(float elapsedTime);
     void    RenderSkeleton();
     virtual         void AfterCloneSetBoneData(cglTFModelRenderNode* e_pData)override;
+    const std::vector<cglTFNodeData*>* GetSkinningBoneVector()
+    {
+        return &m_SkinningBoneVector;
+    }
+    std::shared_ptr<std::vector<cMatrix44>> GetNodeInversePoseMatrixVector()
+    {
+        return  m_pNodeInversePoseMatrixVector;
+    }
 };

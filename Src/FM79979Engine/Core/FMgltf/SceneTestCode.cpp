@@ -16,20 +16,21 @@ std::shared_ptr<sAniamationInstanceData> g_spAniamationInstanceData = nullptr;
 
 void TestRenderFunction(GLuint e_uiProgramID)
 {
-    g_spAnimationInstanceManager->Render(e_uiProgramID, g_spAniamationInstanceData);
+    //g_spAnimationInstanceManager->Render(e_uiProgramID, g_spAniamationInstanceData);
 }
 class cSkinningAnimTestClass
 {
     std::shared_ptr<class cAnimationInstanceManager>m_spAnimationInstanceManager;
     GLuint m_uiProgramID;
     std::shared_ptr<sAniamationInstanceData> m_spAniamationInstanceData;
+    cSkinningMesh*m_pTargetMesh = nullptr;
 public:
     void    SetData(std::vector<std::shared_ptr<class cAnimationInstanceManager>>&e_Data,const char*e_strTargetAnimationName)
     {
         if (e_Data.size())
         {
             m_spAnimationInstanceManager = e_Data[0];
-            std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > l_TupleData = e_Data[0]->GetAnimationInstanceData(e_strTargetAnimationName);
+            std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > l_TupleData = m_spAnimationInstanceManager->GetAnimationInstanceData(e_strTargetAnimationName);
             m_spAniamationInstanceData = std::get<0>(l_TupleData);
             m_uiProgramID = std::get<1>(l_TupleData);
             auto l_uiSize = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector.size();
@@ -63,11 +64,11 @@ public:
     }
     void Render()
     {
-        //if (m_spAnimationInstanceManager)
-        //{
-        //    glUseProgram(this->m_uiProgramID);
-        //    m_spAnimationInstanceManager->Render(this->m_uiProgramID, this->m_spAniamationInstanceData);
-        //}
+        if (m_spAnimationInstanceManager)
+        {
+            glUseProgram(this->m_uiProgramID);
+            m_spAnimationInstanceManager->Render(this->m_uiProgramID, this->m_spAniamationInstanceData);
+        }
     }
     void Clear()
     {
@@ -95,12 +96,13 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");          
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",100);
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf", 100);
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",100);
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf", 100);
         if (l_bDoAnimTexture)
         {
-            //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Running");
-            g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "");
+            g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "PickUp");
+            //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Idle");
+            //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "");
         }
         {
             

@@ -150,14 +150,17 @@ mat4 LerpMat4(mat4 a, mat4 b, float t)
 {
     mat4 result;
     for (int i = 0; i < 4; ++i)
+    {
         result[i] = mix(a[i], b[i], t); // mix each row (vec4)
+    }
     return result;
 }
 
 mat4 GetAnimationPose(int joint, int instance)
 {
+    //4 vector is one matrix
     int l_iJointIndex = joint*4;
-    int l_iY1 = 80;//uCurrentAndNextFrameIndex[instance].x;
+    int l_iY1 = uCurrentAndNextFrameIndex[instance].x;
     int l_iY2 = uCurrentAndNextFrameIndex[instance].y;
     float t = uAnimationLerpTime[instance];
     // Fetch 4 rows for each frame
@@ -191,53 +194,6 @@ mat4 GetAnimationPoseUseTightTexture(int joint, int instance)
     int linearIndex0 = (frame0 * numBones + joint) * numRowsPerMatrix;
     int linearIndex1 = (frame1 * numBones + joint) * numRowsPerMatrix;
 
-    //int idx0 = linearIndex0;
-    //int x0 = idx0 % textureSize;
-    //int y0 = idx0 / textureSize;
-    //vec4 row0 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
-    //idx0 += 1;
-    //x0 = idx0 % textureSize;
-    //y0 = idx0 / textureSize;
-    //vec4 row1 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
-    //idx0 += 1;
-    //x0 = idx0 % textureSize;
-    //y0 = idx0 / textureSize;
-    //vec4 row2 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
-    //idx0 += 1;
-    //x0 = idx0 % textureSize;
-    //y0 = idx0 / textureSize;
-    //vec4 row3 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
-    //mat4 mat0 = mat4(
-    //    row0,
-    //    row1,
-    //    row2,
-    //    row3
-    //);
-
-
-
-    //idx0 = linearIndex1;
-    //x0 = idx0 % textureSize;
-    //y0 = idx0 / textureSize;
-    //row0 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
-    //idx0 += 1;
-    //x0 = idx0 % textureSize;
-    //y0 = idx0 / textureSize;
-    //row1 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
-    //idx0 += 1;
-    //x0 = idx0 % textureSize;
-    //y0 = idx0 / textureSize;
-    //row2 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
-    //idx0 += 1;
-    //x0 = idx0 % textureSize;
-    //y0 = idx0 / textureSize;
-    //row3 = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
-    //mat4 mat1 = mat4(
-    //    row0,
-    //    row1,
-    //    row2,
-    //    row3
-    //);
 
     // Fetch 4 rows for each frame
     mat4 mat0, mat1;
@@ -323,10 +279,10 @@ void main()
 	    mat4 pose2 = GetAnimationPose(aJoints.z, instanceIndex);
 	    mat4 pose3 = GetAnimationPose(aJoints.w, instanceIndex);
 
-        skinMatrix = aWeights.x * pose0 +
-                          aWeights.y * pose1 +
-                          aWeights.z * pose2 +
-                          aWeights.w * pose3;
+        skinMatrix = aWeights.x*10 * pose0 +
+                          aWeights.y *10* pose1 +
+                          aWeights.z *10* pose2 +
+                          aWeights.w*10 * pose3;
     }
     else
     {

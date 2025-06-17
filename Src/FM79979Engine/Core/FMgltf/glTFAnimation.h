@@ -63,11 +63,11 @@ public:
 class cAnimTexture :public NamedTypedObject
 {
     friend class cAnimationInstanceManager;
-    float* m_pfTextureData;
+    Vector4* m_pvTextureData;
     unsigned int m_TextureSquareSize = -1;
     unsigned int m_uiOpenglTecxtureID = -1;
 public:
-    cAnimTexture(cAnimationClip&e_AnimationClip, const char* e_strAnimationName);
+    cAnimTexture(cAnimationClip&e_AnimationClip, const char* e_strAnimationName,class cSkinningMesh*e_pSkinningMesh);
     cAnimTexture(const cAnimTexture&);
     cAnimTexture& operator=(const cAnimTexture&);
     cAnimTexture(const char* path);
@@ -117,7 +117,7 @@ struct sAniamationInstanceData :public NamedTypedObject
     };
     std::vector<sFrameIndex>    m_FrameIndexVector;
     std::vector<float>          m_ToNextLerpTime;
-    sAniamationInstanceData(cAnimationClip* e_pAnimationClip, const char* e_strAnimationName,int e_iNumInstanceData);
+    sAniamationInstanceData(cAnimationClip* e_pAnimationClip, const char* e_strAnimationName,int e_iNumInstanceData,class cSkinningMesh*e_pSkinningMesh);
 };
 
 
@@ -128,8 +128,9 @@ class cAnimationInstanceManager :public NamedTypedObject
     cAnimationClip*m_pAnimationClip = nullptr;
     void GenerateAnimationNameAndAniamationInstanceDataMap(int e_iNumInstanceData, const char* e_strAnimationName);
     GLuint m_uiProgramID;
+    class cSkinningMesh* m_pTargetMesh = nullptr;
 public:
-    cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance>, GLuint e_uiProgramID);
+    cAnimationInstanceManager(cAnimationClip* e_pAnimationClip, std::shared_ptr<class cMeshInstance>, GLuint e_uiProgramID, class cSkinningMesh* e_pTargetMesh);
     virtual ~cAnimationInstanceManager();
     void Render(GLuint e_uiProgramID, std::shared_ptr<sAniamationInstanceData>);
     
