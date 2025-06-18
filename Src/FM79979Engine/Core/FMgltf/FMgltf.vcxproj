@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationTexture.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="glTFAnimation.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="tiny_gltf.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationTexture.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="glTFAnimation.cpp" />
     <ClCompile Include="glTFCamera.cpp" />

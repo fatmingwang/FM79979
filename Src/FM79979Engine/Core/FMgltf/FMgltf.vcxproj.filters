@@ -18,6 +18,9 @@
     <Filter Include="GameScene">
       <UniqueIdentifier>{d4c65394-fe09-4f36-affe-f0718044c5e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="glTF\Animation">
+      <UniqueIdentifier>{ca378599-9c6a-4c60-a330-c08cafbaed53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -29,16 +32,10 @@
     <ClInclude Include="glTFMesh.h">
       <Filter>glTF</Filter>
     </ClInclude>
-    <ClInclude Include="glTFAnimationMesh.h">
-      <Filter>glTF</Filter>
-    </ClInclude>
     <ClInclude Include="glTFNode.h">
       <Filter>glTF</Filter>
     </ClInclude>
     <ClInclude Include="glTFMaterial.h">
-      <Filter>glTF</Filter>
-    </ClInclude>
-    <ClInclude Include="glTFAnimation.h">
       <Filter>glTF</Filter>
     </ClInclude>
     <ClInclude Include="glTFModel.h">
@@ -62,15 +59,21 @@
     <ClInclude Include="Common.h">
       <Filter>glTF</Filter>
     </ClInclude>
+    <ClInclude Include="glTFAnimation.h">
+      <Filter>glTF\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="glTFAnimationMesh.h">
+      <Filter>glTF\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationTexture.h">
+      <Filter>glTF\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glTFMesh.cpp">
-      <Filter>glTF</Filter>
-    </ClCompile>
-    <ClCompile Include="glTFAnimationMesh.cpp">
       <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glTFNode.cpp">
@@ -80,9 +83,6 @@
       <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="glTFModel.cpp">
-      <Filter>glTF</Filter>
-    </ClCompile>
-    <ClCompile Include="glTFAnimation.cpp">
       <Filter>glTF</Filter>
     </ClCompile>
     <ClCompile Include="LazyShaderGenerator.cpp">
@@ -99,6 +99,15 @@
     </ClCompile>
     <ClCompile Include="SceneTestCode.cpp">
       <Filter>GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFAnimation.cpp">
+      <Filter>glTF\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="glTFAnimationMesh.cpp">
+      <Filter>glTF\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationTexture.cpp">
+      <Filter>glTF\Animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

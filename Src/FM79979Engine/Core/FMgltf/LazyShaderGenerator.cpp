@@ -185,7 +185,6 @@ mat4 GetAnimationPoseUseTightTexture(int joint, int instance)
     int numBones = uNumBones;
     int textureSize = uTextureSize;
     int numRowsPerMatrix = 4;
-
     int frame0 = uCurrentAndNextFrameIndex[instance].x;
     int frame1 = uCurrentAndNextFrameIndex[instance].y;
     float t = uAnimationLerpTime[instance];
@@ -274,11 +273,14 @@ void main()
     if(uNumAnimationModel != 0)
     {
         int instanceIndex = gl_InstanceID % uNumAnimationModel;
-	    mat4 pose0 = GetAnimationPose(aJoints.x, instanceIndex);
-	    mat4 pose1 = GetAnimationPose(aJoints.y, instanceIndex);
-	    mat4 pose2 = GetAnimationPose(aJoints.z, instanceIndex);
-	    mat4 pose3 = GetAnimationPose(aJoints.w, instanceIndex);
-
+	    mat4 pose0 = GetAnimationPoseUseTightTexture(aJoints.x, instanceIndex);
+	    mat4 pose1 = GetAnimationPoseUseTightTexture(aJoints.y, instanceIndex);
+	    mat4 pose2 = GetAnimationPoseUseTightTexture(aJoints.z, instanceIndex);
+	    mat4 pose3 = GetAnimationPoseUseTightTexture(aJoints.w, instanceIndex);
+	    //mat4 pose0 = GetAnimationPose(aJoints.x, instanceIndex);
+	    //mat4 pose1 = GetAnimationPose(aJoints.y, instanceIndex);
+	    //mat4 pose2 = GetAnimationPose(aJoints.z, instanceIndex);
+	    //mat4 pose3 = GetAnimationPose(aJoints.w, instanceIndex);
         skinMatrix = aWeights.x*10 * pose0 +
                           aWeights.y *10* pose1 +
                           aWeights.z *10* pose2 +

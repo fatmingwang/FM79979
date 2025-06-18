@@ -145,8 +145,8 @@ void cglTFNodeData::SetMesh(cMesh* e_pMesh, const tinygltf::Node& e_pNode, const
                 int col = i % gridSize;
                 cMatrix44 l_matRotation = cMatrix44::RotationMatrix(Vector3(0,frand(0,360),0));
                 cMatrix44 l_matTranslation = cMatrix44::TranslationMatrix(Vector3(col * 5.f, row * 5.f, 0));
-                //l_matVector.push_back(l_matTranslation* l_matRotation);
-                l_matVector.push_back(l_matTranslation);
+                l_matVector.push_back(l_matTranslation* l_matRotation);
+                //l_matVector.push_back(l_matTranslation);
             }
             this->m_Instance->SetInstanceTransforms(l_matVector);
         }
