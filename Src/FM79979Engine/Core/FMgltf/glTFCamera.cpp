@@ -141,6 +141,7 @@ cCameraController::~cCameraController()
 {
     SAFE_DELETE(m_pCameraBehaveByMouseBehave);
     m_CameraVector.clear();
+    m_NameAndglTFCameraMap.clear();
 }
 
 bool cCameraController::AddglTFCamera(cglTFCamera* e_pglTFCamera)

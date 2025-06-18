@@ -85,10 +85,6 @@ public:
             auto l_pSkinningMesh = m_spAnimationInstanceManager->GetTaargetMesh();
             l_spMeshInstance->MarkBufferDirty();
             l_pSkinningMesh->Render(m_spAnimationInstanceManager, m_spAniamationInstanceData);
-            //cMesh* l_pMesh = l_pSkinningMesh;
-            //l_pMesh->Render(l_spMeshInstance.get());
-            //glUseProgram(this->m_uiProgramID);
-            //m_spAnimationInstanceManager->Render(this->m_uiProgramID, this->m_spAniamationInstanceData);
         }
     }
     void Clear()
@@ -102,7 +98,7 @@ int glTFInit()
 {
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
-    bool l_bDoAnimTexture = true;
+    bool l_bDoAnimTexture = false;
     {
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
@@ -110,10 +106,10 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/fox.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");          
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",100);
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",100);
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf", 100);
         if (l_bDoAnimTexture)
         {
@@ -129,7 +125,7 @@ int glTFInit()
         }
         {
             
-            //l_pRootFrame->AddChild(l_pDuck2);
+            l_pRootFrame->AddChild(l_pDuck);
         }
         if(0)
         {
@@ -213,11 +209,11 @@ void GlTFRender()
 
 void GlTFDestory()
 {
-    //    DrawModel(model, shaderProgram);
     SAFE_DELETE(g_pglTFScene);
     cglTFModel::DeleteCachedFiles();
+    cCameraController::DestroyInstance();
+    cLighController::DestroyInstance();
     cTextureManager::ClearSharedTextureReferenceMap();
-    //SAFE_DELETE(g_pglTFModel);
 }
 
 

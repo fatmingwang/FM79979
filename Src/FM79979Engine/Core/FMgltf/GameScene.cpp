@@ -13,8 +13,7 @@ cglTFScene::cglTFScene()
 
 cglTFScene::~cglTFScene()
 {
-    cCameraController::DestroyInstance();
-	cLighController::DestroyInstance();
+    DestoryWithChildren();
 }
 
 Frame* cglTFScene::GetRootFrame() const
