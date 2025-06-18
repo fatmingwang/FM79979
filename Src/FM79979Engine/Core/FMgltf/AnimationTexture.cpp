@@ -61,6 +61,7 @@ Vector4* DecompressTextureData(const std::vector<Bytef>& compressedData, int tex
 
 cAnimTexture::cAnimTexture(cAnimationClip& e_AnimationClip, const char* e_strAnimationName, cSkinningMesh* e_pSkinningMesh)
 {
+    this->SetName((std::string(e_strAnimationName) + std::string("_cAnimTexture")).c_str());
     m_pvTextureData = nullptr;
     m_TextureSquareSize = 0;
     e_AnimationClip.SetAnimation(e_strAnimationName, true, 0.0f);
@@ -291,7 +292,7 @@ bool cAnimTexture::Load(const char* path)
         FMLOG("Decompression failed: %s", e.what());
         return false;
     }
-
+    glGenTextures(1, &m_uiOpenglTecxtureID);
     // Upload to GPU
     UploadTextureDataToGPU();
     return true;

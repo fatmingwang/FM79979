@@ -13,6 +13,7 @@ cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceV
 
 class cSkinningAnimTestClass:public cRenderObject
 {
+    std::vector<cMatrix44>m_PositionVector;
 public:
     GLuint m_uiProgramID;
     std::shared_ptr<cAnimationInstanceManager>m_spAnimationInstanceManager;
@@ -33,9 +34,11 @@ public:
         if (e_Data.size())
         {
             m_spAnimationInstanceManager = e_Data[0];
+            auto l_vPos = this->GetWorldPosition();
             std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > l_TupleData = m_spAnimationInstanceManager->GetAnimationInstanceData(e_strTargetAnimationName);
             m_spAniamationInstanceData = std::get<0>(l_TupleData);
             m_uiProgramID = std::get<1>(l_TupleData);
+            m_PositionVector = *m_spAnimationInstanceManager->GetMeshInstance()->GetTransforms();
             auto l_uiSize = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector.size();
             for (auto i = 0; i < l_uiSize; ++i)
             {
@@ -44,6 +47,12 @@ public:
                 m_spAniamationInstanceData->m_FrameIndexVector[i].iCurrent = l_pCurrentData->m_iCurrentFrame;
                 m_spAniamationInstanceData->m_FrameIndexVector[i].iNext = l_pCurrentData->m_iNextFrame;
                 m_spAniamationInstanceData->m_ToNextLerpTime[i] = l_pCurrentData->m_fNextFrameLerpTimes;
+                auto l_vPos2 = m_PositionVector[i].GetTranslation();
+                if (l_vPos.z != 0)
+                {
+                    l_vPos2.z = frand(-5, -100);
+                    m_PositionVector[i].SetTranslation(l_vPos2);
+                }
             }
         }
 
@@ -52,6 +61,7 @@ public:
     {
         if (m_spAniamationInstanceData)
         {
+            auto l_vPos = this->GetWorldPosition();
             auto l_uiSize = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector.size();
             for (auto i = 0; i < l_uiSize; ++i)
             {
@@ -60,6 +70,9 @@ public:
                 m_spAniamationInstanceData->m_FrameIndexVector[i].iCurrent = l_pCurrentData->m_iCurrentFrame;
                 m_spAniamationInstanceData->m_FrameIndexVector[i].iNext = l_pCurrentData->m_iNextFrame;
                 m_spAniamationInstanceData->m_ToNextLerpTime[i] = l_pCurrentData->m_fNextFrameLerpTimes;
+                //auto l_vPos2 = m_PositionVector[i].GetTranslation();
+                //l_vPos2.z = l_vPos.z;
+                //m_PositionVector[i].SetTranslation(l_vPos2);
             }
         }
     }
@@ -68,7 +81,9 @@ public:
         if (m_spAnimationInstanceManager)
         {
             auto l_spMeshInstance = m_spAnimationInstanceManager->GetMeshInstance();
+            l_spMeshInstance->SetInstanceTransforms(m_PositionVector);
             auto l_pSkinningMesh = m_spAnimationInstanceManager->GetTaargetMesh();
+            l_spMeshInstance->MarkBufferDirty();
             l_pSkinningMesh->Render(m_spAnimationInstanceManager, m_spAniamationInstanceData);
             //cMesh* l_pMesh = l_pSkinningMesh;
             //l_pMesh->Render(l_spMeshInstance.get());
@@ -104,12 +119,13 @@ int glTFInit()
         {
             cSkinningAnimTestClass* l_pSkinningAnimTestClassl1 = new cSkinningAnimTestClass();
             l_pSkinningAnimTestClassl1->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "PickUp");
-            //cSkinningAnimTestClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimTestClass();
-            //l_pSkinningAnimTestClassl2->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Running");
+            cSkinningAnimTestClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimTestClass();
+            l_pSkinningAnimTestClassl2->SetLocalPosition(Vector3(0, 0, -5));
+            l_pSkinningAnimTestClassl2->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Running");
             //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Idle");
             //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "");
             l_pRootFrame->AddChild(l_pSkinningAnimTestClassl1);
-            //l_pRootFrame->AddChild(l_pSkinningAnimTestClassl2);
+            l_pRootFrame->AddChild(l_pSkinningAnimTestClassl2);
         }
         {
             

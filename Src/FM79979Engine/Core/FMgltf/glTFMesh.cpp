@@ -528,7 +528,7 @@ void cMeshInstance::InitBuffer(const std::vector<std::shared_ptr<cMesh::sSubMesh
     {
         glBindVertexArray(subMesh->m_uiVAO);
         glBindBuffer(GL_ARRAY_BUFFER, m_InstanceVBO);
-
+        glBufferData(GL_ARRAY_BUFFER, m_InstanceTransformVector.size() * sizeof(cMatrix44),m_InstanceTransformVector.data(), GL_DYNAMIC_DRAW);
         // mat4 occupies 4 attribute locations (e.g., 13, 14, 15, 16)
         GLuint baseLocation = FVF_MORPHING_TARGET_POS1;
         for (GLuint i = 0; i < 4; ++i)
@@ -576,7 +576,36 @@ void cMeshInstance::UpdateBuffer()
         return;
     }
     glBindBuffer(GL_ARRAY_BUFFER, m_InstanceVBO);
-    glBufferData(GL_ARRAY_BUFFER, m_InstanceTransformVector.size() * sizeof(cMatrix44),m_InstanceTransformVector.data(), GL_DYNAMIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    //this is slow chatgpt says
+    //glMapBufferRange is typically 2× to 5× faster than glBufferSubData for large or frequent updates — especially
+    if (0)
+    {
+        glBufferSubData(GL_ARRAY_BUFFER, 0, m_InstanceTransformVector.size() * sizeof(cMatrix44), m_InstanceTransformVector.data());
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+    else
+    {
+        // Get size in bytes of all transforms
+        GLsizeiptr size = m_InstanceTransformVector.size() * sizeof(cMatrix44);
+
+        // Map the buffer range for writing
+        void* ptr = glMapBufferRange(GL_ARRAY_BUFFER, 0, size,
+                                     GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+
+        if (ptr)
+        {
+            // Copy your instance transform data into the mapped buffer
+            memcpy(ptr, m_InstanceTransformVector.data(), size);
+
+            // Unmap when done
+            glUnmapBuffer(GL_ARRAY_BUFFER);
+        }
+        else
+        {
+            // Mapping failed
+            //std::cerr << "Error: glMapBufferRange failed!" << std::endl;
+            int a = 0;
+        }
+    }
     m_BufferDirty = false;
 }

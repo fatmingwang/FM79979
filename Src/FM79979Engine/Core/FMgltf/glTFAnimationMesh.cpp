@@ -208,13 +208,14 @@ void  cSkinningMesh::Render(std::shared_ptr<cAnimationInstanceManager>e_spAnimat
         {
             l_pMeshInstance->UpdateBuffer();
         }
-        for (auto& subMesh : m_SubMeshesVector)
+        for (auto& l_SubMesh : m_SubMeshesVector)
         {
-            SetSubMeshCommonUniformData(subMesh.get(), l_matTransform);            
-            e_spAnimationInstanceManager->Render(subMesh->m_iShaderProgramID, e_AniamationInstanceData);
-            glBindVertexArray(subMesh->m_uiVAO);
+            //SetSubMeshCommonUniformData(l_SubMesh.get(), l_matTransform);            
+            cMesh::SetSubMeshCommonUniformData(l_SubMesh.get(), l_matTransform);
+            e_spAnimationInstanceManager->Render(l_SubMesh->m_iShaderProgramID, e_AniamationInstanceData);
+            glBindVertexArray(l_SubMesh->m_uiVAO);
             glDrawElementsInstanced(GL_TRIANGLES,
-                                    static_cast<GLsizei>(subMesh->m_IndexBuffer.size()),
+                                    static_cast<GLsizei>(l_SubMesh->m_IndexBuffer.size()),
                                     GL_UNSIGNED_INT, 0,
                                     static_cast<GLsizei>(instanceCount));
         }

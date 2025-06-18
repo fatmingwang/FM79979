@@ -316,6 +316,7 @@ void sAnimationFrameAndTime::Update(float e_fElpaseTime)
 
 sAniamationInstanceData::sAniamationInstanceData(cAnimationClip* e_pAnimationClip, const char* e_strAnimationName, int e_iNumInstanceData,cSkinningMesh* e_pSkinningMesh)
 {
+    this->SetName((std::string(e_strAnimationName)+std::string("_AniamationInstanceData")).c_str());
     auto l_pAnimationData = e_pAnimationClip->GetAnimationData(e_strAnimationName);
     if (!l_pAnimationData)
     {
