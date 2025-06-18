@@ -121,9 +121,9 @@ public:
     }
 
     // Get instance transforms
-    const std::vector<cMatrix44>& GetTransforms() const
+    std::vector<cMatrix44>* GetTransforms()
     {
-        return m_InstanceTransformVector;
+        return &m_InstanceTransformVector;
     }
 
     // OpenGL buffer management

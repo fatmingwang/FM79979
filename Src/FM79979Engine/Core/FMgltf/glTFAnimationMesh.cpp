@@ -153,12 +153,9 @@ void cSkinningMesh::UpdateJointsMatrix()
     }
 }
 
-extern void TestRenderFunction(GLuint e_uiProgramID);
-
 void	cSkinningMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
 {
 	cMesh::SetSubMeshCommonUniformData(e_pSubMesh, e_mat);
-    TestRenderFunction(e_pSubMesh->m_iShaderProgramID);
     // Pass the bone matrices to the shader
     GLuint boneMatricesLocation = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID, "uBoneTransforms");
     glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_SkinningBoneVector.size(), GL_FALSE, (float*)&m_AllBonesMatrixForSkinnedVector[0]);
@@ -193,6 +190,37 @@ void cSkinningMesh::Render()
 		cMesh::CallOpenGLDraw(l_pSubMesh.get());
     }
 }
+
+void  cSkinningMesh::Render(std::shared_ptr<cAnimationInstanceManager>e_spAnimationInstanceManager, std::shared_ptr<sAniamationInstanceData>e_AniamationInstanceData)
+{
+    auto l_pMeshInstance = e_spAnimationInstanceManager->GetMeshInstance();
+    if (l_pMeshInstance)
+    {
+        auto l_matTransform = this->GetWorldTransform();
+        size_t instanceCount = l_pMeshInstance->GetCount();
+        assert(instanceCount > 0);
+        if (l_pMeshInstance->GetInstanceVBO() == 0)
+        {
+            l_pMeshInstance->InitBuffer(m_SubMeshesVector);
+        }
+
+        if (l_pMeshInstance->IsBufferDirty())
+        {
+            l_pMeshInstance->UpdateBuffer();
+        }
+        for (auto& subMesh : m_SubMeshesVector)
+        {
+            SetSubMeshCommonUniformData(subMesh.get(), l_matTransform);            
+            e_spAnimationInstanceManager->Render(subMesh->m_iShaderProgramID, e_AniamationInstanceData);
+            glBindVertexArray(subMesh->m_uiVAO);
+            glDrawElementsInstanced(GL_TRIANGLES,
+                                    static_cast<GLsizei>(subMesh->m_IndexBuffer.size()),
+                                    GL_UNSIGNED_INT, 0,
+                                    static_cast<GLsizei>(instanceCount));
+        }
+    }
+}
+
 
 void cSkinningMesh::RenderSkeleton()
 {

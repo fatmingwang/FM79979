@@ -11,20 +11,23 @@ cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceV
     return l_pglTFModel;
 }
 
-std::shared_ptr<class cAnimationInstanceManager>g_spAnimationInstanceManager = nullptr;
-std::shared_ptr<sAniamationInstanceData> g_spAniamationInstanceData = nullptr;
-
-void TestRenderFunction(GLuint e_uiProgramID)
+class cSkinningAnimTestClass:public cRenderObject
 {
-    //g_spAnimationInstanceManager->Render(e_uiProgramID, g_spAniamationInstanceData);
-}
-class cSkinningAnimTestClass
-{
-    std::shared_ptr<class cAnimationInstanceManager>m_spAnimationInstanceManager;
-    GLuint m_uiProgramID;
-    std::shared_ptr<sAniamationInstanceData> m_spAniamationInstanceData;
-    cSkinningMesh*m_pTargetMesh = nullptr;
 public:
+    GLuint m_uiProgramID;
+    std::shared_ptr<cAnimationInstanceManager>m_spAnimationInstanceManager;
+    std::shared_ptr<sAniamationInstanceData> m_spAniamationInstanceData;
+    cSkinningMesh* m_pTargetMesh = nullptr;
+    cSkinningAnimTestClass()
+    {
+        this->SetName(L"cSkinningAnimTestClass");
+    }        
+    virtual ~cSkinningAnimTestClass()
+    {
+        m_spAnimationInstanceManager = nullptr;
+        m_spAniamationInstanceData = nullptr;
+        m_pTargetMesh = nullptr;
+    }
     void    SetData(std::vector<std::shared_ptr<class cAnimationInstanceManager>>&e_Data,const char*e_strTargetAnimationName)
     {
         if (e_Data.size())
@@ -43,8 +46,6 @@ public:
                 m_spAniamationInstanceData->m_ToNextLerpTime[i] = l_pCurrentData->m_fNextFrameLerpTimes;
             }
         }
-        g_spAnimationInstanceManager = m_spAnimationInstanceManager;
-        g_spAniamationInstanceData = m_spAniamationInstanceData;
 
     }
     void Update(float e_fElpaseTime)
@@ -66,20 +67,21 @@ public:
     {
         if (m_spAnimationInstanceManager)
         {
-            glUseProgram(this->m_uiProgramID);
-            m_spAnimationInstanceManager->Render(this->m_uiProgramID, this->m_spAniamationInstanceData);
+            auto l_spMeshInstance = m_spAnimationInstanceManager->GetMeshInstance();
+            auto l_pSkinningMesh = m_spAnimationInstanceManager->GetTaargetMesh();
+            l_pSkinningMesh->Render(m_spAnimationInstanceManager, m_spAniamationInstanceData);
+            //cMesh* l_pMesh = l_pSkinningMesh;
+            //l_pMesh->Render(l_spMeshInstance.get());
+            //glUseProgram(this->m_uiProgramID);
+            //m_spAnimationInstanceManager->Render(this->m_uiProgramID, this->m_spAniamationInstanceData);
         }
     }
     void Clear()
     {
         m_spAnimationInstanceManager = nullptr;
         m_spAniamationInstanceData = nullptr;
-        g_spAnimationInstanceManager = nullptr;
-        g_spAniamationInstanceData = nullptr;
     }
 };
-
-cSkinningAnimTestClass g_SkinningAnimTestClass;
 
 int glTFInit()
 {
@@ -100,9 +102,14 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf", 100);
         if (l_bDoAnimTexture)
         {
-            g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "PickUp");
+            cSkinningAnimTestClass* l_pSkinningAnimTestClassl1 = new cSkinningAnimTestClass();
+            l_pSkinningAnimTestClassl1->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "PickUp");
+            //cSkinningAnimTestClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimTestClass();
+            //l_pSkinningAnimTestClassl2->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Running");
             //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Idle");
             //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "");
+            l_pRootFrame->AddChild(l_pSkinningAnimTestClassl1);
+            //l_pRootFrame->AddChild(l_pSkinningAnimTestClassl2);
         }
         {
             
@@ -118,7 +125,7 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleInstancing.glb");// 
         // 
         // 
-        l_pRootFrame->AddChild(l_pDuck);
+        //l_pRootFrame->AddChild(l_pDuck);
         
         // 
         //l_pRootFrame->AddChild(l_pDuck2);
@@ -176,7 +183,6 @@ void GlTFUpdate(float e_fElpaseTime)
     if (g_pglTFScene)
     {
 		g_pglTFScene->Update(l_fElpaseTime);
-        g_SkinningAnimTestClass.Update(l_fElpaseTime);
     }
 }
 
@@ -185,7 +191,6 @@ void GlTFRender()
     if (g_pglTFScene)
     {
 		g_pglTFScene->Render();
-        g_SkinningAnimTestClass.Render();
     }
     
 }
@@ -193,7 +198,6 @@ void GlTFRender()
 void GlTFDestory()
 {
     //    DrawModel(model, shaderProgram);
-    g_SkinningAnimTestClass.Clear();
     SAFE_DELETE(g_pglTFScene);
     cglTFModel::DeleteCachedFiles();
     cTextureManager::ClearSharedTextureReferenceMap();

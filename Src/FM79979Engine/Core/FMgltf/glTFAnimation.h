@@ -106,4 +106,13 @@ public:
     void Render(GLuint e_uiProgramID, std::shared_ptr<sAniamationInstanceData>);
     
     std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint >    GetAnimationInstanceData(const char* e_strAnimationName);
+    class cSkinningMesh* GetTaargetMesh()
+    {
+        return m_pTargetMesh;
+    }
+    std::shared_ptr<class cMeshInstance> GetMeshInstance()
+    {
+        return m_spMeshInstance;
+    }
+    //std::shared_ptr<class cMeshInstance>CreateNewMeshInstance(int e_iNumInstance);
 };

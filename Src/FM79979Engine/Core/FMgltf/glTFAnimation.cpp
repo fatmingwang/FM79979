@@ -378,7 +378,7 @@ void cAnimationInstanceManager::Render(GLuint e_uiProgramID, std::shared_ptr<sAn
     GLuint l_uiuNumBones = glGetUniformLocation(e_uiProgramID, "uNumBones");
     if (l_uiuNumBones != GL_INVALID_INDEX)
     {
-        int l_iNumJoints = this->m_pTargetMesh->GetNodeInversePoseMatrixVector()->size();
+        int l_iNumJoints = (int)this->m_pTargetMesh->GetNodeInversePoseMatrixVector()->size();
         glUniform1i(l_uiuNumBones, l_iNumJoints);
     }
     GLuint l_uiTextureSize = glGetUniformLocation(e_uiProgramID, "uTextureSize");
@@ -410,6 +410,6 @@ void cAnimationInstanceManager::GenerateAnimationNameAndAniamationInstanceDataMa
 }
 std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > cAnimationInstanceManager::GetAnimationInstanceData(const char* e_strAnimationName)
 {
-    GenerateAnimationNameAndAniamationInstanceDataMap((int)m_spMeshInstance->GetTransforms().size(), e_strAnimationName);
+    GenerateAnimationNameAndAniamationInstanceDataMap((int)m_spMeshInstance->GetTransforms()->size(), e_strAnimationName);
     return { MapFind(m_AnimationNameAndAniamationInstanceDataMap, e_strAnimationName),m_uiProgramID };
 }

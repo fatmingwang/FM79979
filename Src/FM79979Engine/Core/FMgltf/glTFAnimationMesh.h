@@ -24,8 +24,9 @@ public:
     LAZY_CLONE_FUNCTION(cSkinningMesh);
     void    LoadJointsData(const tinygltf::Skin&e_Skin,cglTFModel*e_pModel,const  tinygltf::Model&e_Model);
     void    RefreshAnimationData();
-    void    Update(float elapsedTime) override;
-    void    Render() override;
+    virtual void    Update(float elapsedTime) override;
+    virtual void    Render() override;
+    void    Render(std::shared_ptr<class cAnimationInstanceManager>e_spAnimationInstanceManager, std::shared_ptr<struct sAniamationInstanceData>e_AniamationInstanceData);
     void    JointUpdate(float elapsedTime);
     void    RenderSkeleton();
     virtual         void AfterCloneSetBoneData(cglTFModelRenderNode* e_pData)override;
