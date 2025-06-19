@@ -4,7 +4,7 @@
 #include "gltfNode.h"
 #include <map>
 #include <string>
-
+const int MAX_INSTANCES = 100;
 class cSkinningMesh : public cMesh
 {
     friend class cAnimationClip;

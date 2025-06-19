@@ -1,6 +1,6 @@
 #include "../AllCoreInclude.h"
 #include "LazyShaderGenerator.h"
-
+#include "glTFAnimationMesh.h"
 
 std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarget)
 {
@@ -71,6 +71,9 @@ layout(location = 11) in vec4 aInstanceMatrix2;
 layout(location = 12) in vec4 aInstanceMatrix3;
 #endif
 )";
+#ifdef DEBUG
+    shaderCode += R"(flat out int toFSInstanceID;)";
+#endif
 
 	if (e_iNumMorphTarget > 0)
 	{
@@ -81,7 +84,7 @@ layout(location = 12) in vec4 aInstanceMatrix3;
 		shaderCode += "\nuniform float uMorphWeights[" + std::to_string(e_iNumMorphTarget) + "];";
 	}
 
-	shaderCode += R"(
+    shaderCode += R"(
 uniform mat4 inMat4Model;
 uniform mat4 inMat4View;
 uniform mat4 inMat4Projection;
@@ -107,7 +110,9 @@ out vec3 toFSVec3Binormal;
 
 //for animation texture
 
-const int MAX_INSTANCES = 100;
+const int MAX_INSTANCES = )";
+shaderCode += ValueToString((int)MAX_INSTANCES);
+shaderCode += R"(;
 uniform sampler2D uAnimTexture;
 
 uniform ivec2 uCurrentAndNextFrameIndex[MAX_INSTANCES];
@@ -264,7 +269,7 @@ void main()
 		}
 	}
 
-	shaderCode += R"(
+    shaderCode += R"(
     vec4 worldPos = vec4(position, 1.0);
 
 #ifdef USE_WEIGHTS
@@ -299,8 +304,13 @@ void main()
 #ifdef USE_INSTANCING
     mat4 instanceMatrix = mat4(aInstanceMatrix0, aInstanceMatrix1, aInstanceMatrix2, aInstanceMatrix3);
     mat3 instanceNormalMatrix = mat3(instanceMatrix);
-    worldPos = instanceMatrix * worldPos;
+    worldPos = instanceMatrix * worldPos;)";
+#ifdef DEBUG
+    shaderCode += R"(
+    toFSInstanceID = gl_InstanceID;)";
 #endif
+    shaderCode += R"(
+#endif    
     worldPos = inMat4Model * worldPos;
     toFSVec3FragPos = worldPos.xyz;
     gl_Position = inMat4Projection * inMat4View * worldPos;
@@ -579,6 +589,8 @@ precision mediump float;
 #endif
 )" + l_strDefine + R"(
 
+//in int toFSInstanceID;
+flat in int toFSInstanceID; // Flat qualifier for instance ID
 in vec3 toFSVec3FragPos;
 #ifdef USE_NORMAL
 in vec3 toFSVec3Normal;
@@ -791,7 +803,15 @@ void main()
 
     color += emissive;
     //FragColor = vec4(color,1);
-    FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0); // Gamma correction
+    FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0); // Gamma correction)";
+#ifdef DEBUG
+shaderCode += R"(
+    if(toFSInstanceID %10 == 0)
+    {
+        FragColor = vec4(1.0, 1.0, 0.0, 1.0)*FragColor; // Debug color for every 100th instance   
+    })";
+#endif
+shaderCode+=R"(
 }
 )";
 

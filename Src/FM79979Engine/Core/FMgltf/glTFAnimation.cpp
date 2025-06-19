@@ -392,7 +392,11 @@ void cAnimationInstanceManager::GenerateAnimationNameAndAniamationInstanceDataMa
 {
     //if (m_AnimationNameAndAniamationInstanceDataMap.size() == 0)
     {
-        
+        if (e_iNumInstanceData >= MAX_INSTANCES)
+        {
+            e_iNumInstanceData = MAX_INSTANCES;
+			FMLOG("cAnimationInstanceManager::GenerateAnimationNameAndAniamationInstanceDataMap e_iNumInstanceData is too big, set to %d", MAX_INSTANCES);
+        }
         auto l_pValue = MapFind(m_AnimationNameAndAniamationInstanceDataMap, e_strAnimationName);
         if (!l_pValue)
         {
