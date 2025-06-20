@@ -15,6 +15,146 @@ std::map<std::string, cglTFModel*> cglTFModel::m_sNameAndglTFModelMap;
 std::map<int64, GLuint>          cglTFModel::m_FVFAndShaderProgramsMap;
 TYPDE_DEFINE_MARCO(cglTFModel);
 
+class cMyTinyGLTF :public tinygltf::TinyGLTF
+{
+public:
+    std::string GetBaseDir(const std::string& filepath)
+    {
+        if (filepath.find_last_of("/\\") != std::string::npos)
+            return filepath.substr(0, filepath.find_last_of("/\\") + 1);
+        return "";
+    }
+    bool LoadBinaryFromFile(tinygltf::Model* model, std::string* err,
+                                      std::string* warn,
+                                      const std::string& filename,
+                                      unsigned int check_sections = tinygltf::SectionCheck::REQUIRE_VERSION)
+    {
+        std::stringstream ss;
+    
+        // Open file in binary mode
+        NvFile* file = MyFileOpen(filename.c_str(), "rb");
+        if (!file)
+        {
+            ss << "Failed to open file: " << filename << std::endl;
+            if (err)
+            {
+                (*err) = ss.str();
+            }
+            return false;
+        }
+    
+        // Get file size
+    
+        NvFSeek(file, 0, SEEK_END);
+    
+        long file_size = NvFTell(file);
+        NvFSeek(file, 0, SEEK_SET);
+    
+        if (file_size <= 0)
+        {
+            ss << "Empty or invalid file: " << filename << std::endl;
+            if (err)
+            {
+                (*err) = ss.str();
+            }
+            NvFClose(file);
+            return false;
+        }
+    
+        // Read file data
+        std::vector<unsigned char> data(file_size);
+        size_t read_bytes = NvFRead(data.data(), 1, file_size, file);
+        if (read_bytes != static_cast<size_t>(file_size))
+        {
+            ss << "Failed to read file: " << filename << std::endl;
+            if (err)
+            {
+                (*err) = ss.str();
+            }
+            NvFClose(file);
+            return false;
+        }
+    
+        NvFClose(file);
+    
+        std::string basedir = GetBaseDir(filename);
+    
+        bool ret = LoadBinaryFromMemory(model, err, warn, &data.at(0),
+                                        static_cast<unsigned int>(data.size()),
+                                        basedir, check_sections);
+    
+        return ret;
+    }
+
+    bool LoadASCIIFromFile(tinygltf::Model* model, std::string* err,
+                                     std::string* warn, const std::string& filename,
+                                    unsigned int check_sections = tinygltf::SectionCheck::REQUIRE_VERSION)
+    {
+        std::stringstream ss;
+
+        // Open file in binary mode
+        FILE* file = MyFileOpen(filename.c_str(), "rb");
+        if (!file)
+        {
+            ss << "Failed to open file: " << filename << std::endl;
+            if (err)
+            {
+                (*err) = ss.str();
+            }
+            return false;
+        }
+
+        // Get file size
+        NvFSeek(file, 0, SEEK_END);
+        long file_size = NvFTell(file);
+        NvFSeek(file, 0, SEEK_SET);
+
+        if (file_size <= 0)
+        {
+            ss << "Empty or invalid file: " << filename << std::endl;
+            if (err)
+            {
+                (*err) = ss.str();
+            }
+            NvFClose(file);
+            return false;
+        }
+
+        // Read file data
+        std::vector<unsigned char> data(file_size);
+        size_t read_bytes = NvFRead(data.data(), 1, file_size, file);
+        if (read_bytes != static_cast<size_t>(file_size))
+        {
+            ss << "Failed to read file: " << filename << std::endl;
+            if (err)
+            {
+                (*err) = ss.str();
+            }
+            NvFClose(file);
+            return false;
+        }
+
+        NvFClose(file);
+
+        size_t sz = data.size();
+        if (sz == 0)
+        {
+            if (err)
+            {
+                (*err) = "Empty file.";
+            }
+            return false;
+        }
+        std::string basedir = GetBaseDir(filename);
+
+        bool ret = LoadASCIIFromString(
+            model, err, warn, reinterpret_cast<const char*>(&data.at(0)),
+            static_cast<unsigned int>(data.size()), basedir, check_sections);
+
+        return ret;
+    }
+};
+
 //because scene will delete it
 cglTFModel::cglTFModel()
 {
@@ -314,7 +454,6 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
 
         for (const auto& channel : animation.channels)
         {
-            channel.target_path;
             const auto& sampler = animation.samplers[channel.sampler];
             const auto& targetNode = model.nodes[channel.target_node];
 			//"STEP" are allowd just do not do interpolation,but I am lazy to implement it.
@@ -527,7 +666,7 @@ bool cglTFModel::LoadFromGLTF(const std::string& e_strFilename, bool e_bCalculat
 {
     this->SetName(e_strFilename.c_str());
 	m_iInstanceValue = e_iInstanceValue;
-    tinygltf::TinyGLTF loader;
+    cMyTinyGLTF loader;
     tinygltf::Model model;
 
     std::string err;

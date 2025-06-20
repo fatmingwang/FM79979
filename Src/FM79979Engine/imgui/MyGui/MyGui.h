@@ -384,7 +384,7 @@ public:
 	virtual ~cMyGuiVector3(){ }
 	MYGUI_DEFAULT_IMPLEMENT();
 	virtual void		InnerRenderProperty()override;
-	void	GetRenderRect(){}
+	virtual void	GetRenderRect()override{}
 };
 
 class cMyGuiCheckBox :public cMyGuiBasicObj

@@ -2,6 +2,77 @@
 #include "glTFModel.h"
 #include "GameScene.h"
 
+//
+//
+//struct EmscriptenFsCallbacks
+//{
+//    // Load image data
+//    static bool LoadImageData(tinygltf::Image* image, const int image_idx, std::string* err,
+//                              std::string* mime_type, const std::string& uri,
+//                              const unsigned char* data, size_t size, void* user_data)
+//    {
+//        // Use Emscripten's FS to load the image from the virtual filesystem
+//        try
+//        {
+//            FILE* fp = fopen(uri.c_str(), "rb");
+//            if (!fp)
+//            {
+//                if (err) *err = "Failed to open image: " + uri;
+//                return false;
+//            }
+//
+//            fseek(fp, 0, SEEK_END);
+//            size_t file_size = ftell(fp);
+//            fseek(fp, 0, SEEK_SET);
+//
+//            image->image.resize(file_size);
+//            size_t read = fread(image->image.data(), 1, file_size, fp);
+//            fclose(fp);
+//
+//            if (read != file_size)
+//            {
+//                if (err) *err = "Failed to read image: " + uri;
+//                return false;
+//            }
+//
+//            // Set MIME type based on file extension
+//            if (mime_type)
+//            {
+//                if (uri.ends_with(".png")) *mime_type = "image/png";
+//                else if (uri.ends_with(".jpg") || uri.ends_with(".jpeg")) *mime_type = "image/jpeg";
+//                else *mime_type = "application/octet-stream";
+//            }
+//
+//            return true;
+//        }
+//        catch (...)
+//        {
+//            if (err) *err = "Exception while reading image: " + uri;
+//            return false;
+//        }
+//    }
+//
+//    // Write image data (optional, implement if needed)
+//    static bool WriteImageData(const std::string* basepath, const std::string* filename,
+//                               const tinygltf::Image* image, bool embedImages,
+//                               const tinygltf::URICallbacks* uri_cb, std::string* out,
+//                               void* user_data)
+//    {
+//        // If you don't need to write images, return false or implement as needed
+//        if (out) *out = "Image writing not supported";
+//        return false;
+//    }
+//
+//    // URI decoding
+//    static bool URIDecode(const std::string& uri, std::string* out, std::string* err,
+//                          void* user_data)
+//    {
+//        *out = uri; // Basic implementation; add proper URI decoding if needed
+//        return true;
+//    }
+//};
+
+
 cglTFScene*g_pglTFScene = nullptr;
 
 cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceValue = 0)
@@ -11,93 +82,21 @@ cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceV
     return l_pglTFModel;
 }
 
-class cSkinningAnimTestClass:public cRenderObject
-{
-    std::vector<cMatrix44>m_PositionVector;
-public:
-    GLuint m_uiProgramID;
-    std::shared_ptr<cAnimationInstanceManager>m_spAnimationInstanceManager;
-    std::shared_ptr<sAniamationInstanceData> m_spAniamationInstanceData;
-    cSkinningMesh* m_pTargetMesh = nullptr;
-    cSkinningAnimTestClass()
-    {
-        this->SetName(L"cSkinningAnimTestClass");
-    }        
-    virtual ~cSkinningAnimTestClass()
-    {
-        m_spAnimationInstanceManager = nullptr;
-        m_spAniamationInstanceData = nullptr;
-        m_pTargetMesh = nullptr;
-    }
-    void    SetData(std::vector<std::shared_ptr<class cAnimationInstanceManager>>&e_Data,const char*e_strTargetAnimationName)
-    {
-        if (e_Data.size())
-        {
-            m_spAnimationInstanceManager = e_Data[0];
-            auto l_vPos = this->GetWorldPosition();
-            std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > l_TupleData = m_spAnimationInstanceManager->GetAnimationInstanceData(e_strTargetAnimationName);
-            m_spAniamationInstanceData = std::get<0>(l_TupleData);
-            m_uiProgramID = std::get<1>(l_TupleData);
-            m_PositionVector = *m_spAnimationInstanceManager->GetMeshInstance()->GetTransforms();
-            auto l_uiSize = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector.size();
-            for (auto i = 0; i < l_uiSize; ++i)
-            {
-                auto l_pCurrentData = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector[i];
-                l_pCurrentData->Update(frand(0, 3.f));
-                m_spAniamationInstanceData->m_FrameIndexVector[i].iCurrent = l_pCurrentData->m_iCurrentFrame;
-                m_spAniamationInstanceData->m_FrameIndexVector[i].iNext = l_pCurrentData->m_iNextFrame;
-                m_spAniamationInstanceData->m_ToNextLerpTime[i] = l_pCurrentData->m_fNextFrameLerpTimes;
-            }
-            auto l_pTransformVector = m_spAnimationInstanceManager->GetMeshInstance()->GetTransforms();
-            l_uiSize = l_pTransformVector->size();
-            for (auto i = 0; i < l_uiSize; ++i)
-            {
-                auto l_vPos2 = m_PositionVector[i].GetTranslation();
-                if (l_vPos.z != 0)
-                {
-                    l_vPos2.z = frand(-5, -100);
-                    m_PositionVector[i].SetTranslation(l_vPos2);
-                }
-            }
-        }
-
-    }
-    void Update(float e_fElpaseTime)
-    {
-        if (m_spAniamationInstanceData)
-        {
-            auto l_vPos = this->GetWorldPosition();
-            auto l_uiSize = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector.size();
-            for (auto i = 0; i < l_uiSize; ++i)
-            {
-                auto l_pCurrentData = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector[i];
-                l_pCurrentData->Update(e_fElpaseTime);
-                m_spAniamationInstanceData->m_FrameIndexVector[i].iCurrent = l_pCurrentData->m_iCurrentFrame;
-                m_spAniamationInstanceData->m_FrameIndexVector[i].iNext = l_pCurrentData->m_iNextFrame;
-                m_spAniamationInstanceData->m_ToNextLerpTime[i] = l_pCurrentData->m_fNextFrameLerpTimes;
-            }
-        }
-    }
-    void Render()
-    {
-        if (m_spAnimationInstanceManager)
-        {
-            auto l_spMeshInstance = m_spAnimationInstanceManager->GetMeshInstance();
-            l_spMeshInstance->SetInstanceTransforms(m_PositionVector);
-            auto l_pSkinningMesh = m_spAnimationInstanceManager->GetTaargetMesh();
-            l_spMeshInstance->MarkBufferDirty();
-            l_pSkinningMesh->Render(m_spAnimationInstanceManager, m_spAniamationInstanceData);
-        }
-    }
-    void Clear()
-    {
-        m_spAnimationInstanceManager = nullptr;
-        m_spAniamationInstanceData = nullptr;
-    }
-};
-
 int glTFInit()
 {
+
+
+
+    //tinygltf::TinyGLTF loader;
+
+    //// Set custom callbacks
+    //tinygltf::FsCallbacks fs_callbacks;
+    //fs_callbacks.LoadImageData = EmscriptenFsCallbacks::LoadImageData;
+    //fs_callbacks.WriteImageData = EmscriptenFsCallbacks::WriteImageData;
+    //fs_callbacks.URIDecode = EmscriptenFsCallbacks::URIDecode;
+
+    //loader.SetFsCallbacks(fs_callbacks);
+
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
     bool l_bDoAnimTexture = true;
@@ -112,6 +111,11 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
         auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",1000);
+        if (!l_pDuck)
+        {
+            FMLOG("parse model filed");
+            return 0;
+        }
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf", 100);
         if (l_bDoAnimTexture)
         {
@@ -127,7 +131,7 @@ int glTFInit()
         }
         {
             
-            l_pRootFrame->AddChild(l_pDuck);
+            //l_pRootFrame->AddChild(l_pDuck);
         }
         if(0)
         {
@@ -217,77 +221,3 @@ void GlTFDestory()
     cLighController::DestroyInstance();
     cTextureManager::ClearSharedTextureReferenceMap();
 }
-
-
-//cglTFModel* g_pglTFModel = nullptr;
-//
-//int glTFInit()
-//{
-//    if (!g_pglTFModel)
-//    {
-//        g_pglTFModel = new cglTFModel();
-//    }
-//    cglTFModel& g_glTFModel = *g_pglTFModel;
-//    //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
-//    //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
-//    // 
-//    //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-//    //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
-//    //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
-//    //morphing
-//    //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedMorphCube.glb", true);
-//    //g_glTFModel.LoadFromGLTF("glTFModel/CarConcept.gltf", false);
-//    //g_glTFModel.LoadFromGLTF("glTFModel/glTF/ABeautifulGame.gltf", true);
-//
-//    //g_glTFModel.LoadFromGLTF("glTFModel/SimpleSkin.gltf", true);
-//    g_glTFModel.LoadFromGLTF("glTFModel/Woman.gltf", true);
-//
-//    //g_glTFModel.LoadFromGLTF("glTFModel/Buggy.gltf", false);
-//    //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedCube.gltf", false);
-//    //g_glTFModel.LoadFromGLTF("glTFModel/BoxAnimated.gltf", false);
-//
-//
-//    //g_glTFModel.InitBuffers();
-//    return 1;
-//}
-//
-//void GlTFRender()
-//{
-//    // Enable backface culling
-//    glEnable(GL_CULL_FACE);
-//    glCullFace(GL_BACK);
-//    //glCullFace(GL_FRONT);
-//    // Enable depth testing
-//    glEnable(GL_DEPTH_TEST);
-//    glDepthFunc(GL_LESS);
-//    cBaseShader* l_pShader = GetCurrentShader();
-//    if (l_pShader)
-//    {
-//        l_pShader->Unuse();
-//    }
-//    UseShaderProgram(L"qoo79979");
-//    float l_fElpaseTime = cGameApp::m_sTimeAndFPS.fElpaseTime;
-//    g_fLightControllerUpdate(l_fElpaseTime);
-//    g_fCameraControllerUpdate(l_fElpaseTime);
-//    if (g_pglTFModel)
-//    {
-//        g_pglTFModel->Update(0.016f);
-//        g_pglTFModel->Render();
-//    }
-//    glDisable(GL_CULL_FACE);
-//    glDisable(GL_DEPTH_TEST);
-//    glUseProgram(0);
-//    glBindVertexArray(0);
-//    glBindBuffer(GL_ARRAY_BUFFER, 0);
-//    g_fRenderSkeleton(g_pglTFModel);
-//    g_fCameraDebugRender();
-//
-//}
-//
-//void GlTFDestory()
-//{
-//    //    DrawModel(model, shaderProgram);
-//    cTextureManager::ClearSharedTextureReferenceMap();
-//    SAFE_DELETE(g_pglTFModel);
-//}
-//

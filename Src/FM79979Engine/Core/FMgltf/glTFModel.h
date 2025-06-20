@@ -49,8 +49,8 @@ public:
 
     bool    LoadFromGLTF(const std::string& filename,bool e_bCalculateBiNormal = false,int e_iInstanceValue = 0);
     void    InitBuffers();
-    void    Update(float e_fEpaseTime);
-    void    Render();
+    virtual void    Update(float e_fEpaseTime)override;
+    virtual void    Render()override;
     //
     void    SetCurrentAnimation(const std::string& animationName);
     void    SetCurrentAnimationTime(float e_fCurrentTime);

@@ -291,3 +291,75 @@ void cSkinningMesh::AfterCloneSetBoneData(cglTFModelRenderNode* e_pData)
         m_pMainRootBone = e_pData->m_NodesVector[m_pMainRootBone->m_iNodeIndex];
     }
 }
+
+
+
+cSkinningAnimTestClass::cSkinningAnimTestClass()
+{
+    this->SetName(L"cSkinningAnimTestClass");
+}
+cSkinningAnimTestClass::~cSkinningAnimTestClass()
+{
+    m_spAnimationInstanceManager = nullptr;
+    m_spAniamationInstanceData = nullptr;
+    m_pTargetMesh = nullptr;
+}
+void    cSkinningAnimTestClass::SetData(std::vector<std::shared_ptr<class cAnimationInstanceManager>>& e_Data, const char* e_strTargetAnimationName)
+{
+    if (e_Data.size())
+    {
+        m_spAnimationInstanceManager = e_Data[0];
+        auto l_vPos = this->GetWorldPosition();
+        std::tuple<std::shared_ptr<sAniamationInstanceData>, GLuint > l_TupleData = m_spAnimationInstanceManager->GetAnimationInstanceData(e_strTargetAnimationName);
+        m_spAniamationInstanceData = std::get<0>(l_TupleData);
+        m_uiProgramID = std::get<1>(l_TupleData);
+        m_PositionVector = *m_spAnimationInstanceManager->GetMeshInstance()->GetTransforms();
+        auto l_uiSize = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector.size();
+        for (auto i = 0; i < l_uiSize; ++i)
+        {
+            auto l_pCurrentData = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector[i];
+            l_pCurrentData->Update(frand(0, 3.f));
+            m_spAniamationInstanceData->m_FrameIndexVector[i].iCurrent = l_pCurrentData->m_iCurrentFrame;
+            m_spAniamationInstanceData->m_FrameIndexVector[i].iNext = l_pCurrentData->m_iNextFrame;
+            m_spAniamationInstanceData->m_ToNextLerpTime[i] = l_pCurrentData->m_fNextFrameLerpTimes;
+        }
+        auto l_pTransformVector = m_spAnimationInstanceManager->GetMeshInstance()->GetTransforms();
+        l_uiSize = l_pTransformVector->size();
+        for (auto i = 0; i < l_uiSize; ++i)
+        {
+            auto l_vPos2 = m_PositionVector[i].GetTranslation();
+            if (l_vPos.z != 0)
+            {
+                l_vPos2.z = frand(-5, -100);
+                m_PositionVector[i].SetTranslation(l_vPos2);
+            }
+        }
+    }
+
+}
+void cSkinningAnimTestClass::Update(float e_fElpaseTime)
+{
+    if (m_spAniamationInstanceData)
+    {
+        auto l_vPos = this->GetWorldPosition();
+        auto l_uiSize = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector.size();
+        for (auto i = 0; i < l_uiSize; ++i)
+        {
+            auto l_pCurrentData = m_spAniamationInstanceData->m_AnimationFrameAndTimeVector[i];
+            l_pCurrentData->Update(e_fElpaseTime);
+            m_spAniamationInstanceData->m_FrameIndexVector[i].iCurrent = l_pCurrentData->m_iCurrentFrame;
+            m_spAniamationInstanceData->m_FrameIndexVector[i].iNext = l_pCurrentData->m_iNextFrame;
+            m_spAniamationInstanceData->m_ToNextLerpTime[i] = l_pCurrentData->m_fNextFrameLerpTimes;
+        }
+    }
+}
+void cSkinningAnimTestClass::Render()
+{
+    if (m_spAnimationInstanceManager)
+    {
+        auto l_spMeshInstance = m_spAnimationInstanceManager->GetMeshInstance();
+        l_spMeshInstance->SetInstanceTransforms(m_PositionVector);
+        auto l_pSkinningMesh = m_spAnimationInstanceManager->GetTaargetMesh();
+        l_pSkinningMesh->Render(m_spAnimationInstanceManager, m_spAniamationInstanceData);
+    }
+}

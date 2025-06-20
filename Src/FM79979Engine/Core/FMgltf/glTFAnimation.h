@@ -80,7 +80,7 @@ public:
 struct sAniamationInstanceData :public NamedTypedObject
 {
     std::vector<std::shared_ptr<sAnimationFrameAndTime>>    m_AnimationFrameAndTimeVector;
-	std::shared_ptr<cAnimTexture>                           m_spAnimTexture;
+	std::shared_ptr<class cAnimTexture>                           m_spAnimTexture;
     struct sFrameIndex
     {
         int iCurrent = 0;

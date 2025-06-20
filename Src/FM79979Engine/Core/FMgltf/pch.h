@@ -7,5 +7,7 @@
 #pragma once
 
 // add headers that you want to pre-compile here
+#ifdef WIN32
 #include "framework.h"
+#endif
 #include "tiny_gltf.h"

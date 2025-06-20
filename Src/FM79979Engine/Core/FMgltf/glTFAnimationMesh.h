@@ -1,7 +1,7 @@
 #pragma once
 
-#include "gltfMesh.h"
-#include "gltfNode.h"
+#include "glTFMesh.h"
+#include "glTFNode.h"
 #include <map>
 #include <string>
 const int MAX_INSTANCES = 100;
@@ -22,7 +22,7 @@ public:
     cSkinningMesh(cSkinningMesh*e_pSkinningMesh);
     virtual ~cSkinningMesh();
     LAZY_CLONE_FUNCTION(cSkinningMesh);
-    void    LoadJointsData(const tinygltf::Skin&e_Skin,cglTFModel*e_pModel,const  tinygltf::Model&e_Model);
+    void    LoadJointsData(const tinygltf::Skin&e_Skin,class cglTFModel*e_pModel,const  tinygltf::Model&e_Model);
     void    RefreshAnimationData();
     virtual void    Update(float elapsedTime) override;
     virtual void    Render() override;
@@ -38,4 +38,22 @@ public:
     {
         return  m_pNodeInversePoseMatrixVector;
     }
+};
+
+
+
+class cSkinningAnimTestClass :public cRenderObject
+{
+    std::vector<cMatrix44>m_PositionVector;
+    GLuint m_uiProgramID;
+    std::shared_ptr<cAnimationInstanceManager>m_spAnimationInstanceManager;
+    std::shared_ptr<sAniamationInstanceData> m_spAniamationInstanceData;
+    cSkinningMesh* m_pTargetMesh = nullptr;
+public:
+    cSkinningAnimTestClass();
+    virtual ~cSkinningAnimTestClass();
+
+    void    SetData(std::vector<std::shared_ptr<class cAnimationInstanceManager>>& e_Data, const char* e_strTargetAnimationName);
+    virtual void Update(float e_fElpaseTime)override;
+    virtual void Render()override;
 };

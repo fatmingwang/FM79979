@@ -173,7 +173,7 @@ namespace FMLog
 			WriteLog(e_str);
 		}
 	}
-	void FMLog::LogFormat(const wchar_t* fmt ...)
+	void LogFormat(const wchar_t* fmt ...)
 	{
 		if (!g_bFMLogEnable)
 		{
@@ -191,7 +191,7 @@ namespace FMLog
 		Log(buffer, false);
 	}
 	// Variadic log function (C-style formatting)
-	void FMLog::LogFormat(const char* fmt, ...)
+	void LogFormat(const char* fmt, ...)
 	{
 		if (!g_bFMLogEnable)
 		{

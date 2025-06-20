@@ -50,7 +50,7 @@ Vector4* DecompressTextureData(const std::vector<Bytef>& compressedData, int tex
     Vector4* m_pvTextureData = new Vector4[textureSquareSize * textureSquareSize];
 
     // Decompress
-    if (uncompress(reinterpret_cast<Bytef*>(m_pvTextureData), &decompressedSize, compressedData.data(), compressedData.size()) != Z_OK)
+    if (uncompress(reinterpret_cast<Bytef*>(m_pvTextureData), &decompressedSize, compressedData.data(), (uLong)compressedData.size()) != Z_OK)
     {
         delete[] m_pvTextureData;
         throw std::runtime_error("Decompression failed");
@@ -198,8 +198,8 @@ bool cAnimTexture::Save(const char* path)
     }
 
     // Open file in binary mode
-    std::ofstream file(path, std::ios::out | std::ios::binary);
-    if (!file.is_open())
+    NvFile* file = MyFileOpen(path, "wb");
+    if (!file)
     {
         FMLOG("Couldn't open %s to write to", path);
         return false;
@@ -209,74 +209,83 @@ bool cAnimTexture::Save(const char* path)
     if (m_TextureSquareSize <= 0)
     {
         FMLOG("Trying to write Animation Texture With Size 0");
-        file.close();
+        NvFClose(file);
         return false;
     }
 
     // Write m_TextureSquareSize (binary)
-    file.write(reinterpret_cast<const char*>(&m_TextureSquareSize), sizeof(int));
+    NvFWrite(&m_TextureSquareSize, sizeof(int), 1, file);
 
     // Compress m_pvTextureData
     std::vector<Bytef> l_CompressData = CompressTextureData(m_pvTextureData, m_TextureSquareSize);
     int compressedSize = static_cast<int>(l_CompressData.size());
 
     // Write compressed size and data (binary)
-    file.write(reinterpret_cast<const char*>(&compressedSize), sizeof(int));
-    file.write(reinterpret_cast<const char*>(l_CompressData.data()), compressedSize);
+    NvFWrite(&compressedSize, sizeof(int), 1, file);
+    NvFWrite(l_CompressData.data(), 1, compressedSize, file);
 
     // Check for write errors
-    if (!file.good())
+    if (ferror(file))
     {
         FMLOG("Failed to write data to %s", path);
-        file.close();
+        NvFClose(file);
         return false;
     }
 
-    file.close();
+    NvFClose(file);
     return true;
 }
 
 bool cAnimTexture::Load(const char* path)
 {
     // Open file in binary mode
-    std::ifstream file(path, std::ios::in | std::ios::binary);
-    if (!file.is_open())
+    FILE* file = MyFileOpen(path, "rb");
+    if (!file)
     {
         FMLOG("Couldn't open %s to read from", path);
         return false;
     }
 
     // Read m_TextureSquareSize (binary)
-    file.read(reinterpret_cast<char*>(&m_TextureSquareSize), sizeof(int));
-    if (!file.good() || m_TextureSquareSize <= 0)
+    if (NvFRead(&m_TextureSquareSize, sizeof(int), 1, file) != 1)
     {
         FMLOG("Invalid or zero texture size in %s", path);
-        file.close();
+        NvFClose(file);
+        return false;
+    }
+    if (m_TextureSquareSize <= 0)
+    {
+        FMLOG("Invalid or zero texture size in %s", path);
+        NvFClose(file);
         return false;
     }
 
     // Read compressed size
     int compressedSize;
-    file.read(reinterpret_cast<char*>(&compressedSize), sizeof(int));
-    if (!file.good() || compressedSize <= 0)
+    if (NvFRead(&compressedSize, sizeof(int), 1, file) != 1)
     {
         FMLOG("Invalid compressed size in %s", path);
-        file.close();
+        NvFClose(file);
+        return false;
+    }
+    if (compressedSize <= 0)
+    {
+        FMLOG("Invalid compressed size in %s", path);
+        NvFClose(file);
         return false;
     }
 
     // Read compressed data
     std::vector<Bytef> l_CompressedData(compressedSize);
-    file.read(reinterpret_cast<char*>(l_CompressedData.data()), compressedSize);
-    if (!file.good())
+    if (NvFRead(l_CompressedData.data(), 1, compressedSize, file) != compressedSize)
     {
         FMLOG("Failed to read compressed data from %s", path);
-        file.close();
+        NvFClose(file);
         return false;
     }
 
     // Close file before decompression
-    file.close();
+    NvFClose(file);
 
     // Deallocate existing m_pvTextureData to prevent leaks
     delete[] m_pvTextureData;

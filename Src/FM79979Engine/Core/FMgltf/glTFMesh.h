@@ -87,7 +87,7 @@ public:
     virtual ~cMesh();
 
     //void InitBuffer();  // Initialize and bind buffers
-    virtual void Render();        // Draw the mesh
+    virtual void Render()override;        // Draw the mesh
     virtual void Render(cMeshInstance*e_pMeshInstance);
     
 

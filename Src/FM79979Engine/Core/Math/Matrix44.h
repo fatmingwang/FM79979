@@ -242,20 +242,20 @@ public:
 			}
 		}
 	}
-	float* glTFToOpenGLMatrix()
-	{
-		float outMatrix[16];
-		memcpy(outMatrix, this, sizeof(float) * 16);
-		auto l_mat = *this;
-		for (int i = 0; i < 4; ++i)
-		{
-			for (int j = 0; j < 4; ++j)
-			{
-				outMatrix[j * 4 + i] = l_mat[i][j];
-			}
-		}
-		return outMatrix;
-	}
+	//float* glTFToOpenGLMatrix()
+	//{
+	//	float outMatrix[16];
+	//	memcpy(outMatrix, this, sizeof(float) * 16);
+	//	auto l_mat = *this;
+	//	for (int i = 0; i < 4; ++i)
+	//	{
+	//		for (int j = 0; j < 4; ++j)
+	//		{
+	//			outMatrix[j * 4 + i] = l_mat[i][j];
+	//		}
+	//	}
+	//	return outMatrix;
+	//}
 };
 
 /** Matrix multiplications.

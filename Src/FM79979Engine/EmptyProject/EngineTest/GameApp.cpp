@@ -8,11 +8,11 @@
 #include "../../imgui/imgui.h"
 #include "MyImGui.h"
 #ifdef WASM
-#include <emscripten/html5.h>
+#include <emscripten/html5.h>						
 #endif
 cNetworkSample* g_pNetworkSample = nullptr;
 
-extern void	LoadSample();
+extern void	LoadSample();						
 extern void	DestorySampleObject();
 extern void	SampleUpdate(float e_fElpaseTime);
 extern void	SampleRender();

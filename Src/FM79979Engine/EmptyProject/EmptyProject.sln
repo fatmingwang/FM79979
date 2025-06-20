@@ -16,7 +16,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32Test", "Win32Test\Win3
 		{84DAC78D-00AE-4FE3-AA06-BE43606ABBFC} = {84DAC78D-00AE-4FE3-AA06-BE43606ABBFC}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMgltf", "..\Core\FMgltf\FMgltf.vcxproj", "{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMglTF", "..\Core\FMgltf\FMgltf.vcxproj", "{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bullet", "..\Core\GameplayUT\Physic\Bullet\Bullet.vcxproj", "{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}"
 EndProject
@@ -338,8 +338,8 @@ Global
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|ARM.Build.0 = Debug|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|ARM64.ActiveCfg = Debug|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|ARM64.Build.0 = Debug|x64
-		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|Emscripten.ActiveCfg = Debug|x64
-		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|Emscripten.Build.0 = Debug|x64
+		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|Emscripten.ActiveCfg = Debug|Emscripten
+		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|Emscripten.Build.0 = Debug|Emscripten
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|x64.ActiveCfg = Debug|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|x64.Build.0 = Debug|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug_NoPthread|x86.ActiveCfg = Debug|Win32
@@ -348,8 +348,8 @@ Global
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|ARM.Build.0 = Debug|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|ARM64.ActiveCfg = Debug|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|ARM64.Build.0 = Debug|x64
-		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|Emscripten.ActiveCfg = Debug|x64
-		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|Emscripten.Build.0 = Debug|x64
+		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
+		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|Emscripten.Build.0 = Debug|Emscripten
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|x64.ActiveCfg = Debug|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|x64.Build.0 = Debug|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Debug|x86.ActiveCfg = Debug|Win32
@@ -368,8 +368,8 @@ Global
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|ARM.Build.0 = Release|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|ARM64.ActiveCfg = Release|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|ARM64.Build.0 = Release|x64
-		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|Emscripten.ActiveCfg = Release|x64
-		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|Emscripten.Build.0 = Release|x64
+		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|Emscripten.ActiveCfg = Release|Emscripten
+		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|Emscripten.Build.0 = Release|Emscripten
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|x64.ActiveCfg = Release|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|x64.Build.0 = Release|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release_NoPthread|x86.ActiveCfg = Release|Win32
@@ -378,8 +378,8 @@ Global
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|ARM.Build.0 = Release|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|ARM64.ActiveCfg = Release|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|ARM64.Build.0 = Release|x64
-		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|Emscripten.ActiveCfg = Release|x64
-		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|Emscripten.Build.0 = Release|x64
+		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|Emscripten.ActiveCfg = Release|Emscripten
+		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|Emscripten.Build.0 = Release|Emscripten
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|x64.ActiveCfg = Release|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|x64.Build.0 = Release|x64
 		{C8CBF889-95A8-44FA-99FB-FEB27989DD7A}.Release|x86.ActiveCfg = Release|Win32

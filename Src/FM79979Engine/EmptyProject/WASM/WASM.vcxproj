@@ -299,7 +299,7 @@
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>-s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=1 --bind -pthread -s USE_PTHREADS=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=1 --bind -pthread -s USE_PTHREADS=1 -s WASM=1 -s ALLOW_MEMORY_GROWTH=1 %(AdditionalOptions)</AdditionalOptions>
       <PreloadFile>../assets;</PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
       <AdditionalDependencies>websocket.js</AdditionalDependencies>
@@ -318,9 +318,8 @@
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>-s ERROR_ON_UNDEFINED_SYMBOLS=1 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=1 --bind %(AdditionalOptions)</AdditionalOptions>
-      <PreloadFile>
-      </PreloadFile>
+      <AdditionalOptions>-sUSE_SDL=2  -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=1 --bind %(AdditionalOptions)</AdditionalOptions>
+      <PreloadFile>../assets;</PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
       <AdditionalDependencies>websocket.js</AdditionalDependencies>
       <ThreadProfiling>true</ThreadProfiling>
@@ -356,11 +355,14 @@
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\FatmingCollada\FatmingCollada.vcxproj">
-      <Project>{27c4a269-2e08-4644-b3c9-f5090703fa1d}</Project>
+    <ProjectReference Include="..\..\Core\FMgltf\FMgltf.vcxproj">
+      <Project>{c8cbf889-95a8-44fa-99fb-feb27989dd7a}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
       <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\zlib\zlib.vcxproj">
+      <Project>{c2552b93-40e6-4118-ba99-2a8d500fc597}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Freetype\Freetype.vcxproj">
       <Project>{29840bd0-19c2-4ddd-bc75-2ec94b6c9eec}</Project>
