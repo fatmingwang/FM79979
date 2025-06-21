@@ -9,35 +9,35 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
         assert(0 && "fuck....instance and morph exists at asame time....I am lazy to do this now fuck");
         return "not support format";
     }
-	std::string l_strDefine;
-	if (e_i64FVFFlags & FVF_POS_FLAG)
-		l_strDefine += "#define USE_POSITION\n";
-	if (e_i64FVFFlags & FVF_DIFFUSE_FLAG)
-		l_strDefine += "#define USE_DIFFUSE\n";
-	if (e_i64FVFFlags & FVF_NORMAL_FLAG)
-		l_strDefine += "#define USE_NORMAL\n";
-	if (e_i64FVFFlags & FVF_TANGENT_FLAG)
-		l_strDefine += "#define USE_TANGENT\n";
-	if (e_i64FVFFlags & FVF_BINORMAL_FLAG)
-		l_strDefine += "#define USE_BINORMAL\n";
-	if (e_i64FVFFlags & FVF_SKINNING_WEIGHT_FLAG)
-		l_strDefine += "#define USE_WEIGHTS\n";
-	if (e_i64FVFFlags & FVF_SKINNING_BONE_INDEX_FLAG)
-		l_strDefine += "#define USE_JOINTS\n";
-	if (e_i64FVFFlags & FVF_TEX0_FLAG)
-		l_strDefine += "#define USE_TEXCOORD\n";
+    std::string l_strDefine;
+    if (e_i64FVFFlags & FVF_POS_FLAG)
+        l_strDefine += "#define USE_POSITION\n";
+    if (e_i64FVFFlags & FVF_DIFFUSE_FLAG)
+        l_strDefine += "#define USE_DIFFUSE\n";
+    if (e_i64FVFFlags & FVF_NORMAL_FLAG)
+        l_strDefine += "#define USE_NORMAL\n";
+    if (e_i64FVFFlags & FVF_TANGENT_FLAG)
+        l_strDefine += "#define USE_TANGENT\n";
+    if (e_i64FVFFlags & FVF_BINORMAL_FLAG)
+        l_strDefine += "#define USE_BINORMAL\n";
+    if (e_i64FVFFlags & FVF_SKINNING_WEIGHT_FLAG)
+        l_strDefine += "#define USE_WEIGHTS\n";
+    if (e_i64FVFFlags & FVF_SKINNING_BONE_INDEX_FLAG)
+        l_strDefine += "#define USE_JOINTS\n";
+    if (e_i64FVFFlags & FVF_TEX0_FLAG)
+        l_strDefine += "#define USE_TEXCOORD\n";
     if (e_i64FVFFlags & FVF_INSTANCING_FLAG)
         l_strDefine += "#define USE_INSTANCING\n";
     if (e_i64FVFFlags & FVF_ANIMATION_TEXTURE_FLAG)
         l_strDefine += "#define FVF_ANIMATION_TEXTURE_FLAG\n";
-    
+
     std::string shaderCode = "//this is Vertex shader\n";
 #if defined(WIN32)
     shaderCode += "#version 330 core";
 #else
     shaderCode += "#version 300 es";
 #endif
-	shaderCode += R"(
+    shaderCode += R"(
 #ifdef GL_ES
 precision mediump float;
 precision highp int;
@@ -81,18 +81,18 @@ layout(location = 12) in vec4 aInstanceMatrix3;
     shaderCode += R"(flat out int toFSInstanceID;)";
 #endif
 
-	if (e_iNumMorphTarget > 0)
-	{
-		for (int i = 0; i < e_iNumMorphTarget; i++)
-		{
-			shaderCode += "\nlayout(location = " + std::to_string(i + FVF_MORPHING_TARGET_POS1) + ") in vec3 aMorphTarget" + std::to_string(i) + ";";
-		}
-		shaderCode += "\nuniform float uMorphWeights[" + std::to_string(e_iNumMorphTarget) + "];";
-	}
+    if (e_iNumMorphTarget > 0)
+    {
+        for (int i = 0; i < e_iNumMorphTarget; i++)
+        {
+            shaderCode += "\nlayout(location = " + std::to_string(i + FVF_MORPHING_TARGET_POS1) + ") in vec3 aMorphTarget" + std::to_string(i) + ";";
+        }
+        shaderCode += "\nuniform float uMorphWeights[" + std::to_string(e_iNumMorphTarget) + "];";
+    }
     shaderCode += R"(
-uniform mat4 inMat4Model;
-uniform mat4 inMat4View;
-uniform mat4 inMat4Projection;
+uniform mat4 uMat4Model;
+uniform mat4 uMat4View;
+uniform mat4 uMat4Projection;
 
 #ifdef USE_WEIGHTS
 const int MAX_BONES = 100;
@@ -116,8 +116,8 @@ out vec3 toFSVec3Binormal;
 //for animation texture
 
 const int MAX_INSTANCES = )";
-shaderCode += ValueToString((int)MAX_INSTANCES);
-shaderCode += R"(;
+    shaderCode += ValueToString((int)MAX_INSTANCES);
+    shaderCode += R"(;
 uniform sampler2D uAnimTexture;
 uniform ivec2 uCurrentAndNextFrameIndex[MAX_INSTANCES];
 uniform float uAnimationLerpTime[MAX_INSTANCES];
@@ -173,13 +173,13 @@ void main()
 {
     vec3 position = aPosition;
 )";
-	if (e_iNumMorphTarget > 0)
-	{
-		for (int i = 0; i < e_iNumMorphTarget; i++)
-		{
-			shaderCode += "    position += uMorphWeights[" + std::to_string(i) + "] * aMorphTarget" + std::to_string(i) + ";\n";
-		}
-	}
+    if (e_iNumMorphTarget > 0)
+    {
+        for (int i = 0; i < e_iNumMorphTarget; i++)
+        {
+            shaderCode += "    position += uMorphWeights[" + std::to_string(i) + "] * aMorphTarget" + std::to_string(i) + ";\n";
+        }
+    }
 
     shaderCode += R"(
     vec4 worldPos = vec4(position, 1.0);
@@ -223,31 +223,31 @@ void main()
 #endif
     shaderCode += R"(
 #endif    
-    worldPos = inMat4Model * worldPos;
+    worldPos = uMat4Model * worldPos;
     toFSVec3FragPos = worldPos.xyz;
-    gl_Position = inMat4Projection * inMat4View * worldPos;
+    gl_Position = uMat4Projection * uMat4View * worldPos;
 
 #ifdef USE_NORMAL
 #ifdef USE_INSTANCING
-    toFSVec3Normal = mat3(transpose(inverse(inMat4Model))) * (instanceNormalMatrix * aNormal);
+    toFSVec3Normal = mat3(transpose(inverse(uMat4Model))) * (instanceNormalMatrix * aNormal);
 #else
-    toFSVec3Normal = mat3(transpose(inverse(inMat4Model))) * aNormal;
+    toFSVec3Normal = mat3(transpose(inverse(uMat4Model))) * aNormal;
 #endif
 #endif
 
 #ifdef USE_TANGENT
 #ifdef USE_INSTANCING
-    toFSVec3Tangent = mat3(transpose(inverse(inMat4Model))) * (instanceNormalMatrix * aTangent);
+    toFSVec3Tangent = mat3(transpose(inverse(uMat4Model))) * (instanceNormalMatrix * aTangent);
 #else
-    toFSVec3Tangent = mat3(transpose(inverse(inMat4Model))) * aTangent;
+    toFSVec3Tangent = mat3(transpose(inverse(uMat4Model))) * aTangent;
 #endif
 #endif
 
 #ifdef USE_BINORMAL
 #ifdef USE_INSTANCING
-    toFSVec3Binormal = mat3(transpose(inverse(inMat4Model))) * (instanceNormalMatrix * aBinormal);
+    toFSVec3Binormal = mat3(transpose(inverse(uMat4Model))) * (instanceNormalMatrix * aBinormal);
 #else
-    toFSVec3Binormal = mat3(transpose(inverse(inMat4Model))) * aBinormal;
+    toFSVec3Binormal = mat3(transpose(inverse(uMat4Model))) * aBinormal;
 #endif
 #endif
 
@@ -260,9 +260,9 @@ void main()
 #if defined(DEBUG)
     FMLOG(shaderCode.c_str());
 #elif defined(WASM)
-	printf(shaderCode.c_str());
+    printf(shaderCode.c_str());
 #endif
-	return shaderCode;
+    return shaderCode;
 }
 
 
@@ -325,26 +325,26 @@ in vec3 toFSVec3Binormal;
 
 out vec4 FragColor;
 
-uniform vec3 inVec3ViewPosition;
+uniform vec3 uVec3ViewPosition;
 
 // Material uniforms
-uniform sampler2D textureDiffuse;
-uniform vec4 baseColorFactor;
+uniform sampler2D utextureDiffuse;
+uniform vec4 uBaseColorFactor;
 #ifdef USE_NORMAL_MAP
-uniform sampler2D textureNormal;
+uniform sampler2D utextureNormal;
 #endif
 #ifdef USE_OCCLUSION
-uniform sampler2D textureOcclusion;
-uniform float occlusionStrength;
+uniform sampler2D utextureOcclusion;
+uniform float uocclusionStrength;
 #endif
 #ifdef USE_METALLIC_ROUGHNESS
-uniform sampler2D textureMetallicRoughness;
+uniform sampler2D utextureMetallicRoughness;
 #endif
-uniform float metallicFactor;
-uniform float roughnessFactor;
+uniform float uMetallicFactor;
+uniform float uRoughnessFactor;
 #ifdef USE_EMISSIVE
-uniform sampler2D textureEmissive;
-uniform vec3 emissiveFactor;
+uniform sampler2D uTextureEmissive;
+uniform vec3 uEmissiveFactor;
 #endif
 
 // Light data structure matching std140 layout
@@ -362,7 +362,7 @@ struct Light
     float pad;           // Padding to align to 16 bytes
 };
 
-layout(std140) uniform LightBlock 
+layout(std140) uniform uLightBlock
 {
     Light lights[8];   // Array of light data (maximum 8 lights)
     int numLights;     // Number of lights
@@ -437,7 +437,7 @@ vec3 GetNormalFromMap()
     vec3 bitangent = normalize(cross(normal, tangent));
 #endif
     mat3 TBN = mat3(tangent, bitangent, normal);
-    vec3 normalMap = texture(textureNormal, toFSVec2TexCoord).rgb * 2.0 - 1.0;
+    vec3 normalMap = texture(utextureNormal, toFSVec2TexCoord).rgb * 2.0 - 1.0;
     return normalize(TBN * normalMap);
 #else
 #ifdef USE_NORMAL
@@ -451,31 +451,31 @@ vec3 GetNormalFromMap()
 void main()
 {
     vec3 N = GetNormalFromMap();
-    vec3 V = normalize(inVec3ViewPosition - toFSVec3FragPos);
+    vec3 V = normalize(uVec3ViewPosition - toFSVec3FragPos);
     vec3 color = vec3(0.0);
 #if defined(USE_TEXCOORD) && defined(FVF_BASE_COLOR_TEXTURE_FLAG)
-    //vec3 albedo = texture(textureDiffuse, toFSVec2TexCoord).rgb;
-    vec3 albedo = pow(texture(textureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * baseColorFactor.rgb;
+    //vec3 albedo = texture(utextureDiffuse, toFSVec2TexCoord).rgb;
+    vec3 albedo = pow(texture(utextureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * uBaseColorFactor.rgb;
 #else
-    vec3 albedo = baseColorFactor.rgb;
+    vec3 albedo = uBaseColorFactor.rgb;
 #endif
 
 #ifdef USE_OCCLUSION
-    float occlusion = texture(textureOcclusion, toFSVec2TexCoord).r * occlusionStrength;
+    float occlusion = texture(utextureOcclusion, toFSVec2TexCoord).r * uocclusionStrength;
 #else
     float occlusion = 1.0;
 #endif
 
 #ifdef USE_METALLIC_ROUGHNESS
-    float metallic = texture(textureMetallicRoughness, toFSVec2TexCoord).b * metallicFactor;
-    float roughness = texture(textureMetallicRoughness, toFSVec2TexCoord).g * roughnessFactor;
+    float metallic = texture(utextureMetallicRoughness, toFSVec2TexCoord).b * uMetallicFactor;
+    float roughness = texture(utextureMetallicRoughness, toFSVec2TexCoord).g * uRoughnessFactor;
 #else
-    float metallic = metallicFactor;
-    float roughness = roughnessFactor;
+    float metallic = uMetallicFactor;
+    float roughness = uRoughnessFactor;
 #endif
 
 #ifdef USE_EMISSIVE
-    vec3 emissive = pow(texture(textureEmissive, toFSVec2TexCoord).rgb, vec3(2.0)) * emissiveFactor;
+    vec3 emissive = pow(texture(uTextureEmissive, toFSVec2TexCoord).rgb, vec3(2.0)) * uEmissiveFactor;
 #else
     vec3 emissive = vec3(0.0);
 #endif
@@ -523,13 +523,13 @@ void main()
     //FragColor = vec4(color,1);
     FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0); // Gamma correction)";
 #ifdef DEBUG
-shaderCode += R"(
+    shaderCode += R"(
     if(toFSInstanceID %10 == 0)
     {
         FragColor = vec4(1.0, 1.0, 0.0, 1.0)*FragColor; // Debug color for every 100th instance   
     })";
 #endif
-shaderCode+=R"(
+    shaderCode += R"(
 }
 )";
 

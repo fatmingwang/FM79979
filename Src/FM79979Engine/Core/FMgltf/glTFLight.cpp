@@ -248,11 +248,11 @@ void cLighController::Render(GLuint e_uiProgramID)
         //return;
 	}
     m_iLastUsedProgram = e_uiProgramID;
-    GLuint l_inVec3ViewPosition = glGetUniformLocation(e_uiProgramID, "inVec3ViewPosition");
-    if (l_inVec3ViewPosition != GL_INVALID_INDEX)
+    GLuint l_uVec3ViewPosition = glGetUniformLocation(e_uiProgramID, "uVec3ViewPosition");
+    if (l_uVec3ViewPosition != GL_INVALID_INDEX)
     {
         Vector3 l_vCameraPos(0, 0, -99999);
-        glUniform3fv(l_inVec3ViewPosition, 1, l_vCameraPos);
+        glUniform3fv(l_uVec3ViewPosition, 1, l_vCameraPos);
     }
     // Ensure we don't exceed the maximum number of lights
     int numLights = static_cast<int>(m_LightDataVector.size());
@@ -289,7 +289,7 @@ void cLighController::Render(GLuint e_uiProgramID)
     
     else
     {
-        GLuint blockIndex = glGetUniformBlockIndex(e_uiProgramID, "LightBlock");
+        GLuint blockIndex = glGetUniformBlockIndex(e_uiProgramID, "uLightBlock");
         if (blockIndex != GL_INVALID_INDEX)
         {
             glUniformBlockBinding(e_uiProgramID, blockIndex, 0);

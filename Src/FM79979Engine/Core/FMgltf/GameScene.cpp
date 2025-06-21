@@ -51,6 +51,7 @@ void cglTFScene::Render()
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+	glClearColor(1.f, 0.1f, 0.1f, 1.0f);
     cBaseShader* l_pShader = GetCurrentShader();
     if (l_pShader)
     {

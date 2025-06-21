@@ -126,7 +126,7 @@ void cMesh::sSubMesh::ApplyMaterial()
     }
     else
     {
-        GLuint metallicFactorLoc = glGetUniformLocation(this->m_iShaderProgramID, "baseColorFactor");
+        GLuint metallicFactorLoc = glGetUniformLocation(this->m_iShaderProgramID, "uBaseColorFactor");
         if (metallicFactorLoc != GL_INVALID_INDEX)
         {
             Vector4 l_vbaseColorFactor = Vector4::One;
@@ -190,7 +190,7 @@ void cMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
     glUseProgram(e_pSubMesh->m_iShaderProgramID);
     ApplyMorphUniformData(e_pSubMesh);
     g_fSetLightUniform(e_pSubMesh->m_iShaderProgramID);
-    GLuint modelLoc = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID, "inMat4Model");
+    GLuint modelLoc = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID, "uMat4Model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, e_mat);
     g_fSetCameraUniform(e_pSubMesh->m_iShaderProgramID);
     e_pSubMesh->ApplyMaterial();

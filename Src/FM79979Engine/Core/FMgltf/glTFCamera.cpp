@@ -345,8 +345,8 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
     {
         auto l_Matrix = l_pCamera->GetWorldViewglTFProjection();
         // Set model, view, projection matrices
-        GLuint viewLoc = glGetUniformLocation(e_uiProgramID, "inMat4View");
-        GLuint projLoc = glGetUniformLocation(e_uiProgramID, "inMat4Projection");
+        GLuint viewLoc = glGetUniformLocation(e_uiProgramID, "uMat4View");
+        GLuint projLoc = glGetUniformLocation(e_uiProgramID, "uMat4Projection");
         //cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
 		cMatrix44 viewMatrix = l_pCamera->GetWorldView();
         if(e_pMatrix)

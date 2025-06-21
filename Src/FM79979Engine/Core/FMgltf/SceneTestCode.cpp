@@ -121,17 +121,17 @@ int glTFInit()
         {
             cSkinningAnimTestClass* l_pSkinningAnimTestClassl1 = new cSkinningAnimTestClass();
             l_pSkinningAnimTestClassl1->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "PickUp");
-            cSkinningAnimTestClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimTestClass();
-            l_pSkinningAnimTestClassl2->SetLocalPosition(Vector3(0, 0, -15));
-            l_pSkinningAnimTestClassl2->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Jump2");
+            //cSkinningAnimTestClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimTestClass();
+            //l_pSkinningAnimTestClassl2->SetLocalPosition(Vector3(0, 0, -15));
+            //l_pSkinningAnimTestClassl2->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Jump2");
             //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Idle");
             //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "");
             l_pRootFrame->AddChild(l_pSkinningAnimTestClassl1);
-            l_pRootFrame->AddChild(l_pSkinningAnimTestClassl2);
+            //l_pRootFrame->AddChild(l_pSkinningAnimTestClassl2);
         }
         {
             
-            //l_pRootFrame->AddChild(l_pDuck);
+            l_pRootFrame->AddChild(l_pDuck);
         }
         if(0)
         {

@@ -127,7 +127,7 @@ void cMaterial::Apply()
 {
     GLuint textureUnit = 0;
     // Bind base color texture
-    GLuint textureLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureDiffuse");
+    GLuint textureLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureDiffuse");
     if (textureLoc != GL_INVALID_INDEX && !m_uiBaseColorTextureVector.empty())
     {
         for (size_t i = 0; i < m_uiBaseColorTextureVector.size(); ++i)
@@ -154,7 +154,7 @@ void cMaterial::Apply()
     if (!m_uiNormalTextureVector.empty())
     {
         m_uiNormalTextureVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint normalMapLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureNormal");
+        GLuint normalMapLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureNormal");
         if (normalMapLoc != GL_INVALID_INDEX)
         {
             glUniform1i(normalMapLoc, textureUnit);
@@ -166,7 +166,7 @@ void cMaterial::Apply()
     if (!m_uiOocclusionTextureVector.empty())
     {
         m_uiOocclusionTextureVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint occlusionLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureOcclusion");
+        GLuint occlusionLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureOcclusion");
         if (occlusionLoc != GL_INVALID_INDEX)
         {
             glUniform1i(occlusionLoc, textureUnit);
@@ -178,7 +178,7 @@ void cMaterial::Apply()
     if (!m_uiMetallicRoughnessTextureVector.empty())
     {
         m_uiMetallicRoughnessTextureVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint metallicRoughnessLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureMetallicRoughness");
+        GLuint metallicRoughnessLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureMetallicRoughness");
         if (metallicRoughnessLoc != GL_INVALID_INDEX)
         {
             glUniform1i(metallicRoughnessLoc, textureUnit);
@@ -190,7 +190,7 @@ void cMaterial::Apply()
     if (!m_uiEmissiveTextureIDVector.empty())
     {
         m_uiEmissiveTextureIDVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint emissiveLoc = glGetUniformLocation(m_uiShaderProgrameID, "textureEmissive");
+        GLuint emissiveLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureEmissive");
         if (emissiveLoc != GL_INVALID_INDEX)
         {
             glUniform1i(emissiveLoc, textureUnit);
@@ -206,7 +206,7 @@ bool cMaterial::ApplyUnriforms()
     bool success = true;
 
     // Set base color factor
-    GLuint baseColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "baseColorFactor");
+    GLuint baseColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uBaseColorFactor");
     if (baseColorFactorLoc != GL_INVALID_INDEX)
     {
         glUniform4fv(baseColorFactorLoc, 1, m_baseColorFactor);
@@ -217,7 +217,7 @@ bool cMaterial::ApplyUnriforms()
     }
 
     // Set metallic factor
-    GLuint metallicFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "metallicFactor");
+    GLuint metallicFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uMetallicFactor");
     if (metallicFactorLoc != GL_INVALID_INDEX)
     {
         glUniform1f(metallicFactorLoc, m_metallicFactor);
@@ -228,7 +228,7 @@ bool cMaterial::ApplyUnriforms()
     }
 
     // Set roughness factor
-    GLuint roughnessFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "roughnessFactor");
+    GLuint roughnessFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uRoughnessFactor");
     if (roughnessFactorLoc != GL_INVALID_INDEX)
     {
         glUniform1f(roughnessFactorLoc, m_roughnessFactor);
@@ -239,7 +239,7 @@ bool cMaterial::ApplyUnriforms()
     }
 
     // Set occlusion strength
-    GLuint occlusionStrengthLoc = glGetUniformLocation(m_uiShaderProgrameID, "occlusionStrength");
+    GLuint occlusionStrengthLoc = glGetUniformLocation(m_uiShaderProgrameID, "uOcclusionStrength");
     if (occlusionStrengthLoc != GL_INVALID_INDEX)
     {
         glUniform1f(occlusionStrengthLoc, m_occlusionStrength);
@@ -250,7 +250,7 @@ bool cMaterial::ApplyUnriforms()
     }
 
     // Set emissive factor
-    GLuint emissiveFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "emissiveFactor");
+    GLuint emissiveFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uEmissiveFactor");
     if (emissiveFactorLoc != GL_INVALID_INDEX)
     {
         glUniform3fv(emissiveFactorLoc, 1, m_emissiveFactor);
