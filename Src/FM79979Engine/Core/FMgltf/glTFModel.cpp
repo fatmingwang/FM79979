@@ -178,18 +178,39 @@ std::map<std::string, sAnimationData*> cglTFModel::CloneNameAndAnimationMap(cglT
     return l_CloneMap;
 }
 
+void DumpShaderCompilerInfo(GLuint e_uiShader)
+{
+    GLint compiled;
+    glGetShaderiv(e_uiShader, GL_COMPILE_STATUS, &compiled);
+    if (compiled != GL_TRUE)
+    {
+        // Get the length of the log
+        GLint logLength = 0;
+        glGetShaderiv(e_uiShader, GL_INFO_LOG_LENGTH, &logLength);
+
+        if (logLength > 0)
+        {
+            std::vector<GLchar> log(logLength);
+            glGetShaderInfoLog(e_uiShader, logLength, nullptr, log.data());
+            printf("Shader compile error:\n%s\n", log.data());
+        }
+        else
+        {
+            printf("Shader compile failed but no log available.\n");
+        }
+    }
+    else
+    {
+        printf("Shader compile ok\n");
+    }
+}
+
 GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
 {
     std::string vertexCode = GenerateVertexShaderWithFVF(fvfFlags, e_iNumMorphTarget);
-	FMLOG("vertex shader code:\n%s", vertexCode.c_str());
+	//printf("vertex shader code:\n%s", vertexCode.c_str());
     //std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
-    //std::string vertexCode = R"(#version 300 es
-    //        in vec3 aPos;
-    //        void main() {
-    //            gl_Position = vec4(aPos, 1.0);
-    //        }
-    //    )";
-
+    //printf("fs shader code:\n%s", fragmentCode.c_str());
     // Fragment Shader source (GLSL ES 3.00)
     std::string fragmentCode = R"(#version 300 es
             precision mediump float;
@@ -203,11 +224,12 @@ GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
     const char* vShaderCode = vertexCode.c_str();
     glShaderSource(vertexShader, 1, &vShaderCode, nullptr);
     LAZY_DO_GL_COMMAND_AND_GET_ERROR(glCompileShader(vertexShader));
-
+    DumpShaderCompilerInfo(vertexShader);
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     const char* fShaderCode = fragmentCode.c_str();
     glShaderSource(fragmentShader, 1, &fShaderCode, nullptr);
     LAZY_DO_GL_COMMAND_AND_GET_ERROR(glCompileShader(fragmentShader));
+    DumpShaderCompilerInfo(fragmentShader);
 
     GLuint shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);

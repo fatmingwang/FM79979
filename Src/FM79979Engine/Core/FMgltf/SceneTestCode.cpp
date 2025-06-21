@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <string>
-
+bool g_bWait = true;
 // Macro to check for OpenGL errors
 #define FORCE_CHECK_GL_ERROR2() \
     do { \
@@ -182,7 +182,7 @@ int glTFInit()
     FMLOG("check error");
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
-    bool l_bDoAnimTexture = false;
+    bool l_bDoAnimTexture = true;
     {
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
@@ -193,8 +193,8 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",10);
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",1000);
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
         if (!l_pDuck)
         {
             FMLOG("parse model filed");
@@ -204,13 +204,13 @@ int glTFInit()
         {
             cSkinningAnimTestClass* l_pSkinningAnimTestClassl1 = new cSkinningAnimTestClass();
             l_pSkinningAnimTestClassl1->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "PickUp");
-            //cSkinningAnimTestClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimTestClass();
-            //l_pSkinningAnimTestClassl2->SetLocalPosition(Vector3(0, 0, -15));
-            //l_pSkinningAnimTestClassl2->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Jump2");
+            cSkinningAnimTestClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimTestClass();
+            l_pSkinningAnimTestClassl2->SetLocalPosition(Vector3(0, 0, -15));
+            l_pSkinningAnimTestClassl2->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Jump2");
             //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Idle");
             //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "");
             l_pRootFrame->AddChild(l_pSkinningAnimTestClassl1);
-            //l_pRootFrame->AddChild(l_pSkinningAnimTestClassl2);
+            l_pRootFrame->AddChild(l_pSkinningAnimTestClassl2);
         }
         {
             
@@ -272,6 +272,7 @@ int glTFInit()
 
 
     //g_glTFModel.InitBuffers();
+    g_bWait = false;
     return 1;
 }
 
@@ -290,7 +291,7 @@ void GlTFUpdate(float e_fElpaseTime)
 void GlTFRender()
 {
     //renderer->render();;
-    if (g_pglTFScene)
+    if (g_pglTFScene && !g_bWait)
     {
 		g_pglTFScene->Render();
     }

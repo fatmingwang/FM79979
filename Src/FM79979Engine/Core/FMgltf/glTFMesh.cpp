@@ -464,7 +464,6 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
             glGenBuffers(1, &l_pSubMesh->m_iVBOArray[l_iFVFIndex]);
             glBindBuffer(GL_ARRAY_BUFFER, l_pSubMesh->m_iVBOArray[l_iFVFIndex]);
             glBufferData(GL_ARRAY_BUFFER, dataSize, dataPtr, GL_STATIC_DRAW);
-            glEnableVertexAttribArray(l_iFVFIndex);
 
             auto    l_ByteStride =  accessor.ByteStride(bufferView);
             int     l_iStride = accessor.type;
@@ -484,7 +483,8 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
                 //(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
                 glVertexAttribPointer(l_iFVFIndex, l_iStride, l_iGLDataType, GL_FALSE, l_ByteStride, nullptr);
             }
-            FMLOG("SubMesh attribute name:%s VBO ID: %d, FVF Index: %d DataSize: %d Type:%d", attribute.first.c_str(), l_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, dataSize, accessor.componentType);
+            glEnableVertexAttribArray(l_iFVFIndex);
+            FMLOG("SubMesh attribute name:%s VBO ID: %d,FVF Index: %d,Stride:%d  DataSize: %d Type:%d", attribute.first.c_str(), l_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, l_iStride, dataSize, accessor.componentType);
             if (attribute.first == "POSITION")
             {
                 l_pSubMesh->m_i64VertexCount = accessor.count;
@@ -571,8 +571,8 @@ void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& m
                 glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVF]);
                 glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVF]);
                 glBufferData(GL_ARRAY_BUFFER, l_uiPosDataSize, data, GL_STATIC_DRAW);
-                glEnableVertexAttribArray(l_iFVF);
                 glVertexAttribPointer(l_iFVF, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
+                glEnableVertexAttribArray(l_iFVF);
             }
         }
 #ifdef DEBUG

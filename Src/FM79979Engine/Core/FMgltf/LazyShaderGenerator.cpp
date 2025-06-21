@@ -193,10 +193,10 @@ void main()
     if(uNumAnimationModel != 0)
     {
         int instanceIndex = gl_InstanceID % uNumAnimationModel;
-	    mat4 pose0 = GetAnimationPoseUseTightTexture(aJoints.x, instanceIndex);
-	    mat4 pose1 = GetAnimationPoseUseTightTexture(aJoints.y, instanceIndex);
-	    mat4 pose2 = GetAnimationPoseUseTightTexture(aJoints.z, instanceIndex);
-	    mat4 pose3 = GetAnimationPoseUseTightTexture(aJoints.w, instanceIndex);
+	    mat4 pose0 = GetAnimationPoseUseTightTexture(int(aJoints.x), instanceIndex);
+	    mat4 pose1 = GetAnimationPoseUseTightTexture(int(aJoints.y), instanceIndex);
+	    mat4 pose2 = GetAnimationPoseUseTightTexture(int(aJoints.z), instanceIndex);
+	    mat4 pose3 = GetAnimationPoseUseTightTexture(int(aJoints.w), instanceIndex);
         skinMatrix = aWeights.x * pose0 +
                           aWeights.y * pose1 +
                           aWeights.z * pose2 +
