@@ -2,76 +2,6 @@
 #include "glTFModel.h"
 #include "GameScene.h"
 
-//
-//
-//struct EmscriptenFsCallbacks
-//{
-//    // Load image data
-//    static bool LoadImageData(tinygltf::Image* image, const int image_idx, std::string* err,
-//                              std::string* mime_type, const std::string& uri,
-//                              const unsigned char* data, size_t size, void* user_data)
-//    {
-//        // Use Emscripten's FS to load the image from the virtual filesystem
-//        try
-//        {
-//            FILE* fp = fopen(uri.c_str(), "rb");
-//            if (!fp)
-//            {
-//                if (err) *err = "Failed to open image: " + uri;
-//                return false;
-//            }
-//
-//            fseek(fp, 0, SEEK_END);
-//            size_t file_size = ftell(fp);
-//            fseek(fp, 0, SEEK_SET);
-//
-//            image->image.resize(file_size);
-//            size_t read = fread(image->image.data(), 1, file_size, fp);
-//            fclose(fp);
-//
-//            if (read != file_size)
-//            {
-//                if (err) *err = "Failed to read image: " + uri;
-//                return false;
-//            }
-//
-//            // Set MIME type based on file extension
-//            if (mime_type)
-//            {
-//                if (uri.ends_with(".png")) *mime_type = "image/png";
-//                else if (uri.ends_with(".jpg") || uri.ends_with(".jpeg")) *mime_type = "image/jpeg";
-//                else *mime_type = "application/octet-stream";
-//            }
-//
-//            return true;
-//        }
-//        catch (...)
-//        {
-//            if (err) *err = "Exception while reading image: " + uri;
-//            return false;
-//        }
-//    }
-//
-//    // Write image data (optional, implement if needed)
-//    static bool WriteImageData(const std::string* basepath, const std::string* filename,
-//                               const tinygltf::Image* image, bool embedImages,
-//                               const tinygltf::URICallbacks* uri_cb, std::string* out,
-//                               void* user_data)
-//    {
-//        // If you don't need to write images, return false or implement as needed
-//        if (out) *out = "Image writing not supported";
-//        return false;
-//    }
-//
-//    // URI decoding
-//    static bool URIDecode(const std::string& uri, std::string* out, std::string* err,
-//                          void* user_data)
-//    {
-//        *out = uri; // Basic implementation; add proper URI decoding if needed
-//        return true;
-//    }
-//};
-
 
 cglTFScene*g_pglTFScene = nullptr;
 
@@ -84,22 +14,9 @@ cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceV
 
 int glTFInit()
 {
-
-
-
-    //tinygltf::TinyGLTF loader;
-
-    //// Set custom callbacks
-    //tinygltf::FsCallbacks fs_callbacks;
-    //fs_callbacks.LoadImageData = EmscriptenFsCallbacks::LoadImageData;
-    //fs_callbacks.WriteImageData = EmscriptenFsCallbacks::WriteImageData;
-    //fs_callbacks.URIDecode = EmscriptenFsCallbacks::URIDecode;
-
-    //loader.SetFsCallbacks(fs_callbacks);
-
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
-    bool l_bDoAnimTexture = true;
+    bool l_bDoAnimTexture = false;
     {
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
@@ -108,16 +25,16 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",10);
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",10);
         if (!l_pDuck)
         {
             FMLOG("parse model filed");
             return 0;
         }
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf", 100);
-        if (l_bDoAnimTexture)
+        if (l_pDuck && l_bDoAnimTexture)
         {
             cSkinningAnimTestClass* l_pSkinningAnimTestClassl1 = new cSkinningAnimTestClass();
             l_pSkinningAnimTestClassl1->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "PickUp");

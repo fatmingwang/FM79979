@@ -181,9 +181,15 @@ std::map<std::string, sAnimationData*> cglTFModel::CloneNameAndAnimationMap(cglT
 GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
 {
     std::string vertexCode = GenerateVertexShaderWithFVF(fvfFlags, e_iNumMorphTarget);
+#ifdef WASM
+    printf("111");
+    printf("Length %d\n", vertexCode.length());
+    printf("%s", vertexCode.c_str());
+#endif
     std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     const char* vShaderCode = vertexCode.c_str();
+    printf("%s", vertexCode.c_str());
     glShaderSource(vertexShader, 1, &vShaderCode, nullptr);
     LAZY_DO_GL_COMMAND_AND_GET_ERROR(glCompileShader(vertexShader));
 

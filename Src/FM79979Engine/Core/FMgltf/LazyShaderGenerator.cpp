@@ -31,14 +31,15 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
     if (e_i64FVFFlags & FVF_ANIMATION_TEXTURE_FLAG)
         l_strDefine += "#define FVF_ANIMATION_TEXTURE_FLAG\n";
 
-    std::string shaderCode = "//this is Vertex shader\n";
+    std::string shaderCode;
 #if defined(WIN32)
     shaderCode += "#version 330 core\n";
 #else
-    shaderCode += R"(#version 300 es"
+    shaderCode += R"(#version 300 es
 precision mediump float;
 precision highp int;
-precision highp sampler2D;)";
+precision highp sampler2D;
+)";
 #endif
     shaderCode += l_strDefine;
     shaderCode += R"(
@@ -192,14 +193,10 @@ void main()
 	    mat4 pose1 = GetAnimationPoseUseTightTexture(aJoints.y, instanceIndex);
 	    mat4 pose2 = GetAnimationPoseUseTightTexture(aJoints.z, instanceIndex);
 	    mat4 pose3 = GetAnimationPoseUseTightTexture(aJoints.w, instanceIndex);
-	    //mat4 pose0 = GetAnimationPose(aJoints.x, instanceIndex);
-	    //mat4 pose1 = GetAnimationPose(aJoints.y, instanceIndex);
-	    //mat4 pose2 = GetAnimationPose(aJoints.z, instanceIndex);
-	    //mat4 pose3 = GetAnimationPose(aJoints.w, instanceIndex);
-        skinMatrix = aWeights.x*10 * pose0 +
-                          aWeights.y *10* pose1 +
-                          aWeights.z *10* pose2 +
-                          aWeights.w*10 * pose3;
+        skinMatrix = aWeights.x * pose0 +
+                          aWeights.y * pose1 +
+                          aWeights.z * pose2 +
+                          aWeights.w * pose3;
     }
     else
     {
@@ -292,11 +289,11 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 
 
 
-    std::string shaderCode = "//this is framgent shader\n";
+    std::string shaderCode;
 #if defined(WIN32)
     shaderCode += "#version 330 core\n";
 #else
-    shaderCode += R"(#version 300 es"
+    shaderCode += R"(#version 300 es
 precision mediump float;
 precision highp int;
 precision highp sampler2D;
