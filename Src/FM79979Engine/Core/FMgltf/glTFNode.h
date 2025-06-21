@@ -62,3 +62,34 @@ public:
     }
     static bool ContainInstanceExtension(const tinygltf::Node& e_pNode);
 };
+
+
+
+
+#define	FORCE_CHECK_GL_ERROR(p) ForceGlErrorTest(p,__FILE__, __LINE__)
+
+inline void	ForceGlErrorTest(const char* e_strMessage, const char* e_strFileName, int32_t e_iCodeLine)
+{
+    int l_iTestCont = 5;
+    int	l_iError = glGetError();
+    while (l_iError != 0 && l_iTestCont > 0)
+    {
+        --l_iTestCont;
+        std::string l_str = GET_FILENAME_AND_LINE(e_strFileName, e_iCodeLine);
+        l_str += "   ";
+        l_str += e_strMessage;
+        l_str += "   glGetError:";
+        const char* errorString = 0;
+        switch (l_iError)
+        {
+            case GL_INVALID_ENUM: l_str += "GL_INVALID_ENUM"; break;
+            case GL_INVALID_FRAMEBUFFER_OPERATION: l_str += "GL_INVALID_FRAMEBUFFER_OPERATION"; break;
+            case GL_INVALID_VALUE: l_str += "GL_INVALID_VALUE"; break;
+            case GL_INVALID_OPERATION: l_str += "GL_INVALID_OPERATION"; break;
+            case GL_OUT_OF_MEMORY: l_str += "GL_OUT_OF_MEMORY"; break;
+            default: l_str += FATMING_CORE::ValueToString(l_iError); break;
+        }
+        FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+        l_iError = glGetError();
+    }
+}

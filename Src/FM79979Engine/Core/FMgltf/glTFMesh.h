@@ -47,7 +47,7 @@ protected:
         GLuint                      m_iShaderProgramID;
         size_t                      m_i64VertexCount = 0;
         GLuint                      m_iVBOArray[TOTAL_FVF];
-        std::vector<uint32_t>       m_IndexBuffer;
+        std::vector<GLuint>         m_IndexBuffer;
         GLuint                      m_uiVAO = -1;
         GLuint                      m_uiEBO = -1;
         Vector3                     m_vMinBounds;

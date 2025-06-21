@@ -2,7 +2,171 @@
 #include "glTFModel.h"
 #include "GameScene.h"
 
+#include <iostream>
+#include <string>
 
+// Macro to check for OpenGL errors
+#define FORCE_CHECK_GL_ERROR2() \
+    do { \
+        GLenum err = glGetError(); \
+        if (err != GL_NO_ERROR) { \
+            std::cerr << "OpenGL Error: " << err << " at line " << __LINE__ << std::endl; \
+        } \
+    } while(0)
+
+class GLTestDrawElements
+{
+    public:
+    GLTestDrawElements()
+    {
+        FMLOG("GLTestDrawElements start");
+        // Vertex Shader source (GLSL ES 3.00)
+        const char* vertexShaderSource = R"(#version 300 es
+            in vec3 aPos;
+            void main() {
+                gl_Position = vec4(aPos, 1.0);
+            }
+        )";
+
+        // Fragment Shader source (GLSL ES 3.00)
+        const char* fragmentShaderSource = R"(#version 300 es
+            precision mediump float;
+            out vec4 FragColor;
+            void main() {
+                FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+            }
+        )";
+
+        // Compile vertex shader
+        vertexShader = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
+        FORCE_CHECK_GL_ERROR2();
+        glCompileShader(vertexShader);
+        FORCE_CHECK_GL_ERROR2();
+
+        GLint success;
+        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+        if (!success)
+        {
+            char infoLog[512];
+            glGetShaderInfoLog(vertexShader, 512, nullptr, infoLog);
+            std::cerr << "Vertex Shader Compilation Failed: " << infoLog << std::endl;
+        }
+
+        // Compile fragment shader
+        fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+        FORCE_CHECK_GL_ERROR2();
+        glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
+        FORCE_CHECK_GL_ERROR2();
+        glCompileShader(fragmentShader);
+        FORCE_CHECK_GL_ERROR2();
+
+        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+        if (!success)
+        {
+            char infoLog[512];
+            glGetShaderInfoLog(fragmentShader, 512, nullptr, infoLog);
+            std::cerr << "Fragment Shader Compilation Failed: " << infoLog << std::endl;
+        }
+
+        // Link shader program
+        shaderProgram = glCreateProgram();
+        FORCE_CHECK_GL_ERROR2();
+        glAttachShader(shaderProgram, vertexShader);
+        FORCE_CHECK_GL_ERROR2();
+        glAttachShader(shaderProgram, fragmentShader);
+        FORCE_CHECK_GL_ERROR2();
+        glLinkProgram(shaderProgram);
+        FORCE_CHECK_GL_ERROR2();
+
+        glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+        if (!success)
+        {
+            char infoLog[512];
+            glGetProgramInfoLog(shaderProgram, 512, nullptr, infoLog);
+            std::cerr << "Shader Program Linking Failed: " << infoLog << std::endl;
+        }
+
+        glDeleteShader(vertexShader);
+        FORCE_CHECK_GL_ERROR2();
+        glDeleteShader(fragmentShader);
+        FORCE_CHECK_GL_ERROR2();
+
+        // Vertex data for a square (two triangles)
+        float vertices[] = {
+            0.5f,  0.5f, 0.0f,  // top right
+            0.5f, -0.5f, 0.0f,  // bottom right
+           -0.5f, -0.5f, 0.0f,  // bottom left
+           -0.5f,  0.5f, 0.0f   // top left 
+        };
+
+        unsigned int indices[] = {
+            0, 1, 3,  // first triangle
+            1, 2, 3   // second triangle
+        };
+
+        // Setup VAO, VBO, EBO
+        glGenVertexArrays(1, &VAO);
+        FORCE_CHECK_GL_ERROR2();
+        glGenBuffers(1, &VBO);
+        FORCE_CHECK_GL_ERROR2();
+        glGenBuffers(1, &EBO);
+        FORCE_CHECK_GL_ERROR2();
+
+        glBindVertexArray(VAO);
+        FORCE_CHECK_GL_ERROR2();
+
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        FORCE_CHECK_GL_ERROR2();
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+        FORCE_CHECK_GL_ERROR2();
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        FORCE_CHECK_GL_ERROR2();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        FORCE_CHECK_GL_ERROR2();
+
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+        FORCE_CHECK_GL_ERROR2();
+        glEnableVertexAttribArray(0);
+        FORCE_CHECK_GL_ERROR2();
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        FORCE_CHECK_GL_ERROR2();
+        glBindVertexArray(0);
+        FORCE_CHECK_GL_ERROR2();
+    }
+
+    ~GLTestDrawElements()
+    {
+        glDeleteVertexArrays(1, &VAO);
+        FORCE_CHECK_GL_ERROR2();
+        glDeleteBuffers(1, &VBO);
+        FORCE_CHECK_GL_ERROR2();
+        glDeleteBuffers(1, &EBO);
+        FORCE_CHECK_GL_ERROR2();
+        glDeleteProgram(shaderProgram);
+        FORCE_CHECK_GL_ERROR2();
+    }
+
+    void render()
+    {
+        glUseProgram(shaderProgram);
+        FORCE_CHECK_GL_ERROR2();
+        glBindVertexArray(VAO);
+        FORCE_CHECK_GL_ERROR2();
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        FORCE_CHECK_GL_ERROR2();
+        glBindVertexArray(0);
+        FORCE_CHECK_GL_ERROR2();
+        //FMLOG("GLTestDrawElements Render");
+    }
+
+    private:
+    unsigned int VAO, VBO, EBO;
+    unsigned int shaderProgram;
+    unsigned int vertexShader, fragmentShader;
+};
 cglTFScene*g_pglTFScene = nullptr;
 
 cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceValue = 0)
@@ -11,9 +175,11 @@ cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceV
     l_pglTFModel->LoadFromGLTF(e_strFileName, true,e_iInstanceValue);
     return l_pglTFModel;
 }
-
+//GLTestDrawElements* renderer;
 int glTFInit()
 {
+    //renderer = new GLTestDrawElements();
+    FMLOG("check error");
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
     bool l_bDoAnimTexture = false;
@@ -25,15 +191,15 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
+        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",10);
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
         if (!l_pDuck)
         {
             FMLOG("parse model filed");
             return 0;
         }
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf", 100);
         if (l_pDuck && l_bDoAnimTexture)
         {
             cSkinningAnimTestClass* l_pSkinningAnimTestClassl1 = new cSkinningAnimTestClass();
@@ -123,6 +289,7 @@ void GlTFUpdate(float e_fElpaseTime)
 
 void GlTFRender()
 {
+    //renderer->render();;
     if (g_pglTFScene)
     {
 		g_pglTFScene->Render();

@@ -62,7 +62,11 @@ layout(location = 4) in vec3 aBinormal;
 layout(location = 5) in vec4 aWeights;
 #endif
 #ifdef USE_JOINTS
+#ifdef GL_ES
+layout(location = 6) in uvec4 aJoints;
+#else
 layout(location = 6) in ivec4 aJoints;
+#endif
 #endif
 #ifdef USE_TEXCOORD
 layout(location = 7) in vec2 aTexCoord;
@@ -254,8 +258,6 @@ void main()
 
 #if defined(DEBUG)
     FMLOG(shaderCode.c_str());
-#elif defined(WASM)
-    printf(shaderCode.c_str());
 #endif
     return shaderCode;
 }
@@ -300,8 +302,12 @@ precision highp sampler2D;
 )";
 #endif
     shaderCode += l_strDefine;
+#ifdef DEBUG
     shaderCode += R"(
 flat in int toFSInstanceID; // Flat qualifier for instance ID
+)";
+#endif
+    shaderCode += R"(
 in vec3 toFSVec3FragPos;
 #ifdef USE_NORMAL
 in vec3 toFSVec3Normal;
@@ -447,7 +453,6 @@ void main()
     vec3 V = normalize(uVec3ViewPosition - toFSVec3FragPos);
     vec3 color = vec3(0.0);
 #if defined(USE_TEXCOORD) && defined(FVF_BASE_COLOR_TEXTURE_FLAG)
-    //vec3 albedo = texture(utextureDiffuse, toFSVec2TexCoord).rgb;
     vec3 albedo = pow(texture(utextureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * uBaseColorFactor.rgb;
 #else
     vec3 albedo = uBaseColorFactor.rgb;
@@ -528,8 +533,6 @@ void main()
 
 #if defined(DEBUG)// || defined(WASM)
     FMLOG(shaderCode.c_str());
-#elif defined(WASM)
-    printf(shaderCode.c_str());
 #endif
     return shaderCode;
 }

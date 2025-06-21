@@ -10,6 +10,7 @@
 #include <set>
 #include "glTFLight.h"
 #include"glTFCamera.h"
+#include "glTFNode.h"
 
 TYPDE_DEFINE_MARCO(cMesh);
 
@@ -31,16 +32,21 @@ cMesh::~cMesh()
 
 void cMesh::ApplyMorphUniformData(sSubMesh* e_pSubMesh)
 {
+    FORCE_CHECK_GL_ERROR("");
     if (m_CurrentAnimationMorphPrimitiveWeightsVector.size() && e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap)
     {//setup how many primitive and weights data
         auto l_uiUniform = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID,"uMorphWeights");
-        auto l_uiSize = e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap->size();
-        LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform1fv((GLsizei)l_uiUniform, (GLsizei)l_uiSize, m_CurrentAnimationMorphPrimitiveWeightsVector.data()));
+        if (l_uiUniform != GL_INVALID_INDEX)
+        {
+            auto l_uiSize = e_pSubMesh->m_spFVFAndVertexDataMorphTargetMap->size();
+            LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUniform1fv((GLsizei)l_uiUniform, (GLsizei)l_uiSize, m_CurrentAnimationMorphPrimitiveWeightsVector.data()));
+        }
     }
 }
 
 void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinygltf::Primitive& primitive, sSubMesh* e_pSubMesh)
 {
+    FORCE_CHECK_GL_ERROR("");
     // Generate normals if they are not present
     if (primitive.attributes.find("NORMAL") == primitive.attributes.end())
     {
@@ -60,9 +66,9 @@ void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinyglt
         Vector3* l_pPositionData = (Vector3*)dataPtr;
         for (size_t i = 0; i < e_pSubMesh->m_IndexBuffer.size(); i += 3)
         {
-            uint32_t index0 = e_pSubMesh->m_IndexBuffer[i];
-            uint32_t index1 = e_pSubMesh->m_IndexBuffer[i + 1];
-            uint32_t index2 = e_pSubMesh->m_IndexBuffer[i + 2];
+            GLuint index0 = e_pSubMesh->m_IndexBuffer[i];
+            GLuint index1 = e_pSubMesh->m_IndexBuffer[i + 1];
+            GLuint index2 = e_pSubMesh->m_IndexBuffer[i + 2];
 
             Vector3 v0 = l_pPositionData[index0];
             Vector3 v1 = l_pPositionData[index1];
@@ -90,6 +96,8 @@ void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinyglt
 
         glEnableVertexAttribArray(l_iFVFIndex);
         glVertexAttribPointer(l_iFVFIndex, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
+        FMLOG("SubMesh attribute name:%s VBO ID: %d, FVF Index: %d DataSize: %d Type:%d", "Normal", e_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, dataSize, accessor.componentType);
+
     }
 }
 
@@ -120,6 +128,7 @@ void cMesh::sSubMesh::GetProperCameraPosition(cMatrix44& e_CameraMatrix)
 
 void cMesh::sSubMesh::ApplyMaterial()
 {
+    FORCE_CHECK_GL_ERROR("");
     if (this->m_Material)
     {
         this->m_Material->Apply();
@@ -131,7 +140,6 @@ void cMesh::sSubMesh::ApplyMaterial()
         {
             Vector4 l_vbaseColorFactor = Vector4::One;
             glUniform4fv(metallicFactorLoc,1,(float*)&l_vbaseColorFactor);
-            //glUniform4fv(g_iColorLoacation, 1, (float*)&e_vColor);;
         }
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -140,6 +148,7 @@ void cMesh::sSubMesh::ApplyMaterial()
 
 shared_ptr<cMaterial>   cMesh::LoadMaterial(const tinygltf::Model& e_Model, const tinygltf::Material& e_Material, std::shared_ptr<sSubMesh>e_SubMesh)
 {
+    FORCE_CHECK_GL_ERROR("");
 	auto l_IT = m_MaterialNameAndMaterialMap.find(e_Material.name);
     if(l_IT != m_MaterialNameAndMaterialMap.end() && e_Material.name.length() != 0)
     {//same material ignore.
@@ -177,21 +186,125 @@ cMesh::sSubMesh::~sSubMesh()
     glDeleteVertexArrays(1, &m_uiVAO);
 }
 
+//void cMesh::CallOpenGLDraw(sSubMesh* e_pSubMesh)
+//{
+//    // Shader binding and validation
+//    if (!e_pSubMesh->m_iShaderProgramID)
+//    {
+//        FMLOG("Error: No shader program");
+//        return;
+//    }
+//    glUseProgram(e_pSubMesh->m_iShaderProgramID);
+//    FORCE_CHECK_GL_ERROR("Shader bind");
+//    // Shader validation (link and validate checks)
+//    // WebGL2 context check
+//    //EMSCRIPTEN_WEBGL_CONTEXT_HANDLE ctx = emscripten_webgl_get_current_context();
+//    //if (!ctx)
+//    //{
+//    //    FMLOG("Error: WebGL2 context invalid");
+//    //    return;
+//    //}
+//    // Framebuffer check
+//    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+//    GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+//    if (status != GL_FRAMEBUFFER_COMPLETE)
+//    {
+//        FMLOG("Framebuffer incomplete: %d", status);
+//        return;
+//    }
+//    FORCE_CHECK_GL_ERROR("Framebuffer");
+//    // New VAO
+//    GLuint vao;
+//    glGenVertexArrays(1, &vao);
+//    glBindVertexArray(vao);
+//    FORCE_CHECK_GL_ERROR("VAO bind");
+//    // Disable all attributes
+//    GLint maxAttribs;
+//    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxAttribs);
+//    for (GLint i = 0; i < maxAttribs; i++)
+//    {
+//        glDisableVertexAttribArray(i);
+//    }
+//    FORCE_CHECK_GL_ERROR("Disable attributes");
+//    // Position VBO (location 0)
+//    GLfloat vertices[] = { 0.0f, 0.5f, 0.0f, -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f };
+//    GLuint vbo;
+//    glGenBuffers(1, &vbo);
+//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//    glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+//    glEnableVertexAttribArray(0);
+//    FORCE_CHECK_GL_ERROR("VBO setup");
+//    // EBO
+//    GLuint indices[] = { 0, 1, 2 };
+//    GLuint ebo;
+//    glGenBuffers(1, &ebo);
+//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(GLuint), indices, GL_STATIC_DRAW);
+//    FORCE_CHECK_GL_ERROR("EBO setup");
+//    // Log attribute state
+//    //for (GLint i = 0; i < maxAttribs; i++)
+//    //{
+//    //    GLint enabled, buffer;
+//    //    glGetVertexAttribiv(i, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &enabled);
+//    //    FORCE_CHECK_GL_ERROR("fetch attribute1");
+//    //    if (enabled)
+//    //    {
+//    //        glGetVertexAttribiv(i, GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING, &buffer);
+//    //        FMLOG("Attrib %d enabled, VBO %d", i, buffer);
+//    //        FORCE_CHECK_GL_ERROR("fetch attribute2");
+//    //    }
+//    //}
+//    // Draw
+//    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+//    FORCE_CHECK_GL_ERROR("Draw");
+//    // Cleanup
+//    glDeleteVertexArrays(1, &vao);
+//    glDeleteBuffers(1, &vbo);
+//    glDeleteBuffers(1, &ebo);
+//}
 void	cMesh::CallOpenGLDraw(sSubMesh* e_pSubMesh)
 {
-    // Bind the vertex array and draw the sub-mesh
+    if (e_pSubMesh->m_IndexBuffer.empty())
+    {
+        FMLOG("e_pSubMesh m_IndexBuffer.empty()");
+        return;
+    }
+    FORCE_CHECK_GL_ERROR("111");
     glBindVertexArray(e_pSubMesh->m_uiVAO);
+    //GLint maxAttribs;
+    //glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxAttribs);
+    //GLint currentVAO, currentIBO, currentProgram;
+    //glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &currentVAO);
+    //glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING, &currentIBO);
+    //glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+    //printf("VAO: %d, IBO: %d, Program: %d\n", currentVAO, currentIBO, currentProgram);
+    //GLint maxAttribs;
+    //glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxAttribs);
+    //for (GLint i = 0; i < maxAttribs; i++)
+    //{
+    //    GLint enabled;
+    //    glGetVertexAttribiv(i, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &enabled);
+    //    if (enabled) printf("Attribute %d enabled\n", i);
+    //}
+    FORCE_CHECK_GL_ERROR("3939889");
     MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)e_pSubMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
+    FORCE_CHECK_GL_ERROR("333");
+    glBindVertexArray(0);
 }
 
 void cMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
 {
+    FORCE_CHECK_GL_ERROR("");
     // Use the shader program specific to this sub-mesh
     glUseProgram(e_pSubMesh->m_iShaderProgramID);
     ApplyMorphUniformData(e_pSubMesh);
     g_fSetLightUniform(e_pSubMesh->m_iShaderProgramID);
-    GLuint modelLoc = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID, "uMat4Model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, e_mat);
+    GLuint l_uiMat4ModelLocation = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID, "uMat4Model");
+    if (l_uiMat4ModelLocation != GL_INVALID_INDEX)
+    {
+        glUniformMatrix4fv(l_uiMat4ModelLocation, 1, GL_FALSE, e_mat);
+    }
     g_fSetCameraUniform(e_pSubMesh->m_iShaderProgramID);
     e_pSubMesh->ApplyMaterial();
     
@@ -299,7 +412,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
         }
         else if (indexAccessor.componentType == TINYGLTF_COMPONENT_TYPE_UNSIGNED_INT)
         {
-            const uint32_t* intIndices = reinterpret_cast<const uint32_t*>(dataPtr);
+            const GLuint* intIndices = reinterpret_cast<const GLuint*>(dataPtr);
             l_pSubMesh->m_IndexBuffer.assign(intIndices, intIndices + indexAccessor.count);
         }
         else
@@ -313,11 +426,13 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
     // Generate and bind VAO
     glGenVertexArrays(1, &l_pSubMesh->m_uiVAO);
     glBindVertexArray(l_pSubMesh->m_uiVAO);
+	FMLOG("SubMesh VAO ID: %d", l_pSubMesh->m_uiVAO);
 
     // Generate and upload index buffer
     glGenBuffers(1, &l_pSubMesh->m_uiEBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, l_pSubMesh->m_uiEBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, l_pSubMesh->m_IndexBuffer.size() * sizeof(uint32_t), l_pSubMesh->m_IndexBuffer.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, l_pSubMesh->m_IndexBuffer.size() * sizeof(GLuint), l_pSubMesh->m_IndexBuffer.data(), GL_STATIC_DRAW);
+    FORCE_CHECK_GL_ERROR("EBO setup");
 
     std::map<std::string, int> l_AttributeMap = {
         {"POSITION", FVF_POS},
@@ -349,8 +464,8 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
             glGenBuffers(1, &l_pSubMesh->m_iVBOArray[l_iFVFIndex]);
             glBindBuffer(GL_ARRAY_BUFFER, l_pSubMesh->m_iVBOArray[l_iFVFIndex]);
             glBufferData(GL_ARRAY_BUFFER, dataSize, dataPtr, GL_STATIC_DRAW);
-
             glEnableVertexAttribArray(l_iFVFIndex);
+
             auto    l_ByteStride =  accessor.ByteStride(bufferView);
             int     l_iStride = accessor.type;
             int     l_iGLDataType = accessor.componentType;
@@ -366,9 +481,10 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
             }
             else
             {
+                //(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
                 glVertexAttribPointer(l_iFVFIndex, l_iStride, l_iGLDataType, GL_FALSE, l_ByteStride, nullptr);
             }
-
+            FMLOG("SubMesh attribute name:%s VBO ID: %d, FVF Index: %d DataSize: %d Type:%d", attribute.first.c_str(), l_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, dataSize, accessor.componentType);
             if (attribute.first == "POSITION")
             {
                 l_pSubMesh->m_i64VertexCount = accessor.count;
@@ -409,8 +525,9 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
         m_vMaxBounds.z = max(m_vMaxBounds.z, l_pSubMesh->m_vMaxBounds.z);
     }
     LoadMorphingAttributes(l_pSubMesh.get(), e_Model, primitive, e_bCalculateBinormal);
-    glBindVertexArray(0);
+    glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
 
 void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool e_bCalculateBiNormal)

@@ -302,13 +302,6 @@ void cLighController::Render(GLuint e_uiProgramID)
         // Unbind the UBO
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }
-    // Check for OpenGL errors
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-    {
-        FMLOG("cLighController::Render glGetError");
-        int a = 0;
-    }
 
 }
 

@@ -181,15 +181,26 @@ std::map<std::string, sAnimationData*> cglTFModel::CloneNameAndAnimationMap(cglT
 GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
 {
     std::string vertexCode = GenerateVertexShaderWithFVF(fvfFlags, e_iNumMorphTarget);
-#ifdef WASM
-    printf("111");
-    printf("Length %d\n", vertexCode.length());
-    printf("%s", vertexCode.c_str());
-#endif
-    std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
+	FMLOG("vertex shader code:\n%s", vertexCode.c_str());
+    //std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
+    //std::string vertexCode = R"(#version 300 es
+    //        in vec3 aPos;
+    //        void main() {
+    //            gl_Position = vec4(aPos, 1.0);
+    //        }
+    //    )";
+
+    // Fragment Shader source (GLSL ES 3.00)
+    std::string fragmentCode = R"(#version 300 es
+            precision mediump float;
+            out vec4 FragColor;
+            void main() {
+                FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+            }
+        )";
+
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     const char* vShaderCode = vertexCode.c_str();
-    printf("%s", vertexCode.c_str());
     glShaderSource(vertexShader, 1, &vShaderCode, nullptr);
     LAZY_DO_GL_COMMAND_AND_GET_ERROR(glCompileShader(vertexShader));
 
@@ -213,10 +224,10 @@ GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
     }
     else
     {
-#ifdef DEBUG
+//#ifdef DEBUG
         PopulateUniform(shaderProgram);
         PopulateAttribute(shaderProgram);
-#endif
+//#endif
     }
     
     glDeleteShader(vertexShader);
@@ -372,7 +383,7 @@ void cglTFModel::PopulateUniform(int e_iProgram)
     int count = -1;
     glUseProgram(e_iProgram);
     glGetProgramiv(e_iProgram, GL_ACTIVE_UNIFORMS, &count);
-
+    FMLOG("uniform count %d", count);
     for (int i = 0; i < count; ++i)
     {
         char name[256];
@@ -383,29 +394,14 @@ void cglTFModel::PopulateUniform(int e_iProgram)
         int uniform = glGetUniformLocation(e_iProgram, name);
         if (uniform >= 0)
         {
-            std::string uniformName = name;
-            std::size_t found = uniformName.find('[');
-            if (found != std::string::npos)
-            {
-                uniformName.erase(uniformName.begin() + found, uniformName.end());
-                // Populate subscripted names too
-                unsigned int uniformIndex = 0;
-                while (true)
-                {
-                    memset(name, 0, sizeof(char) * 256);
-                    sprintf(name, "%s[%d]", uniformName.c_str(), uniformIndex++);
-                    int uniformLocation = glGetUniformLocation(e_iProgram, name);
-                    if (uniformLocation < 0)
-                    {
-                        break;
-                    }
-                    l_NameAndUniformLocationMap[name] = uniformLocation;
-                }
-            }
-            l_NameAndUniformLocationMap[uniformName] = uniform;
+            l_NameAndUniformLocationMap[name] = uniform;
+            FMLOG("%s,%d", name, uniform);
+        }
+        else
+        {
+            FMLOG("glGetUniformLocation failed  %s,%d", name, uniform);
         }
     }
-    int a = 0;
 }
 
 void cglTFModel::PopulateAttribute(int e_iProgram)
@@ -416,10 +412,9 @@ void cglTFModel::PopulateAttribute(int e_iProgram)
     int size;
     GLenum type;
     std::map<std::string, unsigned int>  l_NameAndAttributeLocationMap;
-
     glUseProgram(e_iProgram);
     glGetProgramiv(e_iProgram, GL_ACTIVE_ATTRIBUTES, &count);
-
+    FMLOG("vertex attribute count %d", count);
     for (int i = 0; i < count; ++i)
     {
         memset(name, 0, sizeof(char) * 128);
@@ -428,9 +423,9 @@ void cglTFModel::PopulateAttribute(int e_iProgram)
         if (attrib >= 0)
         {
             l_NameAndAttributeLocationMap[name] = attrib;
+            FMLOG("%s,%d", name, attrib);
         }
     }
-    int a = 0;
 }
 
 
