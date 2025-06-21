@@ -110,7 +110,7 @@ int glTFInit()
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",1000);
+        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",10);
         if (!l_pDuck)
         {
             FMLOG("parse model filed");

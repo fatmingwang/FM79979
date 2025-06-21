@@ -242,32 +242,65 @@ void process_events(void)
 			{
 				switch (event.type)
 				{
-				case SDL_KEYDOWN:
-					handle_key_down(&event.key.keysym);
+					case SDL_KEYDOWN:
+						g_pGameApp->KeyDown('R');
 					break;
-				case SDL_KEYUP:
-					handle_key_up(&event.key.keysym);
+					case SDL_KEYUP:
+						g_pGameApp->KeyUp('R');
 					break;
-				case SDL_QUIT:
-					emscripten_cancel_main_loop();
+					case SDL_QUIT:
+						emscripten_cancel_main_loop();
 					break;
-				case SDL_MOUSEMOTION:
-					g_pGameApp->MouseMove(event.motion.x, event.motion.y);
+					case SDL_MOUSEMOTION:
+						g_pGameApp->MouseMove(event.motion.x, event.motion.y);
 					break;
-				case SDL_MOUSEBUTTONDOWN:
-					g_pGameApp->MouseDown(event.motion.x, event.motion.y);
+					case SDL_MOUSEBUTTONDOWN:
+						g_pGameApp->MouseDown(event.motion.x, event.motion.y);
+					switch (event.button.button)
+					{
+						case SDL_BUTTON_LEFT:
+						cGameApp::m_sbMouseClickStatus[0] = true;
+						break;
+						case SDL_BUTTON_RIGHT:
+						cGameApp::m_sbMouseClickStatus[1] = true;
+						break;
+						case SDL_BUTTON_MIDDLE:
+						//printf("Middle button pressed at (%d, %d)\n", event.button.x, event.button.y);
+						break;
+					}
 					break;
-				case SDL_MOUSEBUTTONUP:
-					g_pGameApp->MouseUp(event.motion.x, event.motion.y);
+					case SDL_MOUSEBUTTONUP:
+						g_pGameApp->MouseUp(event.motion.x, event.motion.y);
+						switch (event.button.button)
+						{
+							case SDL_BUTTON_LEFT:
+							cGameApp::m_sbMouseClickStatus[0] = false;
+							break;
+							case SDL_BUTTON_RIGHT:
+							cGameApp::m_sbMouseClickStatus[1] = false;
+							break;
+							case SDL_BUTTON_MIDDLE:
+							//printf("Middle button pressed at (%d, %d)\n", event.button.x, event.button.y);
+							break;
+						}
+					break;
+					case SDL_MOUSEWHEEL:
+						//if (event.wheel.y != 0)
+						{
+							cGameApp::m_sMouseWhellDelta = event.wheel.y;
+							//printf("Mouse wheel vertical: %d (y=%s)\n", event.wheel.y, event.wheel.y > 0 ? "up" : "down");
+						}
+						if (event.wheel.x != 0)
+						{
+							//printf("Mouse wheel horizontal: %d (x=%s)\n",event.wheel.x, event.wheel.x > 0 ? "right" : "left");
+						}
 					break;
 				}
-			}
-		}
-	//}
+			}//end if(g_pGameApp)
+		}//end while(SDL_PollEvent(&event));
 	//catch (const std::exception& e) {
 	//	printf("Caught exception: %s", e.what());
 	//}
-
 }
 
 void Loop()

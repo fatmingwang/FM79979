@@ -7,6 +7,7 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
     {
         FMLOG("fuck....instance and morph exists at asame time....I am lazy to do this now fuck");
         assert(0 && "fuck....instance and morph exists at asame time....I am lazy to do this now fuck");
+        return "not support format";
     }
 	std::string l_strDefine;
 	if (e_i64FVFFlags & FVF_POS_FLAG)
@@ -30,11 +31,17 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
     if (e_i64FVFFlags & FVF_ANIMATION_TEXTURE_FLAG)
         l_strDefine += "#define FVF_ANIMATION_TEXTURE_FLAG\n";
     
-	std::string shaderCode = R"(
-//this is Vertex shader
-#version 330 core
+    std::string shaderCode = "//this is Vertex shader\n";
+#if defined(WIN32)
+    shaderCode += "#version 330 core";
+#else
+    shaderCode += "#version 300 es";
+#endif
+	shaderCode += R"(
 #ifdef GL_ES
 precision mediump float;
+precision highp int;
+precision highp sampler2D;
 #endif
 )" + l_strDefine + R"(
 #ifdef USE_POSITION
@@ -250,8 +257,10 @@ void main()
 }
 )";
 
-#if defined(DEBUG) || defined(WASM)
+#if defined(DEBUG)
     FMLOG(shaderCode.c_str());
+#elif defined(WASM)
+	printf(shaderCode.c_str());
 #endif
 	return shaderCode;
 }
@@ -263,7 +272,6 @@ void main()
 std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 {
     std::string l_strDefine;
-
     // Define macros based on FVF flags
     if (e_i64FVFFlags & FVF_TEX0_FLAG)
         l_strDefine += "#define USE_TEXCOORD\n";
@@ -284,12 +292,19 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
     if (e_i64FVFFlags & FVF_EMISSIVE_TEXTURE_FLAG)
         l_strDefine += "#define USE_EMISSIVE\n";
 
-    // Start building the shader code
-    std::string shaderCode = R"(
-//this is fragment shader
-#version 330 core
+
+
+    std::string shaderCode = "//this is framgent shader\n";
+#if defined(WIN32)
+    shaderCode += "#version 330 core";
+#else
+    shaderCode += "#version 300 es";
+#endif
+    shaderCode += R"(
 #ifdef GL_ES
 precision mediump float;
+precision highp int;
+precision highp sampler2D;
 #endif
 )" + l_strDefine + R"(
 
@@ -520,6 +535,8 @@ shaderCode+=R"(
 
 #if defined(DEBUG)// || defined(WASM)
     FMLOG(shaderCode.c_str());
+#elif defined(WASM)
+    printf(shaderCode.c_str());
 #endif
     return shaderCode;
 }
