@@ -306,6 +306,7 @@ void cLighController::Render(GLuint e_uiProgramID)
     GLenum error = glGetError();
     if (error != GL_NO_ERROR)
     {
+        FMLOG("cLighController::Render glGetError");
         int a = 0;
     }
 
