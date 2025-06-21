@@ -9,8 +9,8 @@
 #include "MyImGui.h"
 #ifdef WASM
 #include <emscripten/html5.h>						
-#endif
-cNetworkSample* g_pNetworkSample = nullptr;
+#endif			   
+cNetworkSample* g_pNetworkSample = nullptr;	 
 
 extern void	LoadSample();						
 extern void	DestorySampleObject();

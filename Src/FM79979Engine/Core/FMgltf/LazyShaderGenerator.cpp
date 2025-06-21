@@ -1,12 +1,12 @@
 #include "../AllCoreInclude.h"
 #include "LazyShaderGenerator.h"
 #include "glTFAnimationMesh.h"
-
 std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarget)
 {
     if (e_i64FVFFlags & FVF_INSTANCING_FLAG && e_iNumMorphTarget > 0)
     {
-        assert(0&&"fuck....instance and morph exists at asame time....I am lazy to do this now fuck");
+        FMLOG("fuck....instance and morph exists at asame time....I am lazy to do this now fuck");
+        assert(0 && "fuck....instance and morph exists at asame time....I am lazy to do this now fuck");
     }
 	std::string l_strDefine;
 	if (e_i64FVFFlags & FVF_POS_FLAG)
@@ -31,13 +31,12 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
         l_strDefine += "#define FVF_ANIMATION_TEXTURE_FLAG\n";
     
 	std::string shaderCode = R"(
+//this is Vertex shader
 #version 330 core
 #ifdef GL_ES
 precision mediump float;
 #endif
 )" + l_strDefine + R"(
-
-
 #ifdef USE_POSITION
 layout(location = 0) in vec3 aPosition;
 #endif
@@ -83,7 +82,6 @@ layout(location = 12) in vec4 aInstanceMatrix3;
 		}
 		shaderCode += "\nuniform float uMorphWeights[" + std::to_string(e_iNumMorphTarget) + "];";
 	}
-
     shaderCode += R"(
 uniform mat4 inMat4Model;
 uniform mat4 inMat4View;
@@ -114,42 +112,11 @@ const int MAX_INSTANCES = )";
 shaderCode += ValueToString((int)MAX_INSTANCES);
 shaderCode += R"(;
 uniform sampler2D uAnimTexture;
-
 uniform ivec2 uCurrentAndNextFrameIndex[MAX_INSTANCES];
 uniform float uAnimationLerpTime[MAX_INSTANCES];
 uniform int uNumAnimationModel;
 uniform int uNumBones;
 uniform int uTextureSize;
-
-
-mat4 RotationMatrixFromEuler(vec3 euler)
-{
-    float cx = cos(euler.x), sx = sin(euler.x);
-    float cy = cos(euler.y), sy = sin(euler.y);
-    float cz = cos(euler.z), sz = sin(euler.z);
-
-    mat4 rotX = mat4(
-        1, 0, 0, 0,
-        0, cx, sx, 0,
-        0, -sx, cx, 0,
-        0, 0, 0, 1
-    );
-    mat4 rotY = mat4(
-        cy, 0, -sy, 0,
-        0, 1, 0, 0,
-        sy, 0, cy, 0,
-        0, 0, 0, 1
-    );
-    mat4 rotZ = mat4(
-        cz, sz, 0, 0,
-        -sz, cz, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 1
-    );
-    // ZYX order (common for Euler angles)
-    return rotZ * rotY * rotX;
-}
-
 
 mat4 LerpMat4(mat4 a, mat4 b, float t)
 {
@@ -159,30 +126,6 @@ mat4 LerpMat4(mat4 a, mat4 b, float t)
         result[i] = mix(a[i], b[i], t); // mix each row (vec4)
     }
     return result;
-}
-
-mat4 GetAnimationPose(int joint, int instance)
-{
-    //4 vector is one matrix
-    int l_iJointIndex = joint*4;
-    int l_iY1 = uCurrentAndNextFrameIndex[instance].x;
-    int l_iY2 = uCurrentAndNextFrameIndex[instance].y;
-    float t = uAnimationLerpTime[instance];
-    // Fetch 4 rows for each frame
-    mat4 mat0, mat1;
-    for (int row = 0; row < 4; ++row)
-    {
-        int x0 = l_iJointIndex+(row);
-        int y0 = l_iY1;
-        mat0[row] = texelFetch(uAnimTexture, ivec2(x0, y0), 0);
-
-        int x1 = x0;
-        int y1 = l_iY2;
-        mat1[row] = texelFetch(uAnimTexture, ivec2(x1, y1), 0);
-    }
-    // Linear interpolate each matrix element
-    mat4 pose = LerpMat4(mat0, mat1, t);
-    return pose;
 }
 
 mat4 GetAnimationPoseUseTightTexture(int joint, int instance)
@@ -219,48 +162,10 @@ mat4 GetAnimationPoseUseTightTexture(int joint, int instance)
     return pose;
 }
 
-mat4 GetAnimationPoseByTRS(int joint, int instance)
-{
-    int x_now = uCurrentAndNextFrameIndex[instance].x;
-    int x_next = uCurrentAndNextFrameIndex[instance].y;
-    int y_pos = joint * 3;
-
-    vec3 pos0 = texelFetch(uAnimTexture, ivec2(x_now, y_pos + 0), 0).xyz;
-    vec3 rot0 = texelFetch(uAnimTexture, ivec2(x_now, y_pos + 1), 0).xyz;
-    vec3 scl0 = texelFetch(uAnimTexture, ivec2(x_now, y_pos + 2), 0).xyz;
-
-    vec3 pos1 = texelFetch(uAnimTexture, ivec2(x_next, y_pos + 0), 0).xyz;
-    vec3 rot1 = texelFetch(uAnimTexture, ivec2(x_next, y_pos + 1), 0).xyz;
-    vec3 scl1 = texelFetch(uAnimTexture, ivec2(x_next, y_pos + 2), 0).xyz;
-
-    float t = uAnimationLerpTime[instance];
-
-    vec3 position = mix(pos0, pos1, t);
-    vec3 rotation = mix(rot0, rot1, t); // Linear interpolation of Euler angles (ok for small angles)
-    vec3 scale = mix(scl0, scl1, t);
-
-    mat4 S = mat4(
-        scale.x, 0, 0, 0,
-        0, scale.y, 0, 0,
-        0, 0, scale.z, 0,
-        0, 0, 0, 1
-    );
-    mat4 R = RotationMatrixFromEuler(rotation);
-    mat4 T = mat4(
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        position.x, position.y, position.z, 1
-    );
-    // T * R * S
-    return T * R * S;
-}
-
 void main()
 {
     vec3 position = aPosition;
 )";
-
 	if (e_iNumMorphTarget > 0)
 	{
 		for (int i = 0; i < e_iNumMorphTarget; i++)
@@ -345,213 +250,11 @@ void main()
 }
 )";
 
-#ifdef DEBUG
-	FMLOG(shaderCode.c_str());
+#if defined(DEBUG) || defined(WASM)
+    FMLOG(shaderCode.c_str());
 #endif
 	return shaderCode;
 }
-
-
-
-//std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
-//{
-//    std::string l_strDefine;
-//
-//    // Define macros based on FVF flags
-//    if (e_i64FVFFlags & FVF_TEX0_FLAG)
-//        l_strDefine += "#define USE_TEXCOORD\n";
-//    if (e_i64FVFFlags & FVF_NORMAL_FLAG)
-//        l_strDefine += "#define USE_NORMAL\n";
-//    if (e_i64FVFFlags & FVF_TANGENT_FLAG)
-//        l_strDefine += "#define USE_TANGENT\n";
-//    if (e_i64FVFFlags & FVF_BITAGENT_FLAG)
-//        l_strDefine += "#define USE_BINORMAL\n";
-//    if (e_i64FVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG)
-//        l_strDefine += "#define USE_NORMAL_MAP\n";
-//    //if (e_i64FVFFlags & FVF_HAS_PBR_TEXTURE_FLAG)
-//      //  l_strDefine += "#define USE_PBR\n";
-//
-//    // Start building the shader code
-//    std::string shaderCode = R"(
-//        #version 450
-//        #ifdef GL_ES
-//        precision mediump float;
-//        #endif
-//    )" + l_strDefine + R"(
-//
-//        in vec3 toFSVec3FragPos;
-//        #ifdef USE_NORMAL
-//        in vec3 toFSVec3Normal;
-//        #endif
-//        #ifdef USE_TEXCOORD
-//        in vec2 toFSVec2TexCoord;
-//        #endif
-//        #ifdef USE_TANGENT
-//        in vec3 toFSVec3Tangent;
-//        #endif
-//        #ifdef USE_BINORMAL
-//        in vec3 toFSVec3Binormal;
-//        #endif
-//
-//        out vec4 FragColor;
-//
-//        uniform vec3 inVec3ViewPosition;
-//
-//        // Light data structure matching std140 layout
-//        struct Light
-//        {
-//            vec3 position;       // Aligned to 16 bytes
-//            float intensity;     // Aligned to 16 bytes (vec4 padding)
-//
-//            vec3 direction;      // Aligned to 16 bytes
-//            float range;         // Aligned to 16 bytes (vec4 padding)
-//
-//            vec3 color;          // Aligned to 16 bytes
-//            float innerConeAngle; // Aligned to 16 bytes (vec4 padding)
-//
-//            float outerConeAngle; // Aligned to 4 bytes
-//            int type;             // Aligned to 4 bytes
-//            int Enable;          //
-//            float pad;           // Padding to align the structure to 16 bytes
-//        };
-//
-//        layout(std140) uniform LightBlock 
-//        {
-//            Light lights[8];   // Array of light data (maximum 8 lights)
-//            int numLights;       // Number of lights
-//            vec3 pad;            // Padding to align to 16 bytes
-//        };
-//
-//        layout(std140) uniform TestingBlock
-//        {
-//            Light TestingLight;            // Padding to align to 16 bytes
-//        };
-//
-//        #ifdef USE_PBR
-//        uniform sampler2D textureAlbedo;
-//        uniform sampler2D textureRoughness;
-//        uniform sampler2D textureMetallic;
-//        uniform sampler2D textureNormal;
-//        #else
-//        uniform sampler2D textureDiffuse;
-//        #ifdef USE_NORMAL_MAP
-//        uniform sampler2D textureNormal;
-//        #endif
-//        #endif
-//
-//        // Function to get the normal from the normal map or fallback to the interpolated normal
-//        vec3 GetNormalFromMap()
-//        {
-//        #ifdef USE_NORMAL_MAP
-//            vec3 tangent = normalize(toFSVec3Tangent);
-//            vec3 bitangent = normalize(toFSVec3Binormal);
-//            vec3 normal = normalize(toFSVec3Normal);
-//            mat3 TBN = mat3(tangent, bitangent, normal);
-//            vec3 normalMap = texture(textureNormal, toFSVec2TexCoord).rgb * 2.0 - 1.0;
-//            return normalize(TBN * normalMap);
-//        #else
-//            return normalize(toFSVec3Normal);
-//        #endif
-//        }
-//
-//        // Function to calculate the diffuse color
-//        vec3 CalculateDiffuseColor(vec3 lightColor, float diff)
-//        {
-//        #ifdef USE_TEXCOORD
-//            vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
-//            return diffuseColor * lightColor * diff;
-//        #else
-//            return lightColor * diff;
-//        #endif
-//        }
-//
-//        // Function to calculate PBR lighting
-//        vec3 CalculatePBRLighting(vec3 N, vec3 V, vec3 L, vec3 lightColor, vec3 albedo, float roughness, float metallic)
-//        {
-//            vec3 H = normalize(V + L);
-//            vec3 F0 = mix(vec3(0.04), albedo, metallic);
-//            vec3 F = F0 + (1.0 - F0) * pow(1.0 - max(dot(H, V), 0.0), 5.0);
-//            float NDF = pow(max(dot(N, H), 0.0), (2.0 / pow(roughness + 0.001, 4.0)) - 2.0);
-//            float G = 1.0;
-//
-//            float NdotV = max(dot(N, V), 0.001);
-//            float NdotL = max(dot(N, L), 0.001);
-//            float denom = 4.0 * NdotV * NdotL;
-//            vec3 spec = NDF * G * F / max(denom, 0.001);
-//            vec3 kS = F;
-//            vec3 kD = vec3(1.0) - kS;
-//            kD *= 1.0 - metallic;
-//            vec3 irradiance = lightColor;
-//            vec3 diffuse = kD * albedo / 3.14159;
-//            return (diffuse + spec) * irradiance * NdotL;
-//        }
-//
-//        void main()
-//        {
-//            vec3 N = GetNormalFromMap();
-//            vec3 V = normalize(inVec3ViewPosition - toFSVec3FragPos);
-//            vec3 color = vec3(0.0);
-//        //#ifdef USE_TEXCOORD
-//        //    vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
-//        //    return diffuseColor * lightColor * diff;
-//        //#else
-//            for (int i = 0; i < numLights; ++i)
-//            {
-//                vec3 L;
-//                float distance = 1.0;
-//                float attenuation = 1.0;
-//                if (lights[i].Enable == 0)
-//                {
-//                    continue;
-//                }
-//                if (lights[i].type == 0) 
-//                { // Directional light
-//                    L = -normalize(lights[i].direction);
-//                }
-//                else
-//                if (lights[i].type == 3) 
-//                { //ambient
-//                    //texture(textureDiffuse, toFSVec2TexCoord).rgb should move to start
-//#ifdef USE_TEXCOORD
-//                    vec3 diffuseColor = texture(textureDiffuse, toFSVec2TexCoord).rgb;
-//                    color += (lights[i].color*diffuseColor);
-//#else
-//                    color += lights[i].color;
-//#endif
-//                    continue;
-//                }
-//                else
-//                { // Point or spot light
-//                    L = normalize(lights[i].position - toFSVec3FragPos);
-//                    distance = length(lights[i].position - toFSVec3FragPos);
-//                    if (lights[i].range > 0.0) 
-//                    {
-//                        attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
-//                    }
-//                }
-//                float diff = max(dot(N, L), 0.0);
-//
-//                #ifdef USE_PBR
-//                vec3 albedo = pow(texture(textureAlbedo, toFSVec2TexCoord).rgb, vec3(2.2));
-//                float roughness = texture(textureRoughness, toFSVec2TexCoord).r;
-//                float metallic = texture(textureMetallic, toFSVec2TexCoord).r;
-//                color += CalculatePBRLighting(N, V, L, lights[i].color * lights[i].intensity, albedo, roughness, metallic);
-//                #else
-//                color += CalculateDiffuseColor(lights[i].color * lights[i].intensity*attenuation, diff);
-//                #endif
-//            }
-//            FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0); // Gamma correction
-//        }
-//    )";
-//
-//#ifdef DEBUG
-//    FMLOG(shaderCode.c_str());
-//#endif
-//    return shaderCode;
-//}
-
-
-
 
 
 //from grok but didnt woks
@@ -583,13 +286,13 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 
     // Start building the shader code
     std::string shaderCode = R"(
+//this is fragment shader
 #version 330 core
 #ifdef GL_ES
 precision mediump float;
 #endif
 )" + l_strDefine + R"(
 
-//in int toFSInstanceID;
 flat in int toFSInstanceID; // Flat qualifier for instance ID
 in vec3 toFSVec3FragPos;
 #ifdef USE_NORMAL
@@ -815,7 +518,7 @@ shaderCode+=R"(
 }
 )";
 
-#ifdef DEBUG
+#if defined(DEBUG)// || defined(WASM)
     FMLOG(shaderCode.c_str());
 #endif
     return shaderCode;

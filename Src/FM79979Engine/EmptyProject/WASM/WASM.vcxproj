@@ -264,6 +264,7 @@
       <AdditionalIncludeDirectories>../EngineTest;..\..\ProtoBuffer\protobuf-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>
       </LanguageStandard>
+      <AdditionalOptions>--profiling --bind -gsource-map %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <Command>
@@ -276,7 +277,7 @@
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
       <AdditionalDependencies>websocket.js</AdditionalDependencies>
-      <AdditionalOptions>-lidbfs.js --bind -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1  --profiling -s DEMANGLE_SUPPORT=1 -g4 -sUSE_SDL=2 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s USE_WEBGL2=1 -lidbfs.js --bind -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES3=1  --profiling -s DEMANGLE_SUPPORT=1 -g4 -sUSE_SDL=2 -gsource-map %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLinkDirectories>
       </AdditionalLinkDirectories>
     </Link>
@@ -318,7 +319,7 @@
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>-sUSE_SDL=2  -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=1 --bind %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s USE_WEBGL2=1 -sUSE_SDL=2  -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=1 --bind -sUSE_WEBGL2=1 -sALLOW_MEMORY_GROWTH=1  -O2 -fexceptions %(AdditionalOptions)</AdditionalOptions>
       <PreloadFile>../assets;</PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
       <AdditionalDependencies>websocket.js</AdditionalDependencies>

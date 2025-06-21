@@ -80,7 +80,6 @@ namespace FATMING_CORE
 
 	cTextureManager::~cTextureManager()
 	{
-		this->m_ObjectList;
 		//m_spTextureManager = nullptr;
 	}
 

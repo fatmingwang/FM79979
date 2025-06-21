@@ -9,8 +9,8 @@ namespace FATMING_CORE
 		//target
 		float			m_fTargetUV[4];
 		//for render
-		float			m_fImage1UV[4];
-		float			m_fImage2UV[4];
+		//float			m_fImage1UV[4];
+		//float			m_fImage2UV[4];
 		Vector2			m_vSize;
 		eMoveDirection	m_eOrientation;
 		Vector2			m_vShowPos;

@@ -4,6 +4,10 @@
 #include "../PuzzleImage/BaseUVImageData.h"
 #include "../Curve/Curve.h"
 #include "SubMPDIRenderPointData.h"
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Woverloaded-virtual"
+#endif
 namespace FATMING_CORE
 {
 	class	cMultiPathDynamicImage;

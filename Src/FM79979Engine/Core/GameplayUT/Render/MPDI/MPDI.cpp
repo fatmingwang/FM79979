@@ -29,8 +29,9 @@ namespace FATMING_CORE
 		m_fDrawRadiusWithoutImageOffset = 0.f;
 	}
 
-	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage):cMulti_PI_Image(e_pMultiPathDynamicImage),
-		cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),Frame(e_pMultiPathDynamicImage)
+	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage):Frame(e_pMultiPathDynamicImage),
+		cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),cMulti_PI_Image(e_pMultiPathDynamicImage)
+		
 	{
 		m_fDrawRadiusWithoutImageOffset = e_pMultiPathDynamicImage->m_fDrawRadiusWithoutImageOffset;
 		m_pViewPort = nullptr;

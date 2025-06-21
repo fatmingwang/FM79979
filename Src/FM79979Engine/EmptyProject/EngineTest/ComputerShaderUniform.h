@@ -66,7 +66,7 @@ auto g_strShaderTestt = R"(
 	// Declare the custom data type, which represents one point of a circle.
 	// And this is vertex position and colour respectively.
 	// As you may already noticed that will define the interleaved data within
-	// buffer which is Vertex|Colour|Vertex|Colour|¡K
+	// buffer which is Vertex|Colour|Vertex|Colour|;K
 	struct AttribData
 	{
 		  Vector3f v;
@@ -77,7 +77,7 @@ auto g_strShaderTestt = R"(
 	// If you do not want your data to be aligned by compiler try to use:
 	// packed or shared instead of std140 keyword.
 	// We also bind the buffer to index 0. You need to set the buffer binding
-	// in the range [0..3] ¡V this is the minimum range approved by Khronos.
+	// in the range [0..3];V this is the minimum range approved by Khronos.
 	// Notice that various platforms might support more indices than that.
 	layout(std140, binding = 0) buffer destBuffer
 	{

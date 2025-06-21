@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Woverloaded-virtual"
+#endif
 #include "SubMPDI.h"
 #include "VideoSubMPDI.h"
 namespace FATMING_CORE

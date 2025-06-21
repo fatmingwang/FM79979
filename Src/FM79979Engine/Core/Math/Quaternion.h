@@ -194,7 +194,7 @@ public:
 	static Quaternion Slerp(const Quaternion& q1, const Quaternion& q2, float t)
 	{
 		// Clamp interpolation factor between 0 and 1
-#ifdef DEBUG
+#if defined(DEBUG) && !defined(ANDROID)
 		t = std::clamp(t, 0.0f, 1.0f);
 
 		Quaternion qStart = q1.Normalize();

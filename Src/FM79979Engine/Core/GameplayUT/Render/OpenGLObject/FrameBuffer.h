@@ -1,5 +1,9 @@
 #pragma once
 #include "../CommonRender/RenderObject.h"
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Woverloaded-virtual"
+#endif
 namespace FATMING_CORE
 {
 	extern wchar_t*DEFAULT_SHADER;

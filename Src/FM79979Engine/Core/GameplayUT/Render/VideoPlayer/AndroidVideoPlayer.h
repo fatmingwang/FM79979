@@ -80,7 +80,9 @@
 		//
 		bool						m_bDoPreparePowerOfTwoTexture;
 		UT::sTimeAndFPS				m_FPS;
+#ifndef ANDROID
 		int							m_iVideoChannal;
+#endif
 		char**						m_pNewPixelData;
 		char**						m_pNewPowerOfTwoPixelData;
 		int							m_iNumPacket;

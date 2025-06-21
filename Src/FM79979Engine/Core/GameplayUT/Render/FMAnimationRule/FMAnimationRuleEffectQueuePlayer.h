@@ -1,5 +1,9 @@
 #pragma once
 //get any kind of effect(MPDI,particle) play on the screen
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Woverloaded-virtual"
+#endif
 #include "FMAnimationRule.h"
 namespace FATMING_CORE
 {

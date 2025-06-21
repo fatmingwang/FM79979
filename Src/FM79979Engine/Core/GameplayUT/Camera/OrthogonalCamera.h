@@ -3,6 +3,10 @@
 #include "../Render/CommonRender/Frame.h"
 #include "DrawSelectRectangleByMouse.h"
 #include "MouseCamera.h"
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Woverloaded-virtual"
+#endif
 namespace FATMING_CORE
 {
 	//most usage way is 2D...because y axis is nagtive againt Cartesian coordinate,so the Z has too invert too.

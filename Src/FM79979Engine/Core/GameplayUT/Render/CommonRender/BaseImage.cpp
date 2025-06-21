@@ -19,7 +19,7 @@ namespace FATMING_CORE
 		ParseTexture(e_strImageName, e_bFetchPixels);
 	}
 
-	cBaseImage::cBaseImage(cBaseImage*e_pBaseImage):cRenderObject(e_pBaseImage),Frame(e_pBaseImage)
+	cBaseImage::cBaseImage(cBaseImage*e_pBaseImage):Frame(e_pBaseImage), cRenderObject(e_pBaseImage)
 	{
 		m_pTexture = nullptr;
 		SetTexBehaviorData(e_pBaseImage);

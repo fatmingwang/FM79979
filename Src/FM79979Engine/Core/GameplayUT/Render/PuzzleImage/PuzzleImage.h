@@ -161,8 +161,8 @@ namespace FATMING_CORE
 		virtual ~cPuzzleImage();
 		//for editor
 		static bool							m_sbSortPIFileAsOriginal;
-
-		virtual	void						Render()override { cBaseImage::Render(); }
+		using cBaseImage::Render;
+		//virtual	void						Render()override { cBaseImage::Render(); }
 		void								Render(int e_iIndex);
 		//dump data into destination,so we could delete the source puzzleImage.
 		//void	DumpIntoPuzzleImage(cPuzzleImage*e_pPuzzleImage);

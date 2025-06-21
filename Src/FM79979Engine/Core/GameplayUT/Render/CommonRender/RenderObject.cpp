@@ -236,7 +236,7 @@ namespace FATMING_CORE
 	void	cRenderObject::DebugRenderNodes()
 	{
 		GoThoughAllFrameFromaFirstToEnd(
-			[this](void*e_pData,Frame*e_pFrame)
+			[](void*e_pData,Frame*e_pFrame)
 			{
 				cRenderObject*l_pRenderObject = dynamic_cast<cRenderObject*>(e_pFrame);
 				l_pRenderObject->DebugRender(); 

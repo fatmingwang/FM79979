@@ -149,7 +149,7 @@ namespace FATMING_CORE
 	void	cToneMappingShader::DebugRender()
 	{
 		UseShaderProgram(DEFAULT_SHADER);
-		if( cGameApp::m_sucKeyData['D'] )
+		if( cGameApp::m_sucKeyData[(unsigned char)'D'] )
 		{
 			POINT l_Size ={ (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x/2,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y/2 };
 			POINT l_Pos = { 0,0};
@@ -171,25 +171,25 @@ namespace FATMING_CORE
 		{
 			POINT l_Size ={ (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y };
 			POINT l_Pos = { 0,0};
-			if( cGameApp::m_sucKeyData['1'] )
+			if( cGameApp::m_sucKeyData[(unsigned char)'1'] )
 			{
 				this->m_pOriginalFrameBuffer->DrawBuffer(l_Pos,l_Size);
 				cGameApp::RenderFont(l_Pos.x,l_Pos.y,L"Full");
 			}
 			else
-			if( cGameApp::m_sucKeyData['2'] )
+			if( cGameApp::m_sucKeyData[(unsigned char)'2'] )
 			{
 				this->m_pDownSampleBrightShader->GetFrameBuffer()->DrawBuffer(l_Pos,l_Size);
 				cGameApp::RenderFont(l_Pos.x,l_Pos.y,L"DownSample");
 			}
 			else
-			if( cGameApp::m_sucKeyData['3'] )
+			if( cGameApp::m_sucKeyData[(unsigned char)'3'] )
 			{
 				this->m_pHoricontalBlur->GetFrameBuffer()->DrawBuffer(l_Pos,l_Size);
 				cGameApp::RenderFont(l_Pos.x,l_Pos.y,L"HBlur");
 			}
 			else
-			if( cGameApp::m_sucKeyData['4'] )
+			if( cGameApp::m_sucKeyData[(unsigned char)'4'] )
 			{
 				this->m_pVerticalBlur->GetFrameBuffer()->DrawBuffer(l_Pos,l_Size);
 				cGameApp::RenderFont(l_Pos.x,l_Pos.y,L"VBlur");

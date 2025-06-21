@@ -133,11 +133,11 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsCpp</CompileAs>
       <PreprocessorDefinitions>ANDROID;DEBUG;__ANDROID_API__=$(AndroidAPILevelNumber);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\..\Core;$(StlIncludeDirectories);$(Sysroot)\usr\include;$(Sysroot)\usr\include\$(AndroidHeaderTriple);$(VS_NdkRoot)\sources\android\support\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\..\ProtoBuffer\protobuf-3.19.4;..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\..\Core;$(StlIncludeDirectories);$(Sysroot)\usr\include;$(Sysroot)\usr\include\$(AndroidHeaderTriple);$(VS_NdkRoot)\sources\android\support\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv3;EGL;jnigraphics;FatmingCollada;Core;ogg;Bullet;FreeType;%(LibraryDependencies)</LibraryDependencies>
+      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv3;EGL;jnigraphics;Core;ogg;Bullet;FreeType;%(LibraryDependencies)</LibraryDependencies>
       <AdditionalLibraryDirectories>..\..\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>

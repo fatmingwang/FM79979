@@ -23,10 +23,10 @@
 
 #include <EGL/egl.h>
 #include <EGL/eglplatform.h>
-#include <GLES2/gl2.h>
+#include <GLES3/gl3.h>
 
 #include <android/log.h>
-#include "../../../FishingFun/Win32Test/stdafx.h"
+#include "../../../Core/AllCoreInclude.h"
 #include "../../../EmptyProject/EngineTest/GameApp.h"
 #include "unistd.h"
 

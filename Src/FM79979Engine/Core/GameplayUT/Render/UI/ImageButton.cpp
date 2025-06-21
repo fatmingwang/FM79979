@@ -38,7 +38,7 @@ namespace FATMING_CORE
 		//m_vCollisionRange = Vector4(l_vLeftPos.x,l_vLeftPos.y,(float)m_iWidth+l_vLeftPos.x,(float)m_iHeight+l_vLeftPos.y);
 	}
 
-	cImageButton::cImageButton(cImageButton*e_pImageButton):cBaseImage(e_pImageButton),cClickMouseBehavior(e_pImageButton)
+	cImageButton::cImageButton(cImageButton*e_pImageButton):cClickMouseBehavior(e_pImageButton),cBaseImage(e_pImageButton)
 	{
 		m_vOriginalColor = e_pImageButton->m_vOriginalColor;
 		m_vPressedColor = e_pImageButton->m_vPressedColor;

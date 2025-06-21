@@ -592,19 +592,19 @@ float g_fTest2 = 1.f;
 			}
 			else
 			{
-			if( e_iInChannel == 1 )
-			{
-				for(i=0;i<l_iDataCount;i++)
+				if( e_iInChannel == 1 )
 				{
-					float l_fValue = ((e_pusData[i*2+1]<<8) | (0x00ff & (int)e_pusData[i*2])) / 32768.f;
-					buffer[0][i] = l_fValue;
-					buffer[1][i] = l_fValue;
+					for(i=0;i<l_iDataCount;i++)
+					{
+						float l_fValue = ((e_pusData[i*2+1]<<8) | (0x00ff & (int)e_pusData[i*2])) / 32768.f;
+						buffer[0][i] = l_fValue;
+						buffer[1][i] = l_fValue;
 #ifdef SRROUND_SOUND_TEST
-					buffer[0][i] *= g_fTest;
-					buffer[1][i] *= g_fTest2;
+						buffer[0][i] *= g_fTest;
+						buffer[1][i] *= g_fTest2;
 #endif
-				}
-			}			
+					}
+				}			
 			}
 		}
 		else

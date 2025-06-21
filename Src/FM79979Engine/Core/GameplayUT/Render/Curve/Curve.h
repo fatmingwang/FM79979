@@ -1,4 +1,8 @@
 #pragma once
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Woverloaded-virtual"
+#endif
 #include "../../../Common/NamedTypedObject.h"
 #include "../../../Common/Template/TemplateClass.h"
 #include "../../../Math/Vector3.h"

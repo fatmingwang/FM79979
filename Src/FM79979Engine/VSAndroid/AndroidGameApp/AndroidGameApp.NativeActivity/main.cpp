@@ -25,7 +25,7 @@
 #include <android/sensor.h>
 #include <android/log.h>
 #include "engine.h"
-#include "../../../FishingFun/Win32Test/stdafx.h"
+#include "../../../Core/AllCoreInclude.h"
 //extern int	g_iHeartTest;
 void android_main(struct android_app* app)
 {	

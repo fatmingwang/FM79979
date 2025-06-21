@@ -1,4 +1,8 @@
 #pragma once
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Woverloaded-virtual"
+#endif
 #include <vector>
 #include <assert.h>
 #include "../CommonDefine.h"
