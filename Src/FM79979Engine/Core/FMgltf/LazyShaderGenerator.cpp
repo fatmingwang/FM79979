@@ -33,17 +33,15 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
 
     std::string shaderCode = "//this is Vertex shader\n";
 #if defined(WIN32)
-    shaderCode += "#version 330 core";
+    shaderCode += "#version 330 core\n";
 #else
-    shaderCode += "#version 300 es";
-#endif
-    shaderCode += R"(
-#ifdef GL_ES
+    shaderCode += R"(#version 300 es"
 precision mediump float;
 precision highp int;
-precision highp sampler2D;
+precision highp sampler2D;)";
 #endif
-)" + l_strDefine + R"(
+    shaderCode += l_strDefine;
+    shaderCode += R"(
 #ifdef USE_POSITION
 layout(location = 0) in vec3 aPosition;
 #endif
@@ -296,18 +294,16 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
 
     std::string shaderCode = "//this is framgent shader\n";
 #if defined(WIN32)
-    shaderCode += "#version 330 core";
+    shaderCode += "#version 330 core\n";
 #else
-    shaderCode += "#version 300 es";
-#endif
-    shaderCode += R"(
-#ifdef GL_ES
+    shaderCode += R"(#version 300 es"
 precision mediump float;
 precision highp int;
 precision highp sampler2D;
+)";
 #endif
-)" + l_strDefine + R"(
-
+    shaderCode += l_strDefine;
+    shaderCode += R"(
 flat in int toFSInstanceID; // Flat qualifier for instance ID
 in vec3 toFSVec3FragPos;
 #ifdef USE_NORMAL
