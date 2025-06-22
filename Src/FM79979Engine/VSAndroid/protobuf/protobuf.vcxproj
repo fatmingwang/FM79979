@@ -198,6 +198,8 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest\include;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

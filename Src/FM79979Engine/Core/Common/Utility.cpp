@@ -78,7 +78,7 @@ namespace UT
 		FMLog::LogWithFlag(str, CORE_LOG_FLAG);
 #endif
 	}
-	void DebugSpewV( const wchar_t* strFormat, const va_list pArgList )
+	void DebugSpewV( const wchar_t* strFormat, va_list pArgList )
 	{
 		wchar_t str[2048];
 		// Use the secure CRT to avoid buffer overruns. Specify a count of
