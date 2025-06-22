@@ -14,18 +14,6 @@ all the message you have readed.
 because the error messages it should be there.
 
 
-failed to install apk?
-remove app and try again.
-
-
-build.gradle.template
-for some utility ex: zip
-dependencies {
-    compile 'com.android.support:support-v4:+'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    $(AarDependencies)
-}
-
 
 
 

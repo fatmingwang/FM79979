@@ -31,7 +31,7 @@
   <Import Project="$(AndroidTargetsPath)\Android.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <AndroidAPILevel>android-34</AndroidAPILevel>
+    <AndroidAPILevel>android-29</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -48,8 +48,8 @@
   <ItemDefinitionGroup>
     <GradlePackage>
       <ProjectDirectory>$(ProjectDir)app</ProjectDirectory>
-      <GradleVersion>7.5.1</GradleVersion>
-      <GradlePlugin>Gradle</GradlePlugin>
+      <GradleVersion>6.1.1</GradleVersion>
+      <GradlePlugin>gradle:4.0.0</GradlePlugin>
     </GradlePackage>
   </ItemDefinitionGroup>
   <ImportGroup Label="ExtensionSettings" />
@@ -68,7 +68,6 @@
     <ProjectReference Include="..\AndroidGameApp\AndroidGameApp.NativeActivity\AndroidGameApp.NativeActivity.vcxproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\build.gradle" />
     <Content Include="app\src\main\strings.xml" />
     <Content Include="gradle.properties" />
   </ItemGroup>

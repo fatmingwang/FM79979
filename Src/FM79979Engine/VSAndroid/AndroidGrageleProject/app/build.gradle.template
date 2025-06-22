@@ -12,8 +12,8 @@ android
     defaultConfig
     {
         $(ApplicationId)
-        minSdkVersion = 26
-        targetSdkVersion = 34
+        minSdkVersion = 16
+        targetSdkVersion = 29
         // Defines the version number of your app.
         versionCode 1
         // Defines a user-friendly version name for your app.
@@ -48,10 +48,10 @@ android
             //
             signingConfig signingConfigs.release
             //
-            minifyEnabled = true
+            minifyEnabled = false
             proguardFiles.add(file('proguard-rules.txt'))
             //ndk.debuggable = true
-            debuggable = false
+            debuggable = true
             //https://stackoverflow.com/questions/18328730/how-to-create-a-release-signed-apk-file-using-gradle
         }
     }
@@ -70,7 +70,7 @@ android
             dimension 'cpuArch'
             ndk 
             {
-                abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
+                abiFilters 'arm64-v8a', 'armeabi-v7a'
             }
         }
         x86_64 
@@ -92,12 +92,13 @@ android
 }
 
 repositories {
-    google()
-    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.fragment:fragment:1.5.7'
+    compile 'com.android.support:support-v4:+'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     $(AarDependencies)
 }
