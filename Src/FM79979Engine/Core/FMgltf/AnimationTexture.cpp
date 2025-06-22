@@ -225,7 +225,7 @@ bool cAnimTexture::Save(const char* path)
     NvFWrite(l_CompressData.data(), 1, compressedSize, file);
 
     // Check for write errors
-    if (ferror(file))
+    if (NvFerror(file))
     {
         FMLOG("Failed to write data to %s", path);
         NvFClose(file);
@@ -239,7 +239,7 @@ bool cAnimTexture::Save(const char* path)
 bool cAnimTexture::Load(const char* path)
 {
     // Open file in binary mode
-    FILE* file = MyFileOpen(path, "rb");
+    NvFile* file = MyFileOpen(path, "rb");
     if (!file)
     {
         FMLOG("Couldn't open %s to read from", path);

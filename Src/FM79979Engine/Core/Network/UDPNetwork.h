@@ -13,7 +13,7 @@ namespace FATMING_CORE
 		sIPData					m_IPData;
 		_UDPsocket*				m_pSocket;
 		UDPpacket*				m_pInPacket;
-		UDPpacket*				m_pSizeHeaderPacket;//for check real data packet
+		//UDPpacket*				m_pSizeHeaderPacket;//for check real data packet
 		UDPpacket*				m_pOutPacket;
 		eNetWorkStatus			m_eNetWorkStatus;
 		bool					m_bDoDisconnect;

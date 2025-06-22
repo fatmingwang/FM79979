@@ -93,7 +93,7 @@ public:
         std::stringstream ss;
 
         // Open file in binary mode
-        FILE* file = MyFileOpen(filename.c_str(), "rb");
+        NvFile* file = MyFileOpen(filename.c_str(), "rb");
         if (!file)
         {
             ss << "Failed to open file: " << filename << std::endl;
@@ -360,7 +360,7 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
         std::wstring boneName = std::wstring(node.name.begin(), node.name.end());
         if (boneName.length() == 0)
         {
-            boneName = ValueToStringW(i);
+            boneName = ValueToStringW((int)i);
         }
         cglTFNodeData*l_pglTFNodeData = new cglTFNodeData(node, (int)i);
         bool l_bSameName = m_NodesVector.AddObject(l_pglTFNodeData);

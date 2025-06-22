@@ -1,10 +1,114 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="FMglTF.cpp" />
+    <Filter Include="GameScene">
+      <UniqueIdentifier>{d1091d1e-31f8-4115-8899-baec39df8906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glTF">
+      <UniqueIdentifier>{6ef727a8-773e-4e21-a5d8-44fd86cfc6a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{bebc8e83-366b-4ac8-8850-18f330038bf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{c2658b39-f91c-4a4b-84b6-0e76fee7db7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glTF\Animation">
+      <UniqueIdentifier>{faee393b-eab3-4185-9668-e74d4bcb2909}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glTF\Shader">
+      <UniqueIdentifier>{ba7f3104-4657-4b3e-9587-99055dfb4efc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FMglTF.h" />
-    <ClInclude Include="pch.h" />
+    <ClInclude Include="..\..\Core\FMgltf\glTFCamera.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\glTFLight.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\glTFMaterial.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\glTFMesh.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\glTFModel.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\glTFNode.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\pch.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\stb_image.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\stb_image_write.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\tiny_gltf.h">
+      <Filter>glTF</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\GameScene.h">
+      <Filter>GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\glTFAnimation.h">
+      <Filter>glTF\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\glTFAnimationMesh.h">
+      <Filter>glTF\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\AnimationTexture.h">
+      <Filter>glTF\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\LazyShaderGenerator.h">
+      <Filter>glTF\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMgltf\Common.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\FMgltf\glTFCamera.cpp">
+      <Filter>glTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\glTFLight.cpp">
+      <Filter>glTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\glTFMaterial.cpp">
+      <Filter>glTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\glTFMesh.cpp">
+      <Filter>glTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\glTFModel.cpp">
+      <Filter>glTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\glTFNode.cpp">
+      <Filter>glTF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\GameScene.cpp">
+      <Filter>GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\SceneTestCode.cpp">
+      <Filter>GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\glTFAnimation.cpp">
+      <Filter>glTF\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\glTFAnimationMesh.cpp">
+      <Filter>glTF\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\AnimationTexture.cpp">
+      <Filter>glTF\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\LazyShaderGenerator.cpp">
+      <Filter>glTF\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMgltf\pch.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

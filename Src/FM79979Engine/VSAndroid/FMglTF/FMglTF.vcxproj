@@ -34,6 +34,39 @@
       <Platform>x86</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Core\FMgltf\AnimationTexture.h" />
+    <ClInclude Include="..\..\Core\FMgltf\Common.h" />
+    <ClInclude Include="..\..\Core\FMgltf\GameScene.h" />
+    <ClInclude Include="..\..\Core\FMgltf\glTFAnimation.h" />
+    <ClInclude Include="..\..\Core\FMgltf\glTFAnimationMesh.h" />
+    <ClInclude Include="..\..\Core\FMgltf\glTFCamera.h" />
+    <ClInclude Include="..\..\Core\FMgltf\glTFLight.h" />
+    <ClInclude Include="..\..\Core\FMgltf\glTFMaterial.h" />
+    <ClInclude Include="..\..\Core\FMgltf\glTFMesh.h" />
+    <ClInclude Include="..\..\Core\FMgltf\glTFModel.h" />
+    <ClInclude Include="..\..\Core\FMgltf\glTFNode.h" />
+    <ClInclude Include="..\..\Core\FMgltf\LazyShaderGenerator.h" />
+    <ClInclude Include="..\..\Core\FMgltf\pch.h" />
+    <ClInclude Include="..\..\Core\FMgltf\stb_image.h" />
+    <ClInclude Include="..\..\Core\FMgltf\stb_image_write.h" />
+    <ClInclude Include="..\..\Core\FMgltf\tiny_gltf.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\FMgltf\AnimationTexture.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\GameScene.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\glTFAnimation.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\glTFAnimationMesh.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\glTFCamera.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\glTFLight.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\glTFMaterial.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\glTFMesh.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\glTFModel.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\glTFNode.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\LazyShaderGenerator.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\pch.cpp" />
+    <ClCompile Include="..\..\Core\FMgltf\SceneTestCode.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{74a438c8-86c8-426c-bb33-992c6ba48b19}</ProjectGuid>
     <Keyword>Android</Keyword>
@@ -67,11 +100,13 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-28</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-28</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -130,14 +165,24 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\Core;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG;ANDROID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>ANDROID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AdditionalIncludeDirectories>..\..\Core;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -152,13 +197,6 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="FMglTF.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="FMglTF.h" />
-    <ClInclude Include="pch.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>

@@ -351,7 +351,7 @@ void cMesh::Render(cMeshInstance* e_pMeshInstance)
 void cMesh::logFVFFlags()
 {
     FMLOG("FVF Flags")
-    for (const auto l_pSubMesh : m_SubMeshesVector)
+    for (std::shared_ptr<sSubMesh> l_pSubMesh : m_SubMeshesVector)
     {
         if (l_pSubMesh->m_i64FVFFlag & FVF_POS_FLAG) FMLOG("Position is present.");
         if (l_pSubMesh->m_i64FVFFlag & FVF_NORMAL_FLAG) FMLOG("Normal is present.");
@@ -514,7 +514,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
     m_SubMeshesVector.push_back(l_pSubMesh);
     logFVFFlags();
     // Iterate through each subMesh to update the bounds
-    for (const auto l_pSubMesh : m_SubMeshesVector)
+    for (std::shared_ptr<sSubMesh> l_pSubMesh : m_SubMeshesVector)
     {
         m_vMinBounds.x = min(m_vMinBounds.x, l_pSubMesh->m_vMinBounds.x);
         m_vMinBounds.y = min(m_vMinBounds.y, l_pSubMesh->m_vMinBounds.y);

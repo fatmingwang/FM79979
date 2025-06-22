@@ -434,12 +434,6 @@
     <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpge.h">
       <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\stb_image.h">
-      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\timer.h">
-      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\png\pngLoader.h">
       <Filter>Core\GamePlayUT\Render\Texture\png</Filter>
     </ClInclude>
@@ -1261,12 +1255,6 @@
       <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpge.cpp">
-      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\tga2jpg.cpp">
-      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\timer.cpp">
       <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\png\pngLoader.cpp">

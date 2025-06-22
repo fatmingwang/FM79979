@@ -29,7 +29,7 @@
 #include "../../../Core/AllCoreInclude.h"
 #include "../../../EmptyProject/EngineTest/GameApp.h"
 #include "unistd.h"
-
+extern int32_t		ImGui_ImplAndroid_HandleInputEvent(const AInputEvent* input_event);
 //#include "gpg/gpg.h"
 
 bool	g_bLostFocus = false;;
@@ -66,7 +66,9 @@ Engine::~Engine()
 bool Engine::initUI()
 {
 	if (m_uiInitialized)
+	{
 		return true;
+	}
 	setGameplayMode(true);
 	cGameApp::m_spThreadEnv = this->mApp->appThreadEnv;
 	cGameApp::m_spANativeActivity = this->mApp->activity;
@@ -77,6 +79,7 @@ bool Engine::initUI()
 		int	l_iX = l_vViewport.x;
 		int	l_iY = l_vViewport.y;
 		g_pAndroidTestApp = new cEngineTestApp(mApp->activity,mApp->appThreadEnv,&mApp->appThreadThis,Vector2(1920,720),l_vViewport,&mEgl);
+		g_pAndroidTestApp->m_spOpenGLRender->m_Handle = mEgl.getWindow();
 		g_pAndroidTestApp->Init();
 		g_pAndroidTestApp->m_sbDoMultiTouch = true;
 		cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_PORTRAIT;
@@ -167,8 +170,11 @@ bool Engine::renderFrame(bool allocateIfNeeded)
 
 int Engine::handleInput(AInputEvent* event)
 {
-	if( !event )
+	if (!event)
+	{
 		return 0;
+	}
+	ImGui_ImplAndroid_HandleInputEvent(event);
     //We only handle motion events (touchscreen) and key (button/key) events
 	int32_t eventType = AInputEvent_getType(event);
 	if (eventType == AINPUT_EVENT_TYPE_MOTION)
@@ -181,8 +187,10 @@ int Engine::handleInput(AInputEvent* event)
 		{
 			l_bTouch = true;
 		}
-		if( cGameApp::m_sbGamePause )
+		if (cGameApp::m_sbGamePause)
+		{
 			l_siIgnoreTime = 1;
+		}
 		if( g_pAndroidTestApp && !cGameApp::m_sbGamePause && l_siIgnoreTime == 0 )
 		{
 			if(g_pAndroidTestApp->m_sbDoMultiTouch)

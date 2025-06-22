@@ -3,6 +3,8 @@
 //#include <tiny_gltf.h>
 #include <iostream>
 #include <vector>
+#include "tiny_gltf.h"
+#include "../AllCoreInclude.h"
 
 void LoadModel(tinygltf::Model& model, const std::string& filename)
 {

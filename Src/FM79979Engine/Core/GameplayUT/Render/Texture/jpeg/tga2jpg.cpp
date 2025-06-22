@@ -8,6 +8,7 @@
 #include "stb_image.h"
 #include "timer.h"
 #include <ctype.h>
+#include <string.h> 
 
 #if defined(_MSC_VER)
   #define strcasecmp _stricmp

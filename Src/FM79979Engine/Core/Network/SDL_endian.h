@@ -208,7 +208,7 @@ static __inline__ Uint64 SDL_Swap64(Uint64 x)
 #endif
 /*@}*/
 
-static void wno_unused_myheadername(void)
+static inline void wno_unused_myheadername(void)
 {
 	/* don't need to actually call the functions to avoid the warnings */
 	(void)&SDL_Swap16;

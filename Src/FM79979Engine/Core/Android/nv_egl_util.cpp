@@ -190,7 +190,8 @@ NvEGLUtil* NvEGLUtil::create(ConfigChooser chooser)
 	cOpenGLRender::m_siOpenGLESVersion = 0;
 	for (int i = 0; i < 4; ++i)
 	{
-		if (thiz->m_context = eglCreateContext(thiz->m_display, thiz->m_config, NULL, l_ppcontextAttrs[i]))
+		thiz->m_context = eglCreateContext(thiz->m_display, thiz->m_config, nullptr, l_ppcontextAttrs[i]);
+		if (thiz->m_context)
 		{
 			cOpenGLRender::m_siOpenGLESVersion = l_iOpenGLESVersion[i];
 			EGL_STATUS_LOG(UT::ComposeMsgByFormat("eglCreateContext %d", cOpenGLRender::m_siOpenGLESVersion).c_str());
@@ -440,12 +441,14 @@ bool NvEGLUtil::swap()
 
 bool NvEGLUtil::queryNVTimeSupport()
 {
-    if (m_nvTimeExtensionQueried)
-        return true;
-
+	if (m_nvTimeExtensionQueried)
+	{
+		return true;
+	}
 	if (m_status < NV_IS_BOUND)
+	{
 		return false;
-
+	}
     m_nvTimeExtensionQueried = true;
 
 	m_eglGetSystemTimeFrequencyNVProc = (PFNEGLGETSYSTEMTIMEFREQUENCYNVPROC) eglGetProcAddress("eglGetSystemTimeFrequencyNV");

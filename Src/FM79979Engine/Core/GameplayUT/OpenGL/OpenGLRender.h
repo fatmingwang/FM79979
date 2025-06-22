@@ -5,6 +5,8 @@
 #include "windows.h"
 #elif defined(WASM)
 #include <SDL2/SDL_video.h>
+#elif defined(ANDROID)
+#include <android/native_window.h>
 #endif
 namespace FATMING_CORE
 {
@@ -24,8 +26,14 @@ namespace FATMING_CORE
 		cOpenGLRender();
 #elif defined(WASM)
 		SDL_Window*													m_Handle;
+#elif defined(ANDROID)
+		ANativeWindow*												m_Handle;
 #endif
+#if defined(ANDROID)
+		cOpenGLRender(ANativeWindow* e_pANativeWindow,Vector2 e_vGameResolution = Vector2(1920.f, 1080.f), Vector2 e_vViewportSize = Vector2(1920.f, 1080.f));
+#else
 		cOpenGLRender(Vector2 e_vGameResolution = Vector2(1920.f, 1080.f), Vector2 e_vViewportSize = Vector2(1920.f, 1080.f));
+#endif
 		virtual ~cOpenGLRender();
 		DEFINE_TYPE_INFO();
 		//while game resolution is change we want to re scale all data check this one

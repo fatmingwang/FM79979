@@ -21,8 +21,8 @@ namespace FATMING_CORE
 		m_bStayAtLastFrame = false;
 	}
 
-	cCueToStartCurveWithTime::cCueToStartCurveWithTime(cCueToStartCurveWithTime*e_pCueToStartCurvesWithTime)
-		:cMulti_PI_Image(e_pCueToStartCurvesWithTime), cCurveWithTime(e_pCueToStartCurvesWithTime), Frame(e_pCueToStartCurvesWithTime)
+	cCueToStartCurveWithTime::cCueToStartCurveWithTime(cCueToStartCurveWithTime*e_pCueToStartCurvesWithTime):Frame(e_pCueToStartCurvesWithTime),
+		cCurveWithTime(e_pCueToStartCurvesWithTime), cMulti_PI_Image(e_pCueToStartCurvesWithTime)
 	{
 		if (e_pCueToStartCurvesWithTime->IsStayAtLastFrame())
 		{

@@ -99,7 +99,11 @@ namespace	FATMING_CORE
 	{
 		if (!m_spOpenGLRender)
 		{
-			m_spOpenGLRender = new cOpenGLRender(Vector2(1920, 1080), Vector2(1920, 1080));
+#ifdef ANDROID
+			m_spOpenGLRender = new cOpenGLRender(cGameApp::m_pNvEGLUtil->getWindow(), Vector2(1920, 1080), Vector2(1920, 1080));
+#else
+			m_spOpenGLRender = new cOpenGLRender(Vector2(960, 640), Vector2(960, 640));
+#endif
 		}
 	}
 

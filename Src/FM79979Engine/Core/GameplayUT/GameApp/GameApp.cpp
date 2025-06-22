@@ -126,7 +126,11 @@ namespace	FATMING_CORE
 		SystemErrorCheck();
 		if (!m_spOpenGLRender)
 		{
+#ifdef ANDROID
+			m_spOpenGLRender = new cOpenGLRender(e_pNvEGLUtil->getWindow(),e_vGameResolution, e_vViewportSize);
+#else
 			m_spOpenGLRender = new cOpenGLRender(e_vGameResolution, e_vViewportSize);
+#endif
 		}
 		else
 		{
@@ -141,6 +145,7 @@ namespace	FATMING_CORE
 		PrintMemoryInfo();
 #else
 		m_spOpenGLRender->Init();
+
 #endif
 		memset(m_sucKeyData, 0, sizeof(bool)*MAX_PATH);
 		m_bMouseHover = false;

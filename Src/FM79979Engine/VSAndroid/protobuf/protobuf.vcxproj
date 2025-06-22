@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\any.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\api.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\compiler\importer.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\compiler\parser.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\descriptor.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\descriptor.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\descriptor_database.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\duration.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\dynamic_message.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\empty.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\field_access_listener.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\field_mask.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_enum_reflection.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_message_bases.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_message_reflection.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\gzip_stream.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\printer.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\tokenizer.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\map_entry.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\map_field.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\map_field_inl.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\message.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\metadata.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\reflection.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\reflection_ops.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\service.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\source_context.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\struct.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\text_format.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\timestamp.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\type.pb.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\unknown_field_set.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\delimited_message_util.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\field_comparator.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\field_mask_util.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\json_util.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\message_differencer.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\time_util.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\type_resolver.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\type_resolver_util.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\wire_format.h" />
+    <ClInclude Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\wrappers.pb.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\any.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\any.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\any_lite.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\api.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\arena.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\arenastring.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\compiler\importer.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\compiler\parser.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\descriptor.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\descriptor.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\descriptor_database.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\duration.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\dynamic_message.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\empty.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\extension_set.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\extension_set_heavy.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\field_mask.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_enum_util.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_message_bases.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_message_reflection.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_message_table_driven.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_message_table_driven_lite.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_message_tctable_full.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_message_tctable_lite.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\generated_message_util.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\implicit_weak_message.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\inlined_string_field.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\coded_stream.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\gzip_stream.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\io_win32.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\printer.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\strtod.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\tokenizer.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\zero_copy_stream.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\zero_copy_stream_impl.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\io\zero_copy_stream_impl_lite.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\map.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\map_field.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\message.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\message_lite.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\parse_context.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\reflection_ops.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\repeated_field.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\repeated_ptr_field.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\service.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\source_context.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\struct.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\bytestream.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\common.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\int128.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\status.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\statusor.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\stringpiece.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\stringprintf.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\structurally_valid.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\strutil.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\substitute.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\stubs\time.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\text_format.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\timestamp.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\type.pb.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\unknown_field_set.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\delimited_message_util.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\field_comparator.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\field_mask_util.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\datapiece.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\default_value_objectwriter.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\error_listener.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\field_mask_utility.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\json_escaping.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\json_objectwriter.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\json_stream_parser.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\object_writer.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\protostream_objectsource.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\protostream_objectwriter.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\proto_writer.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\type_info.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\internal\utility.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\json_util.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\message_differencer.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\time_util.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\util\type_resolver_util.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\wire_format.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\wire_format_lite.cc" />
+    <ClCompile Include="..\..\ProtoBuffer\protobuf-3.19.4\src\google\protobuf\wrappers.pb.cc" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{eac7aa0b-c1d1-43ee-9e4f-05fcb3282f76}</ProjectGuid>
+    <Keyword>Android</Keyword>
+    <RootNamespace>protobuf</RootNamespace>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <ApplicationType>Android</ApplicationType>
+    <ApplicationTypeRevision>3.0</ApplicationTypeRevision>
+    <ProjectName>protobuf</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-28</AndroidAPILevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest\include;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest\include;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest\include;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock\include;$(StlIncludeDirectories);$(Sysroot)\usr\include;$(Sysroot)\usr\include\$(AndroidHeaderTriple);$(VS_NdkRoot)\sources\android\support\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googletest\include;..\..\ProtoBuffer\protobuf-3.19.4\third_party\googletest\googlemock\include;$(StlIncludeDirectories);$(Sysroot)\usr\include;$(Sysroot)\usr\include\$(AndroidHeaderTriple);$(VS_NdkRoot)\sources\android\support\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

@@ -308,8 +308,6 @@
     <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\dds\nv_images.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpgd.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpge.h" />
-    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\stb_image.h" />
-    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\timer.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\png\pngLoader.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\Texture.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\TextureManager.h" />
@@ -492,8 +490,6 @@
     <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\dds\nv_images.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpgd.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpge.cpp" />
-    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\tga2jpg.cpp" />
-    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\timer.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\png\pngLoader.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\Texture.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\TextureManager.cpp" />

@@ -135,9 +135,11 @@
       <PreprocessorDefinitions>ANDROID;DEBUG;__ANDROID_API__=$(AndroidAPILevelNumber);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\..\ProtoBuffer\protobuf-3.19.4;..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\..\Core;$(StlIncludeDirectories);$(Sysroot)\usr\include;$(Sysroot)\usr\include\$(AndroidHeaderTriple);$(VS_NdkRoot)\sources\android\support\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <ExceptionHandling>Enabled</ExceptionHandling>
     </ClCompile>
     <Link>
-      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv3;EGL;jnigraphics;Core;ogg;Bullet;FreeType;%(LibraryDependencies)</LibraryDependencies>
+      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv3;EGL;jnigraphics;Core;ogg;Bullet;FreeType;protobuf;FMglTF;Myimgui;zlib;%(LibraryDependencies)</LibraryDependencies>
       <AdditionalLibraryDirectories>..\..\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
@@ -149,12 +151,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsCpp</CompileAs>
-      <AdditionalIncludeDirectories>..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\..\Core;$(StlIncludeDirectories);$(Sysroot)\usr\include;$(Sysroot)\usr\include\$(AndroidHeaderTriple);$(VS_NdkRoot)\sources\android\support\include;$(StlIncludeDirectories);$(Sysroot)\usr\include;$(Sysroot)\usr\include\$(AndroidHeaderTriple);$(VS_NdkRoot)\sources\android\support\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\ProtoBuffer\protobuf-3.19.4\src;..\..\..\\ProtoBuffer\protobuf-3.19.4;..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\..\Core;$(StlIncludeDirectories);$(Sysroot)\usr\include;$(Sysroot)\usr\include\$(AndroidHeaderTriple);$(VS_NdkRoot)\sources\android\support\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>ANDROID;__ANDROID_API__=$(AndroidAPILevelNumber);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <CppLanguageStandard>c++1z</CppLanguageStandard>
+      <ExceptionHandling>Enabled</ExceptionHandling>
     </ClCompile>
     <Link>
-      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv2;EGL;jnigraphics;Core;ogg;Bullet;FreeType</LibraryDependencies>
+      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv3;EGL;jnigraphics;Core;ogg;Bullet;FreeType;protobuf;FMglTF;Myimgui;zlib</LibraryDependencies>
       <AdditionalLibraryDirectories>..\..\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -230,7 +234,10 @@
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\ComputerShaderUniform.h" />
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\GameApp.h" />
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\JPEGCodingTest.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\MyImGui.h" />
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\NetworkSample.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\Proto\addressbook.pb.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\Proto\MessageTest.pb.h" />
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\stdafx.h" />
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\TestPhase.h" />
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\TestShader.h" />
@@ -242,7 +249,10 @@
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\GameApp.cpp" />
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\HappyHttpTest.cpp" />
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\JPEGCodingTest.cpp" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\MyImGui.cpp" />
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\NetworkSample.cpp" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\Proto\addressbook.pb.cc" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\Proto\MessageTest.pb.cc" />
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\Sample.cpp" />
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\TestPhase.cpp" />
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\TestShader.cpp" />

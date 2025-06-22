@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{b7b0c096-5b99-423b-8ed3-077be16dfc37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{1ab0aa39-3d09-47f3-8ef6-2eae84afcd77}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\zlib\adler32.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\compress.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\crc32.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\deflate.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\gzclose.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\gzlib.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\gzread.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\gzwrite.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\infback.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\inffast.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\inflate.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\inftrees.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\trees.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\uncompr.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\zlib\zutil.c">
+      <Filter>Header</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Core\zlib\crc32.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\deflate.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\gzguts.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\inffast.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\inffixed.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\inflate.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\inftrees.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\trees.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\zconf.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\zlib.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\zlib\zutil.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Core\zlib\zlib.vcxproj">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="..\..\Core\zlib\zlib.vcxproj.filters">
+      <Filter>Header</Filter>
+    </None>
+    <None Include="..\..\Core\zlib\zlib.vcxproj.user">
+      <Filter>Header</Filter>
+    </None>
+  </ItemGroup>
+</Project>

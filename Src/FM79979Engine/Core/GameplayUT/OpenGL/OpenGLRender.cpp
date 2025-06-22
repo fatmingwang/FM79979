@@ -8,8 +8,7 @@
 #include "../Render/OpenGLObject/VertexBufferObject.h"
 #if defined(WIN32)
 #include "WindowsOpenGL.h"
-#endif
-#ifdef WASM
+#elif  defined(WASM)
 #include "../../Emscripten/JSBindCode.h"
 #endif
 
@@ -44,7 +43,11 @@ namespace FATMING_CORE
 	////#else
 	////eDeviceDirection									cGameApp::m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
 	////#endif
+#ifdef ANDROID
+	cOpenGLRender::cOpenGLRender(ANativeWindow*e_pANativeWindow,Vector2 e_vGameResolution, Vector2 e_vViewportSize)
+#else
 	cOpenGLRender::cOpenGLRender(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
+#endif
 	{
 #ifdef WASM
 		EMSDK::EMSDK_JSInit();
@@ -62,6 +65,8 @@ namespace FATMING_CORE
 		m_Hdc = nullptr;
 		m_HGLRC = nullptr;
 		m_Handle = nullptr;
+#elif defined(ANDROID)
+		m_Handle = e_pANativeWindow;
 #endif
 		
 	}

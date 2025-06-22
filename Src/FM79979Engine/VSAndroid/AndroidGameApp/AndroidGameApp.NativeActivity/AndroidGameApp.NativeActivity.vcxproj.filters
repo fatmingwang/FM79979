@@ -25,6 +25,15 @@
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\TestShader.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\MyImGui.h">
+      <Filter>Game\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\Proto\addressbook.pb.h">
+      <Filter>ProtoBuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\Proto\MessageTest.pb.h">
+      <Filter>ProtoBuf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine.cpp" />
@@ -54,6 +63,15 @@
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\TestShader.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\MyImGui.cpp">
+      <Filter>Game\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\Proto\addressbook.pb.cc">
+      <Filter>ProtoBuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\Proto\MessageTest.pb.cc">
+      <Filter>ProtoBuf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -67,6 +85,12 @@
     </Filter>
     <Filter Include="Game\JPEG">
       <UniqueIdentifier>{47c5b178-05d9-489f-904a-2af0b01e03d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ImGui">
+      <UniqueIdentifier>{2a44558b-063e-44ed-bc57-1ce5871d67b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProtoBuf">
+      <UniqueIdentifier>{f792642f-0fde-479b-95fe-800331c39b44}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

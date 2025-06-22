@@ -27,8 +27,11 @@ void		ImGui_StartFrame(float*e_pGameResolutionSize = nullptr,int e_iContextIndex
 void		ImGui_EndFrame(float*e_pfMatrix = nullptr, float* e_pGameResolutionSize = nullptr);
 
 bool		ImGui_ImplOpenGL3_Init(void* hwnd,const char* glsl_version = nullptr,int e_iNumContext = 1);
-#ifdef WASM
+
+#if defined(WASM)
 bool		ImGui_ImplSDL2_ProcessEvent(const SDL_Event* event);
+#elif defined(ANDROID)
+int32_t		ImGui_ImplAndroid_HandleInputEvent(const struct AInputEvent* input_event);
 #endif
 
 struct ImFont*	GetImFont(const char* e_strFileNme);

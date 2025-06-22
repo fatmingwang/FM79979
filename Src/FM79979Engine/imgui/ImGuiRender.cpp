@@ -25,6 +25,11 @@ bool    ImGui_ImplWin32_InitExInner(void* hwnd, bool platform_has_own_dc);
 void	ImGui_ImplSDL2_NewFrame(float* e_pGameResolutionSize);
 //bool    ImGui_ImplSDL2_Init();
 bool    ImGui_ImplSDL2_Init(SDL_Window* window);
+#elif defined(ANDROID)
+extern bool     ImGui_ImplAndroid_Init(ANativeWindow* window);
+extern int32_t  ImGui_ImplAndroid_HandleInputEvent(const struct AInputEvent* input_event);
+extern void     ImGui_ImplAndroid_Shutdown();
+extern void     ImGui_ImplAndroid_NewFrame();
 #endif
 bool g_bUseMyViewPort = true;
 //==========================================================================
@@ -96,6 +101,8 @@ struct ImGui_ImplOpenGL3_Data
     int                     MouseLastLeaveFrame;
     bool                    MouseCanUseGlobalState;
     bool                    WantUpdateGamepadsList;
+#elif defined(ANDROID)
+
 #endif
     ImGui_ImplOpenGL3_Data() { memset((void*)this, 0, sizeof(*this)); }
 };
@@ -281,6 +288,8 @@ bool ImGui_ImplPlatform_InitEx(void* hwnd, bool platform_has_own_dc)
             ImGui_ImplWin32_InitExInner(hwnd, platform_has_own_dc);
 #elif defined(WASM)
             ImGui_ImplSDL2_Init((SDL_Window*)hwnd);
+#elif defined(ANDROID)
+            ImGui_ImplAndroid_Init((ANativeWindow*)hwnd);
 #endif
         }
     }
@@ -383,8 +392,10 @@ void AllImGuiMouseEnable()
 
 void ImGui_ImplOpenGL3_Shutdown()
 {
-#ifdef WIN32
+#if defined(WIN32)
     ImGui_ImplWin32_Shutdown();
+#elif defined(ANDROID)
+    ImGui_ImplAndroid_Shutdown();
 #else
     if (g_pImGuiContextVector)
     {
@@ -700,6 +711,8 @@ void ImGui_StartFrame(float* e_pGameResolutionSize,int e_iContextIndex)
     ImGui_ImplWin32_NewFrame(e_pGameResolutionSize);
 #elif defined(WASM)
     ImGui_ImplSDL2_NewFrame(e_pGameResolutionSize);
+#elif defined(ANDROID)
+	ImGui_ImplAndroid_NewFrame();
 #endif
     ImGui::NewFrame();
 }

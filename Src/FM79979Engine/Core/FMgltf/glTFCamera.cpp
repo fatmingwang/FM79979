@@ -274,7 +274,7 @@ void cCameraController::Update(float e_fElpaseTime)
         // Assumes cGameApp::m_sbMouseClickStatus is accessible and of type sMouseState
         if (m_pCameraBehaveByMouseBehave)
         {
-            if (cGameApp::m_sucKeyData['R'])
+            if (cGameApp::m_sucKeyData[(int)'R'])
             {
                 auto l_pCamera = this->GetCurrentCamera();
                 if (l_pCamera)
@@ -308,9 +308,9 @@ void cCameraController::Update(float e_fElpaseTime)
     if (m_NameAndglTFCameraMap.size())
     {
         //only support cglTFModel not clone node
-        if (cGameApp::m_sucKeyUpData['T'])
+        if (cGameApp::m_sucKeyUpData[(int)'T'])
         {
-            cGameApp::m_sucKeyUpData['T'] = false;
+            cGameApp::m_sucKeyUpData[(int)'T'] = false;
             ++m_iDefaultModelCameraIndex;
             auto l_IT = m_NameAndglTFCameraMap.begin();
             if (m_iDefaultModelCameraIndex >= l_IT->second->m_CameraVector.size())
