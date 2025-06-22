@@ -289,18 +289,21 @@ void cLighController::Render(GLuint e_uiProgramID)
     
     else
     {
+        // Bind and upload data to the UBO
+        FORCE_CHECK_GL_ERROR("1");
         GLuint blockIndex = glGetUniformBlockIndex(e_uiProgramID, "uLightBlock");
         if (blockIndex != GL_INVALID_INDEX)
         {
+            glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
             glUniformBlockBinding(e_uiProgramID, blockIndex, 0);
             glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_uiLightUBO); // Bind UBO to binding point 0
+            FORCE_CHECK_GL_ERROR("2");
+            glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(LightBlock), &m_LightBlock);
+            FORCE_CHECK_GL_ERROR("4");
+            // Unbind the UBO
+            glBindBuffer(GL_UNIFORM_BUFFER, 0);
+            FORCE_CHECK_GL_ERROR("5");
         }
-        // Bind and upload data to the UBO
-        glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
-        glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(LightBlock), &m_LightBlock);
-
-        // Unbind the UBO
-        glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }
 
 }

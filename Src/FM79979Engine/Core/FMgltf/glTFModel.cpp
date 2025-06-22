@@ -209,16 +209,16 @@ GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
 {
     std::string vertexCode = GenerateVertexShaderWithFVF(fvfFlags, e_iNumMorphTarget);
 	//printf("vertex shader code:\n%s", vertexCode.c_str());
-    //std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
+    std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
     //printf("fs shader code:\n%s", fragmentCode.c_str());
     // Fragment Shader source (GLSL ES 3.00)
-    std::string fragmentCode = R"(#version 300 es
-            precision mediump float;
-            out vec4 FragColor;
-            void main() {
-                FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-            }
-        )";
+    //std::string fragmentCode = R"(#version 300 es
+    //        precision mediump float;
+    //        out vec4 FragColor;
+    //        void main() {
+    //            FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    //        }
+    //    )";
 
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     const char* vShaderCode = vertexCode.c_str();
