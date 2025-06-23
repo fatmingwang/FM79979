@@ -314,16 +314,19 @@
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <AdditionalIncludeDirectories>../EngineTest;..\..\ProtoBuffer\protobuf-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--profiling --bind %(AdditionalOptions)</AdditionalOptions>
       <ExceptionHandling>true</ExceptionHandling>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>-s USE_WEBGL2=1 -sUSE_SDL=2  -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=1 --bind -sUSE_WEBGL2=1 -sALLOW_MEMORY_GROWTH=1  -O2 -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2
+-O3  -s WASM=1 -s FULL_ES3=1 -s USE_SDL=2 -s ALLOW_MEMORY_GROWTH=1
+-s ERROR_ON_UNDEFINED_SYMBOLS=1 -s ASSERTIONS=0 -s SAFE_HEAP=0
+-s DISABLE_EXCEPTION_CATCHING=1 -s ENVIRONMENT=web,worker
+--no-heap-copy -s FETCH=1  --bind -matomics -bulk-memory -s DEMANGLE_SUPPORT=0 %(AdditionalOptions)</AdditionalOptions>
       <PreloadFile>../assets;</PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
       <AdditionalDependencies>websocket.js</AdditionalDependencies>
-      <ThreadProfiling>true</ThreadProfiling>
+      <ThreadProfiling>false</ThreadProfiling>
       <EnableMemoryGrowth>true</EnableMemoryGrowth>
       <TypedArrays>Default</TypedArrays>
     </Link>
