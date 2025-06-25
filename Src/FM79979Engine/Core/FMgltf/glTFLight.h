@@ -10,44 +10,26 @@ enum class eLightType
     eLT_MAX
 };
 
+
+
 //Structure to hold light properties
 //std140 layout rules
 struct alignas(16) sLightData
 {
-    Vector3     m_vPosition;        // Aligned to 16 bytes
-    float       m_fIntensity;      // Aligned to 16 bytes (vec4 padding)
-
-    Vector3     m_vDirection;      // Aligned to 16 bytes
-    float       m_fRange;          // Aligned to 16 bytes (vec4 padding)
-
-    Vector3     m_vColor;          // Aligned to 16 bytes
-    float       m_fInnerConeAngle; // Aligned to 16 bytes (vec4 padding)
-
-    float       m_fOuterConeAngle; // Aligned to 4 bytes
-    int         m_eType;           // Aligned to 4 bytes (enum stored as int)
-	int         m_iEnable;        //0 disable 1 enable
-    float       _padding;       // Padding to align the structure to 16 bytes
-    /*bool operator==(const sLightData& other) const
-    {
-        return m_eType == other.m_eType &&
-            m_fIntensity == other.m_fIntensity &&
-            m_fRange == other.m_fRange &&
-            m_fInnerConeAngle == other.m_fInnerConeAngle &&
-            m_fOuterConeAngle == other.m_fOuterConeAngle &&
-            m_vPosition == other.m_vPosition &&
-            m_vDirection == other.m_vDirection &&
-            m_vColor == other.m_vColor;
-    }*/
+    Vector4     m_vPosition;       // Aligned to 16 bytes
+    Vector4     m_vColor;          // Aligned to 16 bytes
+    Vector4     m_vDirection;      // Aligned to 16 bytes
+    Vector4	    m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel;
+	int		    m_0Type1Enable[4];
 };
-#define MAX_LIGHT   8
+#define MAX_LIGHT   4
 class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighController>
 {
     // Prepare the UBO data
-    struct alignas(16) LightBlock
+    struct alignas(16) sLightBlock
     {
         sLightData m_Lights[MAX_LIGHT]; // Array of light data
-        int m_iNumLights;       // Number of lights
-        float pad[3];        // Padding to align to 16 bytes
+        int m_iNumLights[4];       // Number of lights
     } m_LightBlock;
     GLuint m_uiLightUBO = -1;
     //from cLighFrameData

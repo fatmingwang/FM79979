@@ -1,6 +1,7 @@
 #include "../AllCoreInclude.h"
 #include "LazyShaderGenerator.h"
 #include "glTFAnimationMesh.h"
+#include "glTFLight.h"
 std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarget)
 {
     if (e_i64FVFFlags & FVF_INSTANCING_FLAG && e_iNumMorphTarget > 0)
@@ -289,7 +290,7 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags)
     if (e_i64FVFFlags & FVF_EMISSIVE_TEXTURE_FLAG)
         l_strDefine += "#define USE_EMISSIVE\n";
 
-
+    l_strDefine += "#define MAX_LIGHT " + ValueToString(MAX_LIGHT);
 
     std::string shaderCode;
 #if defined(WIN32)
@@ -349,23 +350,17 @@ uniform vec3 uEmissiveFactor;
 // Light data structure matching std140 layout
 struct Light
 {
-    vec3 position;       // Aligned to 16 bytes
-    float intensity;     // Aligned to 16 bytes (vec4 padding)
-    vec3 direction;      // Aligned to 16 bytes
-    float range;         // Aligned to 16 bytes (vec4 padding)
-    vec3 color;          // Aligned to 16 bytes
-    float innerConeAngle;// Aligned to 16 bytes (vec4 padding)
-    float outerConeAngle;// Aligned to 4 bytes
-    int type;            // Aligned to 4 bytes
-    int Enable;          // Aligned to 4 bytes
-    float pad;           // Padding to align to 16 bytes
+    vec4    position;       // Aligned to 16 bytes
+    vec4    color;          // Aligned to 16 bytes
+    vec4    direction;      // Aligned to 16 bytes
+    vec4    LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel;          // Aligned to 16 bytes
+    ivec4   xTypeyEnable;           // Padding to align to 16 bytes
 };
 
 layout(std140) uniform uLightBlock
 {
-    Light lights[8];   // Array of light data (maximum 8 lights)
-    int numLights;     // Number of lights
-    vec3 pad;          // Padding to align to 16 bytes
+    Light lights[MAX_LIGHT];   // Array of light data (maximum 8 lights)
+    ivec4 numLights;     // Number of lights and Padding to align to 16 bytes
 };
 
 // PBR functions
@@ -478,43 +473,45 @@ void main()
     vec3 emissive = vec3(0.0);
 #endif
 
-    for (int i = 0; i < numLights; i++)
+    for (int i = 0; i < numLights.x; i++)
     {
-        if (lights[i].Enable == 0)
+        if(lights[i].xTypeyEnable.y == 0) // If light is not enabled
         {
             continue;
         }
+        int l_iType = lights[i].xTypeyEnable.x;
         vec3 L;
         float attenuation = 1.0;
-        if (lights[i].type == 0) // Directional light
+        if (l_iType == 0) // Directional light
         {
-            L = -normalize(lights[i].direction);
+            L = -normalize(lights[i].direction.xyz);
         }
-        else if (lights[i].type == 3) // Ambient light
+        else 
+        if (l_iType == 3) // Ambient light
         {
-            color += lights[i].color * albedo;
+            color += lights[i].color.xyz * albedo;
             continue;
         }
         else // Point or spot
         {
-            L = normalize(lights[i].position - toFSVec3FragPos);
-            float distance = length(lights[i].position - toFSVec3FragPos);
-            if (lights[i].range > 0.0)
+            L = normalize(lights[i].position.xyz - toFSVec3FragPos);
+            float distance = length(lights[i].position.xyz - toFSVec3FragPos);
+            if (lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y > 0.0)
             {
                 attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
             }
             // Apply spot light cone if applicable
-            if (lights[i].type == 2) // Spot light
+            if (l_iType == 2) // Spot light
             {
-                float theta = dot(-L, normalize(lights[i].direction));
-                float epsilon = lights[i].innerConeAngle - lights[i].outerConeAngle;
-                float spotIntensity = clamp((theta - lights[i].outerConeAngle) / epsilon, 0.0, 1.0);
+                float theta = dot(-L, normalize(lights[i].direction.xyz));
+                float epsilon = lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z - lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w;
+                float spotIntensity = clamp((theta - lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w) / epsilon, 0.0, 1.0);
                 attenuation *= spotIntensity;
             }
         }
-        //float diff = max(dot(N, L), 0.0)*lights[i].intensity;
+        //float diff = max(dot(N, L), 0.0)*lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x;
         //color += (diff*albedo);
-        color += CalculatePBRLighting(N, V, L, lights[i].color, lights[i].intensity * attenuation, albedo, roughness, metallic, occlusion);
+        color += CalculatePBRLighting(N, V, L, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x * attenuation, albedo, roughness, metallic, occlusion);
     }
 
     color += emissive;

@@ -308,6 +308,10 @@ public:
 		return false;
 	}
 	inline float Length() const { return sqrtf(x * x + y * y + z * z+w*w); }
+	inline Vector4 Normalize() const
+	{
+		float l = Length(); return (l > 0.0f) ? Vector4(x / l, y / l, z / l,w/l) : Vector4(1,0,0,0);
+	}
 
 	static const Vector4 Zero;	/**< The 4D vector containing all zeroes. */
 	static const Vector4 One;		/**< The 4D vector containing all ones. */

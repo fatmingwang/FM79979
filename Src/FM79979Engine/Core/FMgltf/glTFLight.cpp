@@ -38,21 +38,21 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
             std::string type = lightDef.Get("type").Get<std::string>();
             if (type == "directional")
             {
-                light.m_eType = (int)eLightType::eLT_DIRECTIONAL;
+                light.m_0Type1Enable[0] = (int)eLightType::eLT_DIRECTIONAL;
             }
             else
             if (type == "spot")
             {
-                light.m_eType = (int)eLightType::eLT_SPOT;
+                light.m_0Type1Enable[0] = (int)eLightType::eLT_SPOT;
             }
             else
             if (type == "point")
             {
-                light.m_eType = (int)eLightType::eLT_POINT;
+                light.m_0Type1Enable[0] = (int)eLightType::eLT_POINT;
             }
             else
             {
-                light.m_eType = (int)eLightType::eLT_POINT;
+                light.m_0Type1Enable[0] = (int)eLightType::eLT_POINT;
             }
         }
 
@@ -67,25 +67,25 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
         }
         if (lightDef.Has("intensity"))
         {
-            light.m_fIntensity = (float)lightDef.Get("intensity").Get<double>();
+            light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = (float)lightDef.Get("intensity").Get<double>();
         }
 
         if (lightDef.Has("range"))
         {
-            light.m_fRange = (float)lightDef.Get("range").Get<double>();
+            light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = (float)lightDef.Get("range").Get<double>();
         }
 
-        if (light.m_eType == (int)eLightType::eLT_SPOT)
+        if (light.m_0Type1Enable[0] == (int)eLightType::eLT_SPOT)
         {
             auto& spot = lightDef.Get("spot");
             if (spot.Has("innerConeAngle"))
             {
-                light.m_fInnerConeAngle = (float)spot.Get("innerConeAngle").Get<double>();
+                light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = (float)spot.Get("innerConeAngle").Get<double>();
             }
                 
             if (spot.Has("outerConeAngle"))
             {
-                light.m_fOuterConeAngle = (float)spot.Get("outerConeAngle").Get<double>();
+                light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = (float)spot.Get("outerConeAngle").Get<double>();
             }
         }
         m_LightDataVector.push_back(light);
@@ -135,15 +135,15 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
 std::shared_ptr<sLightData> cglTFLight::CreateDirectionLight()
 {
     sLightData light;
-    light.m_eType = (int)eLightType::eLT_DIRECTIONAL; // Directional light
-    light.m_fIntensity = 1.0f;                       // Intensity of the light
-    light.m_fRange = 0.0f;                           // Not used for directional lights
-    light.m_fInnerConeAngle = 0.0f;                  // Not used for directional lights
-    light.m_fOuterConeAngle = 0.0f;                  // Not used for directional lights
+    light.m_0Type1Enable[0] = (int)eLightType::eLT_DIRECTIONAL; // Directional light
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f;                       // Intensity of the light
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 0.0f;                           // Not used for directional lights
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.0f;                  // Not used for directional lights
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.0f;                  // Not used for directional lights
     light.m_vPosition = Vector3(0.f, 10.f, 10.f);    // Arbitrary position (not used for directional lights)
     light.m_vDirection = Vector3(0.f, -1.f, -1.f);   // Light direction (pointing toward the origin)
     light.m_vColor = Vector3(1.f, 1.f, 1.f);         // White light
-	light.m_iEnable = 1;                            // Light is enabled
+	light.m_0Type1Enable[1] = 1;                            // Light is enabled
 	std::shared_ptr<sLightData>l_Light = std::make_shared<sLightData>(light);
     return l_Light;
 }
@@ -151,11 +151,11 @@ std::shared_ptr<sLightData> cglTFLight::CreateDirectionLight()
 std::shared_ptr<sLightData> cglTFLight::CreateAmbientLight()
 {
     sLightData l_AmbientLight;
-    l_AmbientLight.m_eType = (int)eLightType::eLT_AMBIENT;
+    l_AmbientLight.m_0Type1Enable[0] = (int)eLightType::eLT_AMBIENT;
     l_AmbientLight.m_vColor = Vector3(0.1f, 0.1f, 0.1f); // Ambient light color 
     l_AmbientLight.m_vPosition = Vector3(0.f, 0.f, 0.f); // Position of the ambient light
-	l_AmbientLight.m_fIntensity = 1.0f; // Intensity of the ambient light
-    l_AmbientLight.m_iEnable = 1;
+	l_AmbientLight.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f; // Intensity of the ambient light
+    l_AmbientLight.m_0Type1Enable[1] = 1;
     return std::make_shared<sLightData>(l_AmbientLight);
 }
 
@@ -163,7 +163,7 @@ cLighController::cLighController()
 {
     glGenBuffers(1, &m_uiLightUBO);
     glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
-    glBufferData(GL_UNIFORM_BUFFER, sizeof(LightBlock), nullptr, GL_DYNAMIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(sLightBlock), nullptr, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_UNIFORM_BUFFER, 0); // Unbind after allocation
 }
 
@@ -221,16 +221,16 @@ void  cLighController::Update(float e_fElpaseTime)
     else
     {
         auto l_TestDirectionLight = m_LightDataVector[0];
-        l_TestDirectionLight->m_iEnable = 1;
+        l_TestDirectionLight->m_0Type1Enable[1] = 1;
         static float angle = 0.0f; // Angle for dynamic movement
         angle += e_fElpaseTime; // Adjust speed based on frame time
 
-        l_TestDirectionLight->m_fIntensity = 1.f;
+        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.f;
         // Update the light's position in a circular path
         l_TestDirectionLight->m_vPosition = Vector3(10.0f * cos(angle), 5.0f, 10.0f * sin(angle));
 
         // Update the light's direction to point toward the origin
-        l_TestDirectionLight->m_vDirection = -l_TestDirectionLight->m_vPosition.Normalize();
+        l_TestDirectionLight->m_vDirection = - l_TestDirectionLight->m_vPosition.Normalize();
 
         // Change the light's color over time for a dynamic effect
         l_TestDirectionLight->m_vColor = Vector3(
@@ -260,8 +260,8 @@ void cLighController::Render(GLuint e_uiProgramID)
     {
         numLights = MAX_LIGHT;
     }
-	m_LightBlock.m_iNumLights = numLights;
-    for(int i = 0; i < m_LightBlock.m_iNumLights; ++i)
+	m_LightBlock.m_iNumLights[0] = numLights;
+    for(int i = 0; i < m_LightBlock.m_iNumLights[0]; ++i)
     {
         m_LightBlock.m_Lights[i] = *m_LightDataVector[i].get();
 	}
@@ -270,9 +270,9 @@ void cLighController::Render(GLuint e_uiProgramID)
     {
         sLightData l_ssTestingBlock;
         l_ssTestingBlock.m_vColor = Vector3(1,0.5, 0.5);
-		l_ssTestingBlock.m_eType = (int)eLightType::eLT_DIRECTIONAL;
+		l_ssTestingBlock.m_0Type1Enable[0] = (int)eLightType::eLT_DIRECTIONAL;
 		l_ssTestingBlock.m_vPosition = Vector3(0, 0, 0);
-        l_ssTestingBlock.m_fIntensity = 1;
+        l_ssTestingBlock.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1;
         GLuint blockIndex = glGetUniformBlockIndex(e_uiProgramID, "TestingBlock");
         if (blockIndex != GL_INVALID_INDEX)
         {
@@ -294,11 +294,12 @@ void cLighController::Render(GLuint e_uiProgramID)
         GLuint blockIndex = glGetUniformBlockIndex(e_uiProgramID, "uLightBlock");
         if (blockIndex != GL_INVALID_INDEX)
         {
+            auto l_uiSize = sizeof(sLightBlock);
             glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
             glUniformBlockBinding(e_uiProgramID, blockIndex, 0);
             glBindBufferBase(GL_UNIFORM_BUFFER, 0, m_uiLightUBO); // Bind UBO to binding point 0
             FORCE_CHECK_GL_ERROR("2");
-            glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(LightBlock), &m_LightBlock);
+            glBufferSubData(GL_UNIFORM_BUFFER, 0, l_uiSize, &m_LightBlock);
             FORCE_CHECK_GL_ERROR("4");
             // Unbind the UBO
             glBindBuffer(GL_UNIFORM_BUFFER, 0);

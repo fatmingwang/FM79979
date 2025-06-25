@@ -210,7 +210,8 @@ GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
     std::string vertexCode = GenerateVertexShaderWithFVF(fvfFlags, e_iNumMorphTarget);
 	//printf("vertex shader code:\n%s", vertexCode.c_str());
 #ifdef WASM
-    std::string fragmentCode = GenerateFragmentShaderWithFVFForWASMBecauseLightProlem(fvfFlags);
+    //std::string fragmentCode = GenerateFragmentShaderWithFVFForWASMBecauseLightProlem(fvfFlags);
+    std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
 #else
     std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
 #endif
