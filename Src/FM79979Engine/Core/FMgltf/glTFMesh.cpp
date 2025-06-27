@@ -162,7 +162,7 @@ shared_ptr<cMaterial>   cMesh::LoadMaterial(const tinygltf::Model& e_Model, cons
     m_MaterialNameAndMaterialMap[e_Material.name] = l_Material;
     m_MaterialVector.push_back(l_Material);
     //FMLOG_FORMAT("Material name:%s",e_Material.name.c_str());
-    FMLOG("Material name:%s", e_Material.name.c_str());
+    //FMLOG("Material name:%s", e_Material.name.c_str());
     return e_SubMesh->m_Material;
 }
 
@@ -186,83 +186,6 @@ cMesh::sSubMesh::~sSubMesh()
     glDeleteVertexArrays(1, &m_uiVAO);
 }
 
-//void cMesh::CallOpenGLDraw(sSubMesh* e_pSubMesh)
-//{
-//    // Shader binding and validation
-//    if (!e_pSubMesh->m_iShaderProgramID)
-//    {
-//        FMLOG("Error: No shader program");
-//        return;
-//    }
-//    glUseProgram(e_pSubMesh->m_iShaderProgramID);
-//    FORCE_CHECK_GL_ERROR("Shader bind");
-//    // Shader validation (link and validate checks)
-//    // WebGL2 context check
-//    //EMSCRIPTEN_WEBGL_CONTEXT_HANDLE ctx = emscripten_webgl_get_current_context();
-//    //if (!ctx)
-//    //{
-//    //    FMLOG("Error: WebGL2 context invalid");
-//    //    return;
-//    //}
-//    // Framebuffer check
-//    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-//    GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-//    if (status != GL_FRAMEBUFFER_COMPLETE)
-//    {
-//        FMLOG("Framebuffer incomplete: %d", status);
-//        return;
-//    }
-//    FORCE_CHECK_GL_ERROR("Framebuffer");
-//    // New VAO
-//    GLuint vao;
-//    glGenVertexArrays(1, &vao);
-//    glBindVertexArray(vao);
-//    FORCE_CHECK_GL_ERROR("VAO bind");
-//    // Disable all attributes
-//    GLint maxAttribs;
-//    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxAttribs);
-//    for (GLint i = 0; i < maxAttribs; i++)
-//    {
-//        glDisableVertexAttribArray(i);
-//    }
-//    FORCE_CHECK_GL_ERROR("Disable attributes");
-//    // Position VBO (location 0)
-//    GLfloat vertices[] = { 0.0f, 0.5f, 0.0f, -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f };
-//    GLuint vbo;
-//    glGenBuffers(1, &vbo);
-//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-//    glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-//    glEnableVertexAttribArray(0);
-//    FORCE_CHECK_GL_ERROR("VBO setup");
-//    // EBO
-//    GLuint indices[] = { 0, 1, 2 };
-//    GLuint ebo;
-//    glGenBuffers(1, &ebo);
-//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(GLuint), indices, GL_STATIC_DRAW);
-//    FORCE_CHECK_GL_ERROR("EBO setup");
-//    // Log attribute state
-//    //for (GLint i = 0; i < maxAttribs; i++)
-//    //{
-//    //    GLint enabled, buffer;
-//    //    glGetVertexAttribiv(i, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &enabled);
-//    //    FORCE_CHECK_GL_ERROR("fetch attribute1");
-//    //    if (enabled)
-//    //    {
-//    //        glGetVertexAttribiv(i, GL_VERTEX_ATTRIB_ARRAY_BUFFER_BINDING, &buffer);
-//    //        FMLOG("Attrib %d enabled, VBO %d", i, buffer);
-//    //        FORCE_CHECK_GL_ERROR("fetch attribute2");
-//    //    }
-//    //}
-//    // Draw
-//    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-//    FORCE_CHECK_GL_ERROR("Draw");
-//    // Cleanup
-//    glDeleteVertexArrays(1, &vao);
-//    glDeleteBuffers(1, &vbo);
-//    glDeleteBuffers(1, &ebo);
-//}
 void	cMesh::CallOpenGLDraw(sSubMesh* e_pSubMesh)
 {
     if (e_pSubMesh->m_IndexBuffer.empty())
@@ -350,6 +273,7 @@ void cMesh::Render(cMeshInstance* e_pMeshInstance)
 
 void cMesh::logFVFFlags()
 {
+    return;
     FMLOG("FVF Flags")
     for (std::shared_ptr<sSubMesh> l_pSubMesh : m_SubMeshesVector)
     {
@@ -426,7 +350,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
     // Generate and bind VAO
     glGenVertexArrays(1, &l_pSubMesh->m_uiVAO);
     glBindVertexArray(l_pSubMesh->m_uiVAO);
-	FMLOG("SubMesh VAO ID: %d", l_pSubMesh->m_uiVAO);
+	//FMLOG("SubMesh VAO ID: %d", l_pSubMesh->m_uiVAO);
 
     // Generate and upload index buffer
     glGenBuffers(1, &l_pSubMesh->m_uiEBO);
