@@ -473,97 +473,7 @@ void cglTFModel::loadAnimations(const tinygltf::Model& model)
 {
     for (const auto& animation : model.animations)
     {
-        sAnimationData* l_pAnimationData = new sAnimationData();
-        l_pAnimationData->m_pBoneVector = &this->m_NodesVector;
-        //l_pAnimationData->m_fMinKeyTime = FLT_MAX;
-        //l_pAnimationData->m_fMaxKeyTime = FLT_MIN;
-        l_pAnimationData->m_fCurrentTime = 0.0f;
-        l_pAnimationData->m_fStartTime = 0.0f;
-        l_pAnimationData->m_fEndTime = 0.0f;
-
-        for (const auto& channel : animation.channels)
-        {
-            const auto& sampler = animation.samplers[channel.sampler];
-            const auto& targetNode = model.nodes[channel.target_node];
-			//"STEP" are allowd just do not do interpolation,but I am lazy to implement it.
-            if (sampler.interpolation != "LINEAR")
-            {
-                FMLOG("animation only support lineat format");
-                continue;
-            }
-            auto it = m_NodeIndexAndBoneMap.find(channel.target_node);
-            if (it == m_NodeIndexAndBoneMap.end())
-            {
-                continue;
-            }
-
-            cglTFNodeData* bone = it->second;
-
-            const auto& inputAccessor = model.accessors[sampler.input];
-            const auto& inputBufferView = model.bufferViews[inputAccessor.bufferView];
-            const auto& inputBuffer = model.buffers[inputBufferView.buffer];
-            const float* inputData = reinterpret_cast<const float*>(inputBuffer.data.data() + inputBufferView.byteOffset + inputAccessor.byteOffset);
-
-            const auto& outputAccessor = model.accessors[sampler.output];
-            const auto& outputBufferView = model.bufferViews[outputAccessor.bufferView];
-            const auto& outputBuffer = model.buffers[outputBufferView.buffer];
-            const float* outputData = reinterpret_cast<const float*>(outputBuffer.data.data() + outputBufferView.byteOffset + outputAccessor.byteOffset);
-            l_pAnimationData->m_iTargetNodeIndex = channel.target_node;
-            //morph
-            if (channel.target_path == "weights")
-            {
-                size_t l_uiFrameCount = inputAccessor.count;
-                size_t l_MorphTargetCount = outputAccessor.count / l_uiFrameCount;
-                std::map<float, std::vector<float>>& l_Map = l_pAnimationData->m_TimaAndMorphWeightMap;
-                for (int i = 0; i < l_uiFrameCount; ++i)
-                {
-                    float time = inputData[i];
-                    std::vector<float> l_WeightVector(l_MorphTargetCount);
-                    std::memcpy(l_WeightVector.data(), outputData + i * l_MorphTargetCount, l_MorphTargetCount * sizeof(float));
-                    l_Map[time] = l_WeightVector;
-                }
-            }
-            else
-            {
-                for (size_t i = 0; i < inputAccessor.count; ++i)
-                {
-                    float time = inputData[i];
-                    FloatToSRTMap& keyframes = (*l_pAnimationData->m_BoneIDAndAnimationData)[bone->m_iNodeIndex];
-                    sSRT& srt = keyframes[time];
-                    if (channel.target_path == "translation")
-                    {
-                        srt.vTranslation = Vector3(outputData + (i * 3));
-                        srt.iSRTFlag |= SRT_TRANSLATION_FLAG; // Set translation flag
-                    }
-                    else if (channel.target_path == "rotation")
-                    {
-                        srt.qRotation = Quaternion(outputData + (i * 4));
-                        //srt.rotation.Normalize();
-                        srt.iSRTFlag |= SRT_ROTATION_FLAG; // Set rotation flag
-                    }
-                    else if (channel.target_path == "scale")
-                    {
-                        srt.vScale = Vector3(outputData + (i * 3));
-                        srt.iSRTFlag |= SRT_SCALE_FLAG; // Set scale flag
-                    }
-                    else if (channel.target_path == "matrix")
-                    {
-                        int a = 0;
-                    }
-                }
-            }
-
-            if (inputAccessor.count)
-            {
-                float l_fBeginTime = inputData[0];
-                float l_fEndTime = inputData[inputAccessor.count-1];
-                l_pAnimationData->m_fMinKeyTime = min(l_pAnimationData->m_fMinKeyTime, l_fBeginTime);
-                l_pAnimationData->m_fMaxKeyTime = max(l_pAnimationData->m_fMaxKeyTime, l_fEndTime);
-                l_pAnimationData->m_fStartTime = l_pAnimationData->m_fMinKeyTime;
-                l_pAnimationData->m_fEndTime = l_pAnimationData->m_fMaxKeyTime;
-            }
-        }
-
+        sAnimationData* l_pAnimationData = new sAnimationData(&m_NodesVector, model, animation);
         m_NameAndAnimationMap[animation.name] = l_pAnimationData;
     }
     m_AnimationClip.SetName(this->GetName());
@@ -620,6 +530,7 @@ cMesh* cglTFModel::GenerateMesh(const tinygltf::Node& node,const tinygltf::Mesh&
     }
     cMesh*l_pMesh = new cMesh();
     l_pMesh->SetName(e_Mesh.name.c_str());
+    FMLOG("MEsh name:%s", e_Mesh.name.c_str());
     AssignMeshAttributes(l_pMesh, node,e_Mesh, e_Model, e_bCalculateBiNormal);
     m_NameAndMeshes[e_Mesh.name] = l_pMesh;
     return l_pMesh;
@@ -637,6 +548,7 @@ cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tin
     AssignMeshAttributes(l_pSkinningMesh, node, e_Mesh, e_Model, e_bCalculateBiNormal);
     l_pSkinningMesh->LoadJointsData(e_Skin,this,e_Model);
     m_AnimationMeshMap[e_Mesh.name] = l_pSkinningMesh;
+    FMLOG("MEsh name:%s", e_Mesh.name.c_str());
     return l_pSkinningMesh;
 }
 

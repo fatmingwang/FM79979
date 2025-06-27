@@ -96,7 +96,7 @@ void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinyglt
 
         glEnableVertexAttribArray(l_iFVFIndex);
         glVertexAttribPointer(l_iFVFIndex, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
-        FMLOG("SubMesh attribute name:%s VBO ID: %d, FVF Index: %d DataSize: %d Type:%d", "Normal", e_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, dataSize, accessor.componentType);
+        //FMLOG("SubMesh attribute name:%s VBO ID: %d, FVF Index: %d DataSize: %d Type:%d", "Normal", e_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, dataSize, accessor.componentType);
 
     }
 }
@@ -484,7 +484,7 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
                 glVertexAttribPointer(l_iFVFIndex, l_iStride, l_iGLDataType, GL_FALSE, l_ByteStride, nullptr);
             }
             glEnableVertexAttribArray(l_iFVFIndex);
-            FMLOG("SubMesh attribute name:%s VBO ID: %d,FVF Index: %d,Stride:%d  DataSize: %d Type:%d", attribute.first.c_str(), l_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, l_iStride, dataSize, accessor.componentType);
+            //FMLOG("SubMesh attribute name:%s VBO ID: %d,FVF Index: %d,Stride:%d  DataSize: %d Type:%d", attribute.first.c_str(), l_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, l_iStride, dataSize, accessor.componentType);
             if (attribute.first == "POSITION")
             {
                 l_pSubMesh->m_i64VertexCount = accessor.count;

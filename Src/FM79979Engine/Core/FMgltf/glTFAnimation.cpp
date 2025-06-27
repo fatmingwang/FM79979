@@ -6,6 +6,92 @@
 
 //const int g_iTextureColorComponentCount = 4; // RGBA
 
+sAnimationData::sAnimationData(cNamedTypedObjectVector<cglTFNodeData>* e_pglTFNodeDataVector, const tinygltf::Model& e_Model, const tinygltf::Animation&e_Animation)
+{
+    m_BoneIDAndAnimationData = std::make_shared<std::map<int, FloatToSRTMap>>();
+    m_pBoneVector = e_pglTFNodeDataVector;
+    //l_pAnimationData->m_fMinKeyTime = FLT_MAX;
+    //l_pAnimationData->m_fMaxKeyTime = FLT_MIN;
+    m_fCurrentTime = 0.0f;
+    m_fStartTime = 0.0f;
+    m_fEndTime = 0.0f;
+
+    for (const auto& channel : e_Animation.channels)
+    {
+        const auto& sampler = e_Animation.samplers[channel.sampler];
+        cglTFNodeData* bone = (*m_pBoneVector)[channel.target_node];
+        //"STEP" are allowd just do not do interpolation,but I am lazy to implement it.
+        if (sampler.interpolation != "LINEAR")
+        {
+            FMLOG("animation only support lineat format");
+            continue;
+        }
+        const auto& inputAccessor = e_Model.accessors[sampler.input];
+        const auto& inputBufferView = e_Model.bufferViews[inputAccessor.bufferView];
+        const auto& inputBuffer = e_Model.buffers[inputBufferView.buffer];
+        const float* inputData = reinterpret_cast<const float*>(inputBuffer.data.data() + inputBufferView.byteOffset + inputAccessor.byteOffset);
+
+        const auto& outputAccessor = e_Model.accessors[sampler.output];
+        const auto& outputBufferView = e_Model.bufferViews[outputAccessor.bufferView];
+        const auto& outputBuffer = e_Model.buffers[outputBufferView.buffer];
+        const float* outputData = reinterpret_cast<const float*>(outputBuffer.data.data() + outputBufferView.byteOffset + outputAccessor.byteOffset);
+        m_iTargetNodeIndex = channel.target_node;
+        //morph
+        if (channel.target_path == "weights")
+        {
+            size_t l_uiFrameCount = inputAccessor.count;
+            size_t l_MorphTargetCount = outputAccessor.count / l_uiFrameCount;
+            std::map<float, std::vector<float>>& l_Map = m_TimaAndMorphWeightMap;
+            for (int i = 0; i < l_uiFrameCount; ++i)
+            {
+                float time = inputData[i];
+                std::vector<float> l_WeightVector(l_MorphTargetCount);
+                std::memcpy(l_WeightVector.data(), outputData + i * l_MorphTargetCount, l_MorphTargetCount * sizeof(float));
+                l_Map[time] = l_WeightVector;
+            }
+        }
+        else
+        {
+            for (size_t i = 0; i < inputAccessor.count; ++i)
+            {
+                float time = inputData[i];
+                FloatToSRTMap& keyframes = (*m_BoneIDAndAnimationData)[bone->m_iNodeIndex];
+                sSRT& srt = keyframes[time];
+                if (channel.target_path == "translation")
+                {
+                    srt.vTranslation = Vector3(outputData + (i * 3));
+                    srt.iSRTFlag |= SRT_TRANSLATION_FLAG; // Set translation flag
+                }
+                else if (channel.target_path == "rotation")
+                {
+                    srt.qRotation = Quaternion(outputData + (i * 4));
+                    //srt.rotation.Normalize();
+                    srt.iSRTFlag |= SRT_ROTATION_FLAG; // Set rotation flag
+                }
+                else if (channel.target_path == "scale")
+                {
+                    srt.vScale = Vector3(outputData + (i * 3));
+                    srt.iSRTFlag |= SRT_SCALE_FLAG; // Set scale flag
+                }
+                else if (channel.target_path == "matrix")
+                {
+                    int a = 0;
+                }
+            }
+        }
+
+        if (inputAccessor.count)
+        {
+            float l_fBeginTime = inputData[0];
+            float l_fEndTime = inputData[inputAccessor.count - 1];
+            m_fMinKeyTime = min(m_fMinKeyTime, l_fBeginTime);
+            m_fMaxKeyTime = max(m_fMaxKeyTime, l_fEndTime);
+            m_fStartTime = m_fMinKeyTime;
+            m_fEndTime = m_fMaxKeyTime;
+        }
+    }
+}
+
 bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone, std::vector<sSRT>* e_pSRTVector)
 {
     if (!this->m_pCurrentAnimationData)
@@ -20,6 +106,7 @@ bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone, std::v
     for (auto l_IT : *m_pCurrentAnimationData->m_BoneIDAndAnimationData)
     {
         auto l_pBone = (*m_pCurrentAnimationData->m_pBoneVector)[l_IT.first];
+        //auto l_pBone = (*m_pCurrentAnimationData->m_pBoneVector)[214];
         UpdateNode(l_pBone, e_fTime, (*l_pSRTVector)[l_IT.first], e_bAssignToBone);
     }
     if (m_pCurrentAnimationData->m_TimaAndMorphWeightMap.size() && m_pCurrentAnimationData->m_pTargetMesh)

@@ -5,6 +5,7 @@
 class cglTFNodeData;
 struct sAnimationData:public NamedTypedObject
 {
+    sAnimationData(cNamedTypedObjectVector<cglTFNodeData>*e_pglTFNodeDataVector, const tinygltf::Model& e_Model, const tinygltf::Animation&e_Animation);
     sAnimationData()
     {
 		m_BoneIDAndAnimationData = std::make_shared<std::map<int, FloatToSRTMap>>();
