@@ -30,6 +30,7 @@ public:
     void    JointUpdate(float elapsedTime);
     void    RenderSkeleton();
     virtual         void AfterCloneSetBoneData(cglTFModelRenderNode* e_pData)override;
+    virtual	void		DebugRender()override;
     const std::vector<cglTFNodeData*>* GetSkinningBoneVector()
     {
         return &m_SkinningBoneVector;
@@ -42,7 +43,7 @@ public:
 
 
 
-class cSkinningAnimTestClass :public cRenderObject
+class cSkinningAnimInstanceClass :public cRenderObject
 {
     std::vector<cMatrix44>m_PositionVector;
     GLuint m_uiProgramID;
@@ -50,8 +51,8 @@ class cSkinningAnimTestClass :public cRenderObject
     std::shared_ptr<sAniamationInstanceData> m_spAniamationInstanceData;
     cSkinningMesh* m_pTargetMesh = nullptr;
 public:
-    cSkinningAnimTestClass();
-    virtual ~cSkinningAnimTestClass();
+    cSkinningAnimInstanceClass();
+    virtual ~cSkinningAnimInstanceClass();
 
     void    SetData(std::vector<std::shared_ptr<class cAnimationInstanceManager>>& e_Data, const char* e_strTargetAnimationName);
     virtual void Update(float e_fElpaseTime)override;

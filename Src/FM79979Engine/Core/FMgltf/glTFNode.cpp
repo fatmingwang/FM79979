@@ -231,7 +231,16 @@ void cglTFNodeData::Render()
         {
             this->m_pMesh->Render();
         }
-        
+    }
+}
+
+void		cglTFNodeData::DebugRender()
+{
+    if (this->m_pMesh)
+    {
+        auto l_mat = this->GetWorldTransform();
+        this->m_pMesh->SetWorldTransform(l_mat);
+        this->m_pMesh->DebugRender();
     }
 }
 

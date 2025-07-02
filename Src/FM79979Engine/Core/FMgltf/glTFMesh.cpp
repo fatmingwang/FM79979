@@ -44,26 +44,23 @@ void cMesh::ApplyMorphUniformData(sSubMesh* e_pSubMesh)
     }
 }
 
-void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinygltf::Primitive& primitive, sSubMesh* e_pSubMesh)
+void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model, const tinygltf::Primitive& primitive, sSubMesh* e_pSubMesh)
 {
     FORCE_CHECK_GL_ERROR("");
-    // Generate normals if they are not present
+    const tinygltf::Accessor* accessorPos = &e_Model.accessors[primitive.attributes.at("POSITION")];
+    const tinygltf::BufferView& bufferViewPos = e_Model.bufferViews[accessorPos->bufferView];
+    const tinygltf::Buffer& bufferPos = e_Model.buffers[bufferViewPos.buffer];
+    size_t byteOffsetPos = accessorPos->byteOffset + bufferViewPos.byteOffset;
+    const unsigned char* dataPtrPos = bufferPos.data.data() + byteOffsetPos;
+    Vector3* l_pPositionData = (Vector3*)dataPtrPos;
+
+    // Generate normals if not present
+    int l_iFVFIndexNormal = FVF_NORMAL;
+    std::vector<Vector3> normals;
     if (primitive.attributes.find("NORMAL") == primitive.attributes.end())
     {
-        int l_iFVFIndex = FVF_NORMAL;
-        const tinygltf::Accessor& accessor = e_Model.accessors[primitive.attributes.at("POSITION")];
-        const tinygltf::BufferView& bufferView = e_Model.bufferViews[accessor.bufferView];
-        const tinygltf::Buffer& buffer = e_Model.buffers[bufferView.buffer];
-
-        size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
-        const unsigned char* dataPtr = buffer.data.data() + byteOffset;
-
-        e_pSubMesh->m_i64FVFFlag |= 1LL << l_iFVFIndex;
-        size_t dataSize = accessor.count * accessor.ByteStride(bufferView);
-
-        std::vector<Vector3> normals;
-        normals.resize(accessor.count);
-        Vector3* l_pPositionData = (Vector3*)dataPtr;
+        e_pSubMesh->m_i64FVFFlag |= 1LL << l_iFVFIndexNormal;
+        normals.resize(accessorPos->count);
         for (size_t i = 0; i < e_pSubMesh->m_IndexBuffer.size(); i += 3)
         {
             GLuint index0 = e_pSubMesh->m_IndexBuffer[i];
@@ -76,30 +73,187 @@ void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinyglt
 
             Vector3 edge1 = v1 - v0;
             Vector3 edge2 = v2 - v0;
-            Vector3 normal = edge1 ^ edge2;            
-            //do normalize? normal.NormalizeIt();
+            Vector3 normal = edge1 ^ edge2;
 
             normals[index0] += normal;
             normals[index1] += normal;
             normals[index2] += normal;
         }
-
         for (auto& normal : normals)
         {
             normal.Normalize();
         }
+    }
+    else
+    {
+        // Use existing normals
+        const tinygltf::Accessor& accessorNormal = e_Model.accessors[primitive.attributes.at("NORMAL")];
+        const tinygltf::BufferView& bufferViewNormal = e_Model.bufferViews[accessorNormal.bufferView];
+        const tinygltf::Buffer& bufferNormal = e_Model.buffers[bufferViewNormal.buffer];
+        const unsigned char* dataPtrNormal = bufferNormal.data.data() + accessorNormal.byteOffset + bufferViewNormal.byteOffset;
+        normals.assign((Vector3*)dataPtrNormal, (Vector3*)(dataPtrNormal + accessorNormal.count * accessorNormal.ByteStride(bufferViewNormal)));
+    }
 
-        // Upload generated normals to GPU
-        glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVFIndex]);
-        glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVFIndex]);
-        glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(Vector3), normals.data(), GL_STATIC_DRAW);
+    // Upload normals to GPU
+    glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVFIndexNormal]);
+    glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVFIndexNormal]);
+    glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(Vector3), normals.data(), GL_STATIC_DRAW);
+    glEnableVertexAttribArray(l_iFVFIndexNormal);
+    glVertexAttribPointer(l_iFVFIndexNormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
 
-        glEnableVertexAttribArray(l_iFVFIndex);
-        glVertexAttribPointer(l_iFVFIndex, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
-        //FMLOG("SubMesh attribute name:%s VBO ID: %d, FVF Index: %d DataSize: %d Type:%d", "Normal", e_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, dataSize, accessor.componentType);
+    // Generate tangents and bitangents if not present and UVs are available
+    int l_iFVFIndexTangent = FVF_TANGENT;
+    int l_iFVFIndexBinormal = FVF_BINORMAL;
+    if (primitive.attributes.find("TANGENT") == primitive.attributes.end() &&
+        primitive.attributes.find("TEXCOORD_0") != primitive.attributes.end())
+    {
+        e_pSubMesh->m_i64FVFFlag |= (1LL << l_iFVFIndexTangent) | (1LL << l_iFVFIndexBinormal);
+        const tinygltf::Accessor& accessorUV = e_Model.accessors[primitive.attributes.at("TEXCOORD_0")];
+        const tinygltf::BufferView& bufferViewUV = e_Model.bufferViews[accessorUV.bufferView];
+        const tinygltf::Buffer& bufferUV = e_Model.buffers[bufferViewUV.buffer];
+        const unsigned char* dataPtrUV = bufferUV.data.data() + accessorUV.byteOffset + bufferViewUV.byteOffset;
+        Vector2* l_pUVData = (Vector2*)dataPtrUV;
 
+        std::vector<Vector3> tangents(accessorPos->count, Vector3::Zero);
+        std::vector<Vector3> bitangents(accessorPos->count, Vector3::Zero);
+
+        for (size_t i = 0; i < e_pSubMesh->m_IndexBuffer.size(); i += 3)
+        {
+            GLuint index0 = e_pSubMesh->m_IndexBuffer[i];
+            GLuint index1 = e_pSubMesh->m_IndexBuffer[i + 1];
+            GLuint index2 = e_pSubMesh->m_IndexBuffer[i + 2];
+
+            Vector3 v0 = l_pPositionData[index0];
+            Vector3 v1 = l_pPositionData[index1];
+            Vector3 v2 = l_pPositionData[index2];
+
+            Vector2 uv0 = l_pUVData[index0];
+            Vector2 uv1 = l_pUVData[index1];
+            Vector2 uv2 = l_pUVData[index2];
+
+            Vector3 edge1 = v1 - v0;
+            Vector3 edge2 = v2 - v0;
+            Vector2 deltaUV1 = uv1 - uv0;
+            Vector2 deltaUV2 = uv2 - uv0;
+
+            float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+
+            Vector3 tangent = (edge1 * deltaUV2.y - edge2 * deltaUV1.y) * f;
+            Vector3 bitangent = (edge2 * deltaUV1.x - edge1 * deltaUV2.x) * f;
+
+            tangents[index0] += tangent;
+            tangents[index1] += tangent;
+            tangents[index2] += tangent;
+
+            bitangents[index0] += bitangent;
+            bitangents[index1] += bitangent;
+            bitangents[index2] += bitangent;
+        }
+
+        // Orthogonalize and normalize
+        for (size_t i = 0; i < accessorPos->count; ++i)
+        {
+            Vector3 n = normals[i];
+            Vector3 t = tangents[i].Normalize();
+            Vector3 b = bitangents[i].Normalize();
+
+            //// Gram-Schmidt orthogonalization
+            //t = (t - n * (n ^ t)).Normalize();
+            //b = (b - n * (n ^ b) - t * (t ^ b)).Normalize();
+// Step 1: Compute the projection of t onto n and subtract it
+            float dotNt = n *t; // Dot product of n and t
+            Vector3 projectionT = n * dotNt; // Scale n by the dot product
+            t = t - projectionT; // Subtract the projection from t
+
+            // Step 2: Normalize the tangent
+            t.Normalize();
+
+            // Step 3: Compute the projection of b onto n and t, then subtract both
+            float dotNb = n* b; // Dot product of n and b
+            Vector3 projectionN = n * dotNb; // Scale n by the dot product
+            float dotTb = t * b; // Dot product of t and b
+            Vector3 projectionT2 = t * dotTb; // Scale t by the dot product
+            b = b - projectionN - projectionT2; // Subtract both projections from b
+
+            // Step 4: Normalize the bitangent
+            b.Normalize();
+
+            tangents[i] = t;
+            bitangents[i] = b;
+        }
+
+        // Upload tangents to GPU
+        glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVFIndexTangent]);
+        glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVFIndexTangent]);
+        glBufferData(GL_ARRAY_BUFFER, tangents.size() * sizeof(Vector3), tangents.data(), GL_STATIC_DRAW);
+        glEnableVertexAttribArray(l_iFVFIndexTangent);
+        glVertexAttribPointer(l_iFVFIndexTangent, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
+
+        // Upload bitangents to GPU
+        glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVFIndexBinormal]);
+        glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVFIndexBinormal]);
+        glBufferData(GL_ARRAY_BUFFER, bitangents.size() * sizeof(Vector3), bitangents.data(), GL_STATIC_DRAW);
+        glEnableVertexAttribArray(l_iFVFIndexBinormal);
+        glVertexAttribPointer(l_iFVFIndexBinormal, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
     }
 }
+
+//void cMesh::GenerateNormalAttribute(const tinygltf::Model& e_Model,const tinygltf::Primitive& primitive, sSubMesh* e_pSubMesh)
+//{
+//    FORCE_CHECK_GL_ERROR("");
+//    // Generate normals if they are not present
+//    if (primitive.attributes.find("NORMAL") == primitive.attributes.end())
+//    {
+//        int l_iFVFIndex = FVF_NORMAL;
+//        const tinygltf::Accessor& accessor = e_Model.accessors[primitive.attributes.at("POSITION")];
+//        const tinygltf::BufferView& bufferView = e_Model.bufferViews[accessor.bufferView];
+//        const tinygltf::Buffer& buffer = e_Model.buffers[bufferView.buffer];
+//
+//        size_t byteOffset = accessor.byteOffset + bufferView.byteOffset;
+//        const unsigned char* dataPtr = buffer.data.data() + byteOffset;
+//
+//        e_pSubMesh->m_i64FVFFlag |= 1LL << l_iFVFIndex;
+//        size_t dataSize = accessor.count * accessor.ByteStride(bufferView);
+//
+//        std::vector<Vector3> normals;
+//        normals.resize(accessor.count);
+//        Vector3* l_pPositionData = (Vector3*)dataPtr;
+//        for (size_t i = 0; i < e_pSubMesh->m_IndexBuffer.size(); i += 3)
+//        {
+//            GLuint index0 = e_pSubMesh->m_IndexBuffer[i];
+//            GLuint index1 = e_pSubMesh->m_IndexBuffer[i + 1];
+//            GLuint index2 = e_pSubMesh->m_IndexBuffer[i + 2];
+//
+//            Vector3 v0 = l_pPositionData[index0];
+//            Vector3 v1 = l_pPositionData[index1];
+//            Vector3 v2 = l_pPositionData[index2];
+//
+//            Vector3 edge1 = v1 - v0;
+//            Vector3 edge2 = v2 - v0;
+//            Vector3 normal = edge1 ^ edge2;            
+//            //do normalize? normal.NormalizeIt();
+//
+//            normals[index0] += normal;
+//            normals[index1] += normal;
+//            normals[index2] += normal;
+//        }
+//
+//        for (auto& normal : normals)
+//        {
+//            normal.Normalize();
+//        }
+//
+//        // Upload generated normals to GPU
+//        glGenBuffers(1, &e_pSubMesh->m_iVBOArray[l_iFVFIndex]);
+//        glBindBuffer(GL_ARRAY_BUFFER, e_pSubMesh->m_iVBOArray[l_iFVFIndex]);
+//        glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(Vector3), normals.data(), GL_STATIC_DRAW);
+//
+//        glEnableVertexAttribArray(l_iFVFIndex);
+//        glVertexAttribPointer(l_iFVFIndex, 3, GL_FLOAT, GL_FALSE, sizeof(Vector3), nullptr);
+//        //FMLOG("SubMesh attribute name:%s VBO ID: %d, FVF Index: %d DataSize: %d Type:%d", "Normal", e_pSubMesh->m_iVBOArray[l_iFVFIndex], l_iFVFIndex, dataSize, accessor.componentType);
+//
+//    }
+//}
 
 
 

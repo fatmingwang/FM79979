@@ -47,6 +47,7 @@ void cglTFScene::Render()
     // Enable backface culling
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
     //glCullFace(GL_FRONT);
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
@@ -68,7 +69,12 @@ void cglTFScene::Render()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    g_fCameraDebugRender();
+    //g_fCameraDebugRender();
+    if (m_pRootFrame)
+    {
+        m_pRootFrame->DebugRenderNodes();
+    }
+    
 }
 
 // Find Frame by name (recursive)

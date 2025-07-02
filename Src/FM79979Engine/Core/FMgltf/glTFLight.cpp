@@ -63,7 +63,7 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
             {
                 l_fColor[j] = (float)lightDef.Get("color").Get(j).Get<double>();
             }
-			light.m_vColor = Vector3(l_fColor[0], l_fColor[1], l_fColor[2]);
+			light.m_vColor = Vector4(l_fColor[0], l_fColor[1], l_fColor[2],1.f);
         }
         if (lightDef.Has("intensity"))
         {
@@ -142,7 +142,7 @@ std::shared_ptr<sLightData> cglTFLight::CreateDirectionLight()
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.0f;                  // Not used for directional lights
     light.m_vPosition = Vector3(0.f, 10.f, 10.f);    // Arbitrary position (not used for directional lights)
     light.m_vDirection = Vector3(0.f, -1.f, -1.f);   // Light direction (pointing toward the origin)
-    light.m_vColor = Vector3(1.f, 1.f, 1.f);         // White light
+    light.m_vColor = Vector4(1.f, 1.f, 1.f,1.f);         // White light
 	light.m_0Type1Enable[1] = 1;                            // Light is enabled
 	std::shared_ptr<sLightData>l_Light = std::make_shared<sLightData>(light);
     return l_Light;
@@ -152,8 +152,8 @@ std::shared_ptr<sLightData> cglTFLight::CreateAmbientLight()
 {
     sLightData l_AmbientLight;
     l_AmbientLight.m_0Type1Enable[0] = (int)eLightType::eLT_AMBIENT;
-    l_AmbientLight.m_vColor = Vector3(0.1f, 0.1f, 0.1f); // Ambient light color 
-    l_AmbientLight.m_vPosition = Vector3(0.f, 0.f, 0.f); // Position of the ambient light
+    l_AmbientLight.m_vColor = Vector4(0.1f, 0.1f, 0.1f,1.f); // Ambient light color 
+    l_AmbientLight.m_vPosition = Vector4(0.f, 0.f, 0.f,0.f); // Position of the ambient light
 	l_AmbientLight.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f; // Intensity of the ambient light
     l_AmbientLight.m_0Type1Enable[1] = 1;
     return std::make_shared<sLightData>(l_AmbientLight);
@@ -223,21 +223,22 @@ void  cLighController::Update(float e_fElpaseTime)
         auto l_TestDirectionLight = m_LightDataVector[0];
         l_TestDirectionLight->m_0Type1Enable[1] = 1;
         static float angle = 0.0f; // Angle for dynamic movement
-        angle += e_fElpaseTime; // Adjust speed based on frame time
+        angle += e_fElpaseTime/4; // Adjust speed based on frame time
 
-        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.f;
+        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1;// UT::GetFloatModulus(angle, 10);
         // Update the light's position in a circular path
-        l_TestDirectionLight->m_vPosition = Vector3(10.0f * cos(angle), 5.0f, 10.0f * sin(angle));
+        Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, 10.0f * sin(angle));
+        l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
 
         // Update the light's direction to point toward the origin
-        l_TestDirectionLight->m_vDirection = - l_TestDirectionLight->m_vPosition.Normalize();
-
+        l_TestDirectionLight->m_vDirection = -l_vLightDirection.Normalize();
+        l_TestDirectionLight->m_vColor = Vector4(1.f,1.f,1.f,1.f);
         // Change the light's color over time for a dynamic effect
-        l_TestDirectionLight->m_vColor = Vector3(
-            (sin(angle) + 1.0f) * 1.5f, // Red oscillates
-            (cos(angle) + 1.0f) * 1.5f, // Green oscillates
-            0.5f                        // Blue remains constant
-        );
+        //l_TestDirectionLight->m_vColor = Vector3(
+        //    (sin(angle) + 1.0f) * 1.5f, // Red oscillates
+        //    (cos(angle) + 1.0f) * 1.5f, // Green oscillates
+        //    0.5f                        // Blue remains constant
+        //);
     }
 }
 
@@ -248,12 +249,6 @@ void cLighController::Render(GLuint e_uiProgramID)
         //return;
 	}
     m_iLastUsedProgram = e_uiProgramID;
-    GLuint l_uVec3ViewPosition = glGetUniformLocation(e_uiProgramID, "uVec3ViewPosition");
-    if (l_uVec3ViewPosition != GL_INVALID_INDEX)
-    {
-        Vector3 l_vCameraPos(0, 0, -99999);
-        glUniform3fv(l_uVec3ViewPosition, 1, l_vCameraPos);
-    }
     // Ensure we don't exceed the maximum number of lights
     int numLights = static_cast<int>(m_LightDataVector.size());
     if (numLights > MAX_LIGHT)

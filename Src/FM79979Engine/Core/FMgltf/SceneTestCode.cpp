@@ -22,54 +22,62 @@ cglTFModel*LazyAddModel(Frame*e_pFrame,const char*e_strFileName,int e_iInstanceV
     l_pglTFModel->LoadFromGLTF(e_strFileName, true,e_iInstanceValue);
     return l_pglTFModel;
 }
-//GLTestDrawElements* renderer;
+
 int glTFInit()
 {
-    //renderer = new GLTestDrawElements();
-    FMLOG("check error");
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
-    bool l_bDoAnimTexture = true;
+    bool l_bDoAnimTexture = false;
     {
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/AnimatedMorphCube.glb");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/fox.gltf");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",1000);
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
-        if (!l_pDuck)
+        cglTFModel* l_pModel = nullptr;
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/AnimatedMorphCube.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/fox.gltf");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/fox.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/DamagedHelmet.glb");
+        
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/FromAdobe/result.gltf");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
+        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
+        if(!l_pModel)
+            l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
+        if (!l_pModel)
         {
             FMLOG("parse model filed");
             return 0;
         }
-        if (l_pDuck && l_bDoAnimTexture)
+        if (l_pModel && l_bDoAnimTexture)
         {
-            cSkinningAnimTestClass* l_pSkinningAnimTestClassl1 = new cSkinningAnimTestClass();
-            l_pSkinningAnimTestClassl1->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "PickUp");
-            cSkinningAnimTestClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimTestClass();
-            l_pSkinningAnimTestClassl2->SetLocalPosition(Vector3(0, 0, -15));
-            l_pSkinningAnimTestClassl2->SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Jump2");
-            //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "Idle");
-            //g_SkinningAnimTestClass.SetData(l_pDuck->GetAnimationInstanceManagerVector(), "");
+            cSkinningAnimInstanceClass* l_pSkinningAnimTestClassl1 = new cSkinningAnimInstanceClass();
+            //l_pSkinningAnimTestClassl1->SetData(l_pModel->GetAnimationInstanceManagerVector(), "PickUp");
+            l_pSkinningAnimTestClassl1->SetData(l_pModel->GetAnimationInstanceManagerVector(), "Walking");
             l_pRootFrame->AddChild(l_pSkinningAnimTestClassl1);
-            l_pRootFrame->AddChild(l_pSkinningAnimTestClassl2);
+            if (0)
+            {
+                cSkinningAnimInstanceClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimInstanceClass();
+                l_pSkinningAnimTestClassl2->SetLocalPosition(Vector3(0, 0, -15));
+                l_pSkinningAnimTestClassl2->SetData(l_pModel->GetAnimationInstanceManagerVector(), "Jump2");
+                //g_SkinningAnimTestClass.SetData(l_pModel->GetAnimationInstanceManagerVector(), "Idle");
+                //g_SkinningAnimTestClass.SetData(l_pModel->GetAnimationInstanceManagerVector(), "");
+                l_pRootFrame->AddChild(l_pSkinningAnimTestClassl2);
+            }
         }
         {
             
-            l_pRootFrame->AddChild(l_pDuck);
+            l_pRootFrame->AddChild(l_pModel);
         }
         if(0)
         {
-            auto l_pDuck2 = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");// 
-            l_pDuck2->SetWorldPosition(Vector3(20, 0, 0));
-            l_pRootFrame->AddChild(l_pDuck2);
+            auto l_pModel2 = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");// 
+            l_pModel2->SetWorldPosition(Vector3(20, 0, 0));
+            l_pRootFrame->AddChild(l_pModel2);
         }
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf",1);
         //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleInstancing.glb");// 
         // 
         // 
@@ -82,7 +90,7 @@ int glTFInit()
         int l_iNumCloneNodex = 0;
         for(int i=0;i< l_iNumCloneNodex;i++)
         {
-            cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck->ToRenderNode();
+            cglTFModelRenderNode* l_pToRenderNode1 = l_pModel->ToRenderNode();
             l_pToRenderNode1->SetName(UT::ComposeMsgByFormat(L"Car",ValueToString(i).c_str()));
             l_pToRenderNode1->SetLocalPosition(Vector3(i*2.f, 0, 0) + Vector3(0, 0, 0));
             l_pToRenderNode1->Update(i*0.5f);
@@ -137,7 +145,6 @@ void GlTFUpdate(float e_fElpaseTime)
 
 void GlTFRender()
 {
-    //renderer->render();;
     if (g_pglTFScene && !g_bWait)
     {
 		g_pglTFScene->Render();

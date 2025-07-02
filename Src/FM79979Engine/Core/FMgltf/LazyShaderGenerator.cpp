@@ -103,7 +103,7 @@ const int MAX_BONES = 100;
 uniform mat4 uBoneTransforms[MAX_BONES];
 #endif
 
-out vec3 toFSVec3FragPos;
+out vec3 oVertexPos;
 #ifdef USE_NORMAL
 out vec3 toFSVec3Normal;
 #endif
@@ -224,7 +224,7 @@ void main()
     shaderCode += R"(
 #endif    
     worldPos = uMat4Model * worldPos;
-    toFSVec3FragPos = worldPos.xyz;
+    oVertexPos = worldPos.xyz;
     gl_Position = uMat4Projection * uMat4View * worldPos;
 
 #ifdef USE_NORMAL
@@ -309,7 +309,7 @@ flat in int toFSInstanceID; // Flat qualifier for instance ID
 )";
 #endif
     shaderCode += R"(
-in vec3 toFSVec3FragPos;
+in vec3 oVertexPos;
 #ifdef USE_NORMAL
 in vec3 toFSVec3Normal;
 #endif
@@ -328,17 +328,17 @@ out vec4 FragColor;
 uniform vec3 uVec3ViewPosition;
 
 // Material uniforms
-uniform sampler2D utextureDiffuse;
+uniform sampler2D uTextureDiffuse;
 uniform vec4 uBaseColorFactor;
 #ifdef USE_NORMAL_MAP
-uniform sampler2D utextureNormal;
+uniform sampler2D uTextureNormal;
 #endif
 #ifdef USE_OCCLUSION
-uniform sampler2D utextureOcclusion;
-uniform float uocclusionStrength;
+uniform sampler2D uTextureOcclusion;
+uniform float uOcclusionStrength;
 #endif
 #ifdef USE_METALLIC_ROUGHNESS
-uniform sampler2D utextureMetallicRoughness;
+uniform sampler2D uTextureMetallicRoughness;
 #endif
 uniform float uMetallicFactor;
 uniform float uRoughnessFactor;
@@ -346,6 +346,8 @@ uniform float uRoughnessFactor;
 uniform sampler2D uTextureEmissive;
 uniform vec3 uEmissiveFactor;
 #endif
+
+uniform samplerCube uTextureEnvironment; // New: Environment cubemap
 
 // Light data structure matching std140 layout
 struct Light
@@ -431,7 +433,7 @@ vec3 GetNormalFromMap()
     vec3 bitangent = normalize(cross(normal, tangent));
 #endif
     mat3 TBN = mat3(tangent, bitangent, normal);
-    vec3 normalMap = texture(utextureNormal, toFSVec2TexCoord).rgb * 2.0 - 1.0;
+    vec3 normalMap = texture(uTextureNormal, toFSVec2TexCoord).rgb * 2.0 - 1.0;
     return normalize(TBN * normalMap);
 #else
 #ifdef USE_NORMAL
@@ -442,26 +444,42 @@ vec3 GetNormalFromMap()
 #endif
 }
 
+vec3 FresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
+{
+    return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
+}
+
+vec3 GetEnvironmentReflection(vec3 N, vec3 V, float roughness, vec3 F0)
+{
+    vec3 R = reflect(-V, N);
+    float lod = roughness * 6.0; // Adjust lod level based on roughness
+    //vec3 envColor = textureLod(uTextureEnvironment, R, lod).rgb;
+    vec3 envColor = vec3(roughness,roughness,roughness);
+    vec3 F = FresnelSchlickRoughness(max(dot(N, V), 0.0), F0, roughness);
+    return envColor * F;
+}
+
+
 void main()
 {
     vec3 N = GetNormalFromMap();
-    vec3 V = normalize(uVec3ViewPosition - toFSVec3FragPos);
+    vec3 V = normalize(uVec3ViewPosition - oVertexPos);
     vec3 color = vec3(0.0);
 #if defined(USE_TEXCOORD) && defined(FVF_BASE_COLOR_TEXTURE_FLAG)
-    vec3 albedo = pow(texture(utextureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * uBaseColorFactor.rgb;
+    vec3 albedo = pow(texture(uTextureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * uBaseColorFactor.rgb;
 #else
     vec3 albedo = uBaseColorFactor.rgb;
 #endif
 
 #ifdef USE_OCCLUSION
-    float occlusion = texture(utextureOcclusion, toFSVec2TexCoord).r * uocclusionStrength;
+    float occlusion = texture(uTextureOcclusion, toFSVec2TexCoord).r * uOcclusionStrength;
 #else
     float occlusion = 1.0;
 #endif
 
 #ifdef USE_METALLIC_ROUGHNESS
-    float metallic = texture(utextureMetallicRoughness, toFSVec2TexCoord).b * uMetallicFactor;
-    float roughness = texture(utextureMetallicRoughness, toFSVec2TexCoord).g * uRoughnessFactor;
+    float metallic = texture(uTextureMetallicRoughness, toFSVec2TexCoord).b * uMetallicFactor;
+    float roughness = texture(uTextureMetallicRoughness, toFSVec2TexCoord).g * uRoughnessFactor;
 #else
     float metallic = uMetallicFactor;
     float roughness = uRoughnessFactor;
@@ -489,13 +507,14 @@ void main()
         else 
         if (l_iType == 3) // Ambient light
         {
-            color += lights[i].color.xyz * albedo;
+            color += lights[i].color.xyz * albedo * occlusion;
+            //color += lights[i].color.xyz * albedo * occlusion * 0.05; // Lower ambient intensity
             continue;
         }
         else // Point or spot
         {
-            L = normalize(lights[i].position.xyz - toFSVec3FragPos);
-            float distance = length(lights[i].position.xyz - toFSVec3FragPos);
+            L = normalize(lights[i].position.xyz - oVertexPos);
+            float distance = length(lights[i].position.xyz - oVertexPos);
             if (lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y > 0.0)
             {
                 attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
@@ -509,17 +528,19 @@ void main()
                 attenuation *= spotIntensity;
             }
         }
-        //float diff = max(dot(N, L), 0.0)*lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x;
-        //color += (diff*albedo);
         color += CalculatePBRLighting(N, V, L, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x * attenuation, albedo, roughness, metallic, occlusion);
     }
+ // Environment Reflection
+    //vec3 F0 = mix(vec3(0.04), albedo, metallic);
+    //vec3 reflection = GetEnvironmentReflection(N, V, roughness, F0) * (1.0 - occlusion); // Reduce reflection in occluded areas
+    //color += reflection * 0.5; // Blend with lighting
 
     color += emissive;
     //FragColor = vec4(color,1);
     FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0); // Gamma correction)";
 #ifdef DEBUG
     shaderCode += R"(
-    if(toFSInstanceID %10 == 0)
+    if(toFSInstanceID %10 == 1)
     {
         FragColor = vec4(1.0, 1.0, 0.0, 1.0)*FragColor; // Debug color for every 100th instance   
     })";
@@ -529,233 +550,7 @@ void main()
 )";
 
 #if defined(DEBUG)// || defined(WASM)
-    //FMLOG(shaderCode.c_str());
+    FMLOG(shaderCode.c_str());
 #endif
     return shaderCode;
 }
-            
-//std::string GenerateFragmentShaderWithFVFForWASMBecauseLightProlem(int64 e_i64FVFFlags)
-//{
-//    std::string l_strDefine;
-//    // Define macros based on FVF flags
-//    if (e_i64FVFFlags & FVF_TEX0_FLAG)
-//        l_strDefine += "#define USE_TEXCOORD\n";
-//    if (e_i64FVFFlags & FVF_NORMAL_FLAG)
-//        l_strDefine += "#define USE_NORMAL\n";
-//    if (e_i64FVFFlags & FVF_TANGENT_FLAG)
-//        l_strDefine += "#define USE_TANGENT\n";
-//    if (e_i64FVFFlags & FVF_BINORMAL_FLAG)
-//        l_strDefine += "#define USE_BINORMAL\n";
-//    if (e_i64FVFFlags & FVF_BASE_COLOR_TEXTURE_FLAG)
-//        l_strDefine += "#define FVF_BASE_COLOR_TEXTURE_FLAG\n";
-//    if (e_i64FVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG)
-//        l_strDefine += "#define USE_NORMAL_MAP\n";
-//    if (e_i64FVFFlags & FVF_FVF_OCCLUSION_TEXTURE_FLAG)
-//        l_strDefine += "#define USE_OCCLUSION\n";
-//    if (e_i64FVFFlags & FVF_METALLIC_ROUGHNESS_TEXTURE_FLAG)
-//        l_strDefine += "#define USE_METALLIC_ROUGHNESS\n";
-//    if (e_i64FVFFlags & FVF_EMISSIVE_TEXTURE_FLAG)
-//        l_strDefine += "#define USE_EMISSIVE\n";
-//
-//
-//
-//    std::string shaderCode;
-//#if defined(WIN32)
-//    shaderCode += "#version 330 core\n";
-//#else
-//    shaderCode += R"(#version 300 es
-//precision mediump float;
-//precision highp int;
-//precision highp sampler2D;
-//)";
-//#endif
-//    shaderCode += l_strDefine;
-//#ifdef DEBUG
-//    shaderCode += R"(
-//flat in int toFSInstanceID; // Flat qualifier for instance ID
-//)";
-//#endif
-//    shaderCode += R"(
-//in vec3 toFSVec3FragPos;
-//#ifdef USE_NORMAL
-//in vec3 toFSVec3Normal;
-//#endif
-//#ifdef USE_TEXCOORD
-//in vec2 toFSVec2TexCoord;
-//#endif
-//#ifdef USE_TANGENT
-//in vec3 toFSVec3Tangent;
-//#endif
-//#ifdef USE_BINORMAL
-//in vec3 toFSVec3Binormal;
-//#endif
-//
-//out vec4 FragColor;
-//
-//uniform vec3 uVec3ViewPosition;
-//
-//// Material uniforms
-//uniform sampler2D utextureDiffuse;
-//uniform vec4 uBaseColorFactor;
-//#ifdef USE_NORMAL_MAP
-//uniform sampler2D utextureNormal;
-//#endif
-//#ifdef USE_OCCLUSION
-//uniform sampler2D utextureOcclusion;
-//uniform float uocclusionStrength;
-//#endif
-//#ifdef USE_METALLIC_ROUGHNESS
-//uniform sampler2D utextureMetallicRoughness;
-//#endif
-//uniform float uMetallicFactor;
-//uniform float uRoughnessFactor;
-//#ifdef USE_EMISSIVE
-//uniform sampler2D uTextureEmissive;
-//uniform vec3 uEmissiveFactor;
-//#endif
-//
-//// Light data structure matching std140 layout
-//struct Light
-//{
-//    vec3 position;       // Aligned to 16 bytes
-//    float intensity;     // Aligned to 16 bytes (vec4 padding)
-//    vec3 direction;      // Aligned to 16 bytes
-//    float range;         // Aligned to 16 bytes (vec4 padding)
-//    vec3 color;          // Aligned to 16 bytes
-//    float innerConeAngle;// Aligned to 16 bytes (vec4 padding)
-//    float outerConeAngle;// Aligned to 4 bytes
-//    int type;            // Aligned to 4 bytes
-//    int Enable;          // Aligned to 4 bytes
-//    float pad;           // Padding to align to 16 bytes
-//};
-//
-//// PBR functions
-//const float PI = 3.14159265359;
-//
-//float DistributionGGX(vec3 N, vec3 H, float roughness)
-//{
-//    float a = roughness * roughness;
-//    float a2 = a * a;
-//    float NdotH = max(dot(N, H), 0.0);
-//    float NdotH2 = NdotH * NdotH;
-//    float denom = (NdotH2 * (a2 - 1.0) + 1.0);
-//    return a2 / (PI * denom * denom);
-//}
-//
-//float GeometrySchlickGGX(float NdotV, float roughness)
-//{
-//    float r = (roughness + 1.0);
-//    float k = (r * r) / 8.0;
-//    float denom = NdotV * (1.0 - k) + k;
-//    return NdotV / denom;
-//}
-//
-//float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
-//{
-//    float NdotV = max(dot(N, V), 0.0);
-//    float NdotL = max(dot(N, L), 0.0);
-//    float ggx2 = GeometrySchlickGGX(NdotV, roughness);
-//    float ggx1 = GeometrySchlickGGX(NdotL, roughness);
-//    return ggx1 * ggx2;
-//}
-//
-//vec3 FresnelSchlick(float cosTheta, vec3 F0)
-//{
-//    return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
-//}
-//
-//vec3 CalculatePBRLighting(vec3 N, vec3 V, vec3 L, vec3 lightColor, float lightIntensity, vec3 albedo, float roughness, float metallic, float occlusion)
-//{
-//    vec3 H = normalize(V + L);
-//    vec3 F0 = mix(vec3(0.04), albedo, metallic);
-//    vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
-//    float NDF = DistributionGGX(N, H, roughness);
-//    float G = GeometrySmith(N, V, L, roughness);
-//    float NdotL = max(dot(N, L), 0.0);
-//    float NdotV = max(dot(N, V), 0.0);
-//
-//    vec3 numerator = NDF * G * F;
-//    float denominator = 4.0 * NdotV * NdotL + 0.0001;
-//    vec3 specular = numerator / denominator;
-//
-//    vec3 kd = vec3(1.0) - F;
-//    kd *= 1.0 - metallic;
-//
-//    vec3 diffuse = kd * albedo / PI;
-//    vec3 radiance = lightColor * lightIntensity;
-//    return (diffuse + specular) * radiance * NdotL * occlusion;
-//}
-//
-//vec3 GetNormalFromMap()
-//{
-//#if defined(USE_NORMAL_MAP) && defined(USE_TANGENT) && defined(USE_NORMAL) && defined(USE_TEXCOORD)
-//    vec3 tangent = normalize(toFSVec3Tangent);
-//    vec3 normal = normalize(toFSVec3Normal);
-//#ifdef USE_BINORMAL
-//    vec3 bitangent = normalize(toFSVec3Binormal);
-//#else
-//    vec3 bitangent = normalize(cross(normal, tangent));
-//#endif
-//    mat3 TBN = mat3(tangent, bitangent, normal);
-//    vec3 normalMap = texture(utextureNormal, toFSVec2TexCoord).rgb * 2.0 - 1.0;
-//    return normalize(TBN * normalMap);
-//#else
-//#ifdef USE_NORMAL
-//    return normalize(toFSVec3Normal);
-//#else
-//    return vec3(0.0, 0.0, 1.0); // Default normal if none provided
-//#endif
-//#endif
-//}
-//
-//void main()
-//{
-//    vec3 N = GetNormalFromMap();
-//    vec3 V = normalize(uVec3ViewPosition - toFSVec3FragPos);
-//    vec3 color = vec3(0.0);
-//#if defined(USE_TEXCOORD) && defined(FVF_BASE_COLOR_TEXTURE_FLAG)
-//    vec3 albedo = pow(texture(utextureDiffuse, toFSVec2TexCoord).rgb, vec3(2.0)) * uBaseColorFactor.rgb;
-//#else
-//    vec3 albedo = uBaseColorFactor.rgb;
-//#endif
-//    color = albedo;
-//#ifdef USE_OCCLUSION
-//    float occlusion = texture(utextureOcclusion, toFSVec2TexCoord).r * uocclusionStrength;
-//#else
-//    float occlusion = 1.0;
-//#endif
-//
-//#ifdef USE_METALLIC_ROUGHNESS
-//    float metallic = texture(utextureMetallicRoughness, toFSVec2TexCoord).b * uMetallicFactor;
-//    float roughness = texture(utextureMetallicRoughness, toFSVec2TexCoord).g * uRoughnessFactor;
-//#else
-//    float metallic = uMetallicFactor;
-//    float roughness = uRoughnessFactor;
-//#endif
-//
-//#ifdef USE_EMISSIVE
-//    vec3 emissive = pow(texture(uTextureEmissive, toFSVec2TexCoord).rgb, vec3(2.0)) * uEmissiveFactor;
-//#else
-//    vec3 emissive = vec3(0.0);
-//#endif
-//
-//
-//    color += emissive;
-//    //FragColor = vec4(color,1);
-//    FragColor = vec4(pow(color, vec3(1.0 / 2.2)), 1.0); // Gamma correction)";
-//#ifdef DEBUG
-//    shaderCode += R"(
-//    if(toFSInstanceID %10 == 0)
-//    {
-//        FragColor = vec4(1.0, 1.0, 0.0, 1.0)*FragColor; // Debug color for every 100th instance   
-//    })";
-//#endif
-//    shaderCode += R"(
-//}
-//)";
-//
-//#if defined(DEBUG)// || defined(WASM)
-//    //FMLOG(shaderCode.c_str());
-//#endif
-//    return shaderCode;
-//}

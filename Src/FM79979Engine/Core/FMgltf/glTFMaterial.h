@@ -7,6 +7,7 @@ class cMaterial:public NamedTypedObject
 	int64        m_i64TextureFVFFlag = 0;
     unsigned int m_uiShaderProgrameID = -1;
 	tinygltf::Material material;
+	bool m_bDoubleSize = false;
      //m_pTexture;
     std::vector<shared_ptr<cTexture>> m_uiBaseColorTextureVector;
     std::vector<shared_ptr<cTexture>> m_uiNormalTextureVector;  // Normal maps

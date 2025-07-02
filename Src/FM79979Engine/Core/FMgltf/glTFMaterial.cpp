@@ -29,6 +29,11 @@ cMaterial::~cMaterial()
 void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Material& material)
 {
     this->SetName(material.name.c_str());
+	m_bDoubleSize = material.doubleSided;
+    if (m_bDoubleSize)
+    {
+        int a = 0;
+    }
     // Load base color texture
     if (material.pbrMetallicRoughness.baseColorTexture.index >= 0)
     {
@@ -125,6 +130,21 @@ void  cMaterial::SetShaderProgramID(unsigned int e_uiShaderProgramID)
 
 void cMaterial::Apply()
 {
+    static bool l_bCullingBack = true;
+    if (l_bCullingBack != m_bDoubleSize)
+    {
+        if (m_bDoubleSize)
+        {
+            glDisable(GL_CULL_FACE); // Disable culling for double-sided rendering
+        }
+        else
+        {
+            glEnable(GL_CULL_FACE);  // Enable back-face culling
+            glCullFace(GL_BACK);     // Cull back faces (default for glTF)
+            glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
+        }
+        l_bCullingBack = m_bDoubleSize; 
+    }
     GLuint textureUnit = 0;
     // Bind base color texture
     GLuint textureLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureDiffuse");
