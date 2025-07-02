@@ -274,7 +274,9 @@ namespace FATMING_CORE
 			SetWorldTransform(worldMatrix);
 		}
 		else
+		{
 			SetCachedWorldTransformDirty();
+		}
 	}
 
 
