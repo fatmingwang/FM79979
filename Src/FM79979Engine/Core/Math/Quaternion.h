@@ -238,13 +238,14 @@ public:
 
 		float s0 = (float)cos(theta) - dot * sin_theta / sin_theta_0;
 		float s1 = sin_theta / sin_theta_0;
-
-		return {
+		Quaternion l_Result =
+		{
 			(s0 * qStart.x) + (s1 * qEnd.x),
 			(s0 * qStart.y) + (s1 * qEnd.y),
 			(s0 * qStart.z) + (s1 * qEnd.z),
 			(s0 * qStart.w) + (s1 * qEnd.w)
 		};
+		return l_Result.Normalize();
 	}
 };
 

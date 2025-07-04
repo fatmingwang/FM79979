@@ -417,7 +417,7 @@ void cCameraController::CreateDefault3DCamera(bool e_bEnableControleByMouse)
             //projectionMatrix.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
             //projectionMatrix.SetFovYAspect(XM_PIDIV4, 4/3, 0.1f, 10000.0f);
             //projectionMatrix.SetFovYAspect(XM_PIDIV4*2, 21 / 9, 0.1f, 10000.0f);
-            proj.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.1f, 10000.0f);
+            proj.SetFovYAspect(XM_PIDIV4, (float)1920 / (float)1080, 0.01f, 100000.0f);
             l_pCamera->SetProjection(proj);
             l_pCamera->SetLocalTransform(cMatrix44::Identity); // Identity transform
             if (1)

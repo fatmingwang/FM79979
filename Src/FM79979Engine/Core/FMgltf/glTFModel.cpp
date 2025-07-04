@@ -287,31 +287,34 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf:
     cMatrix44   l_matNodeTransform = cMatrix44::Identity;
     sSRT         l_SRT;
     //because gltf matrix is column so take trs to make it right?
-    if (e_pNode.translation.size() == 3)
-    {
-        Vector3 translation((float)e_pNode.translation[0], (float)e_pNode.translation[1], (float)e_pNode.translation[2]);
-        l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
-        l_SRT.vTranslation = translation;
-        l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
-    }
-    if (e_pNode.rotation.size() == 4)
-    {
-        Quaternion rotation((float)e_pNode.rotation[0], (float)e_pNode.rotation[1], (float)e_pNode.rotation[2], (float)e_pNode.rotation[3]);
-        l_matNodeTransform *= rotation.ToMatrix();
-        l_SRT.qRotation = rotation;
-        l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
-    }
-    if (e_pNode.scale.size() == 3)
-    {
-        Vector3 scale((float)e_pNode.scale[0], (float)e_pNode.scale[1], (float)e_pNode.scale[2]);
-        l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
-        l_SRT.vScale = scale;
-        l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
-    }
     if (e_pNode.matrix.size() == 16)
     {
         cMatrix44 nodeMatrix = cMatrix44(e_pNode.matrix.data());
         l_matNodeTransform = nodeMatrix;
+    }
+    else
+    {
+        if (e_pNode.translation.size() == 3)
+        {
+            Vector3 translation((float)e_pNode.translation[0], (float)e_pNode.translation[1], (float)e_pNode.translation[2]);
+            l_matNodeTransform *= cMatrix44::TranslationMatrix(translation);
+            l_SRT.vTranslation = translation;
+            l_SRT.iSRTFlag |= SRT_TRANSLATION_FLAG;
+        }
+        if (e_pNode.rotation.size() == 4)
+        {
+            Quaternion rotation((float)e_pNode.rotation[0], (float)e_pNode.rotation[1], (float)e_pNode.rotation[2], (float)e_pNode.rotation[3]);
+            l_matNodeTransform *= rotation.ToMatrix();
+            l_SRT.qRotation = rotation;
+            l_SRT.iSRTFlag |= SRT_ROTATION_FLAG;
+        }
+        if (e_pNode.scale.size() == 3)
+        {
+            Vector3 scale((float)e_pNode.scale[0], (float)e_pNode.scale[1], (float)e_pNode.scale[2]);
+            l_matNodeTransform *= cMatrix44::ScaleMatrix(scale);
+            l_SRT.vScale = scale;
+            l_SRT.iSRTFlag |= SRT_SCALE_FLAG;
+        }
     }
     //11
     l_pBone->m_StartNodeTransform = l_matNodeTransform;

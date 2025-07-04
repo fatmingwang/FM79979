@@ -119,13 +119,16 @@ bool    cAnimationClip::SampleToTime(float e_fTime, bool e_bAssignToBone, std::v
 void cAnimationClip::UpdateNode(cglTFNodeData* e_pBone, float e_fTime, sSRT& e_SRT, bool e_bAssignToBone)
 {
     FloatToSRTMap* l_pFloatToSRTMap = &(*this->m_pCurrentAnimationData->m_BoneIDAndAnimationData)[e_pBone->m_iNodeIndex];
+    const sSRT& l_RestSRT = e_pBone->m_StartSRT; // <-- get rest pose
     if (l_pFloatToSRTMap->empty())
     {
-        sSRT l_sSRT;
-        e_SRT = l_sSRT;
+        e_SRT = l_RestSRT;
+        if (e_bAssignToBone)
+        {
+            e_pBone->SetLocalTransform(e_SRT.GetMatrix());
+        }
         return;
     }
-
     // Find the keyframes surrounding the current time
     auto it = l_pFloatToSRTMap->lower_bound(e_fTime);
 
@@ -141,6 +144,7 @@ void cAnimationClip::UpdateNode(cglTFNodeData* e_pBone, float e_fTime, sSRT& e_S
 
     auto nextIt = it;
     auto prevIt = std::prev(it); // Get the previous keyframe
+
 
     float prevTime = prevIt->first;
     float nextTime = nextIt->first;
@@ -158,7 +162,7 @@ void cAnimationClip::UpdateNode(cglTFNodeData* e_pBone, float e_fTime, sSRT& e_S
     // Interpolate SRT values
     const sSRT& prevSRT = prevIt->second;
     const sSRT& nextSRT = nextIt->second;
-    sSRT l_CurrentSRT;
+    sSRT l_CurrentSRT = l_RestSRT;
 
     // Translation Interpolation
     if (prevSRT.iSRTFlag & SRT_TRANSLATION_FLAG)

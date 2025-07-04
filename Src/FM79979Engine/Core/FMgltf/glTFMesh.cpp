@@ -606,6 +606,34 @@ void cMesh::LoadAttributesAndInitBuffer(const tinygltf::Model& e_Model, const ti
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+    for (auto l_IT : this->m_SubMeshesVector)
+    {
+        if (this->m_vMaxBounds.x < l_IT->m_vMaxBounds.x)
+        {
+            this->m_vMaxBounds.x = l_IT->m_vMaxBounds.x;
+        }
+        if (this->m_vMaxBounds.y < l_IT->m_vMaxBounds.y)
+        {
+            this->m_vMaxBounds.y = l_IT->m_vMaxBounds.y;
+        }
+        if (this->m_vMaxBounds.z < l_IT->m_vMaxBounds.z)
+        {
+            this->m_vMaxBounds.z = l_IT->m_vMaxBounds.z;
+        }
+        if (this->m_vMinBounds.x < l_IT->m_vMinBounds.x)
+        {
+            this->m_vMinBounds.x = l_IT->m_vMinBounds.x;
+        }
+        if (this->m_vMinBounds.y < l_IT->m_vMinBounds.y)
+        {
+            this->m_vMinBounds.y = l_IT->m_vMinBounds.y;
+        }
+        if (this->m_vMinBounds.z < l_IT->m_vMinBounds.z)
+        {
+            this->m_vMinBounds.z = l_IT->m_vMinBounds.z;
+        }
+        
+    }
 }
 
 void cMesh::LoadMorphingAttributes(sSubMesh* e_pSubMesh,const tinygltf::Model& model, const tinygltf::Primitive& primitive, bool e_bCalculateBiNormal)

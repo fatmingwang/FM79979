@@ -67,3 +67,5 @@ template<class KEY, class TYPE>std::map<KEY, TYPE> CloneMap(std::map<KEY, TYPE>&
     }
     return l_Data;
 }
+
+void	DumpBoneIndexDebugInfo(class cglTFNodeData* e_pBone, bool e_bDoNextSibling, bool e_bRoot);

@@ -72,8 +72,8 @@ protected:
     friend class cglTFModel;
     friend class cAnimationClip;
 public:
-    Vector3 m_vMinBounds;
-    Vector3 m_vMaxBounds;
+    Vector3 m_vMinBounds = Vector3(-999,-999,-999);
+    Vector3 m_vMaxBounds = Vector3::Zero;
 protected:
     std::vector<std::shared_ptr<sSubMesh>>              m_SubMeshesVector;
     std::vector<std::shared_ptr<cMaterial>>             m_MaterialVector;

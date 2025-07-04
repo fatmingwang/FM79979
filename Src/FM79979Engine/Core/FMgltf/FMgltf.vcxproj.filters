@@ -109,5 +109,8 @@
     <ClCompile Include="AnimationTexture.cpp">
       <Filter>glTF\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

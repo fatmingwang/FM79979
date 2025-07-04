@@ -30,18 +30,22 @@ int glTFInit()
     bool l_bDoAnimTexture = false;
     {
         cglTFModel* l_pModel = nullptr;
-        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
+        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Mixamo_WalkingGuy.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/leshark.glb",100);
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/AnimatedMorphCube.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/fox.gltf");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/fox.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/burger-default_compression-mats_notex.-2glb.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/drone.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/DamagedHelmet.glb");
         
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/FromAdobe/result.gltf");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
-        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
         if(!l_pModel)

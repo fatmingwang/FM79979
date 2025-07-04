@@ -246,6 +246,7 @@ WASM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AnimationTexture.cpp" />
+    <ClCompile Include="Common.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="glTFAnimation.cpp" />
     <ClCompile Include="glTFCamera.cpp" />
