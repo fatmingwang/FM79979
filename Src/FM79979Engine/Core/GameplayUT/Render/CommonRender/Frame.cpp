@@ -270,8 +270,7 @@ namespace FATMING_CORE
 		// (i.e. move under our new parent's frame with no detectable change)
 		if (e_bUpdateRelatedPosition)
 		{
-			cMatrix44 worldMatrix = m_CachedWorldTransform;
-			SetWorldTransform(worldMatrix);
+			this->GetWorldTransform();
 		}
 		else
 		{
