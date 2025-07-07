@@ -28,8 +28,8 @@ class cglTFModel:public FATMING_CORE::cRenderObject
     std::vector<std::shared_ptr<class cAnimationInstanceManager>>        m_sAnimationInstanceManagerVector;
     //
     std::map<std::string, sAnimationData*>                  CloneNameAndAnimationMap(cglTFModelRenderNode*e_pglTFModelRenderNode);
-    GLuint                                                  CreateShader(int64 e_i64FVFFlags, int e_iNumMorphTarget);
-    GLuint                                                  GetShaderProgram(int64 fvfFlags,int64 e_i64extureFVF , int e_iNumMorphTarget);  // Returns shader based on FVF
+    GLuint                                                  CreateShader(int64 e_i64FVFFlags, int e_iNumMorphTarget,struct sTectureAndTexCoordinateIndex* e_pTectureAndTexCoordinateIndex);
+    GLuint                                                  GetShaderProgram(int64 fvfFlags,int64 e_i64extureFVF , int e_iNumMorphTarget, struct sTectureAndTexCoordinateIndex* e_pTectureAndTexCoordinateIndex);  // Returns shader based on FVF
     void                                                    InternalLoadNode(const tinygltf::Node& node, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal);
     void                                                    LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNormal);
     void                                                    PopulateUniform(int e_iProgram);
@@ -51,6 +51,7 @@ public:
     void    InitBuffers();
     virtual void    Update(float e_fEpaseTime)override;
     virtual void    Render()override;
+    virtual void    DebugRender()override;
     //
     void    SetCurrentAnimation(const std::string& animationName);
     void    SetCurrentAnimationTime(float e_fCurrentTime);

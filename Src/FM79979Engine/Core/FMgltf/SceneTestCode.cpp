@@ -30,10 +30,16 @@ int glTFInit()
     bool l_bDoAnimTexture = false;
     {
         cglTFModel* l_pModel = nullptr;
-        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
+        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
+        
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Mixamo_WalkingGuy.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/leshark.glb",100);
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Flamingo.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/sponza.glb");
+        
+        
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/AnimatedMorphCube.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/fox.gltf");
@@ -81,16 +87,7 @@ int glTFInit()
             auto l_pModel2 = LazyAddModel(l_pRootFrame, "glTFModel/Lantern.gltf");// 
             l_pModel2->SetWorldPosition(Vector3(20, 0, 0));
             l_pRootFrame->AddChild(l_pModel2);
-        }
-        //auto l_pDuck = LazyAddModel(l_pRootFrame, "glTFModel/SimpleInstancing.glb");// 
-        // 
-        // 
-        //l_pRootFrame->AddChild(l_pDuck);
-        
-        // 
-        //l_pRootFrame->AddChild(l_pDuck2);
-        //l_pDuck2->SetLocalPosition(Vector3(5, 0, 0));
-        //cglTFModelRenderNode* l_pToRenderNode1 = l_pDuck2->ToRenderNode();
+        }        
         int l_iNumCloneNodex = 0;
         for(int i=0;i< l_iNumCloneNodex;i++)
         {
@@ -105,8 +102,6 @@ int glTFInit()
         //l_pWoman->SetLocalPosition(Vector3(-5, 0, 0));
         //auto l_pSimpleSkin = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
         //l_pSimpleSkin->SetLocalPosition(Vector3(3, 0, -2));
-        //LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.gltf");
-        //LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");
         //LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
         //LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
         //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
@@ -115,9 +110,6 @@ int glTFInit()
     }
     //g_glTFModel.LoadFromGLTF("glTFModel/Duck.gltf",false);
     //g_glTFModel.LoadFromGLTF("glTFModel/Lantern.gltf",true);
-    // 
-    //g_glTFModel.LoadFromGLTF("glTFModel/Avocado.gltf", true);
-    //g_glTFModel.LoadFromGLTF("glTFModel/CesiumMilkTruck.glb", true);
     //g_glTFModel.LoadFromGLTF("glTFModel/Fox.gltf", true);
     //morphing
     //g_glTFModel.LoadFromGLTF("glTFModel/AnimatedMorphCube.glb", true);

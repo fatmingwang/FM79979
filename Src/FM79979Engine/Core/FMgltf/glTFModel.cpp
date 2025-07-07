@@ -205,16 +205,11 @@ void DumpShaderCompilerInfo(GLuint e_uiShader)
     }
 }
 
-GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget)
+GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget, struct sTectureAndTexCoordinateIndex* e_pTectureAndTexCoordinateIndex)
 {
     std::string vertexCode = GenerateVertexShaderWithFVF(fvfFlags, e_iNumMorphTarget);
 	//printf("vertex shader code:\n%s", vertexCode.c_str());
-#ifdef WASM
-    //std::string fragmentCode = GenerateFragmentShaderWithFVFForWASMBecauseLightProlem(fvfFlags);
-    std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
-#else
-    std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags);
-#endif
+    std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags, e_pTectureAndTexCoordinateIndex);
 
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     const char* vShaderCode = vertexCode.c_str();
@@ -281,7 +276,7 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf:
             int a = 0;
         }
 #endif
-        parentBone->AddChild(l_pBone);
+        parentBone->AddChild(l_pBone,false);
     }
 
     cMatrix44   l_matNodeTransform = cMatrix44::Identity;
@@ -378,7 +373,7 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
         for (auto l_iChildIndex : node.children)
         {
             auto l_pChildBone = l_tinyglTFNodeAndJointIndexMap[&model.nodes[l_iChildIndex]];
-            l_pBone->AddChild(l_pChildBone);
+            l_pBone->AddChild(l_pChildBone, false);
         }
     }
     // Assume 'model' is a tinygltf::Model
@@ -396,7 +391,8 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
         auto l_IT = m_NodeIndexAndBoneMap.find(l_iNodeIndex);
         if (!l_IT->second->GetParent())
         {
-            l_IT->second->SetParent(this);
+            l_IT->second->SetParent(this,false);
+            //DumpBoneIndexDebugInfo(l_IT->second, false, true);
         }
     }
 }
@@ -492,6 +488,7 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const tinygltf::Node& node
         ++l_iIndex;
         // Load textures for each material
         shared_ptr<cMaterial>l_pMaterial;
+        sTectureAndTexCoordinateIndex* l_pTectureAndTexCoordinateIndex = nullptr;
         if (primitive.material >= 0 && primitive.material < e_Model.materials.size())
         {
             l_pMaterial = l_pMesh->LoadMaterial(e_Model, e_Model.materials[primitive.material], l_pSubMesh);
@@ -500,6 +497,7 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const tinygltf::Node& node
         if (l_pMaterial)
         {
             l_i64TextureFlag = l_pMaterial->GetTextureFVFFlag();
+            l_pTectureAndTexCoordinateIndex = l_pMaterial->GetTectureAndTexCoordinateIndex();
         }
         if(cglTFNodeData::ContainInstanceExtension(node) || m_iInstanceValue > 0)
         {
@@ -509,7 +507,7 @@ void cglTFModel::AssignMeshAttributes(cMesh* e_pMesh, const tinygltf::Node& node
                 l_pSubMesh->m_i64FVFFlag |= FVF_ANIMATION_TEXTURE_FLAG;
             }
         }
-        l_pSubMesh->m_iShaderProgramID = GetShaderProgram(l_pSubMesh->m_i64FVFFlag, l_i64TextureFlag, l_pSubMesh->m_iNumMorphTarget);
+        l_pSubMesh->m_iShaderProgramID = GetShaderProgram(l_pSubMesh->m_i64FVFFlag, l_i64TextureFlag, l_pSubMesh->m_iNumMorphTarget, l_pTectureAndTexCoordinateIndex);
         if (l_pMaterial)
         {
             l_pMaterial->SetShaderProgramID(l_pSubMesh->m_iShaderProgramID);
@@ -548,7 +546,7 @@ cMesh* cglTFModel::GenerateAnimationMesh(const tinygltf::Skin& e_Skin, const tin
     return l_pSkinningMesh;
 }
 
-GLuint cglTFModel::GetShaderProgram(int64 e_i64FVFFlags,int64 e_i64TextureFVF, int e_iNumMorphTarget)
+GLuint cglTFModel::GetShaderProgram(int64 e_i64FVFFlags,int64 e_i64TextureFVF, int e_iNumMorphTarget, struct sTectureAndTexCoordinateIndex* e_pTectureAndTexCoordinateIndex)
 {
     int64 l_i64FinalFVFFlags = e_i64FVFFlags | e_i64TextureFVF;
     //|= 1LL << l_iFVFIndex
@@ -560,7 +558,7 @@ GLuint cglTFModel::GetShaderProgram(int64 e_i64FVFFlags,int64 e_i64TextureFVF, i
     }
 
     // If not, create a new shader program
-    GLuint shaderProgram = CreateShader(l_i64FinalFVFFlags, e_iNumMorphTarget);
+    GLuint shaderProgram = CreateShader(l_i64FinalFVFFlags, e_iNumMorphTarget, e_pTectureAndTexCoordinateIndex);
     m_FVFAndShaderProgramsMap[l_i64FinalFVFFlags] = shaderProgram;  // Store in the map
     return shaderProgram;
 }
@@ -682,6 +680,50 @@ void cglTFModel::Render()
 {
 }
 
+void cglTFModel::DebugRender()
+{
+    std::vector<Vector3>l_vPoints;
+    std::vector<Vector3>l_vAllVertices;
+    cMatrix44 l_mat = cMatrix44::Identity;
+    for (auto l_pNode : *m_NodesVector.GetList())
+    {
+        //if (l_pNode->GetMesh())
+        {
+            auto l_vPosition = l_pNode->GetWorldPosition();
+            l_vPoints.push_back(l_vPosition);
+        }
+        cglTFNodeData* l_pMe = l_pNode;
+        cglTFNodeData* l_pParent = dynamic_cast<cglTFNodeData*>(l_pMe->GetParent());
+        if (l_pParent)
+        {
+            //parent
+            l_mat = l_pParent->GetWorldTransform();
+            l_vAllVertices.push_back(l_mat.GetTranslation());
+            //me
+            l_mat = (l_pMe->GetWorldTransform());
+            l_vAllVertices.push_back(l_mat.GetTranslation());
+        }
+        else
+        {
+            l_mat = l_pMe->GetWorldTransform();
+        }
+        l_vPoints.push_back(l_mat.GetTranslation());
+    }
+    if (l_vPoints.size() == 0)
+    {
+        return;
+    }
+    l_mat = this->GetWorldTransform();
+    UseShaderProgram(NO_TEXTURE_SHADER);
+    auto l_pCamera = cCameraController::GetInstance()->GetCurrentCamera();
+    if (l_pCamera)
+    {
+        auto l_matWVP = l_pCamera->GetWorldViewglTFProjection();
+        SetupShaderViewProjectionMatrix(l_matWVP, false);
+    }
+    GLRender::RenderPoints(&l_vPoints[0], (int)l_vPoints.size(), 5, Vector4(0.f, 1.f, 1.f, 1.f), l_mat);
+}
+
 void cglTFModel::Destory()
 {
     DELETE_MAP(m_NameAndMeshes);
@@ -762,7 +804,7 @@ cglTFModelRenderNode* cglTFModel::ToRenderNode()
         else
         {
             // If no parent, clear parent in the render node as well
-            l_pRenderNode->m_NodesVector[i]->SetParent(l_pRenderNode);
+            l_pRenderNode->m_NodesVector[i]->SetParent(l_pRenderNode, false);
         }
     }
     l_pRenderNode->m_AnimationClip.SetName(m_AnimationClip.GetName());

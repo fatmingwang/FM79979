@@ -225,14 +225,15 @@ void  cLighController::Update(float e_fElpaseTime)
         static float angle = 0.0f; // Angle for dynamic movement
         angle += e_fElpaseTime/4; // Adjust speed based on frame time
 
-        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1;// UT::GetFloatModulus(angle, 10);
+        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f;// UT::GetFloatModulus(angle, 10);
         // Update the light's position in a circular path
-        Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, 10.0f * sin(angle));
+        Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
+        //Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
         l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
 
         // Update the light's direction to point toward the origin
-        l_TestDirectionLight->m_vDirection = -l_vLightDirection.Normalize();
-        l_TestDirectionLight->m_vColor = Vector4(1.f,1.f,1.f,1.f);
+        l_TestDirectionLight->m_vDirection = l_vLightDirection.Normalize();
+        l_TestDirectionLight->m_vColor = Vector4(1.0f,1.f,1.0f,1.f);
         // Change the light's color over time for a dynamic effect
         //l_TestDirectionLight->m_vColor = Vector3(
         //    (sin(angle) + 1.0f) * 1.5f, // Red oscillates

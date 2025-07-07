@@ -139,7 +139,7 @@ void cglTFNodeData::SetMesh(cMesh* e_pMesh, const tinygltf::Node& e_pNode, const
             this->m_Instance = cMeshInstance::CreateInstance();
             std::vector<cMatrix44>l_matVector;
             int gridSize = static_cast<int>(std::ceil(std::sqrt(static_cast<float>(e_iInstanceValue))));
-            auto l_fLength = e_pMesh->m_vMaxBounds.Length()*10;
+            auto l_fLength = e_pMesh->m_vMaxBounds.Length();
             for (int i = 0; i < e_iInstanceValue; ++i)
             {
                 int row = i / gridSize;

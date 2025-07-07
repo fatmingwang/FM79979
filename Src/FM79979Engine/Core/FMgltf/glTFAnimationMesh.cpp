@@ -69,7 +69,7 @@ void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_p
                 l_pNode->m_iJointIndex = (int)i;
                 cMatrix44 l_InversePoseMatrix(data + i * 16);
 				(*m_pNodeInversePoseMatrixVector)[i] = l_InversePoseMatrix;
-                FMLOG("NodeIndex:%d\tJoint index:%d", l_NodeIndex,i);
+                //FMLOG("NodeIndex:%d\tJoint index:%d", l_NodeIndex,i);
             }
             else
             {
@@ -120,7 +120,7 @@ void cSkinningMesh::UpdateJointsMatrix()
 
 void	cSkinningMesh::SetSubMeshCommonUniformData(sSubMesh* e_pSubMesh, cMatrix44& e_mat)
 {
-	cMesh::SetSubMeshCommonUniformData(e_pSubMesh, e_mat);
+    cMesh::SetSubMeshCommonUniformData(e_pSubMesh, e_mat);
     // Pass the bone matrices to the shader
     GLuint boneMatricesLocation = glGetUniformLocation(e_pSubMesh->m_iShaderProgramID, "uBoneTransforms");
     glUniformMatrix4fv(boneMatricesLocation, (GLsizei)m_AllBonesMatrixForSkinnedVector.size(), GL_FALSE, (float*)&m_AllBonesMatrixForSkinnedVector[0]);
@@ -152,7 +152,7 @@ void cSkinningMesh::Render()
     for (auto& l_pSubMesh : this->m_SubMeshesVector)
     {
         SetSubMeshCommonUniformData(l_pSubMesh.get(), l_matWorldTransoform);
-		cMesh::CallOpenGLDraw(l_pSubMesh.get());
+        cMesh::CallOpenGLDraw(l_pSubMesh.get());
     }
 }
 
@@ -190,6 +190,7 @@ void  cSkinningMesh::Render(std::shared_ptr<cAnimationInstanceManager>e_spAnimat
 
 void cSkinningMesh::RenderSkeleton()
 {
+    return;
     std::vector<cglTFNodeData*>* l_pVector = nullptr;
     //l_pVector = m_AllNodeConvertToBoneBoneVector.GetList();
     l_pVector = &m_SkinningBoneVector;
@@ -202,6 +203,10 @@ void cSkinningMesh::RenderSkeleton()
     {
         cglTFNodeData* l_pMe = (*l_pVector)[i];
         cglTFNodeData* l_pParent = dynamic_cast<cglTFNodeData*>(l_pMe->GetParent());
+        //if(std::find(m_SkinningBoneVector.begin(), m_SkinningBoneVector.end(), l_pParent) == m_SkinningBoneVector.end())
+        //{
+        //    l_pParent = nullptr;
+        //}
         if (l_pParent)
         {
             //parent
@@ -214,7 +219,8 @@ void cSkinningMesh::RenderSkeleton()
         }
         else
         {
-            l_mat = (l_pMe->GetWorldTransform() * (*m_pNodeInversePoseMatrixVector)[l_pMe->m_iJointIndex]);
+            //l_mat = (l_pMe->GetWorldTransform() * (*m_pNodeInversePoseMatrixVector)[l_pMe->m_iJointIndex]);
+            l_mat = l_pMe->GetWorldTransform();
         }
         l_vPoints.push_back(l_mat.GetTranslation());
     }
@@ -324,71 +330,3 @@ void cSkinningAnimInstanceClass::Render()
         l_pSkinningMesh->Render(m_spAnimationInstanceManager, m_spAniamationInstanceData);
     }
 }
-//woman
-//NodeIndex:40	Joint index : 0
-//NodeIndex : 29	Joint index : 1
-//NodeIndex : 28	Joint index : 2
-//NodeIndex : 27	Joint index : 3
-//NodeIndex : 2	Joint index : 4
-//NodeIndex : 1	Joint index : 5
-//NodeIndex : 0	Joint index : 6
-//NodeIndex : 14	Joint index : 7
-//NodeIndex : 13	Joint index : 8
-//NodeIndex : 12	Joint index : 9
-//NodeIndex : 11	Joint index : 10
-//NodeIndex : 6	Joint index : 11
-//NodeIndex : 5	Joint index : 12
-//NodeIndex : 4	Joint index : 13
-//NodeIndex : 3	Joint index : 14
-//NodeIndex : 10	Joint index : 15
-//NodeIndex : 9	Joint index : 16
-//NodeIndex : 8	Joint index : 17
-//NodeIndex : 7	Joint index : 18
-//NodeIndex : 26	Joint index : 19
-//NodeIndex : 25	Joint index : 20
-//NodeIndex : 24	Joint index : 21
-//NodeIndex : 23	Joint index : 22
-//NodeIndex : 18	Joint index : 23
-//NodeIndex : 17	Joint index : 24
-//NodeIndex : 16	Joint index : 25
-//NodeIndex : 15	Joint index : 26
-//NodeIndex : 22	Joint index : 27
-//NodeIndex : 21	Joint index : 28
-//NodeIndex : 20	Joint index : 29
-//NodeIndex : 19	Joint index : 30
-//NodeIndex : 34	Joint index : 31
-//NodeIndex : 33	Joint index : 32
-//NodeIndex : 32	Joint index : 33
-//NodeIndex : 31	Joint index : 34
-//NodeIndex : 30	Joint index : 35
-//NodeIndex : 39	Joint index : 36
-//NodeIndex : 38	Joint index : 37
-//NodeIndex : 37	Joint index : 38
-//NodeIndex : 36	Joint index : 39
-//NodeIndex : 35	Joint index : 40
-
-
-//NodeIndex:2	Joint index : 0
-//NodeIndex : 3	Joint index : 1
-//NodeIndex : 4	Joint index : 2
-//NodeIndex : 5	Joint index : 3
-//NodeIndex : 6	Joint index : 4
-//NodeIndex : 7	Joint index : 5
-//NodeIndex : 8	Joint index : 6
-//NodeIndex : 9	Joint index : 7
-//NodeIndex : 10	Joint index : 8
-//NodeIndex : 11	Joint index : 9
-//NodeIndex : 12	Joint index : 10
-//NodeIndex : 13	Joint index : 11
-//NodeIndex : 14	Joint index : 12
-//NodeIndex : 15	Joint index : 13
-//NodeIndex : 16	Joint index : 14
-//NodeIndex : 17	Joint index : 15
-//NodeIndex : 18	Joint index : 16
-//NodeIndex : 19	Joint index : 17
-//NodeIndex : 20	Joint index : 18
-//NodeIndex : 21	Joint index : 19
-//NodeIndex : 22	Joint index : 20
-//NodeIndex : 23	Joint index : 21
-//NodeIndex : 24	Joint index : 22
-//NodeIndex : 25	Joint index : 23

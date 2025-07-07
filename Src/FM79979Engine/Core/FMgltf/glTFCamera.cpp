@@ -349,7 +349,7 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
         GLuint projLoc = glGetUniformLocation(e_uiProgramID, "uMat4Projection");
         GLuint l_uVec3ViewPosition = glGetUniformLocation(e_uiProgramID, "uVec3ViewPosition");
         //cMatrix44 viewMatrix = cMatrix44::LookAtMatrix(Vector3(0, -0, l_fCameraZPosition), Vector3(0, 0, 0), Vector3(0, 1, 0));
-		cMatrix44 viewMatrix = l_pCamera->GetWorldView();
+        cMatrix44 viewMatrix = l_pCamera->GetWorldView();
         if(e_pMatrix)
         {
             viewMatrix = e_pMatrix;
@@ -358,11 +358,18 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
         auto l_matProjectionMatrix = l_Proj.GetMatrix();// .GetglTFPerspectiveRH();
         //auto l_matProjectionMatrix = projectionMatrix.GetglTFPerspectiveRH();
         //auto l_matProjectionMatrix2 = projectionMatrix.GetMatrix();
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
-        glUniformMatrix4fv(projLoc, 1, GL_FALSE, l_matProjectionMatrix);
+        if (viewLoc != GL_INVALID_INDEX)
+        {
+            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, viewMatrix);
+		}
+        if (projLoc != GL_INVALID_INDEX)
+        {
+            glUniformMatrix4fv(projLoc, 1, GL_FALSE, l_matProjectionMatrix);
+        }
+
         if (l_uVec3ViewPosition != GL_INVALID_INDEX)
         {
-            Vector3 l_vCameraPos = viewMatrix.GetTranslation();
+            Vector3 l_vCameraPos = l_pCamera->GetWorldPosition();
             glUniform3fv(l_uVec3ViewPosition, 1, l_vCameraPos);
         }
 

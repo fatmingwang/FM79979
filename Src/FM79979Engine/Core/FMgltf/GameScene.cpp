@@ -53,6 +53,7 @@ void cglTFScene::Render()
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 	glClearColor(1.f, 0.1f, 0.1f, 1.0f);
+    glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     cBaseShader* l_pShader = GetCurrentShader();
     if (l_pShader)
     {
@@ -69,7 +70,7 @@ void cglTFScene::Render()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    //g_fCameraDebugRender();
+    g_fCameraDebugRender();
     if (m_pRootFrame)
     {
         m_pRootFrame->DebugRenderNodes();

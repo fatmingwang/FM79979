@@ -11,6 +11,31 @@ namespace FATMING_CORE
 
 TYPDE_DEFINE_MARCO(cMaterial);
 
+bool cMaterial::BindTecture(shared_ptr<cTexture> e_spTexture, GLuint& e_uiTextureUnit,const char*e_strTextureName)
+{
+    if (e_spTexture)
+    {
+        GLuint occlusionLoc = glGetUniformLocation(m_uiShaderProgrameID, e_strTextureName);
+        if (occlusionLoc != GL_INVALID_INDEX)
+        {
+            e_spTexture->ApplyImageWithActiveTextureID(e_uiTextureUnit);
+            glUniform1i(occlusionLoc, e_uiTextureUnit);
+            e_uiTextureUnit++;
+        }
+        else
+        {
+            FMLOG("not use in shader code");
+        }
+    }
+    else
+    {
+        glActiveTexture(GL_TEXTURE0 + e_uiTextureUnit);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        ++e_uiTextureUnit;
+    }
+    return false;
+}
+
 cMaterial::cMaterial()
 {
     m_baseColorFactor[0] = m_baseColorFactor[1] = m_baseColorFactor[2] = m_baseColorFactor[3] = 1.0f;
@@ -29,6 +54,23 @@ cMaterial::~cMaterial()
 void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Material& material)
 {
     this->SetName(material.name.c_str());
+    // Standard PBR in glTF 2.0
+    bool hasPBR = material.pbrMetallicRoughness.baseColorFactor.size() == 4;
+    // Unlit extension disables PBR
+    bool isUnlit = material.extensions.count("KHR_materials_unlit") > 0;
+
+    m_TectureAndTexCoordinateIndex.m_bUsePBR = (hasPBR && !isUnlit);
+    if (material.alphaMode.empty())
+    {
+        m_TectureAndTexCoordinateIndex.m_strAlphaMode = "OPAQUE";
+    }
+    else
+    {
+        m_TectureAndTexCoordinateIndex.m_strAlphaMode = material.alphaMode;
+    }
+        
+    m_TectureAndTexCoordinateIndex.m_fAlphaCutoff = (float)material.alphaCutoff;
+    FMLOG("MaterialName:%s", material.name.c_str());
 	m_bDoubleSize = material.doubleSided;
     if (m_bDoubleSize)
     {
@@ -38,14 +80,19 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     if (material.pbrMetallicRoughness.baseColorTexture.index >= 0)
     {
         const tinygltf::Texture& texture = model.textures[material.pbrMetallicRoughness.baseColorTexture.index];
-        const tinygltf::Image& image = model.images[texture.source];
+		m_TectureAndTexCoordinateIndex.m_iBaseColorTextureCoordinateIndex = material.pbrMetallicRoughness.baseColorTexture.texCoord;
+        tinygltf::Image image = model.images[texture.source];
         const tinygltf::Sampler*l_pSampler = nullptr;
         if (texture.sampler != -1)
         {
             l_pSampler = &model.samplers[texture.sampler];
         }        
+        if (image.name.empty())
+        {
+            image.name = material.name+"_BaceTexture_" + std::to_string(material.pbrMetallicRoughness.baseColorTexture.index);
+        }
         shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
-        m_uiBaseColorTextureVector.push_back(l_pTexture);
+        m_spBaseColorTexture = l_pTexture;
 		m_i64TextureFVFFlag |= FVF_BASE_COLOR_TEXTURE_FLAG;
     }
 
@@ -53,28 +100,38 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     if (material.normalTexture.index >= 0)
     {
         const tinygltf::Texture& texture = model.textures[material.normalTexture.index];
-        const tinygltf::Image& image = model.images[texture.source];
+        m_TectureAndTexCoordinateIndex.m_iNormalTextureCoordinateIndex = material.normalTexture.texCoord;
+        tinygltf::Image image = model.images[texture.source];
         const tinygltf::Sampler* l_pSampler = nullptr;
         if (texture.sampler != -1)
         {
             l_pSampler = &model.samplers[texture.sampler];
         }
+        if(image.name.empty())
+        {
+            image.name = material.name + "_NormalTexture_" + std::to_string(material.normalTexture.index);
+        }
         shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
-        m_uiNormalTextureVector.push_back(l_pTexture);
+        m_spNormalTexture = l_pTexture;
         m_i64TextureFVFFlag |= FVF_NORMAL_MAP_TEXTURE_FLAG;
     }
     // Load occlusion map texture (if available)
     if (material.occlusionTexture.index >= 0)
     {
         const tinygltf::Texture& texture = model.textures[material.occlusionTexture.index];
-        const tinygltf::Image& image = model.images[texture.source];
+        m_TectureAndTexCoordinateIndex.m_iOocclusionTextureCoordinateIndex = material.occlusionTexture.texCoord;
+        tinygltf::Image image = model.images[texture.source];
         const tinygltf::Sampler* l_pSampler = nullptr;
         if (texture.sampler != -1)
         {
             l_pSampler = &model.samplers[texture.sampler];
         }
+        if (image.name.empty())
+        {
+            image.name = material.name + "_OcclusionTexture_" + std::to_string(material.occlusionTexture.index);
+        }
         shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
-        m_uiOocclusionTextureVector.push_back(l_pTexture);
+        m_spOocclusionTexture = l_pTexture;
         m_i64TextureFVFFlag |=  FVF_FVF_OCCLUSION_TEXTURE_FLAG;
     }
 
@@ -82,14 +139,19 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     if (material.pbrMetallicRoughness.metallicRoughnessTexture.index >= 0)
     {
         const tinygltf::Texture& texture = model.textures[material.pbrMetallicRoughness.metallicRoughnessTexture.index];
-        const tinygltf::Image& image = model.images[texture.source];
+        m_TectureAndTexCoordinateIndex.m_iMetallicRoughnessTextureCoordinateIndex = material.pbrMetallicRoughness.metallicRoughnessTexture.texCoord;
+        tinygltf::Image image = model.images[texture.source];
         const tinygltf::Sampler* l_pSampler = nullptr;
         if (texture.sampler != -1)
         {
             l_pSampler = &model.samplers[texture.sampler];
         }
+        if (image.name.empty())
+        {
+            image.name = material.name + "_MetallicRoughnessTexture_" + std::to_string(material.pbrMetallicRoughness.metallicRoughnessTexture.index);
+        }
         shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
-        m_uiMetallicRoughnessTextureVector.push_back(l_pTexture);
+        m_spMetallicRoughnessTexture = l_pTexture;
         m_i64TextureFVFFlag |= FVF_METALLIC_ROUGHNESS_TEXTURE_FLAG;
     }
 
@@ -97,14 +159,19 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     if (material.emissiveTexture.index >= 0)
     {
         const tinygltf::Texture& texture = model.textures[material.emissiveTexture.index];
-        const tinygltf::Image& image = model.images[texture.source];
+        m_TectureAndTexCoordinateIndex.m_iEmissiveTextureCoordinateIndex = material.emissiveTexture.texCoord;
+        tinygltf::Image image = model.images[texture.source];
         const tinygltf::Sampler* l_pSampler = nullptr;
         if (texture.sampler != -1)
         {
             l_pSampler = &model.samplers[texture.sampler];
         }
+        if (image.name.empty())
+        {
+            image.name = material.name + "_EmissiveTexture_" + std::to_string(material.emissiveTexture.index);
+        }
         shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
-        m_uiEmissiveTextureIDVector.push_back(l_pTexture);
+        m_spEmissiveTexture = l_pTexture;
         m_i64TextureFVFFlag |= FVF_EMISSIVE_TEXTURE_FLAG;
     }
     for (size_t i = 0; i < 3; ++i)
@@ -120,18 +187,26 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     {
         m_baseColorFactor[i] = static_cast<float>(material.pbrMetallicRoughness.baseColorFactor[i]);
     }
+    if (m_baseColorFactor[3] < 1.f)
+    {
+        int a = 0;
+    }
 }
-
+#ifdef DEBUG
+extern std::string g_strVSForDebug;
+extern std::string g_strFSForDebug;
+#endif
 void  cMaterial::SetShaderProgramID(unsigned int e_uiShaderProgramID)
 {
     m_uiShaderProgrameID = e_uiShaderProgramID;
+#ifdef DEBUG
+    this->m_strFSShaderCode = g_strFSForDebug;
+#endif
 }
 
 
 void cMaterial::Apply()
 {
-    static bool l_bCullingBack = true;
-    if (l_bCullingBack != m_bDoubleSize)
     {
         if (m_bDoubleSize)
         {
@@ -143,80 +218,24 @@ void cMaterial::Apply()
             glCullFace(GL_BACK);     // Cull back faces (default for glTF)
             glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
         }
-        l_bCullingBack = m_bDoubleSize; 
-    }
-    GLuint textureUnit = 0;
-    // Bind base color texture
-    GLuint textureLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureDiffuse");
-    if (textureLoc != GL_INVALID_INDEX && !m_uiBaseColorTextureVector.empty())
-    {
-        for (size_t i = 0; i < m_uiBaseColorTextureVector.size(); ++i)
-        {
-            if (textureLoc != GL_INVALID_INDEX)
-            {
-                glUniform1i(textureLoc, textureUnit);
-            }
-            m_uiBaseColorTextureVector[i]->ApplyImageWithActiveTextureID(textureUnit);
-            textureUnit++;
-        }
-    }
-    else
-    {
-        // No base color texture: unbind from unit 0 and set uniform
-        glActiveTexture(GL_TEXTURE0 + textureUnit);
-        glBindTexture(GL_TEXTURE_2D, 0);
-        //if (textureLoc != GL_INVALID_INDEX)
+        //if (m_TectureAndTexCoordinateIndex.m_strAlphaMode == "BLEND")
         //{
-        //    glUniform1i(textureLoc, textureUnit);
+        //    glEnable(GL_BLEND);
+        //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        //    glDepthMask(GL_FALSE);
+        //}
+        //else
+        //{
+        //    glDisable(GL_BLEND);
+        //    glDepthMask(GL_TRUE);
         //}
     }
-    // Bind normal map texture
-    if (!m_uiNormalTextureVector.empty())
-    {
-        m_uiNormalTextureVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint normalMapLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureNormal");
-        if (normalMapLoc != GL_INVALID_INDEX)
-        {
-            glUniform1i(normalMapLoc, textureUnit);
-        }
-        textureUnit++;
-    }
-
-    // Bind occlusion texture
-    if (!m_uiOocclusionTextureVector.empty())
-    {
-        m_uiOocclusionTextureVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint occlusionLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureOcclusion");
-        if (occlusionLoc != GL_INVALID_INDEX)
-        {
-            glUniform1i(occlusionLoc, textureUnit);
-        }
-        textureUnit++;
-    }
-
-    // Bind metallic-roughness texture
-    if (!m_uiMetallicRoughnessTextureVector.empty())
-    {
-        m_uiMetallicRoughnessTextureVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint metallicRoughnessLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureMetallicRoughness");
-        if (metallicRoughnessLoc != GL_INVALID_INDEX)
-        {
-            glUniform1i(metallicRoughnessLoc, textureUnit);
-        }
-        textureUnit++;
-    }
-
-    // Bind emissive texture
-    if (!m_uiEmissiveTextureIDVector.empty())
-    {
-        m_uiEmissiveTextureIDVector[0]->ApplyImageWithActiveTextureID(textureUnit);
-        GLuint emissiveLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureEmissive");
-        if (emissiveLoc != GL_INVALID_INDEX)
-        {
-            glUniform1i(emissiveLoc, textureUnit);
-        }
-        textureUnit++;
-    }
+    GLuint l_TextureUnit = 0;
+    BindTecture(m_spBaseColorTexture, l_TextureUnit,"uTextureDiffuse");
+    BindTecture(m_spNormalTexture, l_TextureUnit,"uTextureNormal");
+    BindTecture(m_spOocclusionTexture, l_TextureUnit,"uTextureOcclusion");
+    BindTecture(m_spMetallicRoughnessTexture, l_TextureUnit,"uTextureMetallicRoughness");
+    BindTecture(m_spEmissiveTexture, l_TextureUnit,"uTextureEmissive");
     ApplyUnriforms();
 }
 
@@ -235,7 +254,11 @@ bool cMaterial::ApplyUnriforms()
     {
         success = false;
     }
-
+    GLuint alphaCutoffLoc = glGetUniformLocation(m_uiShaderProgrameID, "uAlphaCutoff");
+    if (alphaCutoffLoc != GL_INVALID_INDEX)
+    {
+        glUniform1f(alphaCutoffLoc,  this->m_TectureAndTexCoordinateIndex.m_fAlphaCutoff);
+    }
     // Set metallic factor
     GLuint metallicFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uMetallicFactor");
     if (metallicFactorLoc != GL_INVALID_INDEX)
