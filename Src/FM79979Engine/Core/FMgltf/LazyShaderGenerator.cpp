@@ -308,11 +308,27 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags, sTectureAndTexCoo
         l_strDefine += "#define USE_METALLIC_ROUGHNESS\n";
     if (e_i64FVFFlags & FVF_EMISSIVE_TEXTURE_FLAG)
         l_strDefine += "#define USE_EMISSIVE\n";
+    // Only add USE_SPECULAR for FS, and use sTectureAndTexCoordinateIndex for condition
+    if (e_pTectureAndTexCoordinateIndex && e_pTectureAndTexCoordinateIndex->m_bUseSpecular)
+        l_strDefine += "#define USE_SPECULAR\n";
+    // KHR_materials_specular
     if (e_pTectureAndTexCoordinateIndex->m_bUsePBR)
         l_strDefine += "#define USE_PBR\n";
     if (e_pTectureAndTexCoordinateIndex && e_pTectureAndTexCoordinateIndex->m_strAlphaMode == "MASK")
         l_strDefine += "#define ALPHA_MASK\n";
     l_strDefine += "#define MAX_LIGHT " + ValueToString(MAX_LIGHT);
+
+    // --- Add defines for specular textures if present ---
+    bool hasSpecularTexture = false, hasSpecularColorTexture = false;
+    if (e_pTectureAndTexCoordinateIndex)
+    {
+        hasSpecularTexture = e_pTectureAndTexCoordinateIndex->m_iSpecularTextureCoordinateIndex >= 0;
+        hasSpecularColorTexture = e_pTectureAndTexCoordinateIndex->m_iSpecularColorTextureCoordinateIndex >= 0;
+    }
+    if (hasSpecularTexture)
+        l_strDefine += "\n#define HAS_SPECULAR_TEXTURE";
+    if (hasSpecularColorTexture)
+        l_strDefine += "\n#define HAS_SPECULAR_COLOR_TEXTURE";
 
     std::string shaderCode;
 #if defined(WIN32)
@@ -371,6 +387,12 @@ uniform float uRoughnessFactor;
 uniform sampler2D uTextureEmissive;
 uniform vec3 uEmissiveFactor;
 #endif
+#ifdef USE_SPECULAR
+uniform sampler2D uTextureSpecular;
+uniform float uSpecularFactor;
+uniform sampler2D uTextureSpecularColor;
+uniform vec3 uSpecularColorFactor;
+#endif
 uniform float uAlphaCutoff;
 uniform samplerCube uTextureEnvironment; // New: Environment cubemap
 
@@ -425,10 +447,10 @@ vec3 FresnelSchlick(float cosTheta, vec3 F0)
     return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 }
 
-vec3 CalculatePBRLighting(vec3 N, vec3 V, vec3 L, vec3 lightColor, float lightIntensity, vec3 albedo, float roughness, float metallic, float occlusion)
+vec3 CalculatePBRLighting(vec3 N, vec3 V, vec3 L, vec3 lightColor, float lightIntensity, vec3 albedo, float roughness, float metallic, float occlusion, vec3 specularColor)
 {
     vec3 H = normalize(V + L);
-    vec3 F0 = mix(vec3(0.04), albedo, metallic);
+    vec3 F0 = mix(vec3(0.04), albedo, metallic) * specularColor;
     vec3 F = FresnelSchlick(max(dot(H, V), 0.0), F0);
     float NDF = DistributionGGX(N, H, roughness);
     float G = GeometrySmith(N, V, L, roughness);
@@ -523,6 +545,22 @@ if (alpha < uAlphaCutoff)
     vec3 emissive = vec3(0.0);
 #endif
 
+#ifdef USE_SPECULAR
+    float specularFactor = uSpecularFactor;
+    vec3 specularColor = uSpecularColorFactor;
+    #if defined(USE_TEXCOORD_0)
+    #ifdef HAS_SPECULAR_TEXTURE
+    specularColor *= texture(uTextureSpecular, toFSVec2TexCoord0).rgb;
+    #endif
+    #ifdef HAS_SPECULAR_COLOR_TEXTURE
+    specularColor *= texture(uTextureSpecularColor, toFSVec2TexCoord0).rgb;
+    #endif
+    #endif
+#else
+    float specularFactor = 1.0;
+    vec3 specularColor = vec3(1.0);
+#endif
+
     for (int i = 0; i < numLights.x; i++)
     {
         if(lights[i].xTypeyEnable.y == 0) // If light is not enabled
@@ -561,7 +599,7 @@ if (alpha < uAlphaCutoff)
             }
         }
 #ifdef USE_PBR
-        color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x * attenuation, albedo, roughness, metallic, occlusion);
+        color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x * attenuation, albedo, roughness, metallic, occlusion, specularColor);
 #else
         float diff = max(dot(vModelNormal, vLightDirection), 0.0)*lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x;
         color += (diff*albedo);
@@ -569,7 +607,7 @@ if (alpha < uAlphaCutoff)
     }
 #ifdef USE_PBR
  // Environment Reflection
-    vec3 F0 = mix(vec3(0.04), albedo, metallic);
+    vec3 F0 = mix(vec3(0.04), albedo, metallic) * specularColor;
     vec3 reflection = GetEnvironmentReflection(vModelNormal, vViewPostToVertexPos, roughness, F0) * (1.0 - occlusion); // Reduce reflection in occluded areas
     color += reflection * 0.5; // Blend with lighting
 #endif
@@ -602,7 +640,7 @@ if (alpha < uAlphaCutoff)
         };
 
     // Default indices if pointer is null
-    int baseColorIdx = 0, normalIdx = 0, occIdx = 0, emissiveIdx = 0, mrIdx = 0;
+    int baseColorIdx = 0, normalIdx = 0, occIdx = 0, emissiveIdx = 0, mrIdx = 0, specularIdx = 0, specularColorIdx = 0;
     if (e_pTectureAndTexCoordinateIndex)
     {
         baseColorIdx = e_pTectureAndTexCoordinateIndex->m_iBaseColorTextureCoordinateIndex;
@@ -610,6 +648,8 @@ if (alpha < uAlphaCutoff)
         occIdx = e_pTectureAndTexCoordinateIndex->m_iOocclusionTextureCoordinateIndex;
         emissiveIdx = e_pTectureAndTexCoordinateIndex->m_iEmissiveTextureCoordinateIndex;
         mrIdx = e_pTectureAndTexCoordinateIndex->m_iMetallicRoughnessTextureCoordinateIndex;
+        specularIdx = e_pTectureAndTexCoordinateIndex->m_iSpecularTextureCoordinateIndex;
+        specularColorIdx = e_pTectureAndTexCoordinateIndex->m_iSpecularColorTextureCoordinateIndex;
     }
 
     // Replace texcoord usages in the shader code
@@ -648,6 +688,18 @@ if (alpha < uAlphaCutoff)
     if (pos != std::string::npos)
         shaderCode.replace(pos, strlen("texture(uTextureEmissive, toFSVec2TexCoord0)"),
                            "texture(uTextureEmissive, " + GetTexCoordStr(emissiveIdx) + ")");
+
+    // Specular
+    pos = shaderCode.find("texture(uTextureSpecular, toFSVec2TexCoord0)");
+    if (pos != std::string::npos)
+        shaderCode.replace(pos, strlen("texture(uTextureSpecular, toFSVec2TexCoord0)"),
+                           "texture(uTextureSpecular, " + GetTexCoordStr(specularIdx) + ")");
+
+    // SpecularColor
+    pos = shaderCode.find("texture(uTextureSpecularColor, toFSVec2TexCoord0)");
+    if (pos != std::string::npos)
+        shaderCode.replace(pos, strlen("texture(uTextureSpecularColor, toFSVec2TexCoord0)"),
+                           "texture(uTextureSpecularColor, " + GetTexCoordStr(specularColorIdx) + ")");
 
     // --- End fix ---
 #if defined(DEBUG)// || defined(WASM)

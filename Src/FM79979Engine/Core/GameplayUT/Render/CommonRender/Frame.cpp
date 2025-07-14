@@ -268,14 +268,14 @@ namespace FATMING_CORE
 
 		// now we update our local transform to match the old world transform
 		// (i.e. move under our new parent's frame with no detectable change)
-		if (e_bUpdateRelatedPosition)
-		{
-			this->GetWorldTransform();
-		}
-		else
-		{
+		//if (e_bUpdateRelatedPosition)
+		//{
+		//	this->GetWorldTransform();
+		//}
+		//else
+		//{
 			SetCachedWorldTransformDirty();
-		}
+		//}
 	}
 
 

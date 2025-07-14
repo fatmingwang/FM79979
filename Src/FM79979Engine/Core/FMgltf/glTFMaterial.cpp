@@ -43,6 +43,10 @@ cMaterial::cMaterial()
     m_roughnessFactor = 1.0f;
     m_occlusionStrength = 1.0f;
     m_emissiveFactor[0] = m_emissiveFactor[1] = m_emissiveFactor[2] = 0.0f;
+    m_specularFactor = 1.0f;
+    m_spSpecularTexture = nullptr;
+    m_spSpecularColorTexture = nullptr;
+    m_specularColorFactor[0] = m_specularColorFactor[1] = m_specularColorFactor[2] = 1.0f;
 }
 
 cMaterial::~cMaterial()
@@ -174,6 +178,72 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         m_spEmissiveTexture = l_pTexture;
         m_i64TextureFVFFlag |= FVF_EMISSIVE_TEXTURE_FLAG;
     }
+
+    // --- KHR_materials_specular extension ---
+    m_specularFactor = 1.0f;
+    m_spSpecularTexture = nullptr;
+    m_spSpecularColorTexture = nullptr;
+    m_specularColorFactor[0] = m_specularColorFactor[1] = m_specularColorFactor[2] = 1.0f;
+    if (material.extensions.count("KHR_materials_specular")) {
+        const auto& ext = material.extensions.at("KHR_materials_specular");
+        if (ext.Has("specularFactor"))
+        {
+            m_specularFactor = (float)ext.Get("specularFactor").GetNumberAsDouble();
+        }
+            
+        if (ext.Has("specularTexture")) 
+        {
+            const auto& specTex = ext.Get("specularTexture");
+            int texIndex = specTex.Get("index").GetNumberAsInt();
+            int texCoord = 0;
+            if (specTex.Has("texCoord"))
+            { 
+                texCoord = specTex.Get("texCoord").GetNumberAsInt();
+            }
+            m_TectureAndTexCoordinateIndex.m_iSpecularTextureCoordinateIndex = texCoord;
+            if (texIndex >= 0 && texIndex < (int)model.textures.size()) {
+                const tinygltf::Texture& texture = model.textures[texIndex];
+                tinygltf::Image image = model.images[texture.source];
+                const tinygltf::Sampler* l_pSampler = nullptr;
+                if (texture.sampler != -1)
+                {
+                    l_pSampler = &model.samplers[texture.sampler];
+                }
+                    
+                if (image.name.empty())
+                {
+                    image.name = material.name + "_SpecularTexture_" + std::to_string(texIndex);
+                }
+                m_spSpecularTexture = GetTexture(image, l_pSampler);
+                m_TectureAndTexCoordinateIndex.m_bUseSpecular = true;
+            }
+        }
+        if (ext.Has("specularColorFactor")) {
+            const auto& arr = ext.Get("specularColorFactor");
+            for (int i = 0; i < 3; ++i) {
+                m_specularColorFactor[i] = arr.Get(i).GetNumberAsDouble();
+            }
+        }
+        if (ext.Has("specularColorTexture")) {
+            const auto& specColTex = ext.Get("specularColorTexture");
+            int texIndex = specColTex.Get("index").GetNumberAsInt();
+            int texCoord = 0;
+            if (specColTex.Has("texCoord"))
+                texCoord = specColTex.Get("texCoord").GetNumberAsInt();
+            m_TectureAndTexCoordinateIndex.m_iSpecularColorTextureCoordinateIndex = texCoord;
+            if (texIndex >= 0 && texIndex < (int)model.textures.size()) {
+                const tinygltf::Texture& texture = model.textures[texIndex];
+                tinygltf::Image image = model.images[texture.source];
+                const tinygltf::Sampler* l_pSampler = nullptr;
+                if (texture.sampler != -1)
+                    l_pSampler = &model.samplers[texture.sampler];
+                if (image.name.empty())
+                    image.name = material.name + "_SpecularColorTexture_" + std::to_string(texIndex);
+                m_spSpecularColorTexture = GetTexture(image, l_pSampler);
+            }
+        }
+    }
+
     for (size_t i = 0; i < 3; ++i)
     {
         m_emissiveFactor[i] = static_cast<float>(material.emissiveFactor[i]);
@@ -236,6 +306,9 @@ void cMaterial::Apply()
     BindTecture(m_spOocclusionTexture, l_TextureUnit,"uTextureOcclusion");
     BindTecture(m_spMetallicRoughnessTexture, l_TextureUnit,"uTextureMetallicRoughness");
     BindTecture(m_spEmissiveTexture, l_TextureUnit,"uTextureEmissive");
+    // KHR_materials_specular
+    BindTecture(m_spSpecularTexture, l_TextureUnit,"uTextureSpecular");
+    BindTecture(m_spSpecularColorTexture, l_TextureUnit,"uTextureSpecularColor");
     ApplyUnriforms();
 }
 
@@ -302,6 +375,17 @@ bool cMaterial::ApplyUnriforms()
     {
         success = false;
     }
+
+    // --- KHR_materials_specular ---
+    GLuint specularFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uSpecularFactor");
+    if (specularFactorLoc != GL_INVALID_INDEX)
+        glUniform1f(specularFactorLoc, m_specularFactor);
+    else success = false;
+
+    GLuint specularColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uSpecularColorFactor");
+    if (specularColorFactorLoc != GL_INVALID_INDEX)
+        glUniform3fv(specularColorFactorLoc, 1, m_specularColorFactor);
+    else success = false;
 
     return success;
 }

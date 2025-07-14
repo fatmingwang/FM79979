@@ -9,7 +9,10 @@ struct sTectureAndTexCoordinateIndex
     int m_iOocclusionTextureCoordinateIndex = 0;
     int m_iEmissiveTextureCoordinateIndex = 0;
     int m_iMetallicRoughnessTextureCoordinateIndex = 0;
+    int m_iSpecularTextureCoordinateIndex = -1; // KHR_materials_specular
+    int m_iSpecularColorTextureCoordinateIndex = -1; // KHR_materials_specular
     bool m_bUsePBR = false;
+    bool m_bUseSpecular = false;
     std::string m_strAlphaMode = "OPAQUE";
     float m_fAlphaCutoff = 0.5f;
 };
@@ -26,6 +29,8 @@ class cMaterial:public NamedTypedObject
     shared_ptr<cTexture>    m_spOocclusionTexture;  // Occlusion maps
     shared_ptr<cTexture>    m_spEmissiveTexture; // Emissive maps (if needed)
     shared_ptr<cTexture>    m_spMetallicRoughnessTexture; // 
+    shared_ptr<cTexture>    m_spSpecularTexture; // KHR_materials_specular
+    shared_ptr<cTexture>    m_spSpecularColorTexture; // KHR_materials_specular
     //Metallic - roughness maps
     // PBR uniform factors
     float m_baseColorFactor[4];    // RGBA
@@ -33,6 +38,8 @@ class cMaterial:public NamedTypedObject
     float m_roughnessFactor;
     float m_occlusionStrength;
     float m_emissiveFactor[3];     // RGB
+    float m_specularFactor = 1.0f; // KHR_materials_specular
+    float m_specularColorFactor[3] = {1.0f, 1.0f, 1.0f}; // KHR_materials_specular
     sTectureAndTexCoordinateIndex   m_TectureAndTexCoordinateIndex;
 	bool	ApplyUnriforms();
     shared_ptr<cTexture> GetTexture(const tinygltf::Image& e_Image,const tinygltf::Sampler*);

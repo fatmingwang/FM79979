@@ -70,10 +70,10 @@ void cglTFScene::Render()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    g_fCameraDebugRender();
+    //g_fCameraDebugRender();
     if (m_pRootFrame)
     {
-        m_pRootFrame->DebugRenderNodes();
+        //m_pRootFrame->DebugRenderNodes();
     }
     
 }

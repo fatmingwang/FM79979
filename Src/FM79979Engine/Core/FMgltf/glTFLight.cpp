@@ -227,7 +227,8 @@ void  cLighController::Update(float e_fElpaseTime)
 
         l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f;// UT::GetFloatModulus(angle, 10);
         // Update the light's position in a circular path
-        Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
+        //Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
+        Vector3 l_vLightDirection = Vector3(0,0, -10.0f);
         //Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
         l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
 
