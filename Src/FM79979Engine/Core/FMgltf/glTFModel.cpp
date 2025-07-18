@@ -563,40 +563,6 @@ GLuint cglTFModel::GetShaderProgram(int64 e_i64FVFFlags,int64 e_i64TextureFVF, i
     return shaderProgram;
 }
 
-
-cMatrix44 GetNodeMatrix(const tinygltf::Node& node)
-{
-    cMatrix44 matrix = cMatrix44::Identity;
-    // Apply scale
-    if (node.scale.size() == 3)
-    {
-        Vector3 scale((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
-        matrix *= cMatrix44::ScaleMatrix(scale);
-    }
-    // Apply rotation
-    if (node.rotation.size() == 4)
-    {
-
-        Quaternion rotation((float)node.rotation[3], (float)node.rotation[0], (float)node.rotation[1], (float)node.rotation[2]);
-        matrix *= rotation.ToMatrix();
-    }
-    // Apply translation
-    if (node.translation.size() == 3)
-    {
-        Vector3 translation((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
-        matrix = cMatrix44::TranslationMatrix(translation);
-    }
-
-    // Apply matrix if present
-    if (node.matrix.size() == 16)
-    {
-        cMatrix44 nodeMatrix = cMatrix44(node.matrix.data());
-        matrix *= nodeMatrix;
-    }
-
-    return matrix;
-}
-
 bool cglTFModel::LoadFromGLTF(const std::string& e_strFilename, bool e_bCalculateBiNormal,int e_iInstanceValue)
 {
     this->SetName(e_strFilename.c_str());

@@ -230,14 +230,18 @@ namespace FATMING_CORE
 
 		UpdateCachedWorldTransformIfNeeded();
 		if (m_pParent == pParent)
+		{
 			return;
+		}
 		if (m_pParent)
 		{
 			pLast = nullptr;
 			for (pSrch = m_pParent->m_pFirstChild; pSrch; pSrch = pSrch->m_pNextSibling)
 			{
 				if (pSrch == this)
+				{
 					break;
+				}
 				pLast = pSrch;
 			}
 
