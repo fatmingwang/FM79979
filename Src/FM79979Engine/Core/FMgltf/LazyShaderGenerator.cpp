@@ -312,7 +312,7 @@ std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags, sTectureAndTexCoo
     if (e_pTectureAndTexCoordinateIndex && e_pTectureAndTexCoordinateIndex->m_bUseSpecular)
         l_strDefine += "#define USE_SPECULAR\n";
     // KHR_materials_specular
-    if (e_pTectureAndTexCoordinateIndex->m_bUsePBR)
+    if (e_pTectureAndTexCoordinateIndex && e_pTectureAndTexCoordinateIndex->m_bUsePBR)
         l_strDefine += "#define USE_PBR\n";
     if (e_pTectureAndTexCoordinateIndex && e_pTectureAndTexCoordinateIndex->m_strAlphaMode == "MASK")
         l_strDefine += "#define ALPHA_MASK\n";

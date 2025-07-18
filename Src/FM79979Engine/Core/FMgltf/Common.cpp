@@ -20,6 +20,8 @@ void	DumpBoneIndexDebugInfo(cglTFNodeData* e_pBone, bool e_bDoNextSibling, bool 
     l_strDebugInfo += ValueToString(e_pBone->m_iNodeIndex);
     l_strDebugInfo += ",Name:";
     l_strDebugInfo += e_pBone->GetCharName();
+    l_strDebugInfo += ",Matrix:";
+    l_strDebugInfo += ValueToString(e_pBone->GetWorldTransform());
     //FMLog::LogWithFlag(l_str, CORE_LOG_FLAG);
     FMLog::Log(l_strDebugInfo.c_str(), false);
     if (e_pBone->GetFirstChild())

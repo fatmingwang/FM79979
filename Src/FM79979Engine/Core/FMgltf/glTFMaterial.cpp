@@ -277,28 +277,32 @@ void  cMaterial::SetShaderProgramID(unsigned int e_uiShaderProgramID)
 
 void cMaterial::Apply()
 {
+    if (m_bDoubleSize)
     {
-        if (m_bDoubleSize)
-        {
-            glDisable(GL_CULL_FACE); // Disable culling for double-sided rendering
-        }
-        else
-        {
-            glEnable(GL_CULL_FACE);  // Enable back-face culling
-            glCullFace(GL_BACK);     // Cull back faces (default for glTF)
-            glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
-        }
-        //if (m_TectureAndTexCoordinateIndex.m_strAlphaMode == "BLEND")
-        //{
-        //    glEnable(GL_BLEND);
-        //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        //    glDepthMask(GL_FALSE);
-        //}
-        //else
-        //{
-        //    glDisable(GL_BLEND);
-        //    glDepthMask(GL_TRUE);
-        //}
+        glDisable(GL_CULL_FACE); // Disable culling for double-sided rendering
+    }
+    else
+    {
+        glEnable(GL_CULL_FACE);  // Enable back-face culling
+        glCullFace(GL_BACK);     // Cull back faces (default for glTF)
+        glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
+    }
+    // Handle alpha mode
+    if (m_TectureAndTexCoordinateIndex.m_strAlphaMode == "BLEND")
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glDepthMask(GL_FALSE);
+    }
+    else if (m_TectureAndTexCoordinateIndex.m_strAlphaMode == "MASK")
+    {
+        glDisable(GL_BLEND);
+        glDepthMask(GL_TRUE);
+    }
+    else // OPAQUE
+    {
+        glDisable(GL_BLEND);
+        glDepthMask(GL_TRUE);
     }
     GLuint l_TextureUnit = 0;
     BindTecture(m_spBaseColorTexture, l_TextureUnit,"uTextureDiffuse");

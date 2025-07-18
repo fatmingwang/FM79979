@@ -38,6 +38,10 @@ int glTFInit()
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/leshark.glb",100);
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Flamingo.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/sponza.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/headtest2__1_.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/falling_cube.glb");
+        
+        
         
         
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Avocado.gltf");

@@ -213,10 +213,10 @@ void cglTFNodeData::ApplySRT(const sSRT& srt, bool e_bSetChildBonesDirty)
 
 void cglTFNodeData::Update(float e_fElpaseTime)
 {
-    //if (this->m_pMesh)
-    //{
-    //    this->m_pMesh->Update(e_fElpaseTime);
-    //}
+    if (this->m_pMesh)
+    {
+        this->m_pMesh->Update(e_fElpaseTime);
+    }
 }
 
 void cglTFNodeData::Render()
