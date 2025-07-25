@@ -396,6 +396,14 @@ uniform vec3 uSpecularColorFactor;
 uniform float uAlphaCutoff;
 uniform samplerCube uTextureEnvironment; // New: Environment cubemap
 
+// Transmission uniforms
+uniform float uTransmissionFactor;
+uniform sampler2D uTextureTransmission;
+uniform float uIOR;
+uniform float uThicknessFactor;
+uniform float uAttenuationDistance;
+uniform vec3 uAttenuationColor;
+
 // Light data structure matching std140 layout
 struct Light
 {
@@ -547,12 +555,16 @@ if (alpha < uAlphaCutoff)
 
 #ifdef USE_SPECULAR
     float specularFactor = uSpecularFactor;
-    vec3 specularColor = uSpecularColorFactor;
     #if defined(USE_TEXCOORD_0)
     #ifdef HAS_SPECULAR_TEXTURE
-    specularColor *= texture(uTextureSpecular, toFSVec2TexCoord0).rgb;
+    // Use only the alpha channel for specularFactor
+    specularFactor *= texture(uTextureSpecular, toFSVec2TexCoord0).a;
     #endif
+    #endif
+    vec3 specularColor = uSpecularColorFactor;
+    #if defined(USE_TEXCOORD_0)
     #ifdef HAS_SPECULAR_COLOR_TEXTURE
+    // Use only RGB for F0
     specularColor *= texture(uTextureSpecularColor, toFSVec2TexCoord0).rgb;
     #endif
     #endif
@@ -577,7 +589,6 @@ if (alpha < uAlphaCutoff)
         else 
         if (l_iType == 3) // Ambient light
         {
-            //color += lights[i].color.xyz * albedo * occlusion;
             color += lights[i].color.xyz * albedo * occlusion * 0.2;
             continue;
         }
@@ -599,7 +610,8 @@ if (alpha < uAlphaCutoff)
             }
         }
 #ifdef USE_PBR
-        color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x * attenuation, albedo, roughness, metallic, occlusion, specularColor);
+        // Correct: apply specularFactor only to the specular term
+        color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x * attenuation, albedo, roughness, metallic, occlusion, specularColor) * specularFactor;
 #else
         float diff = max(dot(vModelNormal, vLightDirection), 0.0)*lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x;
         color += (diff*albedo);
@@ -613,6 +625,30 @@ if (alpha < uAlphaCutoff)
 #endif
 
     color += emissive;
+
+    // Transmission logic (simplified, real implementation should use screen-space ray tracing for refraction)
+    float transmission = uTransmissionFactor;
+    #ifdef USE_TEXCOORD_0
+    vec3 transmissionColor = vec3(1.0);
+    transmissionColor *= transmission;
+    transmissionColor *= texture(uTextureTransmission, toFSVec2TexCoord0).r;
+    #endif
+    // Attenuation (volume absorption)
+    float thickness = uThicknessFactor;
+    float attenuationDist = uAttenuationDistance;
+    vec3 attenuationColor = uAttenuationColor;
+    if (thickness > 0.0 && attenuationDist > 0.0)
+    {
+        float att = exp(-thickness / attenuationDist);
+        transmissionColor *= mix(vec3(1.0), attenuationColor, att);
+    }
+    // IOR (index of refraction) can be used for Fresnel blending
+    float ior = uIOR;
+    float eta = 1.0 / ior;
+    float fresnel = pow(1.0 - max(dot(vModelNormal, vViewPostToVertexPos), 0.0), 5.0);
+    // Blend transmission with surface color
+    color = mix(color, transmissionColor, transmission * (1.0 - fresnel));
+
     color = vec3(1.0) - exp(-color * 0.3);           // Tone mapping
     FragColor = vec4(pow(color, vec3(1.0 / 2.2)), alpha);
     //for normal debug

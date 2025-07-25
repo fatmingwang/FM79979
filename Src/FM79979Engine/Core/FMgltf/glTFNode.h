@@ -67,7 +67,8 @@ public:
 
 
 
-#define	FORCE_CHECK_GL_ERROR(p) {}//ForceGlErrorTest(p,__FILE__, __LINE__)
+//#define	FORCE_CHECK_GL_ERROR(p) {}//ForceGlErrorTest(p,__FILE__, __LINE__)
+#define	FORCE_CHECK_GL_ERROR(p) ForceGlErrorTest(p,__FILE__, __LINE__)
 
 inline void	ForceGlErrorTest(const char* e_strMessage, const char* e_strFileName, int32_t e_iCodeLine)
 {

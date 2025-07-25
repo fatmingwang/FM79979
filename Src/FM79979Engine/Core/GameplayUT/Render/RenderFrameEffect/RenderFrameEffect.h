@@ -29,5 +29,22 @@ namespace FATMING_CORE
 		virtual bool	Collide(int e_iPosX, int e_iPosY)override;
 		void			SetScissorWithTransform();
 	};
+
+	class cFrameBufferNode : public cRenderObject
+	{
+		std::unique_ptr<class cFrameBuffer> m_pFrameBuffer;
+		std::unique_ptr<cTexture> m_pFrameBufferTexture;
+		bool m_bIsRenderingToBuffer = false;
+		unsigned int m_uiWidth = 0;
+		unsigned int m_uiHeight = 0;
+	public:
+		cFrameBufferNode(unsigned int width, unsigned int height, bool depth = true, GLenum imageType = GL_RGBA, GLenum dataType = GL_UNSIGNED_BYTE);
+		virtual ~cFrameBufferNode();
+		virtual void Render() override;
+		virtual void EndRender() override;
+		cTexture* GetFrameBufferTexture() const;
+		unsigned int GetWidth() const;
+		unsigned int GetHeight() const;
+	};
 //end namespace FATMING_CORE
 }

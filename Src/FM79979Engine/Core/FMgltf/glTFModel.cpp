@@ -392,7 +392,7 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
         if (!l_IT->second->GetParent())
         {
             l_IT->second->SetParent(this,false);
-            //DumpBoneIndexDebugInfo(l_IT->second, false, true);
+            DumpBoneIndexDebugInfo(l_IT->second, false, true);
         }
     }
 }

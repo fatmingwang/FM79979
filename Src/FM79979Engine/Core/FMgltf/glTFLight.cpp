@@ -9,7 +9,7 @@ TYPDE_DEFINE_MARCO(cLighFrameData);
 //    "KHR_lights_punctual": {
 //        "lights": [
 //        {
-//            "type": "point",
+//            "type" : "point",
 //                "color" : [1.0, 1.0, 1.0] ,
 //                "intensity" : 10.0,
 //                "range" : 5.0,
@@ -136,7 +136,7 @@ std::shared_ptr<sLightData> cglTFLight::CreateDirectionLight()
 {
     sLightData light;
     light.m_0Type1Enable[0] = (int)eLightType::eLT_DIRECTIONAL; // Directional light
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f;                       // Intensity of the light
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 0.0f;                           // Not used for directional lights
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.0f;                  // Not used for directional lights
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.0f;                  // Not used for directional lights
@@ -152,7 +152,7 @@ std::shared_ptr<sLightData> cglTFLight::CreateAmbientLight()
 {
     sLightData l_AmbientLight;
     l_AmbientLight.m_0Type1Enable[0] = (int)eLightType::eLT_AMBIENT;
-    l_AmbientLight.m_vColor = Vector4(0.1f, 0.1f, 0.1f,1.f); // Ambient light color 
+    l_AmbientLight.m_vColor = Vector4(0.3f, 0.3f, 0.3f,1.f); // Increased ambient color for more fill light
     l_AmbientLight.m_vPosition = Vector4(0.f, 0.f, 0.f,0.f); // Position of the ambient light
 	l_AmbientLight.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f; // Intensity of the ambient light
     l_AmbientLight.m_0Type1Enable[1] = 1;
@@ -225,7 +225,7 @@ void  cLighController::Update(float e_fElpaseTime)
         static float angle = 0.0f; // Angle for dynamic movement
         angle += e_fElpaseTime/4; // Adjust speed based on frame time
 
-        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f;// UT::GetFloatModulus(angle, 10);
+        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
         // Update the light's position in a circular path
         //Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
         Vector3 l_vLightDirection = Vector3(0,0, -10.0f);

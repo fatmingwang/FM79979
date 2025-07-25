@@ -17,6 +17,25 @@ struct sTectureAndTexCoordinateIndex
     float m_fAlphaCutoff = 0.5f;
 };
 
+struct KHRSpecularExtension {
+    float specularFactor = 1.0f;
+    shared_ptr<cTexture> specularTexture;
+    float specularColorFactor[3] = {1.0f, 1.0f, 1.0f};
+    shared_ptr<cTexture> specularColorTexture;
+};
+struct KHRTransmissionExtension {
+    float transmissionFactor = 0.0f;
+    shared_ptr<cTexture> transmissionTexture;
+};
+struct KHRIorExtension {
+    float ior = 1.5f;
+};
+struct KHRVolumeExtension {
+    float thicknessFactor = 0.0f;
+    float attenuationDistance = 0.0f;
+    float attenuationColor[3] = {1.0f, 1.0f, 1.0f};
+};
+
 class cMaterial:public NamedTypedObject
 {
 	int64        m_i64TextureFVFFlag = 0;
@@ -31,6 +50,13 @@ class cMaterial:public NamedTypedObject
     shared_ptr<cTexture>    m_spMetallicRoughnessTexture; // 
     shared_ptr<cTexture>    m_spSpecularTexture; // KHR_materials_specular
     shared_ptr<cTexture>    m_spSpecularColorTexture; // KHR_materials_specular
+    // Transmission, IOR, Volume extensions
+    float m_transmissionFactor = 0.0f;
+    shared_ptr<cTexture> m_spTransmissionTexture;
+    float m_ior = 1.5f;
+    float m_thicknessFactor = 0.0f;
+    float m_attenuationDistance = 0.0f;
+    float m_attenuationColor[3] = {1.0f, 1.0f, 1.0f};
     //Metallic - roughness maps
     // PBR uniform factors
     float m_baseColorFactor[4];    // RGBA
@@ -59,6 +85,8 @@ public:
     {
         return &m_TectureAndTexCoordinateIndex;
     }
+    std::unique_ptr<KHRSpecularExtension> m_pSpecularExtension;
+    std::unique_ptr<KHRTransmissionExtension> m_pTransmissionExtension;
+    std::unique_ptr<KHRIorExtension> m_pIORExtension;
+    std::unique_ptr<KHRVolumeExtension> m_pVolumeExtension;
 };
-//const tinygltf::Material& material
-//m_pTexture = new cTexture(this,e_pPixelsData,e_iWidth,e_iHeight,e_strName,true,false,e_iDataFormat);

@@ -1,4 +1,7 @@
 #include "RenderFrameEffect.h"
+#include "../OpenGLObject/FrameBuffer.h"
+#include "../Texture/Texture.h"
+#include "../Texture/TextureManager.h"
 
 namespace FATMING_CORE
 {
@@ -78,4 +81,42 @@ namespace FATMING_CORE
 	{
 		return m_vWorldPosScissorRect.CollidePoint(e_iPosX, e_iPosY);
 	}
+}
+cFrameBufferNode::cFrameBufferNode(unsigned int width, unsigned int height, bool depth, GLenum imageType, GLenum dataType)
+    : m_uiWidth(width), m_uiHeight(height)
+{
+    m_pFrameBuffer = std::make_unique<cFrameBuffer>(width, height, depth, imageType, dataType);
+}
+cFrameBufferNode::~cFrameBufferNode() {}
+void cFrameBufferNode::Render()
+{
+    // Start rendering to framebuffer
+    m_pFrameBuffer->StartDraw(true);
+    m_bIsRenderingToBuffer = true;
+}
+void cFrameBufferNode::EndRender()
+{
+    m_pFrameBuffer->EndDraw();
+    m_bIsRenderingToBuffer = false;
+    // Update texture reference
+    GLuint texID = m_pFrameBuffer->GetTextureID();
+    auto sharedTex = cTextureManager::GetObjectByPixels(nullptr, m_uiWidth, m_uiHeight, L"FrameBufferNodeTexture", texID);
+    if (!m_pFrameBufferTexture || m_pFrameBufferTexture->m_uiImageIndex != texID)
+    {
+        m_pFrameBufferTexture.reset();
+        m_pFrameBufferTexture = std::unique_ptr<cTexture>(sharedTex.get());
+        m_pFrameBufferTexture->m_uiImageIndex = texID;
+    }
+}
+cTexture* cFrameBufferNode::GetFrameBufferTexture() const
+{
+    return m_pFrameBufferTexture.get();
+}
+unsigned int cFrameBufferNode::GetWidth() const
+{
+    return m_uiWidth;
+}
+unsigned int cFrameBufferNode::GetHeight() const
+{
+    return m_uiHeight;
 }

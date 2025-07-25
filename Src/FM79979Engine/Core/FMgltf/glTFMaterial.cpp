@@ -180,49 +180,35 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
     }
 
     // --- KHR_materials_specular extension ---
-    m_specularFactor = 1.0f;
-    m_spSpecularTexture = nullptr;
-    m_spSpecularColorTexture = nullptr;
-    m_specularColorFactor[0] = m_specularColorFactor[1] = m_specularColorFactor[2] = 1.0f;
+    m_pSpecularExtension = nullptr;
     if (material.extensions.count("KHR_materials_specular")) {
+        m_pSpecularExtension = std::make_unique<KHRSpecularExtension>();
         const auto& ext = material.extensions.at("KHR_materials_specular");
         if (ext.Has("specularFactor"))
-        {
-            m_specularFactor = (float)ext.Get("specularFactor").GetNumberAsDouble();
-        }
-            
-        if (ext.Has("specularTexture")) 
-        {
+            m_pSpecularExtension->specularFactor = (float)ext.Get("specularFactor").GetNumberAsDouble();
+        if (ext.Has("specularTexture")) {
             const auto& specTex = ext.Get("specularTexture");
             int texIndex = specTex.Get("index").GetNumberAsInt();
             int texCoord = 0;
             if (specTex.Has("texCoord"))
-            { 
                 texCoord = specTex.Get("texCoord").GetNumberAsInt();
-            }
             m_TectureAndTexCoordinateIndex.m_iSpecularTextureCoordinateIndex = texCoord;
             if (texIndex >= 0 && texIndex < (int)model.textures.size()) {
                 const tinygltf::Texture& texture = model.textures[texIndex];
                 tinygltf::Image image = model.images[texture.source];
                 const tinygltf::Sampler* l_pSampler = nullptr;
                 if (texture.sampler != -1)
-                {
                     l_pSampler = &model.samplers[texture.sampler];
-                }
-                    
                 if (image.name.empty())
-                {
                     image.name = material.name + "_SpecularTexture_" + std::to_string(texIndex);
-                }
-                m_spSpecularTexture = GetTexture(image, l_pSampler);
+                m_pSpecularExtension->specularTexture = GetTexture(image, l_pSampler);
                 m_TectureAndTexCoordinateIndex.m_bUseSpecular = true;
             }
         }
         if (ext.Has("specularColorFactor")) {
             const auto& arr = ext.Get("specularColorFactor");
-            for (int i = 0; i < 3; ++i) {
-                m_specularColorFactor[i] = arr.Get(i).GetNumberAsDouble();
-            }
+            for (int i = 0; i < 3; ++i)
+                m_pSpecularExtension->specularColorFactor[i] = arr.Get(i).GetNumberAsDouble();
         }
         if (ext.Has("specularColorTexture")) {
             const auto& specColTex = ext.Get("specularColorTexture");
@@ -239,8 +225,56 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
                     l_pSampler = &model.samplers[texture.sampler];
                 if (image.name.empty())
                     image.name = material.name + "_SpecularColorTexture_" + std::to_string(texIndex);
-                m_spSpecularColorTexture = GetTexture(image, l_pSampler);
+                m_pSpecularExtension->specularColorTexture = GetTexture(image, l_pSampler);
             }
+        }
+    }
+    // --- KHR_materials_transmission ---
+    m_pTransmissionExtension = nullptr;
+    if (material.extensions.count("KHR_materials_transmission")) {
+        m_pTransmissionExtension = std::make_unique<KHRTransmissionExtension>();
+        const auto& ext = material.extensions.at("KHR_materials_transmission");
+        if (ext.Has("transmissionFactor"))
+            m_pTransmissionExtension->transmissionFactor = (float)ext.Get("transmissionFactor").GetNumberAsDouble();
+        if (ext.Has("transmissionTexture")) {
+            const auto& transTex = ext.Get("transmissionTexture");
+            int texIndex = transTex.Get("index").GetNumberAsInt();
+            int texCoord = 0;
+            if (transTex.Has("texCoord"))
+                texCoord = transTex.Get("texCoord").GetNumberAsInt();
+            if (texIndex >= 0 && texIndex < (int)model.textures.size()) {
+                const tinygltf::Texture& texture = model.textures[texIndex];
+                tinygltf::Image image = model.images[texture.source];
+                const tinygltf::Sampler* l_pSampler = nullptr;
+                if (texture.sampler != -1)
+                    l_pSampler = &model.samplers[texture.sampler];
+                if (image.name.empty())
+                    image.name = material.name + "_TransmissionTexture_" + std::to_string(texIndex);
+                m_pTransmissionExtension->transmissionTexture = GetTexture(image, l_pSampler);
+            }
+        }
+    }
+    // --- KHR_materials_ior ---
+    m_pIORExtension = nullptr;
+    if (material.extensions.count("KHR_materials_ior")) {
+        m_pIORExtension = std::make_unique<KHRIorExtension>();
+        const auto& ext = material.extensions.at("KHR_materials_ior");
+        if (ext.Has("ior"))
+            m_pIORExtension->ior = (float)ext.Get("ior").GetNumberAsDouble();
+    }
+    // --- KHR_materials_volume ---
+    m_pVolumeExtension = nullptr;
+    if (material.extensions.count("KHR_materials_volume")) {
+        m_pVolumeExtension = std::make_unique<KHRVolumeExtension>();
+        const auto& ext = material.extensions.at("KHR_materials_volume");
+        if (ext.Has("thicknessFactor"))
+            m_pVolumeExtension->thicknessFactor = (float)ext.Get("thicknessFactor").GetNumberAsDouble();
+        if (ext.Has("attenuationDistance"))
+            m_pVolumeExtension->attenuationDistance = (float)ext.Get("attenuationDistance").GetNumberAsDouble();
+        if (ext.Has("attenuationColor")) {
+            const auto& arr = ext.Get("attenuationColor");
+            for (int i = 0; i < 3; ++i)
+                m_pVolumeExtension->attenuationColor[i] = (float)arr.Get(i).GetNumberAsDouble();
         }
     }
 
@@ -277,32 +311,28 @@ void  cMaterial::SetShaderProgramID(unsigned int e_uiShaderProgramID)
 
 void cMaterial::Apply()
 {
-    if (m_bDoubleSize)
     {
-        glDisable(GL_CULL_FACE); // Disable culling for double-sided rendering
-    }
-    else
-    {
-        glEnable(GL_CULL_FACE);  // Enable back-face culling
-        glCullFace(GL_BACK);     // Cull back faces (default for glTF)
-        glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
-    }
-    // Handle alpha mode
-    if (m_TectureAndTexCoordinateIndex.m_strAlphaMode == "BLEND")
-    {
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glDepthMask(GL_FALSE);
-    }
-    else if (m_TectureAndTexCoordinateIndex.m_strAlphaMode == "MASK")
-    {
-        glDisable(GL_BLEND);
-        glDepthMask(GL_TRUE);
-    }
-    else // OPAQUE
-    {
-        glDisable(GL_BLEND);
-        glDepthMask(GL_TRUE);
+        if (m_bDoubleSize)
+        {
+            glDisable(GL_CULL_FACE); // Disable culling for double-sided rendering
+        }
+        else
+        {
+            glEnable(GL_CULL_FACE);  // Enable back-face culling
+            glCullFace(GL_BACK);     // Cull back faces (default for glTF)
+            glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
+        }
+        //if (m_TectureAndTexCoordinateIndex.m_strAlphaMode == "BLEND")
+        //{
+        //    glEnable(GL_BLEND);
+        //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        //    glDepthMask(GL_FALSE);
+        //}
+        //else
+        //{
+        //    glDisable(GL_BLEND);
+        //    glDepthMask(GL_TRUE);
+        //}
     }
     GLuint l_TextureUnit = 0;
     BindTecture(m_spBaseColorTexture, l_TextureUnit,"uTextureDiffuse");
@@ -313,6 +343,7 @@ void cMaterial::Apply()
     // KHR_materials_specular
     BindTecture(m_spSpecularTexture, l_TextureUnit,"uTextureSpecular");
     BindTecture(m_spSpecularColorTexture, l_TextureUnit,"uTextureSpecularColor");
+    BindTecture(m_spTransmissionTexture, l_TextureUnit, "uTextureTransmission");
     ApplyUnriforms();
 }
 
@@ -320,7 +351,6 @@ void cMaterial::Apply()
 bool cMaterial::ApplyUnriforms()
 {
     bool success = true;
-
     // Set base color factor
     GLuint baseColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uBaseColorFactor");
     if (baseColorFactorLoc != GL_INVALID_INDEX)
@@ -346,7 +376,6 @@ bool cMaterial::ApplyUnriforms()
     {
         success = false;
     }
-
     // Set roughness factor
     GLuint roughnessFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uRoughnessFactor");
     if (roughnessFactorLoc != GL_INVALID_INDEX)
@@ -357,7 +386,6 @@ bool cMaterial::ApplyUnriforms()
     {
         success = false;
     }
-
     // Set occlusion strength
     GLuint occlusionStrengthLoc = glGetUniformLocation(m_uiShaderProgrameID, "uOcclusionStrength");
     if (occlusionStrengthLoc != GL_INVALID_INDEX)
@@ -368,7 +396,6 @@ bool cMaterial::ApplyUnriforms()
     {
         success = false;
     }
-
     // Set emissive factor
     GLuint emissiveFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uEmissiveFactor");
     if (emissiveFactorLoc != GL_INVALID_INDEX)
@@ -379,18 +406,46 @@ bool cMaterial::ApplyUnriforms()
     {
         success = false;
     }
-
     // --- KHR_materials_specular ---
-    GLuint specularFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uSpecularFactor");
-    if (specularFactorLoc != GL_INVALID_INDEX)
-        glUniform1f(specularFactorLoc, m_specularFactor);
-    else success = false;
-
-    GLuint specularColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uSpecularColorFactor");
-    if (specularColorFactorLoc != GL_INVALID_INDEX)
-        glUniform3fv(specularColorFactorLoc, 1, m_specularColorFactor);
-    else success = false;
-
+    if (m_pSpecularExtension) {
+        GLuint specularFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uSpecularFactor");
+        if (specularFactorLoc != GL_INVALID_INDEX)
+            glUniform1f(specularFactorLoc, m_pSpecularExtension->specularFactor);
+        else success = false;
+        GLuint specularColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uSpecularColorFactor");
+        if (specularColorFactorLoc != GL_INVALID_INDEX)
+            glUniform3fv(specularColorFactorLoc, 1, m_pSpecularExtension->specularColorFactor);
+        else success = false;
+    }
+    // --- KHR_materials_transmission ---
+    if (m_pTransmissionExtension) {
+        GLuint transmissionFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTransmissionFactor");
+        if (transmissionFactorLoc != GL_INVALID_INDEX)
+            glUniform1f(transmissionFactorLoc, m_pTransmissionExtension->transmissionFactor);
+        else success = false;
+    }
+    // --- KHR_materials_ior ---
+    if (m_pIORExtension) {
+        GLuint iorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIOR");
+        if (iorLoc != GL_INVALID_INDEX)
+            glUniform1f(iorLoc, m_pIORExtension->ior);
+        else success = false;
+    }
+    // --- KHR_materials_volume ---
+    if (m_pVolumeExtension) {
+        GLuint thicknessFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uThicknessFactor");
+        if (thicknessFactorLoc != GL_INVALID_INDEX)
+            glUniform1f(thicknessFactorLoc, m_pVolumeExtension->thicknessFactor);
+        else success = false;
+        GLuint attenuationDistanceLoc = glGetUniformLocation(m_uiShaderProgrameID, "uAttenuationDistance");
+        if (attenuationDistanceLoc != GL_INVALID_INDEX)
+            glUniform1f(attenuationDistanceLoc, m_pVolumeExtension->attenuationDistance);
+        else success = false;
+        GLuint attenuationColorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uAttenuationColor");
+        if (attenuationColorLoc != GL_INVALID_INDEX)
+            glUniform3fv(attenuationColorLoc, 1, m_pVolumeExtension->attenuationColor);
+        else success = false;
+    }
     return success;
 }
 
@@ -433,3 +488,4 @@ shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image,const 
     l_pTexture->Disable();
     return l_pTexture;
 }
+
