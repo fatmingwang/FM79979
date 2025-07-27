@@ -287,7 +287,7 @@ void main()
 std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags, sTectureAndTexCoordinateIndex* e_pTectureAndTexCoordinateIndex)
 {
     std::string l_strDefine;
-    // Define macros based on FVF flags
+    // Define macros based on FFV flags
     if (e_i64FVFFlags & FVF_TEX0_FLAG)
         l_strDefine += "#define USE_TEXCOORD_0\n";
     if (e_i64FVFFlags & FVF_TEX1_FLAG)
@@ -640,14 +640,18 @@ if (alpha < uAlphaCutoff)
     if (thickness > 0.0 && attenuationDist > 0.0)
     {
         float att = exp(-thickness / attenuationDist);
+#ifdef USE_TEXCOORD_0
         transmissionColor *= mix(vec3(1.0), attenuationColor, att);
+#endif
     }
     // IOR (index of refraction) can be used for Fresnel blending
     float ior = uIOR;
     float eta = 1.0 / ior;
     float fresnel = pow(1.0 - max(dot(vModelNormal, vViewPostToVertexPos), 0.0), 5.0);
     // Blend transmission with surface color
+#ifdef USE_TEXCOORD_0
     color = mix(color, transmissionColor, transmission * (1.0 - fresnel));
+#endif
 
     color = vec3(1.0) - exp(-color * 0.3);           // Tone mapping
     FragColor = vec4(pow(color, vec3(1.0 / 2.2)), alpha);
@@ -737,6 +741,18 @@ if (alpha < uAlphaCutoff)
         shaderCode.replace(pos, strlen("texture(uTextureSpecularColor, toFSVec2TexCoord0)"),
                            "texture(uTextureSpecularColor, " + GetTexCoordStr(specularColorIdx) + ")");
 
+    // Clearcoat
+    pos = shaderCode.find("texture(uTextureClearcoat, toFSVec2TexCoord0)");
+    if (pos != std::string::npos)
+        shaderCode.replace(pos, strlen("texture(uTextureClearcoat, toFSVec2TexCoord0)"),
+                           "texture(uTextureClearcoat, " + GetTexCoordStr(baseColorIdx) + ")");
+
+    // Clearcoat Roughness
+    pos = shaderCode.find("texture(uTextureClearcoatRoughness, toFSVec2TexCoord0)");
+    if (pos != std::string::npos)
+        shaderCode.replace(pos, strlen("texture(uTextureClearcoatRoughness, toFSVec2TexCoord0)"),
+                           "texture(uTextureClearcoatRoughness, " + GetTexCoordStr(mrIdx) + ")");
+
     // --- End fix ---
 #if defined(DEBUG)// || defined(WASM)
     FMLOG(shaderCode.c_str());
@@ -744,3 +760,38 @@ if (alpha < uAlphaCutoff)
 #endif
     return shaderCode;
 }
+
+
+// --- Extension logic in main() ---
+#ifdef USE_CLEARCOAT
+    float clearcoat = uClearcoatFactor;
+    float clearcoatRoughness = uClearcoatRoughnessFactor;
+    #ifdef USE_TEXCOORD_0
+    clearcoat *= texture(uTextureClearcoat, toFSVec2TexCoord0).r;
+    clearcoatRoughness *= texture(uTextureClearcoatRoughness, toFSVec2TexCoord0).g;
+    #endif
+    // Clearcoat normal perturbation
+    vec3 clearcoatNormal = vModelNormal;
+    #ifdef USE_TEXCOORD_0
+    clearcoatNormal = normalize(texture(uTextureClearcoatNormal, toFSVec2TexCoord0).rgb * 2.0 - 1.0);
+    #endif
+#endif
+#ifdef USE_EMISSIVE_STRENGTH
+    emissive *= uEmissiveStrength;
+#endif
+#ifdef USE_IRIDESCENCE
+    float iridescence = uIridescenceFactor;
+    float iridescenceIOR = uIridescenceIOR;
+    float iridescenceThickness = mix(uIridescenceThicknessMin, uIridescenceThicknessMax, 0.5);
+    #ifdef USE_TEXCOORD_0
+    iridescence *= texture(uTextureIridescence, toFSVec2TexCoord0).r;
+    iridescenceThickness *= texture(uTextureIridescenceThickness, toFSVec2TexCoord0).g;
+    #endif
+    // Iridescence effect can be added here
+#endif
+#ifdef USE_TRANSMISSION
+    transmission *= uTransmissionFactor;
+    #ifdef USE_TEXCOORD_0
+    transmission *= texture(uTextureTransmission, toFSVec2TexCoord0).r;
+    #endif
+#endif

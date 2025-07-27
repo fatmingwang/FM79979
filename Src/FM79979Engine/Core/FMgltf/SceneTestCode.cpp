@@ -27,7 +27,7 @@ int glTFInit()
 {
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
-    bool l_bDoAnimTexture = false;
+    bool l_bDoAnimTexture = true;
     {
         cglTFModel* l_pModel = nullptr;
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
@@ -59,7 +59,7 @@ int glTFInit()
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
         if(!l_pModel)
-            l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf");
+            l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",100);
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
         if (!l_pModel)
         {
@@ -72,7 +72,7 @@ int glTFInit()
             //l_pSkinningAnimTestClassl1->SetData(l_pModel->GetAnimationInstanceManagerVector(), "PickUp");
             l_pSkinningAnimTestClassl1->SetData(l_pModel->GetAnimationInstanceManagerVector(), "Walking");
             l_pRootFrame->AddChild(l_pSkinningAnimTestClassl1);
-            if (0)
+            if (1)
             {
                 cSkinningAnimInstanceClass* l_pSkinningAnimTestClassl2 = new cSkinningAnimInstanceClass();
                 l_pSkinningAnimTestClassl2->SetLocalPosition(Vector3(0, 0, -15));

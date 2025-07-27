@@ -1,5 +1,7 @@
 #include "../AllCoreInclude.h"
 #include "glTFMaterial.h"
+#include "../Math/Vector3.h"
+#include "../Math/Vector4.h"
 
 namespace FATMING_CORE
 {
@@ -38,15 +40,16 @@ bool cMaterial::BindTecture(shared_ptr<cTexture> e_spTexture, GLuint& e_uiTextur
 
 cMaterial::cMaterial()
 {
-    m_baseColorFactor[0] = m_baseColorFactor[1] = m_baseColorFactor[2] = m_baseColorFactor[3] = 1.0f;
+    m_vBaseColorFactor = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
     m_metallicFactor = 1.0f;
     m_roughnessFactor = 1.0f;
     m_occlusionStrength = 1.0f;
-    m_emissiveFactor[0] = m_emissiveFactor[1] = m_emissiveFactor[2] = 0.0f;
+    m_vEmissiveFactor = Vector3(0.0f, 0.0f, 0.0f);
     m_specularFactor = 1.0f;
     m_spSpecularTexture = nullptr;
     m_spSpecularColorTexture = nullptr;
-    m_specularColorFactor[0] = m_specularColorFactor[1] = m_specularColorFactor[2] = 1.0f;
+    m_vSpecularColorFactor = Vector3(1.0f, 1.0f, 1.0f);
+    m_vAttenuationColor = Vector3(1.0f, 1.0f, 1.0f);
 }
 
 cMaterial::~cMaterial()
@@ -208,7 +211,9 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         if (ext.Has("specularColorFactor")) {
             const auto& arr = ext.Get("specularColorFactor");
             for (int i = 0; i < 3; ++i)
-                m_pSpecularExtension->specularColorFactor[i] = arr.Get(i).GetNumberAsDouble();
+            {
+                m_pSpecularExtension->specularColorFactor[i] = (float)arr.Get(i).GetNumberAsDouble();
+            }
         }
         if (ext.Has("specularColorTexture")) {
             const auto& specColTex = ext.Get("specularColorTexture");
@@ -277,21 +282,161 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
                 m_pVolumeExtension->attenuationColor[i] = (float)arr.Get(i).GetNumberAsDouble();
         }
     }
+    // --- KHR_materials_clearcoat ---
+    m_pClearcoatExtension = nullptr;
+    if (material.extensions.count("KHR_materials_clearcoat")) {
+        m_pClearcoatExtension = std::make_unique<KHRClearcoatExtension>();
+        const auto& ext = material.extensions.at("KHR_materials_clearcoat");
+        if (ext.Has("clearcoatFactor"))
+            m_pClearcoatExtension->clearcoatFactor = (float)ext.Get("clearcoatFactor").GetNumberAsDouble();
+        if (ext.Has("clearcoatTexture")) {
+            const auto& ccTex = ext.Get("clearcoatTexture");
+            int texIndex = ccTex.Get("index").GetNumberAsInt();
+            int texCoord = 0;
+            if (ccTex.Has("texCoord"))
+                texCoord = ccTex.Get("texCoord").GetNumberAsInt();
+            if (texIndex >= 0 && texIndex < (int)model.textures.size()) {
+                const tinygltf::Texture& texture = model.textures[texIndex];
+                tinygltf::Image image = model.images[texture.source];
+                const tinygltf::Sampler* l_pSampler = nullptr;
+                if (texture.sampler != -1)
+                    l_pSampler = &model.samplers[texture.sampler];
+                if (image.name.empty())
+                    image.name = material.name + "_ClearcoatTexture_" + std::to_string(texIndex);
+                m_pClearcoatExtension->clearcoatTexture = GetTexture(image, l_pSampler);
+            }
+        }
+        if (ext.Has("clearcoatRoughnessFactor"))
+            m_pClearcoatExtension->clearcoatRoughnessFactor = (float)ext.Get("clearcoatRoughnessFactor").GetNumberAsDouble();
+        if (ext.Has("clearcoatRoughnessTexture")) {
+            const auto& ccRoughTex = ext.Get("clearcoatRoughnessTexture");
+            int texIndex = ccRoughTex.Get("index").GetNumberAsInt();
+            int texCoord = 0;
+            if (ccRoughTex.Has("texCoord"))
+                texCoord = ccRoughTex.Get("texCoord").GetNumberAsInt();
+            if (texIndex >= 0 && texIndex < (int)model.textures.size()) {
+                const tinygltf::Texture& texture = model.textures[texIndex];
+                tinygltf::Image image = model.images[texture.source];
+                const tinygltf::Sampler* l_pSampler = nullptr;
+                if (texture.sampler != -1)
+                    l_pSampler = &model.samplers[texture.sampler];
+                if (image.name.empty())
+                    image.name = material.name + "_ClearcoatRoughnessTexture_" + std::to_string(texIndex);
+                m_pClearcoatExtension->clearcoatRoughnessTexture = GetTexture(image, l_pSampler);
+            }
+        }
+    }
+    // --- KHR_materials_emissive_strength ---
+    m_pEmissiveStrengthExtension = nullptr;
+    if (material.extensions.count("KHR_materials_emissive_strength")) {
+        m_pEmissiveStrengthExtension = std::make_unique<KHREmissiveStrengthExtension>();
+        const auto& ext = material.extensions.at("KHR_materials_emissive_strength");
+        if (ext.Has("emissiveStrength"))
+            m_pEmissiveStrengthExtension->emissiveStrength = (float)ext.Get("emissiveStrength").GetNumberAsDouble();
+    }
+    // --- KHR_materials_iridescence ---
+    m_pIridescenceExtension = nullptr;
+    if (material.extensions.count("KHR_materials_iridescence")) {
+        m_pIridescenceExtension = std::make_unique<KHRIridescenceExtension>();
+        const auto& ext = material.extensions.at("KHR_materials_iridescence");
+        if (ext.Has("iridescenceFactor"))
+            m_pIridescenceExtension->iridescenceFactor = (float)ext.Get("iridescenceFactor").GetNumberAsDouble();
+        if (ext.Has("iridescenceTexture")) {
+            const auto& irTex = ext.Get("iridescenceTexture");
+            int texIndex = irTex.Get("index").GetNumberAsInt();
+            int texCoord = 0;
+            if (irTex.Has("texCoord"))
+                texCoord = irTex.Get("texCoord").GetNumberAsInt();
+            if (texIndex >= 0 && texIndex < (int)model.textures.size()) {
+                const tinygltf::Texture& texture = model.textures[texIndex];
+                tinygltf::Image image = model.images[texture.source];
+                const tinygltf::Sampler* l_pSampler = nullptr;
+                if (texture.sampler != -1)
+                    l_pSampler = &model.samplers[texture.sampler];
+                if (image.name.empty())
+                    image.name = material.name + "_IridescenceTexture_" + std::to_string(texIndex);
+                m_pIridescenceExtension->iridescenceTexture = GetTexture(image, l_pSampler);
+            }
+        }
+        if (ext.Has("iridescenceIor"))
+            m_pIridescenceExtension->iridescenceIor = (float)ext.Get("iridescenceIor").GetNumberAsDouble();
+        if (ext.Has("iridescenceThicknessMinimum"))
+            m_pIridescenceExtension->iridescenceThicknessMinimum = (float)ext.Get("iridescenceThicknessMinimum").GetNumberAsDouble();
+        if (ext.Has("iridescenceThicknessMaximum"))
+            m_pIridescenceExtension->iridescenceThicknessMaximum = (float)ext.Get("iridescenceThicknessMaximum").GetNumberAsDouble();
+        if (ext.Has("iridescenceThicknessTexture")) {
+            const auto& irThickTex = ext.Get("iridescenceThicknessTexture");
+            int texIndex = irThickTex.Get("index").GetNumberAsInt();
+            int texCoord = 0;
+            if (irThickTex.Has("texCoord"))
+                texCoord = irThickTex.Get("texCoord").GetNumberAsInt();
+            if (texIndex >= 0 && texIndex < (int)model.textures.size()) {
+                const tinygltf::Texture& texture = model.textures[texIndex];
+                tinygltf::Image image = model.images[texture.source];
+                const tinygltf::Sampler* l_pSampler = nullptr;
+                if (texture.sampler != -1)
+                    l_pSampler = &model.samplers[texture.sampler];
+                if (image.name.empty())
+                    image.name = material.name + "_IridescenceThicknessTexture_" + std::to_string(texIndex);
+                m_pIridescenceExtension->iridescenceThicknessTexture = GetTexture(image, l_pSampler);
+            }
+        }
+    }
+    // --- KHR_materials_variants ---
+    m_pVariantsExtension = nullptr;
+    if (material.extensions.count("KHR_materials_variants")) {
+        m_pVariantsExtension = std::make_unique<KHRVariantsExtension>();
+        const auto& ext = material.extensions.at("KHR_materials_variants");
+        if (ext.Has("variants")) {
+            const auto& arr = ext.Get("variants");
+            for (size_t i = 0; i < arr.ArrayLen(); ++i) {
+                const auto& variant = arr.Get(i);
+                if (variant.Has("name") && variant.Get("name").IsString()) {
+                    m_pVariantsExtension->variantNames.push_back(variant.Get("name").Get<std::string>());
+                } else {
+                    m_pVariantsExtension->variantNames.push_back("");
+                }
+                if (variant.Has("material")) {
+                    m_pVariantsExtension->materialIndices.push_back(variant.Get("material").GetNumberAsInt());
+                } else {
+                    m_pVariantsExtension->materialIndices.push_back(-1);
+                }
+            }
+        }
+    }
+    // --- KHR_texture_transform ---
+    m_pTextureTransformExtension = nullptr;
+    if (material.extensions.count("KHR_texture_transform")) {
+        m_pTextureTransformExtension = std::make_unique<KHRTextureTransformExtension>();
+        const auto& ext = material.extensions.at("KHR_texture_transform");
+        if (ext.Has("offset")) {
+            const auto& arr = ext.Get("offset");
+            m_pTextureTransformExtension->offset[0] = (float)arr.Get(0).GetNumberAsDouble();
+            m_pTextureTransformExtension->offset[1] = (float)arr.Get(1).GetNumberAsDouble();
+        }
+        if (ext.Has("rotation"))
+            m_pTextureTransformExtension->rotation = (float)ext.Get("rotation").GetNumberAsDouble();
+        if (ext.Has("scale")) {
+            const auto& arr = ext.Get("scale");
+            m_pTextureTransformExtension->scale[0] = (float)arr.Get(0).GetNumberAsDouble();
+            m_pTextureTransformExtension->scale[1] = (float)arr.Get(1).GetNumberAsDouble();
+        }
+        if (ext.Has("texCoord"))
+            m_pTextureTransformExtension->texCoord = ext.Get("texCoord").GetNumberAsInt();
+    }
 
     for (size_t i = 0; i < 3; ++i)
     {
-        m_emissiveFactor[i] = static_cast<float>(material.emissiveFactor[i]);
+        m_vEmissiveFactor[i] = static_cast<float>(material.emissiveFactor[i]);
     }
     m_metallicFactor = static_cast<float>(material.pbrMetallicRoughness.metallicFactor);
     m_roughnessFactor = static_cast<float>(material.pbrMetallicRoughness.roughnessFactor);
-    // Load occlusion strength
     m_occlusionStrength = static_cast<float>(material.occlusionTexture.strength);
-    // Load base color factor
     for (size_t i = 0; i < 4; ++i)
     {
-        m_baseColorFactor[i] = static_cast<float>(material.pbrMetallicRoughness.baseColorFactor[i]);
+        m_vBaseColorFactor[i] = static_cast<float>(material.pbrMetallicRoughness.baseColorFactor[i]);
     }
-    if (m_baseColorFactor[3] < 1.f)
+    if (m_vBaseColorFactor[3] < 1.f)
     {
         int a = 0;
     }
@@ -344,6 +489,16 @@ void cMaterial::Apply()
     BindTecture(m_spSpecularTexture, l_TextureUnit,"uTextureSpecular");
     BindTecture(m_spSpecularColorTexture, l_TextureUnit,"uTextureSpecularColor");
     BindTecture(m_spTransmissionTexture, l_TextureUnit, "uTextureTransmission");
+    // --- KHR_materials_clearcoat ---
+    if (m_pClearcoatExtension) {
+        BindTecture(m_pClearcoatExtension->clearcoatTexture, l_TextureUnit, "uTextureClearcoat");
+        BindTecture(m_pClearcoatExtension->clearcoatRoughnessTexture, l_TextureUnit, "uTextureClearcoatRoughness");
+    }
+    // --- KHR_materials_iridescence ---
+    if (m_pIridescenceExtension) {
+        BindTecture(m_pIridescenceExtension->iridescenceTexture, l_TextureUnit, "uTextureIridescence");
+        BindTecture(m_pIridescenceExtension->iridescenceThicknessTexture, l_TextureUnit, "uTextureIridescenceThickness");
+    }
     ApplyUnriforms();
 }
 
@@ -351,11 +506,10 @@ void cMaterial::Apply()
 bool cMaterial::ApplyUnriforms()
 {
     bool success = true;
-    // Set base color factor
     GLuint baseColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uBaseColorFactor");
     if (baseColorFactorLoc != GL_INVALID_INDEX)
     {
-        glUniform4fv(baseColorFactorLoc, 1, m_baseColorFactor);
+        glUniform4fv(baseColorFactorLoc, 1, m_vBaseColorFactor);
     }
     else
     {
@@ -400,7 +554,7 @@ bool cMaterial::ApplyUnriforms()
     GLuint emissiveFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uEmissiveFactor");
     if (emissiveFactorLoc != GL_INVALID_INDEX)
     {
-        glUniform3fv(emissiveFactorLoc, 1, m_emissiveFactor);
+        glUniform3fv(emissiveFactorLoc, 1, m_vEmissiveFactor);
     }
     else
     {
@@ -414,7 +568,9 @@ bool cMaterial::ApplyUnriforms()
         else success = false;
         GLuint specularColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uSpecularColorFactor");
         if (specularColorFactorLoc != GL_INVALID_INDEX)
+        {
             glUniform3fv(specularColorFactorLoc, 1, m_pSpecularExtension->specularColorFactor);
+        }
         else success = false;
     }
     // --- KHR_materials_transmission ---
@@ -443,7 +599,65 @@ bool cMaterial::ApplyUnriforms()
         else success = false;
         GLuint attenuationColorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uAttenuationColor");
         if (attenuationColorLoc != GL_INVALID_INDEX)
+        {
             glUniform3fv(attenuationColorLoc, 1, m_pVolumeExtension->attenuationColor);
+        }
+        else success = false;
+    }
+    // --- KHR_materials_clearcoat ---
+    if (m_pClearcoatExtension) {
+        GLuint clearcoatFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uClearcoatFactor");
+        if (clearcoatFactorLoc != GL_INVALID_INDEX)
+            glUniform1f(clearcoatFactorLoc, m_pClearcoatExtension->clearcoatFactor);
+        else success = false;
+        GLuint clearcoatRoughnessFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uClearcoatRoughnessFactor");
+        if (clearcoatRoughnessFactorLoc != GL_INVALID_INDEX)
+            glUniform1f(clearcoatRoughnessFactorLoc, m_pClearcoatExtension->clearcoatRoughnessFactor);
+        else success = false;
+    }
+    // --- KHR_materials_emissive_strength ---
+    if (m_pEmissiveStrengthExtension) {
+        GLuint emissiveStrengthLoc = glGetUniformLocation(m_uiShaderProgrameID, "uEmissiveStrength");
+        if (emissiveStrengthLoc != GL_INVALID_INDEX)
+            glUniform1f(emissiveStrengthLoc, m_pEmissiveStrengthExtension->emissiveStrength);
+        else success = false;
+    }
+    // --- KHR_materials_iridescence ---
+    if (m_pIridescenceExtension) {
+        GLuint iridescenceFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIridescenceFactor");
+        if (iridescenceFactorLoc != GL_INVALID_INDEX)
+            glUniform1f(iridescenceFactorLoc, m_pIridescenceExtension->iridescenceFactor);
+        else success = false;
+        GLuint iridescenceIorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIridescenceIor");
+        if (iridescenceIorLoc != GL_INVALID_INDEX)
+            glUniform1f(iridescenceIorLoc, m_pIridescenceExtension->iridescenceIor);
+        else success = false;
+        GLuint iridescenceThicknessMinLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIridescenceThicknessMinimum");
+        if (iridescenceThicknessMinLoc != GL_INVALID_INDEX)
+            glUniform1f(iridescenceThicknessMinLoc, m_pIridescenceExtension->iridescenceThicknessMinimum);
+        else success = false;
+        GLuint iridescenceThicknessMaxLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIridescenceThicknessMaximum");
+        if (iridescenceThicknessMaxLoc != GL_INVALID_INDEX)
+            glUniform1f(iridescenceThicknessMaxLoc, m_pIridescenceExtension->iridescenceThicknessMaximum);
+        else success = false;
+    }
+    // --- KHR_texture_transform ---
+    if (m_pTextureTransformExtension) {
+        GLuint offsetLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureTransformOffset");
+        if (offsetLoc != GL_INVALID_INDEX)
+            glUniform2fv(offsetLoc, 1, m_pTextureTransformExtension->offset);
+        else success = false;
+        GLuint rotationLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureTransformRotation");
+        if (rotationLoc != GL_INVALID_INDEX)
+            glUniform1f(rotationLoc, m_pTextureTransformExtension->rotation);
+        else success = false;
+        GLuint scaleLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureTransformScale");
+        if (scaleLoc != GL_INVALID_INDEX)
+            glUniform2fv(scaleLoc, 1, m_pTextureTransformExtension->scale);
+        else success = false;
+        GLuint texCoordLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureTransformTexCoord");
+        if (texCoordLoc != GL_INVALID_INDEX)
+            glUniform1i(texCoordLoc, m_pTextureTransformExtension->texCoord);
         else success = false;
     }
     return success;
