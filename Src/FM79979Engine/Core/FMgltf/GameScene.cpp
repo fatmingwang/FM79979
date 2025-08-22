@@ -29,14 +29,6 @@ Frame* cglTFScene::GetRootFrame() const
 {
     return m_pRootFrame.get();
 }
-//cCameraController* cglTFScene::GetCameraController() const
-//{
-//    return m_pCameraController.get();
-//}
-//cLighController* cglTFScene::GetLightController() const
-//{
-//    return m_pLightController;
-//}
 
 // Recursive update
 void cglTFScene::Update(float e_fElpaseTime)
@@ -73,7 +65,11 @@ void cglTFScene::Render()
     {
 		m_pRootFrame->RenderNodes();
     }
-
+    UseShaderProgram();
+    auto l_matWVP = cCameraController::GetInstance()->GetCurrentCamera()->GetWorldViewProjection();
+    //FATMING_CORE::SetupShaderViewProjectionMatrix(m_Projection.GetMatrix() * this->GetWorldView(), true);
+    FATMING_CORE::SetupShaderViewProjectionMatrix(l_matWVP, true);
+    cLighController::GetInstance()->DebugRender();
     glUseProgram(0);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);

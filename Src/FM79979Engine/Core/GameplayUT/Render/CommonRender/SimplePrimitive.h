@@ -125,6 +125,11 @@ namespace GLRender
 
 	void	RenderCube(Vector3 e_vSize,cMatrix44 e_mat,Vector4 e_vColor);
 	void	RenderPlane(cMatrix44 e_mat,float	e_fWidth = 100,float	e_fHeight = 100,float e_fGridWidthDistance = 10,float e_fGridHeightDistance = 10,float e_fLineWidth = 7.f,Vector4 e_vColor = Vector4(1,1,1,1));
+
+	void	DrawLine(const Vector3& from, const Vector3& to, const Vector4& color);
+	void	DrawCircle(const Vector3& center, float radius, const Vector4& color);
+	void	DrawSphere(const Vector3& center, float radius, const Vector4& color);
+	void	DrawCone(const Vector3& base, const Vector3& dir, float height, float radius, const Vector4& color);
 	//
 	void	RenderVectorProject(Vector3 e_v1,Vector3 e_v2,cMatrix44 e_mat = cMatrix44::TranslationMatrix(Vector3(300,-300,0)));
 	//frome UV(left up right buttom) to 2 triangles vertex

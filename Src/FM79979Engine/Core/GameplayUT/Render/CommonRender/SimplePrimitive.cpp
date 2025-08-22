@@ -1,3 +1,4 @@
+#include "../../../Math/Vector3.h"
 #include "SimplePrimitive.h"
 #include "../../GameApp/GameApp.h"
 #include "../../OpenGL/OpenGLRender.h"
@@ -564,10 +565,8 @@ namespace GLRender
 									 D.x-l_vD10Percent.x,D.y-l_vD10Percent.y,D.z-l_vD10Percent.z,
 
 									 D.x,D.y,D.z,
-									 D.x-l_vD10Percent.x,D.y-l_vD10Percent.y,D.z+l_vD10Percent.z,
-
-									 D.x,D.y,D.z,
 									 D.x-l_vD10Percent.x,D.y+l_vD10Percent.y,D.z-l_vD10Percent.z,
+
 
 									 D.x,D.y,D.z,
 									 D.x-l_vD10Percent.x,D.y+l_vD10Percent.y,D.z+l_vD10Percent.z,
@@ -1129,69 +1128,65 @@ namespace GLRender
 		glDisable2D();	
 	}
 
-	void	RenderCube(Vector3 e_vSize,cMatrix44 e_mat,Vector4 e_vColor)
+	void	DrawLine(const Vector3& from, const Vector3& to, const Vector4& color)
 	{
-				//2,3				5
-				//0					1,4
-		UseShaderProgram(NO_TEXTURE_SHADER);
-		FATMING_CORE::SetupShaderWorldMatrix(e_mat);
-		FATMING_CORE::SetupShaderColor(e_vColor);
-		const int l_ciVertexCount = 36;
-		Vector4	l_vColor[l_ciVertexCount];
-		//3 for xyz
-		Vector3	l_vVetrices[l_ciVertexCount*3] = {
-			//
-			Vector3(-e_vSize.x, e_vSize.y, e_vSize.z),					// Bottom Left Of The Quad (Top)
-			Vector3( e_vSize.x, e_vSize.y, e_vSize.z),					// Bottom Right Of The Quad (Top)
-			Vector3(-e_vSize.x, e_vSize.y,-e_vSize.z),					// Top Left Of The Quad (Top)
-
-			Vector3(-e_vSize.x, e_vSize.y,-e_vSize.z),					// Top Left Of The Quad (Top)
-			Vector3( e_vSize.x, e_vSize.y, e_vSize.z),					// Bottom Right Of The Quad (Top)
-			Vector3( e_vSize.x, e_vSize.y,-e_vSize.z),					// Top Right Of The Quad (Top)
-			//
-			Vector3(-e_vSize.x,e_vSize.y,e_vSize.z),					// Bottom Left Of The Quad (Bottom)
-			Vector3( e_vSize.x,e_vSize.y,e_vSize.z),					// Bottom Right Of The Quad (Bottom)
-			Vector3(-e_vSize.x,e_vSize.y, -e_vSize.z),					// Top Left Of The Quad (Bottom)
-			Vector3(-e_vSize.x,e_vSize.y, -e_vSize.z),					// Top Left Of The Quad (Bottom)
-			Vector3( e_vSize.x,e_vSize.y,e_vSize.z),					// Bottom Right Of The Quad (Bottom)
-			Vector3( e_vSize.x,e_vSize.y, -e_vSize.z),					// Top Right Of The Quad (Bottom)
-			//
-			Vector3(-e_vSize.x,-e_vSize.y, e_vSize.z),					// Bottom Left Of The Quad (Front)
-			Vector3( e_vSize.x,-e_vSize.y, e_vSize.z),					// Bottom Right Of The Quad (Front)
-			Vector3(-e_vSize.x, e_vSize.y, e_vSize.z),					// Top Left Of The Quad (Front)
-			Vector3(-e_vSize.x, e_vSize.y, e_vSize.z),					// Top Left Of The Quad (Front)
-			Vector3( e_vSize.x,-e_vSize.y, e_vSize.z),					// Bottom Right Of The Quad (Front)
-			Vector3( e_vSize.x, e_vSize.y, e_vSize.z),					// Top Right Of The Quad (Front)
-			
-			//
-			Vector3(-e_vSize.x, -e_vSize.y,-e_vSize.z),					// Bottom Left Of The Quad (Back)
-			Vector3( e_vSize.x, -e_vSize.y,-e_vSize.z),					// Bottom Right Of The Quad (Back)
-			Vector3(-e_vSize.x,e_vSize.y,-e_vSize.z),					// Top Left Of The Quad (Back)
-			Vector3(-e_vSize.x,e_vSize.y,-e_vSize.z),					// Top Left Of The Quad (Back)
-			Vector3( e_vSize.x,-e_vSize.y,-e_vSize.z),					// Bottom Right Of The Quad (Back)
-			Vector3( e_vSize.x,e_vSize.y,-e_vSize.z),					// Top Right Of The Quad (Back)
-			
-			//
-			Vector3(-e_vSize.x,-e_vSize.y, e_vSize.z),					// Bottom Left Of The Quad (Left)
-			Vector3(-e_vSize.x,-e_vSize.y,-e_vSize.z),					// Bottom Right Of The Quad (Left)
-			Vector3(-e_vSize.x, e_vSize.y, e_vSize.z),					// Top Left Of The Quad (Left)
-			Vector3(-e_vSize.x, e_vSize.y, e_vSize.z),					// Top Left Of The Quad (Left)
-			Vector3(-e_vSize.x,-e_vSize.y,-e_vSize.z),					// Bottom Right Of The Quad (Left)
-			Vector3(-e_vSize.x, e_vSize.y,-e_vSize.z),					// Top Right Of The Quad (Left)
-			
-			//
-			Vector3( e_vSize.x,-e_vSize.y,-e_vSize.z),					// Bottom Left Of The Quad (Right)
-			Vector3( e_vSize.x,-e_vSize.y, e_vSize.z),					// Bottom Right Of The Quad (Right)
-			Vector3( e_vSize.x, e_vSize.y,-e_vSize.z),					// Top Left Of The Quad (Right)
-			Vector3( e_vSize.x, e_vSize.y,-e_vSize.z),					// Top Left Of The Quad (Right)
-			Vector3( e_vSize.x,-e_vSize.y, e_vSize.z),					// Bottom Right Of The Quad (Right)
-			Vector3( e_vSize.x, e_vSize.y, e_vSize.z),					// Top Right Of The Quad (Right)
-			
-		};
-		myGlVertexPointer(3,l_vVetrices);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, l_ciVertexCount);
+		std::vector<Vector3> points = { from, to };
+		RenderLine(&points, color, cMatrix44::Identity, false, false, NO_TEXTURE_SHADER);
 	}
 
+	void DrawCircle(const Vector3& center, float radius, const Vector4& color)
+	{
+		std::vector<Vector3> circlePoints;
+		int segments = 32;
+		for (int i = 0; i < segments; ++i)
+		{
+			float angle = i * 2.0f * 3.1415926f / segments;
+			float x = cos(angle) * radius;
+			float z = sin(angle) * radius;
+			circlePoints.push_back(Vector3(center.x + x, center.y, center.z + z));
+		}
+		// Close the circle
+		circlePoints.push_back(circlePoints.front());
+		RenderLine(&circlePoints, color, cMatrix44::Identity, false, false, NO_TEXTURE_SHADER);
+	}
+
+	void DrawSphere(const Vector3& center, float radius, const Vector4& color)
+	{
+		// XY plane
+		std::vector<Vector3> xyCircle;
+		int segments = 32;
+		for (int i = 0; i < segments; ++i)
+		{
+			float angle = i * 2.0f * 3.1415926f / segments;
+			float x = cos(angle) * radius;
+			float y = sin(angle) * radius;
+			xyCircle.push_back(Vector3(center.x + x, center.y + y, center.z));
+		}
+		xyCircle.push_back(xyCircle.front());
+		RenderLine(&xyCircle, color, cMatrix44::Identity, false, false, NO_TEXTURE_SHADER);
+		// XZ plane
+		std::vector<Vector3> xzCircle;
+		for (int i = 0; i < segments; ++i)
+		{
+			float angle = i * 2.0f * 3.1415926f / segments;
+			float x = cos(angle) * radius;
+			float z = sin(angle) * radius;
+			xzCircle.push_back(Vector3(center.x + x, center.y, center.z + z));
+		}
+		xzCircle.push_back(xzCircle.front());
+		RenderLine(&xzCircle, color, cMatrix44::Identity, false, false, NO_TEXTURE_SHADER);
+		// YZ plane
+		std::vector<Vector3> yzCircle;
+		for (int i = 0; i < segments; ++i)
+		{
+			float angle = i * 2.0f * 3.1415926f / segments;
+			float y = cos(angle) * radius;
+			float z = sin(angle) * radius;
+			yzCircle.push_back(Vector3(center.x, center.y + y, center.z + z));
+		}
+		yzCircle.push_back(yzCircle.front());
+		RenderLine(&yzCircle, color, cMatrix44::Identity, false, false, NO_TEXTURE_SHADER);
+	}
 	void	sBlendfunction::GetStatus()
 	{
 		bDoRestore = true;
@@ -1222,5 +1217,39 @@ namespace GLRender
 			//glBlendFuncSeparate(iColorParameter[0], iColorParameter[1], iColorParameter[2], iColorParameter[3]);
 		}
 	}
+	void DrawCone(const Vector3& tip, const Vector3& dir, float height, float radius, const Vector4& color)
+	{
+		Vector3 normDir = dir.Normalize();
+		Vector3 base = tip - normDir * height;
+		// Find orthonormal basis for the circle
+		Vector3 up = normDir;
+		Vector3 right, forward;
+		if (fabs(up.x) < 0.99f)
+			right = Vector3(1, 0, 0) ^ up;
+		else
+			right = Vector3(0, 0, 1) ^ up;
+		right = right.Normalize();
+		forward = up ^ right;
+		forward = forward.Normalize();
+		// Draw base circle
+		std::vector<Vector3> circlePoints;
+		int segments = 32;
+		for (int i = 0; i < segments; ++i)
+		{
+			float angle = i * 2.0f * 3.1415926f / segments;
+			float x = cos(angle) * radius;
+			float y = sin(angle) * radius;
+			Vector3 pt = base + right * x + forward * y;
+			circlePoints.push_back(pt);
+		}
+		circlePoints.push_back(circlePoints.front());
+		RenderLine(&circlePoints, color, cMatrix44::Identity, false, false, NO_TEXTURE_SHADER);
+		// Draw lines from tip to base circle
+		for (int i = 0; i < segments; i += 4) // 8 lines
+		{
+			DrawLine(tip, circlePoints[i], color);
+		}
+	}
 //end namespace GLRender
-};
+}
+

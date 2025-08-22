@@ -48,6 +48,7 @@ public:
     void    Render(GLuint e_uiProgramID);
     void    Update(float e_fElpaseTime);
 	void    RenderImGUILightControllerUI();
+    void    DebugRender();
 };
 
 
@@ -80,6 +81,8 @@ class cglTFLight :public NamedTypedObject
     void                                        LoadLightsFromGLTF(const tinygltf::Model& model);
     static std::shared_ptr<sLightData>          CreateDirectionLight();
     static std::shared_ptr<sLightData>          CreateAmbientLight();
+    static std::shared_ptr<sLightData>          CreateSpotLight();
+    static std::shared_ptr<sLightData>          CreatePointLight();
     static bool                                 IsLightExists(const tinygltf::Model& model);
 };
 

@@ -31,7 +31,7 @@ int glTFInit()
     {
         cglTFModel* l_pModel = nullptr;
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
-        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
         
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Mixamo_WalkingGuy.glb");
@@ -39,7 +39,7 @@ int glTFInit()
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Flamingo.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/sponza.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/headtest2__1_.glb");
-        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/falling_cube.glb");
+        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/falling_cube.glb");
         
         
         

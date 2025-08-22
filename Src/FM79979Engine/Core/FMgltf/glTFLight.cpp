@@ -19,7 +19,7 @@ TYPDE_DEFINE_MARCO(cLighFrameData);
 //        ]
 //    }
 //}
-
+// Forward declarations for debug draw helpers
 
 
 void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
@@ -161,12 +161,88 @@ std::shared_ptr<sLightData> cglTFLight::CreateAmbientLight()
     return std::make_shared<sLightData>(l_AmbientLight);
 }
 
+std::shared_ptr<sLightData> cglTFLight::CreateSpotLight()
+{
+    sLightData light;
+    light.m_0Type1Enable[0] = (int)eLightType::eLT_SPOT; // Spot light
+    light.m_vPosition = Vector4(0.f, 10.f, 10.f, 1.f); // Default position
+    light.m_vDirection = Vector4(0.f, -1.f, -1.f, 0.f); // Default direction
+    light.m_vColor = Vector4(1.f, 1.f, 1.f, 1.f); // White color
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Intensity
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 20.0f; // Range
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.3f; // Inner cone angle (radians)
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.5f; // Outer cone angle (radians)
+    light.m_0Type1Enable[1] = 1; // Enabled
+    return std::make_shared<sLightData>(light);
+}
+
+std::shared_ptr<sLightData> cglTFLight::CreatePointLight()
+{
+    sLightData light;
+    light.m_0Type1Enable[0] = (int)eLightType::eLT_POINT; // Point light
+    light.m_vPosition = Vector4(0.f, 5.f, 5.f, 1.f); // Default position
+    light.m_vDirection = Vector4(0.f, -1.f, 0.f, 0.f); // Not used for point, but set to default
+    light.m_vColor = Vector4(1.f, 1.f, 1.f, 1.f); // White color
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 5.0f; // Intensity
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 15.0f; // Range
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.0f; // Not used
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.0f; // Not used
+    light.m_0Type1Enable[1] = 1; // Enabled
+    return std::make_shared<sLightData>(light);
+}
+
 cLighController::cLighController()
 {
     glGenBuffers(1, &m_uiLightUBO);
     glBindBuffer(GL_UNIFORM_BUFFER, m_uiLightUBO);
     glBufferData(GL_UNIFORM_BUFFER, sizeof(sLightBlock), nullptr, GL_DYNAMIC_DRAW);
     glBindBuffer(GL_UNIFORM_BUFFER, 0); // Unbind after allocation
+    int l_iNumLights = static_cast<int>(m_LightDataVector.size());
+    if (l_iNumLights == 0)
+    {
+        m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
+        m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
+        l_iNumLights = (int)m_LightDataVector.size();
+        auto l_TestDirectionLight = m_LightDataVector[0];
+        l_TestDirectionLight->m_0Type1Enable[1] = 1;
+        static float angle = 0.0f; // Angle for dynamic movement
+        angle +=  4; // Adjust speed based on frame time
+
+        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
+        // Update the light's position in a circular path
+        //Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
+        Vector3 l_vLightDirection = Vector3(0, 0, -10.0f);
+        //Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
+        l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
+
+        // Update the light's direction to point toward the origin
+        l_TestDirectionLight->m_vDirection = l_vLightDirection.Normalize();
+        l_TestDirectionLight->m_vColor = Vector4(1.0f, 1.f, 1.0f, 1.f);
+    }
+    else
+    {
+        //auto l_TestDirectionLight = m_LightDataVector[0];
+        //l_TestDirectionLight->m_0Type1Enable[1] = 1;
+        //static float angle = 0.0f; // Angle for dynamic movement
+        //angle += e_fElpaseTime/4; // Adjust speed based on frame time
+
+        //l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
+        //// Update the light's position in a circular path
+        ////Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
+        //Vector3 l_vLightDirection = Vector3(0,0, -10.0f);
+        ////Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
+        //l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
+
+        //// Update the light's direction to point toward the origin
+        //l_TestDirectionLight->m_vDirection = l_vLightDirection.Normalize();
+        //l_TestDirectionLight->m_vColor = Vector4(1.0f,1.f,1.0f,1.f);
+        //// Change the light's color over time for a dynamic effect
+        ////l_TestDirectionLight->m_vColor = Vector3(
+        ////    (sin(angle) + 1.0f) * 1.5f, // Red oscillates
+        ////    (cos(angle) + 1.0f) * 1.5f, // Green oscillates
+        ////    0.5f                        // Blue remains constant
+        ////);
+    }
 }
 
 cLighController::~cLighController()
@@ -213,51 +289,56 @@ void cLighController::RenderBegin()
 
 void  cLighController::Update(float e_fElpaseTime)
 {
-    int l_iNumLights = static_cast<int>(m_LightDataVector.size());
-    if (l_iNumLights == 0)
+
+}
+
+void  cLighController::DebugRender()
+{
+    for (const auto& lightPtr : m_LightDataVector)
     {
-        m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
-        m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
-        l_iNumLights = (int)m_LightDataVector.size();
-        auto l_TestDirectionLight = m_LightDataVector[0];
-        l_TestDirectionLight->m_0Type1Enable[1] = 1;
-        static float angle = 0.0f; // Angle for dynamic movement
-        angle += e_fElpaseTime / 4; // Adjust speed based on frame time
-
-        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
-        // Update the light's position in a circular path
-        //Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
-        Vector3 l_vLightDirection = Vector3(0, 0, -10.0f);
-        //Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
-        l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
-
-        // Update the light's direction to point toward the origin
-        l_TestDirectionLight->m_vDirection = l_vLightDirection.Normalize();
-        l_TestDirectionLight->m_vColor = Vector4(1.0f, 1.f, 1.0f, 1.f);
-    }
-    else
-    {
-        //auto l_TestDirectionLight = m_LightDataVector[0];
-        //l_TestDirectionLight->m_0Type1Enable[1] = 1;
-        //static float angle = 0.0f; // Angle for dynamic movement
-        //angle += e_fElpaseTime/4; // Adjust speed based on frame time
-
-        //l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
-        //// Update the light's position in a circular path
-        ////Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
-        //Vector3 l_vLightDirection = Vector3(0,0, -10.0f);
-        ////Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
-        //l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
-
-        //// Update the light's direction to point toward the origin
-        //l_TestDirectionLight->m_vDirection = l_vLightDirection.Normalize();
-        //l_TestDirectionLight->m_vColor = Vector4(1.0f,1.f,1.0f,1.f);
-        //// Change the light's color over time for a dynamic effect
-        ////l_TestDirectionLight->m_vColor = Vector3(
-        ////    (sin(angle) + 1.0f) * 1.5f, // Red oscillates
-        ////    (cos(angle) + 1.0f) * 1.5f, // Green oscillates
-        ////    0.5f                        // Blue remains constant
-        ////);
+        if (!lightPtr) continue;
+        const sLightData& light = *lightPtr;
+        Vector3 pos(light.m_vPosition.x, light.m_vPosition.y, light.m_vPosition.z);
+        Vector3 dir(light.m_vDirection.x, light.m_vDirection.y, light.m_vDirection.z);
+        Vector4 color = light.m_vColor;
+        int type = light.m_0Type1Enable[0];
+        float intensity = light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x;
+        float range = light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y;
+        float innerCone = light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z;
+        float outerCone = light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w;
+        // Always use the light's position and direction
+        switch ((eLightType)type)
+        {
+        case eLightType::eLT_DIRECTIONAL:
+            // Draw cone for direction at the light's position
+            DrawCone(pos, dir.Normalize(), 2.0f, 0.5f, color);
+            DrawLine(pos, pos + dir.Normalize() * 5.0f, color);
+            break;
+        case eLightType::eLT_POINT:
+            DrawSphere(pos, range, color); // Draw a 3D sphere for point light
+            // Optionally, draw lines from center to sphere surface for visual effect
+            // for (int i = 0; i < 8; ++i)
+            // {
+            //     float angle = (float)i / 8.0f * 2.0f * 3.1415926f;
+            //     Vector3 dirLine = Vector3(cos(angle), 0, sin(angle));
+            //     DrawLine(pos, pos + dirLine * range, color);
+            // }
+            break;
+        case eLightType::eLT_SPOT:
+            // Draw cone for spot at the light's position, in the light's direction
+            {
+                Vector3 spotDir = dir.Normalize();
+                DrawCone(pos, spotDir, range, tan(outerCone) * range, color);
+                DrawLine(pos, pos + spotDir * range, color);
+            }
+            break;
+        case eLightType::eLT_AMBIENT:
+            // Optionally draw a small sphere at the position
+            // DrawSphere(pos, 0.3f, color);
+            break;
+        default:
+            break;
+        }
     }
 }
 
@@ -266,11 +347,28 @@ void cLighController::RenderImGUILightControllerUI()
     if (ImGui::Begin("Light Controller"))
     {
         int numLights = static_cast<int>(m_LightDataVector.size());
+        int prevNumLights = numLights;
+        ImGui::SliderInt("Num Lights", &numLights, 0, MAX_LIGHT);
+        if (numLights != prevNumLights)
+        {
+            if (numLights > prevNumLights)
+            {
+                for (int i = prevNumLights; i < numLights; ++i)
+                {
+                    m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
+                }
+            }
+            else if (numLights < prevNumLights)
+            {
+                m_LightDataVector.resize(numLights);
+            }
+        }
         ImGui::Text("Num Lights: %d", numLights);
         for (int i = 0; i < numLights; ++i)
         {
             ImGui::PushID(i);
             sLightData& light = *m_LightDataVector[i];
+            int prevType = light.m_0Type1Enable[0];
             if (ImGui::CollapsingHeader((std::string("Light ") + std::to_string(i)).c_str()))
             {
                 ImGui::InputFloat3("Position", (float*)&light.m_vPosition);
@@ -280,7 +378,31 @@ void cLighController::RenderImGUILightControllerUI()
                 ImGui::InputFloat("Range", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y);
                 ImGui::InputFloat("Inner Cone Angle", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z);
                 ImGui::InputFloat("Outer Cone Angle", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w);
-                ImGui::Combo("Type", &light.m_0Type1Enable[0], "Directional\0Point\0Spot\0Ambient\0");
+                int type = light.m_0Type1Enable[0];
+                if (ImGui::Combo("Type", &type, "Directional\0Point\0Spot\0Ambient\0"))
+                {
+                    light.m_0Type1Enable[0] = type;
+                    std::shared_ptr<sLightData> newLight;
+                    switch ((eLightType)type)
+                    {
+                        case eLightType::eLT_DIRECTIONAL:
+                            newLight = cglTFLight::CreateDirectionLight();
+                            break;
+                        case eLightType::eLT_POINT:
+                            newLight = cglTFLight::CreatePointLight();
+                            break;
+                        case eLightType::eLT_SPOT:
+                            newLight = cglTFLight::CreateSpotLight();
+                            break;
+                        case eLightType::eLT_AMBIENT:
+                            newLight = cglTFLight::CreateAmbientLight();
+                            break;
+                        default:
+                            newLight = cglTFLight::CreateDirectionLight();
+                            break;
+                    }
+                    light = *newLight;
+                }
                 ImGui::Checkbox("Enable", (bool*)&light.m_0Type1Enable[1]);
             }
             ImGui::PopID();
