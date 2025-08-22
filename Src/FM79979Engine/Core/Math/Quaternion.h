@@ -191,62 +191,7 @@ public:
 
 	// Quaternion Slerp function
 	//https://github.com/KhronosGroup/glTF-Tutorials/blob/main/gltfTutorial/gltfTutorial_007_Animations.md
-	static Quaternion Slerp(const Quaternion& q1, const Quaternion& q2, float t)
-	{
-		// Clamp interpolation factor between 0 and 1
-#if defined(DEBUG) && !defined(ANDROID)
-		t = std::clamp(t, 0.0f, 1.0f);
-
-		Quaternion qStart = q1.Normalize();
-		Quaternion qEnd = q2.Normalize();
-#else
-		Quaternion qStart = q1;
-		Quaternion qEnd = q2;
-#endif
-		float dot = Dot(qStart, qEnd);
-
-		// If dot product is negative, flip one quaternion to take the shortest path
-		if (dot < 0.0f)
-		{
-			qEnd.x = -qEnd.x;
-			qEnd.y = -qEnd.y;
-			qEnd.z = -qEnd.z;
-			qEnd.w = -qEnd.w;
-			dot = -dot;
-		}
-
-		// Use linear interpolation if quaternions are very close (to avoid division by zero)
-		const float THRESHOLD = 0.9995f;
-		if (dot > THRESHOLD)
-		{
-			// Perform LERP (Linear Interpolation)
-			Quaternion result = {
-				qStart.x + t * (qEnd.x - qStart.x),
-				qStart.y + t * (qEnd.y - qStart.y),
-				qStart.z + t * (qEnd.z - qStart.z),
-				qStart.w + t * (qEnd.w - qStart.w)
-			};
-			return result.Normalize(); // Normalize result for safety
-		}
-
-		// Perform SLERP (Spherical Linear Interpolation)
-		float theta_0 = (float)acos(dot); // Initial angle
-		float theta = theta_0 * t;      // Scaled angle
-
-		float sin_theta = (float)sin(theta);
-		float sin_theta_0 = (float)sin(theta_0);
-
-		float s0 = (float)cos(theta) - dot * sin_theta / sin_theta_0;
-		float s1 = sin_theta / sin_theta_0;
-		Quaternion l_Result =
-		{
-			(s0 * qStart.x) + (s1 * qEnd.x),
-			(s0 * qStart.y) + (s1 * qEnd.y),
-			(s0 * qStart.z) + (s1 * qEnd.z),
-			(s0 * qStart.w) + (s1 * qEnd.w)
-		};
-		return l_Result.Normalize();
-	}
+	static Quaternion Slerp(const Quaternion& q1, const Quaternion& q2, float t);
 };
 
 /** Returns a vector with the given quaternion's inverse rotation

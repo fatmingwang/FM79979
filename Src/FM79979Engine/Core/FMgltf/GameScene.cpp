@@ -2,6 +2,8 @@
 #include "GameScene.h"
 #include <memory>
 #include <string>
+#include "../../imgui/ImGuiRender.h"
+#include "../../imgui/imgui.h"
 
 
 cglTFScene::cglTFScene()
@@ -9,6 +11,13 @@ cglTFScene::cglTFScene()
     // Create root frame
     m_pRootFrame = std::make_unique<cRenderObject>();
     m_pRootFrame->SetName(L"RootFrame");
+    ImGui_ImplOpenGL3_Init(cGameApp::m_spOpenGLRender->m_Handle, nullptr, 1);
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
+    ImGui::GetIO().IniFilename = nullptr;
+    ImGui::GetIO().LogFilename = nullptr;
+    ImGui::GetIO().FontGlobalScale = 1.5f;
 }
 
 cglTFScene::~cglTFScene()
@@ -70,11 +79,14 @@ void cglTFScene::Render()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    //g_fCameraDebugRender();
+    //g_fCameraDebugRender();    
     if (m_pRootFrame)
     {
         //m_pRootFrame->DebugRenderNodes();
     }
+    ImGui_StartFrame();
+    cLighController::GetInstance()->RenderImGUILightControllerUI();
+    ImGui_EndFrame();
     
 }
 

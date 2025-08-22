@@ -47,6 +47,7 @@ public:
     void    RenderBegin();
     void    Render(GLuint e_uiProgramID);
     void    Update(float e_fElpaseTime);
+	void    RenderImGUILightControllerUI();
 };
 
 

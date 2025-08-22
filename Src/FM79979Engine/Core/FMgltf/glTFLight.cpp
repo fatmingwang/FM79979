@@ -1,6 +1,7 @@
 #include "tiny_gltf.h"
 #include "glTFLight.h"
 #include "glTFAnimation.h"
+#include "../../imgui/imgui.h"
 
 TYPDE_DEFINE_MARCO(cglTFLight);
 TYPDE_DEFINE_MARCO(cLighController);
@@ -137,6 +138,7 @@ std::shared_ptr<sLightData> cglTFLight::CreateDirectionLight()
     sLightData light;
     light.m_0Type1Enable[0] = (int)eLightType::eLT_DIRECTIONAL; // Directional light
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 0.0f;                           // Not used for directional lights
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.0f;                  // Not used for directional lights
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.0f;                  // Not used for directional lights
@@ -217,31 +219,74 @@ void  cLighController::Update(float e_fElpaseTime)
         m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
         m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
         l_iNumLights = (int)m_LightDataVector.size();
-    }
-    else
-    {
         auto l_TestDirectionLight = m_LightDataVector[0];
         l_TestDirectionLight->m_0Type1Enable[1] = 1;
         static float angle = 0.0f; // Angle for dynamic movement
-        angle += e_fElpaseTime/4; // Adjust speed based on frame time
+        angle += e_fElpaseTime / 4; // Adjust speed based on frame time
 
         l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
         // Update the light's position in a circular path
         //Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
-        Vector3 l_vLightDirection = Vector3(0,0, -10.0f);
+        Vector3 l_vLightDirection = Vector3(0, 0, -10.0f);
         //Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
         l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
 
         // Update the light's direction to point toward the origin
         l_TestDirectionLight->m_vDirection = l_vLightDirection.Normalize();
-        l_TestDirectionLight->m_vColor = Vector4(1.0f,1.f,1.0f,1.f);
-        // Change the light's color over time for a dynamic effect
-        //l_TestDirectionLight->m_vColor = Vector3(
-        //    (sin(angle) + 1.0f) * 1.5f, // Red oscillates
-        //    (cos(angle) + 1.0f) * 1.5f, // Green oscillates
-        //    0.5f                        // Blue remains constant
-        //);
+        l_TestDirectionLight->m_vColor = Vector4(1.0f, 1.f, 1.0f, 1.f);
     }
+    else
+    {
+        //auto l_TestDirectionLight = m_LightDataVector[0];
+        //l_TestDirectionLight->m_0Type1Enable[1] = 1;
+        //static float angle = 0.0f; // Angle for dynamic movement
+        //angle += e_fElpaseTime/4; // Adjust speed based on frame time
+
+        //l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
+        //// Update the light's position in a circular path
+        ////Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
+        //Vector3 l_vLightDirection = Vector3(0,0, -10.0f);
+        ////Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
+        //l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
+
+        //// Update the light's direction to point toward the origin
+        //l_TestDirectionLight->m_vDirection = l_vLightDirection.Normalize();
+        //l_TestDirectionLight->m_vColor = Vector4(1.0f,1.f,1.0f,1.f);
+        //// Change the light's color over time for a dynamic effect
+        ////l_TestDirectionLight->m_vColor = Vector3(
+        ////    (sin(angle) + 1.0f) * 1.5f, // Red oscillates
+        ////    (cos(angle) + 1.0f) * 1.5f, // Green oscillates
+        ////    0.5f                        // Blue remains constant
+        ////);
+    }
+}
+
+void cLighController::RenderImGUILightControllerUI()
+{
+    if (ImGui::Begin("Light Controller"))
+    {
+        int numLights = static_cast<int>(m_LightDataVector.size());
+        ImGui::Text("Num Lights: %d", numLights);
+        for (int i = 0; i < numLights; ++i)
+        {
+            ImGui::PushID(i);
+            sLightData& light = *m_LightDataVector[i];
+            if (ImGui::CollapsingHeader((std::string("Light ") + std::to_string(i)).c_str()))
+            {
+                ImGui::InputFloat3("Position", (float*)&light.m_vPosition);
+                ImGui::ColorEdit3("Color", (float*)&light.m_vColor);
+                ImGui::InputFloat3("Direction", (float*)&light.m_vDirection);
+                ImGui::InputFloat("Intensity", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x);
+                ImGui::InputFloat("Range", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y);
+                ImGui::InputFloat("Inner Cone Angle", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z);
+                ImGui::InputFloat("Outer Cone Angle", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w);
+                ImGui::Combo("Type", &light.m_0Type1Enable[0], "Directional\0Point\0Spot\0Ambient\0");
+                ImGui::Checkbox("Enable", (bool*)&light.m_0Type1Enable[1]);
+            }
+            ImGui::PopID();
+        }
+    }
+    ImGui::End();
 }
 
 void cLighController::Render(GLuint e_uiProgramID)

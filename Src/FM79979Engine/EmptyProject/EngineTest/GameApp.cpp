@@ -50,7 +50,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 cEngineTestApp::~cEngineTestApp()
 {
 	GlTFDestory();
-	cMyImGuiTesting::Destory();
+	//cMyImGuiTesting::Destory();
 	SAFE_DELETE(m_pPhaseManager);
 	SAFE_DELETE(g_pNetworkSample);
 	DestorySampleObject();
@@ -64,7 +64,7 @@ void	cEngineTestApp::Init()
 	{
 		g_pNetworkSample->Init();
 	}
-	cMyImGuiTesting::Init();
+	//cMyImGuiTesting::Init();
 	glTFInit();
 	//LoadSample();
 
