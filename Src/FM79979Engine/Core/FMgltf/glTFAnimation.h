@@ -2,6 +2,7 @@
 
 #include "glTFNode.h"
 #include "Common.h"
+
 class cglTFNodeData;
 struct sAnimationData:public NamedTypedObject
 {
@@ -59,6 +60,7 @@ public:
     {
         return m_pCurrentAnimationData;
     }
+    void ImGuiDebugRender();
 };
 
 #define ANIMATION_TEXTURE_FPS       30.0f

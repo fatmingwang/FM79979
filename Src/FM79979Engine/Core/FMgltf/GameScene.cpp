@@ -4,6 +4,7 @@
 #include <string>
 #include "../../imgui/ImGuiRender.h"
 #include "../../imgui/imgui.h"
+#include "glTFModel.h"
 
 
 cglTFScene::cglTFScene()
@@ -82,6 +83,33 @@ void cglTFScene::Render()
     }
     ImGui_StartFrame();
     cLighController::GetInstance()->RenderImGUILightControllerUI();
+    GlobalRenderObjectGoThoughAllFrameFromaFirstToEnd(
+        [](Frame* e_pFrame)
+        {
+            if(e_pFrame->Type() == cglTFModel::TypeID)
+            {
+                cglTFModel* l_pModel = dynamic_cast<cglTFModel*>(e_pFrame);
+                if(l_pModel)
+                {
+                    l_pModel->RenderImGUI();
+                }
+			}
+        }
+    , dynamic_cast<Frame*>(m_pRootFrame.get()));
+    GlobalRenderObjectGoThoughAllFrameFromaFirstToEnd(
+        [](Frame* e_pFrame)
+        {
+            if (e_pFrame->Type() == cglTFModel::TypeID)
+            {
+                cglTFModel* l_pModel = dynamic_cast<cglTFModel*>(e_pFrame);
+                if (l_pModel)
+                {
+                    l_pModel->RenderAnimationImGUI();
+                }
+            }
+        }
+    , dynamic_cast<Frame*>(m_pRootFrame.get()));
+    
     ImGui_EndFrame();
     
 }

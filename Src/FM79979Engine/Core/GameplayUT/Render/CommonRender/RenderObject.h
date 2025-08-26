@@ -38,7 +38,7 @@ namespace FATMING_CORE
 		void	RenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
 		void	UpdateObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function, Frame*e_pFrame);
 		void	DoRenderObjectGoThoughAllFrameFromaFirstToEndForgetVisible(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
-		//void	RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
+		//void	RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame* e_pFrame);
 		f_RenderFunction	m_RenderFunction;
 		f_UpdateFunction	m_UpdateFunction;
 	protected:
@@ -92,5 +92,6 @@ namespace FATMING_CORE
 		//virtual	int		GetHeight() = 0;
 	};
 
+	void GlobalRenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function, Frame* e_pFrame);
 //end namespace
 }

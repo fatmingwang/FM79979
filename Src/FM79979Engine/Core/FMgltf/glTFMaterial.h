@@ -106,6 +106,7 @@ public:
     void Apply();
     void SetShaderProgramID(unsigned int e_uiShaderProgramID);
     int64_t GetTextureFVFFlag() { return m_i64TextureFVFFlag; }
+    void ImGUIRender();
     sTectureAndTexCoordinateIndex* GetTectureAndTexCoordinateIndex() { return &m_TectureAndTexCoordinateIndex; }
     std::unique_ptr<KHRSpecularExtension> m_pSpecularExtension;
     std::unique_ptr<KHRTransmissionExtension> m_pTransmissionExtension;

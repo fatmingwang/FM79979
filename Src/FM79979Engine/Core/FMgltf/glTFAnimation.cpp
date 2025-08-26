@@ -3,7 +3,7 @@
 #include "glTFAnimationMesh.h"
 #include "glTFModel.h"
 #include "AnimationTexture.h"
-
+#include "../../imgui/imgui.h"
 //const int g_iTextureColorComponentCount = 4; // RGBA
 
 sAnimationData::sAnimationData(cNamedTypedObjectVector<cglTFNodeData>* e_pglTFNodeDataVector, const tinygltf::Model& e_Model, const tinygltf::Animation&e_Animation)
@@ -292,6 +292,34 @@ void cAnimationClip::Update(float e_fElpaseTime)
 sAnimationData* cAnimationClip::GetAnimationData(std::string e_strName)
 {
     return MapFind(*m_pNameAndAnimationMap, e_strName);
+}
+
+void cAnimationClip::ImGuiDebugRender()
+{
+    if (!m_pNameAndAnimationMap) return;
+    ImGui::Text("Animation List:");
+    int idx = 0;
+    for (const auto& pair : *m_pNameAndAnimationMap)
+    {
+        const std::string& animName = pair.first;
+        bool isCurrent = (m_pCurrentAnimationData == pair.second);
+        ImGui::PushID(idx);
+        if (ImGui::Selectable(animName.c_str(), isCurrent))
+        {
+            SetAnimation(animName.c_str(), m_pCurrentAnimationData ? m_pCurrentAnimationData->m_bLoop : true);
+        }
+        ImGui::PopID();
+        ++idx;
+    }
+    if (m_pCurrentAnimationData)
+    {
+        bool loop = m_pCurrentAnimationData->m_bLoop;
+        if (ImGui::Checkbox("Loop", &loop))
+        {
+            m_pCurrentAnimationData->m_bLoop = loop;
+        }
+        ImGui::Text("Current: %s", m_strAnimationName.c_str());
+    }
 }
 
 void sAnimationData::Update(float e_fElpaseTime)

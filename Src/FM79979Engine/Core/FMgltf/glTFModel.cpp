@@ -1,4 +1,3 @@
-
 #include "../AllCoreInclude.h"
 #include <vector>
 #include <string>
@@ -688,6 +687,30 @@ void cglTFModel::DebugRender()
         SetupShaderViewProjectionMatrix(l_matWVP, false);
     }
     GLRender::RenderPoints(&l_vPoints[0], (int)l_vPoints.size(), 5, Vector4(0.f, 1.f, 1.f, 1.f), l_mat);
+}
+
+void cglTFModel::RenderImGUI()
+{
+    for (auto& meshPair : m_NameAndMeshes)
+    {
+        cMesh* pMesh = meshPair.second;
+        if (pMesh)
+        {
+            // For each submesh, call its material's ImGUIRender
+            for (auto& subMeshPtr : pMesh->m_SubMeshesVector)
+            {
+                if (subMeshPtr && subMeshPtr->m_Material)
+                {
+                    subMeshPtr->m_Material->ImGUIRender();
+                }
+            }
+        }
+    }
+}
+
+void cglTFModel::RenderAnimationImGUI()
+{
+	this->m_AnimationClip.ImGuiDebugRender();
 }
 
 void cglTFModel::Destory()

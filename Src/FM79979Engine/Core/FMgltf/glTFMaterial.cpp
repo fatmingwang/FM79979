@@ -2,6 +2,7 @@
 #include "glTFMaterial.h"
 #include "../Math/Vector3.h"
 #include "../Math/Vector4.h"
+#include "../../imgui/imgui.h"
 
 namespace FATMING_CORE
 {
@@ -453,6 +454,83 @@ void  cMaterial::SetShaderProgramID(unsigned int e_uiShaderProgramID)
 #endif
 }
 
+void cMaterial::ImGUIRender()
+{
+#ifdef DEBUG
+    std::string l_strName = std::string("Material_");
+    l_strName  += this->GetCharName();
+    if (ImGui::TreeNode(l_strName.c_str()))
+    {
+        ImGui::Text("Shader Program ID: %u", m_uiShaderProgrameID);
+        ImGui::Checkbox("Double Sided", &m_bDoubleSize);
+        ImGui::InputFloat4("Base Color Factor", m_vBaseColorFactor);
+        ImGui::InputFloat("Alpha Cutoff", &m_TectureAndTexCoordinateIndex.m_fAlphaCutoff);
+        ImGui::InputFloat("Metallic Factor", &m_metallicFactor);
+        ImGui::InputFloat("Roughness Factor", &m_roughnessFactor);
+        ImGui::InputFloat("Occlusion Strength", &m_occlusionStrength);
+        ImGui::InputFloat3("Emissive Factor", m_vEmissiveFactor);
+        if (m_pSpecularExtension) {
+            if (ImGui::TreeNode("KHR_specular")) {
+                ImGui::InputFloat("Specular Factor", &m_pSpecularExtension->specularFactor);
+                ImGui::InputFloat3("Specular Color Factor", m_pSpecularExtension->specularColorFactor);
+                ImGui::TreePop();
+            }
+        }
+        if (m_pTransmissionExtension) {
+            if (ImGui::TreeNode("KHR_transmission")) {
+                ImGui::InputFloat("Transmission Factor", &m_pTransmissionExtension->transmissionFactor);
+                ImGui::TreePop();
+            }
+        }
+        if (m_pIORExtension) {
+            if (ImGui::TreeNode("KHR_ior")) {
+                ImGui::InputFloat("IOR", &m_pIORExtension->ior);
+                ImGui::TreePop();
+            }
+        }
+        if (m_pVolumeExtension) {
+            if (ImGui::TreeNode("KHR_volume")) {
+                ImGui::InputFloat("Thickness Factor", &m_pVolumeExtension->thicknessFactor);
+                ImGui::InputFloat("Attenuation Distance", &m_pVolumeExtension->attenuationDistance);
+                ImGui::InputFloat3("Attenuation Color", m_pVolumeExtension->attenuationColor);
+                ImGui::TreePop();
+            }
+        }
+        if (m_pClearcoatExtension) {
+            if (ImGui::TreeNode("KHR_clearcoat")) {
+                ImGui::InputFloat("Clearcoat Factor", &m_pClearcoatExtension->clearcoatFactor);
+                ImGui::InputFloat("Clearcoat Roughness Factor", &m_pClearcoatExtension->clearcoatRoughnessFactor);
+                ImGui::TreePop();
+            }
+        }
+        if (m_pEmissiveStrengthExtension) {
+            if (ImGui::TreeNode("KHR_emissive_strength")) {
+                ImGui::InputFloat("Emissive Strength", &m_pEmissiveStrengthExtension->emissiveStrength);
+                ImGui::TreePop();
+            }
+        }
+        if (m_pIridescenceExtension) {
+            if (ImGui::TreeNode("KHR_iridescence")) {
+                ImGui::InputFloat("Iridescence Factor", &m_pIridescenceExtension->iridescenceFactor);
+                ImGui::InputFloat("Iridescence IOR", &m_pIridescenceExtension->iridescenceIor);
+                ImGui::InputFloat("Iridescence Thickness Min", &m_pIridescenceExtension->iridescenceThicknessMinimum);
+                ImGui::InputFloat("Iridescence Thickness Max", &m_pIridescenceExtension->iridescenceThicknessMaximum);
+                ImGui::TreePop();
+            }
+        }
+        if (m_pTextureTransformExtension) {
+            if (ImGui::TreeNode("KHR_texture_transform")) {
+                ImGui::InputFloat2("Offset", m_pTextureTransformExtension->offset);
+                ImGui::InputFloat("Rotation", &m_pTextureTransformExtension->rotation);
+                ImGui::InputFloat2("Scale", m_pTextureTransformExtension->scale);
+                ImGui::InputInt("TexCoord", &m_pTextureTransformExtension->texCoord);
+                ImGui::TreePop();
+            }
+        }
+        ImGui::TreePop();
+    }
+#endif
+}
 
 void cMaterial::Apply()
 {
@@ -536,7 +614,6 @@ bool cMaterial::ApplyUnriforms()
     {
         glUniform1f(roughnessFactorLoc, m_roughnessFactor);
     }
-    else
     {
         success = false;
     }
@@ -702,4 +779,10 @@ shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image,const 
     l_pTexture->Disable();
     return l_pTexture;
 }
+
+
+#ifdef DEBUG
+#include "../../imgui/imgui.h"
+using namespace ImGui;
+#endif
 

@@ -284,4 +284,32 @@ namespace FATMING_CORE
 			this->vColorVector[i] = e_vColor;
 		}
 	}
+
+	void GlobalRenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function, Frame* e_pFrame)
+	{
+		if (e_pFrame)
+		{
+			if (e_pFrame->IsVisible())
+			{
+				e_Function(e_pFrame);
+				if (!e_pFrame->IsIgnoreChildrenRender())
+				{
+					auto l_pFrame = e_pFrame->GetFirstChild();
+					if (l_pFrame)
+					{
+						GlobalRenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+					}
+				}
+				if (e_pFrame->IsVisible())
+				{
+					e_pFrame->EndRender();
+				}
+			}
+			auto l_pFrame = e_pFrame->GetNextSibling();
+			if (l_pFrame)
+			{
+				GlobalRenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+			}
+		}
+	}
 }

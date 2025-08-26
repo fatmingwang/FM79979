@@ -52,6 +52,8 @@ public:
     virtual void    Update(float e_fEpaseTime)override;
     virtual void    Render()override;
     virtual void    DebugRender()override;
+    void            RenderImGUI();
+    void            RenderAnimationImGUI();
     //
     void    SetCurrentAnimation(const std::string& animationName);
     void    SetCurrentAnimationTime(float e_fCurrentTime);
