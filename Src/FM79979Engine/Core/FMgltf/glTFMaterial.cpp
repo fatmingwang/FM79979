@@ -454,13 +454,14 @@ void  cMaterial::SetShaderProgramID(unsigned int e_uiShaderProgramID)
 #endif
 }
 
-void cMaterial::ImGUIRender()
+void cMaterial::RenderImGUI()
 {
 #ifdef DEBUG
-    std::string l_strName = std::string("Material_");
-    l_strName  += this->GetCharName();
+    std::string l_strName = std::string("Material_") + this->GetCharName();
+    ImGui::PushID(l_strName.c_str());
     if (ImGui::TreeNode(l_strName.c_str()))
     {
+        ImGui::PushID(this->GetUniqueID());        
         ImGui::Text("Shader Program ID: %u", m_uiShaderProgrameID);
         ImGui::Checkbox("Double Sided", &m_bDoubleSize);
         ImGui::InputFloat4("Base Color Factor", m_vBaseColorFactor);
@@ -470,46 +471,59 @@ void cMaterial::ImGUIRender()
         ImGui::InputFloat("Occlusion Strength", &m_occlusionStrength);
         ImGui::InputFloat3("Emissive Factor", m_vEmissiveFactor);
         if (m_pSpecularExtension) {
+            ImGui::PushID("KHR_specular");
             if (ImGui::TreeNode("KHR_specular")) {
                 ImGui::InputFloat("Specular Factor", &m_pSpecularExtension->specularFactor);
                 ImGui::InputFloat3("Specular Color Factor", m_pSpecularExtension->specularColorFactor);
                 ImGui::TreePop();
             }
+            ImGui::PopID();
         }
         if (m_pTransmissionExtension) {
+            ImGui::PushID("KHR_transmission");
             if (ImGui::TreeNode("KHR_transmission")) {
                 ImGui::InputFloat("Transmission Factor", &m_pTransmissionExtension->transmissionFactor);
                 ImGui::TreePop();
             }
+            ImGui::PopID();
         }
         if (m_pIORExtension) {
+            ImGui::PushID("KHR_ior");
             if (ImGui::TreeNode("KHR_ior")) {
                 ImGui::InputFloat("IOR", &m_pIORExtension->ior);
                 ImGui::TreePop();
             }
+            ImGui::PopID();
         }
         if (m_pVolumeExtension) {
+            ImGui::PushID("KHR_volume");
             if (ImGui::TreeNode("KHR_volume")) {
                 ImGui::InputFloat("Thickness Factor", &m_pVolumeExtension->thicknessFactor);
                 ImGui::InputFloat("Attenuation Distance", &m_pVolumeExtension->attenuationDistance);
                 ImGui::InputFloat3("Attenuation Color", m_pVolumeExtension->attenuationColor);
                 ImGui::TreePop();
             }
+            ImGui::PopID();
         }
         if (m_pClearcoatExtension) {
+            ImGui::PushID("KHR_clearcoat");
             if (ImGui::TreeNode("KHR_clearcoat")) {
                 ImGui::InputFloat("Clearcoat Factor", &m_pClearcoatExtension->clearcoatFactor);
                 ImGui::InputFloat("Clearcoat Roughness Factor", &m_pClearcoatExtension->clearcoatRoughnessFactor);
                 ImGui::TreePop();
             }
+            ImGui::PopID();
         }
         if (m_pEmissiveStrengthExtension) {
+            ImGui::PushID("KHR_emissive_strength");
             if (ImGui::TreeNode("KHR_emissive_strength")) {
                 ImGui::InputFloat("Emissive Strength", &m_pEmissiveStrengthExtension->emissiveStrength);
                 ImGui::TreePop();
             }
+            ImGui::PopID();
         }
         if (m_pIridescenceExtension) {
+            ImGui::PushID("KHR_iridescence");
             if (ImGui::TreeNode("KHR_iridescence")) {
                 ImGui::InputFloat("Iridescence Factor", &m_pIridescenceExtension->iridescenceFactor);
                 ImGui::InputFloat("Iridescence IOR", &m_pIridescenceExtension->iridescenceIor);
@@ -517,8 +531,10 @@ void cMaterial::ImGUIRender()
                 ImGui::InputFloat("Iridescence Thickness Max", &m_pIridescenceExtension->iridescenceThicknessMaximum);
                 ImGui::TreePop();
             }
+            ImGui::PopID();
         }
         if (m_pTextureTransformExtension) {
+            ImGui::PushID("KHR_texture_transform");
             if (ImGui::TreeNode("KHR_texture_transform")) {
                 ImGui::InputFloat2("Offset", m_pTextureTransformExtension->offset);
                 ImGui::InputFloat("Rotation", &m_pTextureTransformExtension->rotation);
@@ -526,9 +542,12 @@ void cMaterial::ImGUIRender()
                 ImGui::InputInt("TexCoord", &m_pTextureTransformExtension->texCoord);
                 ImGui::TreePop();
             }
+            ImGui::PopID();
         }
+        ImGui::PopID();
         ImGui::TreePop();
     }
+    ImGui::PopID();
 #endif
 }
 

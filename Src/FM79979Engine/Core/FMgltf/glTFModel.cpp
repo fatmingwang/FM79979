@@ -696,16 +696,18 @@ void cglTFModel::RenderImGUI()
         cMesh* pMesh = meshPair.second;
         if (pMesh)
         {
-            // For each submesh, call its material's ImGUIRender
-            for (auto& subMeshPtr : pMesh->m_SubMeshesVector)
-            {
-                if (subMeshPtr && subMeshPtr->m_Material)
-                {
-                    subMeshPtr->m_Material->ImGUIRender();
-                }
-            }
+            pMesh->RenderImGUI();
         }
     }
+    for (auto& meshPair : m_AnimationMeshMap)
+    {
+        cMesh* pMesh = meshPair.second;
+        if (pMesh)
+        {
+            pMesh->RenderImGUI();
+        }
+    }
+    
 }
 
 void cglTFModel::RenderAnimationImGUI()

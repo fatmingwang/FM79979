@@ -98,6 +98,7 @@ public:
     void                            logFVFFlags();
     virtual void                    AfterCloneSetBoneData(class cglTFModelRenderNode* e_pData){}
     GLuint                          GetSubMeshShaderProgramID(int e_iIndexOfSubMesh = 0);
+	void                            RenderImGUI();
 };
 
 // Instance manager for cMesh

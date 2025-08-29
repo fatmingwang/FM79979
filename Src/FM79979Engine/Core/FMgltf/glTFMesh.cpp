@@ -11,6 +11,7 @@
 #include "glTFLight.h"
 #include"glTFCamera.h"
 #include "glTFNode.h"
+#include "../../imgui/imgui.h"
 
 TYPDE_DEFINE_MARCO(cMesh);
 
@@ -451,6 +452,35 @@ GLuint cMesh::GetSubMeshShaderProgramID(int e_iIndexOfSubMesh)
     }
     
     return -1;
+}
+
+void cMesh::RenderImGUI()
+{
+    std::string meshName = this->GetCharName();
+    ImGui::Text("Mesh: %s", meshName.c_str());
+    //Vector3 worldPos = this->GetWorldPosition();
+    //Vector3 localPos = this->GetLocalPosition();
+    //ImGui::Text("World Position");
+    //if (ImGui::InputFloat3((meshName+"_WorldPos").c_str(), worldPos, "%.3f", 0))
+    //{
+    //    this->SetWorldPosition(Vector3(worldPos[0], worldPos[1], worldPos[2]));
+    //}
+    //ImGui::Text("Local Position");
+    //if (ImGui::InputFloat3((meshName+"_LocalPos").c_str(), localPos, "%.3f", 0))
+    //{
+    //    this->SetLocalPosition(Vector3(localPos[0], localPos[1], localPos[2]));
+    //}
+    int subMeshIdx = 0;
+    for (auto& subMeshPtr : m_SubMeshesVector)
+    {
+        if (subMeshPtr && subMeshPtr->m_Material)
+        {
+            ImGui::PushID(subMeshIdx);
+            subMeshPtr->m_Material->RenderImGUI();
+            ImGui::PopID();
+        }
+        ++subMeshIdx;
+    }
 }
 
 
