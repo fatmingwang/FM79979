@@ -165,13 +165,13 @@ std::shared_ptr<sLightData> cglTFLight::CreateSpotLight()
 {
     sLightData light;
     light.m_0Type1Enable[0] = (int)eLightType::eLT_SPOT; // Spot light
-    light.m_vPosition = Vector4(0.f, 10.f, 10.f, 1.f); // Default position
-    light.m_vDirection = Vector4(0.f, -1.f, -1.f, 0.f); // Default direction
-    light.m_vColor = Vector4(1.f, 1.f, 1.f, 1.f); // White color
+    light.m_vPosition = Vector4(0.f, 10.f, 0.f, 1.f); // Default position
+    light.m_vDirection = Vector4(0.f, -1.f, 0.f, 0.f); // Default direction
+    light.m_vColor = Vector4(1.f, 0.f, 1.f, 1.f); // White color
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Intensity
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 20.0f; // Range
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.3f; // Inner cone angle (radians)
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.5f; // Outer cone angle (radians)
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.7f; // Outer cone angle (radians)
     light.m_0Type1Enable[1] = 1; // Enabled
     return std::make_shared<sLightData>(light);
 }
@@ -200,24 +200,26 @@ cLighController::cLighController()
     int l_iNumLights = static_cast<int>(m_LightDataVector.size());
     if (l_iNumLights == 0)
     {
-        m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
-        m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
-        l_iNumLights = (int)m_LightDataVector.size();
-        auto l_TestDirectionLight = m_LightDataVector[0];
-        l_TestDirectionLight->m_0Type1Enable[1] = 1;
-        static float angle = 0.0f; // Angle for dynamic movement
-        angle +=  4; // Adjust speed based on frame time
+        m_LightDataVector.push_back(cglTFLight::CreateSpotLight());
+        //m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
+        
+        //m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
+        //l_iNumLights = (int)m_LightDataVector.size();
+        //auto l_TestDirectionLight = m_LightDataVector[0];
+        //l_TestDirectionLight->m_0Type1Enable[1] = 1;
+        //static float angle = 0.0f; // Angle for dynamic movement
+        //angle +=  4; // Adjust speed based on frame time
 
-        l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
-        // Update the light's position in a circular path
-        //Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
-        Vector3 l_vLightDirection = Vector3(0, 0, -10.0f);
-        //Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
-        l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
+        //l_TestDirectionLight->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Increased intensity for visibility
+        //// Update the light's position in a circular path
+        ////Vector3 l_vLightDirection = Vector3(10.0f * cos(angle), 10.0f, -10.0f * sin(angle));
+        //Vector3 l_vLightDirection = Vector3(0, 0, -10.0f);
+        ////Vector3 l_vLightDirection = Vector3(0, -1.0f,0);
+        //l_TestDirectionLight->m_vPosition = Vector3(0, 0, -100);
 
-        // Update the light's direction to point toward the origin
-        l_TestDirectionLight->m_vDirection = l_vLightDirection.Normalize();
-        l_TestDirectionLight->m_vColor = Vector4(1.0f, 1.f, 1.0f, 1.f);
+        //// Update the light's direction to point toward the origin
+        //l_TestDirectionLight->m_vDirection = l_vLightDirection.Normalize();
+        //l_TestDirectionLight->m_vColor = Vector4(1.0f, 1.f, 1.0f, 1.f);
     }
     else
     {
@@ -327,7 +329,7 @@ void  cLighController::DebugRender()
         case eLightType::eLT_SPOT:
             // Draw cone for spot at the light's position, in the light's direction
             {
-                Vector3 spotDir = dir.Normalize();
+                Vector3 spotDir = -dir.Normalize();
                 DrawCone(pos, spotDir, range, tan(outerCone) * range, color);
                 DrawLine(pos, pos + spotDir * range, color);
             }

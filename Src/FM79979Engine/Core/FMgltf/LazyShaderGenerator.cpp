@@ -410,7 +410,7 @@ struct Light
     vec4    position;       // Aligned to 16 bytes
     vec4    color;          // Aligned to 16 bytes
     vec4    direction;      // Aligned to 16 bytes
-    vec4    LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel;          // Aligned to 16 bytes
+    vec4    LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle;          // Aligned to 16 bytes
     ivec4   xTypeyEnable;           // Padding to align to 16 bytes
 };
 
@@ -592,28 +592,58 @@ if (alpha < uAlphaCutoff)
             color += lights[i].color.xyz * albedo * occlusion * 0.2;
             continue;
         }
-        else // Point or spot
+        else
+        if (l_iType == 2) // Spot light
         {
             vLightDirection = normalize(lights[i].position.xyz - oVertexPos);
             float distance = length(lights[i].position.xyz - oVertexPos);
-            if (lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y > 0.0)
+            float range = lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.y;
+            if (range > 0.0)
+            {
+                // Distance-based attenuation with smooth cutoff
+                float kLinear = 0.09 / range; // Adjustable coefficient
+                float kQuadratic = 0.032 / (range * range); // Adjustable coefficient
+                attenuation = 1.0 / (1.0 + kLinear * distance + kQuadratic * distance * distance);
+                float rangeFactor = smoothstep(range * 0.8, range, distance); // Smooth fade from 80% to 100% of range
+                attenuation *= (1.0 - rangeFactor);
+
+                // Spotlight cone calculation
+                vec3 lightDir = normalize(lights[i].direction.xyz); // Ensure normalized direction
+                float theta = dot(vLightDirection, lightDir);
+                float innerCos = lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.z;
+                float outerCos = lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.w;
+                float epsilon = innerCos - outerCos;
+                float spotIntensity = 0.0;
+                if (abs(epsilon) > 1e-5)
+                {
+                    spotIntensity = clamp((theta - outerCos) / epsilon, 0.0, 1.0);
+                    spotIntensity = smoothstep(0.0, 1.0, spotIntensity); // Smoother cone edge
+                }
+                attenuation *= spotIntensity;
+            }
+            else
+            {
+                attenuation = 0.0; // No contribution if range is zero
+            }
+        }
+        else // Point
+        {
+            vLightDirection = normalize(lights[i].position.xyz - oVertexPos);
+            float distance = length(lights[i].position.xyz - oVertexPos);
+            if (lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.y > 0.0)
             {
                 attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
             }
-            // Apply spot light cone if applicable
-            if (l_iType == 2) // Spot light
+            else
             {
-                float theta = dot(-vLightDirection, normalize(lights[i].direction.xyz));
-                float epsilon = lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z - lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w;
-                float spotIntensity = clamp((theta - lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w) / epsilon, 0.0, 1.0);
-                attenuation *= spotIntensity;
+                attenuation = 0.0;
             }
         }
 #ifdef USE_PBR
         // Correct: apply specularFactor only to the specular term
-        color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x * attenuation, albedo, roughness, metallic, occlusion, specularColor) * specularFactor;
+        color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.x * attenuation, albedo, roughness, metallic, occlusion, specularColor) * specularFactor;
 #else
-        float diff = max(dot(vModelNormal, vLightDirection), 0.0)*lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x;
+        float diff = max(dot(vModelNormal, vLightDirection), 0.0)*lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.x;
         color += (diff*albedo);
 #endif
     }

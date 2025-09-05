@@ -2,7 +2,7 @@
 #include "glTFCamera.h"
 #include "glTFNode.h"
 #include "glTFModel.h"
-
+#include "../../imgui/imgui.h"
 
 TYPDE_DEFINE_MARCO(cCameraFrameData);
 TYPDE_DEFINE_MARCO(cCameraController);
@@ -269,6 +269,12 @@ bool cCameraController::SwitchCamera(std::shared_ptr<cFrameCamera> camera)
 
 void cCameraController::Update(float e_fElpaseTime)
 {
+    //if imgui is working with its UI return
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.WantCaptureMouse)
+    {
+        return;
+    }
     if (m_bEnableCotrolCameraByMouse)
     {
         // Assumes cGameApp::m_sbMouseClickStatus is accessible and of type sMouseState
