@@ -21,6 +21,7 @@ class cglTFModel:public FATMING_CORE::cRenderObject
     std::map<std::string, sAnimationData*>                  m_NameAndAnimationMap;
     std::map<std::string, cMesh*>                           m_NameAndMeshes;
     std::map<std::string, cSkinningMesh*>                   m_AnimationMeshMap;
+    std::vector<cglTFNodeData*>                             m_TopNodesVector;
     std::vector<cglTFNodeData*>                             m_ContainMeshglTFNodeDataVector;
     cAnimationClip                                          m_AnimationClip;
 	int     										        m_iInstanceValue;

@@ -458,7 +458,8 @@ void cMaterial::RenderImGUI()
 {
 #ifdef DEBUG
     std::string l_strName = std::string("Material_") + this->GetCharName();
-    ImGui::PushID(l_strName.c_str());
+	std::string l_UniqueID = std::to_string(this->GetUniqueID());
+    ImGui::PushID(l_UniqueID.c_str());
     if (ImGui::TreeNode(l_strName.c_str()))
     {
         ImGui::PushID(this->GetUniqueID());        

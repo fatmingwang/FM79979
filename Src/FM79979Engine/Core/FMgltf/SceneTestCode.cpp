@@ -31,7 +31,7 @@ int glTFInit()
     {
         cglTFModel* l_pModel = nullptr;
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
-        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
+        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
         
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Mixamo_WalkingGuy.glb");
@@ -55,7 +55,7 @@ int glTFInit()
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/FromAdobe/result.gltf");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/MosquitoInAmber.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Buggy.glb");
-        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
         if(!l_pModel)

@@ -1,9 +1,8 @@
-
 #include "glTFNode.h"
 #include "glTFAnimationMesh.h"
 #include "glTFModel.h"
 #include "glTFAnimation.h"
-
+#include "../../imgui/imgui.h"
 
 TYPDE_DEFINE_MARCO(cglTFNodeData);
 
@@ -249,6 +248,59 @@ void		cglTFNodeData::DebugRender()
         this->m_pMesh->SetWorldTransform(l_mat);
         this->m_pMesh->DebugRender();
     }
+}
+
+void  cglTFNodeData::RenderImGUI()
+{
+    std::string l_UniqueID = std::to_string(this->GetUniqueID());
+    ImGui::PushID(l_UniqueID.c_str());
+    std::string l_strNodeName = this->GetCharName();
+    if (ImGui::TreeNode(l_strNodeName.c_str()))
+    {
+        Vector3 worldPos = this->GetWorldPosition();
+        Vector3 localPos = this->GetLocalPosition();    
+        ImGui::Text("World Position");
+        if (ImGui::InputFloat3((l_strNodeName+"_WorldPos").c_str(), worldPos, "%.3f", 0))
+        {
+            this->SetWorldPosition(Vector3(worldPos[0], worldPos[1], worldPos[2]));
+        }
+        //ImGui::Text("Local Position");
+        //if (ImGui::InputFloat3((l_strNodeName +"_LocalPos").c_str(), localPos, "%.3f", 0))
+        //{
+        //    this->SetLocalPosition(Vector3(localPos[0], localPos[1], localPos[2]));
+        //}
+        // Add local rotation display and edit
+        auto l_matWorldMatrix = this->GetWorldTransform();
+        Vector3 scale, rotation, translation;
+        float inverted = 0;
+		l_matWorldMatrix.Decompose(scale, rotation, translation, inverted);
+        ImGui::Text("World Rotation");
+        if (ImGui::InputFloat3((l_strNodeName + "_LocalRot").c_str(), rotation, "%.3f", 0))
+        {
+			l_matWorldMatrix.Recompose(scale, rotation, translation, inverted);
+            this->SetWorldTransform(l_matWorldMatrix);
+        }
+
+
+
+        if (m_pMesh)
+        {
+            m_pMesh->RenderImGUI();
+        }
+        // Render children as tree nodes
+        Frame* child = this->GetFirstChild();
+        while (child)
+        {
+            cglTFNodeData* childNode = dynamic_cast<cglTFNodeData*>(child);
+            if (childNode)
+            {
+                childNode->RenderImGUI();
+            }
+            child = child->GetNextSibling();
+        }
+        ImGui::TreePop();
+    }
+    ImGui::PopID();
 }
 
 bool cglTFNodeData::ContainInstanceExtension(const tinygltf::Node& e_pNode)

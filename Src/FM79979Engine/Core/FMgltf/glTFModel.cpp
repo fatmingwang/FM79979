@@ -281,10 +281,57 @@ void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf:
     cMatrix44   l_matNodeTransform = cMatrix44::Identity;
     sSRT         l_SRT;
     //because gltf matrix is column so take trs to make it right?
+	//if name include Wheel make a break point to debug
+                                                            
+    bool l_bTest = false;
+    std::string nodeName = e_pNode.name;
+    if (nodeName.find("WheelRear") != std::string::npos || nodeName.find("WheelFront") != std::string::npos)
+    {
+#ifdef _DEBUG
+        int wheel_breakpoint = 1; // Set breakpoint here
+        l_bTest = true;
+#endif
+    }
     if (e_pNode.matrix.size() == 16)
     {
         cMatrix44 nodeMatrix = cMatrix44(e_pNode.matrix.data());
         l_matNodeTransform = nodeMatrix;
+        if (l_bTest)
+        {
+//            // --- Matrix validation: check axes length, orthogonality, and determinant ---
+//            Vector3 xAxis(nodeMatrix.m[0][0], nodeMatrix.m[1][0], nodeMatrix.m[2][0]);
+//            Vector3 yAxis(nodeMatrix.m[0][1], nodeMatrix.m[1][1], nodeMatrix.m[2][1]);
+//            Vector3 zAxis(nodeMatrix.m[0][2], nodeMatrix.m[1][2], nodeMatrix.m[2][2]);
+//			//
+//            Vector3 scale, rotation, translation;
+//            float inverted = 0;
+//            l_matNodeTransform.Decompose(scale, rotation, translation, inverted);
+//            Vector3 rotation2 = rotation;
+//            //rotation2.x = rotation.y;
+//            //rotation2.y = rotation.x;
+//			rotation2.x= -rotation.x-3.14/4;
+//            l_matNodeTransform.Recompose(scale, rotation2, translation, inverted);
+//            float xLen = xAxis.Length();
+//            float yLen = yAxis.Length();
+//            float zLen = zAxis.Length();
+//            float xyDot = xAxis * yAxis;
+//            float xzDot = xAxis * (zAxis);
+//            float yzDot = yAxis * (zAxis);
+//            float det = xAxis * (yAxis ^ (zAxis));
+//            bool valid = true;
+//            if (fabs(xLen - 1.0f) > 0.01f || fabs(yLen - 1.0f) > 0.01f || fabs(zLen - 1.0f) > 0.01f)
+//                valid = false;
+//            if (fabs(xyDot) > 0.01f || fabs(xzDot) > 0.01f || fabs(yzDot) > 0.01f)
+//                valid = false;
+//            if (fabs(det - 1.0f) > 0.01f)
+//                valid = false;
+//            if (!valid)
+//            {
+//#ifdef _DEBUG
+//                int matrix_invalid_break = 1; // Set breakpoint here if matrix is not a valid rotation
+//#endif
+//            }
+        }
     }
     else
     {
@@ -390,6 +437,7 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
         auto l_IT = m_NodeIndexAndBoneMap.find(l_iNodeIndex);
         if (!l_IT->second->GetParent())
         {
+			m_TopNodesVector.push_back(l_IT->second);
             l_IT->second->SetParent(this,false);
             DumpBoneIndexDebugInfo(l_IT->second, false, true);
         }
@@ -691,14 +739,23 @@ void cglTFModel::DebugRender()
 
 void cglTFModel::RenderImGUI()
 {
-    for (auto& meshPair : m_NameAndMeshes)
+    auto l_Vector = m_NodesVector.GetList();
+    if (!l_Vector)
     {
-        cMesh* pMesh = meshPair.second;
-        if (pMesh)
-        {
-            pMesh->RenderImGUI();
-        }
+        return;
     }
+    for (auto l_pNode : m_TopNodesVector)
+    {
+        l_pNode->RenderImGUI();
+    }
+    //for (int i=0;i< m_NodesVector.Count();++i)
+    //{
+    //    auto l_pNode = m_NodesVector[i];
+    //    if (l_pNode)
+    //    {
+    //        l_pNode->RenderImGUI();
+    //    }
+    //}
     for (auto& meshPair : m_AnimationMeshMap)
     {
         cMesh* pMesh = meshPair.second;
@@ -800,6 +857,12 @@ cglTFModelRenderNode* cglTFModel::ToRenderNode()
     }
     l_pRenderNode->m_AnimationClip.SetName(m_AnimationClip.GetName());
     l_pRenderNode->m_AnimationClip.SetBoneAndAnimationData(l_pRenderNode);
+
+    //for (auto l_pNode : this->m_TopNodesVector)
+    //{
+    //    //l_pRenderNode->m_top
+    //    l_pNode->m_iNodeIndex;
+    //}
     return l_pRenderNode;
 }
 
