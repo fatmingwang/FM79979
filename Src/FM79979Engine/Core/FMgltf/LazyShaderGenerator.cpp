@@ -630,9 +630,11 @@ if (alpha < uAlphaCutoff)
         {
             vLightDirection = normalize(lights[i].position.xyz - oVertexPos);
             float distance = length(lights[i].position.xyz - oVertexPos);
-            if (lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.y > 0.0)
+            float range = lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.y;
+            if (range > 0.0)
             {
                 attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
+                attenuation *= max(0.0, 1.0 - distance / range); // Fade out at range boundary
             }
             else
             {

@@ -294,10 +294,14 @@ void  cLighController::Update(float e_fElpaseTime)
 
 }
 
+bool cLighController::m_bRenderLightShape = true;
+
 void  cLighController::DebugRender()
 {
-    for (const auto& lightPtr : m_LightDataVector)
+    for (int i = 0; i < m_LightDataVector.size() && i < MAX_LIGHT; ++i)
     {
+        if (!m_bDebugRenderLight[i]) continue;
+        const auto& lightPtr = m_LightDataVector[i];
         if (!lightPtr) continue;
         const sLightData& light = *lightPtr;
         Vector3 pos(light.m_vPosition.x, light.m_vPosition.y, light.m_vPosition.z);
@@ -308,7 +312,6 @@ void  cLighController::DebugRender()
         float range = light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y;
         float innerCone = light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z;
         float outerCone = light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w;
-        // Always use the light's position and direction
         switch ((eLightType)type)
         {
         case eLightType::eLT_DIRECTIONAL:
@@ -346,6 +349,7 @@ void  cLighController::DebugRender()
 
 void cLighController::RenderImGUILightControllerUI()
 {
+    static bool renderLightShape = true;
     if (ImGui::Begin("Light Controller"))
     {
         int numLights = static_cast<int>(m_LightDataVector.size());
@@ -358,6 +362,7 @@ void cLighController::RenderImGUILightControllerUI()
                 for (int i = prevNumLights; i < numLights; ++i)
                 {
                     m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
+                    m_bDebugRenderLight[i] = true;
                 }
             }
             else if (numLights < prevNumLights)
@@ -369,10 +374,12 @@ void cLighController::RenderImGUILightControllerUI()
         for (int i = 0; i < numLights; ++i)
         {
             ImGui::PushID(i);
+            ImGui::Checkbox("Render Light Shape", &m_bDebugRenderLight[i]);
             sLightData& light = *m_LightDataVector[i];
             int prevType = light.m_0Type1Enable[0];
             if (ImGui::CollapsingHeader((std::string("Light ") + std::to_string(i)).c_str()))
             {
+
                 ImGui::InputFloat3("Position", (float*)&light.m_vPosition);
                 ImGui::ColorEdit3("Color", (float*)&light.m_vColor);
                 ImGui::InputFloat3("Direction", (float*)&light.m_vDirection);
@@ -411,6 +418,8 @@ void cLighController::RenderImGUILightControllerUI()
         }
     }
     ImGui::End();
+    // Store the renderLightShape flag for use in DebugRender
+    cLighController::SetRenderLightShape(renderLightShape);
 }
 
 void cLighController::Render(GLuint e_uiProgramID)
@@ -524,3 +533,4 @@ void g_fLightControllerUpdate(float e_fElpaseTime)
 //    cLighController::GetInstance()->AddLight(cglTFLight::CreateDirectionLight());
 //    cLighController::GetInstance()->AddLight(cglTFLight::CreateAmbientLight());
 //}
+//

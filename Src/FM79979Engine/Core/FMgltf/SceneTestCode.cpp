@@ -30,8 +30,8 @@ int glTFInit()
     bool l_bDoAnimTexture = true;
     {
         cglTFModel* l_pModel = nullptr;
-        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
-        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
+        l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
+        //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
         
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Mixamo_WalkingGuy.glb");

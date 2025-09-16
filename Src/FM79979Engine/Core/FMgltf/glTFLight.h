@@ -49,6 +49,12 @@ public:
     void    Update(float e_fElpaseTime);
 	void    RenderImGUILightControllerUI();
     void    DebugRender();
+
+    static void SetRenderLightShape(bool b) { m_bRenderLightShape = b; }
+    static bool GetRenderLightShape() { return m_bRenderLightShape; }
+private:
+    static bool m_bRenderLightShape;
+    bool m_bDebugRenderLight[MAX_LIGHT] = {true, true, true, true};
 };
 
 
