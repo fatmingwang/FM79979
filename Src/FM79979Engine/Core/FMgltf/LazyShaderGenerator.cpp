@@ -608,8 +608,9 @@ if (alpha < uAlphaCutoff)
                 attenuation *= (1.0 - rangeFactor);
 
                 // Spotlight cone calculation
-                vec3 lightDir = normalize(lights[i].direction.xyz); // Ensure normalized direction
-                float theta = dot(vLightDirection, lightDir);
+                vec3 lightToFrag = normalize(oVertexPos - lights[i].position.xyz);
+                vec3 spotDir = normalize(lights[i].direction.xyz); // cone axis points from light position outward
+                float theta = dot(lightToFrag, spotDir);
                 float innerCos = lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.z;
                 float outerCos = lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.w;
                 float epsilon = innerCos - outerCos;
@@ -816,6 +817,128 @@ void main()
 }
 )";
     return shaderCode;
+}
+
+void DumpShaderCompilerInfo(GLuint e_uiShader)
+{
+    GLint compiled;
+    glGetShaderiv(e_uiShader, GL_COMPILE_STATUS, &compiled);
+    if (compiled != GL_TRUE)
+    {
+        // Get the length of the log
+        GLint logLength = 0;
+        glGetShaderiv(e_uiShader, GL_INFO_LOG_LENGTH, &logLength);
+
+        if (logLength > 0)
+        {
+            std::vector<GLchar> log(logLength);
+            glGetShaderInfoLog(e_uiShader, logLength, nullptr, log.data());
+            printf("Shader compile error:\n%s\n", log.data());
+        }
+        else
+        {
+            printf("Shader compile failed but no log available.\n");
+        }
+    }
+    else
+    {
+        printf("Shader compile ok\n");
+    }
+}
+
+GLuint CreateOpenGLShaderProgram(const std::string& vertexShaderCode, const std::string& fragmentShaderCode)
+{
+    std::string vertexCode = vertexShaderCode;
+    //printf("vertex shader code:\n%s", vertexCode.c_str());
+    std::string fragmentCode = fragmentShaderCode;
+
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    const char* vShaderCode = vertexCode.c_str();
+    glShaderSource(vertexShader, 1, &vShaderCode, nullptr);
+    LAZY_DO_GL_COMMAND_AND_GET_ERROR(glCompileShader(vertexShader));
+    DumpShaderCompilerInfo(vertexShader);
+    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    const char* fShaderCode = fragmentCode.c_str();
+    glShaderSource(fragmentShader, 1, &fShaderCode, nullptr);
+    LAZY_DO_GL_COMMAND_AND_GET_ERROR(glCompileShader(fragmentShader));
+    DumpShaderCompilerInfo(fragmentShader);
+
+    GLuint shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+    GLint success;
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        GLchar infoLog[512];
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        FMLOG(infoLog);
+        assert(0 && "shader compile error");
+    }
+    else
+    {
+#ifdef DEBUG
+        if (0)
+        {
+            PopulateUniform(shaderProgram);
+            PopulateAttribute(shaderProgram);
+        }
+#endif
+    }
+
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    return shaderProgram;
+}
+
+void PopulateUniform(int e_iProgram)
+{
+    int count = -1;
+    int length;
+    char name[128];
+    int size;
+    GLenum type;
+    std::map<std::string, unsigned int>  l_NameAndAttributeLocationMap;
+    glUseProgram(e_iProgram);
+    glGetProgramiv(e_iProgram, GL_ACTIVE_ATTRIBUTES, &count);
+    FMLOG("vertex attribute count %d", count);
+    for (int i = 0; i < count; ++i)
+    {
+        memset(name, 0, sizeof(char) * 128);
+        glGetActiveAttrib(e_iProgram, (GLuint)i, 128, &length, &size, &type, name);
+        int attrib = glGetAttribLocation(e_iProgram, name);
+        if (attrib >= 0)
+        {
+            l_NameAndAttributeLocationMap[name] = attrib;
+            FMLOG("%s,%d", name, attrib);
+        }
+    }
+}
+
+void PopulateAttribute(int e_iProgram)
+{
+    int count = -1;
+    int length;
+    char name[128];
+    int size;
+    GLenum type;
+    std::map<std::string, unsigned int>  l_NameAndAttributeLocationMap;
+    glUseProgram(e_iProgram);
+    glGetProgramiv(e_iProgram, GL_ACTIVE_ATTRIBUTES, &count);
+    FMLOG("vertex attribute count %d", count);
+    for (int i = 0; i < count; ++i)
+    {
+        memset(name, 0, sizeof(char) * 128);
+        glGetActiveAttrib(e_iProgram, (GLuint)i, 128, &length, &size, &type, name);
+        int attrib = glGetAttribLocation(e_iProgram, name);
+        if (attrib >= 0)
+        {
+            l_NameAndAttributeLocationMap[name] = attrib;
+            FMLOG("%s,%d", name, attrib);
+        }
+    }
 }
 
 std::string GenerateShadowMapFragmentShader()

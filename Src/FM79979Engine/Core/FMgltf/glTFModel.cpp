@@ -11,7 +11,7 @@
 
 
 std::map<std::string, cglTFModel*> cglTFModel::m_sNameAndglTFModelMap;
-std::map<int64, GLuint>          cglTFModel::m_FVFAndShaderProgramsMap;
+std::map<int64, GLuint>          cglTFModel::m_sFVFAndShaderProgramsMap;
 TYPDE_DEFINE_MARCO(cglTFModel);
 
 class cMyTinyGLTF :public tinygltf::TinyGLTF
@@ -177,78 +177,12 @@ std::map<std::string, sAnimationData*> cglTFModel::CloneNameAndAnimationMap(cglT
     return l_CloneMap;
 }
 
-void DumpShaderCompilerInfo(GLuint e_uiShader)
-{
-    GLint compiled;
-    glGetShaderiv(e_uiShader, GL_COMPILE_STATUS, &compiled);
-    if (compiled != GL_TRUE)
-    {
-        // Get the length of the log
-        GLint logLength = 0;
-        glGetShaderiv(e_uiShader, GL_INFO_LOG_LENGTH, &logLength);
-
-        if (logLength > 0)
-        {
-            std::vector<GLchar> log(logLength);
-            glGetShaderInfoLog(e_uiShader, logLength, nullptr, log.data());
-            printf("Shader compile error:\n%s\n", log.data());
-        }
-        else
-        {
-            printf("Shader compile failed but no log available.\n");
-        }
-    }
-    else
-    {
-        printf("Shader compile ok\n");
-    }
-}
-
 GLuint cglTFModel::CreateShader(int64 fvfFlags, int e_iNumMorphTarget, struct sTectureAndTexCoordinateIndex* e_pTectureAndTexCoordinateIndex)
 {
     std::string vertexCode = GenerateVertexShaderWithFVF(fvfFlags, e_iNumMorphTarget);
 	//printf("vertex shader code:\n%s", vertexCode.c_str());
     std::string fragmentCode = GenerateFragmentShaderWithFVF(fvfFlags, e_pTectureAndTexCoordinateIndex);
-
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    const char* vShaderCode = vertexCode.c_str();
-    glShaderSource(vertexShader, 1, &vShaderCode, nullptr);
-    LAZY_DO_GL_COMMAND_AND_GET_ERROR(glCompileShader(vertexShader));
-    DumpShaderCompilerInfo(vertexShader);
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    const char* fShaderCode = fragmentCode.c_str();
-    glShaderSource(fragmentShader, 1, &fShaderCode, nullptr);
-    LAZY_DO_GL_COMMAND_AND_GET_ERROR(glCompileShader(fragmentShader));
-    DumpShaderCompilerInfo(fragmentShader);
-
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    GLint success;
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-        GLchar infoLog[512];
-        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        FMLOG(infoLog);
-        assert(0&&"shader compile error");
-    }
-    else
-    {
-#ifdef DEBUG
-        if (0)
-        {
-            PopulateUniform(shaderProgram);
-            PopulateAttribute(shaderProgram);
-        }
-#endif
-    }
-    
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    return shaderProgram;
+    return CreateOpenGLShaderProgram(vertexCode, fragmentCode);
 }
 
 void cglTFModel::InternalLoadNode(const tinygltf::Node& e_pNode, const tinygltf::Model& model, cglTFNodeData* parentBone, std::map<const tinygltf::Node*, cglTFNodeData*>& e_tinyglTFNodeAndJointIndexMap, bool e_bCalculateBiNormal)
@@ -598,15 +532,15 @@ GLuint cglTFModel::GetShaderProgram(int64 e_i64FVFFlags,int64 e_i64TextureFVF, i
     int64 l_i64FinalFVFFlags = e_i64FVFFlags | e_i64TextureFVF;
     //|= 1LL << l_iFVFIndex
     // Check if the shader program for this FVF already exists
-    auto l_IT = m_FVFAndShaderProgramsMap.find(l_i64FinalFVFFlags);
-    if (l_IT != m_FVFAndShaderProgramsMap.end())
+    auto l_IT = m_sFVFAndShaderProgramsMap.find(l_i64FinalFVFFlags);
+    if (l_IT != m_sFVFAndShaderProgramsMap.end())
     {
         return l_IT->second; // Return existing shader program
     }
 
     // If not, create a new shader program
     GLuint shaderProgram = CreateShader(l_i64FinalFVFFlags, e_iNumMorphTarget, e_pTectureAndTexCoordinateIndex);
-    m_FVFAndShaderProgramsMap[l_i64FinalFVFFlags] = shaderProgram;  // Store in the map
+    m_sFVFAndShaderProgramsMap[l_i64FinalFVFFlags] = shaderProgram;  // Store in the map
     return shaderProgram;
 }
 

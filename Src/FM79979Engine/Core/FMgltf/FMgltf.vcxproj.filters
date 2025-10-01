@@ -121,8 +121,5 @@
     <ClCompile Include="ShadowMap.cpp">
       <Filter>Shadow</Filter>
     </ClCompile>
-    <ClCompile Include="cShadowMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
