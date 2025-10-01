@@ -439,7 +439,7 @@ void cglTFModel::LoadNodes(const tinygltf::Model& model, bool e_bCalculateBiNorm
         {
 			m_TopNodesVector.push_back(l_IT->second);
             l_IT->second->SetParent(this,false);
-            DumpBoneIndexDebugInfo(l_IT->second, false, true);
+            //DumpBoneIndexDebugInfo(l_IT->second, false, true);
         }
     }
 }

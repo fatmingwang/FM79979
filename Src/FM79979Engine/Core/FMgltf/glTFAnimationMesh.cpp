@@ -85,7 +85,7 @@ void cSkinningMesh::LoadJointsData(const tinygltf::Skin& e_Skin, cglTFModel* e_p
     if (this->m_pMainRootBone)
     {
 #ifdef DEBUG
-        DumpBoneIndexDebugInfo(this->m_pMainRootBone, false, true);
+       //DumpBoneIndexDebugInfo(this->m_pMainRootBone, false, true);
 #endif
     }
 }

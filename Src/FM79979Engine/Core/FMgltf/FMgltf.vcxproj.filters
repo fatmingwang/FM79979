@@ -21,6 +21,9 @@
     <Filter Include="glTF\Animation">
       <UniqueIdentifier>{ca378599-9c6a-4c60-a330-c08cafbaed53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shadow">
+      <UniqueIdentifier>{a6c64dce-2e26-4776-956b-a74cf5d2de78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -68,6 +71,9 @@
     <ClInclude Include="AnimationTexture.h">
       <Filter>glTF\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="ShadowMap.h">
+      <Filter>Shadow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -110,6 +116,12 @@
       <Filter>glTF\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap.cpp">
+      <Filter>Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="cShadowMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

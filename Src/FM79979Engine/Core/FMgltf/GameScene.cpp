@@ -10,7 +10,7 @@
 cglTFScene::cglTFScene()
 {
     // Create root frame
-    m_pRootFrame = std::make_unique<cRenderObject>();
+    m_pRootFrame = std::make_unique<cglTFNodeData>();
     m_pRootFrame->SetName(L"RootFrame");
     ImGui_ImplOpenGL3_Init(cGameApp::m_spOpenGLRender->m_Handle, nullptr, 1);
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -62,6 +62,18 @@ void cglTFScene::Render()
         l_pShader->Unuse();
     }
     UseShaderProgram(L"qoo79979");
+
+    //for (auto& light : cLighController::GetInstance()->GetLights())
+    //{
+    //    if (light->m_0Type1Enable[0] == (int)eLightType::eLT_DIRECTIONAL || light->m_0Type1Enable[0] == (int)eLightType::eLT_SPOT)
+    //    {
+    //        m_ShadowMap.BindForWriting();
+    //        glClear(GL_DEPTH_BUFFER_BIT);
+    //        //cMatrix44 lightViewProj = ComputeLightViewProjMatrix(light); // You need to implement this
+    //        //m_pRootFrame->RenderNodesShadowPass(lightViewProj, shadowShaderProgram);
+    //        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    //    }
+    //}
     if (m_pRootFrame)
     {
 		m_pRootFrame->RenderNodes();

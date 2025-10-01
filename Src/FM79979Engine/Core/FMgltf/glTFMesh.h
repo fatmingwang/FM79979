@@ -89,6 +89,7 @@ public:
     //void InitBuffer();  // Initialize and bind buffers
     virtual void Render()override;        // Draw the mesh
     virtual void Render(cMeshInstance*e_pMeshInstance);
+    void RenderShadow(const cMatrix44& lightViewProj, const cMatrix44& modelMatrix, GLuint shadowShaderProgram);
     
 
     // Function to load vertex attributes and indices

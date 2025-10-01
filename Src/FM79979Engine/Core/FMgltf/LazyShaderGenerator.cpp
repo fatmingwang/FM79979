@@ -794,36 +794,35 @@ if (alpha < uAlphaCutoff)
 }
 
 
-// --- Extension logic in main() ---
-#ifdef USE_CLEARCOAT
-    float clearcoat = uClearcoatFactor;
-    float clearcoatRoughness = uClearcoatRoughnessFactor;
-    #ifdef USE_TEXCOORD_0
-    clearcoat *= texture(uTextureClearcoat, toFSVec2TexCoord0).r;
-    clearcoatRoughness *= texture(uTextureClearcoatRoughness, toFSVec2TexCoord0).g;
-    #endif
-    // Clearcoat normal perturbation
-    vec3 clearcoatNormal = vModelNormal;
-    #ifdef USE_TEXCOORD_0
-    clearcoatNormal = normalize(texture(uTextureClearcoatNormal, toFSVec2TexCoord0).rgb * 2.0 - 1.0);
-    #endif
+std::string GenerateShadowMapVertexShader(int64 e_i64FVFFlags, int e_iNumMorphTarget)
+{
+    std::string shaderCode;
+#if defined(WIN32)
+    shaderCode += "#version 330 core\n";
+#else
+    shaderCode += R"(#version 300 es
+precision mediump float;
+precision highp int;
+)";
 #endif
-#ifdef USE_EMISSIVE_STRENGTH
-    emissive *= uEmissiveStrength;
+    shaderCode += "#define USE_POSITION\n";
+    shaderCode += R"(
+layout(location = 0) in vec3 aPosition;
+uniform mat4 uMat4Model;
+uniform mat4 uLightViewProj;
+void main()
+{
+    gl_Position = uLightViewProj * uMat4Model * vec4(aPosition, 1.0);
+}
+)";
+    return shaderCode;
+}
+
+std::string GenerateShadowMapFragmentShader()
+{
+#if defined(WIN32)
+    return "#version 330 core\nvoid main() {}";
+#else
+    return "#version 300 es\nprecision mediump float;\nvoid main() {}";
 #endif
-#ifdef USE_IRIDESCENCE
-    float iridescence = uIridescenceFactor;
-    float iridescenceIOR = uIridescenceIOR;
-    float iridescenceThickness = mix(uIridescenceThicknessMin, uIridescenceThicknessMax, 0.5);
-    #ifdef USE_TEXCOORD_0
-    iridescence *= texture(uTextureIridescence, toFSVec2TexCoord0).r;
-    iridescenceThickness *= texture(uTextureIridescenceThickness, toFSVec2TexCoord0).g;
-    #endif
-    // Iridescence effect can be added here
-#endif
-#ifdef USE_TRANSMISSION
-    transmission *= uTransmissionFactor;
-    #ifdef USE_TEXCOORD_0
-    transmission *= texture(uTextureTransmission, toFSVec2TexCoord0).r;
-    #endif
-#endif
+}

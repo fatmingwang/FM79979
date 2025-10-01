@@ -3,11 +3,13 @@
 #include "glTFLight.h"
 #include <memory>
 #include <string>
+#include "ShadowMap.h"
 
 class cglTFScene : public Frame
 {
+    cShadowMap  m_ShadowMap;
 private:
-    std::unique_ptr<cRenderObject> m_pRootFrame;
+    std::unique_ptr<cglTFNodeData> m_pRootFrame;
     //std::unique_ptr<cCameraController> m_pCameraController;
     //cLighController* m_pLightController; // Singleton, do not own
     Frame* FindFrameByNameRecursive(Frame* pFrame, const std::wstring& name) const;

@@ -41,7 +41,7 @@ public:
     //rest pose
     cMatrix44   m_StartNodeTransform;
     sSRT        m_StartSRT;
-
+    cglTFNodeData(){ }
     cglTFNodeData(const tinygltf::Node&e_Node,int e_iNodeIndex);
     cglTFNodeData(cglTFNodeData*e_pglTFNodeData);
     virtual ~cglTFNodeData();
@@ -56,6 +56,7 @@ public:
 
     virtual	void        Update(float e_fElpaseTime)override;
     virtual	void        Render()override;
+    void                RenderNodesShadowPass(const cMatrix44& lightViewProj, GLuint shadowShaderProgram);
     virtual	void		DebugRender()override;
     void                RenderImGUI();
     std::shared_ptr<cMeshInstance>  GetMeshInstance()

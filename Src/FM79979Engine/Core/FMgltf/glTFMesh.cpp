@@ -426,6 +426,22 @@ void cMesh::Render(cMeshInstance* e_pMeshInstance)
     }
 }
 
+void cMesh::RenderShadow(const cMatrix44& lightViewProj, const cMatrix44& modelMatrix, GLuint shadowShaderProgram)
+{
+    glUseProgram(shadowShaderProgram);
+    GLint locModel = glGetUniformLocation(shadowShaderProgram, "uMat4Model");
+    GLint locLightVP = glGetUniformLocation(shadowShaderProgram, "uLightViewProj");
+    glUniformMatrix4fv(locModel, 1, GL_FALSE, modelMatrix.m[0]);
+    glUniformMatrix4fv(locLightVP, 1, GL_FALSE, lightViewProj.m[0]);
+    for (auto& subMesh : m_SubMeshesVector)
+    {
+        glBindVertexArray(subMesh->m_uiVAO);
+        glDrawElements(GL_TRIANGLES, (GLsizei)subMesh->m_IndexBuffer.size(), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+    }
+    glUseProgram(0);
+}
+
 void cMesh::logFVFFlags()
 {
     return;
