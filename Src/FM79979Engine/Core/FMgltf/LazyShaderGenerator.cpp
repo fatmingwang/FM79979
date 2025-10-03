@@ -587,6 +587,8 @@ if (alpha < uAlphaCutoff)
         {
             attenuation = GetPointLightAttenuation(i, oVertexPos, vLightDirection);
         }
+        if (attenuation <= 0.0)
+            continue;
 #ifdef USE_PBR
         // Correct: apply specularFactor only to the specular term
         color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.x * attenuation, albedo, roughness, metallic, occlusion, specularColor) * specularFactor;

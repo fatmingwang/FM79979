@@ -165,13 +165,13 @@ std::shared_ptr<sLightData> cglTFLight::CreateSpotLight()
 {
     sLightData light;
     light.m_0Type1Enable[0] = (int)eLightType::eLT_SPOT; // Spot light
-    light.m_vPosition = Vector4(0.f, 10.f, 0.f, 1.f); // Default position
+    light.m_vPosition = Vector4(0.f, 0.2f, 0.f, 1.f); // Default position
     light.m_vDirection = Vector4(0.f, -1.f, 0.f, 0.f); // Default direction
     light.m_vColor = Vector4(1.f, 0.f, 1.f, 1.f); // White color
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Intensity
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 20.0f; // Range
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.3f; // Inner cone angle (radians)
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.7f; // Outer cone angle (radians)
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f; // Intensity
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 0.21f; // Range
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.9f; // Inner cone angle (radians)
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.6f; // Outer cone angle (radians)
     light.m_0Type1Enable[1] = 1; // Enabled
     return std::make_shared<sLightData>(light);
 }
@@ -183,8 +183,8 @@ std::shared_ptr<sLightData> cglTFLight::CreatePointLight()
     light.m_vPosition = Vector4(0.f, 5.f, 5.f, 1.f); // Default position
     light.m_vDirection = Vector4(0.f, -1.f, 0.f, 0.f); // Not used for point, but set to default
     light.m_vColor = Vector4(1.f, 1.f, 1.f, 1.f); // White color
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 5.0f; // Intensity
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 15.0f; // Range
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f; // Intensity
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 0.2f; // Range
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.0f; // Not used
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.0f; // Not used
     light.m_0Type1Enable[1] = 1; // Enabled
@@ -316,7 +316,7 @@ void  cLighController::DebugRender()
         {
         case eLightType::eLT_DIRECTIONAL:
             // Draw cone for direction at the light's position
-            DrawCone(pos, dir.Normalize(), 2.0f, 0.5f, color);
+            DrawCone(pos, -dir.Normalize(), 2.0f, 0.5f, color);
             DrawLine(pos, pos + dir.Normalize() * 5.0f, color);
             break;
         case eLightType::eLT_POINT:
@@ -387,30 +387,35 @@ void cLighController::RenderImGUILightControllerUI()
                 ImGui::InputFloat("Range", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y);
                 ImGui::InputFloat("Inner Cone Angle", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z);
                 ImGui::InputFloat("Outer Cone Angle", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w);
+                //innerCos is always greater than outerCos.
+                if (light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z <= light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w)
+                {
+                    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w+0.1;
+                }
                 int type = light.m_0Type1Enable[0];
                 if (ImGui::Combo("Type", &type, "Directional\0Point\0Spot\0Ambient\0"))
                 {
                     light.m_0Type1Enable[0] = type;
-                    std::shared_ptr<sLightData> newLight;
-                    switch ((eLightType)type)
-                    {
-                        case eLightType::eLT_DIRECTIONAL:
-                            newLight = cglTFLight::CreateDirectionLight();
-                            break;
-                        case eLightType::eLT_POINT:
-                            newLight = cglTFLight::CreatePointLight();
-                            break;
-                        case eLightType::eLT_SPOT:
-                            newLight = cglTFLight::CreateSpotLight();
-                            break;
-                        case eLightType::eLT_AMBIENT:
-                            newLight = cglTFLight::CreateAmbientLight();
-                            break;
-                        default:
-                            newLight = cglTFLight::CreateDirectionLight();
-                            break;
-                    }
-                    light = *newLight;
+                    //std::shared_ptr<sLightData> newLight;
+                    //switch ((eLightType)type)
+                    //{
+                    //    case eLightType::eLT_DIRECTIONAL:
+                    //        newLight = cglTFLight::CreateDirectionLight();
+                    //        break;
+                    //    case eLightType::eLT_POINT:
+                    //        newLight = cglTFLight::CreatePointLight();
+                    //        break;
+                    //    case eLightType::eLT_SPOT:
+                    //        newLight = cglTFLight::CreateSpotLight();
+                    //        break;
+                    //    case eLightType::eLT_AMBIENT:
+                    //        newLight = cglTFLight::CreateAmbientLight();
+                    //        break;
+                    //    default:
+                    //        newLight = cglTFLight::CreateDirectionLight();
+                    //        break;
+                    //}
+                    //light = *newLight;
                 }
                 ImGui::Checkbox("Enable", (bool*)&light.m_0Type1Enable[1]);
             }
