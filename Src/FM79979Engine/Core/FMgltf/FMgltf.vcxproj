@@ -230,6 +230,7 @@ WASM;%(PreprocessorDefinitions)</PreprocessorDefinitions>
   <ItemGroup>
     <ClInclude Include="AnimationTexture.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="CommonShader.hpp" />
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="glTFAnimation.h" />
