@@ -27,7 +27,7 @@ int glTFInit()
 {
 	g_pglTFScene = new cglTFScene();
     auto l_pRootFrame = g_pglTFScene->GetRootFrame();
-    bool l_bDoAnimTexture = true;
+    bool l_bDoAnimTexture = false;
     {
         cglTFModel* l_pModel = nullptr;
         l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");

@@ -244,12 +244,15 @@ void   cglTFNodeData::RenderNodesShadowPass(const cMatrix44& lightViewProj, GLui
 {
     if (m_pMesh)
     {
+        static int l_ii = 0;
+        l_ii++;
         cMatrix44 modelMatrix = GetWorldTransform();
         m_pMesh->RenderShadow(lightViewProj, modelMatrix, shadowShaderProgram);
+
     }
     for (Frame* child = GetFirstChild(); child; child = child->GetNextSibling())
     {
-        cglTFNodeData* childObj = dynamic_cast<cglTFNodeData*>(child);
+        cglTFModel*childObj = dynamic_cast<cglTFModel*>(child);
         if (childObj)
             childObj->RenderNodesShadowPass(lightViewProj, shadowShaderProgram);
     }

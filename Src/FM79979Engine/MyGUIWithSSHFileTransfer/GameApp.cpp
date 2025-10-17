@@ -17,7 +17,7 @@ cMyApp::cMyApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) 
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
-	//m_pCURLUI = new cCURLUI();
+	m_pCURLUI = new cCURLUI();
 	if (!m_pCURLUI)
 	{
 		g_pMyImGuiUIEditor = new cMyImGuiUIEditor();

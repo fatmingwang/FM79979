@@ -1,7 +1,17 @@
 #include "ShadowMap.h"
+#include "LazyShaderGenerator.h"
 
-cShadowMap::cShadowMap() {}
-cShadowMap::~cShadowMap() { Cleanup(); }
+cShadowMap* g_pShadowMap = nullptr;
+
+cShadowMap::cShadowMap() 
+{
+    g_pShadowMap = this;
+}
+cShadowMap::~cShadowMap()
+{
+    g_pShadowMap = nullptr;
+    Cleanup();
+}
 
 bool cShadowMap::Init(int width, int height)
 {
@@ -26,6 +36,13 @@ bool cShadowMap::Init(int width, int height)
     return status;
 }
 
+void cShadowMap::InitShadowMapProgram()
+{
+    std::string vs = GenerateShadowMapVertexShader();
+    std::string fs = GenerateShadowMapFragmentShader();
+    m_ShadowMapProgram = CreateOpenGLShaderProgram(vs, fs);
+}
+
 void cShadowMap::BindForWriting()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
@@ -41,6 +58,8 @@ void cShadowMap::Cleanup()
 {
     if (m_DepthTexture) glDeleteTextures(1, &m_DepthTexture);
     if (m_Framebuffer) glDeleteFramebuffers(1, &m_Framebuffer);
+    if (m_ShadowMapProgram) glDeleteProgram(m_ShadowMapProgram);
     m_DepthTexture = 0;
     m_Framebuffer = 0;
+    m_ShadowMapProgram = 0;
 }

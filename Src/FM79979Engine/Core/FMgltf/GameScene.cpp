@@ -5,7 +5,7 @@
 #include "../../imgui/ImGuiRender.h"
 #include "../../imgui/imgui.h"
 #include "glTFModel.h"
-
+#include "LazyShaderGenerator.h"
 
 cglTFScene::cglTFScene()
 {
@@ -19,10 +19,13 @@ cglTFScene::cglTFScene()
     //ImGui::GetIO().IniFilename = nullptr;
     ImGui::GetIO().LogFilename = nullptr;
     ImGui::GetIO().FontGlobalScale = 1.5f;
+	//m_pShadowMap = new cShadowMap();
+    //m_pShadowMap->InitShadowMapProgram(); // Initialize shadow map shader program
 }
 
 cglTFScene::~cglTFScene()
 {
+    SAFE_DELETE(m_pShadowMap);
     DestoryWithChildren();
 }
 
@@ -50,8 +53,6 @@ void cglTFScene::Render()
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
-    //glCullFace(GL_FRONT);
-    // Enable depth testing
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 	glClearColor(1.f, 0.1f, 0.1f, 1.0f);
@@ -62,24 +63,33 @@ void cglTFScene::Render()
         l_pShader->Unuse();
     }
     UseShaderProgram(L"qoo79979");
+    auto l_matWVP = cCameraController::GetInstance()->GetCurrentCamera()->GetWorldViewProjection();
+    // Shadow pass for each directional/spot light
+    if (m_pShadowMap)
+    {
+        for (auto& light : cLighController::GetInstance()->GetLights())
+        {
+            if (light->m_0Type1Enable[0] == (int)eLightType::eLT_DIRECTIONAL || light->m_0Type1Enable[0] == (int)eLightType::eLT_SPOT)
+            {
+                auto l_Light = cLighController::GetInstance()->GetFirstDirectionLight();
+                cMatrix44 lightViewProj;
+                if (cLighController::GetInstance()->GetDirectionViewProjectionMatrix(l_Light, lightViewProj))
+                {
+                    m_pShadowMap->BindForWriting();
+                    glClear(GL_DEPTH_BUFFER_BIT);
+                    GLuint shadowShaderProgram = m_pShadowMap->GetShadowMapProgram();
+                    m_pRootFrame->RenderNodesShadowPass(lightViewProj, shadowShaderProgram);
+                    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+                }
+            }
+        }
+    }
 
-    //for (auto& light : cLighController::GetInstance()->GetLights())
-    //{
-    //    if (light->m_0Type1Enable[0] == (int)eLightType::eLT_DIRECTIONAL || light->m_0Type1Enable[0] == (int)eLightType::eLT_SPOT)
-    //    {
-    //        m_ShadowMap.BindForWriting();
-    //        glClear(GL_DEPTH_BUFFER_BIT);
-    //        //cMatrix44 lightViewProj = ComputeLightViewProjMatrix(light); // You need to implement this
-    //        //m_pRootFrame->RenderNodesShadowPass(lightViewProj, shadowShaderProgram);
-    //        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    //    }
-    //}
     if (m_pRootFrame)
     {
 		m_pRootFrame->RenderNodes();
     }
     UseShaderProgram();
-    auto l_matWVP = cCameraController::GetInstance()->GetCurrentCamera()->GetWorldViewProjection();
     //FATMING_CORE::SetupShaderViewProjectionMatrix(m_Projection.GetMatrix() * this->GetWorldView(), true);
     FATMING_CORE::SetupShaderViewProjectionMatrix(l_matWVP, true);
     cLighController::GetInstance()->DebugRender();
@@ -121,9 +131,7 @@ void cglTFScene::Render()
             }
         }
     , dynamic_cast<Frame*>(m_pRootFrame.get()));
-    
     ImGui_EndFrame();
-    
 }
 
 // Find Frame by name (recursive)

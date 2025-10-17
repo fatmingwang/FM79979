@@ -52,6 +52,7 @@ public:
     void    InitBuffers();
     virtual void    Update(float e_fEpaseTime)override;
     virtual void    Render()override;
+    void            RenderNodesShadowPass(const cMatrix44& lightViewProj, GLuint shadowShaderProgram);
     virtual void    DebugRender()override;
     void            RenderImGUI();
     void            RenderAnimationImGUI();

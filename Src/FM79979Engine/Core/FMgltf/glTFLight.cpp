@@ -167,7 +167,7 @@ std::shared_ptr<sLightData> cglTFLight::CreateSpotLight()
     light.m_0Type1Enable[0] = (int)eLightType::eLT_SPOT; // Spot light
     light.m_vPosition = Vector4(0.f, 0.2f, 0.f, 1.f); // Default position
     light.m_vDirection = Vector4(0.f, -1.f, 0.f, 0.f); // Default direction
-    light.m_vColor = Vector4(1.f, 0.f, 1.f, 1.f); // White color
+    light.m_vColor = Vector4(1.f, 1.f, 1.f, 1.f); // White color
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f; // Intensity
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 0.21f; // Range
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.9f; // Inner cone angle (radians)
@@ -200,8 +200,8 @@ cLighController::cLighController()
     int l_iNumLights = static_cast<int>(m_LightDataVector.size());
     if (l_iNumLights == 0)
     {
-        m_LightDataVector.push_back(cglTFLight::CreateSpotLight());
-        //m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
+        //m_LightDataVector.push_back(cglTFLight::CreateSpotLight());
+        m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
         
         //m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
         //l_iNumLights = (int)m_LightDataVector.size();
@@ -345,6 +345,46 @@ void  cLighController::DebugRender()
             break;
         }
     }
+}
+
+shared_ptr<sLightData> cLighController::GetFirstDirectionLight()
+{
+    for(auto l_Light: m_LightDataVector)
+    {
+        if(l_Light->m_0Type1Enable[0]==(int)eLightType::eLT_DIRECTIONAL)
+        {
+            return l_Light;
+        }
+	}
+    return shared_ptr<sLightData>();
+}
+
+bool cLighController::GetDirectionViewProjectionMatrix(std::shared_ptr<sLightData> e_Light, cMatrix44& e_ViewProjection)
+{
+    if (!e_Light || e_Light->m_0Type1Enable[0] != (int)eLightType::eLT_DIRECTIONAL)
+    {
+        return false;
+    }
+
+    // Light direction (should be normalized)
+    Vector3 lightDir = Vector3(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z).Normalize();
+
+    // Position the light far enough away in the direction opposite to the light direction
+    Vector3 target = Vector3(0, 0, 0); // Center of the scene
+    Vector3 lightPos = target - lightDir * 50.0f; // Move back 50 units
+
+    // Up vector (avoid parallel to lightDir)
+    Vector3 up = fabs(lightDir.y) > 0.99f ? Vector3(0, 0, 1) : Vector3(0, 1, 0);
+
+    // View matrix
+    cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
+
+    // Orthographic projection (cover scene area)
+    float orthoSize = 40.0f;
+    cMatrix44 proj;
+    glhOrthof2(proj, -orthoSize, orthoSize, -orthoSize, orthoSize, 1.0f, 200.0f);
+    e_ViewProjection = proj * view;
+    return true;
 }
 
 void cLighController::RenderImGUILightControllerUI()

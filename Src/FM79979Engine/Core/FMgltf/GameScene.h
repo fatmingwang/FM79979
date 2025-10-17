@@ -7,7 +7,7 @@
 
 class cglTFScene : public Frame
 {
-    cShadowMap  m_ShadowMap;
+    cShadowMap*m_pShadowMap = nullptr;
 private:
     std::unique_ptr<cglTFNodeData> m_pRootFrame;
     //std::unique_ptr<cCameraController> m_pCameraController;

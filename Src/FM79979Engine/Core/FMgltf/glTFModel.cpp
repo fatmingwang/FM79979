@@ -627,6 +627,14 @@ void cglTFModel::Render()
 {
 }
 
+void cglTFModel::RenderNodesShadowPass(const cMatrix44& lightViewProj, GLuint shadowShaderProgram)
+{
+    for (auto l_Node : m_TopNodesVector)
+    {
+		l_Node->RenderNodesShadowPass(lightViewProj, shadowShaderProgram);
+    }
+}
+
 void cglTFModel::DebugRender()
 {
     std::vector<Vector3>l_vPoints;

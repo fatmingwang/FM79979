@@ -3,6 +3,8 @@
 #include "../Math/Vector3.h"
 #include "../Math/Vector4.h"
 #include "../../imgui/imgui.h"
+#include "ShadowMap.h"
+#include "glTFLight.h"
 
 namespace FATMING_CORE
 {
@@ -13,6 +15,48 @@ namespace FATMING_CORE
 }
 
 TYPDE_DEFINE_MARCO(cMaterial);
+
+#define SET_UNIFORM(PROGRAM, NAME, GLFUNC, VALUE) \
+    success &= SetUniform(PROGRAM, NAME, GLFUNC, VALUE);
+
+
+namespace
+{
+    // For float vector uniforms (e.g., glUniform4fv, glUniform3fv, glUniform2fv)
+    template<typename T>
+    bool SetUniform(GLuint program, const char* name, void(*glFunc)(GLint, GLsizei, const GLfloat*), const T& value, GLsizei count = 1)
+    {
+        GLint loc = glGetUniformLocation(program, name);
+        if (loc != -1)
+        {
+            glFunc(loc, count, reinterpret_cast<const GLfloat*>(&value));
+            return true;
+        }
+        return false;
+    }
+    // For float scalar uniforms (e.g., glUniform1f)
+    bool SetUniform(GLuint program, const char* name, void(*glFunc)(GLint, GLfloat), GLfloat value)
+    {
+        GLint loc = glGetUniformLocation(program, name);
+        if (loc != -1)
+        {
+            glFunc(loc, value);
+            return true;
+        }
+        return false;
+    }
+    // For int scalar uniforms (e.g., glUniform1i)
+    bool SetUniform(GLuint program, const char* name, void(*glFunc)(GLint, GLint), GLint value)
+    {
+        GLint loc = glGetUniformLocation(program, name);
+        if (loc != -1)
+        {
+            glFunc(loc, value);
+            return true;
+        }
+        return false;
+    }
+}
 
 bool cMaterial::BindTecture(shared_ptr<cTexture> e_spTexture, GLuint& e_uiTextureUnit,const char*e_strTextureName)
 {
@@ -565,17 +609,6 @@ void cMaterial::Apply()
             glCullFace(GL_BACK);     // Cull back faces (default for glTF)
             glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
         }
-        //if (m_TectureAndTexCoordinateIndex.m_strAlphaMode == "BLEND")
-        //{
-        //    glEnable(GL_BLEND);
-        //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        //    glDepthMask(GL_FALSE);
-        //}
-        //else
-        //{
-        //    glDisable(GL_BLEND);
-        //    glDepthMask(GL_TRUE);
-        //}
     }
     GLuint l_TextureUnit = 0;
     BindTecture(m_spBaseColorTexture, l_TextureUnit,"uTextureDiffuse");
@@ -597,165 +630,82 @@ void cMaterial::Apply()
         BindTecture(m_pIridescenceExtension->iridescenceTexture, l_TextureUnit, "uTextureIridescence");
         BindTecture(m_pIridescenceExtension->iridescenceThicknessTexture, l_TextureUnit, "uTextureIridescenceThickness");
     }
+    // --- Shadow Map Setup ---
+    const int SHADOW_MAP_TEXTURE_UNIT = l_TextureUnit;
+    if (g_pShadowMap) {
+        g_pShadowMap->BindForReading(GL_TEXTURE0 + SHADOW_MAP_TEXTURE_UNIT);
+        GLuint l_ShadowMap = glGetUniformLocation(m_uiShaderProgrameID, "uShadowMap");
+        if (l_ShadowMap != GL_INVALID_INDEX)
+        {
+            glUniform1i(l_ShadowMap, SHADOW_MAP_TEXTURE_UNIT);
+        }
+        auto l_EnableShadow = glGetUniformLocation(m_uiShaderProgrameID, "uEnableShadow");
+        if (l_EnableShadow != GL_INVALID_INDEX)
+        {
+            glUniform1i(l_EnableShadow, 1);
+        }
+        cMatrix44 lightViewProj;
+        auto l_Light = cLighController::GetInstance()->GetFirstDirectionLight();
+        if (cLighController::GetInstance()->GetDirectionViewProjectionMatrix(l_Light, lightViewProj)) {
+            glUniformMatrix4fv(glGetUniformLocation(m_uiShaderProgrameID, "uLightViewProj"), 1, GL_FALSE, lightViewProj.m[0]);
+        }
+    } else {
+        glUniform1i(glGetUniformLocation(m_uiShaderProgrameID, "uEnableShadow"), 0);
+    }
     ApplyUnriforms();
 }
-
 
 bool cMaterial::ApplyUnriforms()
 {
     bool success = true;
-    GLuint baseColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uBaseColorFactor");
-    if (baseColorFactorLoc != GL_INVALID_INDEX)
-    {
-        glUniform4fv(baseColorFactorLoc, 1, m_vBaseColorFactor);
-    }
-    else
-    {
-        success = false;
-    }
-    GLuint alphaCutoffLoc = glGetUniformLocation(m_uiShaderProgrameID, "uAlphaCutoff");
-    if (alphaCutoffLoc != GL_INVALID_INDEX)
-    {
-        glUniform1f(alphaCutoffLoc,  this->m_TectureAndTexCoordinateIndex.m_fAlphaCutoff);
-    }
-    // Set metallic factor
-    GLuint metallicFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uMetallicFactor");
-    if (metallicFactorLoc != GL_INVALID_INDEX)
-    {
-        glUniform1f(metallicFactorLoc, m_metallicFactor);
-    }
-    else
-    {
-        success = false;
-    }
-    // Set roughness factor
-    GLuint roughnessFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uRoughnessFactor");
-    if (roughnessFactorLoc != GL_INVALID_INDEX)
-    {
-        glUniform1f(roughnessFactorLoc, m_roughnessFactor);
-    }
-    {
-        success = false;
-    }
-    // Set occlusion strength
-    GLuint occlusionStrengthLoc = glGetUniformLocation(m_uiShaderProgrameID, "uOcclusionStrength");
-    if (occlusionStrengthLoc != GL_INVALID_INDEX)
-    {
-        glUniform1f(occlusionStrengthLoc, m_occlusionStrength);
-    }
-    else
-    {
-        success = false;
-    }
-    // Set emissive factor
-    GLuint emissiveFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uEmissiveFactor");
-    if (emissiveFactorLoc != GL_INVALID_INDEX)
-    {
-        glUniform3fv(emissiveFactorLoc, 1, m_vEmissiveFactor);
-    }
-    else
-    {
-        success = false;
-    }
-    // --- KHR_materials_specular ---
+    auto prog = m_uiShaderProgrameID;
+    SET_UNIFORM(prog, "uBaseColorFactor", glUniform4fv,m_vBaseColorFactor);
+    SET_UNIFORM(prog, "uAlphaCutoff", glUniform1f, m_TectureAndTexCoordinateIndex.m_fAlphaCutoff);
+    SET_UNIFORM(prog, "uMetallicFactor", glUniform1f, m_metallicFactor);
+    SET_UNIFORM(prog, "uRoughnessFactor", glUniform1f, m_roughnessFactor);
+    SET_UNIFORM(prog, "uOcclusionStrength", glUniform1f, m_occlusionStrength);
+    SET_UNIFORM(prog, "uEmissiveFactor", glUniform3fv, m_vEmissiveFactor);
+    // KHR_materials_specular
     if (m_pSpecularExtension) {
-        GLuint specularFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uSpecularFactor");
-        if (specularFactorLoc != GL_INVALID_INDEX)
-            glUniform1f(specularFactorLoc, m_pSpecularExtension->specularFactor);
-        else success = false;
-        GLuint specularColorFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uSpecularColorFactor");
-        if (specularColorFactorLoc != GL_INVALID_INDEX)
-        {
-            glUniform3fv(specularColorFactorLoc, 1, m_pSpecularExtension->specularColorFactor);
-        }
-        else success = false;
+        SET_UNIFORM(prog, "uSpecularFactor", glUniform1f, m_pSpecularExtension->specularFactor);
+        SET_UNIFORM(prog, "uSpecularColorFactor", glUniform3fv, m_pSpecularExtension->specularColorFactor);
     }
-    // --- KHR_materials_transmission ---
+    // KHR_materials_transmission
     if (m_pTransmissionExtension) {
-        GLuint transmissionFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTransmissionFactor");
-        if (transmissionFactorLoc != GL_INVALID_INDEX)
-            glUniform1f(transmissionFactorLoc, m_pTransmissionExtension->transmissionFactor);
-        else success = false;
+        SET_UNIFORM(prog, "uTransmissionFactor", glUniform1f, m_pTransmissionExtension->transmissionFactor);
     }
-    // --- KHR_materials_ior ---
+    // KHR_materials_ior
     if (m_pIORExtension) {
-        GLuint iorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIOR");
-        if (iorLoc != GL_INVALID_INDEX)
-            glUniform1f(iorLoc, m_pIORExtension->ior);
-        else success = false;
+        SET_UNIFORM(prog, "uIOR", glUniform1f, m_pIORExtension->ior);
     }
-    // --- KHR_materials_volume ---
+    // KHR_materials_volume
     if (m_pVolumeExtension) {
-        GLuint thicknessFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uThicknessFactor");
-        if (thicknessFactorLoc != GL_INVALID_INDEX)
-            glUniform1f(thicknessFactorLoc, m_pVolumeExtension->thicknessFactor);
-        else success = false;
-        GLuint attenuationDistanceLoc = glGetUniformLocation(m_uiShaderProgrameID, "uAttenuationDistance");
-        if (attenuationDistanceLoc != GL_INVALID_INDEX)
-            glUniform1f(attenuationDistanceLoc, m_pVolumeExtension->attenuationDistance);
-        else success = false;
-        GLuint attenuationColorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uAttenuationColor");
-        if (attenuationColorLoc != GL_INVALID_INDEX)
-        {
-            glUniform3fv(attenuationColorLoc, 1, m_pVolumeExtension->attenuationColor);
-        }
-        else success = false;
+        SET_UNIFORM(prog, "uThicknessFactor", glUniform1f, m_pVolumeExtension->thicknessFactor);
+        SET_UNIFORM(prog, "uAttenuationDistance", glUniform1f, m_pVolumeExtension->attenuationDistance);
+        SET_UNIFORM(prog, "uAttenuationColor", glUniform3fv, m_pVolumeExtension->attenuationColor);
     }
-    // --- KHR_materials_clearcoat ---
+    // KHR_materials_clearcoat
     if (m_pClearcoatExtension) {
-        GLuint clearcoatFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uClearcoatFactor");
-        if (clearcoatFactorLoc != GL_INVALID_INDEX)
-            glUniform1f(clearcoatFactorLoc, m_pClearcoatExtension->clearcoatFactor);
-        else success = false;
-        GLuint clearcoatRoughnessFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uClearcoatRoughnessFactor");
-        if (clearcoatRoughnessFactorLoc != GL_INVALID_INDEX)
-            glUniform1f(clearcoatRoughnessFactorLoc, m_pClearcoatExtension->clearcoatRoughnessFactor);
-        else success = false;
+        SET_UNIFORM(prog, "uClearcoatFactor", glUniform1f, m_pClearcoatExtension->clearcoatFactor);
+        SET_UNIFORM(prog, "uClearcoatRoughnessFactor", glUniform1f, m_pClearcoatExtension->clearcoatRoughnessFactor);
     }
-    // --- KHR_materials_emissive_strength ---
+    // KHR_materials_emissive_strength
     if (m_pEmissiveStrengthExtension) {
-        GLuint emissiveStrengthLoc = glGetUniformLocation(m_uiShaderProgrameID, "uEmissiveStrength");
-        if (emissiveStrengthLoc != GL_INVALID_INDEX)
-            glUniform1f(emissiveStrengthLoc, m_pEmissiveStrengthExtension->emissiveStrength);
-        else success = false;
+        SET_UNIFORM(prog, "uEmissiveStrength", glUniform1f, m_pEmissiveStrengthExtension->emissiveStrength);
     }
-    // --- KHR_materials_iridescence ---
+    // KHR_materials_iridescence
     if (m_pIridescenceExtension) {
-        GLuint iridescenceFactorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIridescenceFactor");
-        if (iridescenceFactorLoc != GL_INVALID_INDEX)
-            glUniform1f(iridescenceFactorLoc, m_pIridescenceExtension->iridescenceFactor);
-        else success = false;
-        GLuint iridescenceIorLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIridescenceIor");
-        if (iridescenceIorLoc != GL_INVALID_INDEX)
-            glUniform1f(iridescenceIorLoc, m_pIridescenceExtension->iridescenceIor);
-        else success = false;
-        GLuint iridescenceThicknessMinLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIridescenceThicknessMinimum");
-        if (iridescenceThicknessMinLoc != GL_INVALID_INDEX)
-            glUniform1f(iridescenceThicknessMinLoc, m_pIridescenceExtension->iridescenceThicknessMinimum);
-        else success = false;
-        GLuint iridescenceThicknessMaxLoc = glGetUniformLocation(m_uiShaderProgrameID, "uIridescenceThicknessMaximum");
-        if (iridescenceThicknessMaxLoc != GL_INVALID_INDEX)
-            glUniform1f(iridescenceThicknessMaxLoc, m_pIridescenceExtension->iridescenceThicknessMaximum);
-        else success = false;
+        SET_UNIFORM(prog, "uIridescenceFactor", glUniform1f, m_pIridescenceExtension->iridescenceFactor);
+        SET_UNIFORM(prog, "uIridescenceIor", glUniform1f, m_pIridescenceExtension->iridescenceIor);
+        SET_UNIFORM(prog, "uIridescenceThicknessMinimum", glUniform1f, m_pIridescenceExtension->iridescenceThicknessMinimum);
+        SET_UNIFORM(prog, "uIridescenceThicknessMaximum", glUniform1f, m_pIridescenceExtension->iridescenceThicknessMaximum);
     }
-    // --- KHR_texture_transform ---
+    // KHR_texture_transform
     if (m_pTextureTransformExtension) {
-        GLuint offsetLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureTransformOffset");
-        if (offsetLoc != GL_INVALID_INDEX)
-            glUniform2fv(offsetLoc, 1, m_pTextureTransformExtension->offset);
-        else success = false;
-        GLuint rotationLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureTransformRotation");
-        if (rotationLoc != GL_INVALID_INDEX)
-            glUniform1f(rotationLoc, m_pTextureTransformExtension->rotation);
-        else success = false;
-        GLuint scaleLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureTransformScale");
-        if (scaleLoc != GL_INVALID_INDEX)
-            glUniform2fv(scaleLoc, 1, m_pTextureTransformExtension->scale);
-        else success = false;
-        GLuint texCoordLoc = glGetUniformLocation(m_uiShaderProgrameID, "uTextureTransformTexCoord");
-        if (texCoordLoc != GL_INVALID_INDEX)
-            glUniform1i(texCoordLoc, m_pTextureTransformExtension->texCoord);
-        else success = false;
+        SET_UNIFORM(prog, "uTextureTransformOffset", glUniform2fv, m_pTextureTransformExtension->offset);
+        SET_UNIFORM(prog, "uTextureTransformRotation", glUniform1f, m_pTextureTransformExtension->rotation);
+        SET_UNIFORM(prog, "uTextureTransformScale", glUniform2fv, m_pTextureTransformExtension->scale);
+        SET_UNIFORM(prog, "uTextureTransformTexCoord", glUniform1i, m_pTextureTransformExtension->texCoord);
     }
     return success;
 }

@@ -343,6 +343,27 @@ precision highp sampler2D;
 #endif
     shaderCode += l_strDefine;
     shaderCode += g_strSpotAndPointLightFunction;
+
+    // --- Shadow mapping support ---
+    shaderCode += R"(
+uniform bool uEnableShadow;
+uniform sampler2D uShadowMap;
+uniform mat4 uLightViewProj;
+
+float ShadowCalculation(vec3 worldPos)
+{
+    vec4 lightSpacePos = uLightViewProj * vec4(worldPos, 1.0);
+    vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
+    projCoords = projCoords * 0.5 + 0.5;
+    float closestDepth = texture(uShadowMap, projCoords.xy).r;
+    float currentDepth = projCoords.z;
+    float bias = 0.005;
+    float shadow = currentDepth - bias > closestDepth ? 0.5 : 1.0;
+    if(projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0 || projCoords.z < 0.0 || projCoords.z > 1.0)
+        shadow = 1.0;
+    return shadow;
+}
+)";
 #ifdef DEBUG
     shaderCode += R"(
 flat in int toFSInstanceID; // Flat qualifier for instance ID
@@ -506,7 +527,6 @@ void main()
     vec3 vModelNormal = GetNormalFromMap();
     vec3 vViewPostToVertexPos = normalize(uVec3ViewPosition - oVertexPos);
     vec3 color = vec3(0.0);
-    // Handle albedo and alpha from diffuse texture or base color factor
     float alpha = uBaseColorFactor.a;
 #if defined(USE_TEXCOORD_0) && defined(FVF_BASE_COLOR_TEXTURE_FLAG)
     vec4 diffuseSample = texture(uTextureDiffuse, toFSVec2TexCoord0);
@@ -589,12 +609,14 @@ if (alpha < uAlphaCutoff)
         }
         if (attenuation <= 0.0)
             continue;
+        float shadow = 1.0;
+        if(uEnableShadow && l_iType == 0)
+            shadow = ShadowCalculation(oVertexPos);
 #ifdef USE_PBR
-        // Correct: apply specularFactor only to the specular term
-        color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.x * attenuation, albedo, roughness, metallic, occlusion, specularColor) * specularFactor;
+        color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.x * attenuation, albedo, roughness, metallic, occlusion, specularColor) * specularFactor * shadow;
 #else
         float diff = max(dot(vModelNormal, vLightDirection), 0.0)*lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.x;
-        color += (diff*albedo);
+        color += (diff*albedo) * shadow;
 #endif
     }
 #ifdef USE_PBR
@@ -742,7 +764,7 @@ if (alpha < uAlphaCutoff)
 }
 
 
-std::string GenerateShadowMapVertexShader(int64 e_i64FVFFlags, int e_iNumMorphTarget)
+std::string GenerateShadowMapVertexShader()
 {
     std::string shaderCode;
 #if defined(WIN32)
