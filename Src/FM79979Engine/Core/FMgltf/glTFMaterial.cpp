@@ -634,20 +634,17 @@ void cMaterial::Apply()
     const int SHADOW_MAP_TEXTURE_UNIT = l_TextureUnit;
     if (g_pShadowMap) {
         g_pShadowMap->BindForReading(GL_TEXTURE0 + SHADOW_MAP_TEXTURE_UNIT);
-        GLuint l_ShadowMap = glGetUniformLocation(m_uiShaderProgrameID, "uShadowMap");
-        if (l_ShadowMap != GL_INVALID_INDEX)
-        {
-            glUniform1i(l_ShadowMap, SHADOW_MAP_TEXTURE_UNIT);
-        }
-        auto l_EnableShadow = glGetUniformLocation(m_uiShaderProgrameID, "uEnableShadow");
-        if (l_EnableShadow != GL_INVALID_INDEX)
-        {
-            glUniform1i(l_EnableShadow, 1);
-        }
+        bool success = true;
+        SET_UNIFORM(m_uiShaderProgrameID, "uShadowMap", glUniform1i, SHADOW_MAP_TEXTURE_UNIT);
+        SET_UNIFORM(m_uiShaderProgrameID, "uEnableShadow", glUniform1i, 1);
         cMatrix44 lightViewProj;
         auto l_Light = cLighController::GetInstance()->GetFirstDirectionLight();
         if (cLighController::GetInstance()->GetDirectionViewProjectionMatrix(l_Light, lightViewProj)) {
-            glUniformMatrix4fv(glGetUniformLocation(m_uiShaderProgrameID, "uLightViewProj"), 1, GL_FALSE, lightViewProj.m[0]);
+            auto l_UniformID = glGetUniformLocation(m_uiShaderProgrameID, "uLightViewProj");
+            if (l_UniformID != -1)
+            {
+                glUniformMatrix4fv(l_UniformID, 1, GL_FALSE, lightViewProj.m[0]);
+            }
         }
     } else {
         glUniform1i(glGetUniformLocation(m_uiShaderProgrameID, "uEnableShadow"), 0);

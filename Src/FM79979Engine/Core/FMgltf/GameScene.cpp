@@ -19,8 +19,9 @@ cglTFScene::cglTFScene()
     //ImGui::GetIO().IniFilename = nullptr;
     ImGui::GetIO().LogFilename = nullptr;
     ImGui::GetIO().FontGlobalScale = 1.5f;
-	//m_pShadowMap = new cShadowMap();
-    //m_pShadowMap->InitShadowMapProgram(); // Initialize shadow map shader program
+	m_pShadowMap = new cShadowMap();
+    m_pShadowMap->Init(1920, 1080);
+    m_pShadowMap->InitShadowMapProgram(); // Initialize shadow map shader program
 }
 
 cglTFScene::~cglTFScene()

@@ -108,6 +108,7 @@ layout(location = 12) in vec4 aInstanceMatrix3;
 uniform mat4 uMat4Model;
 uniform mat4 uMat4View;
 uniform mat4 uMat4Projection;
+uniform mat4 uLightViewProj;
 
 #ifdef USE_WEIGHTS
 const int MAX_BONES = 100;
@@ -115,6 +116,7 @@ uniform mat4 uBoneTransforms[MAX_BONES];
 #endif
 
 out vec3 oVertexPos;
+out vec4 oLightSpacePos;
 #ifdef USE_NORMAL
 out vec3 toFSVec3Normal;
 #endif
@@ -239,6 +241,7 @@ void main()
 #endif    
     worldPos = uMat4Model * worldPos;
     oVertexPos = worldPos.xyz;
+    oLightSpacePos = uLightViewProj * worldPos;
     gl_Position = uMat4Projection * uMat4View * worldPos;
 
 #ifdef USE_NORMAL
@@ -347,19 +350,50 @@ precision highp sampler2D;
     // --- Shadow mapping support ---
     shaderCode += R"(
 uniform bool uEnableShadow;
-uniform sampler2D uShadowMap;
+uniform sampler2D uShadowMap; // Directional shadow map
 uniform mat4 uLightViewProj;
+// Spot light shadow map
+uniform sampler2D uSpotShadowMap[MAX_LIGHT];
+uniform mat4 uSpotLightViewProj[MAX_LIGHT];
+// Point light shadow map
+uniform samplerCube uPointShadowMap[MAX_LIGHT];
+uniform vec3 uPointLightPos[MAX_LIGHT];
+uniform float uPointLightFarPlane[MAX_LIGHT];
 
-float ShadowCalculation(vec3 worldPos)
+float ShadowCalculationDirectionLight(vec4 lightSpacePos)
 {
-    vec4 lightSpacePos = uLightViewProj * vec4(worldPos, 1.0);
     vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
     projCoords = projCoords * 0.5 + 0.5;
     float closestDepth = texture(uShadowMap, projCoords.xy).r;
     float currentDepth = projCoords.z;
-    float bias = 0.005;
+    float bias = 0.01;
     float shadow = currentDepth - bias > closestDepth ? 0.5 : 1.0;
     if(projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0 || projCoords.z < 0.0 || projCoords.z > 1.0)
+        shadow = 1.0;
+    return shadow;
+}
+
+float ShadowCalculationSpot(int lightIdx, vec4 lightSpacePos)
+{
+    vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
+    projCoords = projCoords * 0.5 + 0.5;
+    float closestDepth = texture(uSpotShadowMap[lightIdx], projCoords.xy).r;
+    float currentDepth = projCoords.z;
+    float bias = 0.01;
+    float shadow = currentDepth - bias > closestDepth ? 0.5 : 1.0;
+    if(projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0 || projCoords.z < 0.0 || projCoords.z > 1.0)
+        shadow = 1.0;
+    return shadow;
+}
+
+float ShadowCalculationPoint(int lightIdx, vec3 worldPos)
+{
+    vec3 lightToFrag = worldPos - uPointLightPos[lightIdx];
+    float currentDepth = length(lightToFrag);
+    float closestDepth = texture(uPointShadowMap[lightIdx], lightToFrag).r * uPointLightFarPlane[lightIdx];
+    float bias = 0.05;
+    float shadow = currentDepth - bias > closestDepth ? 0.5 : 1.0;
+    if(currentDepth >= uPointLightFarPlane[lightIdx])
         shadow = 1.0;
     return shadow;
 }
@@ -371,6 +405,7 @@ flat in int toFSInstanceID; // Flat qualifier for instance ID
 #endif
     shaderCode += R"(
 in vec3 oVertexPos;
+in vec4 oLightSpacePos;
 #ifdef USE_NORMAL
 in vec3 toFSVec3Normal;
 #endif
@@ -586,11 +621,14 @@ if (alpha < uAlphaCutoff)
             continue;
         }
         int l_iType = lights[i].xTypeyEnable.x;
-        vec3 vLightDirection;
+        vec3 vLightDirection = vec3(0.0); // Always initialize
         float attenuation = 1.0;
+        float shadow = 1.0;
         if (l_iType == 0) // Directional light
         {
             vLightDirection = -normalize(lights[i].direction.xyz);
+            if(uEnableShadow)
+                shadow = ShadowCalculationDirectionLight(oLightSpacePos);
         }
         else 
         if (l_iType == 3) // Ambient light
@@ -602,16 +640,18 @@ if (alpha < uAlphaCutoff)
         if (l_iType == 2) // Spot light
         {
             attenuation = GetSpotLightAttenuation(i, oVertexPos, vLightDirection);
+            if(uEnableShadow)
+                shadow = ShadowCalculationSpot(i, oLightSpacePos);
         }
         else // Point
         {
             attenuation = GetPointLightAttenuation(i, oVertexPos, vLightDirection);
+            if(uEnableShadow)
+                shadow = ShadowCalculationPoint(i, oVertexPos);
         }
         if (attenuation <= 0.0)
             continue;
-        float shadow = 1.0;
-        if(uEnableShadow && l_iType == 0)
-            shadow = ShadowCalculation(oVertexPos);
+        // Use shadow in lighting calculation
 #ifdef USE_PBR
         color += CalculatePBRLighting(vModelNormal, vViewPostToVertexPos, vLightDirection, lights[i].color.xyz, lights[i].LightData_xIntensityyRangezInnerConeAngelwOutterConeAngle.x * attenuation, albedo, roughness, metallic, occlusion, specularColor) * specularFactor * shadow;
 #else

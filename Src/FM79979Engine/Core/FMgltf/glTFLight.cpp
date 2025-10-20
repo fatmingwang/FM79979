@@ -142,7 +142,7 @@ std::shared_ptr<sLightData> cglTFLight::CreateDirectionLight()
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 0.0f;                           // Not used for directional lights
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.0f;                  // Not used for directional lights
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.0f;                  // Not used for directional lights
-    light.m_vPosition = Vector3(0.f, 10.f, 10.f);    // Arbitrary position (not used for directional lights)
+    light.m_vPosition = Vector3(0.f, 10.f, 0.f);    // Arbitrary position (not used for directional lights)
     light.m_vDirection = Vector3(0.f, -1.f, -1.f);   // Light direction (pointing toward the origin)
     light.m_vColor = Vector4(1.f, 1.f, 1.f,1.f);         // White light
 	light.m_0Type1Enable[1] = 1;                            // Light is enabled
@@ -383,7 +383,7 @@ bool cLighController::GetDirectionViewProjectionMatrix(std::shared_ptr<sLightDat
     float orthoSize = 40.0f;
     cMatrix44 proj;
     glhOrthof2(proj, -orthoSize, orthoSize, -orthoSize, orthoSize, 1.0f, 200.0f);
-    e_ViewProjection = proj * view;
+    e_ViewProjection = proj* view.Inverted();
     return true;
 }
 
