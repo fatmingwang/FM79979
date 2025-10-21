@@ -8,6 +8,39 @@ namespace FATMING_CORE
     extern cNamedTypedObjectVector<cBaseShader>* g_pAll2DShaderList;
 }
 
+std::string GenerateShadowMapFragmentShader()
+{
+#if defined(WIN32)
+    return "#version 330 core\nvoid main() {}";
+#else
+    return "#version 300 es\nprecision mediump float;\nvoid main() {}";
+#endif
+}
+
+std::string GenerateShadowMapVertexShader()
+{
+    std::string shaderCode;
+#if defined(WIN32)
+    shaderCode += "#version 330 core\n";
+#else
+    shaderCode += R"(#version 300 es
+precision mediump float;
+precision highp int;
+)";
+#endif
+    shaderCode += "#define USE_POSITION\n";
+    shaderCode += R"(
+layout(location = 0) in vec3 aPosition;
+uniform mat4 uMat4Model;
+uniform mat4 uLightViewProj;
+void main()
+{
+    gl_Position = uLightViewProj * uMat4Model * vec4(aPosition, 1.0);
+}
+)";
+    return shaderCode;
+}
+
 cShadowMap::cShadowMap() 
 {
     g_pShadowMap = this;

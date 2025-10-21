@@ -639,6 +639,7 @@ void cMaterial::Apply()
         SET_UNIFORM(m_uiShaderProgrameID, "uEnableShadow", glUniform1i, 1);
         cMatrix44 lightViewProj;
         auto l_Light = cLighController::GetInstance()->GetFirstLight();
+
         if (cLighController::GetInstance()->GetFirstLightViewProjectionMatrix(l_Light, lightViewProj)) 
         {
             auto l_UniformID = glGetUniformLocation(m_uiShaderProgrameID, "uLightViewProj");

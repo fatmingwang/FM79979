@@ -8,6 +8,7 @@
 std::string g_strVSForDebug;
 std::string g_strFSForDebug;
 #endif
+
 std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarget)
 {
     if (e_i64FVFFlags & FVF_INSTANCING_FLAG && e_iNumMorphTarget > 0)
@@ -346,72 +347,8 @@ precision highp sampler2D;
 #endif
     shaderCode += l_strDefine;
     shaderCode += g_strSpotAndPointLightFunction;
-
     // --- Shadow mapping support ---
-    shaderCode += R"(
-uniform bool uEnableShadow;
-uniform sampler2D uShadowMap; // Directional shadow map
-uniform mat4 uLightViewProj;
-// Spot light shadow map
-uniform sampler2D uSpotShadowMap[MAX_LIGHT];
-uniform mat4 uSpotLightViewProj[MAX_LIGHT];
-// Point light shadow map
-uniform samplerCube uPointShadowMap[MAX_LIGHT];
-uniform vec3 uPointLightPos[MAX_LIGHT];
-uniform float uPointLightFarPlane[MAX_LIGHT];
-
-float GetShadowVisibility(float shadow, vec3 projCoords)
-{
-    if(projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0 || projCoords.z < 0.0 || projCoords.z > 1.0)
-        return 1.0;
-    return shadow;
-}
-
-float ShadowCalculationDirectionLight(vec4 lightSpacePos, vec3 normal, vec3 lightDir)
-{
-    vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
-    projCoords = projCoords * 0.5 + 0.5;
-    float currentDepth = projCoords.z;
-    float bias = max(0.01 * (1.0 - dot(normal, lightDir)), 0.005);
-    float shadow = 0.0;
-    vec2 texelSize = 1.0 / textureSize(uShadowMap, 0);
-    for(int x = -1; x <= 1; ++x)
-    {
-        for(int y = -1; y <= 1; ++y)
-        {
-            float pcfDepth = texture(uShadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
-            shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
-        }
-    }
-    shadow /= 9.0;
-    shadow = 1.0 - shadow; // 1.0 = lit, 0.0 = fully shadowed
-    return GetShadowVisibility(shadow, projCoords);
-}
-
-float ShadowCalculationSpot(int lightIdx, vec4 lightSpacePos)
-{
-    vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
-    projCoords = projCoords * 0.5 + 0.5;
-    float closestDepth = texture(uSpotShadowMap[lightIdx], projCoords.xy).r;
-    float currentDepth = projCoords.z;
-    float bias = 0.01;
-    float shadow = currentDepth - bias > closestDepth ? 0.2 : 1.0;
-    return GetShadowVisibility(shadow, projCoords);
-}
-
-float ShadowCalculationPoint(int lightIdx, vec3 worldPos)
-{
-    vec3 lightToFrag = worldPos - uPointLightPos[lightIdx];
-    float currentDepth = length(lightToFrag);
-    float closestDepth = texture(uPointShadowMap[lightIdx], lightToFrag).r * uPointLightFarPlane[lightIdx];
-    float bias = 0.05;
-    float shadow = currentDepth - bias > closestDepth ? 0.2 : 1.0;
-    if(currentDepth >= uPointLightFarPlane[lightIdx])
-        shadow = 1.0;
-    // For point lights, projCoords is not used, so pass vec3(0) to always skip bounds check
-    return GetShadowVisibility(shadow, vec3(0.5,0.5,0.5));
-}
-)";
+    shaderCode += g_strShadowMapShaderFunction;
 #ifdef DEBUG
     shaderCode += R"(
 flat in int toFSInstanceID; // Flat qualifier for instance ID
@@ -655,7 +592,7 @@ if (alpha < uAlphaCutoff)
         {
             attenuation = GetSpotLightAttenuation(i, oVertexPos, vLightDirection);
             if(uEnableShadow)
-                shadow = ShadowCalculationSpot(i, oLightSpacePos);
+                shadow = ShadowCalculationSpot(oLightSpacePos);
         }
         else // Point
         {
@@ -817,31 +754,6 @@ if (alpha < uAlphaCutoff)
     return shaderCode;
 }
 
-
-std::string GenerateShadowMapVertexShader()
-{
-    std::string shaderCode;
-#if defined(WIN32)
-    shaderCode += "#version 330 core\n";
-#else
-    shaderCode += R"(#version 300 es
-precision mediump float;
-precision highp int;
-)";
-#endif
-    shaderCode += "#define USE_POSITION\n";
-    shaderCode += R"(
-layout(location = 0) in vec3 aPosition;
-uniform mat4 uMat4Model;
-uniform mat4 uLightViewProj;
-void main()
-{
-    gl_Position = uLightViewProj * uMat4Model * vec4(aPosition, 1.0);
-}
-)";
-    return shaderCode;
-}
-
 void DumpShaderCompilerInfo(GLuint e_uiShader)
 {
     GLint compiled;
@@ -962,13 +874,4 @@ void PopulateAttribute(int e_iProgram)
             FMLOG("%s,%d", name, attrib);
         }
     }
-}
-
-std::string GenerateShadowMapFragmentShader()
-{
-#if defined(WIN32)
-    return "#version 330 core\nvoid main() {}";
-#else
-    return "#version 300 es\nprecision mediump float;\nvoid main() {}";
-#endif
 }
