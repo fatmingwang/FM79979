@@ -359,6 +359,14 @@ shared_ptr<sLightData> cLighController::GetFirstDirectionLight()
     return shared_ptr<sLightData>();
 }
 
+shared_ptr<sLightData> cLighController::GetFirstLight()
+{
+    if(m_LightDataVector.size())
+    {
+        return m_LightDataVector[0];
+	}
+}
+
 bool cLighController::GetDirectionViewProjectionMatrix(std::shared_ptr<sLightData> e_Light, cMatrix44& e_ViewProjection)
 {
     if (!e_Light || e_Light->m_0Type1Enable[0] != (int)eLightType::eLT_DIRECTIONAL)
@@ -385,6 +393,56 @@ bool cLighController::GetDirectionViewProjectionMatrix(std::shared_ptr<sLightDat
     glhOrthof2(proj, -orthoSize, orthoSize, -orthoSize, orthoSize, 1.0f, 200.0f);
     e_ViewProjection = proj* view.Inverted();
     return true;
+}
+
+bool	cLighController::GetFirstLightViewProjectionMatrix(std::shared_ptr<sLightData> e_Light, cMatrix44& e_ViewProjection)
+{
+    if (!e_Light)
+        return false;
+    int type = e_Light->m_0Type1Enable[0];
+    if (type == (int)eLightType::eLT_DIRECTIONAL)
+    {
+        // Use the same as GetDirectionViewProjectionMatrix
+        return GetDirectionViewProjectionMatrix(e_Light, e_ViewProjection);
+    }
+    else if (type == (int)eLightType::eLT_POINT)
+    {
+        // For point light, create a perspective projection from the light's position
+        // Typically, shadow mapping for point lights uses a cubemap (6 matrices),
+        // but here we return a single matrix looking in the -Z direction as a fallback.
+        Vector3 lightPos(e_Light->m_vPosition.x, e_Light->m_vPosition.y, e_Light->m_vPosition.z);
+        Vector3 target = lightPos + Vector3(0, 0, -1); // Look down -Z
+        Vector3 up(0, 1, 0);
+        cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
+        float nearPlane = 0.1f;
+        float farPlane = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y > 0.0f ?
+            e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y : 100.0f;
+        float fov = 90.0f; // 90 degree for cubemap face
+        cMatrix44 proj;
+        glhPerspectivef2(proj, fov, 1.0f, nearPlane, farPlane);
+        e_ViewProjection = proj * view.Inverted();
+        return true;
+    }
+    else if (type == (int)eLightType::eLT_SPOT)
+    {
+        // For spot light, use a perspective projection with FOV matching the outer cone angle
+        Vector3 lightPos(e_Light->m_vPosition.x, e_Light->m_vPosition.y, e_Light->m_vPosition.z);
+        Vector3 lightDir(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z);
+        Vector3 target = lightPos + lightDir.Normalize();
+        Vector3 up(0, 1, 0);
+        if (fabs(lightDir.y) > 0.99f) up = Vector3(0, 0, 1);
+        cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
+        float nearPlane = 0.1f;
+        float farPlane = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y > 0.0f ?
+            e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y : 100.0f;
+        float outerCone = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w;
+        float fov = outerCone > 0.0f ? outerCone * 2.0f * 180.0f / 3.1415926f : 45.0f; // radians to degrees
+        cMatrix44 proj;
+        glhPerspectivef2(proj, fov, 1.0f, nearPlane, farPlane);
+        e_ViewProjection = proj * view.Inverted();
+        return true;
+    }
+    return false;
 }
 
 void cLighController::RenderImGUILightControllerUI()

@@ -160,7 +160,6 @@ namespace FATMING_CORE
 		uniform sampler2D texSample;
 		varying vec2 PSTexcoord;
 		varying vec4 PSColor;
-		uniform vec4 MyColor;
 		void main()
 		{
 			gl_FragColor = texture2D(texSample, PSTexcoord);
@@ -199,6 +198,16 @@ namespace FATMING_CORE
 				gl_PointSize = PointSize;
 				PSColor = Color;
 			}
+	)";
+
+	const char* g_strCommonDepthTextureFS =
+	R"(
+		uniform sampler2D texSample;
+		varying vec2 PSTexcoord;
+		void main()
+		{
+			gl_FragColor = vec4(vec3(texture(texSample, PSTexcoord)), 1.0);
+		}
 	)";
 
 

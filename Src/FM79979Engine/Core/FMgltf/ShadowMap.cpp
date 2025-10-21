@@ -2,10 +2,24 @@
 #include "LazyShaderGenerator.h"
 
 cShadowMap* g_pShadowMap = nullptr;
+cBaseShader* g_pDepthShader = nullptr;
+namespace FATMING_CORE
+{
+    extern cNamedTypedObjectVector<cBaseShader>* g_pAll2DShaderList;
+}
 
 cShadowMap::cShadowMap() 
 {
     g_pShadowMap = this;
+    //g_strCommonDepthTexture
+    //g_strCommonVS
+    //std::string vs = GenerateShadowMapVertexShader();
+    //std::string fs = GenerateShadowMapFragmentShader();
+    //m_ShadowMapProgram = CreateOpenGLShaderProgram(vs, fs);
+	g_pDepthShader = new cBaseShader(g_strCommonVS, g_strCommonDepthTextureFS,L"DepthTexture", true);
+    auto l_strname = g_pDepthShader->GetName();
+	g_pAll2DShaderList->AddObject(g_pDepthShader);
+    int a = 0;
 }
 cShadowMap::~cShadowMap()
 {
@@ -41,6 +55,18 @@ void cShadowMap::InitShadowMapProgram()
     std::string vs = GenerateShadowMapVertexShader();
     std::string fs = GenerateShadowMapFragmentShader();
     m_ShadowMapProgram = CreateOpenGLShaderProgram(vs, fs);
+}
+
+void cShadowMap::RenderFrameBufferAs2DImage(Vector2 e_vPos, Vector2 e_vSize)
+{
+    UseShaderProgram(g_pDepthShader->GetName());
+    glEnable2D(1920, 1080);
+    //auto l_Result = glCheckFramebufferStatus(GL_FRAMEBUFFER);//GL_FRAMEBUFFER_COMPLETE
+    //cTexture::ApplyImage(m_Framebuffer);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_DepthTexture);
+    float	l_fTextureCoordinate[] = { 0,1,1,0 };
+    RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x,e_vPos.y, 0.f, e_vSize.x, e_vSize.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero);
 }
 
 void cShadowMap::BindForWriting()

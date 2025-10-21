@@ -56,7 +56,7 @@ void cglTFScene::Render()
     glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-	glClearColor(1.f, 0.1f, 0.1f, 1.0f);
+    glClearColor(1.f, 0.1f, 0.1f, 1.0f);
     glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     cBaseShader* l_pShader = GetCurrentShader();
     if (l_pShader)
@@ -68,22 +68,27 @@ void cglTFScene::Render()
     // Shadow pass for each directional/spot light
     if (m_pShadowMap)
     {
+        // Set cull face to front for shadow map pass
+        glCullFace(GL_FRONT);
         for (auto& light : cLighController::GetInstance()->GetLights())
         {
             if (light->m_0Type1Enable[0] == (int)eLightType::eLT_DIRECTIONAL || light->m_0Type1Enable[0] == (int)eLightType::eLT_SPOT)
             {
-                auto l_Light = cLighController::GetInstance()->GetFirstDirectionLight();
+                auto l_Light = cLighController::GetInstance()->GetFirstLight();
                 cMatrix44 lightViewProj;
-                if (cLighController::GetInstance()->GetDirectionViewProjectionMatrix(l_Light, lightViewProj))
+                if (cLighController::GetInstance()->GetFirstLightViewProjectionMatrix(l_Light, lightViewProj))
                 {
                     m_pShadowMap->BindForWriting();
                     glClear(GL_DEPTH_BUFFER_BIT);
+                    glClearDepth(1.0f);
                     GLuint shadowShaderProgram = m_pShadowMap->GetShadowMapProgram();
                     m_pRootFrame->RenderNodesShadowPass(lightViewProj, shadowShaderProgram);
                     glBindFramebuffer(GL_FRAMEBUFFER, 0);
                 }
             }
         }
+        // Restore cull face to back after shadow map pass
+        glCullFace(GL_BACK);
     }
 
     if (m_pRootFrame)
@@ -91,7 +96,6 @@ void cglTFScene::Render()
 		m_pRootFrame->RenderNodes();
     }
     UseShaderProgram();
-    //FATMING_CORE::SetupShaderViewProjectionMatrix(m_Projection.GetMatrix() * this->GetWorldView(), true);
     FATMING_CORE::SetupShaderViewProjectionMatrix(l_matWVP, true);
     cLighController::GetInstance()->DebugRender();
     glUseProgram(0);
@@ -99,10 +103,13 @@ void cglTFScene::Render()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisable(GL_CULL_FACE);
     glDisable(GL_DEPTH_TEST);
-    //g_fCameraDebugRender();    
     if (m_pRootFrame)
     {
         //m_pRootFrame->DebugRenderNodes();
+    }
+    if (m_pShadowMap)
+    {
+		m_pShadowMap->RenderFrameBufferAs2DImage(Vector2(0, 0), Vector2(1920/4,1080/4));
     }
     ImGui_StartFrame();
     cLighController::GetInstance()->RenderImGUILightControllerUI();
@@ -116,7 +123,7 @@ void cglTFScene::Render()
                 {
                     l_pModel->RenderImGUI();
                 }
-			}
+            }
         }
     , dynamic_cast<Frame*>(m_pRootFrame.get()));
     GlobalRenderObjectGoThoughAllFrameFromaFirstToEnd(

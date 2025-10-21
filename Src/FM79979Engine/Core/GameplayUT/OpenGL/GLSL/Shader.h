@@ -109,6 +109,7 @@ namespace FATMING_CORE
 	extern bool	g_bMyMeshVSClientState[TOTAL_FVF];
 	extern bool	g_bMySkinningMeshVSClientState[TOTAL_FVF];
 
+	extern const char*	g_strCommonDepthTextureFS;
 	extern const char*	g_strCommonVS;
 	extern const char*	g_strCommonFS;
 	extern const char*	g_strCommonVSNoTexture;

@@ -310,6 +310,7 @@ void cCameraController::Update(float e_fElpaseTime)
     {
         this->CreateDefault3DCamera();
         l_pCamera = GetCurrentCamera();
+		l_pCamera->SetLocalPosition(Vector3(0.12, 0.5, 0.6));
     }
     if (m_NameAndglTFCameraMap.size())
     {

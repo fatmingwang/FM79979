@@ -53,7 +53,9 @@ public:
     static void SetRenderLightShape(bool b) { m_bRenderLightShape = b; }
     static bool GetRenderLightShape() { return m_bRenderLightShape; }
     shared_ptr<sLightData>  GetFirstDirectionLight();
+    shared_ptr<sLightData>  GetFirstLight();
 	bool	GetDirectionViewProjectionMatrix(std::shared_ptr<sLightData>,cMatrix44& e_ViewProjection);
+    bool	GetFirstLightViewProjectionMatrix(std::shared_ptr<sLightData>, cMatrix44& e_ViewProjection);
 private:
     static bool m_bRenderLightShape;
     bool m_bDebugRenderLight[MAX_LIGHT] = {true, true, true, true};

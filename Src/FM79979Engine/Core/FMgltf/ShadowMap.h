@@ -14,6 +14,7 @@ public:
     // Shadow map shader program
     void InitShadowMapProgram();
     GLuint GetShadowMapProgram() const { return m_ShadowMapProgram; }
+    void RenderFrameBufferAs2DImage(Vector2 e_vPos, Vector2 e_vSize);
 private:
     GLuint m_Framebuffer = 0;
     GLuint m_DepthTexture = 0;
