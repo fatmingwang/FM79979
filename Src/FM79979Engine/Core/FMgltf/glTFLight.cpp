@@ -494,25 +494,27 @@ void cLighController::RenderImGUILightControllerUI()
                 if (ImGui::Combo("Type", &type, "Directional\0Point\0Spot\0Ambient\0"))
                 {
                     light.m_0Type1Enable[0] = type;
-                    //std::shared_ptr<sLightData> newLight;
-                    //switch ((eLightType)type)
-                    //{
-                    //    case eLightType::eLT_DIRECTIONAL:
-                    //        newLight = cglTFLight::CreateDirectionLight();
-                    //        break;
-                    //    case eLightType::eLT_POINT:
-                    //        newLight = cglTFLight::CreatePointLight();
-                    //        break;
-                    //    case eLightType::eLT_SPOT:
-                    //        newLight = cglTFLight::CreateSpotLight();
-                    //        break;
-                    //    case eLightType::eLT_AMBIENT:
-                    //        newLight = cglTFLight::CreateAmbientLight();
-                    //        break;
-                    //    default:
-                    //        newLight = cglTFLight::CreateDirectionLight();
-                    //        break;
-                    //}
+                    std::shared_ptr<sLightData> newLight;
+                    switch ((eLightType)type)
+                    {
+                        case eLightType::eLT_DIRECTIONAL:
+                            //newLight = cglTFLight::CreateDirectionLight();
+                            break;
+                        case eLightType::eLT_POINT:
+                            //newLight = cglTFLight::CreatePointLight();
+                            break;
+                        case eLightType::eLT_SPOT:
+                            //newLight = cglTFLight::CreateSpotLight();
+                            light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.9f; // Inner cone angle (radians)
+                            light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.6f; // Outer cone angle (radians)
+                            break;
+                        case eLightType::eLT_AMBIENT:
+                            //newLight = cglTFLight::CreateAmbientLight();
+                            break;
+                        default:
+                            //newLight = cglTFLight::CreateDirectionLight();
+                            break;
+                    }
                     //light = *newLight;
                 }
                 ImGui::Checkbox("Enable", (bool*)&light.m_0Type1Enable[1]);
