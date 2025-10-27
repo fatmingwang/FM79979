@@ -367,79 +367,77 @@ shared_ptr<sLightData> cLighController::GetFirstLight()
 	}
 }
 
-bool cLighController::GetDirectionViewProjectionMatrix(std::shared_ptr<sLightData> e_Light, cMatrix44& e_ViewProjection)
+bool	cLighController::GetLightViewProjectionMatrixByIndex(cMatrix44& e_ViewProjection, int e_iLightIndex)
 {
-    if (!e_Light || e_Light->m_0Type1Enable[0] != (int)eLightType::eLT_DIRECTIONAL)
+    if (m_LightDataVector.size() > e_iLightIndex)
+    {
+        return GetLightViewProjectionMatrix(m_LightDataVector[e_iLightIndex], e_ViewProjection);
+    }
+    return false;
+}
+
+bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e_Light, cMatrix44& e_ViewProjection)
+{
+    if (!e_Light)
     {
         return false;
     }
-
-    // Light direction (should be normalized)
-    Vector3 lightDir = Vector3(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z).Normalize();
-
-    // Position the light far enough away in the direction opposite to the light direction
-    Vector3 target = Vector3(0, 0, 0); // Center of the scene
-    Vector3 lightPos = target - lightDir * 50.0f; // Move back 50 units
-
-    // Up vector (avoid parallel to lightDir)
-    Vector3 up = fabs(lightDir.y) > 0.99f ? Vector3(0, 0, 1) : Vector3(0, 1, 0);
-
-    // View matrix
-    cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
-
-    // Orthographic projection (cover scene area)
-    float orthoSize = 40.0f;
-    cMatrix44 proj;
-    glhOrthof2(proj, -orthoSize, orthoSize, -orthoSize, orthoSize, 1.0f, 200.0f);
-    e_ViewProjection = proj* view.Inverted();
-    return true;
-}
-
-bool	cLighController::GetFirstLightViewProjectionMatrix(std::shared_ptr<sLightData> e_Light, cMatrix44& e_ViewProjection)
-{
-    if (!e_Light)
-        return false;
+    // Find the light index
+    int lightIndex = -1;
+    for (int i = 0; i < MAX_LIGHT; ++i) {
+        if (i < m_LightDataVector.size() && m_LightDataVector[i].get() == e_Light.get()) {
+            lightIndex = i;
+            break;
+        }
+    }
+    // Fallback if not found
+    if (lightIndex < 0) lightIndex = 0;
+    sLightShadowData& shadow = m_LightShadowData[lightIndex];
     int type = e_Light->m_0Type1Enable[0];
     if (type == (int)eLightType::eLT_DIRECTIONAL)
     {
-        // Use the same as GetDirectionViewProjectionMatrix
-        return GetDirectionViewProjectionMatrix(e_Light, e_ViewProjection);
+        // Light direction (should be normalized)
+        Vector3 lightDir = Vector3(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z).Normalize();
+        Vector3 target = Vector3(0, 0, 0); // Center of the scene
+        Vector3 lightPos = target - lightDir * 50.0f; // Move back 50 units
+        Vector3 up = fabs(lightDir.y) > 0.99f ? Vector3(0, 0, 1) : Vector3(0, 1, 0);
+        cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
+        float orthoSize = shadow.orthoSize;
+        float nearPlane = shadow.nearPlane;
+        float farPlane = shadow.farPlane;
+        cMatrix44 proj;
+        glhOrthof2(proj, -orthoSize, orthoSize, -orthoSize, orthoSize, nearPlane, farPlane);
+        e_ViewProjection = proj * view;
+        return true;
     }
     else if (type == (int)eLightType::eLT_POINT)
     {
-        // For point light, create a perspective projection from the light's position
-        // Typically, shadow mapping for point lights uses a cubemap (6 matrices),
-        // but here we return a single matrix looking in the -Z direction as a fallback.
         Vector3 lightPos(e_Light->m_vPosition.x, e_Light->m_vPosition.y, e_Light->m_vPosition.z);
         Vector3 target = lightPos + Vector3(0, 0, -1); // Look down -Z
         Vector3 up(0, 1, 0);
         cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
-        float nearPlane = 0.1f;
-        float farPlane = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y > 0.0f ?
-            e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y : 100.0f;
-        float fov = 90.0f; // 90 degree for cubemap face
+        float nearPlane = shadow.nearPlane;
+        float farPlane = shadow.farPlane > 0.0f ? shadow.farPlane : 100.0f;
+        float fov = shadow.fov; // degrees
         cMatrix44 proj;
         glhPerspectivef2(proj, fov, 1.0f, nearPlane, farPlane);
-        e_ViewProjection = proj * view.Inverted();
+        e_ViewProjection = proj * view;
         return true;
     }
     else if (type == (int)eLightType::eLT_SPOT)
     {
-        // For spot light, use a perspective projection with FOV matching the outer cone angle
         Vector3 lightPos(e_Light->m_vPosition.x, e_Light->m_vPosition.y, e_Light->m_vPosition.z);
         Vector3 lightDir(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z);
         Vector3 target = lightPos + lightDir.Normalize();
         Vector3 up(0, 1, 0);
         if (fabs(lightDir.y) > 0.99f) up = Vector3(0, 0, 1);
         cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
-        float nearPlane = 0.1f;
-        float farPlane = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y > 0.0f ?
-            e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y : 100.0f;
-        float outerCone = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w;
-        float fov = outerCone > 0.0f ? outerCone * 2.0f * 180.0f / 3.1415926f : 45.0f; // radians to degrees
+        float nearPlane = shadow.nearPlane;
+        float farPlane = shadow.farPlane > 0.0f ? shadow.farPlane : 100.0f;
+        float fov = shadow.fov > 0.0f ? shadow.fov : 45.0f; // degrees
         cMatrix44 proj;
         glhPerspectivef2(proj, fov, 1.0f, nearPlane, farPlane);
-        e_ViewProjection = proj * view.Inverted();
+        e_ViewProjection = proj * view;
         return true;
     }
     return false;
@@ -474,10 +472,11 @@ void cLighController::RenderImGUILightControllerUI()
             ImGui::PushID(i);
             ImGui::Checkbox("Render Light Shape", &m_bDebugRenderLight[i]);
             sLightData& light = *m_LightDataVector[i];
+            sLightShadowData& shadow = m_LightShadowData[i]; // Add this line
+
             int prevType = light.m_0Type1Enable[0];
             if (ImGui::CollapsingHeader((std::string("Light ") + std::to_string(i)).c_str()))
             {
-
                 ImGui::InputFloat3("Position", (float*)&light.m_vPosition);
                 ImGui::ColorEdit3("Color", (float*)&light.m_vColor);
                 ImGui::InputFloat3("Direction", (float*)&light.m_vDirection);
@@ -485,7 +484,14 @@ void cLighController::RenderImGUILightControllerUI()
                 ImGui::InputFloat("Range", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y);
                 ImGui::InputFloat("Inner Cone Angle", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z);
                 ImGui::InputFloat("Outer Cone Angle", &light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w);
-                //innerCos is always greater than outerCos.
+                // Shadow parameters
+                ImGui::Separator();
+                ImGui::Text("Shadow Parameters");
+                ImGui::InputFloat("Near Plane", &shadow.nearPlane, 0.01f, 1.0f, "%.3f");
+                ImGui::InputFloat("Far Plane", &shadow.farPlane, 1.0f, 10.0f, "%.1f");
+                ImGui::InputFloat("FOV (deg)", &shadow.fov, 1.0f, 5.0f, "%.1f");
+                ImGui::InputFloat("Ortho Size", &shadow.orthoSize, 1.0f, 10.0f, "%.1f");
+
                 if (light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z <= light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w)
                 {
                     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w+0.1;
@@ -507,6 +513,7 @@ void cLighController::RenderImGUILightControllerUI()
                             //newLight = cglTFLight::CreateSpotLight();
                             light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.9f; // Inner cone angle (radians)
                             light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.6f; // Outer cone angle (radians)
+                            //light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 100;
                             break;
                         case eLightType::eLT_AMBIENT:
                             //newLight = cglTFLight::CreateAmbientLight();

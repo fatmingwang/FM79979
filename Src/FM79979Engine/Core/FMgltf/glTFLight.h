@@ -31,6 +31,15 @@ class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighCon
         sLightData m_Lights[MAX_LIGHT]; // Array of light data
         int m_iNumLights[4];       // Number of lights
     } m_LightBlock;
+
+    struct sLightShadowData
+    {
+        float nearPlane = 0.1f;
+        float farPlane = 100.0f;
+        float fov = 45.0f;        // For spot/point lights (degrees)
+        float orthoSize = 100.0f; // For directional lights
+    };
+    sLightShadowData m_LightShadowData[MAX_LIGHT];
     GLuint m_uiLightUBO = -1;
     //from cLighFrameData
     std::vector<std::shared_ptr<sLightData>> m_LightDataVector;
@@ -54,8 +63,8 @@ public:
     static bool GetRenderLightShape() { return m_bRenderLightShape; }
     shared_ptr<sLightData>  GetFirstDirectionLight();
     shared_ptr<sLightData>  GetFirstLight();
-	bool	GetDirectionViewProjectionMatrix(std::shared_ptr<sLightData>,cMatrix44& e_ViewProjection);
-    bool	GetFirstLightViewProjectionMatrix(std::shared_ptr<sLightData>, cMatrix44& e_ViewProjection);
+    bool	GetLightViewProjectionMatrixByIndex(cMatrix44& e_ViewProjection, int e_iLightIndex = 0);
+    bool	GetLightViewProjectionMatrix(std::shared_ptr<sLightData>, cMatrix44& e_ViewProjection);
 private:
     static bool m_bRenderLightShape;
     bool m_bDebugRenderLight[MAX_LIGHT] = {true, true, true, true};

@@ -74,9 +74,8 @@ void cglTFScene::Render()
         {
             if (light->m_0Type1Enable[0] == (int)eLightType::eLT_DIRECTIONAL || light->m_0Type1Enable[0] == (int)eLightType::eLT_SPOT)
             {
-                auto l_Light = cLighController::GetInstance()->GetFirstLight();
                 cMatrix44 lightViewProj;
-                if (cLighController::GetInstance()->GetFirstLightViewProjectionMatrix(l_Light, lightViewProj))
+                if (cLighController::GetInstance()->GetLightViewProjectionMatrixByIndex(lightViewProj))
                 {
                     m_pShadowMap->BindForWriting();
                     glClear(GL_DEPTH_BUFFER_BIT);
