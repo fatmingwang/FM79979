@@ -93,13 +93,14 @@ void cShadowMap::InitShadowMapProgram()
 void cShadowMap::RenderFrameBufferAs2DImage(Vector2 e_vPos, Vector2 e_vSize)
 {
     UseShaderProgram(g_pDepthShader->GetName());
-    glEnable2D(1920, 1080);
+    glEnable2D(m_Width, m_Height);
     //auto l_Result = glCheckFramebufferStatus(GL_FRAMEBUFFER);//GL_FRAMEBUFFER_COMPLETE
     //cTexture::ApplyImage(m_Framebuffer);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_DepthTexture);
     float	l_fTextureCoordinate[] = { 0,1,1,0 };
-    RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x,e_vPos.y, 0.f, e_vSize.x, e_vSize.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero);
+    //RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x,e_vPos.y, 0.f, e_vSize.x, e_vSize.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero);
+    RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x, e_vPos.y, 0.f, m_Width/4.f, m_Height/4.f, Vector4::One, l_fTextureCoordinate, Vector3::Zero);
 }
 
 void cShadowMap::BindForWriting()

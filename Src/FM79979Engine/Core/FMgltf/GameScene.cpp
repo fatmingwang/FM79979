@@ -20,7 +20,8 @@ cglTFScene::cglTFScene()
     ImGui::GetIO().LogFilename = nullptr;
     ImGui::GetIO().FontGlobalScale = 1.5f;
 	m_pShadowMap = new cShadowMap();
-    m_pShadowMap->Init(1920, 1080);
+    m_pShadowMap->Init(512, 512);
+    //m_pShadowMap->Init(4096, 4096);
     m_pShadowMap->InitShadowMapProgram(); // Initialize shadow map shader program
 }
 
@@ -54,10 +55,9 @@ void cglTFScene::Render()
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);     // glTF uses counter-clockwise winding
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
     glClearColor(1.f, 0.1f, 0.1f, 1.0f);
-    glEnable(GL_BLEND); glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND); 
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     cBaseShader* l_pShader = GetCurrentShader();
     if (l_pShader)
     {
@@ -80,6 +80,9 @@ void cglTFScene::Render()
                     m_pShadowMap->BindForWriting();
                     glClear(GL_DEPTH_BUFFER_BIT);
                     glClearDepth(1.0f);
+                    glEnable(GL_DEPTH_TEST);
+                    glDepthMask(GL_TRUE);
+                    glDepthFunc(GL_LESS);
                     GLuint shadowShaderProgram = m_pShadowMap->GetShadowMapProgram();
                     m_pRootFrame->RenderNodesShadowPass(lightViewProj, shadowShaderProgram);
                     glBindFramebuffer(GL_FRAMEBUFFER, 0);

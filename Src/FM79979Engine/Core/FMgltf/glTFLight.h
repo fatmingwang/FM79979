@@ -34,9 +34,9 @@ class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighCon
 
     struct sLightShadowData
     {
-        float nearPlane = 0.1f;
+        float nearPlane = 0.05f;
         float farPlane = 100.0f;
-        float fov = 45.0f;        // For spot/point lights (degrees)
+        float fov = 95.0f;        // For spot/point lights (degrees)
         float orthoSize = 100.0f; // For directional lights
     };
     sLightShadowData m_LightShadowData[MAX_LIGHT];
@@ -64,7 +64,7 @@ public:
     shared_ptr<sLightData>  GetFirstDirectionLight();
     shared_ptr<sLightData>  GetFirstLight();
     bool	GetLightViewProjectionMatrixByIndex(cMatrix44& e_ViewProjection, int e_iLightIndex = 0);
-    bool	GetLightViewProjectionMatrix(std::shared_ptr<sLightData>, cMatrix44& e_ViewProjection);
+    bool	GetLightViewProjectionMatrix(std::shared_ptr<sLightData>, cMatrix44& e_ViewProjection,sLightShadowData&e_LightShadowData);
 private:
     static bool m_bRenderLightShape;
     bool m_bDebugRenderLight[MAX_LIGHT] = {true, true, true, true};
