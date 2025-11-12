@@ -20,7 +20,8 @@ cglTFScene::cglTFScene()
     ImGui::GetIO().LogFilename = nullptr;
     ImGui::GetIO().FontGlobalScale = 1.5f;
 	m_pShadowMap = new cShadowMap();
-    m_pShadowMap->Init(512, 512);
+    //m_pShadowMap->Init(512, 512);
+    m_pShadowMap->Init(2048,2048);
     //m_pShadowMap->Init(4096, 4096);
     m_pShadowMap->InitShadowMapProgram(); // Initialize shadow map shader program
 }
@@ -63,36 +64,29 @@ void cglTFScene::Render()
     {
         l_pShader->Unuse();
     }
-    UseShaderProgram(L"qoo79979");
     auto l_matWVP = cCameraController::GetInstance()->GetCurrentCamera()->GetWorldViewProjection();
+    UseShaderProgram(L"qoo79979");
     // Shadow pass for each directional/spot light
     if (m_pShadowMap)
     {
-        // Set cull face to front for shadow map pass
-        glCullFace(GL_FRONT);
+        m_pShadowMap->BindForWritingStart();
+        GLuint shadowShaderProgram = m_pShadowMap->GetShadowMapProgram();
+        int l_iIndex = 0;
+        cMatrix44 l_matLightViewProj;
         for (auto& light : cLighController::GetInstance()->GetLights())
         {
-            if (light->m_0Type1Enable[0] == (int)eLightType::eLT_DIRECTIONAL || light->m_0Type1Enable[0] == (int)eLightType::eLT_SPOT)
+            auto l_LightType = light->m_0Type1Enable[l_iIndex];
+            if (l_LightType == (int)eLightType::eLT_DIRECTIONAL || l_LightType == (int)eLightType::eLT_SPOT)
             {
-                cMatrix44 lightViewProj;
-                if (cLighController::GetInstance()->GetLightViewProjectionMatrixByIndex(lightViewProj))
+                if (cLighController::GetInstance()->GetLightViewProjectionMatrixByIndex(l_matLightViewProj, l_iIndex))
                 {
-                    m_pShadowMap->BindForWriting();
-                    glClear(GL_DEPTH_BUFFER_BIT);
-                    glClearDepth(1.0f);
-                    glEnable(GL_DEPTH_TEST);
-                    glDepthMask(GL_TRUE);
-                    glDepthFunc(GL_LESS);
-                    GLuint shadowShaderProgram = m_pShadowMap->GetShadowMapProgram();
-                    m_pRootFrame->RenderNodesShadowPass(lightViewProj, shadowShaderProgram);
-                    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+                    m_pRootFrame->RenderNodesShadowPass(l_matLightViewProj, shadowShaderProgram);
                 }
             }
+            ++l_iIndex;
         }
-        // Restore cull face to back after shadow map pass
-        glCullFace(GL_BACK);
+        m_pShadowMap->BindForWritingEnd();
     }
-
     if (m_pRootFrame)
     {
 		m_pRootFrame->RenderNodes();

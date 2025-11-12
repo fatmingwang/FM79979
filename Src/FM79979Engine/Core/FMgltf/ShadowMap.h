@@ -3,18 +3,20 @@
 
 class cShadowMap
 {
+    GLint m_iViewportData[4];
 public:
     cShadowMap();
     ~cShadowMap();
-    bool Init(int width, int height);
-    void BindForWriting();
-    void BindForReading(GLenum textureUnit);
-    GLuint GetDepthTexture() const { return m_DepthTexture; }
-    void Cleanup();
+    bool    Init(int width, int height);
+    void    BindForWritingStart();
+    void    BindForWritingEnd();
+    void    BindForReading(GLenum textureUnit);
+    GLuint  GetDepthTexture() const { return m_DepthTexture; }
+    void    Cleanup();
     // Shadow map shader program
-    void InitShadowMapProgram();
-    GLuint GetShadowMapProgram() const { return m_ShadowMapProgram; }
-    void RenderFrameBufferAs2DImage(Vector2 e_vPos, Vector2 e_vSize);
+    void    InitShadowMapProgram();
+    GLuint  GetShadowMapProgram() const { return m_ShadowMapProgram; }
+    void    RenderFrameBufferAs2DImage(Vector2 e_vPos, Vector2 e_vSize);
 private:
     GLuint m_Framebuffer = 0;
     GLuint m_DepthTexture = 0;

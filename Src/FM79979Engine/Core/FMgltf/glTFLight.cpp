@@ -200,8 +200,8 @@ cLighController::cLighController()
     int l_iNumLights = static_cast<int>(m_LightDataVector.size());
     if (l_iNumLights == 0)
     {
-        //m_LightDataVector.push_back(cglTFLight::CreateSpotLight());
-        m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
+        m_LightDataVector.push_back(cglTFLight::CreateSpotLight());
+        //m_LightDataVector.push_back(cglTFLight::CreateDirectionLight());
         
         //m_LightDataVector.push_back(cglTFLight::CreateAmbientLight());
         //l_iNumLights = (int)m_LightDataVector.size();
@@ -372,12 +372,14 @@ bool	cLighController::GetLightViewProjectionMatrixByIndex(cMatrix44& e_ViewProje
 {
     if (m_LightDataVector.size() > e_iLightIndex)
     {
-        return GetLightViewProjectionMatrix(m_LightDataVector[e_iLightIndex], e_ViewProjection, m_LightShadowData[e_iLightIndex]);
+        auto l_Light = m_LightDataVector[e_iLightIndex];
+        auto l_fFOVInDegree = (l_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w * 2.0f)* (180.0f / D3DX_PI);
+        return GetLightViewProjectionMatrix(m_LightDataVector[e_iLightIndex], e_ViewProjection, m_LightShadowData[e_iLightIndex],l_fFOVInDegree);
     }
     return false;
 }
 
-bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e_Light, cMatrix44& e_ViewProjection,sLightShadowData&e_LightShadowData)
+bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e_Light, cMatrix44& e_ViewProjection,sLightShadowData&e_LightShadowData,float e_fFOVDegree)
 {
     if (!e_Light)
     {
@@ -398,7 +400,7 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
         cMatrix44 proj;
         glhOrthof2(proj, -orthoSize, orthoSize, -orthoSize, orthoSize, nearPlane, farPlane);
-        e_ViewProjection = proj * view;
+        e_ViewProjection = proj * view.Inverted();
         return true;
     }
     else if (type == (int)eLightType::eLT_POINT)
@@ -409,7 +411,7 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
         float nearPlane = shadow.nearPlane;
         float farPlane = shadow.farPlane > 0.0f ? shadow.farPlane : 100.0f;
-        float fov = shadow.fov; // degrees
+        float fov = e_fFOVDegree;
         cMatrix44 proj;
         glhPerspectivef2(proj, fov, 1.0f, nearPlane, farPlane);
         e_ViewProjection = proj * view;
@@ -419,13 +421,15 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
     {
         Vector3 lightPos(e_Light->m_vPosition.x, e_Light->m_vPosition.y, e_Light->m_vPosition.z);
         Vector3 lightDir(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z);
-        Vector3 target = lightPos + lightDir.Normalize();
+        Vector3 target = lightPos + lightDir.Normalize()*10;
         Vector3 up(0, 1, 0);
         if (fabs(lightDir.y) > 0.99f) up = Vector3(0, 0, 1);
         cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
         float nearPlane = shadow.nearPlane;
         float farPlane = shadow.farPlane > 0.0f ? shadow.farPlane : 100.0f;
-        float fov = shadow.fov > 0.0f ? shadow.fov : 45.0f; // degrees
+        //float fov = shadow.fov > 0.0f ? shadow.fov : 45.0f; // degrees
+        //float fov = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w*2;
+        float fovDegrees = e_fFOVDegree;
         cMatrix44 proj;
         if (0)
         {
@@ -439,7 +443,7 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         }
         else
         {
-            glhPerspectivef2(proj, fov, 1.0f, nearPlane, farPlane);
+            glhPerspectivef2(proj, fovDegrees, 1.0f, nearPlane, farPlane);
             e_ViewProjection = proj * view.Inverted();
         }
         return true;
@@ -493,7 +497,7 @@ void cLighController::RenderImGUILightControllerUI()
                 ImGui::Text("Shadow Parameters");
                 ImGui::InputFloat("Near Plane", &shadow.nearPlane, 0.01f, 1.0f, "%.3f");
                 ImGui::InputFloat("Far Plane", &shadow.farPlane, 1.0f, 10.0f, "%.1f");
-                ImGui::InputFloat("FOV (deg)", &shadow.fov, 1.0f, 5.0f, "%.1f");
+                //ImGui::InputFloat("FOV (deg)", &shadow.fov, 1.0f, 5.0f, "%.1f");
                 ImGui::InputFloat("Ortho Size", &shadow.orthoSize, 1.0f, 10.0f, "%.1f");
 
                 if (light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z <= light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w)

@@ -28,7 +28,6 @@ precision mediump float;
 precision highp int;
 )";
 #endif
-    shaderCode += "#define USE_POSITION\n";
     shaderCode += R"(
 layout(location = 0) in vec3 aPosition;
 uniform mat4 uMat4Model;
@@ -93,19 +92,37 @@ void cShadowMap::InitShadowMapProgram()
 void cShadowMap::RenderFrameBufferAs2DImage(Vector2 e_vPos, Vector2 e_vSize)
 {
     UseShaderProgram(g_pDepthShader->GetName());
-    glEnable2D(m_Width, m_Height);
+    glEnable2D((float)m_Width, (float)m_Height);
+    //glEnable2D(1920.f,1080.f);// 
     //auto l_Result = glCheckFramebufferStatus(GL_FRAMEBUFFER);//GL_FRAMEBUFFER_COMPLETE
     //cTexture::ApplyImage(m_Framebuffer);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_DepthTexture);
     float	l_fTextureCoordinate[] = { 0,1,1,0 };
     //RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x,e_vPos.y, 0.f, e_vSize.x, e_vSize.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero);
-    RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x, e_vPos.y, 0.f, m_Width/4.f, m_Height/4.f, Vector4::One, l_fTextureCoordinate, Vector3::Zero);
+    RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x, e_vPos.y, 0.f, (float)m_Width/4, (float)m_Height/4, Vector4::One, l_fTextureCoordinate, Vector3::Zero);
 }
 
-void cShadowMap::BindForWriting()
+void cShadowMap::BindForWritingStart()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
+    glGetIntegerv(GL_VIEWPORT, m_iViewportData);
+    glViewport(0, 0, m_Width, m_Height);
+    // Set cull face to front for shadow map pass
+    //glCullFace(GL_FRONT);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glClearDepth(1.0f);
+    glEnable(GL_DEPTH_TEST);
+    glDepthMask(GL_TRUE);
+    glDepthFunc(GL_LESS);
+}
+
+void cShadowMap::BindForWritingEnd()
+{
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    // Restore cull face to back after shadow map pass
+    glCullFace(GL_BACK);
+    glViewport(m_iViewportData[0], m_iViewportData[1], m_iViewportData[2], m_iViewportData[3]);
 }
 
 void cShadowMap::BindForReading(GLenum textureUnit)

@@ -632,13 +632,14 @@ void cMaterial::Apply()
     }
     // --- Shadow Map Setup ---
     const int SHADOW_MAP_TEXTURE_UNIT = l_TextureUnit;
-    if (g_pShadowMap) {
+    if (g_pShadowMap)
+    {
         g_pShadowMap->BindForReading(GL_TEXTURE0 + SHADOW_MAP_TEXTURE_UNIT);
         bool success = true;
         SET_UNIFORM(m_uiShaderProgrameID, "uShadowMap", glUniform1i, SHADOW_MAP_TEXTURE_UNIT);
         SET_UNIFORM(m_uiShaderProgrameID, "uEnableShadow", glUniform1i, 1);
         cMatrix44 lightViewProj;
-        if (cLighController::GetInstance()->GetLightViewProjectionMatrixByIndex(lightViewProj))
+        if (cLighController::GetInstance()->GetLightViewProjectionMatrixByIndex(lightViewProj,0))
         {
             auto l_UniformID = glGetUniformLocation(m_uiShaderProgrameID, "uLightViewProj");
             if (l_UniformID != -1)
@@ -646,7 +647,9 @@ void cMaterial::Apply()
                 glUniformMatrix4fv(l_UniformID, 1, GL_FALSE, lightViewProj.m[0]);
             }
         }
-    } else {
+    }
+    else
+    {
         glUniform1i(glGetUniformLocation(m_uiShaderProgrameID, "uEnableShadow"), 0);
     }
     ApplyUnriforms();

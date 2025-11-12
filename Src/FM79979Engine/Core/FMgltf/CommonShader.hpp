@@ -62,7 +62,7 @@ float GetSpotLightAttenuation(int i, vec3 e_oVertexPos, out vec3 vLightDirection
 )";
 
 
-static std::string g_strShadowMapShaderFunction = 
+static std::string g_strShadowMapShaderFunction =
 R"(
     uniform bool uEnableShadow;
     uniform sampler2D uShadowMap;
@@ -81,12 +81,11 @@ R"(
         return shadow;
     }
 
-    float ShadowCalculationDirectionLight(vec4 lightSpacePos, vec3 normal, vec3 lightDir)
+    float ShadowCalculationDirectionLight(vec4 lightSpacePos, vec3 normal, vec3 lightDir, float bias)
     {
         vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
         projCoords = projCoords * 0.5 + 0.5;
         float currentDepth = projCoords.z;
-        float bias = max(0.01 * (1.0 - dot(normal, lightDir)), 0.005);
         float shadow = 0.0;
         vec2 texelSize = 1.0 / textureSize(uShadowMap, 0);
         for(int x = -1; x <= 1; ++x)
@@ -102,25 +101,26 @@ R"(
         return GetShadowVisibility(shadow, projCoords);
     }
 
-    float ShadowCalculationSpot(vec4 lightSpacePos)
+    float ShadowCalculationDirectionLight(vec4 lightSpacePos, vec3 normal, vec3 lightDir)
+    {
+        float bias = max(0.01 * (1.0 - dot(normal, lightDir)), 0.005);
+        return ShadowCalculationDirectionLight(lightSpacePos, normal, lightDir, bias);
+    }
+
+    float ShadowCalculationSpot(vec4 lightSpacePos, float bias)
     {
         vec3 projCoords = lightSpacePos.xyz / lightSpacePos.w;
         projCoords = projCoords * 0.5 + 0.5;
+        float closestDepth = texture(uShadowMap, projCoords.xy).r;
         float currentDepth = projCoords.z;
-        float bias = 0.01;
-        float shadow = 0.0;
-        vec2 texelSize = 1.0 / textureSize(uShadowMap, 0);
-        for(int x = -1; x <= 1; ++x)
-        {
-            for(int y = -1; y <= 1; ++y)
-            {
-                float pcfDepth = texture(uShadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
-                shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
-            }
-        }
-        shadow /= 9.0;
-        shadow = 1.0 - shadow; // 1.0 = lit, 0.0 = fully shadowed
+        float shadow = currentDepth - bias > closestDepth ? 0.01 : 1.0;
         return GetShadowVisibility(shadow, projCoords);
+    }
+
+    float ShadowCalculationSpot(vec4 lightSpacePos)
+    {
+        float bias = 0.01;
+        return ShadowCalculationSpot(lightSpacePos, bias);
     }
 
     float ShadowCalculationPoint(int lightIdx, vec3 worldPos)
