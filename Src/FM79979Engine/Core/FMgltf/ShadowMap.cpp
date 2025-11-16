@@ -61,6 +61,12 @@ cShadowMap::~cShadowMap()
 
 bool cShadowMap::Init(int width, int height)
 {
+    // If already initialized, cleanup previous resources so we can recreate with new size
+    if (m_DepthTexture || m_Framebuffer)
+    {
+        Cleanup();
+    }
+
     m_Width = width;
     m_Height = height;
     glGenFramebuffers(1, &m_Framebuffer);
@@ -71,6 +77,9 @@ bool cShadowMap::Init(int width, int height)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    // ensure no mip sampling
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
     float borderColor[] = {1.0, 1.0, 0.0, 1.0};
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
     glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
@@ -103,16 +112,70 @@ void cShadowMap::RenderFrameBufferAs2DImage(Vector2 e_vPos, Vector2 e_vSize)
     RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x, e_vPos.y, 0.f, (float)m_Width/4, (float)m_Height/4, Vector4::One, l_fTextureCoordinate, Vector3::Zero);
 }
 
+
+
+// Debug helper: validate FBO binding, framebuffer status, viewport/scissor and force clear
+void cShadowMap::ValidateAndPrepareForWrite()
+{
+    // check which FBO is bound
+    GLint boundFBO = 0;
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &boundFBO);
+    printf("[ShadowMap] Bound FBO = %d, expected = %u\n", boundFBO, (unsigned)m_Framebuffer);
+
+    // check framebuffer status
+    GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    printf("[ShadowMap] glCheckFramebufferStatus = 0x%X\n", status);
+
+    // check viewport and scissor
+    GLint vp[4] = { 0,0,0,0 };
+    glGetIntegerv(GL_VIEWPORT, vp);
+    printf("[ShadowMap] viewport = %d,%d %d x %d\n", vp[0], vp[1], vp[2], vp[3]);
+    GLboolean sc = glIsEnabled(GL_SCISSOR_TEST);
+    GLint scissor[4] = { 0,0,0,0 };
+    if (sc) glGetIntegerv(GL_SCISSOR_BOX, scissor);
+    printf("[ShadowMap] scissor enabled=%d scissor box=%d,%d %d x %d\n", sc ? 1 : 0, scissor[0], scissor[1], scissor[2], scissor[3]);
+
+    // check texture attachment is the depth texture
+    GLint attTex = 0;
+    glGetFramebufferAttachmentParameteriv(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME, &attTex);
+    printf("[ShadowMap] depth attachment texture = %d (expected %u)\n", attTex, (unsigned)m_DepthTexture);
+
+    // clear depth (ensure we are clearing the correct FBO)
+    glClearDepth(1.0);
+    glClear(GL_DEPTH_BUFFER_BIT);
+
+    // flush to be deterministic for debug
+    glFinish();
+
+    // report GL error
+    GLenum err = glGetError();
+    if (err != GL_NO_ERROR)
+        printf("[ShadowMap] GL error after validate/clear: 0x%X\n", err);
+}
+
 void cShadowMap::BindForWritingStart()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
+    //ValidateAndPrepareForWrite();
     glGetIntegerv(GL_VIEWPORT, m_iViewportData);
     glViewport(0, 0, m_Width, m_Height);
+
+    // save scissor state and set scissor to FBO extents
+    glGetBooleanv(GL_SCISSOR_TEST, &m_bOldScissorEnabled);
+    if (m_bOldScissorEnabled)
+    {
+        glGetIntegerv(GL_SCISSOR_BOX, m_iOldScissor);
+    }
+    // ensure scissor covers FBO so later enabling won't clip unexpectedly
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(0, 0, m_Width, m_Height);
+
     // Set cull face to front for shadow map pass
-    //glCullFace(GL_FRONT);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glCullFace(GL_FRONT);
     glClearDepth(1.0f);
+    glClear(GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
+    // keep scissor enabled (we set it above)
     glDepthMask(GL_TRUE);
     glDepthFunc(GL_LESS);
 }
@@ -122,7 +185,23 @@ void cShadowMap::BindForWritingEnd()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     // Restore cull face to back after shadow map pass
     glCullFace(GL_BACK);
+    // Restore previously saved viewport so main render uses correct dimensions
     glViewport(m_iViewportData[0], m_iViewportData[1], m_iViewportData[2], m_iViewportData[3]);
+
+    // restore scissor state
+    if (m_bOldScissorEnabled)
+    {
+        glEnable(GL_SCISSOR_TEST);
+        glScissor(m_iOldScissor[0], m_iOldScissor[1], m_iOldScissor[2], m_iOldScissor[3]);
+    }
+    else
+    {
+#ifndef UWP
+        glDisable(GL_SCISSOR_TEST);
+#else
+        glDisable(GL_SCISSOR_TEST);
+#endif
+    }
 }
 
 void cShadowMap::BindForReading(GLenum textureUnit)

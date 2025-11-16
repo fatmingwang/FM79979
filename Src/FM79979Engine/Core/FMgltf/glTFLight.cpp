@@ -1,6 +1,7 @@
 #include "tiny_gltf.h"
 #include "glTFLight.h"
 #include "glTFAnimation.h"
+#include "glTFCamera.h"
 #include "../../imgui/imgui.h"
 
 TYPDE_DEFINE_MARCO(cglTFLight);
@@ -165,11 +166,11 @@ std::shared_ptr<sLightData> cglTFLight::CreateSpotLight()
 {
     sLightData light;
     light.m_0Type1Enable[0] = (int)eLightType::eLT_SPOT; // Spot light
-    light.m_vPosition = Vector4(0.f, 0.2f, 0.f, 1.f); // Default position
-    light.m_vDirection = Vector4(0.f, -1.f, 0.f, 0.f); // Default direction
+    light.m_vPosition = Vector4(0.f, 0.1f, -0.2f, 1.f); // Default position
+    light.m_vDirection = Vector4(0.f, 0.f, 1.f, 0.f); // Default direction
     light.m_vColor = Vector4(1.f, 1.f, 1.f, 1.f); // White color
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 1.0f; // Intensity
-    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 0.21f; // Range
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.x = 10.0f; // Intensity
+    light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y = 10.f; // Range
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z = 0.9f; // Inner cone angle (radians)
     light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w = 0.6f; // Outer cone angle (radians)
     light.m_0Type1Enable[1] = 1; // Enabled
@@ -291,7 +292,13 @@ void cLighController::RenderBegin()
 
 void  cLighController::Update(float e_fElpaseTime)
 {
+    auto l_pLight = this->m_LightDataVector[0];
+    if (l_pLight)
+    {
+		m_fLazyTime += e_fElpaseTime;
+		l_pLight->m_vDirection = Vector3(sin(m_fLazyTime / 4.0f), -1.0f, cos(m_fLazyTime / 4.0f)).Normalize();
 
+    }
 }
 
 bool cLighController::m_bRenderLightShape = true;
@@ -413,7 +420,8 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         float farPlane = shadow.farPlane > 0.0f ? shadow.farPlane : 100.0f;
         float fov = e_fFOVDegree;
         cMatrix44 proj;
-        glhPerspectivef2(proj, fov, 1.0f, nearPlane, farPlane);
+        float l_fAspect = g_fGetCurrentCameraAspectRation();
+        glhPerspectivef2(proj, fov, l_fAspect, nearPlane, farPlane);
         e_ViewProjection = proj * view;
         return true;
     }
@@ -443,7 +451,8 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         }
         else
         {
-            glhPerspectivef2(proj, fovDegrees, 1.0f, nearPlane, farPlane);
+            float l_fAspect = g_fGetCurrentCameraAspectRation();
+            glhPerspectivef2(proj, fovDegrees, l_fAspect, nearPlane, farPlane);
             e_ViewProjection = proj * view.Inverted();
         }
         return true;

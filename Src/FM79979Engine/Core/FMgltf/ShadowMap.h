@@ -4,6 +4,9 @@
 class cShadowMap
 {
     GLint m_iViewportData[4];
+    // save/restore scissor state when binding FBO
+    GLboolean m_bOldScissorEnabled = GL_FALSE;
+    GLint     m_iOldScissor[4] = {0,0,0,0};
 public:
     cShadowMap();
     ~cShadowMap();
@@ -17,6 +20,7 @@ public:
     void    InitShadowMapProgram();
     GLuint  GetShadowMapProgram() const { return m_ShadowMapProgram; }
     void    RenderFrameBufferAs2DImage(Vector2 e_vPos, Vector2 e_vSize);
+    void    ValidateAndPrepareForWrite();
 private:
     GLuint m_Framebuffer = 0;
     GLuint m_DepthTexture = 0;

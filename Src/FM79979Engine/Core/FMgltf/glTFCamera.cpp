@@ -310,7 +310,7 @@ void cCameraController::Update(float e_fElpaseTime)
     {
         this->CreateDefault3DCamera();
         l_pCamera = GetCurrentCamera();
-		l_pCamera->SetLocalPosition(Vector3(0.12, 0.5, 0.6));
+		l_pCamera->SetLocalPosition(Vector3(0.12f, 0.5f, 0.6f));
     }
     if (m_NameAndglTFCameraMap.size())
     {
@@ -488,4 +488,15 @@ void g_fCameraDebugRender()
 void g_fCameraControllerUpdate(float e_fElpaseTime)
 {
 	cCameraController::GetInstance()->Update(e_fElpaseTime);
+}
+
+float g_fGetCurrentCameraAspectRation()
+{
+    auto l_Camera = cCameraController::GetInstance()->GetCurrentCamera();
+    if (l_Camera)
+    {
+        auto l_Projection = l_Camera->GetProjection();
+		return l_Projection.GetAspect();
+    }
+	return 1.0f;
 }

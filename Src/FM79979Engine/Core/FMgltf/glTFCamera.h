@@ -124,3 +124,4 @@ public:
 void g_fSetCameraUniform(GLuint e_uiProgramID, float* e_pMatrix = nullptr);
 void g_fCameraDebugRender();
 void g_fCameraControllerUpdate(float e_fElpaseTime);
+float g_fGetCurrentCameraAspectRation();

@@ -277,7 +277,7 @@ namespace FATMING_CORE
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = (float)m_iOriginalViewPortSize[1];
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)m_iOriginalViewPortSize[2];
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)m_iOriginalViewPortSize[3];
-		glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+		myglViewPort((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 		if (m_bEnableScissor)
 			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
 		else
@@ -378,7 +378,7 @@ namespace FATMING_CORE
 		//for RGB
 		//glBindRenderbufferEXT(GL_RENDERBUFFER, m_RenderufferID);
 		//		glPushAttrib(GL_VIEWPORT_BIT|GL_COLOR_BUFFER_BIT);
-		glViewport(0, 0, this->m_uiWidth, this->m_uiHeight);
+		myglViewPort(0, 0, this->m_uiWidth, this->m_uiHeight);
 		MyGLEnable(GL_SCISSOR_TEST);
 		glScissor(0, 0, this->m_uiWidth, this->m_uiHeight);
 
@@ -398,7 +398,7 @@ namespace FATMING_CORE
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = (float)m_iOriginalViewPortSize[1];
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)m_iOriginalViewPortSize[2];
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)m_iOriginalViewPortSize[3];
-		glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.z, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.w);
+		myglViewPort((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.z, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.w);
 		if (m_bEnableScissor)
 			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
 		else

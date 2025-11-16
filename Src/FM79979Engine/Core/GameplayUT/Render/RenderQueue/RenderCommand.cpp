@@ -285,7 +285,7 @@ namespace FATMING_CORE
 
 	void cBatchRender::RenderViewport(sRenderData* e_pRenderData)
 	{
-		glViewport((GLint)e_pRenderData->pvViewPort->x,(GLint)e_pRenderData->pvViewPort->y,
+		myglViewPort((GLint)e_pRenderData->pvViewPort->x,(GLint)e_pRenderData->pvViewPort->y,
 			(GLsizei)e_pRenderData->pvViewPort->z, (GLsizei)e_pRenderData->pvViewPort->w);
 	}
 

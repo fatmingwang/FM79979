@@ -25,6 +25,7 @@ struct alignas(16) sLightData
 #define MAX_LIGHT   4
 class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighController>
 {
+    float m_fLazyTime = 0.f;
     // Prepare the UBO data
     struct alignas(16) sLightBlock
     {
