@@ -74,6 +74,9 @@ R"(
     uniform vec3 uPointLightPos[MAX_LIGHT];
     uniform float uPointLightFarPlane[MAX_LIGHT];
 
+    // Shadow intensity multiplier (>1.0 makes shadows darker)
+    uniform float uShadowIntensity;
+
     float GetShadowVisibility(float shadow, vec3 projCoords)
     {
         if(projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0 || projCoords.z < 0.0 || projCoords.z > 1.0)
@@ -96,9 +99,13 @@ R"(
                 shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
             }
         }
-        shadow /= 9.0;
-        shadow = 1.0 - shadow; // 1.0 = lit, 0.0 = fully shadowed
-        return GetShadowVisibility(shadow, projCoords);
+        shadow /= 9.0; // shadow factor where 1.0 means fully shadowed in this avg
+        // Convert to visibility (1.0 lit, 0.0 shadowed)
+        float visibility = 1.0 - shadow;
+        // Darken shadows by scaling the shadow amount (1 - visibility)
+        float shadowAmount = clamp((1.0 - visibility) * uShadowIntensity, 0.0, 1.0);
+        float finalVis = 1.0 - shadowAmount;
+        return GetShadowVisibility(finalVis, projCoords);
     }
 
     float ShadowCalculationDirectionLight(vec4 lightSpacePos, vec3 normal, vec3 lightDir)
@@ -113,8 +120,11 @@ R"(
         projCoords = projCoords * 0.5 + 0.5;
         float closestDepth = texture(uShadowMap, projCoords.xy).r;
         float currentDepth = projCoords.z;
-        float shadow = currentDepth - bias > closestDepth ? 0.01 : 1.0;
-        return GetShadowVisibility(shadow, projCoords);
+        float shadowSample = currentDepth - bias > closestDepth ? 1.0 : 0.0;
+        float visibility = 1.0 - shadowSample;
+        float shadowAmount = clamp((1.0 - visibility) * uShadowIntensity, 0.0, 1.0);
+        float finalVis = 1.0 - shadowAmount;
+        return GetShadowVisibility(finalVis, projCoords);
     }
 
     float ShadowCalculationSpot(vec4 lightSpacePos)
@@ -129,10 +139,13 @@ R"(
         float currentDepth = length(lightToFrag);
         float closestDepth = texture(uPointShadowMap[lightIdx], lightToFrag).r * uPointLightFarPlane[lightIdx];
         float bias = 0.05;
-        float shadow = currentDepth - bias > closestDepth ? 0.5 : 1.0;
+        float shadowSample = currentDepth - bias > closestDepth ? 1.0 : 0.0;
+        float visibility = 1.0 - shadowSample;
+        float shadowAmount = clamp((1.0 - visibility) * uShadowIntensity, 0.0, 1.0);
+        float finalVis = 1.0 - shadowAmount;
         if(currentDepth >= uPointLightFarPlane[lightIdx])
-            shadow = 1.0;
+            finalVis = 1.0;
         // For point lights, projCoords is not used, so pass vec3(0) to always skip bounds check
-        return GetShadowVisibility(shadow, vec3(0.5,0.5,0.5));
+        return GetShadowVisibility(finalVis, vec3(0.5,0.5,0.5));
     }
 )";

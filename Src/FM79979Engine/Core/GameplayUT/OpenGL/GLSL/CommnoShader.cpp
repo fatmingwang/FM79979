@@ -201,14 +201,37 @@ namespace FATMING_CORE
 	)";
 
 	const char* g_strCommonDepthTextureFS =
-	R"(
-		uniform sampler2D texSample;
-		varying vec2 PSTexcoord;
-		void main()
-		{
-			gl_FragColor = vec4(vec3(texture(texSample, PSTexcoord)), 1.0);
-		}
-	)";
+#if defined(WIN32)
+"#version 330 core\n"
+"uniform sampler2D texSample;\n"
+"in vec2 PSTexcoord;\n"
+"out vec4 FragColor;\n"
+"void main()\n"
+"{\n"
+"    float d = texture(texSample, PSTexcoord).r;\n"
+"    // Increase apparent contrast and darkness: apply bias + gamma, then invert so closer = darker\n"
+"    d = clamp(d, 0.0, 1.0);\n"
+"    d = pow(d, 1.6); // gamma to push values towards darker end\n"
+"    d = 1.0 - d;\n"
+"    FragColor = vec4(vec3(d), 1.0);\n"
+"}\n";
+#else
+R"(#version 300 es
+precision mediump float;
+uniform sampler2D texSample;
+in vec2 PSTexcoord;
+out vec4 FragColor;
+void main()
+{
+    float d = texture(texSample, PSTexcoord).r;
+    // Increase apparent contrast and darkness: apply bias + gamma, then invert so closer = darker
+    d = clamp(d, 0.0, 1.0);
+    d = pow(d, 1.6); // gamma to push values towards darker end
+    d = 1.0 - d;
+    FragColor = vec4(vec3(d), 1.0);
+}
+)";
+#endif
 
 
 #if defined(WIN32) && !defined(UWP)

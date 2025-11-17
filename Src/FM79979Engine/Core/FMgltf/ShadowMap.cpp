@@ -72,23 +72,71 @@ bool cShadowMap::Init(int width, int height)
     glGenFramebuffers(1, &m_Framebuffer);
     glGenTextures(1, &m_DepthTexture);
     glBindTexture(GL_TEXTURE_2D, m_DepthTexture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-    // ensure no mip sampling
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-    float borderColor[] = {1.0, 1.0, 0.0, 1.0};
-    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-    glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_DepthTexture, 0);
-    glDrawBuffer(GL_NONE);
-    glReadBuffer(GL_NONE);
-    bool status = (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
+
+    // Try multiple depth formats with fallbacks for platforms that don't support 32F
+    struct DepthFormatAttempt { GLenum internalFormat; GLenum type; const char* name; } attempts[] = {
+        { GL_DEPTH_COMPONENT32F, GL_FLOAT, "GL_DEPTH_COMPONENT32F/GL_FLOAT" },
+        { GL_DEPTH_COMPONENT24, GL_UNSIGNED_INT, "GL_DEPTH_COMPONENT24/GL_UNSIGNED_INT" },
+        { GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, "GL_DEPTH_COMPONENT/GL_UNSIGNED_INT" },
+        { GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, "GL_DEPTH_COMPONENT/GL_UNSIGNED_SHORT" }
+    };
+
+    bool success = false;
+    GLenum status = GL_FRAMEBUFFER_UNDEFINED;
+    for (auto &a : attempts)
+    {
+        // Specify texture storage for chosen format
+        glTexImage2D(GL_TEXTURE_2D, 0, a.internalFormat, width, height, 0, GL_DEPTH_COMPONENT, a.type, nullptr);
+        // Set texture params (some platforms may not support GL_CLAMP_TO_BORDER)
+#ifdef GL_CLAMP_TO_BORDER
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+#else
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+#endif
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        // ensure no mip sampling
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
+#ifdef GL_TEXTURE_BORDER_COLOR
+        float borderColor[] = {1.0f, 1.0f, 0.0f, 1.0f};
+        glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+#endif
+
+        glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_DepthTexture, 0);
+        glDrawBuffer(GL_NONE);
+        glReadBuffer(GL_NONE);
+
+        status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+        if (status == GL_FRAMEBUFFER_COMPLETE)
+        {
+            printf("[ShadowMap] Depth texture format chosen: %s\n", a.name);
+            success = true;
+            break;
+        }
+        else
+        {
+            // Not supported, try next format
+            printf("[ShadowMap] Depth format %s not supported (FBO status 0x%X), trying fallback\n", a.name, status);
+        }
+    }
+
+    // Unbind framebuffer
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    return status;
+
+    if (!success)
+    {
+        // cleanup created GL objects
+        if (m_DepthTexture) { glDeleteTextures(1, &m_DepthTexture); m_DepthTexture = 0; }
+        if (m_Framebuffer) { glDeleteFramebuffers(1, &m_Framebuffer); m_Framebuffer = 0; }
+        printf("[ShadowMap] Failed to create a complete depth framebuffer. Last status=0x%X\n", status);
+        return false;
+    }
+
+    return true;
 }
 
 void cShadowMap::InitShadowMapProgram()

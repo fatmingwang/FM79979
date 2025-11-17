@@ -25,6 +25,7 @@ struct alignas(16) sLightData
 #define MAX_LIGHT   4
 class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighController>
 {
+	bool m_bDoLightRotation = false;
     float m_fLazyTime = 0.f;
     // Prepare the UBO data
     struct alignas(16) sLightBlock
@@ -32,15 +33,18 @@ class cLighController:public NamedTypedObject, public cSingltonTemplate<cLighCon
         sLightData m_Lights[MAX_LIGHT]; // Array of light data
         int m_iNumLights[4];       // Number of lights
     } m_LightBlock;
-
+public:
     struct sLightShadowData
     {
         float nearPlane = 0.05f;
         float farPlane = 100.0f;
         float orthoSize = 100.0f; // For directional lights
     };
+private:
     sLightShadowData m_LightShadowData[MAX_LIGHT];
     GLuint m_uiLightUBO = -1;
+    // Global shadow intensity multiplier (1.0 = default)
+    float m_fShadowIntensity = 1.0f;
     //from cLighFrameData
     std::vector<std::shared_ptr<sLightData>> m_LightDataVector;
     int                 m_iLastUsedProgram = -1;
@@ -59,6 +63,10 @@ public:
 	void    RenderImGUILightControllerUI();
     void    DebugRender();
 
+    // Shadow intensity control
+    void    SetShadowIntensity(float v) { m_fShadowIntensity = v; }
+    float   GetShadowIntensity() const { return m_fShadowIntensity; }
+
     static void SetRenderLightShape(bool b) { m_bRenderLightShape = b; }
     static bool GetRenderLightShape() { return m_bRenderLightShape; }
     shared_ptr<sLightData>  GetFirstDirectionLight();
@@ -68,7 +76,7 @@ public:
 private:
     static bool m_bRenderLightShape;
     bool m_bDebugRenderLight[MAX_LIGHT] = {true, true, true, true};
-};
+ };
 
 
 class cLighFrameData:public cRenderObject
@@ -102,6 +110,7 @@ class cglTFLight :public NamedTypedObject
     static std::shared_ptr<sLightData>          CreateAmbientLight();
     static std::shared_ptr<sLightData>          CreateSpotLight();
     static std::shared_ptr<sLightData>          CreatePointLight();
+	static cLighController::sLightShadowData    CreateLightShadowData(eLightType e_Type);
     static bool                                 IsLightExists(const tinygltf::Model& model);
 };
 
