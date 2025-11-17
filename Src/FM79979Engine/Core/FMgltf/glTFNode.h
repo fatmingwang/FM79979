@@ -30,6 +30,7 @@ class cglTFNodeData : public cRenderObject
     // Instance manager
     std::shared_ptr<cMeshInstance>  m_Instance;
     std::shared_ptr<cMeshInstance>  LoadInstance(const tinygltf::Node& e_pNode, const tinygltf::Model& model);
+    GET_SET_DEC(bool,m_bIgnoreShadowPass,GetIgnoreShadowPass,SetIgnoreShadowPass)
 public:
     DEFINE_TYPE_INFO();
     LAZY_CLONE_FUNCTION(cglTFNodeData);
@@ -41,7 +42,7 @@ public:
     //rest pose
     cMatrix44   m_StartNodeTransform;
     sSRT        m_StartSRT;
-    cglTFNodeData(){ }
+    cglTFNodeData(){m_bIgnoreShadowPass = false;}
     cglTFNodeData(const tinygltf::Node&e_Node,int e_iNodeIndex);
     cglTFNodeData(cglTFNodeData*e_pglTFNodeData);
     virtual ~cglTFNodeData();

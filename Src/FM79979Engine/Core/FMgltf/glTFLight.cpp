@@ -199,9 +199,9 @@ cLighController::sLightShadowData cglTFLight::CreateLightShadowData(eLightType e
     {
     case eLightType::eLT_DIRECTIONAL:
         // Directional: orthographic frustum — half-size should cover scene extent
-        data.orthoSize = 25.0f;   // half-extent in world units (tune per scene)
-        data.nearPlane = 0.1f;    // avoid very small near
-        data.farPlane = 200.0f;   // far enough to include casters/receivers
+        data.orthoSize = 0.5f;   // half-extent in world units (tune per scene)
+        data.nearPlane = -1.5f;    // avoid very small near
+        data.farPlane = 1.5f;   // far enough to include casters/receivers
         break;
     case eLightType::eLT_POINT:
         // Point: usually use cubemap; for single-perspective fallback use these
@@ -210,10 +210,10 @@ cLighController::sLightShadowData cglTFLight::CreateLightShadowData(eLightType e
         data.farPlane = 50.0f;    // typical range for local point lights
         break;
     case eLightType::eLT_SPOT:
-        // Spot: perspective frustum
+        // Spot: perspective frustum                                                                                                                              z
         data.orthoSize = 10.0f;   // not used for perspective but useful for UI
         data.nearPlane = 0.1f;
-        data.farPlane = 100.0f;
+        data.farPlane = 5.0f;
         break;
     case eLightType::eLT_AMBIENT:
     default:
@@ -448,16 +448,27 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         if (cam)
         {
             sceneCenter = cam->GetWorldPosition();
+            //sceneCenter += cam->GetWorldDirection() * 10;
         }
-
-        // Position the light far enough along direction so ortho box covers sceneCenter
-        Vector3 lightPos = sceneCenter - lightDir * (orthoSize * 4.0f);
         Vector3 up = fabs(lightDir.y) > 0.99f ? Vector3(0, 0, 1) : Vector3(0, 1, 0);
-        cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, sceneCenter, up);
-        cMatrix44 proj;
+        cMatrix44 view;
+        if (0)
+        {
+            Vector3 lightDir = Vector3(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z).Normalize();
+            Vector3 target = Vector3(0, 0, 0); // Center of the scene
+            Vector3 lightPos = target - lightDir * orthoSize; // Move back 50 units
+            view = cMatrix44::LookAtMatrix(lightPos, target, up);
+        }
+        else
+        {
+            // Position the light far enough along direction so ortho box covers sceneCenter
+            Vector3 lightPos = sceneCenter - lightDir * (orthoSize);
+            view = cMatrix44::LookAtMatrix(lightPos, sceneCenter, up);
+        }
         // Build orthographic projection centered on sceneCenter with half extents = orthoSize
+        cMatrix44 proj;
         glhOrthof2(proj, -orthoSize, orthoSize, -orthoSize, orthoSize, nearPlane, farPlane);
-        e_ViewProjection = proj * view;
+        e_ViewProjection = view* proj;
         return true;
     }
     else if (type == (int)eLightType::eLT_POINT)
@@ -481,7 +492,7 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
     {
         Vector3 lightPos(e_Light->m_vPosition.x, e_Light->m_vPosition.y, e_Light->m_vPosition.z);
         Vector3 lightDir(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z);
-        Vector3 target = lightPos + lightDir.Normalize()*10;
+        Vector3 target = lightPos + lightDir.Normalize()*5;
         Vector3 up(0, 1, 0);
         if (fabs(lightDir.y) > 0.99f) up = Vector3(0, 0, 1);
         cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
@@ -489,10 +500,9 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         float farPlane = shadow.farPlane > 0.0f ? shadow.farPlane : 100.0f;
         if (nearPlane <= 0.001f) nearPlane = 0.1f;
         if (farPlane <= nearPlane + 0.01f) farPlane = nearPlane + 100.0f;
-        float fovDegrees = e_fFOVDegree;
         cMatrix44 proj;
         float l_fAspect = g_fGetCurrentCameraAspectRation();
-        glhPerspectivef2(proj, fovDegrees, l_fAspect, nearPlane, farPlane);
+        glhPerspectivef2(proj, e_fFOVDegree, l_fAspect, nearPlane, farPlane);
         e_ViewProjection = proj * view.Inverted();
         return true;
     }
@@ -591,6 +601,7 @@ void cLighController::RenderImGUILightControllerUI()
                             //newLight = cglTFLight::CreateDirectionLight();
                             break;
                     }
+                    this->m_LightShadowData[0] = cglTFLight::CreateLightShadowData((eLightType)type);
                     //light = *newLight;
                 }
                 ImGui::Checkbox("Enable", (bool*)&light.m_0Type1Enable[1]);

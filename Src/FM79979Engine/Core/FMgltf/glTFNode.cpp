@@ -91,6 +91,7 @@ void ConvertSRTMapToMatrixMap(const FloatToSRTMap& srtMap, FloatTocMatrix44Map& 
 }
 cglTFNodeData::cglTFNodeData(const tinygltf::Node& e_Node, int e_iNodeIndex)
 {
+    m_bIgnoreShadowPass = false;
     if (e_Node.name.length())
     {
         SetName(e_Node.name.c_str());
@@ -105,6 +106,7 @@ cglTFNodeData::cglTFNodeData(const tinygltf::Node& e_Node, int e_iNodeIndex)
 
 cglTFNodeData::cglTFNodeData(cglTFNodeData* e_pglTFNodeData)
 {
+    m_bIgnoreShadowPass = false;
     //for debug
     auto l_mat = e_pglTFNodeData->GetLocalTransform();
     this->SetLocalTransform(l_mat);
@@ -242,6 +244,10 @@ void cglTFNodeData::Render()
 
 void   cglTFNodeData::RenderNodesShadowPass(const cMatrix44& lightViewProj, GLuint shadowShaderProgram)
 {
+    if (m_bIgnoreShadowPass)
+    {
+        return;
+    }
     if (m_pMesh)
     {
         cMatrix44 modelMatrix = GetWorldTransform();

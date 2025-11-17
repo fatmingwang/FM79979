@@ -31,6 +31,12 @@ int glTFInit()
     {
         cglTFModel* l_pModel = nullptr;
         l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
+        auto l_pNodeVector =  l_pModel->GetNodeVector();
+        auto l_pChessBoard = l_pNodeVector->GetObject(L"Chessboard");
+        if (l_pChessBoard)
+        {
+			l_pChessBoard->SetIgnoreShadowPass(true);
+        }
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
         
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SpecularTest.glb");
@@ -58,8 +64,10 @@ int glTFInit()
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/VirtualCity.glb");
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CesiumMilkTruck.glb");        
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Duck.gltf");
-        if(!l_pModel)
-            l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf",100);
+        if (!l_pModel)
+        {
+            l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/Woman.gltf", 100);
+        }
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/SimpleSkin.gltf");
         if (!l_pModel)
         {
