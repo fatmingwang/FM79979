@@ -4,6 +4,10 @@
 #include "glTFCamera.h"
 #include "../../imgui/imgui.h"
 
+#include <cfloat>
+#include <cmath>
+#include <algorithm>
+
 TYPDE_DEFINE_MARCO(cglTFLight);
 TYPDE_DEFINE_MARCO(cLighController);
 TYPDE_DEFINE_MARCO(cLighFrameData);
@@ -22,6 +26,36 @@ TYPDE_DEFINE_MARCO(cLighFrameData);
 //}
 // Forward declarations for debug draw helpers
 
+// Helper: transform a point by a 4x4 matrix (handles perspective divide)
+static Vector3 TransformPoint(const cMatrix44& M, const Vector3& v)
+{
+    float x = M.m[0][0] * v.x + M.m[0][1] * v.y + M.m[0][2] * v.z + M.m[0][3] * 1.0f;
+    float y = M.m[1][0] * v.x + M.m[1][1] * v.y + M.m[1][2] * v.z + M.m[1][3] * 1.0f;
+    float z = M.m[2][0] * v.x + M.m[2][1] * v.y + M.m[2][2] * v.z + M.m[2][3] * 1.0f;
+    float w = M.m[3][0] * v.x + M.m[3][1] * v.y + M.m[3][2] * v.z + M.m[3][3] * 1.0f;
+    if (fabs(w) > 1e-6f)
+        return Vector3(x / w, y / w, z / w);
+    return Vector3(x, y, z);
+}
+
+// Compute approximate scene center by averaging world-space camera frustum corners
+static Vector3 ComputeSceneCenterFromCamera(const cMatrix44& camWorldViewProj)
+{
+    cMatrix44 inv = camWorldViewProj.Inverted();
+    Vector3 ndcCorners[8] = {
+        Vector3(-1.f, -1.f, -1.f), Vector3( 1.f, -1.f, -1.f),
+        Vector3(-1.f,  1.f, -1.f), Vector3( 1.f,  1.f, -1.f),
+        Vector3(-1.f, -1.f,  1.f), Vector3( 1.f, -1.f,  1.f),
+        Vector3(-1.f,  1.f,  1.f), Vector3( 1.f,  1.f,  1.f)
+    };
+    Vector3 sum = Vector3::Zero;
+    for (int i = 0; i < 8; ++i)
+    {
+        Vector3 world = TransformPoint(inv, ndcCorners[i]);
+        sum = sum + world;
+    }
+    return sum * (1.0f / 8.0f);
+}
 
 void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
 {
@@ -199,9 +233,10 @@ cLighController::sLightShadowData cglTFLight::CreateLightShadowData(eLightType e
     {
     case eLightType::eLT_DIRECTIONAL:
         // Directional: orthographic frustum — half-size should cover scene extent
-        data.orthoSize = 0.5f;   // half-extent in world units (tune per scene)
-        data.nearPlane = -1.5f;    // avoid very small near
-        data.farPlane = 1.5f;   // far enough to include casters/receivers
+        data.orthoSize = 1.f;   // half-extent in world units (tune per scene)
+        data.nearPlane = -2.f;    // avoid very small near
+        data.farPlane = 2.f;   // far enough to include casters/receivers
+        data.lightDistance = 1.;
         break;
     case eLightType::eLT_POINT:
         // Point: usually use cubemap; for single-perspective fallback use these
@@ -438,37 +473,32 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         // Clamp near/far to reasonable values
         if (nearPlane <= 0.001f) nearPlane = 0.1f; // avoid near==0 which kills precision
         if (farPlane <= nearPlane + 0.01f) farPlane = nearPlane + orthoSize * 8.0f; // ensure far > near
+        // Ensure depth range is large enough relative to ortho size so geometry isn't clipped
+        //if (farPlane - nearPlane < orthoSize * 2.0f)
+        //    farPlane = nearPlane + orthoSize * 10.0f;
 
         // Light direction (should be normalized)
         Vector3 lightDir = Vector3(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z).Normalize();
 
-        // Choose scene center as primary camera position if available, otherwise origin
+        // Choose scene center based on camera frustum if available, otherwise origin
         Vector3 sceneCenter = Vector3(0,0,0);
         auto cam = cCameraController::GetInstance()->GetCurrentCamera();
         if (cam)
         {
-            sceneCenter = cam->GetWorldPosition();
-            //sceneCenter += cam->GetWorldDirection() * 10;
+            // Compute average of camera frustum corners in world space (better center for shadows)
+            cMatrix44 camWVP = cam->GetWorldViewProjection();
+            sceneCenter = ComputeSceneCenterFromCamera(camWVP);
         }
+
+        // Position the light far enough along direction so ortho box covers sceneCenter
+        float distanceMultiplier = shadow.lightDistance;
+        Vector3 lightPos = sceneCenter - lightDir * ( distanceMultiplier);
         Vector3 up = fabs(lightDir.y) > 0.99f ? Vector3(0, 0, 1) : Vector3(0, 1, 0);
-        cMatrix44 view;
-        if (0)
-        {
-            Vector3 lightDir = Vector3(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z).Normalize();
-            Vector3 target = Vector3(0, 0, 0); // Center of the scene
-            Vector3 lightPos = target - lightDir * orthoSize; // Move back 50 units
-            view = cMatrix44::LookAtMatrix(lightPos, target, up);
-        }
-        else
-        {
-            // Position the light far enough along direction so ortho box covers sceneCenter
-            Vector3 lightPos = sceneCenter - lightDir * (orthoSize);
-            view = cMatrix44::LookAtMatrix(lightPos, sceneCenter, up);
-        }
-        // Build orthographic projection centered on sceneCenter with half extents = orthoSize
+        cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, sceneCenter, up);
         cMatrix44 proj;
+        // Build orthographic projection centered on sceneCenter with half extents = orthoSize
         glhOrthof2(proj, -orthoSize, orthoSize, -orthoSize, orthoSize, nearPlane, farPlane);
-        e_ViewProjection = view* proj;
+        e_ViewProjection = proj * view.Inverted();
         return true;
     }
     else if (type == (int)eLightType::eLT_POINT)
@@ -503,6 +533,7 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         cMatrix44 proj;
         float l_fAspect = g_fGetCurrentCameraAspectRation();
         glhPerspectivef2(proj, e_fFOVDegree, l_fAspect, nearPlane, farPlane);
+        // Use proj * view (view already transforms world to light view space)
         e_ViewProjection = proj * view.Inverted();
         return true;
     }
@@ -570,6 +601,7 @@ void cLighController::RenderImGUILightControllerUI()
                 ImGui::InputFloat("Far Plane", &shadow.farPlane, 1.0f, 10.0f, "%.1f");
                 //ImGui::InputFloat("FOV (deg)", &shadow.fov, 1.0f, 5.0f, "%.1f");
                 ImGui::InputFloat("Ortho Size", &shadow.orthoSize, 1.0f, 10.0f, "%.1f");
+                ImGui::InputFloat("Light Distance", &shadow.lightDistance, 0.1f, 1.0f, "%.2f");
 
                 if (light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.z <= light.m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w)
                 {
@@ -730,4 +762,3 @@ void g_fLightControllerUpdate(float e_fElpaseTime)
 //    cLighController::GetInstance()->AddLight(cglTFLight::CreateDirectionLight());
 //    cLighController::GetInstance()->AddLight(cglTFLight::CreateAmbientLight());
 //}
-//

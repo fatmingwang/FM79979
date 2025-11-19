@@ -39,6 +39,7 @@ public:
         float nearPlane = 0.05f;
         float farPlane = 100.0f;
         float orthoSize = 100.0f; // For directional lights
+        float lightDistance = 4.0f; // multiplier (orthoSize * lightDistance) used to place the light for directional shadows
     };
 private:
     sLightShadowData m_LightShadowData[MAX_LIGHT];
