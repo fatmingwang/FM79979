@@ -506,7 +506,7 @@ void cMaterial::RenderImGUI()
     ImGui::PushID(l_UniqueID.c_str());
     if (ImGui::TreeNode(l_strName.c_str()))
     {
-        ImGui::PushID(this->GetUniqueID());        
+        ImGui::PushID((int)this->GetUniqueID());        
         ImGui::Text("Shader Program ID: %u", m_uiShaderProgrameID);
         ImGui::Checkbox("Double Sided", &m_bDoubleSize);
         ImGui::InputFloat4("Base Color Factor", m_vBaseColorFactor);

@@ -64,7 +64,8 @@ void cglTFScene::Render()
     {
         l_pShader->Unuse();
     }
-    auto l_matWVP = cCameraController::GetInstance()->GetCurrentCamera()->GetWorldViewProjection();
+    auto l_Camera = cCameraController::GetInstance()->GetCurrentCamera();
+    auto l_matWVP = l_Camera->GetWorldViewProjection();
     UseShaderProgram(L"qoo79979");
     // Shadow pass for each directional/spot light
     if (m_pShadowMap)
@@ -107,6 +108,7 @@ void cglTFScene::Render()
     {
 		m_pShadowMap->RenderFrameBufferAs2DImage(Vector2(0, 0), Vector2(1920/4,1080/4));
     }
+    l_Camera->DebugRenderFrustum();
     ImGui_StartFrame();
     cLighController::GetInstance()->RenderImGUILightControllerUI();
     GlobalRenderObjectGoThoughAllFrameFromaFirstToEnd(

@@ -31,11 +31,14 @@ int glTFInit()
     {
         cglTFModel* l_pModel = nullptr;
         l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/glTF/ABeautifulGame.gltf");
-        auto l_pNodeVector =  l_pModel->GetNodeVector();
-        auto l_pChessBoard = l_pNodeVector->GetObject(L"Chessboard");
-        if (l_pChessBoard)
+        if (l_pModel)
         {
-			l_pChessBoard->SetIgnoreShadowPass(true);
+            auto l_pNodeVector = l_pModel->GetNodeVector();
+            auto l_pChessBoard = l_pNodeVector->GetObject(L"Chessboard");
+            if (l_pChessBoard)
+            {
+                l_pChessBoard->SetIgnoreShadowPass(true);
+            }
         }
         //l_pModel = LazyAddModel(l_pRootFrame, "glTFModel/CarConcept.gltf");
         
