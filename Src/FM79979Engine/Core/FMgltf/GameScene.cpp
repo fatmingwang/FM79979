@@ -108,7 +108,7 @@ void cglTFScene::Render()
     {
 		m_pShadowMap->RenderFrameBufferAs2DImage(Vector2(0, 0), Vector2(1920/4,1080/4));
     }
-    l_Camera->DebugRenderFrustum();
+    //l_Camera->DebugRenderFrustum();
     ImGui_StartFrame();
     cLighController::GetInstance()->RenderImGUILightControllerUI();
     GlobalRenderObjectGoThoughAllFrameFromaFirstToEnd(

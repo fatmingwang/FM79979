@@ -29,32 +29,34 @@ TYPDE_DEFINE_MARCO(cLighFrameData);
 // Helper: transform a point by a 4x4 matrix (handles perspective divide)
 static Vector3 TransformPoint(const cMatrix44& M, const Vector3& v)
 {
-    float x = M.m[0][0] * v.x + M.m[0][1] * v.y + M.m[0][2] * v.z + M.m[0][3] * 1.0f;
-    float y = M.m[1][0] * v.x + M.m[1][1] * v.y + M.m[1][2] * v.z + M.m[1][3] * 1.0f;
-    float z = M.m[2][0] * v.x + M.m[2][1] * v.y + M.m[2][2] * v.z + M.m[2][3] * 1.0f;
-    float w = M.m[3][0] * v.x + M.m[3][1] * v.y + M.m[3][2] * v.z + M.m[3][3] * 1.0f;
-    if (fabs(w) > 1e-6f)
-        return Vector3(x / w, y / w, z / w);
-    return Vector3(x, y, z);
+    // Use the same multiplication convention as cMatrix44::TransformCoordinate
+    // (column-major semantics with column vectors) and do perspective divide.
+    Vector4 p(v.x, v.y, v.z, 1.0f);
+    Vector4 t = M.TransformCoordinate(p);
+    if (fabs(t.w) > 1e-6f)
+        return Vector3(t.x / t.w, t.y / t.w, t.z / t.w);
+    return Vector3(t.x, t.y, t.z);
 }
 
 // Compute approximate scene center by averaging world-space camera frustum corners
 static Vector3 ComputeSceneCenterFromCamera(const cMatrix44& camWorldViewProj)
 {
+    // Unproject NDC cube corners to world space using the inverse WVP.
     cMatrix44 inv = camWorldViewProj.Inverted();
-    Vector3 ndcCorners[8] = {
+
+    // Prefer the near plane corners to avoid extreme centers when ZFar is huge.
+    Vector3 ndcNear[4] = {
         Vector3(-1.f, -1.f, -1.f), Vector3( 1.f, -1.f, -1.f),
-        Vector3(-1.f,  1.f, -1.f), Vector3( 1.f,  1.f, -1.f),
-        Vector3(-1.f, -1.f,  1.f), Vector3( 1.f, -1.f,  1.f),
-        Vector3(-1.f,  1.f,  1.f), Vector3( 1.f,  1.f,  1.f)
+        Vector3(-1.f,  1.f, -1.f), Vector3( 1.f,  1.f, -1.f)
     };
+
     Vector3 sum = Vector3::Zero;
-    for (int i = 0; i < 8; ++i)
+    for (int i = 0; i < 4; ++i)
     {
-        Vector3 world = TransformPoint(inv, ndcCorners[i]);
+        Vector3 world = TransformPoint(inv, ndcNear[i]);
         sum = sum + world;
     }
-    return sum * (1.0f / 8.0f);
+    return sum * 0.25f;
 }
 
 void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
@@ -156,14 +158,12 @@ void cglTFLight::LoadLightsFromGLTF(const tinygltf::Model& model)
                 {
                     l_vScale = Vector3((float)node.scale[0], (float)node.scale[1], (float)node.scale[2]);
                 }
-				l_Mat = cMatrix44::TranslationMatrix(l_vTranslation)*l_vRotation.ToMatrix()* cMatrix44::ScaleMatrix(l_vScale);
+                l_Mat = cMatrix44::TranslationMatrix(l_vTranslation)*l_vRotation.ToMatrix()* cMatrix44::ScaleMatrix(l_vScale);
             }
-            // You must convert node.translation and rotation to world-space
-            if (node.translation.size() == 3)
-            {
-                m_LightDataVector[lightIndex].m_vPosition = Vector3((float)node.translation[0], (float)node.translation[1], (float)node.translation[2]);
-                m_LightDataVector[lightIndex].m_vDirection = Vector3(&l_Mat.m[2][0]);
-            }
+            // Extract world-space position and -Z direction from transform (glTF forward = -Z)
+            m_LightDataVector[lightIndex].m_vPosition = l_Mat.GetTranslation();
+            Vector3 row2(l_Mat.m[2][0], l_Mat.m[2][1], l_Mat.m[2][2]);
+            m_LightDataVector[lightIndex].m_vDirection = (-row2).Normalize();
         }
     }
 }
@@ -421,6 +421,82 @@ void  cLighController::DebugRender()
             break;
         }
     }
+
+    // Render light frustums if enabled
+    for (int i = 0; i < m_LightDataVector.size() && i < MAX_LIGHT; ++i)
+    {
+        if (m_bDebugRenderFrustum[i])
+        {
+            Vector4 l_vColors[] = {
+                Vector4(1.0f, 0.0f, 0.0f, 1.0f),  // Red for directional
+                Vector4(0.0f, 1.0f, 0.0f, 1.0f),  // Green for point
+                Vector4(0.0f, 0.0f, 1.0f, 1.0f),  // Blue for spot
+                Vector4(1.0f, 1.0f, 0.0f, 1.0f)   // Yellow for ambient
+            };
+            
+            eLightType l_LightType = (eLightType)m_LightDataVector[i]->m_0Type1Enable[0];
+            DebugRenderLightFrustum(i, l_vColors[(int)l_LightType]);
+        }
+    }
+}
+
+void cLighController::DebugRenderLightFrustum(int e_iLightIndex, const Vector4& e_Color)
+{
+    if (e_iLightIndex < 0 || e_iLightIndex >= (int)m_LightDataVector.size())
+    {
+        return;
+    }
+
+    auto l_pLight = m_LightDataVector[e_iLightIndex];
+    if (!l_pLight)
+    {
+        return;
+    }
+
+    cMatrix44 l_matLightViewProj;
+
+    // Get the light's view-projection matrix.
+    // In this codebase, LookAtMatrix returns a camera/world matrix (view inverse),
+    // so GetLightViewProjectionMatrix returns: proj * view.Inverted() == P*V.
+    if (!GetLightViewProjectionMatrixByIndex(l_matLightViewProj, e_iLightIndex))
+    {
+        return;
+    }
+
+    // To go from NDC back to world, we need to invert this matrix
+    cMatrix44 l_matInv = l_matLightViewProj.Inverted();
+
+    // NDC frustum corners - these are in normalized device coordinates [-1,1] range
+    Vector3 l_vNDC[8] =
+    {
+        Vector3(-1.f, -1.f, -1.f), Vector3(1.f, -1.f, -1.f),
+        Vector3(-1.f,  1.f, -1.f), Vector3(1.f,  1.f, -1.f),
+        Vector3(-1.f, -1.f,  1.f), Vector3(1.f, -1.f,  1.f),
+        Vector3(-1.f,  1.f,  1.f), Vector3(1.f,  1.f,  1.f)
+    };
+
+    // Transform corners to world space using inverted matrix
+    Vector3 world[8];
+    for (int i = 0; i < 8; ++i)
+    {
+        world[i] = TransformPoint(l_matInv, l_vNDC[i]);
+    }
+
+    // Frustum edges
+    const int edges[12][2] =
+    {
+        {0,1},{1,3},{3,2},{2,0},
+        {4,5},{5,7},{7,6},{6,4},
+        {0,4},{1,5},{2,6},{3,7}
+    };
+
+    // Draw frustum edges
+    for (int i = 0; i < 12; ++i)
+    {
+        const Vector3& a = world[edges[i][0]];
+        const Vector3& b = world[edges[i][1]];
+        DrawLine(a, b, e_Color);
+    }
 }
 
 shared_ptr<sLightData> cLighController::GetFirstDirectionLight()
@@ -473,9 +549,6 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         // Clamp near/far to reasonable values
         if (nearPlane <= 0.001f) nearPlane = 0.1f; // avoid near==0 which kills precision
         if (farPlane <= nearPlane + 0.01f) farPlane = nearPlane + orthoSize * 8.0f; // ensure far > near
-        // Ensure depth range is large enough relative to ortho size so geometry isn't clipped
-        //if (farPlane - nearPlane < orthoSize * 2.0f)
-        //    farPlane = nearPlane + orthoSize * 10.0f;
 
         // Light direction (should be normalized)
         Vector3 lightDir = Vector3(e_Light->m_vDirection.x, e_Light->m_vDirection.y, e_Light->m_vDirection.z).Normalize();
@@ -485,9 +558,10 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         auto cam = cCameraController::GetInstance()->GetCurrentCamera();
         if (cam)
         {
-            // Compute average of camera frustum corners in world space (better center for shadows)
+            // Use the same projection used for rendering to keep NDC mapping consistent
             cMatrix44 camWVP = cam->GetWorldViewProjection();
             sceneCenter = ComputeSceneCenterFromCamera(camWVP);
+            int a = 0;
         }
 
         // Position the light far enough along direction so ortho box covers sceneCenter
@@ -498,24 +572,30 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         cMatrix44 proj;
         // Build orthographic projection centered on sceneCenter with half extents = orthoSize
         glhOrthof2(proj, -orthoSize, orthoSize, -orthoSize, orthoSize, nearPlane, farPlane);
+        // LookAtMatrix returns a camera/world matrix, so invert it to get view
         e_ViewProjection = proj * view.Inverted();
         return true;
     }
     else if (type == (int)eLightType::eLT_POINT)
     {
         Vector3 lightPos(e_Light->m_vPosition.x, e_Light->m_vPosition.y, e_Light->m_vPosition.z);
-        Vector3 target = lightPos + Vector3(0, 0, -1); // Look down -Z
+        Vector3 target = lightPos + Vector3(0, 0, -1); // arbitrary forward
         Vector3 up(0, 1, 0);
         cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
-        float nearPlane = shadow.nearPlane;
+        float range = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y;
+        float nearPlane = shadow.nearPlane > 0.0f ? shadow.nearPlane : 0.1f;
         float farPlane = shadow.farPlane > 0.0f ? shadow.farPlane : 100.0f;
-        if (nearPlane <= 0.001f) nearPlane = 0.1f;
-        if (farPlane <= nearPlane + 0.01f) farPlane = nearPlane + 100.0f;
-        float fov = e_fFOVDegree;
+        if (range > 0.0f)
+        {
+            // Clamp far to light range so frustum doesn't blow up
+            farPlane = min(farPlane, range);
+        }
+        if (farPlane <= nearPlane + 0.01f) farPlane = nearPlane + 1.0f;
+        // For a point light visual frustum, use square aspect
+        float aspect = 1.0f;
         cMatrix44 proj;
-        float l_fAspect = g_fGetCurrentCameraAspectRation();
-        glhPerspectivef2(proj, fov, l_fAspect, nearPlane, farPlane);
-        e_ViewProjection = proj * view; // use proj * view consistently
+        glhPerspectivef2(proj, e_fFOVDegree, aspect, nearPlane, farPlane);
+        e_ViewProjection = proj * view.Inverted();
         return true;
     }
     else if (type == (int)eLightType::eLT_SPOT)
@@ -526,14 +606,34 @@ bool	cLighController::GetLightViewProjectionMatrix(std::shared_ptr<sLightData> e
         Vector3 up(0, 1, 0);
         if (fabs(lightDir.y) > 0.99f) up = Vector3(0, 0, 1);
         cMatrix44 view = cMatrix44::LookAtMatrix(lightPos, target, up);
-        float nearPlane = shadow.nearPlane;
+        float range = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.y;
+        float nearPlane = shadow.nearPlane > 0.0f ? shadow.nearPlane : 0.1f;
         float farPlane = shadow.farPlane > 0.0f ? shadow.farPlane : 100.0f;
-        if (nearPlane <= 0.001f) nearPlane = 0.1f;
-        if (farPlane <= nearPlane + 0.01f) farPlane = nearPlane + 100.0f;
+        if (range > 0.0f)
+        {
+            // Clamp far to light range so frustum visualizes the useful cone only
+            farPlane = min(farPlane, range);
+        }
+        if (farPlane <= nearPlane + 0.01f) farPlane = nearPlane + 1.0f;
         cMatrix44 proj;
-        float l_fAspect = g_fGetCurrentCameraAspectRation();
-        glhPerspectivef2(proj, e_fFOVDegree, l_fAspect, nearPlane, farPlane);
-        // Use proj * view (view already transforms world to light view space)
+        // Derive FOV:
+        // Our shaders use inner/outer as cosine thresholds; glTF provides radians.
+        // Handle both: if the stored value is in [0,1], assume cosine and use acos.
+        float outerVal = e_Light->m_vLightData_xIntensityyRangezInnerConeAngelwOutterConeAngel.w;
+        float fovDeg;
+        if (outerVal >= 0.0f && outerVal <= 1.0f)
+        {
+            // cosine stored
+            fovDeg = 2.0f * (acosf(std::clamp(outerVal, 0.0f, 1.0f)) * (180.0f / D3DX_PI));
+        }
+        else
+        {
+            // radians stored
+            fovDeg = 2.0f * (outerVal * (180.0f / D3DX_PI));
+        }
+        // Use square aspect for a symmetric spot cone
+        float aspect = 1.0f;
+        glhPerspectivef2(proj, fovDeg, aspect, nearPlane, farPlane);
         e_ViewProjection = proj * view.Inverted();
         return true;
     }
@@ -581,6 +681,9 @@ void cLighController::RenderImGUILightControllerUI()
             ImGui::Checkbox("Light Rotation", &m_bDoLightRotation);
             
             ImGui::Checkbox("Render Light Shape", &m_bDebugRenderLight[i]);
+            ImGui::SameLine();
+            ImGui::Checkbox("Render Frustum", &m_bDebugRenderFrustum[i]);
+            
             sLightData& light = *m_LightDataVector[i];
             sLightShadowData& shadow = m_LightShadowData[i]; // Add this line
 

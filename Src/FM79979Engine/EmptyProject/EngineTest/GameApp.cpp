@@ -94,7 +94,7 @@ void	cEngineTestApp::Update(float e_fElpaseTime)
 void	cEngineTestApp::Render()
 {
 	//this->m_spOpenGLRender->m_vGameResolution = Vector2(1920, 1080);
-	this->m_spOpenGLRender->m_vBGColor = Vector4(0.1, 0.1, 0.1, 1);
+	this->m_spOpenGLRender->m_vBGColor = Vector4(0.1f, 0.1f, 0.1f, 1.f);
 	cGameApp::Render();
 	//cMyImGuiTesting::Render();
 	GlTFRender();

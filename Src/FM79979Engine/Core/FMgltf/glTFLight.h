@@ -63,6 +63,8 @@ public:
     void    Update(float e_fElpaseTime);
 	void    RenderImGUILightControllerUI();
     void    DebugRender();
+    
+    void    DebugRenderLightFrustum(int e_iLightIndex, const Vector4& e_Color);
 
     // Shadow intensity control
     void    SetShadowIntensity(float v) { m_fShadowIntensity = v; }
@@ -77,6 +79,7 @@ public:
 private:
     static bool m_bRenderLightShape;
     bool m_bDebugRenderLight[MAX_LIGHT] = {true, true, true, true};
+    bool m_bDebugRenderFrustum[MAX_LIGHT] = {false, false, false, false};
  };
 
 
