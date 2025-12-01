@@ -92,7 +92,7 @@ void cglTFScene::Render()
     {
 		m_pRootFrame->RenderNodes();
     }
-    UseShaderProgram();
+    UseShaderProgram(NO_TEXTURE_SHADER);
     FATMING_CORE::SetupShaderViewProjectionMatrix(l_matWVP, true);
     cLighController::GetInstance()->DebugRender();
     glUseProgram(0);

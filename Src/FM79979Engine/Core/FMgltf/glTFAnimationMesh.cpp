@@ -156,6 +156,27 @@ void cSkinningMesh::Render()
     }
 }
 
+void cSkinningMesh::RenderShadow(const cMatrix44& lightViewProj, const cMatrix44& modelMatrix, GLuint shadowShaderProgram)
+{
+    if (m_SkinningBoneVector.size() == 0)
+    {
+        cMesh::RenderShadow(lightViewProj,modelMatrix,shadowShaderProgram);
+        return;
+    }
+    glUseProgram(shadowShaderProgram);
+    GLint locModel = glGetUniformLocation(shadowShaderProgram, "uMat4Model");
+    GLint locLightVP = glGetUniformLocation(shadowShaderProgram, "uLightViewProj");
+    glUniformMatrix4fv(locModel, 1, GL_FALSE, modelMatrix.m[0]);
+    glUniformMatrix4fv(locLightVP, 1, GL_FALSE, lightViewProj.m[0]);
+    auto l_matWorldTransoform = this->GetWorldTransform();
+    for (auto& l_pSubMesh : this->m_SubMeshesVector)
+    {
+        SetSubMeshCommonUniformData(l_pSubMesh.get(), l_matWorldTransoform);
+        cMesh::CallOpenGLDraw(l_pSubMesh.get());
+    }
+    glUseProgram(0);
+}
+
 void  cSkinningMesh::Render(std::shared_ptr<cAnimationInstanceManager>e_spAnimationInstanceManager, std::shared_ptr<sAniamationInstanceData>e_AniamationInstanceData)
 {
     auto l_pMeshInstance = e_spAnimationInstanceManager->GetMeshInstance();

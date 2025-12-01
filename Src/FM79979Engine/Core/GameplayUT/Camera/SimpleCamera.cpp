@@ -418,4 +418,61 @@ namespace FATMING_CORE
 		FATMING_CORE::DisableShaderProgram();
 	}
 
+	// Helper to transform a point by a 4x4 matrix with perspective divide (used for frustum corners)
+	Vector3 TransformPointForFrustum(const cMatrix44& M, const Vector3& v)
+	{
+		float x = M.m[0][0] * v.x + M.m[0][1] * v.y + M.m[0][2] * v.z + M.m[0][3];
+		float y = M.m[1][0] * v.x + M.m[1][1] * v.y + M.m[1][2] * v.z + M.m[1][3];
+		float z = M.m[2][0] * v.x + M.m[2][1] * v.y + M.m[2][2] * v.z + M.m[2][3];
+		float w = M.m[3][0] * v.x + M.m[3][1] * v.y + M.m[3][2] * v.z + M.m[3][3];
+		if (fabs(w) > 1e-6f) return Vector3(x / w, y / w, z / w);
+		return Vector3(x, y, z);
+	}
+
+	void cFrameCamera::DebugRenderFrustum(const Vector4& e_Color, cMatrix44*e_pmatCameraViewProjection)
+	{
+		//auto l_matProjectMatrix = m_Projection.GetMatrix();
+		//auto l_matWorldView = GetWorldView();
+		//cMatrix44 l_matCamWVP = l_matProjectMatrix * l_matWorldView;
+		//cMatrix44 inv = l_matCamWVP.Inverted();
+		cMatrix44 l_matInv = GetWorldViewProjection();
+		UseShaderProgram(NO_TEXTURE_SHADER);
+		if (e_pmatCameraViewProjection)
+		{
+			FATMING_CORE::SetupShaderViewProjectionMatrix(*e_pmatCameraViewProjection,false);
+		}
+		else
+		{
+			FATMING_CORE::SetupShaderViewProjectionMatrix(l_matInv, false);
+		}
+		//NDC = Normalized Device Coordinates.Short, practical summary :
+		Vector3 l_vNDC[8] =
+		{
+			Vector3(-1.f, -1.f, -1.f), Vector3(1.f, -1.f, -1.f),
+			Vector3(-1.f,  1.f, -1.f), Vector3(1.f,  1.f, -1.f),
+			Vector3(-1.f, -1.f,  1.f), Vector3(1.f, -1.f,  1.f),
+			Vector3(-1.f,  1.f,  1.f), Vector3(1.f,  1.f,  1.f)
+		};
+
+		Vector3 world[8];
+		for (int i = 0; i < 8; ++i)
+		{
+			world[i] = TransformPointForFrustum(l_matInv, l_vNDC[i]);
+		}
+
+		const int edges[12][2] =
+		{
+			{0,1},{1,3},{3,2},{2,0},
+			{4,5},{5,7},{7,6},{6,4},
+			{0,4},{1,5},{2,6},{3,7}
+		};
+
+		for (int i = 0; i < 12; ++i)
+		{
+			const Vector3& a = world[edges[i][0]];
+			const Vector3& b = world[edges[i][1]];
+			DrawLine(a, b, e_Color);
+		}
+	}
+
 }

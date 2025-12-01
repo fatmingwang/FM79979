@@ -59,6 +59,7 @@ public:
     //
     void    SetCurrentAnimation(const std::string& animationName);
     void    SetCurrentAnimationTime(float e_fCurrentTime);
+	bool    IsContainAnimation();
     std::vector<std::shared_ptr<class cAnimationInstanceManager>>& GetAnimationInstanceManagerVector(){return   m_sAnimationInstanceManagerVector; }
     cNamedTypedObjectVector<cglTFNodeData>* GetNodeVector()
     {

@@ -166,6 +166,11 @@ cglTFModel::~cglTFModel()
     this->Destory();
 }
 
+bool   cglTFModel::IsContainAnimation()
+{
+    return m_NameAndAnimationMap.size() > 0 ? true : false;
+}
+
 std::map<std::string, sAnimationData*> cglTFModel::CloneNameAndAnimationMap(cglTFModelRenderNode* e_pglTFModelRenderNode)
 {
 	std::map<std::string, sAnimationData*> l_CloneMap;

@@ -423,6 +423,7 @@ void cMesh::Render(cMeshInstance* e_pMeshInstance)
                                     GL_UNSIGNED_INT, 0,
                                     static_cast<GLsizei>(instanceCount));
         }
+        glBindVertexArray(0);
     }
 }
 

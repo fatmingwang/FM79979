@@ -99,5 +99,8 @@ namespace FATMING_CORE
 		virtual void		 Render()override;
 		virtual void		 SetRenderStatus();
 		void				 DisableRender();
+
+		// Debug: render current camera frustum (in world space)
+		void DebugRenderFrustum(const Vector4& e_Color = Vector4(1.f,0.f,0.f,1.f),cMatrix44*e_pmatCameraViewProjection = nullptr);
 	};
 }

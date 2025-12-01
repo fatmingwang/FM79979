@@ -359,6 +359,10 @@ void cLighController::RenderBegin()
 
 void  cLighController::Update(float e_fElpaseTime)
 {
+    if (m_LightDataVector.size() == 0)
+    {
+        return;
+    }
     auto l_pLight = this->m_LightDataVector[0];
     if (l_pLight)
     {

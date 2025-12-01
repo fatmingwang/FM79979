@@ -26,6 +26,7 @@ public:
     void    RefreshAnimationData();
     virtual void    Update(float elapsedTime) override;
     virtual void    Render() override;
+    virtual void RenderShadow(const cMatrix44& lightViewProj, const cMatrix44& modelMatrix, GLuint shadowShaderProgram);
     void    Render(std::shared_ptr<class cAnimationInstanceManager>e_spAnimationInstanceManager, std::shared_ptr<struct sAniamationInstanceData>e_AniamationInstanceData);
     void    JointUpdate(float elapsedTime);
     void    RenderSkeleton();
