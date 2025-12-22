@@ -24,6 +24,9 @@
     <Filter Include="Shadow">
       <UniqueIdentifier>{a6c64dce-2e26-4776-956b-a74cf5d2de78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IBL">
+      <UniqueIdentifier>{af0fc066-44e7-4597-be2a-3d5cc7d9b79a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -77,6 +80,9 @@
     <ClInclude Include="CommonShader.hpp">
       <Filter>glTF\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="IBLManager.h">
+      <Filter>IBL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -123,6 +129,9 @@
     </ClCompile>
     <ClCompile Include="ShadowMap.cpp">
       <Filter>Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="IBLManager.cpp">
+      <Filter>IBL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

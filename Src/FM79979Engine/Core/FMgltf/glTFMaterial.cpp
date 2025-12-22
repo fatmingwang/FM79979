@@ -1,10 +1,11 @@
-#include "../AllCoreInclude.h"
+//#include "../AllCoreInclude.h"
 #include "glTFMaterial.h"
 #include "../Math/Vector3.h"
 #include "../Math/Vector4.h"
 #include "../../imgui/imgui.h"
 #include "ShadowMap.h"
 #include "glTFLight.h"
+#include "IBLManager.h"
 
 namespace FATMING_CORE
 {
@@ -58,7 +59,7 @@ namespace
     }
 }
 
-bool cMaterial::BindTecture(shared_ptr<cTexture> e_spTexture, GLuint& e_uiTextureUnit,const char*e_strTextureName)
+bool cMaterial::BindTexture(std::shared_ptr<FATMING_CORE::cTexture> e_spTexture, GLuint& e_uiTextureUnit, const char* e_strTextureName)
 {
     if (e_spTexture)
     {
@@ -143,7 +144,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         {
             image.name = material.name+"_BaceTexture_" + std::to_string(material.pbrMetallicRoughness.baseColorTexture.index);
         }
-        shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
+        shared_ptr<FATMING_CORE::cTexture>l_pTexture = GetTexture(image, l_pSampler);
         m_spBaseColorTexture = l_pTexture;
 		m_i64TextureFVFFlag |= FVF_BASE_COLOR_TEXTURE_FLAG;
     }
@@ -163,7 +164,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         {
             image.name = material.name + "_NormalTexture_" + std::to_string(material.normalTexture.index);
         }
-        shared_ptr<cTexture>l_pTexture = GetTexture(image, l_pSampler);
+        shared_ptr<FATMING_CORE::cTexture>l_pTexture = GetTexture(image, l_pSampler);
         m_spNormalTexture = l_pTexture;
         m_i64TextureFVFFlag |= FVF_NORMAL_MAP_TEXTURE_FLAG;
     }
@@ -182,7 +183,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         {
             image.name = material.name + "_OcclusionTexture_" + std::to_string(material.occlusionTexture.index);
         }
-        shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
+        shared_ptr<FATMING_CORE::cTexture> l_pTexture = GetTexture(image, l_pSampler);
         m_spOocclusionTexture = l_pTexture;
         m_i64TextureFVFFlag |=  FVF_FVF_OCCLUSION_TEXTURE_FLAG;
     }
@@ -202,7 +203,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         {
             image.name = material.name + "_MetallicRoughnessTexture_" + std::to_string(material.pbrMetallicRoughness.metallicRoughnessTexture.index);
         }
-        shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
+        shared_ptr<FATMING_CORE::cTexture> l_pTexture = GetTexture(image, l_pSampler);
         m_spMetallicRoughnessTexture = l_pTexture;
         m_i64TextureFVFFlag |= FVF_METALLIC_ROUGHNESS_TEXTURE_FLAG;
     }
@@ -222,7 +223,7 @@ void cMaterial::LoadMaterials(const tinygltf::Model& model, const tinygltf::Mate
         {
             image.name = material.name + "_EmissiveTexture_" + std::to_string(material.emissiveTexture.index);
         }
-        shared_ptr<cTexture> l_pTexture = GetTexture(image, l_pSampler);
+        shared_ptr<FATMING_CORE::cTexture> l_pTexture = GetTexture(image, l_pSampler);
         m_spEmissiveTexture = l_pTexture;
         m_i64TextureFVFFlag |= FVF_EMISSIVE_TEXTURE_FLAG;
     }
@@ -611,24 +612,24 @@ void cMaterial::Apply()
         }
     }
     GLuint l_TextureUnit = 0;
-    BindTecture(m_spBaseColorTexture, l_TextureUnit,"uTextureDiffuse");
-    BindTecture(m_spNormalTexture, l_TextureUnit,"uTextureNormal");
-    BindTecture(m_spOocclusionTexture, l_TextureUnit,"uTextureOcclusion");
-    BindTecture(m_spMetallicRoughnessTexture, l_TextureUnit,"uTextureMetallicRoughness");
-    BindTecture(m_spEmissiveTexture, l_TextureUnit,"uTextureEmissive");
+    BindTexture(m_spBaseColorTexture, l_TextureUnit,"uTextureDiffuse");
+    BindTexture(m_spNormalTexture, l_TextureUnit,"uTextureNormal");
+    BindTexture(m_spOocclusionTexture, l_TextureUnit,"uTextureOcclusion");
+    BindTexture(m_spMetallicRoughnessTexture, l_TextureUnit,"uTextureMetallicRoughness");
+    BindTexture(m_spEmissiveTexture, l_TextureUnit,"uTextureEmissive");
     // KHR_materials_specular
-    BindTecture(m_spSpecularTexture, l_TextureUnit,"uTextureSpecular");
-    BindTecture(m_spSpecularColorTexture, l_TextureUnit,"uTextureSpecularColor");
-    BindTecture(m_spTransmissionTexture, l_TextureUnit, "uTextureTransmission");
+    BindTexture(m_spSpecularTexture, l_TextureUnit,"uTextureSpecular");
+    BindTexture(m_spSpecularColorTexture, l_TextureUnit,"uTextureSpecularColor");
+    BindTexture(m_spTransmissionTexture, l_TextureUnit, "uTextureTransmission");
     // --- KHR_materials_clearcoat ---
     if (m_pClearcoatExtension) {
-        BindTecture(m_pClearcoatExtension->clearcoatTexture, l_TextureUnit, "uTextureClearcoat");
-        BindTecture(m_pClearcoatExtension->clearcoatRoughnessTexture, l_TextureUnit, "uTextureClearcoatRoughness");
+        BindTexture(m_pClearcoatExtension->clearcoatTexture, l_TextureUnit, "uTextureClearcoat");
+        BindTexture(m_pClearcoatExtension->clearcoatRoughnessTexture, l_TextureUnit, "uTextureClearcoatRoughness");
     }
     // --- KHR_materials_iridescence ---
     if (m_pIridescenceExtension) {
-        BindTecture(m_pIridescenceExtension->iridescenceTexture, l_TextureUnit, "uTextureIridescence");
-        BindTecture(m_pIridescenceExtension->iridescenceThicknessTexture, l_TextureUnit, "uTextureIridescenceThickness");
+        BindTexture(m_pIridescenceExtension->iridescenceTexture, l_TextureUnit, "uTextureIridescence");
+        BindTexture(m_pIridescenceExtension->iridescenceThicknessTexture, l_TextureUnit, "uTextureIridescenceThickness");
     }
     // --- Shadow Map Setup ---
     const int SHADOW_MAP_TEXTURE_UNIT = l_TextureUnit;
@@ -647,11 +648,22 @@ void cMaterial::Apply()
                 glUniformMatrix4fv(l_UniformID, 1, GL_FALSE, lightViewProj.m[0]);
             }
         }
+        l_TextureUnit++; // Increment for shadow map
     }
     else
     {
         glUniform1i(glGetUniformLocation(m_uiShaderProgrameID, "uEnableShadow"), 0);
     }
+    
+    // --- IBL (Image-Based Lighting) Setup ---
+    // NOTE: glTF does NOT support cubemap textures!
+    // IBL textures (irradiance map, prefiltered map, BRDF LUT) must be loaded separately
+    // from HDRI files or pre-computed cubemap assets, NOT from the glTF file.
+    if (m_TectureAndTexCoordinateIndex.m_bUseIBL && g_pIBLManager && g_pIBLManager->IsIBLEnabled())
+    {
+        l_TextureUnit = g_pIBLManager->BindIBLTextures(m_uiShaderProgrameID, l_TextureUnit);
+    }
+    
     ApplyUnriforms();
 }
 
@@ -710,7 +722,7 @@ bool cMaterial::ApplyUnriforms()
     return success;
 }
 
-shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image,const tinygltf::Sampler*e_pSampler)
+shared_ptr<FATMING_CORE::cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image,const tinygltf::Sampler*e_pSampler)
 {
     auto l_OriginalMAG = g_uiMAG_FILTERValue;
     auto l_OriginalMIN = g_uiMIN_FILTERValue;
@@ -738,7 +750,7 @@ shared_ptr<cTexture> cMaterial::GetTexture(const tinygltf::Image& e_Image,const 
         g_uiTEXTURE_WRAP_T = e_pSampler->wrapT;
     }
     std::string l_strTextureName = this->GetCharName()+"_"+ e_Image.name;
-    shared_ptr<cTexture>l_pTexture = cTextureManager::GetObjectByPixels((void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(l_strTextureName).c_str(), (int)l_uiFormat);
+    shared_ptr<FATMING_CORE::cTexture>l_pTexture = cTextureManager::GetObjectByPixels((void*)e_Image.image.data(), e_Image.width, e_Image.height, ValueToStringW(l_strTextureName).c_str(), (int)l_uiFormat);
     l_pTexture->SetName(e_Image.name.c_str());
     g_uiMAG_FILTERValue = l_OriginalMAG;
     g_uiMIN_FILTERValue = l_OriginalMIN;

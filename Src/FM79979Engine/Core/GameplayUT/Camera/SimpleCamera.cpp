@@ -384,10 +384,10 @@ namespace FATMING_CORE
 		m_Projection = e_pFrameCamera->m_Projection;
 	}
 
-	cMatrix44 cFrameCamera::GetWorldViewglTFProjection()
-	{
-		return m_Projection.GetglTFPerspectiveRH() * GetWorldTransform().Inverted();
-	}
+	//cMatrix44 cFrameCamera::GetWorldViewglTFProjection()
+	//{
+	//	return m_Projection.GetglTFPerspectiveRH() * GetWorldTransform().Inverted();
+	//}
 
 	void	cFrameCamera::Render()
 	{

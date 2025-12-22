@@ -4,19 +4,14 @@
 #include "glTFLight.h"
 #include "glTFMaterial.h"
 #include "CommonShader.hpp"
+#include "IBLManager.h"
 #ifdef DEBUG
 std::string g_strVSForDebug;
 std::string g_strFSForDebug;
 #endif
 
-std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarget)
+std::string GenerateShaderDefinesFromFVF(int64 e_i64FVFFlags)
 {
-    if (e_i64FVFFlags & FVF_INSTANCING_FLAG && e_iNumMorphTarget > 0)
-    {
-        FMLOG("fuck....instance and morph exists at asame time....I am lazy to do this now fuck");
-        assert(0 && "fuck....instance and morph exists at asame time....I am lazy to do this now fuck");
-        return "not support format";
-    }
     std::string l_strDefine;
     if (e_i64FVFFlags & FVF_POS_FLAG)
         l_strDefine += "#define USE_POSITION\n";
@@ -40,6 +35,76 @@ std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarg
         l_strDefine += "#define USE_INSTANCING\n";
     if (e_i64FVFFlags & FVF_ANIMATION_TEXTURE_FLAG)
         l_strDefine += "#define FVF_ANIMATION_TEXTURE_FLAG\n";
+    return l_strDefine;
+}
+
+std::string GenerateFragmentShaderDefines(int64 e_i64FVFFlags, sTectureAndTexCoordinateIndex* e_pTectureAndTexCoordinateIndex)
+{
+    std::string l_strDefine;
+    
+    // Basic FVF flags
+    if (e_i64FVFFlags & FVF_TEX0_FLAG)
+        l_strDefine += "#define USE_TEXCOORD_0\n";
+    if (e_i64FVFFlags & FVF_TEX1_FLAG)
+        l_strDefine += "#define USE_TEXCOORD_1\n";
+    if (e_i64FVFFlags & FVF_NORMAL_FLAG)
+        l_strDefine += "#define USE_NORMAL\n";
+    if (e_i64FVFFlags & FVF_TANGENT_FLAG)
+        l_strDefine += "#define USE_TANGENT\n";
+    if (e_i64FVFFlags & FVF_BINORMAL_FLAG)
+        l_strDefine += "#define USE_BINORMAL\n";
+    
+    // Texture flags
+    if (e_i64FVFFlags & FVF_BASE_COLOR_TEXTURE_FLAG)
+        l_strDefine += "#define FVF_BASE_COLOR_TEXTURE_FLAG\n";
+    if (e_i64FVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG)
+        l_strDefine += "#define USE_NORMAL_MAP\n";
+    if (e_i64FVFFlags & FVF_FVF_OCCLUSION_TEXTURE_FLAG)
+        l_strDefine += "#define USE_OCCLUSION\n";
+    if (e_i64FVFFlags & FVF_METALLIC_ROUGHNESS_TEXTURE_FLAG)
+        l_strDefine += "#define USE_METALLIC_ROUGHNESS\n";
+    if (e_i64FVFFlags & FVF_EMISSIVE_TEXTURE_FLAG)
+        l_strDefine += "#define USE_EMISSIVE\n";
+    
+    // Material-specific flags from texture coordinate index structure
+    if (e_pTectureAndTexCoordinateIndex)
+    {
+        if (e_pTectureAndTexCoordinateIndex->m_bUseSpecular)
+            l_strDefine += "#define USE_SPECULAR\n";
+        if (e_pTectureAndTexCoordinateIndex->m_bUsePBR)
+            l_strDefine += "#define USE_PBR\n";
+        if (e_pTectureAndTexCoordinateIndex->m_strAlphaMode == "MASK")
+            l_strDefine += "#define ALPHA_MASK\n";
+        
+        // Specular texture presence
+        if (e_pTectureAndTexCoordinateIndex->m_iSpecularTextureCoordinateIndex >= 0)
+            l_strDefine += "#define HAS_SPECULAR_TEXTURE\n";
+        if (e_pTectureAndTexCoordinateIndex->m_iSpecularColorTextureCoordinateIndex >= 0)
+            l_strDefine += "#define HAS_SPECULAR_COLOR_TEXTURE\n";
+        
+        // Auto-enable IBL for PBR materials when IBL environment is available
+        // IBL is a scene-level feature, not stored in glTF files
+        bool l_bUseIBL = e_pTectureAndTexCoordinateIndex->m_bUseIBL;
+        if (!l_bUseIBL && e_pTectureAndTexCoordinateIndex->m_bUsePBR)
+        {
+            // Auto-enable: If material is PBR and IBL Manager has environment loaded
+            if (g_pIBLManager && g_pIBLManager->IsIBLEnabled())
+            {
+                l_bUseIBL = true;
+            }
+        }
+        if (l_bUseIBL)
+            l_strDefine += "#define USE_IBL\n";
+    }
+    
+    l_strDefine += "#define MAX_LIGHT " + ValueToString(MAX_LIGHT);
+    
+    return l_strDefine;
+}
+
+std::string GenerateVertexShaderWithFVF(int64 e_i64FVFFlags, int e_iNumMorphTarget)
+{
+    std::string l_strDefine = GenerateShaderDefinesFromFVF(e_i64FVFFlags);
 
     std::string shaderCode;
 #if defined(WIN32)
@@ -291,49 +356,7 @@ void main()
 
 std::string GenerateFragmentShaderWithFVF(int64 e_i64FVFFlags, sTectureAndTexCoordinateIndex* e_pTectureAndTexCoordinateIndex)
 {
-    std::string l_strDefine;
-    // Define macros based on FFV flags
-    if (e_i64FVFFlags & FVF_TEX0_FLAG)
-        l_strDefine += "#define USE_TEXCOORD_0\n";
-    if (e_i64FVFFlags & FVF_TEX1_FLAG)
-        l_strDefine += "#define USE_TEXCOORD_1\n";
-    if (e_i64FVFFlags & FVF_NORMAL_FLAG)
-        l_strDefine += "#define USE_NORMAL\n";
-    if (e_i64FVFFlags & FVF_TANGENT_FLAG)
-        l_strDefine += "#define USE_TANGENT\n";
-    if (e_i64FVFFlags & FVF_BINORMAL_FLAG)
-        l_strDefine += "#define USE_BINORMAL\n";
-    if (e_i64FVFFlags & FVF_BASE_COLOR_TEXTURE_FLAG)
-        l_strDefine += "#define FVF_BASE_COLOR_TEXTURE_FLAG\n";
-    if (e_i64FVFFlags & FVF_NORMAL_MAP_TEXTURE_FLAG)
-        l_strDefine += "#define USE_NORMAL_MAP\n";
-    if (e_i64FVFFlags & FVF_FVF_OCCLUSION_TEXTURE_FLAG)
-        l_strDefine += "#define USE_OCCLUSION\n";
-    if (e_i64FVFFlags & FVF_METALLIC_ROUGHNESS_TEXTURE_FLAG)
-        l_strDefine += "#define USE_METALLIC_ROUGHNESS\n";
-    if (e_i64FVFFlags & FVF_EMISSIVE_TEXTURE_FLAG)
-        l_strDefine += "#define USE_EMISSIVE\n";
-    // Only add USE_SPECULAR for FS, and use sTectureAndTexCoordinateIndex for condition
-    if (e_pTectureAndTexCoordinateIndex && e_pTectureAndTexCoordinateIndex->m_bUseSpecular)
-        l_strDefine += "#define USE_SPECULAR\n";
-    // KHR_materials_specular
-    if (e_pTectureAndTexCoordinateIndex && e_pTectureAndTexCoordinateIndex->m_bUsePBR)
-        l_strDefine += "#define USE_PBR\n";
-    if (e_pTectureAndTexCoordinateIndex && e_pTectureAndTexCoordinateIndex->m_strAlphaMode == "MASK")
-        l_strDefine += "#define ALPHA_MASK\n";
-    l_strDefine += "#define MAX_LIGHT " + ValueToString(MAX_LIGHT);
-
-    // --- Add defines for specular textures if present ---
-    bool hasSpecularTexture = false, hasSpecularColorTexture = false;
-    if (e_pTectureAndTexCoordinateIndex)
-    {
-        hasSpecularTexture = e_pTectureAndTexCoordinateIndex->m_iSpecularTextureCoordinateIndex >= 0;
-        hasSpecularColorTexture = e_pTectureAndTexCoordinateIndex->m_iSpecularColorTextureCoordinateIndex >= 0;
-    }
-    if (hasSpecularTexture)
-        l_strDefine += "\n#define HAS_SPECULAR_TEXTURE";
-    if (hasSpecularColorTexture)
-        l_strDefine += "\n#define HAS_SPECULAR_COLOR_TEXTURE";
+    std::string l_strDefine = GenerateFragmentShaderDefines(e_i64FVFFlags, e_pTectureAndTexCoordinateIndex);
 
     std::string shaderCode;
 #if defined(WIN32)
@@ -403,7 +426,15 @@ uniform sampler2D uTextureSpecularColor;
 uniform vec3 uSpecularColorFactor;
 #endif
 uniform float uAlphaCutoff;
-uniform samplerCube uTextureEnvironment; // New: Environment cubemap
+uniform samplerCube uTextureEnvironment; // Environment cubemap for skybox/reflection
+
+// IBL (Image-Based Lighting) uniforms
+#ifdef USE_IBL
+uniform samplerCube uDiffuseIrradianceMap;  // Pre-convolved diffuse irradiance
+uniform samplerCube uPrefilteredEnvMap;      // Pre-filtered specular environment map
+uniform sampler2D uBrdfLUT;                  // BRDF Look-Up Table
+uniform float uMaxReflectionLOD;             // Max mip level for prefiltered map
+#endif
 
 // Transmission uniforms
 uniform float uTransmissionFactor;
@@ -497,15 +528,42 @@ vec3 FresnelSchlickRoughness(float cosTheta, vec3 F0, float roughness)
     return F0 + (max(vec3(1.0 - roughness), F0) - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 }
 
+#ifdef USE_IBL
+// Full IBL contribution using split-sum approximation
+vec3 GetIBLContribution(vec3 N, vec3 V, vec3 albedo, float roughness, float metallic, float ao, vec3 specularColor)
+{
+    float NdotV = max(dot(N, V), 0.0);
+    vec3 R = reflect(-V, N);
+    
+    // Calculate F0 (surface reflection at zero incidence)
+    vec3 F0 = mix(vec3(0.04), albedo, metallic) * specularColor;
+    vec3 F = FresnelSchlickRoughness(NdotV, F0, roughness);
+    
+    vec3 kS = F;
+    vec3 kD = (1.0 - kS) * (1.0 - metallic);
+    
+    // Diffuse IBL - sample irradiance map
+    vec3 irradiance = texture(uDiffuseIrradianceMap, N).rgb;
+    vec3 diffuse = kD * irradiance * albedo;
+    
+    // Specular IBL - sample pre-filtered environment map with roughness-based LOD
+    vec3 prefilteredColor = textureLod(uPrefilteredEnvMap, R, roughness * uMaxReflectionLOD).rgb;
+    vec2 brdf = texture(uBrdfLUT, vec2(NdotV, roughness)).rg;
+    vec3 specular = prefilteredColor * (F * brdf.x + brdf.y);
+    
+    return (diffuse + specular) * ao;
+}
+#else
+// Fallback: Simple environment reflection without IBL precomputation
 vec3 GetEnvironmentReflection(vec3 N, vec3 V, float roughness, vec3 F0)
 {
     vec3 R = reflect(-V, N);
     float lod = roughness * 6.0; // Adjust lod level based on roughness
-    //vec3 envColor = textureLod(uTextureEnvironment, R, lod).rgb;
-    vec3 envColor = vec3(roughness,roughness,roughness);
+    vec3 envColor = textureLod(uTextureEnvironment, R, lod).rgb;
     vec3 F = FresnelSchlickRoughness(max(dot(N, V), 0.0), F0, roughness);
     return envColor * F;
 }
+#endif
 
 
 void main()
@@ -611,10 +669,19 @@ if (alpha < uAlphaCutoff)
 #endif
     }
 #ifdef USE_PBR
- // Environment Reflection
+    // Environment/IBL Contribution
     vec3 F0 = mix(vec3(0.04), albedo, metallic) * specularColor;
-    vec3 reflection = GetEnvironmentReflection(vModelNormal, vViewPostToVertexPos, roughness, F0) * (1.0 - occlusion); // Reduce reflection in occluded areas
+#ifdef USE_IBL
+    // Full IBL with diffuse irradiance + specular pre-filtered maps
+    vec3 ambient = GetIBLContribution(vModelNormal, vViewPostToVertexPos, albedo, roughness, metallic, occlusion, specularColor);
+    color += ambient;
+#else
+    // Fallback: Simple environment reflection
+    vec3 reflection = GetEnvironmentReflection(vModelNormal, vViewPostToVertexPos, roughness, F0) * occlusion;
     color += reflection * 0.5; // Blend with lighting
+    // Add basic ambient term when no IBL
+    color += vec3(0.03) * albedo * occlusion;
+#endif
 #endif
 
     color += emissive;
@@ -646,7 +713,11 @@ if (alpha < uAlphaCutoff)
     color = mix(color, transmissionColor, transmission * (1.0 - fresnel));
 #endif
 
-    color = vec3(1.0) - exp(-color * 0.3);           // Tone mapping
+    // HDR Tone Mapping (Reinhard) - preserves more contrast for 3D appearance
+    // Higher exposure value preserves more detail in reflections
+    color = color / (color + vec3(1.0));  // Reinhard tone mapping
+    
+    // Gamma correction
     FragColor = vec4(pow(color, vec3(1.0 / 2.2)), alpha);
     //for normal debug
     //FragColor = vec4(normalize(toFSVec3Normal) * 0.5 + 0.5, 1.0);
@@ -689,62 +760,94 @@ if (alpha < uAlphaCutoff)
     // For each texture type, replace toFSVec2TexCoord0 with the correct one if needed
     // Only replace the first occurrence for each texture type
 
+    const char* searchPattern;
+    std::string replacement;
+    size_t pos;
+    
     // Base Color
-    size_t pos = shaderCode.find("texture(uTextureDiffuse, toFSVec2TexCoord0)");
+    searchPattern = "texture(uTextureDiffuse, toFSVec2TexCoord0)";
+    pos = shaderCode.find(searchPattern);
     if (pos != std::string::npos)
-        shaderCode.replace(pos, strlen("texture(uTextureDiffuse, toFSVec2TexCoord0)"),
-                           "texture(uTextureDiffuse, " + GetTexCoordStr(baseColorIdx) + ")");
+    {
+        replacement = "texture(uTextureDiffuse, " + GetTexCoordStr(baseColorIdx) + ")";
+        shaderCode.replace(pos, strlen(searchPattern), replacement);
+    }
 
     // Normal Map
-    pos = shaderCode.find("texture(uTextureNormal, toFSVec2TexCoord0)");
+    searchPattern = "texture(uTextureNormal, toFSVec2TexCoord0)";
+    pos = shaderCode.find(searchPattern);
     if (pos != std::string::npos)
-        shaderCode.replace(pos, strlen("texture(uTextureNormal, toFSVec2TexCoord0)"),
-                           "texture(uTextureNormal, " + GetTexCoordStr(normalIdx) + ")");
+    {
+        replacement = "texture(uTextureNormal, " + GetTexCoordStr(normalIdx) + ")";
+        shaderCode.replace(pos, strlen(searchPattern), replacement);
+    }
 
     // Occlusion
-    pos = shaderCode.find("texture(uTextureOcclusion, toFSVec2TexCoord0)");
+    searchPattern = "texture(uTextureOcclusion, toFSVec2TexCoord0)";
+    pos = shaderCode.find(searchPattern);
     if (pos != std::string::npos)
-        shaderCode.replace(pos, strlen("texture(uTextureOcclusion, toFSVec2TexCoord0)"),
-                           "texture(uTextureOcclusion, " + GetTexCoordStr(occIdx) + ")");
+    {
+        replacement = "texture(uTextureOcclusion, " + GetTexCoordStr(occIdx) + ")";
+        shaderCode.replace(pos, strlen(searchPattern), replacement);
+    }
 
-    // MetallicRoughness
-    pos = shaderCode.find("texture(uTextureMetallicRoughness, toFSVec2TexCoord0)");
+    // MetallicRoughness - handle multiple occurrences correctly
+    searchPattern = "texture(uTextureMetallicRoughness, toFSVec2TexCoord0)";
+    pos = shaderCode.find(searchPattern);
     while (pos != std::string::npos)
     {
-        shaderCode.replace(pos, strlen("texture(uTextureMetallicRoughness, toFSVec2TexCoord0)"),
-                           "texture(uTextureMetallicRoughness, " + GetTexCoordStr(mrIdx) + ")");
-        pos = shaderCode.find("texture(uTextureMetallicRoughness, toFSVec2TexCoord0)", pos + 1);
+        replacement = "texture(uTextureMetallicRoughness, " + GetTexCoordStr(mrIdx) + ")";
+        shaderCode.replace(pos, strlen(searchPattern), replacement);
+        // Move past the replacement we just made to avoid re-finding it
+        pos += replacement.length();
+        // Search for the next occurrence
+        pos = shaderCode.find(searchPattern, pos);
     }
 
     // Emissive
-    pos = shaderCode.find("texture(uTextureEmissive, toFSVec2TexCoord0)");
+    searchPattern = "texture(uTextureEmissive, toFSVec2TexCoord0)";
+    pos = shaderCode.find(searchPattern);
     if (pos != std::string::npos)
-        shaderCode.replace(pos, strlen("texture(uTextureEmissive, toFSVec2TexCoord0)"),
-                           "texture(uTextureEmissive, " + GetTexCoordStr(emissiveIdx) + ")");
+    {
+        replacement = "texture(uTextureEmissive, " + GetTexCoordStr(emissiveIdx) + ")";
+        shaderCode.replace(pos, strlen(searchPattern), replacement);
+    }
 
     // Specular
-    pos = shaderCode.find("texture(uTextureSpecular, toFSVec2TexCoord0)");
+    searchPattern = "texture(uTextureSpecular, toFSVec2TexCoord0)";
+    pos = shaderCode.find(searchPattern);
     if (pos != std::string::npos)
-        shaderCode.replace(pos, strlen("texture(uTextureSpecular, toFSVec2TexCoord0)"),
-                           "texture(uTextureSpecular, " + GetTexCoordStr(specularIdx) + ")");
+    {
+        replacement = "texture(uTextureSpecular, " + GetTexCoordStr(specularIdx) + ")";
+        shaderCode.replace(pos, strlen(searchPattern), replacement);
+    }
 
     // SpecularColor
-    pos = shaderCode.find("texture(uTextureSpecularColor, toFSVec2TexCoord0)");
+    searchPattern = "texture(uTextureSpecularColor, toFSVec2TexCoord0)";
+    pos = shaderCode.find(searchPattern);
     if (pos != std::string::npos)
-        shaderCode.replace(pos, strlen("texture(uTextureSpecularColor, toFSVec2TexCoord0)"),
-                           "texture(uTextureSpecularColor, " + GetTexCoordStr(specularColorIdx) + ")");
+    {
+        replacement = "texture(uTextureSpecularColor, " + GetTexCoordStr(specularColorIdx) + ")";
+        shaderCode.replace(pos, strlen(searchPattern), replacement);
+    }
 
     // Clearcoat
-    pos = shaderCode.find("texture(uTextureClearcoat, toFSVec2TexCoord0)");
+    searchPattern = "texture(uTextureClearcoat, toFSVec2TexCoord0)";
+    pos = shaderCode.find(searchPattern);
     if (pos != std::string::npos)
-        shaderCode.replace(pos, strlen("texture(uTextureClearcoat, toFSVec2TexCoord0)"),
-                           "texture(uTextureClearcoat, " + GetTexCoordStr(baseColorIdx) + ")");
+    {
+        replacement = "texture(uTextureClearcoat, " + GetTexCoordStr(baseColorIdx) + ")";
+        shaderCode.replace(pos, strlen(searchPattern), replacement);
+    }
 
     // Clearcoat Roughness
-    pos = shaderCode.find("texture(uTextureClearcoatRoughness, toFSVec2TexCoord0)");
+    searchPattern = "texture(uTextureClearcoatRoughness, toFSVec2TexCoord0)";
+    pos = shaderCode.find(searchPattern);
     if (pos != std::string::npos)
-        shaderCode.replace(pos, strlen("texture(uTextureClearcoatRoughness, toFSVec2TexCoord0)"),
-                           "texture(uTextureClearcoatRoughness, " + GetTexCoordStr(mrIdx) + ")");
+    {
+        replacement = "texture(uTextureClearcoatRoughness, " + GetTexCoordStr(mrIdx) + ")";
+        shaderCode.replace(pos, strlen(searchPattern), replacement);
+    }
 
     // --- End fix ---
 #if defined(DEBUG)// || defined(WASM)

@@ -678,7 +678,7 @@ void cglTFModel::DebugRender()
     auto l_pCamera = cCameraController::GetInstance()->GetCurrentCamera();
     if (l_pCamera)
     {
-        auto l_matWVP = l_pCamera->GetWorldViewglTFProjection();
+        auto l_matWVP = l_pCamera->GetWorldViewProjection();
         SetupShaderViewProjectionMatrix(l_matWVP, false);
     }
     GLRender::RenderPoints(&l_vPoints[0], (int)l_vPoints.size(), 5, Vector4(0.f, 1.f, 1.f, 1.f), l_mat);

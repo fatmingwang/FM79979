@@ -3,8 +3,12 @@
 #include <vector>
 #include <memory>
 #include "tiny_gltf.h"
-#include "../Math/Vector3.h"
-#include "../Math/Vector4.h"
+#include "../AllCoreInclude.h"
+
+namespace FATMING_CORE
+{
+    class cTexture;
+}
 
 struct sTectureAndTexCoordinateIndex {
     int m_iBaseColorTextureCoordinateIndex = 0;
@@ -16,19 +20,20 @@ struct sTectureAndTexCoordinateIndex {
     int m_iSpecularColorTextureCoordinateIndex = -1;
     bool m_bUsePBR = false;
     bool m_bUseSpecular = false;
+    bool m_bUseIBL = false;  // Enable Image-Based Lighting (requires IBL maps to be bound)
     std::string m_strAlphaMode = "OPAQUE";
     float m_fAlphaCutoff = 0.5f;
 };
 
 struct KHRSpecularExtension {
     float specularFactor = 1.0f;
-    std::shared_ptr<cTexture> specularTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> specularTexture;
     Vector3 specularColorFactor{1.0f, 1.0f, 1.0f};
-    std::shared_ptr<cTexture> specularColorTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> specularColorTexture;
 };
 struct KHRTransmissionExtension {
     float transmissionFactor = 0.0f;
-    std::shared_ptr<cTexture> transmissionTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> transmissionTexture;
 };
 struct KHRIorExtension {
     float ior = 1.5f;
@@ -40,20 +45,20 @@ struct KHRVolumeExtension {
 };
 struct KHRClearcoatExtension {
     float clearcoatFactor = 0.0f;
-    std::shared_ptr<cTexture> clearcoatTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> clearcoatTexture;
     float clearcoatRoughnessFactor = 0.0f;
-    std::shared_ptr<cTexture> clearcoatRoughnessTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> clearcoatRoughnessTexture;
 };
 struct KHREmissiveStrengthExtension {
     float emissiveStrength = 1.0f;
 };
 struct KHRIridescenceExtension {
     float iridescenceFactor = 0.0f;
-    std::shared_ptr<cTexture> iridescenceTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> iridescenceTexture;
     float iridescenceIor = 1.3f;
     float iridescenceThicknessMinimum = 100.0f;
     float iridescenceThicknessMaximum = 400.0f;
-    std::shared_ptr<cTexture> iridescenceThicknessTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> iridescenceThicknessTexture;
 };
 struct KHRVariantsExtension {
     std::vector<std::string> variantNames;
@@ -71,15 +76,15 @@ class cMaterial : public NamedTypedObject {
     unsigned int m_uiShaderProgrameID = -1;
     tinygltf::Material material;
     bool m_bDoubleSize = false;
-    std::shared_ptr<cTexture> m_spBaseColorTexture;
-    std::shared_ptr<cTexture> m_spNormalTexture;
-    std::shared_ptr<cTexture> m_spOocclusionTexture;
-    std::shared_ptr<cTexture> m_spEmissiveTexture;
-    std::shared_ptr<cTexture> m_spMetallicRoughnessTexture;
-    std::shared_ptr<cTexture> m_spSpecularTexture;
-    std::shared_ptr<cTexture> m_spSpecularColorTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> m_spBaseColorTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> m_spNormalTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> m_spOocclusionTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> m_spEmissiveTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> m_spMetallicRoughnessTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> m_spSpecularTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> m_spSpecularColorTexture;
     float m_transmissionFactor = 0.0f;
-    std::shared_ptr<cTexture> m_spTransmissionTexture;
+    std::shared_ptr<FATMING_CORE::cTexture> m_spTransmissionTexture;
     float m_ior = 1.5f;
     float m_thicknessFactor = 0.0f;
     float m_attenuationDistance = 0.0f;
@@ -93,11 +98,11 @@ class cMaterial : public NamedTypedObject {
     Vector3 m_vSpecularColorFactor{1.0f, 1.0f, 1.0f};
     sTectureAndTexCoordinateIndex m_TectureAndTexCoordinateIndex;
     bool ApplyUnriforms();
-    std::shared_ptr<cTexture> GetTexture(const tinygltf::Image& e_Image, const tinygltf::Sampler*);
+    std::shared_ptr<FATMING_CORE::cTexture> GetTexture(const tinygltf::Image& e_Image, const tinygltf::Sampler*);
 #ifdef DEBUG
     std::string m_strFSShaderCode;
 #endif
-    bool BindTecture(std::shared_ptr<cTexture> e_spTexture, GLuint& e_uiTextureUnit, const char* e_strTextureName);
+    bool BindTexture(std::shared_ptr<FATMING_CORE::cTexture> e_spTexture, GLuint& e_uiTextureUnit, const char* e_strTextureName);
 public:
     DEFINE_TYPE_INFO();
     cMaterial();

@@ -254,7 +254,7 @@ void cSkinningMesh::RenderSkeleton()
     auto l_pCamera = cCameraController::GetInstance()->GetCurrentCamera();
     if (l_pCamera)
     {
-        auto l_matWVP = l_pCamera->GetWorldViewglTFProjection();
+        auto l_matWVP = l_pCamera->GetWorldViewProjection();
         SetupShaderViewProjectionMatrix(l_matWVP, false);
     }
     GLRender::RenderLine((float*)&l_vAllVertices[0], (int)l_vAllVertices.size(), Vector4(0.f, 1.f, 0.5f, 1.f), 3, l_mat);

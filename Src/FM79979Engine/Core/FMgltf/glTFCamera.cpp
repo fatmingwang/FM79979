@@ -350,7 +350,7 @@ void cCameraController::Render(GLuint e_uiProgramID, float* e_pMatrix)
     auto l_pCamera = GetCurrentCamera();
     if (l_pCamera)
     {
-        auto l_Matrix = l_pCamera->GetWorldViewglTFProjection();
+        auto l_Matrix = l_pCamera->GetWorldViewProjection();
         // Set model, view, projection matrices
         GLuint viewLoc = glGetUniformLocation(e_uiProgramID, "uMat4View");
         GLuint projLoc = glGetUniformLocation(e_uiProgramID, "uMat4Projection");

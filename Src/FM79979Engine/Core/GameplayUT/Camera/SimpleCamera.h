@@ -92,7 +92,7 @@ namespace FATMING_CORE
 		// view matrices
 		cMatrix44            GetLocalView() const { return GetLocalTransform().Inverted(); }
 		cMatrix44            GetWorldView() { return GetWorldTransform().Inverted(); }
-		cMatrix44            GetWorldViewglTFProjection();
+		//Matrix44            GetWorldViewglTFProjection();
 		cMatrix44            GetWorldViewProjection() { return m_Projection.GetMatrix()*GetWorldTransform().Inverted(); }
 		cMatrix44            GetLocalInvView() const { return GetLocalTransform(); }
 		cMatrix44            GetWorldInvView() { return GetWorldTransform(); }
