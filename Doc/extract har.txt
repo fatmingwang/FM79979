@@ -1,0 +1,7 @@
+
+first disable cached preserved log
+after finish export har 
+
+then ensure nodejs is installed
+
+npx har-extractor yourfile.har --output ./downloaded-resources
